@@ -1,0 +1,120 @@
+<?php
+class Contact_Worker extends Worker {
+	public function __construct() {
+		parent::__construct();
+        session_start();
+	}
+	
+	public function process($params = array()) {
+		$name = count($params) > 0 ? $params[0] : '';
+		
+		if (isset($name) && $name === 'send_email') {
+			$this->_send_email();
+		} else {
+			$this->_display();
+		}
+	}
+	
+	private function _display() {
+		$_SESSION['form_token'] = uniqid();
+		
+		$data = array(
+			'form_token' => $_SESSION['form_token'], 
+		);
+		
+		$layout_data = array(
+			'page_title' => 'Contact',
+			'content' => $this->load_template('pages/contact', $data),
+		);
+		
+		$response_data = array(
+			'content' => $this->load_template('layouts/default_layout', $layout_data),
+			'type' => 'text/html',
+		);
+		$this->response($response_data);
+	}
+	
+	private function _send_email() {
+		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
+
+		// Load Form Validation library
+		$this->load_library('form_validation/form_validation_library', 'fv');
+		
+		// Load htmlawed script
+		load_script('htmlawed/htmlawed_script');
+		
+		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
+		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam
+		$this->fv->set_rules('contact_subject', 'Subject', 'trim|required');
+		$this->fv->set_rules('contact_message', 'Message', 'trim|required');
+		$this->fv->set_rules('contact_name', 'Name', 'trim|required');
+		$this->fv->set_rules('contact_email', 'Email', 'trim|required|valid_email');
+		
+		$result = $this->fv->run();
+		
+		$contact_subject = htmlawed($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
+		$contact_message = htmlawed($this->fv->set_value('contact_message'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
+		$contact_name = htmlawed($this->fv->set_value('contact_name'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
+		$contact_email = $this->fv->set_value('contact_email');
+
+		if ($result == FALSE) {
+			$errors = $this->fv->form_errors();
+			
+			// Errors and submitted data to be displayed in view
+			$data = array(
+				'form_token' => $form_token, 
+				'errors' => empty($errors) ? NULL : $errors, 
+				'contact_subject' => $contact_subject,
+				'contact_message' => $contact_message,
+				'contact_name' => $contact_name,
+				'contact_email' => $contact_email,
+			);
+		} else {
+			// Unset the old form token and create new form token
+			unset( $_SESSION['form_token']);
+			$_SESSION['form_token'] = uniqid();
+			
+			// Load and instantiate Email library
+			$config = array(
+				'protocol' => 'sendmail',
+				//'protocol' => 'smtp',
+				//'smtp_host' => 'ssl://smtp.pitt.edu',
+				//'smtp_port' => 465,
+				//'smtp_user' => 'ifl',
+				//'smtp_pass' => 'jan2001',
+			);
+			
+			$this->load_library('email/email_library', 'email', $config);		
+
+			$this->email->set_newline("\r\n");
+			$this->email->from('ifl@pitt.edu', 'InfoPotato Contact');
+			$this->email->reply_to($contact_email, $contact_name);
+			//$this->email->to('zhy19@pitt.edu'); 
+			//$this->email->cc('another@another-example.com'); 
+			$this->email->bcc('yuanzhou19@gmail.com'); 
+
+			$this->email->subject('[InfoPotato Contact Form] '.$contact_subject);
+			$this->email->message($contact_message);	
+
+			// Data to be displayed in view
+			$data = array(
+				'sent' => $this->email->send(), 
+			);	
+			//echo $this->email->print_debugger();
+		}
+
+		$layout_data = array(
+			'page_title' => 'Contact',
+			'content' => $this->load_template('pages/contact', $data),
+		);
+
+		$response_data = array(
+			'content' => $this->load_template('layouts/default_layout', $layout_data),
+			'type' => 'text/html',
+		);
+		$this->response($response_data);
+	}
+	
+}
+
+// End of file: ./application/presenters/contact_worker.php 

@@ -1,0 +1,179 @@
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<div class="inner">
+<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Data
+</div>
+</div>
+<!-- end breadcrumb -->
+<div class="clear"></div>
+
+<!-- begin onecolumn -->
+<div id="onecolumn" class="inner"> 
+<h1 class="first_heading">Data</h1>	
+
+<p>
+Datas are responsible for any logic that surrounds the manipulation of a data entity. Its typical responsibilities are to faciliate create, retrieve, update and delete (CRUD) operations. If more advanced manipulation/processing functions are required for an entity, they will also be located here. Datas are <strong>optionally</strong> available for those who want to use a more traditional MVC approach. For many RDBMS-based web applications, datas usually represent database tables, but they could also represent Non-SQL databases, like LDAP entries, XML data, or document-oriented database, like <a href="http://www.mongodb.org/" class="external_link">MongoDB</a>.
+</p> 
+
+<p>
+In an InfoPotato application, data is not required if there is no data access need. And a data is not allowed to be associated with other datas. A data can be loaded and used by different controlloers which need the data access that this data provides.
+</p>
+
+<h2><a name="what"></a>What is a Data?</h2> 
+ 
+<p>A data is an instance of CData or its child class. Datas are used to keep data and their relevant business rules. Datas are PHP classes that are designed to work with information in your database.  For example, let's say
+you use CodeIgniter to manage a blog.  You might have a data class that contains functions to insert, update, and
+retrieve your blog data. Here is an example of what such a data class might look like:</p> 
+ 
+<div class="syntax">
+<pre>
+<span class="k">class</span> <span class="nc">Users_Data</span> <span class="k">extends</span> <span class="nx">Data</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="c1">// Use default database connection config</span> 
+	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">);</span> 
+    <span class="p">}</span> 
+	
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">user_exists</span><span class="p">(</span><span class="nv">$username</span><span class="p">)</span> <span class="p">{</span> 
+	<span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users WHERE username=?&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="nv">$username</span><span class="p">));</span> 
+	<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="nx">ARRAY_A</span><span class="p">);</span> 
+    <span class="p">}</span> 
+ 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_info</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span> 
+	<span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users WHERE id=?&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="nv">$id</span><span class="p">));</span> 
+	<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="nx">ARRAY_A</span><span class="p">);</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre>
+</div> 
+ 
+<p>
+Create your data PHP file in the /application/datas/ directory or in a subdirectory of /application/datas. InfoPotato will find it anywhere in the directory. By convention it should have the same name as the class.
+</p> 
+ 
+<p>
+For example, we created a data and put it in <span class="red">application/datas/users_data.php</span>, and the the data class name will be <span class="red">Users_Data</span>.
+</p> 
+ 
+<h2>Using other datas from within a data</h2>
+
+<p>
+It's possible for a data to depend on other datas. This occurs a lot when you have entities that link to each other. A data for managing users probably shouldn't directly modify another entity type, so instead it can ask the respective data to do the work on its behalf.
+</p>
+ 
+<p class="tipbox">
+But in InfoPotato, using other datas from within a data is <strong>NOT ALLOWED</strong>.
+</p>
+
+<h2><a name="loading"></a>Loading a Data in Controller</h2> 
+ 
+<p>Your datas will typically be loaded and called from within your <a href="<?php echo BASE_URI; ?>documentation/controller/">controller</a> functions. To load a data you will use the following function:</p> 
+ 
+<div class="syntax"><pre>
+<span class="k">class</span> <span class="nc">User_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
+        <span class="c1">// Load user data, this data can be used by other class methods</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;user_data&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span>);</span> 
+    <span class="p">}</span> 
+ 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_post</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="c1">// Load post data, this data can only be used by this class method</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;post_data&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div> 
+ 
+<p>If your data is located in a sub-folder, include the relative path from your datas folder.  For example, if you have a data located at <dfn>application/datas/blog/users_data.php</dfn> you'll load it using:</p> 
+ 
+ 
+<p>Once loaded, you will access your data functions using an object with the same name as your class.</p> 
+ 
+<p>Here is an example of a controller, that loads a data, then serves a view:</p> 
+ 
+<div class="syntax">
+<pre>
+<span class="k">private</span> <span class="k">function</span> <span class="nf">_all</span><span class="p">(</span><span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span> <span class="p">{</span> 
+    <span class="nv">$current_page</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span> <span class="o">&gt;</span> <span class="m">0</span> <span class="o">?</span> <span class="nv">$params</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">:</span> <span class="m">1</span><span class="p">;</span> 
+	
+    <span class="c1">// Load data</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;admin_data&#39;</span><span class="p">,</span> <span class="s1">&#39;admin&#39;</span><span class="p">);</span> 
+	
+    <span class="c1">// Load Pagination library</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;pagination/pagination_library&#39;</span><span class="p">,</span> <span class="s1">&#39;page&#39;</span><span class="p">);</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">items_per_page</span> <span class="o">=</span> <span class="m">30</span><span class="p">;</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">mid_range</span> <span class="o">=</span> <span class="m">7</span><span class="p">;</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">current_page</span> <span class="o">=</span> <span class="nv">$current_page</span><span class="p">;</span>	
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">items_total</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">admin</span><span class="o">-&gt;</span><span class="na">get_all_requests</span><span class="p">());</span>	
+    <span class="nv">$pagination_data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">build_pagination</span><span class="p">();</span> 
+	
+    <span class="nv">$content_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;requests&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">admin</span><span class="o">-&gt;</span><span class="na">get_all_requests</span><span class="p">(),</span> 
+	<span class="s1">&#39;page_data&#39;</span> <span class="o">=&gt;</span> <span class="nv">$pagination_data</span><span class="p">,</span> 
+    <span class="p">);</span> 
+ 
+    <span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;All Requests&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;pages/admin_all_content_view&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
+    <span class="p">);</span> 
+	
+    <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;layouts/admin_layout_view&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+    <span class="p">);</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span>	
+<span class="p">}</span> 
+</pre></div>  
+ 
+<h2><a name="conn"></a>Connecting to your Database</h2> 
+ 
+<p>
+If RDBMS used in your application, you can define the database connection in application/configs/database.php
+</p> 
+ 
+<div class="syntax">
+<pre><span class="cp">&lt;?php</span> 
+<span class="nv">$database</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+    <span class="c1">// Default database connection</span> 
+    <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;adapter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql_adapter&#39;</span><span class="p">,</span> <span class="c1">// Name of the database adapter, case-insentive</span> 
+	<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
+	<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
+	<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The username used to connect to the database</span> 
+	<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The password used to connect to the database</span> 
+	<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="c1">// The character collation used in communicating with the database</span> 
+	<span class="s1">&#39;collate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span> <span class="c1">//  The Database Collate type. Don&#39;t change this if in doubt.</span> 
+    <span class="p">),</span> 
+    
+    <span class="c1">// Another connection example if more database required</span> 
+    <span class="s1">&#39;remote&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;adapter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql_adapter&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;collate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span> 
+	<span class="p">),</span> 
+	
+    <span class="c1">// For SQLite, only need db file path</span> 
+    <span class="s1">&#39;sqlite&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;adapter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sqlite_adapter&#39;</span><span class="p">,</span> 
+	<span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;C:\wamp\www\framework\application\test.db&#39;</span><span class="p">,</span> 
+    <span class="p">),</span> 
+<span class="p">);</span> 
+</pre>
+</div>
+ 
+<h2>Storing Datas within Sub-folders</h2> 
+<p>Your data files can also be stored within sub-folders if you prefer that type of organization.  When doing so you will need to include the folder name loading the data.  Example:</p> 
+ 
+<div class="syntax"><pre>
+<span class="k">class</span> <span class="nc">User_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_post</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="c1">// Load post data, this data file is stored under /datas/post/ folder</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;post/post_data&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div> 
+
+</div> 
+<!-- end onecolumn -->
