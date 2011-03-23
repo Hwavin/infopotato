@@ -22,37 +22,18 @@ The latest stable version of InfoPotato is 1.0.0 You may safely use this version
 </p> 
 </div>
 
-<h2>Option 2: SVN</h2> 
+
+<h2>Option 2: Git</h2> 
 <p> 
-The following login information will allow read access to the InfoPotato SVN trunk. Normally this access is only necessary if using SVN externals or if there is a desire to explore the history of the code through a third-party SVN application.
+InfoPotato is synced to a git repository hosted on <a class="external_link" href="http://github.com">GitHub</a>.
 </p> 
 
 <div class="greybox">
 <p> 
-<strong>SVN Repository:</strong> <a class="external_link" href="http://guest:guest@svn.infopotato.com/trunk/">http://svn.infopotato.com/trunk/</a> 
+<strong>Clone Command:</strong> <tt>git clone git://github.com/yuanzhou/infopotato.git</tt> 
 </p> 
 <p> 
-<strong>Login/Password:</strong> guest/guest
-</p> 
-<p> 
-<strong>Checkout Command:</strong> <tt>svn --username guest --password guest co http://svn.infopotato.com/trunk/</tt> 
-</p> 
-</div>
-
-<h2>Option 3: Git</h2> 
-<p> 
-InfoPotato is synced to a git repository hosted on <a class="external_link" href="http://github.com">http://github.com</a>.
-</p> 
-
-<div class="greybox">
-<p> 
-<strong>Git Repository:</strong> <a class="external_link" href="#">git://github.com/infopotato.git</a> 
-</p> 
-<p> 
-<strong>Clone Command:</strong> <tt>git clone git://github.com/infopotato.git</tt> 
-</p> 
-<p> 
-<strong>GitHub Project:</strong> <a class="external_link" href="#">http://github.com/infopotato/tree/master</a> 
+<strong>GitHub Project:</strong> <a class="external_link" href="https://github.com/yuanzhou/infopotato">https://github.com/yuanzhou/infopotato</a> 
 </p> 
 </div>
 

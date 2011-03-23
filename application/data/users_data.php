@@ -4,15 +4,15 @@ class Users_Data extends Data {
 		// Use default database connection config
 		parent::__construct('default');
 	}
-	
-	public function user_exists($username) { 
-		$sql = $this->db->prepare("SELECT * FROM users WHERE username=?", array($username));
-		return $this->db->get_row($sql, ARRAY_A);
-	}
 
 	public function get_user_info($id) { 
 		$sql = $this->db->prepare("SELECT * FROM users WHERE id=?", array($id));
 		return $this->db->get_row($sql, ARRAY_A);
+	}
+	
+	public function get_users_info() { 
+		$sql = $this->db->prepare("SELECT * FROM users");
+		return $this->db->get_results($sql, ARRAY_A);
 	}
 }
 

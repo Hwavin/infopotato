@@ -4,7 +4,7 @@
 <style type="text/css">
 body {
 background-color:#fff;
-margin:40px;
+margin:20px;
 font-family:Lucida Grande, Verdana, Sans-serif;
 font-size:12px;
 color:#000;
@@ -14,6 +14,7 @@ color:#000;
 background:#f7f7f7;  
 border:1px solid #ddd;  
 padding:20px;
+margin:20px;
 }
 
 h1 {
