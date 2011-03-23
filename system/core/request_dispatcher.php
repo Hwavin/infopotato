@@ -35,7 +35,8 @@ function __autoload($class_name) {
  */
 class Request_Dispatcher {
 	/**
-	 * @var  string  the client requested uri string
+	 * @var  string  the client requested uri string, 
+	 * may contain UTF-8 characters beyond ASCII
 	 */
 	public $uri_string = ''; 
 	

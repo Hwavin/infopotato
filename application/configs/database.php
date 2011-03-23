@@ -20,11 +20,6 @@ $database = array(
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci',
 	),
-	// For SQLite, only need db file path
-	'sqlite' => array(
-		'adapter' => 'sqlite_adapter',
-		'path' => 'C:\wamp\www\framework\application\test.db',
-	),
 );
 
 

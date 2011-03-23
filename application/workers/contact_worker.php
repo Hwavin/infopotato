@@ -5,6 +5,16 @@ class Contact_Worker extends Worker {
         session_start();
 	}
 	
+	public function index_get() {
+		
+		
+	}
+	
+	public function email_post() {
+		
+		
+	}
+	
 	public function process($params = array()) {
 		$name = count($params) > 0 ? $params[0] : '';
 		

@@ -18,7 +18,7 @@ The latest stable version of InfoPotato is 1.0.0 You may safely use this version
 
 <div class="greybox">
 <p> 
-<strong>Windows:</strong> <a href="#">infopotato-1.0.0.zip</a> <strong>Linux:</strong> <a href="#">infopotato-1.0.0.tar.gz</a>
+<a href="#">infopotato-1.0.0.zip</a> <a href="#">infopotato-1.0.0.tar.gz</a>
 </p> 
 </div>
 
