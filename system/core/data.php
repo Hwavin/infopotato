@@ -18,6 +18,7 @@ class Data {
 	 * Constructor
 	 *
 	 * RDBMS connection needs to be specified in the subclass's constructor
+	 * One database connection for one data file
 	 * 
 	 * @param	string	connection RDBMS connection name
 	 * @return  void
