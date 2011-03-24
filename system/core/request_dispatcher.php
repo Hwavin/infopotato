@@ -57,6 +57,9 @@ class Request_Dispatcher {
 	 * The requested URI is parsed and the respective page controller/action is called
 	 */ 
 	public function run() {	
+		// Get the HTTP request method (ie. "GET", "POST", "PUT", "DELETE", "HEAD")
+		$method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+		
 		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default controller/action runs
 		// The URI string has already been decoded, like urldecode()
 		// No need to use UTF8::trim()
@@ -105,14 +108,14 @@ class Request_Dispatcher {
 		$worker = new $worker_class;
 		
 		// Checks if the default process method exists
-		if ( ! method_exists($worker, 'process')) {	
+		if ( ! method_exists($worker, $method)) {	
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', "Process method of '{$worker}' does not exist", 'sys_error');
+				show_sys_error('An Error Was Encountered', "'{$method}' of '{$worker}' does not exist", 'sys_error');
 			}
 		}
 
 		// It's time to executes process(parameters)
-		$worker->process($params);
+		$worker->$method($params);
 	}
 	
 	/**

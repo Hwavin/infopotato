@@ -43,7 +43,7 @@ We hope you have enjoyed the site. If you have a question or comment that you wo
 Required field is marked with <span class="req">*</span>. 
 </p>
 
-<form id="contact_form" method="post" action="<?php echo BASE_URI; ?>contact/send_email" accept-charset="utf-8">  
+<form id="contact_form" method="post" action="<?php echo BASE_URI; ?>contact/" accept-charset="utf-8">  
 <div>
 
 <input type="hidden" name="form_token" value="<?php if (isset($form_token)) echo $form_token; ?>" />

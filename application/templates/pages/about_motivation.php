@@ -72,13 +72,12 @@ InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates m
 <li><a href="http://www.dingoframework.com/" class="external_link">Dingo</a></li> 
 <li><a href="http://doophp.com/" class="external_link">DooPHP</a></li> 
 <li><a href="http://justinvincent.com/ezsql" class="external_link">ezSQL</a></li>
+<li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li> 
 </ul> 
 </td> 
 
 <td width="25%"> 
 <ul> 
-
-<li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li> 
 <li><a href="http://flourishlib.com/" class="external_link">Flourish</a></li> 
 <li><a href="http://fuelphp.com/" class="external_link">Fuel</a></li> 
 <li><a href="http://gluephp.com/" class="external_link">GluePHP</a></li>
@@ -87,12 +86,12 @@ InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates m
 <li><a href="http://konstrukt.dk/" class="external_link">Konstrukt</a></li>
 <li><a href="http://www.lightvc.org/" class="external_link">LightVC</a></li>
 <li><a href="http://www.lionframework.org/" class="external_link">Lion PHP Framework</a></li>
+<li><a href="http://lithify.me/" class="external_link">Lithium</a></li>
 </ul> 
 </td> 
 
 <td width="25%"> 
 <ul> 
-<li><a href="http://lithify.me/" class="external_link">Lithium</a></li>
 <li><a href="http://framework.maintainable.com/mvc/1_intro.php" class="external_link">Maintainable</a></li>
 <li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li>
 <li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li> 
@@ -100,14 +99,15 @@ InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates m
 <li><a href="http://www.peecfw.org/" class="external_link">PeecFW</a></li> 
 <li><a href="http://pheebi.com/" class="external_link">Pheebi</a></li>
 <li><a href="http://www.pluf.org/" class="external_link">Pluf</a></li> 
+<li><a href="http://www.prontoproject.com/" class="external_link">Pronto</a></li>
+<li><a href="http://qphp.net/" class="external_link">QPHP</a></li>
 </ul> 
 </td>
 
 <td width="25%"> 
 <ul> 
-<li><a href="http://www.prontoproject.com/" class="external_link">Pronto</a></li>
-<li><a href="http://qphp.net/" class="external_link">QPHP</a></li>
 <li><a href="http://www.recessframework.org/" class="external_link">Recess</a></li>
+<li><a href="http://www.slimframework.com/" class="external_link">Slim</a></li>
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 <li><a href="http://www.spoon-library.com/" class="external_link">Spoon Library</a></li>
 <li><a href="http://www.thinkphp.cn/" class="external_link">ThinkPHP</a></li>

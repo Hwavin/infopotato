@@ -1,6 +1,6 @@
 <?php
-class Home_Worker extends Worker {
-	public function process() {
+final class Home_Worker extends Worker {
+	public function get() {
 		$layout_data = array(
 			'page_title' => 'Home',
 			'content' => $this->load_template('pages/home'),

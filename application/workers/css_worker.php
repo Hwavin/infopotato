@@ -1,6 +1,6 @@
 <?php
-class Css_Worker extends Worker {
-	public function process($params = array()) {
+final class Css_Worker extends Worker {
+	public function get($params = array()) {
 		// $css_files is an array created from $params[0]
 		$css_files = count($params) > 0 ? explode(':', $params[0]) : NULL;
 		
@@ -19,4 +19,4 @@ class Css_Worker extends Worker {
 	}
 }
 
-/* End of file: ./application/presenters/css_worker.php */
+/* End of file: ./application/workers/css_worker.php */

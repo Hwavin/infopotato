@@ -1,31 +1,11 @@
 <?php
-class Contact_Worker extends Worker {
+final class Contact_Worker extends Worker {
 	public function __construct() {
 		parent::__construct();
         session_start();
 	}
 	
-	public function index_get() {
-		
-		
-	}
-	
-	public function email_post() {
-		
-		
-	}
-	
-	public function process($params = array()) {
-		$name = count($params) > 0 ? $params[0] : '';
-		
-		if (isset($name) && $name === 'send_email') {
-			$this->_send_email();
-		} else {
-			$this->_display();
-		}
-	}
-	
-	private function _display() {
+	public function get() {
 		$_SESSION['form_token'] = uniqid();
 		
 		$data = array(
@@ -43,8 +23,8 @@ class Contact_Worker extends Worker {
 		);
 		$this->response($response_data);
 	}
-	
-	private function _send_email() {
+
+	public function post() {
 		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
 
 		// Load Form Validation library
@@ -127,4 +107,4 @@ class Contact_Worker extends Worker {
 	
 }
 
-// End of file: ./application/presenters/contact_worker.php 
+// End of file: ./application/workers/contact_worker.php 

@@ -1,6 +1,6 @@
 <?php
-class About_Worker extends Worker {
-	public function process($params = array()) {
+final class About_Worker extends Worker {
+	public function get($params = array()) {
 		$name = count($params) > 0 ? $params[0] : '';
 
 		if ($name === '') {
@@ -69,4 +69,4 @@ class About_Worker extends Worker {
 	
 }
 
-// End of file: ./application/presenters/about_worker.php 
+// End of file: ./application/workers/about_worker.php 

@@ -33,6 +33,9 @@ Open framework folder, it's a basic project folder for InfoPotato. Every new app
 <li><strong>viewc</strong> - Consist of compiled template files.</li>
 </ul>
 
+<p>
+An InfoPotato application is broken down into three big categories of components: Workers, Templates, and Data/Library/Script. InfoPotato has the ability to host multiple apps simultaneously.
+</p>
 
 </div> 
 <!-- end onecolumn -->

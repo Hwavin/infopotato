@@ -1,6 +1,6 @@
 <?php
-class Img_Worker extends Worker {
-	public function process($params = array()) {
+final class Img_Worker extends Worker {
+	public function get($params = array()) {
 		$img_file = count($params) > 0 ? implode('/', $params) : '';
 
 		// Is the img_file in a sub-folder? If so, parse out the filename and path.

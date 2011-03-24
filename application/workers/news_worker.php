@@ -1,6 +1,6 @@
 <?php
-class News_Worker extends Worker {
-	public function process($params = array()) {
+final class News_Worker extends Worker {
+	public function get($params = array()) {
 		$name = count($params) > 0 ? $params[0] : '';
 		
 		$this->load_library('cache/cache_library', 'cache', array('cache_dir'=>APP_CACHE_DIR));
@@ -31,4 +31,4 @@ class News_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/presenters/news_worker.php
+// End of file: ./application/workers/news_worker.php
