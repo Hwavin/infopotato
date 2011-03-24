@@ -34,4 +34,4 @@ final class Img_Worker extends Worker {
 	}
 }
 
-/* End of file: ./application/presenters/img_worker.php */
+/* End of file: ./application/workers/img_worker.php */

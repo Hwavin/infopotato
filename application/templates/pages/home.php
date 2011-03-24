@@ -12,7 +12,7 @@ If I have seen further it is by standing on the shoulders of giants.
 <div id="intro">
 <h2 class="first_heading">What is InfoPotato?</h2>
 <p>
-<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. It follows simplistic concepts, like <a href="http://en.wikipedia.org/wiki/KISS_principle" class="external_link">KISS</a>, <a href="http://en.wikipedia.org/wiki/You_ain't_gonna_need_it" class="external_link">YAGNI</a> and <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself" class="external_link">DRY</a>. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
+<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and REST. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. It follows simplistic concepts, like <a href="http://en.wikipedia.org/wiki/KISS_principle" class="external_link">KISS</a>, <a href="http://en.wikipedia.org/wiki/You_ain't_gonna_need_it" class="external_link">YAGNI</a> and <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself" class="external_link">DRY</a>. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
 </p>
 </div>
 

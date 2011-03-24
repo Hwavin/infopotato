@@ -54,11 +54,26 @@ class Request_Dispatcher {
 	
 	/**
 	 * This begins the dispatch process of the framework
-	 * The requested URI is parsed and the respective page controller/action is called
+	 * The requested URI is parsed and the respective page worker and request method called
 	 */ 
 	public function run() {	
-		// Get the HTTP request method (ie. "GET", "POST", "PUT", "DELETE", "HEAD")
-		$method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+		// Get the incoming HTTP request method (e.g., 'GET', 'POST', 'PUT', 'DELETE')
+		// 'PUT', 'DELETE' are not supported by most web browsers, but supported by cURL
+		$request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+		
+		// Here's how to access the content of a PUT request in PHP
+		$_PUT  = array();
+		if($_SERVER['REQUEST_METHOD'] == 'PUT') {
+			$putdata = file_get_contents('php://input');
+			$exploded = explode('&', $putdata); 
+			foreach ($exploded as $pair) {
+				$item = explode('=', $pair);
+				if (count($item) == 2) {
+					$_PUT[urldecode($item[0])] = urldecode($item[1]);
+				}
+			}
+		}
+		
 		
 		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default controller/action runs
 		// The URI string has already been decoded, like urldecode()
@@ -108,14 +123,14 @@ class Request_Dispatcher {
 		$worker = new $worker_class;
 		
 		// Checks if the default process method exists
-		if ( ! method_exists($worker, $method)) {	
+		if ( ! method_exists($worker, $request_method)) {	
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', "'{$method}' of '{$worker}' does not exist", 'sys_error');
+				show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker}'", 'sys_error');
 			}
 		}
 
 		// It's time to executes process(parameters)
-		$worker->$method($params);
+		$worker->$request_method($params);
 	}
 	
 	/**
