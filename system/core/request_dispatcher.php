@@ -59,11 +59,12 @@ class Request_Dispatcher {
 	public function run() {	
 		// Get the incoming HTTP request method (e.g., 'GET', 'POST', 'PUT', 'DELETE')
 		// 'PUT', 'DELETE' are not supported by most web browsers, but supported by cURL
+		// $_GET data is simply disallowed by InfoPotato since it utilizes URI segments rather than traditional URL query strings
 		$request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
 		
 		// Here's how to access the content of a PUT request in PHP
-		$_PUT  = array();
-		if($_SERVER['REQUEST_METHOD'] == 'PUT') {
+		$_PUT = array();
+		if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 			$putdata = file_get_contents('php://input');
 			$exploded = explode('&', $putdata); 
 			foreach ($exploded as $pair) {

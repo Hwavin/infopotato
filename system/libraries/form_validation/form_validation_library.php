@@ -3,9 +3,8 @@
  * Form Validation Class
  */
 class Form_Validation_Library {
-	
+	private $_post			= array();	
 	private $_field_data			= array();	
-	private $_config_rules			= array();
 	private $_error_array			= array();
 	private $_error_messages		= array();	
 	private $_error_prefix			= '<p>';
@@ -52,8 +51,8 @@ class Form_Validation_Library {
 	 * @return	void
 	 */	
 	public function initialize($config = array()) { 
-		// Validation rules can be stored in a config file.
-		$this->_config_rules = $config;
+		// Assign the $_POST data 
+		$this->_post = $config['post'];
 	}
 
 	/**
@@ -68,7 +67,7 @@ class Form_Validation_Library {
 	 */
 	public function set_rules($field, $label = '', $rules = '') {
 		// No reason to set rules if we have no POST data
-		if (count($_POST) == 0) {
+		if (count($this->_post) == 0) {
 			return;
 		}
 	
@@ -235,30 +234,27 @@ class Form_Validation_Library {
 	 */		
 	public function run($group = '') {
 		// Do we even have any data to process?  Mm?
-		if (count($_POST) == 0) {
+		if (count($this->_post) == 0) {
 			return FALSE;
 		}
 		
 		// Does the _field_data array containing the validation rules exist?
 		// If not, we look to see if they were assigned via a config file
 		if (count($this->_field_data) == 0) {
-			// No validation rules?  We're done...
-			if (count($this->_config_rules) == 0) {
-				return FALSE;
-			}
+			return FALSE;
 		}
 							
 		// Cycle through the rules for each field, match the 
-		// corresponding $_POST item and test for errors
+		// corresponding $this->_post item and test for errors
 		foreach ($this->_field_data as $field => $row) {		
-			// Fetch the data from the corresponding $_POST array and cache it in the _field_data array.
+			// Fetch the data from the corresponding $this->_post array and cache it in the _field_data array.
 			// Depending on whether the field name is an array or a string will determine where we get it from.
 			
 			if ($row['is_array'] == TRUE) {
-				$this->_field_data[$field]['postdata'] = $this->_reduce_array($_POST, $row['keys']);
+				$this->_field_data[$field]['postdata'] = $this->_reduce_array($this->_post, $row['keys']);
 			} else {
-				if (isset($_POST[$field]) AND $_POST[$field] != '') {
-					$this->_field_data[$field]['postdata'] = $_POST[$field];
+				if (isset($this->_post[$field]) && $this->_post[$field] != '') {
+					$this->_field_data[$field]['postdata'] = $this->_post[$field];
 				}
 			}
 		
@@ -286,7 +282,7 @@ class Form_Validation_Library {
 
 
 	/**
-	 * Traverse a multidimensional $_POST array index until the data is found
+	 * Traverse a multidimensional $this->_post array index until the data is found
 	 *
 	 * @param	array
 	 * @param	array
@@ -318,12 +314,12 @@ class Form_Validation_Library {
 		foreach ($this->_field_data as $field => $row) {
 			if ( ! is_null($row['postdata'])) {
 				if ($row['is_array'] == FALSE) {
-					if (isset($_POST[$row['field']])) {
-						$_POST[$row['field']] = $this->prep_for_form($row['postdata']);
+					if (isset($this->_post[$row['field']])) {
+						$this->_post[$row['field']] = $this->prep_for_form($row['postdata']);
 					}
 				} else {
 					// start with a reference
-					$post_ref =& $_POST;
+					$post_ref =& $this->_post;
 					
 					// before we assign values, make a reference to the right POST key
 					if (count($row['keys']) == 1) {
@@ -360,7 +356,7 @@ class Form_Validation_Library {
 	 * @return	mixed
 	 */	
 	private function _execute($row, $rules, $postdata = NULL, $cycles = 0) {
-		// If the $_POST data is an array we will run a recursive call
+		// If the $this->_post data is an array we will run a recursive call
 		if (is_array($postdata)) { 
 			foreach ($postdata as $key => $val) {
 				$this->_execute($row, $rules, $val, $cycles);
@@ -625,11 +621,11 @@ class Form_Validation_Library {
 	 * @return	bool
 	 */
 	public function matches($str, $field) {
-		if ( ! isset($_POST[$field])) {
+		if ( ! isset($this->_post[$field])) {
 			return FALSE;				
 		}
 		
-		$field = $_POST[$field];
+		$field = $this->_post[$field];
 
 		return ($str !== $field) ? FALSE : TRUE;
 	}

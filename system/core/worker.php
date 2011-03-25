@@ -8,6 +8,21 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Worker {
+    /**
+     * @var array   Key-value array of HTTP POST parameters
+     */
+    protected $post = array();
+
+    /**
+     * @var array   Key-value array of HTTP PUT parameters
+     */
+    protected $put = array();
+
+	/**
+     * @var array   Key-value array of cookie sent with the current HTTP request           
+     */
+    protected $cookie = array();
+	
 	/**
 	 * @var  array  vars for template file assignment
 	 */
@@ -16,19 +31,34 @@ class Worker {
 	/**
 	 * Constructor
 	 *
-	 * Check magic quotes, this feature has been DEPRECATED as of PHP 5.3.0.
+	 * Get the post, put, cookie values and automagically escapes them
 	 * 
-	 * This function will strip slashes if magic quotes is enabled so all input data ($_POST, $_COOKIE) is free of slashes
-	 * $_GET data is simply disallowed by InfoPotato since the system utilizes URI segments rather than traditional URL query strings
-	 * 
-	 * Magic Quotes is a process that automagically escapes incoming data to the PHP script. 
-	 * It's preferred to code with magic quotes off and to instead escape the data at runtime, as needed.
+	 * $_GET data is simply disallowed by InfoPotato since it utilizes URI segments rather than traditional URL query strings
 	 * 
 	 * @return	void
 	 */
 	public function __construct() {
+		$this->post = $_POST;
+		$this->cookie = $_COOKIE;
+		
+		// Here's how to access the content of a PUT request in PHP
+		if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+			$putdata = file_get_contents('php://input');
+			$exploded = explode('&', $putdata); 
+			foreach ($exploded as $pair) {
+				$item = explode('=', $pair);
+				if (count($item) == 2) {
+					$this->put[urldecode($item[0])] = urldecode($item[1]);
+				}
+			}
+		}
+		
+		// Check magic quotes, this feature has been DEPRECATED as of PHP 5.3.0.
+		// Magic Quotes is a process that automagically escapes incoming data to the PHP script. 
+	    // It's preferred to code with magic quotes off and to instead escape the data at runtime, as needed.
+		// Strip slashes if magic quotes is enabled so all input data is free of slashes
 		if (version_compare(PHP_VERSION, '5.3.0', '<') && get_magic_quotes_gpc()) {
-			$in = array(&$_POST, &$_COOKIE);
+			$in = array($this->post, $this->cookie, $this->put);
 			while (list($k, $v) = each($in)) {
 				foreach ($v as $key => $val) {
 					if ( ! is_array($val)) {
@@ -36,7 +66,7 @@ class Worker {
 						$in[$k][$key] = stripslashes($val); 
 						continue;
 					}
-					$in[] =& $in[$k][$key];
+					$in[] = $in[$k][$key];
 				}
 			}
 			unset($in);
