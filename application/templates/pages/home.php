@@ -12,7 +12,7 @@ If I have seen further it is by standing on the shoulders of giants.
 <div id="intro">
 <h2 class="first_heading">What is InfoPotato?</h2>
 <p>
-<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and REST. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. It follows simplistic concepts, like <a href="http://en.wikipedia.org/wiki/KISS_principle" class="external_link">KISS</a>, <a href="http://en.wikipedia.org/wiki/You_ain't_gonna_need_it" class="external_link">YAGNI</a> and <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself" class="external_link">DRY</a>. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
+<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and REST. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
 </p>
 </div>
 
@@ -31,13 +31,15 @@ If I have seen further it is by standing on the shoulders of giants.
 <div id="index_left" class="index_column"> 
 <h2 class="first_heading">Facts about InfoPotato</h2>	
 <ul id="yes"> 
-<li>Designed around Request-Reponse</li> 
+<li>RESTful Approach</li> 
 <li>Truly Loose Coupling</li> 
+<li>Truly Lightweight &amp; Fast</li> 
 <li>PATH_INFO based URI Pattern</li>
 <li>Full UTF-8 Support</li>
 <li>Multiple Database Adapters</li> 
 <li>Small learning curve &amp; Detailed docs</li>
-<li>Truly Lightweight &amp; Fast</li>
+<li>Rich Libraries and Helpers</li>
+<li>Host multiple apps simultaneously</li>
 </ul> 
 
 <ul id="no"> 
@@ -48,6 +50,8 @@ If I have seen further it is by standing on the shoulders of giants.
 <li>No Automatic code generation</li> 
 <li>No Javascript Library Integration</li> 
 <li>No use of command line</li> 
+<li>No URI Routing (No Need)</li> 
+<li>No built-in Log mechanism</li> 
 </ul>
 
 <span><a href="<?php echo BASE_URI; ?>about/facts/" title="More facts about InfoPotato">Find out more &raquo;</a></span>

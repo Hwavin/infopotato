@@ -433,9 +433,9 @@ class MySQLi_Adapter {
 		
 		if ($output == OBJECT) {
 			return $this->last_result[$y] ? $this->last_result[$y] : NULL;
-		} elseif ( $output == ARRAY_A ) {
+		} elseif ($output == ARRAY_A) {
 			return $this->last_result[$y] ? get_object_vars($this->last_result[$y]) : NULL;
-		} elseif ( $output == ARRAY_N ) {
+		} elseif ($output == ARRAY_N) {
 			return $this->last_result[$y] ? array_values(get_object_vars($this->last_result[$y])) : NULL;
 		} else {
 			$this->print_error(" \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N");

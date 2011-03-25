@@ -8,7 +8,7 @@ class Users_Data extends Data {
 	public function get_user_info($id) { 
 		$sql = $this->db->prepare("SELECT * FROM users WHERE id=?", array($id));
 		$this->db->vardump($this->db->get_row($sql, ARRAY_A));
-		$this->db->store_cache($sql);
+
 		return $this->db->get_row($sql, ARRAY_A);
 	}
 	
