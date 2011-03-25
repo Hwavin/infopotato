@@ -27,7 +27,7 @@ final class Contact_Worker extends Worker {
 	public function post() {
 		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
 
-		// Load Form Validation library
+		// Load Form Validation library and assign post data
 		$this->load_library('form_validation/form_validation_library', 'fv', array('post' => $this->post));
 		
 		// Load htmlawed script

@@ -8,9 +8,9 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
  
-define('OBJECT', 'OBJECT', TRUE);
-define('ARRAY_A', 'ARRAY_A', TRUE);
-define('ARRAY_N', 'ARRAY_N', TRUE);
+define('OBJECT', 'OBJECT');
+define('ARRAY_A', 'ARRAY_A');
+define('ARRAY_N', 'ARRAY_N');
 
 /**
  * Database Access Abstraction Object
@@ -543,7 +543,7 @@ class MySQLi_Adapter {
 		// The would be cache file for this query
 		$cache_file = $this->cache_dir.'/'.md5($query);
 
-		// disk caching of queries
+		// Disk caching of queries
 		if ($this->use_disk_cache && ($this->cache_queries && ! $is_insert) OR ($this->cache_inserts && $is_insert)) {
 			if ( ! is_dir($this->cache_dir)) {
 				$this->register_error("Could not open cache dir: $this->cache_dir");
@@ -597,17 +597,7 @@ class MySQLi_Adapter {
 	public function vardump($mixed = '') {
 		// Start outup buffering
 		ob_start();
-
-		echo '<div style="margin-bottom:10px; font-size:12px;"><pre>';
-
-		$var_type = gettype($mixed);
-		print_r(($mixed ? $mixed : '<font color="red">No Value / FALSE</font>'));
-		echo "\n\n<b>Type:</b> " . ucfirst($var_type) . "\n";
-		echo "<b>Last Query</b> [$this->num_queries]<b>:</b> ".($this->last_query ? $this->last_query : "NULL")."\n";
-		echo "<b>Last Function Call:</b> " . ($this->func_call ? $this->func_call : "None")."\n";
-		echo "<b>Last Rows Returned:</b> ".count($this->last_result)."\n";
-		echo '</pre></div>';
-
+		include(SYS_DIR.'core'.DS.'sys_templates'.DS.'data_vardump.php');
 		// Stop output buffering and capture HTML
 		$html = ob_get_contents();
 		ob_end_clean();

@@ -115,7 +115,7 @@ class Request_Dispatcher {
 			}
 		}
 
-		// It's time to executes process(parameters)
+		// Dispatches incoming request to the correct worker and execute method(parameters)
 		$worker->$request_method($params);
 	}
 	

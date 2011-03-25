@@ -29,7 +29,7 @@ function show_sys_error($heading, $message, $template = 'sys_error') {
 }
 
 /**
- * Dump variable, to be used before $this->response()
+ * Dump variable
  *
  * Displays information about a variable in a human readable way
  * 

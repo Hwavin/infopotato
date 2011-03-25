@@ -8,9 +8,9 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
  
-define('OBJECT', 'OBJECT', TRUE);
-define('ARRAY_A', 'ARRAY_A', TRUE);
-define('ARRAY_N', 'ARRAY_N', TRUE);
+define('OBJECT', 'OBJECT');
+define('ARRAY_A', 'ARRAY_A');
+define('ARRAY_N', 'ARRAY_N');
 
 /**
  * Database Access Abstraction Object
@@ -18,7 +18,6 @@ define('ARRAY_N', 'ARRAY_N', TRUE);
  * Original code from {@link http://php.justinvincent.com Justin Vincent (justin@visunet.ie)}
  */
 class MySQL_Adapter {
-
 	/**
 	 * @var  bool  Whether to show SQL/DB errors defined in error_messages
 	 */
@@ -469,7 +468,7 @@ class MySQL_Adapter {
 	 * If no results are found then the function returns false enabling you to use the function within logic statements such as if.
 	 *
 	 * @param string $query SQL query.
-	 * @param string $output (optional) ane of ARRAY_A | ARRAY_N | OBJECT | OBJECT_K constants.  With one of the first three, return an array of rows indexed from 0 by SQL result row number.  Each row is an associative array (column => value, ...), a numerically indexed array (0 => value, ...), or an object. ( ->column = value ), respectively.  With OBJECT_K, return an associative array of row objects keyed by the value of each row's first column's value.  Duplicate keys are discarded.
+	 * @param string $output (optional) ane of ARRAY_A | ARRAY_N | OBJECT constants.  With one of the first three, return an array of rows indexed from 0 by SQL result row number.  Each row is an associative array (column => value, ...), a numerically indexed array (0 => value, ...), or an object. ( ->column = value ), respectively.  With OBJECT_K, return an associative array of row objects keyed by the value of each row's first column's value.  Duplicate keys are discarded.
 	 * @return mixed Database query results
 	 */
 	public function get_results($query = NULL, $output = OBJECT) {
@@ -538,7 +537,7 @@ class MySQL_Adapter {
 		// The would be cache file for this query
 		$cache_file = $this->cache_dir.'/'.md5($query);
 
-		// disk caching of queries
+		// Disk caching of queries
 		if ($this->use_disk_cache && ($this->cache_queries && ! $is_insert) OR ($this->cache_inserts && $is_insert)) {
 			if ( ! is_dir($this->cache_dir)) {
 				$this->register_error("Could not open cache dir: $this->cache_dir");
@@ -592,17 +591,7 @@ class MySQL_Adapter {
 	public function vardump($mixed = '') {
 		// Start outup buffering
 		ob_start();
-
-		echo '<div style="margin-bottom:10px; font-size:12px;"><pre>';
-
-		$var_type = gettype($mixed);
-		print_r(($mixed ? $mixed : '<font color="red">No Value / FALSE</font>'));
-		echo "\n\n<b>Type:</b> " . ucfirst($var_type) . "\n";
-		echo "<b>Last Query</b> [$this->num_queries]<b>:</b> ".($this->last_query ? $this->last_query : "NULL")."\n";
-		echo "<b>Last Function Call:</b> " . ($this->func_call ? $this->func_call : "None")."\n";
-		echo "<b>Last Rows Returned:</b> ".count($this->last_result)."\n";
-		echo '</pre></div>';
-
+		include(SYS_DIR.'core'.DS.'sys_templates'.DS.'data_vardump.php');
 		// Stop output buffering and capture HTML
 		$html = ob_get_contents();
 		ob_end_clean();
