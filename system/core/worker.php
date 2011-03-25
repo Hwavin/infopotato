@@ -38,6 +38,7 @@ class Worker {
 	 * @return	void
 	 */
 	public function __construct() {
+		// $_GET data is simply disallowed by InfoPotato since it utilizes URI segments rather than traditional URL query strings
 		$this->post = $_POST;
 		$this->cookie = $_COOKIE;
 		
