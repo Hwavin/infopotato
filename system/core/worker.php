@@ -123,7 +123,7 @@ class Worker {
 		ob_start();
 		if ( ! file_exists($template_file_path)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Unknown template file name '{$template}'", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$template}'", 'sys_error');
 			}
 		} else {
 			// Bring template vars into template scope
@@ -311,7 +311,7 @@ class Worker {
 		
 		if (method_exists($this, $alias)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
 			}
 		}
 		// Data already loaded? silently skip
@@ -323,7 +323,7 @@ class Worker {
 
 		if ( ! file_exists($file_path)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Unknown data file name '{$data}'", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$data}'", 'sys_error');
 			}
 		}
 		require_once($file_path);
@@ -331,7 +331,7 @@ class Worker {
 		// Class name must be the same as the data name
 		if ( ! class_exists($data)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
 			}
 		}
 
@@ -375,7 +375,7 @@ class Worker {
 		
 		if (method_exists($this, $alias)) {	
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
 			}
 		}
 		
@@ -388,7 +388,7 @@ class Worker {
 
 		if ( ! file_exists($file_path)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Unknown library file name '{$library}'", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$library}'", 'sys_error');
 			}
 		}
 		require_once($file_path);
@@ -396,7 +396,7 @@ class Worker {
 		// Class name must be the same as the library name
 		if ( ! class_exists($library)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
+				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
 			}
 		}
 
@@ -416,7 +416,7 @@ class Worker {
 	 */    
 	public function __call($method, $args) {
 		if (ENVIRONMENT === 'development') {
-			show_sys_error('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
 		}
 	}
 

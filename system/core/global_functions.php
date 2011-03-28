@@ -1,6 +1,6 @@
 <?php
 /**
- * These global functions can be used directly in request dispatcher, worker, template, and data object
+ * These global functions can be used directly in InfoPotato, worker, template, and data object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -68,7 +68,7 @@ class Global_Functions {
 		
 		if ( ! preg_match('!^[a-z][a-z_]+$!', $script)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('A System Error Was Encountered', "Invalid script name '{$script}'", 'error_general');
+				self::show_sys_error('A System Error Was Encountered', "Invalid script name '{$script}'", 'error_general');
 			}
 		}
 		// Currently, all script functions are placed in system/scripts folder
@@ -76,7 +76,7 @@ class Global_Functions {
 		
 		if ( ! file_exists($file_path)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', "Unknown script file '{$script}'", 'error_general');		
+				self::show_sys_error('An Error Was Encountered', "Unknown script file '{$script}'", 'error_general');		
 			}
 		}
 		return require_once($file_path);

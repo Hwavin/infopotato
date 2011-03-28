@@ -88,7 +88,7 @@ class InfoPotato {
 		// Checks if worker file exists 
 		if ( ! file_exists($worker_file)) { 
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', 'Worker file does not exist', 'sys_error');
+				Global_Functions::show_sys_error('An Error Was Encountered', 'Worker file does not exist', 'sys_error');
 			}
 		}
 		require_once($worker_file);
@@ -98,7 +98,7 @@ class InfoPotato {
 		// Function class_exists() is matched in a case-insensitive manner
 		if ( ! class_exists($worker_class)) {
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', 'Worker class does not exist', 'sys_error');	
+				Global_Functions::show_sys_error('An Error Was Encountered', 'Worker class does not exist', 'sys_error');	
 			}			
 		}
 
@@ -108,7 +108,7 @@ class InfoPotato {
 		// Checks if the default process method exists
 		if ( ! method_exists($worker_obj, $request_method)) {	
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_obj}'", 'sys_error');
+				Global_Functions::show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_obj}'", 'sys_error');
 			}
 		}
 
@@ -151,7 +151,7 @@ class InfoPotato {
 			// compatibility as many are unaware of how characters in the permitted_uri_chars will be parsed as a regex pattern
 			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote(PERMITTED_URI_CHARS, '-'))."]+$|i", $str)) {
 				if (ENVIRONMENT === 'development') {
-					show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
+					Global_Functions::show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
 				}
 			}
 		}
