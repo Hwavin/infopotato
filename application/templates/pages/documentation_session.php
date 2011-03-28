@@ -11,6 +11,28 @@
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">Session</h1>	
 
+<p>
+Your application has a session for each user in which you can store small amounts of data that will be persisted between requests. The session is only available in the controller and the view and can use one of a number of different storage mechanisms:
+</p>
+
+<ul>
+<li>CookieStore – Stores everything on the client.</li>
+<li>DRbStore – Stores the data on a DRb server.</li>
+<li>MemCacheStore – Stores the data in a memcache.</li>
+</ul>
+
+<p>
+All session stores use a cookie to store a unique ID for each session (you must use a cookie, InfoPotato will not allow you to pass the session ID in the URL as this is less secure).
+</p>
+
+<p>
+For most stores this ID is used to look up the session data on the server, e.g. in a database table. There is one exception, and that is the default and recommended session store – the CookieStore – which stores all session data in the cookie itself (the ID is still available to you if you need it). This has the advantage of being very lightweight and it requires zero setup in a new application in order to use the session. The cookie data is cryptographically signed to make it tamper-proof, but it is not encrypted, so anyone with access to it can read its contents but not edit it (InfoPotato will not accept it if it has been edited).
+</p>
+
+<p>
+The CookieStore can store around 4kB of data — much less than the others — but this is usually enough. Storing large amounts of data in the session is discouraged no matter which session store your application uses. You should especially avoid storing complex objects (anything other than basic objects, the most common example being model instances) in the session, as the server might not be able to reassemble them between requests, which will result in an error.
+</p>
+
 <p> 
 The Session class provides an enhanced interface to PHP's native session handling and $_SESSION superglobal features.
 </p> 

@@ -48,7 +48,6 @@ function dump($var) {
  * Script Functions Loader
  *
  * If script is located in a sub-folder, include the relative path from scripts folder.
- * Loaded script can be used by Model, View, and Controller
  *
  * @param   string $script the script plugin name
  * @return  void

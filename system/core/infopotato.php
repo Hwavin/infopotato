@@ -1,6 +1,6 @@
 <?php
 /**
- * Request dispatcher
+ * InfoPotato
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -9,7 +9,7 @@
  */
  
 // Load the global functions
-require(SYS_DIR.'core/global_functions.php');
+require(SYS_DIR.'core'.DS.'global_functions.php');
 
 /**
  * Autoloading core components
@@ -31,9 +31,9 @@ function __autoload($class_name) {
 
 
 /**
- * Request_Dispatcher class, loaded by the entry script index.php.
+ * InfoPotato class
  */
-class Request_Dispatcher {
+class InfoPotato {
 	/**
 	 * @var  string  the client requested uri string, 
 	 * may contain UTF-8 characters beyond ASCII
@@ -51,7 +51,7 @@ class Request_Dispatcher {
 		// Set instance
 		self::instance($this);
 	}
-	
+
 	/**
 	 * This begins the dispatch process of the framework
 	 * The requested URI is parsed and the respective page worker and request method called
@@ -106,17 +106,17 @@ class Request_Dispatcher {
 		}
 
 		// Instantiate the worker object
-		$worker = new $worker_class;
+		$worker_obj = new $worker_class;
 		
 		// Checks if the default process method exists
-		if ( ! method_exists($worker, $request_method)) {	
+		if ( ! method_exists($worker_obj, $request_method)) {	
 			if (ENVIRONMENT === 'development') {
-				show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker}'", 'sys_error');
+				show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_obj}'", 'sys_error');
 			}
 		}
 
-		// Dispatches incoming request to the correct worker and execute method(parameters)
-		$worker->$request_method($params);
+		// Dispatche incoming request to the correct worker (prepare and response)
+		$worker_obj->$request_method($params);
 	}
 	
 	/**
@@ -168,4 +168,4 @@ class Request_Dispatcher {
 
 }
 
-// End of file: ./system/request_dispatcher.php
+// End of file: ./system/infopotato.php

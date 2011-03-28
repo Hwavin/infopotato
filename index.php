@@ -57,6 +57,7 @@ date_default_timezone_set('America/New_York');
 define('BASE_URI', 'http://localhost/infopotato/index.php/');
 
 /**
+ * '\' for Windows, '/' for Unix
  * DIRECTORY_SEPARATOR is not necessary, only the forward slash, '/' should be fine
  */
 define('DS', DIRECTORY_SEPARATOR);
@@ -94,11 +95,11 @@ define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
 //define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 /**
- * Include and initialize request
+ * Dispatch, prepare, response 
  */
-require_once(SYS_DIR.'infopotato.php');
-$request_dispatcher = new InfoPotato;
-$request_dispatcher->run();
+require_once(SYS_DIR.'infopotato_app.php');
+$app = new InfoPotato_App;
+$app->run();
 
 // End of file: ./index.php 
 

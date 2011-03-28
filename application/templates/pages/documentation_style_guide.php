@@ -25,6 +25,10 @@
 InfoPotato uses UTF-8 for everything, everywhere, all-the time. You should always use UTF-8. The reason why is that UTF-8 supports full internationalization while beeng back-compatible with both ASCII and ISO-8859-1 which are commonly used.
 </p>
 
+<p>
+The easiest way to work with InfoPotato is to store all external data as UTF-8. If you don't, InfoPotato will often be able to convert your native data into UTF-8, but this doesn't always work reliably, so you're better off ensuring that all external data is UTF-8.
+</p>
+
 <p>Files should be saved with Unicode (UTF-8) encoding.  The <abbr title="Byte Order Mark">BOM</abbr> 
 should <em>not</em> be used.  Unlike UTF-16 and UTF-32, there's no byte order to indicate in
 a UTF-8 encoded file, and the <abbr title="Byte Order Mark">BOM</abbr> can have a negative side effect in PHP of sending output,

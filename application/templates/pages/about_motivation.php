@@ -40,7 +40,15 @@ With more and more design and development I found myself the need of a good stru
 For a long time, I thought InfoPotato should follow the MVC architectural pattern because many other web frameworks claim themselves MVC frameworks. But one day after lunch, I came accross a book called "Building PHP Applications with Symfony, CakePHP, and Zend Framework". In this book, the author memtioned that many so-called PHP MVC frameworks are not real MVC, and the truth is many of them are following the MVP architectural pattern. Afterthat, I did more reading and I found my InfoPotato was more like MVP indeed. With more research, I realized that I don't need a MVC framework for the PHP web development, and try to follow MVC will make me feel like I'm trying to fit a square peg into a round hole. What I really need is to look at a very simple request-response handling framework. So from that monment, I rewrote InfoPotato and got rid off the concept of either MVC or MVP. InfoPotato now, is only a simple web development framework built around HTTP and REST that handles request and response.
 </p>
 
-<h2>Philosophies</h2>
+<h2>Philosophy</h2>
+
+<p>The InfoPotato philosophy includes several guiding principles:</p> 
+
+<ul> 
+<li>DRY &mdash; "Don't Repeat Yourself" &mdash; suggests that writing the same code over and over again is a bad thing.</li> 
+<li>Convention Over Configuration &#8211; means that Rails makes assumptions about what you want to do and how you're going to do it, rather than requiring you to specify every little thing through endless configuration files.</li> 
+<li>REST (Representational State Transfer) is the best pattern for web applications &dash; organizing your application around resources and standard HTTP verbs is the fastest way to go.</li> 
+</ul> 
 
 <p>
 When it comes to frameworks, PHP developers really need to think about <strong>performance</strong> for not only scalability reasons but for green reasons. If programs were more efficient it would cut the number of data centres and would reduce energy needs as a result. In our newly emerging age of energy awareness this does become an important aspect.
