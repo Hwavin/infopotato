@@ -31,7 +31,7 @@ final class Contact_Worker extends Worker {
 		$this->load_library('form_validation/form_validation_library', 'fv', array('post' => $this->post));
 		
 		// Load htmlawed script
-		load_script('htmlawed/htmlawed_script');
+		Global_Functions::load_script('htmlawed/htmlawed_script');
 		
 		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
 		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam

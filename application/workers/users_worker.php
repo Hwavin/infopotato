@@ -6,8 +6,8 @@ final class Users_Worker extends Worker {
 		$user_info = $this->u->get_user_info(1);
 		$users_info = $this->u->get_users_info();
 
-		dump($user_info);
-		dump($users_info);
+		Global_Functions::dump($user_info);
+		Global_Functions::dump($users_info);
 	}
 }
 

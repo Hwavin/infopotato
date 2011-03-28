@@ -12,7 +12,7 @@ class Data {
 	/**
 	 * @var  object  $db database object instance
 	 */
-	public $db;
+	protected $db;
 	
 	/**
 	 * Constructor
@@ -26,17 +26,17 @@ class Data {
 	public function __construct($connection = '') {
 		if ($connection !== '') {
 			// Assign a database adapter object
-			$this->db = $this->_db_init($connection);
+			$this->db = $this->_create_db_obj($connection);
 		}
 	}
 	
 	/**
-	 * Useful when RDBMS is used
+	 * Create database object, only when RDBMS is used
 	 *
 	 * @param	string $connection the name of the database connection pool (if empty default pool is used)
 	 * @return	a database adapter object
 	 */
-	private function _db_init($connection) {
+	private function _create_db_obj($connection) {
 		static $db_obj = array();
 		// Load config information 
 		require_once(APP_CONFIG_DIR.'database.php');
@@ -47,7 +47,7 @@ class Data {
 		if ($connection && isset($database[$connection]) && ! empty($database[$connection]['adapter'])) {
 			// Load database adapter
 			require_once(SYS_DIR.'core'.DS.strtolower($database[$connection]['adapter']).'.php');
-			// Initialize connection
+			// Create database instance
 			$db_obj[$connection] = new $database[$connection]['adapter']($database[$connection]);
 			return $db_obj[$connection];
 		}

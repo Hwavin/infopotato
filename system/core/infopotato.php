@@ -7,12 +7,9 @@
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
- 
-// Load the global functions
-require(SYS_DIR.'core'.DS.'global_functions.php');
 
 /**
- * Autoloading core components
+ * Autoloading other core components
  *
  * @param   string $class_name the class name we are trying to load
  * @return  boolean  success or failure
@@ -53,8 +50,8 @@ class InfoPotato {
 	}
 
 	/**
-	 * This begins the dispatch process of the framework
-	 * The requested URI is parsed and the respective page worker and request method called
+	 * Parse incoming request to get the desiered worker, request method, and params
+	 * Then the desginated worker prepares the related resources and sends response back to client
 	 */ 
 	public function run() {	
 		// Get the incoming HTTP request method (e.g., 'GET', 'POST', 'PUT', 'DELETE')
@@ -115,7 +112,7 @@ class InfoPotato {
 			}
 		}
 
-		// Dispatche incoming request to the correct worker (prepare and response)
+		// The desginated worker prepares the related resources and sends response back to client
 		$worker_obj->$request_method($params);
 	}
 	
