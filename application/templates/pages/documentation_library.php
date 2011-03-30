@@ -11,9 +11,13 @@
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">Using Library</h1>	
 
-<p>All of the available libraries are located in your <dfn>system/libraries</dfn> folder.
+<p>All of the available system libraries are located in your <dfn>system/libraries</dfn> folder.
 In most cases, to use one of these classes involves initializing it within a controller using the following initialization function:</p> 
- 
+
+<p>
+User defined application library must be placed at APP_LIBRARY_DIR
+</p>
+
 <div class="syntax">
 <pre>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;library_folder/class_name&#39;</span><span class="p">,</span> <span class="s1">&#39;alias&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
