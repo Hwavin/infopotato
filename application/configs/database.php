@@ -12,13 +12,18 @@ $database = array(
 	),
 	// Another connection example if more database required
 	'remote' => array(
-		'adapter' => 'mysql_adapter',
+		'adapter' => 'mysqli_adapter',
 		'host' => 'localhost',
 		'name' => '',
 		'user' => 'root',
 		'pass' => '',
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci',
+	),
+	// SQLite connection
+	'test' => array(
+		'adapter' => 'sqlite_adapter',
+		'path' => APP_DIR.'test.sqlite',
 	),
 );
 

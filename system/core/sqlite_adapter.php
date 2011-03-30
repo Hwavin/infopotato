@@ -196,8 +196,8 @@ class SQLite_Adapter {
 		// Keep track of the last query for debug..
 		$this->last_query = $query;
 
-		// Perform the query via std mysql_query function..
-		$this->result = sqlite_query($this->dbh, $query);
+		// Perform the query via std sqlite_query function..
+		$result = sqlite_query($this->dbh, $query);
 		$this->num_queries++;
 
 		// If there is an error then take note of it..
@@ -224,8 +224,8 @@ class SQLite_Adapter {
 		else {
 			// Take note of column info	
 			$i = 0;
-			while ($i < sqlite_num_fields($this->result)) {
-				$this->col_info[$i]->name = sqlite_field_name ($this->result, $i);
+			while ($i < sqlite_num_fields($result)) {
+				$this->col_info[$i]->name = sqlite_field_name($result, $i);
 				$this->col_info[$i]->type = NULL;
 				$this->col_info[$i]->max_length = NULL;
 				$i++;
@@ -233,7 +233,7 @@ class SQLite_Adapter {
 			
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = sqlite_fetch_array($this->result, SQLITE_ASSOC)) {
+			while ($row = sqlite_fetch_array($result, SQLITE_ASSOC)) {
 				// Store relults as an objects within main array
 				$obj= (object) $row; //convert to object
 				$this->last_result[$num_rows] = $obj;

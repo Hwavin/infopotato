@@ -12,8 +12,12 @@ require(dirname(__FILE__).DS.'core'.DS.'infopotato.php');
 
 /**
  * It encapsulates {@link InfoPotato} which provides the actual implementation.
- * By writing your own InfoPotato App class, you can customize some functionalities of InfoPotato
+ * By writing your own InfoPotato_App class, you can customize some functionalities of InfoPotato
  */
-final class InfoPotato_App extends InfoPotato{}
+final class InfoPotato_App extends InfoPotato{
+	public function test() {
+		echo $this->uri_string;
+	}
+}
 
 // End of file: ./system/infopotato_app.php 

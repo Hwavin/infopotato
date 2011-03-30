@@ -286,7 +286,7 @@ class MySQLi_Adapter {
 		// Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
 		// queries mysqli_query() will return a result object. 
 		// For other successful queries mysqli_query() will return TRUE.
-		$this->result = $this->dbh->query($query);
+		$result = $this->dbh->query($query);
 
 		// If there is an error then take note of it.
 		if ($str = $this->dbh->error) {
@@ -310,20 +310,20 @@ class MySQLi_Adapter {
 		} elseif (preg_match('/^(select|SHOW|DESCRIBE|EXPLAIN)\s+/i', $query)) {
 			// Take note of column info
 			$i = 0;
-			while ($i < $this->result->field_count) {
-				$this->col_info[$i] = $this->result->fetch_field();
+			while ($i < $result->field_count) {
+				$this->col_info[$i] = $result->fetch_field();
 				$i++;
 			}
 
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = $this->result->fetch_object()) {
+			while ($row = $result->fetch_object()) {
 				// Store relults as an objects within main array
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
 			}
 
-			$this->result->free_result();
+			$result->free_result();
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;

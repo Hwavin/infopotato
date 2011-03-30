@@ -280,7 +280,7 @@ class MySQL_Adapter {
 			return $cache;
 		}
 		// Perform the query via std mysql_query function.
-		$this->result = mysql_query($query, $this->dbh);
+		$result = mysql_query($query, $this->dbh);
 
 		// If there is an error then take note of it.
 		if ($str = mysql_error($this->dbh)) {
@@ -304,20 +304,20 @@ class MySQL_Adapter {
 		} elseif (preg_match('/^(select|SHOW|DESCRIBE|EXPLAIN)\s+/i', $query)) {
 			// Take note of column info
 			$i = 0;
-			while ($i < mysql_num_fields($this->result)) {
-				$this->col_info[$i] = mysql_fetch_field($this->result);
+			while ($i < mysql_num_fields($result)) {
+				$this->col_info[$i] = mysql_fetch_field($result);
 				$i++;
 			}
 
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = mysql_fetch_object($this->result)) {
+			while ($row = mysql_fetch_object($result)) {
 				// Store relults as an objects within main array
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
 			}
 
-			mysql_free_result($this->result);
+			mysql_free_result($result);
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;
