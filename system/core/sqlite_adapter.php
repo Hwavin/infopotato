@@ -43,12 +43,7 @@ class SQLite_Adapter {
 	 * @var  string  The last error during query.
 	 */
 	public $last_error;
-	
-	/**
-	 * @var  string  Saved info on the table column
-	 */
-	public $col_info;
-	
+
 	/**
 	 * @var  array  errors captured
 	 */
@@ -114,7 +109,7 @@ class SQLite_Adapter {
 		// If enabled, the last error message will always be present in the variable $php_errormsg.
 		ini_set('track_errors', 1);
 			
-		if (is_array($config) && count($config) > 0) {
+		if (is_array($config) && isset($config['path'])) {
 			$this->dbpath = $config['path'];
 		}
 		
@@ -184,7 +179,7 @@ class SQLite_Adapter {
 		// For reg expressions
 		$query = str_replace("/[\n\r]/", '', trim($query)); 
 
-		// Initialise return
+		// Initialize return flag
 		$return_val = 0;
 
 		// Flush cached values..
@@ -193,14 +188,14 @@ class SQLite_Adapter {
 		// Log how the function was called
 		$this->func_call = "\$db->query(\"$query\")";
 
-		// Keep track of the last query for debug..
+		// Keep track of the last query for debug.
 		$this->last_query = $query;
 
-		// Perform the query via std sqlite_query function..
+		// Executes a query against a given database and returns a result handle (resource)
 		$result = sqlite_query($this->dbh, $query);
 		$this->num_queries++;
 
-		// If there is an error then take note of it..
+		// If there is an error then take note of it.
 		if (sqlite_last_error($this->dbh)) {
 			$err_str = sqlite_error_string(sqlite_last_error($this->dbh));
 			$this->register_error($err_str);
@@ -209,7 +204,7 @@ class SQLite_Adapter {
 		}
 		
 		// Query was an insert, delete, update, replace
-		if ( preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
+		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
 			$this->rows_affected = sqlite_changes($this->dbh);
 			
 			// Take note of the insert_id
@@ -219,18 +214,7 @@ class SQLite_Adapter {
 			
 			// Return number fo rows affected
 			$return_val = $this->rows_affected;
-		}
-		// Query was an select
-		else {
-			// Take note of column info	
-			$i = 0;
-			while ($i < sqlite_num_fields($result)) {
-				$this->col_info[$i]->name = sqlite_field_name($result, $i);
-				$this->col_info[$i]->type = NULL;
-				$this->col_info[$i]->max_length = NULL;
-				$i++;
-			}
-			
+		} else {
 			// Store Query Results
 			$num_rows = 0;
 			while ($row = sqlite_fetch_array($result, SQLITE_ASSOC)) {
@@ -286,9 +270,7 @@ class SQLite_Adapter {
 	 * Kill cached query results.
 	 */
 	public function flush() {
-		// Get rid of these
 		$this->last_result = NULL;
-		$this->col_info = NULL;
 		$this->last_query = NULL;
 		$this->from_disk_cache = FALSE;
 	}
@@ -402,7 +384,7 @@ class SQLite_Adapter {
 		// Send back array of objects. Each row is an object
 		if ($output == OBJECT) {
 			return $this->last_result;
-		} elseif ($output == ARRAY_A OR $output == ARRAY_N) {
+		} elseif ($output == ARRAY_A || $output == ARRAY_N) {
 			if ($this->last_result) {
 				$i = 0;
 				foreach((array)$this->last_result as $row) {
@@ -420,34 +402,6 @@ class SQLite_Adapter {
 		}
 	}
 
-
-	/**
-	 * Returns meta information about one or all columns such as column name or type.
-	 *
-	 * If no information type is supplied then the default information type of name is used. 
-	 * If no column offset is supplied then a one dimensional array is returned with the information type for 'all columns'.
-	 * For access to the full meta information for all columns you can use the cached variable $db->col_info
-	 * 
-	 * @param string $info_type one of name, table, def, max_length, not_null, primary_key, multiple_key, unique_key, numeric, blob, type, unsigned, zerofill
-	 * @param int $col_offset 0: col name. 1: which table the col's in. 2: col's max length. 3: if the col is numeric. 4: col's type
-	 * @return mixed Column Results
-	 */
-	public function get_col_info($info_type = 'name', $col_offset = -1) {
-		if ($this->col_info) {
-			if ($col_offset == -1) {
-				$i = 0;
-				foreach ((array)$this->col_info as $col) {
-					$new_array[$i] = $col->{$info_type};
-					$i++;
-				}
-				return $new_array;
-			} else {
-				return $this->col_info[$col_offset]->{$info_type};
-			}
-		}
-
-	}
-	
 	/**
 	 * store_cache
 	 */
@@ -463,7 +417,6 @@ class SQLite_Adapter {
 			} else {
 				// Cache all result values
 				$result_cache = array(
-					'col_info' => $this->col_info,
 					'last_result' => $this->last_result,
 					'num_rows' => $this->num_rows,
 					'return_value' => $this->num_rows,
@@ -490,7 +443,6 @@ class SQLite_Adapter {
 			} else {
 				$result_cache = unserialize(file_get_contents($cache_file));
 
-				$this->col_info = $result_cache['col_info'];
 				$this->last_result = $result_cache['last_result'];
 				$this->num_rows = $result_cache['num_rows'];
 
