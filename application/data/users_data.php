@@ -2,7 +2,7 @@
 class Users_Data extends Data {
 	public function __construct() {
 		// Use default database connection config
-		parent::__construct('default');
+		parent::__construct('mysql_adapter:default');
 	}
 
 	public function get_user_info($id) { 
