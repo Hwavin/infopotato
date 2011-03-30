@@ -355,7 +355,7 @@ class Worker {
 	 * @param	array	the optional config parameters
 	 * @return	void
 	 */	   
-	protected function load_library($library, $alias = '', $config = array()) {
+	protected function load_library($scope, $library, $alias = '', $config = array()) {
 		$library = strtolower($library);
 
 		// Is the library in a sub-folder? If so, parse out the filename and path.
@@ -382,6 +382,16 @@ class Worker {
 		// Library already loaded? silently skip
 		if (isset($this->$alias)) {
 			return TRUE;
+		}
+		
+		if ($scope === 'SYS') {
+			$file_path = SYS_DIR.'libraries'.DS.$path.$library.'.php';
+		} elseif ($scope === 'APP') {
+			$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
+		} else {
+			if (ENVIRONMENT === 'development') {
+				Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
+			}
 		}
 		
 		$file_path = SYS_DIR.'libraries'.DS.$path.$library.'.php';

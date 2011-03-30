@@ -4,8 +4,6 @@
  * This file is responsible for initializing the framework: loading files, reading co nfiguration data, 
  * parsing the URL into actionable information, and populating the objects that encapsulate the request. 
  * Finally, it is responsible for initializing the presenter/action.
- *
- * Revised date 03/21/2011
  */
 
 if (version_compare(PHP_VERSION, '5.2.0', '<')) {
@@ -71,6 +69,7 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_WORKER_DIR', APP_DIR.'workers'.DS);
+define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
 
 /**
  * Default presenter/action if none is given in the URL, case-sensetive 

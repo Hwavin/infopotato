@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Global Functions
+<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Global Constants and Functions
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,7 +9,7 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Global Functions</h1>	
+<h1 class="first_heading">Global Constants and Functions</h1>	
 
 <p>InfoPotato uses a few functions for its operation that are globally defined, and are available to you at any point. These do not require loading any libraries or helpers.</p> 
  

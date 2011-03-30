@@ -46,7 +46,7 @@ For a long time, I thought InfoPotato should follow the MVC architectural patter
 
 <ul> 
 <li>DRY &mdash; "Don't Repeat Yourself" &mdash; suggests that writing the same code over and over again is a bad thing.</li> 
-<li>Convention Over Configuration &#8211; means that Rails makes assumptions about what you want to do and how you're going to do it, rather than requiring you to specify every little thing through endless configuration files.</li> 
+<li>Convention Over Configuration &#8211; means that InfoPotato makes assumptions about what you want to do and how you're going to do it, rather than requiring you to specify every little thing through endless configuration files.</li> 
 <li>REST (Representational State Transfer) is the best pattern for web applications &dash; organizing your application around resources and standard HTTP verbs is the fastest way to go.</li> 
 </ul> 
 

@@ -41,7 +41,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <h3>Core Topics</h3> 
 <ul> 
 <li><a href="<?php echo BASE_URI; ?>documentation/appflow/">Application Execution Flow</a></li> 
-<li><a href="<?php echo BASE_URI; ?>documentation/global_function/">Global Functions</a></li> 
+<li><a href="<?php echo BASE_URI; ?>documentation/global/">Global Constants and Functions</a></li> 
 <li><a href="<?php echo BASE_URI; ?>documentation/uri/">URI</a></li> 
 <li><a href="<?php echo BASE_URI; ?>documentation/worker/">Worker</a></li> 
 <li><a href="<?php echo BASE_URI; ?>documentation/template/">Template</a></li> 
