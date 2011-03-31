@@ -24,6 +24,17 @@ return array(
 		),
 	),
 	
+	// PostgreSQL
+	'postgresql_adapter' => array(
+		'default' => array(
+			'host' => 'localhost', // The hostname of your database server.
+			'name' => 'users', // The name of the database you want to connect to
+			'user' => 'root', // The username used to connect to the database
+			'pass' => '', // The password used to connect to the database
+			'charset' => 'UTF8', // The character collation used in communicating with the database
+		),
+	),
+	
 	// SQLite
 	'sqlite_adapter' => array(
 		'test' => array(
