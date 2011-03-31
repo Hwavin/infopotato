@@ -48,9 +48,10 @@ class Data {
 		if ( ! empty($conn)) {
 			// Load data source config
 			$data_source = require_once(APP_CONFIG_DIR.'data_source.php');
-			
-			// Load desired database adapter
-			require_once(SYS_DIR.'core'.DS.strtolower($conn[0]).'.php');
+			// Checks if worker file exists 
+			if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
+				Global_Functions::show_sys_error('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
+			}
 			// Create instance
 			$db_obj[$connection] = new $conn[0]($data_source[$conn[0]][$conn[1]]);
 			return $db_obj[$connection];

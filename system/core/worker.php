@@ -310,9 +310,7 @@ class Worker {
 		}
 		
 		if (method_exists($this, $alias)) {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
 		}
 		// Data already loaded? silently skip
 		if (isset($this->$alias)) {
@@ -322,17 +320,13 @@ class Worker {
 		$file_path = APP_DATA_DIR.$path.$data.'.php';
 
 		if ( ! file_exists($file_path)) {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$data}'", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$data}'", 'sys_error');
 		}
 		require_once($file_path);
 		
 		// Class name must be the same as the data name
 		if ( ! class_exists($data)) {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
 		}
 
 		// Instantiate the data object as a worker's property 
@@ -374,9 +368,7 @@ class Worker {
 		}
 		
 		if (method_exists($this, $alias)) {	
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
 		}
 		
 		// Library already loaded? silently skip
@@ -389,25 +381,19 @@ class Worker {
 		} elseif ($scope === 'APP') {
 			$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
 		} else {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
 		}
 		
 		$file_path = SYS_DIR.'libraries'.DS.$path.$library.'.php';
 
 		if ( ! file_exists($file_path)) {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$library}'", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$library}'", 'sys_error');
 		}
 		require_once($file_path);
 		
 		// Class name must be the same as the library name
 		if ( ! class_exists($library)) {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
 		}
 
 		// Instantiate the library object as a presenter's property 
@@ -425,9 +411,7 @@ class Worker {
 	 * Gets triggered when an inaccessible methods requested
 	 */    
 	public function __call($method, $args) {
-		if (ENVIRONMENT === 'development') {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
-		}
+		Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
 	}
 
 }

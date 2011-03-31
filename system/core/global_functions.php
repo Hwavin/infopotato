@@ -21,12 +21,14 @@ class Global_Functions {
 	 * @return	string
 	 */
 	public static function show_sys_error($heading, $message, $template = 'sys_error') {
-		ob_start();
-		include(SYS_DIR.'core'.DS.'sys_templates'.DS.$template.'.php');
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		echo $buffer;
-		exit;
+		if (ENVIRONMENT === 'development') {
+			ob_start();
+			include(SYS_DIR.'core'.DS.'sys_templates'.DS.$template.'.php');
+			$buffer = ob_get_contents();
+			ob_end_clean();
+			echo $buffer;
+			exit;
+		}
 	}
 
 	/**
@@ -67,17 +69,13 @@ class Global_Functions {
 		}
 		
 		if ( ! preg_match('!^[a-z][a-z_]+$!', $script)) {
-			if (ENVIRONMENT === 'development') {
-				self::show_sys_error('A System Error Was Encountered', "Invalid script name '{$script}'", 'error_general');
-			}
+			self::show_sys_error('A System Error Was Encountered', "Invalid script name '{$script}'", 'sys_error');
 		}
 		// Currently, all script functions are placed in system/scripts folder
 		$file_path = SYS_DIR.'scripts'.DS.$path.$script.'.php';
 		
 		if ( ! file_exists($file_path)) {
-			if (ENVIRONMENT === 'development') {
-				self::show_sys_error('An Error Was Encountered', "Unknown script file '{$script}'", 'error_general');		
-			}
+			self::show_sys_error('An Error Was Encountered', "Unknown script file '{$script}'", 'sys_error');		
 		}
 		return require_once($file_path);
 	}
