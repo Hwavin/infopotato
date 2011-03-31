@@ -122,9 +122,7 @@ class Worker {
 		
 		ob_start();
 		if ( ! file_exists($template_file_path)) {
-			if (ENVIRONMENT === 'development') {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$template}'", 'sys_error');
-			}
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$template}'", 'sys_error');
 		} else {
 			// Bring template vars into template scope
 			// Import variables from an array into the current symbol table.
