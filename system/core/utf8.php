@@ -639,10 +639,7 @@ class UTF8 {
 		
 		$ord = ord($first);
 		if ($digits > 21 || $ord == 0xC0 || $ord == 0xC1 || $ord > 0xF4) {
-			throw new fProgrammerException(
-				'The code point specified, %s, is invalid.',
-				$unicode_code_point
-			);
+			Global_Functions::show_sys_error('A System Error Was Encountered', "The code point specified {$unicode_code_point} is invalid", 'sys_error');
 		}
 		
 		return $first . $second . $third . $fourth;
@@ -660,18 +657,12 @@ class UTF8 {
 			if (self::$can_ignore_invalid === NULL) {
 				self::$can_ignore_invalid = strtolower(ICONV_IMPL) != 'unknown';	
 			}
-			if (!self::$can_ignore_invalid) {
-				fCore::startErrorCapture(E_NOTICE);
-			}
 			return iconv('UTF-8', 'UTF-8' . (self::$can_ignore_invalid ? '//IGNORE' : ''), (string) $value);
-			if ( ! self::$can_ignore_invalid) {
-				fCore::stopErrorCapture();
-			}
 		}
 		
 		$keys = array_keys($value);
 		$num_keys = sizeof($keys);
-		for ($i=0; $i<$num_keys; $i++) {
+		for ($i=0; $i < $num_keys; $i++) {
 			$value[$keys[$i]] = self::clean($value[$keys[$i]]);
 		}
 		
@@ -1102,9 +1093,7 @@ class UTF8 {
 		}
 		
 		if ($invalid) {
-			printf(
-				'The UTF-8 character specified is invalid'
-			);
+			Global_Functions::show_sys_error('A System Error Was Encountered', 'The UTF-8 character specified is invalid', 'sys_error');
 		}
 		
 		$hex = strtoupper(dechex(bindec($bin)));
@@ -1124,11 +1113,7 @@ class UTF8 {
 	public static function pad($string, $pad_length, $pad_string = ' ', $pad_type = 'right') {
 		$valid_pad_types = array('right', 'left', 'both');
 		if ( ! in_array($pad_type, $valid_pad_types)) {
-			printf(
-				'The pad type specified, %1$s, is not valid. Must be one of: %2$s.',
-				$pad_type,
-				join(', ', $valid_pad_types)
-			);
+			Global_Functions::show_sys_error('A System Error Was Encountered', "The pad type specified, {$pad_type}, is not valid. Must be one of: ".implode(', ', $valid_pad_types), 'sys_error');
 		}
 		
 		// We get better performance falling back for ASCII strings
