@@ -206,6 +206,39 @@ class MySQL_Adapter extends DB_Adapter{
 	public function now() {
 		return 'NOW()';
 	}
+	
+	/**
+	 * Begin Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_begin() {
+		$this->query('SET AUTOCOMMIT=0');
+		$this->query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
+	}
+	
+	/**
+	 * Commit Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_commit() {
+		$this->query('COMMIT');
+		$this->query('SET AUTOCOMMIT=1');
+	}
+	
+	/**
+	 * Rollback Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_rollback() {
+		$this->query('ROLLBACK');
+		$this->query('SET AUTOCOMMIT=1');
+	}
 
 }
 

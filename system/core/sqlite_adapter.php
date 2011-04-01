@@ -144,6 +144,36 @@ class SQLite_Adapter extends DB_adapter {
 	public function now() {
 		return 'now';
 	}
+	
+	/**
+	 * Begin Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_begin() {
+		$this->query('BEGIN TRANSACTION');
+	}
+	
+	/**
+	 * Commit Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_commit() {
+		$this->query('COMMIT');
+	}
+	
+	/**
+	 * Rollback Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_rollback() {
+		$this->query('ROLLBACK');
+	}
 
 }
 

@@ -185,6 +185,36 @@ class PostgreSQL_Adapter extends DB_Adapter {
 		return 'now()';
 	}
 
+	/**
+	 * Begin Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_begin() {
+		$this->query('begin');
+	}
+	
+	/**
+	 * Commit Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_commit() {
+		$this->query('commit');
+	}
+	
+	/**
+	 * Rollback Transaction using standard sql
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_rollback() {
+		$this->query('rollback');
+	}
+	
 }
 
 // End of file: ./system/core/postgresql_adapter.php

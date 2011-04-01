@@ -287,6 +287,36 @@ class DB_Adapter {
 	}
 
 	/**
+	 * Begin Transaction
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_begin() {
+
+	}
+	
+	/**
+	 * Commit Transaction
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_commit() {
+
+	}
+	
+	/**
+	 * Rollback Transaction
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function trans_rollback() {
+
+	}
+	
+	/**
 	 * Dumps the contents of any input variable to screen in a nicely
 	 * formatted and easy to understand way - any type: Object, Var or Array
 	 */
