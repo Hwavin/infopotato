@@ -138,14 +138,8 @@ class MySQLi_Adapter extends DB_Adapter {
 		// For reg expressions
 		$query = trim($query);
 
-		// Log how the function was called
-		$this->func_call = "\$db->query(\"$query\")";
-
 		// Keep track of the last query for debug.
 		$this->last_query = $query;
-
-		// Count how many queries there have been
-		$this->num_queries++;
 
 		// Use core file cache function
 		if ($cache = $this->get_cache($query)) {

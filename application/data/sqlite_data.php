@@ -7,7 +7,7 @@ class SQLite_Data extends Data {
 
 	public function get_user_info($id) { 
 		$sql = $this->db->prepare("SELECT * FROM t1 WHERE id=?", array($id));
-		$this->db->vardump($this->db->get_row($sql, ARRAY_A));
+		//$this->db->vardump($this->db->get_row($sql, ARRAY_A));
 
 		return $this->db->get_row($sql, ARRAY_A);
 	}
@@ -26,6 +26,7 @@ class SQLite_Data extends Data {
 		if ($this->db->query($sql) === FALSE) {
 			$return_val = FALSE;
 		}	
+		//$this->db->vardump($this->db->query($sql));
 		return $return_val;
 	}
 }

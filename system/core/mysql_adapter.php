@@ -140,7 +140,6 @@ class MySQL_Adapter extends DB_Adapter{
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
 	public function query($query) {
-		// Initialise return
 		$return_val = 0;
 
 		// Flush cached values.
@@ -149,14 +148,8 @@ class MySQL_Adapter extends DB_Adapter{
 		// For reg expressions
 		$query = trim($query);
 
-		// Log how the function was called
-		$this->func_call = "\$db->query(\"$query\")";
-
 		// Keep track of the last query for debug.
 		$this->last_query = $query;
-
-		// Count how many queries there have been
-		$this->num_queries++;
 
 		// Use core file cache function
 		if ($cache = $this->get_cache($query)) {
@@ -164,7 +157,7 @@ class MySQL_Adapter extends DB_Adapter{
 		}
 		// Perform the query via std mysql_query function.
 		$result = mysql_query($query, $this->dbh);
-
+		
 		// If there is an error then take note of it.
 		if ($err_msg = mysql_error($this->dbh)) {
 			$is_insert = TRUE;

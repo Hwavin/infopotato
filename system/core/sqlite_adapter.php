@@ -85,7 +85,7 @@ class SQLite_Adapter extends DB_adapter {
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
 	public function query($query) {
-		// For reg expressions
+		// For reg exp
 		$query = str_replace("/[\n\r]/", '', trim($query)); 
 
 		// Initialize return flag
@@ -94,15 +94,11 @@ class SQLite_Adapter extends DB_adapter {
 		// Flush cached values..
 		$this->flush();
 
-		// Log how the function was called
-		$this->func_call = "\$db->query(\"$query\")";
-
 		// Keep track of the last query for debug.
 		$this->last_query = $query;
 
 		// Executes a query against a given database and returns a result handle (resource)
 		$result = sqlite_query($this->dbh, $query);
-		$this->num_queries++;
 
 		// If there is an error then take note of it.
 		if (sqlite_last_error($this->dbh)) {
