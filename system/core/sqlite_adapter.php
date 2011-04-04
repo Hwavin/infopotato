@@ -1,6 +1,7 @@
 <?php
 /**
  * SQLite adapter
+ * The username/password is not supported by the sqlite/sqlite3 package
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -62,9 +63,11 @@ class SQLite_Adapter extends DB_adapter {
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh) {
-					$v = sqlite_escape_string(stripslashes(preg_replace("/[\r\n]/", '', $v))); 
+					$v = sqlite_escape_string($v); 
 				} else {
-					$v = addslashes($v);
+					// addslashes() should NOT be used to quote your strings for SQLite queries; 
+					// it will lead to strange results when retrieving your data.
+					//$v = addslashes($v);
 				}
 			} 	
 			// In case someone mistakenly already singlequoted it

@@ -2,6 +2,12 @@
 /**
  * Database Access Abstraction Object
  *
+ * The following databases are supported:
+ *
+ *  - [http://mysql.com MySQL]
+ *  - [http://postgresql.org PostgreSQL]
+ *  - [http://sqlite.org SQLite]
+ *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * Original code from {@link http://php.justinvincent.com Justin Vincent (justin@visunet.ie)}
@@ -61,7 +67,7 @@ class DB_Adapter {
 
 	/**
 	 * Constructor
-	 * 
+	 * Closing isn't usually necessary, as non-persistent open links are automatically closed at the end of the script's execution.
 	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
 	public function __construct($config = array()) {
@@ -114,7 +120,7 @@ class DB_Adapter {
 	/**
 	 * Kill cached query results.
 	 */
-	public function flush() {
+	protected function flush() {
 		$this->last_result = NULL;
 		$this->last_query = NULL;
 		$this->from_disk_cache = FALSE;

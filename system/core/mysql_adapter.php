@@ -209,7 +209,8 @@ class MySQL_Adapter extends DB_Adapter{
 	
 	/**
 	 * Begin Transaction using standard sql
-	 *
+	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
+	 * 
 	 * @access	public
 	 * @return	bool
 	 */

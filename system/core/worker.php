@@ -153,16 +153,11 @@ class Worker {
      */   
 	protected function response($config = array()) {
 		if (isset($config['content']) && isset($config['type'])) {
+			// Response headers
 			$headers = array();
-            
-			// The number of bytes of the response body in octets (8-bit bytes), not the number of characters
-			$use_mb_strlen = (function_exists('mb_strlen') && (ini_get('mbstring.func_overload') !== '') && ((int) ini_get('mbstring.func_overload') & 2));
-			
-			// RFC 2616: Applications SHOULD use this field to indicate the transfer-length of the message-body, unless this is prohibited by the rules in section 4.4.
-			// http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.4
-			//$headers['Content-Length'] = $use_mb_strlen ? (string) mb_strlen($config['content'], '8bit') : (string) strlen(utf8_decode($config['content']));
-			
-			// MIME types need utf-8 charset encoding
+
+			// MIME types need utf-8 charset encoding and compression
+			// Do not utf-8 encode and HTTP compress images and PDF files
 			$mime_types = array(
 				'text/html', 
 				'text/plain', 
@@ -172,33 +167,41 @@ class Worker {
 				'application/json',
 				'text/csv',
 			);
+			
 			// Explicitly specify the charset parameter (utf-8) of the text document
 			// The value of charset should be case insensitive - browsers shouldn't care.
 			$headers['Content-Type'] = in_array($config['type'], $mime_types) ? $config['type'].'; charset=utf-8' : $config['type'];
 
-			$compression_method = self::_get_accepted_compression_method();
-			
-			// Return the compressed content or FALSE if an error occurred or the content was uncompressed
-			$compressed = isset($config['compression_level']) 
-						  ? self::_compress($config['content'], $compression_method, $config['compression_level']) 
-						  : self::_compress($config['content'], $compression_method);
-			
-			// If compressed, the header "Vary: Accept-Encoding" and "Content-Encoding" added, 
-			// and the "Content-Length" header updated.
-			if ($compressed !== FALSE) {
-				$headers['Vary'] = 'Accept-Encoding';
-				$headers['Content-Encoding'] = $compression_method[1];
+			// By default, compress all text based files
+			// Note: Image and PDF files should not be gzipped because they are already compressed. 
+			// Trying to gzip them not only wastes CPU but can potentially increase file sizes.
+			$is_compressed = FALSE;
+			if (in_array($config['type'], $mime_types)) {
 				// The number of bytes of the response body in octets (8-bit bytes), not the number of characters
-				//$headers['Content-Length'] = (string) strlen($compressed);
+				$headers['Content-Length'] = (string) UTF8::len($config['content']);
+				$compression_method = self::_get_accepted_compression_method();
+				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
+				$compressed = isset($config['compression_level']) 
+							  ? self::_compress($config['content'], $compression_method, $config['compression_level']) 
+							  : self::_compress($config['content'], $compression_method);
+				
+				// If compressed, the header "Vary: Accept-Encoding" and "Content-Encoding" added, 
+				// and the "Content-Length" header updated.
+				if ($compressed !== FALSE) {
+					$headers['Vary'] = 'Accept-Encoding';
+					$headers['Content-Encoding'] = $compression_method[1];
+					$headers['Content-Length'] = (string) UTF8::len($compressed);
+					$is_compressed = TRUE;
+				}
 			}
-		
-			// Send server headers
+			
+			// Send server response headers
 			foreach ($headers as $name => $val) {
 				header($name.': '.$val);
 			}
 
 			// Content was actually compressed? If not, output the uncompressed content
-			echo ($compressed !== FALSE) ? $compressed : $config['content'];	
+			echo ($is_compressed === TRUE) ? $compressed : $config['content'];	
         }
 	}
 
