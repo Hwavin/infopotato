@@ -49,7 +49,6 @@ date_default_timezone_set('America/New_York');
 
 /**
  * Set public accessible web root, ending with the trailing slash '/'
- * This BASE_URI constant will be available globally 
  */
 define('BASE_URI', 'http://localhost/infopotato/index.php/');
 
@@ -64,14 +63,14 @@ define('DS', DIRECTORY_SEPARATOR);
  */
 define('SYS_DIR', dirname(__FILE__).DS.'system'.DS);
 define('APP_DIR', dirname(__FILE__).DS.'application'.DS);
-define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_WORKER_DIR', APP_DIR.'workers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
+define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 
 /**
- * Default presenter/action if none is given in the URL, case-sensetive 
+ * Default worker if none is given in the URL, case-sensetive 
  */
 define('DEFAULT_WORKER', 'home');
 
@@ -87,7 +86,7 @@ define('PERMITTED_URI_CHARS', 'a-z 0-9~%@.:_\-');
 /**
  * User-defined constants go here
  */
-define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
+//define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
 //define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
 //define('APP_DOWNLOAD_DIR', APP_DIR.'download'.DS);
 //define('APP_SESSION_DIR', APP_DIR.'session'.DS);

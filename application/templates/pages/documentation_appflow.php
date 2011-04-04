@@ -38,46 +38,24 @@ InfoPotato handles user requests and organizes the execution flow of an applicat
 
 <ol> 
 <li>
-Capture the browser request in a <tt class="xref docutils literal"><span class="pre">Request</span></tt> object.
+The end users interact with the clients (browsers, web services clients) and the clients send requests to the web server.
 </li> 
 <li>
-Pass the <tt class="xref docutils literal"><span class="pre">Request</span></tt> object to the <tt class="xref docutils literal"><span class="pre">run()</span></tt> method of the application
-object.
+The web server receives the request and passes it to index.php, which is the single point of entry script. InfoPotato implements a centralized PHP script that is called index.php which handles all HTTP incoming requests on a website. This entry script is responsible for initializing the framework: loading files, reading configuration data.
 </li> 
 <li>
-Application locates the Python code for processing the browser request.
+Inside index.php are some required configs to run InfoPotato's application. Then it initializes an InfoPotato Application object and everything is done. After bootstrapping via index.php, a class called InfoPotato_App is instantiated and takes over. This class is responsible for interpreting request variables and parameters to a user-defined class, which is called a Worker.
 </li> 
 <li>
-Page processing code runs one or more Albatross templates.
+InfoPotato_App is the subclass of InfoPotato, which provides the actual implementation. Developers can write their own InfoPotato_App class and customize some functionalities of InfoPotato.
 </li> 
 <li>
-Templates contain either standard Albatross tags or application defined extension tags.
+The InfoPotato class gets the incoming request and analysizes the request method (POST, GET, PUT, DELETE) and URI, then decide which worker and method function to assign this request to for further process.
 </li> 
 <li>
-As tags are converted to HTML a stream of content fragments is sent to the execution context.
-</li> 
-<li>
-When the execution context content is flushed all of the fragments are joined together.
-</li> 
-<li>
-Joined flushed content is sent to the <tt class="xref docutils literal"><span class="pre">Request</span></tt> object <tt class="xref docutils literal"><span class="pre">write_content()</span></tt> method.
-</li> 
-<li>
-Application response is returned to the browser.
+The target worker gets the request and runs the corresponding method to do all the dirty work to prepare the request and response back to the clients with the desired resources. Based on the request method (POST, GET, PUT, DELETE), the corresponding worker method will load and instantiate data classes, any needed libraries, fetch the corresponding template files and output the rendered view to browser and some requesting web services.
 </li> 
 </ol> 
-
-<p>
-InfoPotato implements a centralized PHP script that is called index.php which handles all HTTP requests on a web site. This entry script is responsible for initializing the framework: loading files, reading configuration data, parsing the URL into actionable information, and populating the objects that encapsulate the request. Finally, it is responsible for initializing the presenter/action.
-</p>
-
-<p>
-After bootstrapping via index.php, a class called InfoPotato is instantiated and takes over. This class is responsible for interpreting request variables and parameters to a user-defined class, which is called a Worker. Usually, an worker will implement a standard interface or descend from an abstract class.
-</p>
-
-<p>
-The InfoPotato will then invoke a default method called process(). This method is responsible for all the dirty work. In this method, you will load and instantiate model classes, any needed libraries, fetch the corresponding view files and output the rendered view to browser and some requesting web services.
-</p>
  
 </div> 
 <!-- end onecolumn -->

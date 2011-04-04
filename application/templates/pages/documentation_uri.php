@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; URI &amp; URI Routing
+<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; URI
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,14 +9,14 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">URI &amp; URI Routing</h1>	
+<h1 class="first_heading">URI</h1>	
 
 <p>
 URIs in InfoPotato are composed of segments. A typical segmented URI ffollows this pattern:
 </p>
 
 <div class="greybox">
-http://localhost/mvc/index.php/<span class="red">controller</span>/<span class="blue">action</span>/<span class="green">arg1</span>/<span class="green">arg2</span>
+http://localhost/mvc/index.php/<span class="red">worker</span>/<span class="green">param1</span>/<span class="green">param2</span>
 </div>
 
 <p>
