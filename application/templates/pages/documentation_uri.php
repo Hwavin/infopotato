@@ -10,6 +10,195 @@
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">URI</h1>	
+<a href="http://en.wikipedia.org/wiki/Percent-encoding">http://en.wikipedia.org/wiki/Percent-encoding</a>
+
+<H2>Types of URI characters</H2>
+<p>
+The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> (or a percent character as part of a percent-encoding). <i>Reserved</i> characters are those characters that sometimes have special meaning. For example, <a href="/wiki/Forward_slash" class="mw-redirect" title="Forward slash">forward slash</a> characters are used to separate different parts of a URL (or more generally, a URI). <i>unreserved</i> characters have no such meanings. Using percent-encoding, reserved characters are represented using special character sequences. The sets of reserved and unreserved characters and the circumstances under which certain reserved characters have special meaning have changed slightly with each revision of specifications that govern URIs and URI schemes.
+</p> 
+
+<table cellpadding="6px"> 
+<caption><a href="http://tools.ietf.org/html/rfc3986" class="external mw-magiclink-rfc">RFC 3986</a> section 2.2 <i>Reserved Characters</i> (January 2005)</caption> 
+<tr> 
+<td><code>!</code></td> 
+<td><code>*</code></td> 
+<td><code>'</code></td> 
+<td><code>(</code></td> 
+<td><code>)</code></td> 
+<td><code>;</code></td> 
+<td><code>:</code></td> 
+<td><code>@</code></td> 
+<td><code>&amp;</code></td> 
+<td><code>=</code></td> 
+<td><code>+</code></td> 
+<td><code>$</code></td> 
+<td><code>,</code></td> 
+<td><code>/</code></td> 
+<td><code>?</code></td> 
+<td><code>#</code></td> 
+<td><code>[</code></td> 
+<td><code>]</code></td> 
+</tr> 
+</table>
+
+<table cellpadding="6px"> 
+<caption><a href="http://tools.ietf.org/html/rfc3986" class="external mw-magiclink-rfc">RFC 3986</a> section 2.3 <i>Unreserved Characters</i> (January 2005)</caption> 
+<tr> 
+<td><code>A</td> 
+<td><code>B</code></td> 
+<td><code>C</code></td> 
+<td><code>D</code></td> 
+<td><code>E</code></td> 
+<td><code>F</code></td> 
+<td><code>G</code></td> 
+<td><code>H</code></td> 
+<td><code>I</code></td> 
+<td><code>J</code></td> 
+<td><code>K</code></td> 
+<td><code>L</code></td> 
+<td><code>M</code></td> 
+<td><code>N</code></td> 
+<td><code>O</code></td> 
+<td><code>P</code></td> 
+<td><code>Q</code></td> 
+<td><code>R</code></td> 
+<td><code>S</code></td> 
+<td><code>T</code></td> 
+<td><code>U</code></td> 
+<td><code>V</code></td> 
+<td><code>W</code></td> 
+<td><code>X</code></td> 
+<td><code>Y</code></td> 
+<td><code>Z</code></td> 
+</tr> 
+<tr> 
+<td><code>a</code></td> 
+<td><code>b</code></td> 
+<td><code>c</code></td> 
+<td><code>d</code></td> 
+<td><code>e</code></td> 
+<td><code>f</code></td> 
+<td><code>g</code></td> 
+<td><code>h</code></td> 
+<td><code>i</code></td> 
+<td><code>j</code></td> 
+<td><code>k</code></td> 
+<td><code>l</code></td> 
+<td><code>m</code></td> 
+<td><code>n</code></td> 
+<td><code>o</code></td> 
+<td><code>p</code></td> 
+<td><code>q</code></td> 
+<td><code>r</code></td> 
+<td><code>s</code></td> 
+<td><code>t</code></td> 
+<td><code>u</code></td> 
+<td><code>v</code></td> 
+<td><code>w</code></td> 
+<td><code>x</code></td> 
+<td><code>y</code></td> 
+<td><code>z</code></td> 
+</tr> 
+<tr> 
+<td><code>0</code></td> 
+<td><code>1</code></td> 
+<td><code>2</code></td> 
+<td><code>3</code></td> 
+<td><code>4</code></td> 
+<td><code>5</code></td> 
+<td><code>6</code></td> 
+<td><code>7</code></td> 
+<td><code>8</code></td> 
+<td><code>9</code></td> 
+<td><code>-</code></td> 
+<td><code>_</code></td> 
+<td><code>.</code></td> 
+<td><code>~</code></td> 
+<td colspan="13"></td> 
+</tr> 
+</table> 
+
+<table cellpadding="6px"> 
+<caption>Reserved characters after percent-encoding</caption> 
+<tr> 
+<td><code>!</code></td> 
+<td><code>*</code></td> 
+<td><code>'</code></td> 
+<td><code>(</code></td> 
+<td><code>)</code></td> 
+<td><code>;</code></td> 
+<td><code>:</code></td> 
+<td><code>@</code></td> 
+<td><code>&amp;</code></td> 
+<td><code>=</code></td> 
+<td><code>+</code></td> 
+<td><code>$</code></td> 
+<td><code>,</code></td> 
+<td><code>/</code></td> 
+<td><code>?</code></td> 
+<td><code>#</code></td> 
+<td><code>[</code></td> 
+<td><code>]</code></td> 
+</tr> 
+<tr> 
+<td><code>%21</code></td> 
+<td><code>%2A</code></td> 
+<td><code>%27</code></td> 
+<td><code>%28</code></td> 
+<td><code>%29</code></td> 
+<td><code>%3B</code></td> 
+<td><code>%3A</code></td> 
+<td><code>%40</code></td> 
+<td><code>%26</code></td> 
+<td><code>%3D</code></td> 
+<td><code>%2B</code></td> 
+<td><code>%24</code></td> 
+<td><code>%2C</code></td> 
+<td><code>%2F</code></td> 
+<td><code>%3F</code></td> 
+<td><code>%23</code></td> 
+<td><code>%5B</code></td> 
+<td><code>%5D</code></td> 
+</tr> 
+</table> 
+
+<table cellpadding="6px"> 
+<caption>Common characters after percent-encoding (ASCII or UTF-8 based)</caption> 
+<tr> 
+<td><code>&lt;</code></td> 
+<td><code>&gt;</code></td> 
+<td><code>~</code></td> 
+<td><code>.</code></td> 
+<td><code>"</code></td> 
+<td><code>{</code></td> 
+<td><code>}</code></td> 
+<td><code>|</code></td> 
+<td><code>\</code></td> 
+<td><code>-</code></td> 
+<td><code>`</code></td> 
+<td><code>_</code></td> 
+<td><code>^</code></td> 
+<td><code>%</code></td> 
+<td>space</td> 
+</tr> 
+<tr> 
+<td><code>%3C</code></td> 
+<td><code>%3E</code></td> 
+<td><code>%7E</code></td> 
+<td><code>%2E</code></td> 
+<td><code>%22</code></td> 
+<td><code>%7B</code></td> 
+<td><code>%7D</code></td> 
+<td><code>%7C</code></td> 
+<td><code>%5C</code></td> 
+<td><code>%2D</code></td> 
+<td><code>%60</code></td> 
+<td><code>%5F</code></td> 
+<td><code>%5E</code></td> 
+<td><code>%25</code></td> 
+<td><code>%20</code></td> 
+</tr> 
+</table> 
 
 <p>
 URIs in InfoPotato are composed of segments. A typical segmented URI ffollows this pattern:
@@ -47,81 +236,6 @@ example.com/product/4/
 <p>
 Normally the second segment of the URL is reserved for the function name, but in the example above it instead has a product ID. To overcome this, InfoPotato allows you to remap the URI handler.
 </p> 
- 
- 
-<h2>Setting your own routing rules</h2> 
- 
-<p>
-Routing rules are defined in your application/config/routes.php file.  In it you'll see an array called $route that permits you to specify your own routing criteria. Routes can either be specified using wildcards or Regular Expressions
-</p> 
- 
- 
-<h2>Wildcards</h2> 
- 
-<p>
-A typical wildcard route might look something like this:
-</p> 
- 
-<code>$route['product/:num'] = "catalog/product_lookup";</code> 
- 
-<p>
-In a route, the array key contains the URI to be matched, while the array value  contains the destination it should be re-routed to. In the above example, if the literal word "product" is found in the first segment of the URL, and a number is found in the second segment, the "catalog" class and the "product_lookup" method are instead used.
-</p> 
- 
-<p>
-You can match literal values or you can use two wildcard types:
-</p> 
- 
-<p><strong>(:num)</strong> will match a segment containing only numbers.<br /> 
-<strong>(:any)</strong> will match a segment containing any character.
-</p> 
- 
-<p class="important"><strong>Note:</strong> Routes will run in the order they are defined.
-Higher routes will always take precedence over lower ones.</p> 
- 
-<h2>Examples</h2> 
- 
-<p>Here are a few routing examples:</p> 
- 
-<code>$route['journals'] = "blogs";</code> 
-<p>A URL containing the word "journals" in the first segment will be remapped to the "blogs" class.</p> 
- 
-<code>$route['blog/joe'] = "blogs/users/34";</code> 
-<p>A URL containing the segments blog/joe will be remapped to the "blogs" class and the "users" method.  The ID will be set to "34".</p> 
- 
-<code>$route['product/(:any)'] = "catalog/product_lookup";</code> 
-<p>A URL with "product" as the first segment, and anything in the second will be remapped to the "catalog" class and the  "product_lookup" method.</p> 
- 
-<code>$route['product/(:num)'] = "catalog/product_lookup_by_id/$1";</code> 
-<p>A URL with "product" as the first segment, and a number in the second will be remapped to the "catalog" class and the "product_lookup_by_id" method passing in the match as a variable to the function.</p> 
- 
-<p class="important"><strong>Important:</strong> Do not use leading/trailing slashes.</p> 
- 
-<h2>Regular Expressions</h2> 
- 
-<p>If you prefer you can use regular expressions to define your routing rules.  Any valid regular expression is allowed, as are back-references.</p> 
- 
-<p class="important"><strong>Note:</strong>&nbsp; If you use back-references you must use the dollar syntax rather than the double backslash syntax.</p> 
- 
-<p>A typical RegEx route might look something like this:</p> 
- 
-<code>$route['products/([a-z]+)/(\d+)'] = "$1/id_$2";</code> 
- 
-<p>In the above example, a URI similar to <dfn>products/shirts/123</dfn> would instead call the <dfn>shirts</dfn> controller class and the <dfn>id_123</dfn> function.</p> 
- 
-<p>You can also mix and match wildcards with regular expressions.</p> 
- 
-<h2>Reserved Routes</h2> 
- 
-<p>There are two reserved routes:</p> 
- 
-<code>$route['default_controller'] = 'welcome';</code> 
- 
-<p>This route indicates which controller class should be loaded if the URI contains no data, which will be the case
-when people load your root URL. In the above example, the "welcome" class would be loaded.  You
-are encouraged to always have a default route otherwise a 404 page will appear by default.</p> 
- 
-<p class="important"><strong>Important:</strong>&nbsp; The reserved routes must come before any wildcard or regular expression routes.</p> 
 
 <h2>Hiding index.php</h2>
 

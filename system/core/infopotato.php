@@ -56,24 +56,25 @@ class InfoPotato {
 	public function run() {	
 		// Get the incoming HTTP request method (e.g., 'GET', 'POST', 'PUT', 'DELETE')
 		// 'PUT', 'DELETE' are not supported by most web browsers, but supported by cURL or other web services clients
-		$request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+		// The request methods will be lowercased and matched with the corresponding worker methods
+		$request_method = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'get';
 		
 		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default controller/action runs
 		// The URI string has already been decoded, like urldecode()
-		// No need to use UTF8::trim()
 		$this->uri_string = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 
 		// Get the target worker and its parameters
 		$segments = ! empty($this->uri_string) ? explode('/', $this->uri_string) : NULL;
 
-		// Filter URI chars
+		// Filter URI characters
 		if (isset($segments) && is_array($segments)) {
 			foreach ($segments as $val) {
 				$val = self::_filter_uri($val);
 			}
 		}
 		// Get worker, use default if none given 
-		$worker_name = ! empty($segments[0]) ? $segments[0] : DEFAULT_WORKER;
+		// All worker names are lowercased and no UTF8 encoded characters allowed
+		$worker_name = ! empty($segments[0]) ? strtolower($segments[0]) : strtolower(DEFAULT_WORKER);
 
 		// Get parameters and put them into an array
 		$params_cnt = count($segments);

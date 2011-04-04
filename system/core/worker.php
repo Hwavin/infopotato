@@ -106,6 +106,8 @@ class Worker {
 	 * @return  string rendered contents of template
 	 */    
 	protected function load_template($template, $template_vars = array()) {
+		$template = strtolower($template);
+		
 		// Is the template in a sub-folder? If so, parse out the filename and path.
 		if (strpos($template, '/') === FALSE) {
 			$path = '';
@@ -118,7 +120,7 @@ class Worker {
 	
 		$file = $template.'.php';
 	
-		$template_file_path = APP_TEMPLATE_DIR.strtolower($path.$file);
+		$template_file_path = APP_TEMPLATE_DIR.$path.$file;
 		
 		ob_start();
 		if ( ! file_exists($template_file_path)) {

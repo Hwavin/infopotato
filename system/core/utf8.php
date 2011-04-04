@@ -657,6 +657,7 @@ class UTF8 {
 			if (self::$_can_ignore_invalid === NULL) {
 				self::$_can_ignore_invalid = strtolower(ICONV_IMPL) != 'unknown';	
 			}
+			// The iconv PHP extension provides functionality to convert text stored in another encoding to UTF-8 using a simple function call
 			return iconv('UTF-8', 'UTF-8' . (self::$_can_ignore_invalid ? '//IGNORE' : ''), (string) $value);
 		}
 		

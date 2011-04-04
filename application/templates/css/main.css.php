@@ -85,6 +85,7 @@ margin-bottom:0.5em;
 table {
 margin-bottom:1.4em; 
 width:100%;
+background-color:#fff;
 }
 
 th {
@@ -93,9 +94,6 @@ text-align:left;
 padding:10px;
 font-weight:bold;
 vertical-align:bottom;
-border:2px solid #fff;
-background:#3b5998;
-color:#fff;
 }
 
 tr.odd td{
@@ -107,8 +105,8 @@ background:#eceff6;
 }
 
 td {
-border:2px solid #fff;
 padding:10px;
+border:1px solid #c0c0c0;
 }
 
 sup, sub  { 

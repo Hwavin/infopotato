@@ -81,7 +81,7 @@ define('DEFAULT_WORKER', 'home');
  * By default only these are allowed: a-z 0-9~%.:_-
  * Leave blank to allow all characters
  */
-define('PERMITTED_URI_CHARS', 'a-z 0-9~%@.:_\-');
+define('PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
 
 /**
  * User-defined constants go here
