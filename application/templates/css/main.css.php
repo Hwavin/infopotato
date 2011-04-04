@@ -23,7 +23,6 @@ color:#222;
 
 /* (0.75 * 16px = 12px) */
 body {
-background: url('<?php echo BASE_URI; ?>img/shared/mainbg.png') no-repeat center 0;;
 font-family:Arial, Helvetica, sans-serif;
 font-size:85%;
 color: #555; 

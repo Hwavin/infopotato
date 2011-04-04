@@ -70,14 +70,14 @@ class UTF8 {
 	 * 
 	 * @var boolean
 	 */
-	private static $can_ignore_invalid = NULL;
+	private static $_can_ignore_invalid = NULL;
 	
 	/**
 	 * All lowercase UTF-8 characters mapped to uppercase characters
 	 * 
 	 * @var array
 	 */
-	private static $lower_to_upper = array(
+	private static $_lower_to_upper = array(
 		'a' => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D', 'e' => 'E', 'f' => 'F',
 		'g' => 'G', 'h' => 'H', 'i' => 'I', 'j' => 'J', 'k' => 'K', 'l' => 'L',
 		'm' => 'M', 'n' => 'N', 'o' => 'O', 'p' => 'P', 'q' => 'Q', 'r' => 'R',
@@ -197,7 +197,7 @@ class UTF8 {
 	 * 
 	 * @var array
 	 */
-	private static $mb_lower_to_upper_fix = array(
+	private static $_mb_lower_to_upper_fix = array(
 		'ɘ' => 'Ǝ', 'ǲ' => 'Ǳ', 'ა' => 'Ⴀ', 'ბ' => 'Ⴁ', 'გ' => 'Ⴂ', 'დ' => 'Ⴃ',
 		'ე' => 'Ⴄ', 'ვ' => 'Ⴅ', 'ზ' => 'Ⴆ', 'თ' => 'Ⴇ', 'ი' => 'Ⴈ', 'კ' => 'Ⴉ',
 		'ლ' => 'Ⴊ', 'მ' => 'Ⴋ', 'ნ' => 'Ⴌ', 'ო' => 'Ⴍ', 'პ' => 'Ⴎ', 'ჟ' => 'Ⴏ',
@@ -216,7 +216,7 @@ class UTF8 {
 	 * 
 	 * @var array
 	 */
-	private static $mb_upper_to_lower_fix = array(
+	private static $_mb_upper_to_lower_fix = array(
 		'ǝ' => 'ɘ', 'ǅ' => 'ǆ', 'ǈ' => 'ǉ', 'ǋ' => 'ǌ', 'Ⴀ' => 'ა', 'Ⴁ' => 'ბ',
 		'Ⴂ' => 'გ', 'Ⴃ' => 'დ', 'Ⴄ' => 'ე', 'Ⴅ' => 'ვ', 'Ⴆ' => 'ზ', 'Ⴇ' => 'თ',
 		'Ⴈ' => 'ი', 'Ⴉ' => 'კ', 'Ⴊ' => 'ლ', 'Ⴋ' => 'მ', 'Ⴌ' => 'ნ', 'Ⴍ' => 'ო',
@@ -240,7 +240,7 @@ class UTF8 {
 	 * 
 	 * @var array
 	 */
-	private static $upper_to_lower = array(
+	private static $_upper_to_lower = array(
 		'A' => 'a', 'B' => 'b', 'C' => 'c', 'D' => 'd', 'E' => 'e', 'F' => 'f',
 		'G' => 'g', 'H' => 'h', 'I' => 'i', 'J' => 'j', 'K' => 'k', 'L' => 'l',
 		'M' => 'm', 'N' => 'n', 'O' => 'o', 'P' => 'p', 'Q' => 'q', 'R' => 'r',
@@ -371,7 +371,7 @@ class UTF8 {
 	 * 
 	 * @var array
 	 */
-	private static $utf8_to_ascii = array(
+	private static $$_utf8_to_ascii = array(
 		// Latin-1 Supplement
 		'©' => '(c)', '«' => '<<',  '®' => '(R)', '»' => '>>',  '¼' => '1/4',
 		'½' => '1/2', '¾' => '3/4', 'À' => 'A',   'Á' => 'A',   'Â' => 'A',
@@ -544,7 +544,7 @@ class UTF8 {
 	 * 
 	 * @var boolean
 	 */
-	private static $mbstring_available = NULL;
+	private static $_mbstring_available = NULL;
 	
 	/**
 	 * Forces use as a static class
@@ -582,7 +582,7 @@ class UTF8 {
 			return $string;
 		}
 		
-		$string = strtr($string, self::$utf8_to_ascii);
+		$string = strtr($string, self::$$_utf8_to_ascii);
 		return preg_replace('#[^\x00-\x7F]#', '', $string);
 	}
 	
@@ -592,8 +592,8 @@ class UTF8 {
 	 * 
 	 * @return void
 	 */
-	private static function check_mb_string() {
-		self::$mbstring_available = extension_loaded('mbstring');
+	private static function _check_mb_string() {
+		self::$_mbstring_available = extension_loaded('mbstring');
 	}
 	
 	
@@ -654,10 +654,10 @@ class UTF8 {
 	 */
 	public static function clean($value) {
 		if ( ! is_array($value)) {
-			if (self::$can_ignore_invalid === NULL) {
-				self::$can_ignore_invalid = strtolower(ICONV_IMPL) != 'unknown';	
+			if (self::$_can_ignore_invalid === NULL) {
+				self::$_can_ignore_invalid = strtolower(ICONV_IMPL) != 'unknown';	
 			}
-			return iconv('UTF-8', 'UTF-8' . (self::$can_ignore_invalid ? '//IGNORE' : ''), (string) $value);
+			return iconv('UTF-8', 'UTF-8' . (self::$_can_ignore_invalid ? '//IGNORE' : ''), (string) $value);
 		}
 		
 		$keys = array_keys($value);
@@ -683,8 +683,8 @@ class UTF8 {
 	 * @return integer  < 0 if $str1 < $str2, 0 if they are equal, > 0 if $str1 > $str2
 	 */
 	public static function cmp($str1, $str2) {
-		$ascii_str1 = strtr($str1, self::$utf8_to_ascii);
-		$ascii_str2 = strtr($str2, self::$utf8_to_ascii);
+		$ascii_str1 = strtr($str1, self::$$_utf8_to_ascii);
+		$ascii_str2 = strtr($str2, self::$$_utf8_to_ascii);
 		
 		$res = strcmp($ascii_str1, $ascii_str2);
 		
@@ -704,7 +704,7 @@ class UTF8 {
 	 * @param  integer $offset  The character offset to conver to bytes
 	 * @return integer  The converted offset
 	 */
-	private static function convertOffsetToBytes($string, $offset) {
+	private static function _convert_offset_to_bytes($string, $offset) {
 		if ($offset == 0) {
 			return 0;
 		}
@@ -830,11 +830,11 @@ class UTF8 {
 			return stripos($haystack, $needle, $offset);
 		}
 		
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available && function_exists('mb_stripos')) {
+		if (self::$_mbstring_available && function_exists('mb_stripos')) {
 			return mb_stripos($haystack, $needle, $offset, 'UTF-8');
 		}
 		
@@ -888,11 +888,11 @@ class UTF8 {
 			return strripos($haystack, $needle, $offset);
 		}
 		
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available && function_exists('mb_strripos')) {
+		if (self::$_mbstring_available && function_exists('mb_strripos')) {
 			return mb_strripos($haystack, $needle, $offset, 'UTF-8');
 		}
 		
@@ -920,11 +920,11 @@ class UTF8 {
 			return stristr($haystack, $needle);
 		}
 		
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available && function_exists('mb_stristr')) {
+		if (self::$_mbstring_available && function_exists('mb_stristr')) {
 			return mb_stristr($haystack, $needle, $before_needle, 'UTF-8');
 		}
 		
@@ -942,17 +942,17 @@ class UTF8 {
 	
 	
 	/**
-	 * Determines the length (in characters) of a string
+	 * Determines the length (in actual characters) of a string
 	 * 
 	 * @param  string $string  The string to measure
-	 * @return integer  The number of characters in the string
+	 * @return integer  The number of characters/bytes in the string
 	 */
 	public static function len($string) {
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available) {
+		if (self::$_mbstring_available) {
 			return mb_strlen($string, 'UTF-8');
 		}
 		
@@ -972,17 +972,17 @@ class UTF8 {
 			return strtolower($string);
 		}
 		
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available) {
+		if (self::$_mbstring_available) {
 			$string = mb_strtolower($string, 'utf-8');
 			// For some reason mb_strtolower misses some character
-			return strtr($string, self::$mb_upper_to_lower_fix);
+			return strtr($string, self::$_mb_upper_to_lower_fix);
 		}
 		
-		return strtr($string, self::$upper_to_lower);
+		return strtr($string, self::$_upper_to_lower);
 	}
 	
 	
@@ -1018,8 +1018,8 @@ class UTF8 {
 	 * @return integer  `< 0` if `$str1 < $str2`, `0` if they are equal, `> 0` if `$str1 > $str2`
 	 */
 	public static function natcmp($str1, $str2) {
-		$ascii_str1 = strtr($str1, self::$utf8_to_ascii);
-		$ascii_str2 = strtr($str2, self::$utf8_to_ascii);
+		$ascii_str1 = strtr($str1, self::$$_utf8_to_ascii);
+		$ascii_str2 = strtr($str2, self::$$_utf8_to_ascii);
 		
 		$res = strnatcmp($ascii_str1, $ascii_str2);
 		
@@ -1176,15 +1176,15 @@ class UTF8 {
 	 * @return mixed  The integer character position of the first occurence of the needle or `FALSE` if no match
 	 */
 	public static function pos($haystack, $needle, $offset = 0) {
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available) {
+		if (self::$_mbstring_available) {
 			return mb_strpos($haystack, $needle, $offset, 'UTF-8');
 		}
 		
-		$offset = self::convertOffsetToBytes($haystack, $offset);
+		$offset = self::_convert_offset_to_bytes($haystack, $offset);
 		
 		$position = strpos($haystack, $needle, $offset);
 		
@@ -1222,7 +1222,7 @@ class UTF8 {
 	 * @return void
 	 */
 	public static function reset() {
-		self::$mbstring_available = NULL;
+		self::$_mbstring_available = NULL;
 	}
 	
 	
@@ -1289,7 +1289,7 @@ class UTF8 {
 		
 		// We don't even both trying mb_strrpos since this method is faster
 		
-		$offset = self::convertOffsetToBytes($haystack, $offset);
+		$offset = self::_convert_offset_to_bytes($haystack, $offset);
 		
 		$position = strrpos($haystack, $needle, $offset);
 		
@@ -1331,11 +1331,11 @@ class UTF8 {
 	 * @return mixed  The specified part of the haystack, or `FALSE` if the needle was not found
 	 */
 	public static function str($haystack, $needle, $before_needle = FALSE) {
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available && function_exists('mb_strstr')) {
+		if (self::$_mbstring_available && function_exists('mb_strstr')) {
 			return mb_strstr($haystack, $needle, $before_needle, 'UTF-8');
 		}
 		
@@ -1362,11 +1362,11 @@ class UTF8 {
 	 * @return mixed  The extracted subtring or `FALSE` if the start is out of bounds
 	 */
 	public static function sub($string, $start, $length = NULL) {
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available) {
+		if (self::$_mbstring_available) {
 			$str_len = mb_strlen($string, 'UTF-8');
 			if (abs($start) > $str_len) {
 				return FALSE;
@@ -1408,14 +1408,14 @@ class UTF8 {
 		}
 		
 		// Substrings to the end of the string are pretty simple
-		$start = self::convertOffsetToBytes($string, $start);
+		$start = self::_convert_offset_to_bytes($string, $start);
 		$string = substr($string, $start);
 		
 		if ($length === NULL) {
 			return $string;
 		}
 		
-		$length = self::convertOffsetToBytes($string, $length);
+		$length = self::_convert_offset_to_bytes($string, $length);
 		return substr($string, 0, $length);
 	}
 	
@@ -1462,7 +1462,7 @@ class UTF8 {
 	public static function ucwords($string) {
 		return preg_replace_callback(
 			'#(?<=^|\s|[\x{2000}-\x{200A}]|/|-|\(|\[|\{|\||"|^\'|\s\'|‘|“)(.)#u',
-			array('self', 'ucwordsCallback'),
+			array('self', '_ucwords_callback'),
 			$string
 		);
 	}
@@ -1474,7 +1474,7 @@ class UTF8 {
 	 * @param array $match  The regex match from ::ucwords()
 	 * @return string  The uppercase character
 	 */
-	private static function ucwordsCallback($match) {
+	private static function _ucwords_callback($match) {
 		return self::upper($match[1]);
 	}
 	
@@ -1491,17 +1491,17 @@ class UTF8 {
 			return strtoupper($string);
 		}
 		
-		if (self::$mbstring_available === NULL) {
-			self::check_mb_string();
+		if (self::$_mbstring_available === NULL) {
+			self::_check_mb_string();
 		}
 		
-		if (self::$mbstring_available) {
+		if (self::$_mbstring_available) {
 			$string = mb_strtoupper($string, 'utf-8');
 			// For some reason mb_strtoupper misses some character
-			return strtr($string, self::$mb_lower_to_upper_fix);
+			return strtr($string, self::$_mb_lower_to_upper_fix);
 		}
 		
-		return strtr($string, self::$lower_to_upper);
+		return strtr($string, self::$_lower_to_upper);
 	}
 	
 	

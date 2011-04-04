@@ -156,7 +156,7 @@ class Worker {
 			// Response headers
 			$headers = array();
 
-			// MIME types need utf-8 charset encoding and compression
+			// MIME types that need utf-8 charset encoding and compression
 			// Do not utf-8 encode and HTTP compress images and PDF files
 			$mime_types = array(
 				'text/html', 
@@ -211,7 +211,7 @@ class Worker {
 	 * By default, encoding is only offered to IE7+
 	 *
      * A syntax-aware scan is done of the Accept-Encoding, so the method must
-     * be non 0. The methods are favored in order of gzip, deflate, then 
+     * be non 0. The methods are favored in order of gzip (a lossless compressed-data format), deflate, then 
      * compress. Deflate is always smallest and generally faster, but is 
      * rarely sent by servers, so client support could be buggier.
      * 
