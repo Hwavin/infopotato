@@ -371,7 +371,7 @@ class UTF8 {
 	 * 
 	 * @var array
 	 */
-	private static $$_utf8_to_ascii = array(
+	private static $_utf8_to_ascii = array(
 		// Latin-1 Supplement
 		'©' => '(c)', '«' => '<<',  '®' => '(R)', '»' => '>>',  '¼' => '1/4',
 		'½' => '1/2', '¾' => '3/4', 'À' => 'A',   'Á' => 'A',   'Â' => 'A',
@@ -582,7 +582,7 @@ class UTF8 {
 			return $string;
 		}
 		
-		$string = strtr($string, self::$$_utf8_to_ascii);
+		$string = strtr($string, self::$_utf8_to_ascii);
 		return preg_replace('#[^\x00-\x7F]#', '', $string);
 	}
 	
@@ -683,8 +683,8 @@ class UTF8 {
 	 * @return integer  < 0 if $str1 < $str2, 0 if they are equal, > 0 if $str1 > $str2
 	 */
 	public static function cmp($str1, $str2) {
-		$ascii_str1 = strtr($str1, self::$$_utf8_to_ascii);
-		$ascii_str2 = strtr($str2, self::$$_utf8_to_ascii);
+		$ascii_str1 = strtr($str1, self::$_utf8_to_ascii);
+		$ascii_str2 = strtr($str2, self::$_utf8_to_ascii);
 		
 		$res = strcmp($ascii_str1, $ascii_str2);
 		
@@ -1018,8 +1018,8 @@ class UTF8 {
 	 * @return integer  `< 0` if `$str1 < $str2`, `0` if they are equal, `> 0` if `$str1 > $str2`
 	 */
 	public static function natcmp($str1, $str2) {
-		$ascii_str1 = strtr($str1, self::$$_utf8_to_ascii);
-		$ascii_str2 = strtr($str2, self::$$_utf8_to_ascii);
+		$ascii_str1 = strtr($str1, self::$_utf8_to_ascii);
+		$ascii_str2 = strtr($str2, self::$_utf8_to_ascii);
 		
 		$res = strnatcmp($ascii_str1, $ascii_str2);
 		
