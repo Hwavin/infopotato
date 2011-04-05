@@ -1688,9 +1688,9 @@ class DirInfo_Library {
 			// foreach (scandir($source_dir, 1) as $file) // In addition to being PHP5+, scandir() is simply not as fast
 			while (FALSE !== ($file = readdir($fp))) {
 				if (@is_dir($source_dir.$file) && strncmp($file, '.', 1) !== 0 && $top_level_only === FALSE) {
-					dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
+					self::dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
 				} elseif (strncmp($file, '.', 1) !== 0) {
-					$_filedata[$file] = get_file_info($source_dir.$file);
+					$_filedata[$file] = self::get_file_info($source_dir.$file);
 					$_filedata[$file]['relative_path'] = $relative_path;
 				}
 			}
@@ -1783,7 +1783,7 @@ class DirInfo_Library {
 				}
 
 				if (($directory_depth < 1 || $new_depth > 0) && @is_dir($target_dir.$file)) {
-					$filedata[$file] = directory_map($target_dir.$file.DIRECTORY_SEPARATOR, $new_depth, $hidden);
+					$filedata[$file] = self::directory_map($target_dir.$file.DIRECTORY_SEPARATOR, $new_depth, $hidden);
 				} else {
 					$filedata[] = $file;
 				}
