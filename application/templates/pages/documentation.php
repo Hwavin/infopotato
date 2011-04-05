@@ -52,6 +52,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo BASE_URI; ?>documentation/common_function/">Error Handling</a></li> 
 <li><a href="<?php echo BASE_URI; ?>documentation/utf8_support/">UTF-8 Support</a></li>
 <li><a href="<?php echo BASE_URI; ?>documentation/caching/">Caching</a></li> 
+<li><a href="<?php echo BASE_URI; ?>documentation/security/">Security</a></li> 
 </ul> 
 
 </td> 

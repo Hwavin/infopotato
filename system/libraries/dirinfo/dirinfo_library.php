@@ -411,7 +411,7 @@ class DirInfo_Library {
 	 * @param	string $pathtofile
 	 * @return	bool
 	 */
-	public function valid_pathtofile($pathtofile) {
+	public static function valid_pathtofile($pathtofile) {
 		clearstatcache();
 
 		// Check if a non empty string has been passed as pathtofile
@@ -467,7 +467,7 @@ class DirInfo_Library {
 						if (isset($this->mime_map[$ext])) {
 							$mimetypes[] = $this->mime_map[$ext];
 						} else {
-							trigger_error( 'The file extension <em>' . $ext . '</em> does not have a valid mime-type associated with it in the mime_map', E_USER_WARNING );
+							trigger_error('The file extension <em>' . $ext . '</em> does not have a valid mime-type associated with it in the mime_map', E_USER_WARNING);
 						}
 					}
 					$mimetypes = array_unique($mimetypes);
