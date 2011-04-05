@@ -47,11 +47,6 @@
  * <b>Basics on how to use the class</b><br>
  * *********************************************************************
  *
- * <i>How to instantiate ?</i>
- * <code><?php
- * $dirobj = new directory_info( );
- * ?></code>
- *
  * <i>How to view the results ?</i><br>
  * You can format the results display yourself, to quickly retrieve and view a filelist, you can use:
  * <code><?php
@@ -73,45 +68,11 @@
  * <b>For more extended examples of how to use this class, have a look at the example file which came
  * with this class. It should be located in /example/example.php</b>
  *
- * *********************************************************************<br>
- * <b>Version management information</b><br>
- * *********************************************************************
- *
- * + v1.5 2006-09-02<br>
- * 			- Improved inline documentation to work with {@link http://www.phpdoc.org/ phpDocumentor}
- * 			and updated the example file<br>
- * 			- Created separate methods to set the class variables and moved the main filelist get
- * 			functionality out of the class instantiation<br>
- * 			- Created various methods for retrieving selections of a filelist
- * 			- Adjusted the methods to auto-re-use or auto-destroy the previous retrieved
- * 			results so you can keep re-using the (instantiated) class<br>
- * 			- Made a lot of file related methods static, i.e. callable without instantiating
- * 			the class<br>
- * 			- Added lots of new methods
- * + v1.4 2006-07-04<br>
- * 			- Added filecount variable
- * + v1.3 2005-12-24<br>
- * 			- Added support for uppercase filenames and uppercase extensions passed
- * + v1.2 2005-12-05<br>
- * 			- Rewrite of function to class to improve re-usability<br>
- *			- Added filesize option
- * + v1.0 2004-07-15<br>
- * 			- Originally posted as a function to the comments section
- * 			of {@link http://www.php.net/function.readdir}
- *
- * *********************************************************************
- *
  * @package DirInfo
  * @author	Juliette Reinders Folmer, {@link http://www.adviesenzo.nl/ Advies en zo} -
  *  <getdirectorylist@adviesenzo.nl>
  *
  * @todo 	Check whether the $pathtofile checks can be removed
- *
- * @version	1.5
- * @since	2006-09-02 // Last changed: by Juliette Reinders Folmer
- * @license http://www.opensource.org/licenses/lgpl-license.php GNU Lesser General Public License
- * @license	http://opensource.org/licenses/academic Academic Free License Version 1.2
- * @example	example/example.php
  *
  */
 class DirInfo_Library {
@@ -322,13 +283,8 @@ class DirInfo_Library {
 	/**
 	 * Constructor - Sets Preferences
 	 *
-	 * The constructor can be passed an array of config values
 	 */
-	public function __construct($config = array()) {
-		if (count($config) > 0) {
-
-		}
-	}
+	public function __construct() {}
 
 	/**
 	 * Basic validation and parsing of a passed extensions parameter
@@ -507,8 +463,8 @@ class DirInfo_Library {
 				} else {
 					$exts = $this->validate_extension_list($exts);
 					$mimetypes = array();
-					foreach($exts as $ext) {
-						if(isset($this->mime_map[$ext])) {
+					foreach ($exts as $ext) {
+						if (isset($this->mime_map[$ext])) {
 							$mimetypes[] = $this->mime_map[$ext];
 						} else {
 							trigger_error( 'The file extension <em>' . $ext . '</em> does not have a valid mime-type associated with it in the mime_map', E_USER_WARNING );
@@ -636,18 +592,18 @@ class DirInfo_Library {
 	 * 							or false if the passed variable was not an integer
 	 **/
 	public function human_readable_filesize($filesize) {
-		if(is_int($filesize) && $filesize > 0) {
+		if (is_int($filesize) && $filesize > 0) {
 
 			// Get the figure to use in the string
-			for($i = 0; ($i < $this->byte_suffix_count && $filesize >= 1024 ); $i++) {
+			for ($i = 0; ($i < $this->byte_suffix_count && $filesize >= 1024 ); $i++) {
 				$filesize = $filesize / 1024;
 			}
 
 			// Return the rounded figure with the appropriate suffix
-			if($this->byte_suffixes[$i] === 'b' || $this->byte_suffixes[$i] === 'kB') {
-				return (round( $filesize, 0 ) . ' ' . $this->byte_suffixes[$i]);
+			if ($this->byte_suffixes[$i] === 'b' || $this->byte_suffixes[$i] === 'kB') {
+				return (round($filesize, 0) . ' ' . $this->byte_suffixes[$i]);
 			} else {
-				return (round($filesize, 1 ) . ' ' . $this->byte_suffixes[$i]);
+				return (round($filesize, 1) . ' ' . $this->byte_suffixes[$i]);
 			}
 		} else {
 			return FALSE;
@@ -664,7 +620,7 @@ class DirInfo_Library {
 	 * @return	int|false	unix timestamp or false if an invalid $pathtofile was passed
 	 */
 	public function get_lastmod_unixts($pathtofile) {
-		if( ! self::valid_pathtofile($pathtofile)) {
+		if ( ! self::valid_pathtofile($pathtofile)) {
 			return FALSE;
 		}
 		return filemtime($pathtofile);
@@ -681,7 +637,7 @@ class DirInfo_Library {
 	 * 							$pathtofile was passed
 	 */
 	public function get_human_readable_lastmod($pathtofile, $datetime_format = NULL) {
-		if( ! is_string( $datetime_format ) || $datetime_format === '') {
+		if ( ! is_string($datetime_format) || $datetime_format === '') {
 			$datetime_format = $this->datetime_format;
 		}
 		$uts = $this->get_lastmod_unixts($pathtofile);
@@ -698,7 +654,7 @@ class DirInfo_Library {
 	 * @return	int|false	unix timestamp or false if an invalid $pathtofile was passed
 	 */
 	public function get_lastacc_unixts($pathtofile) {
-		if( ! self::valid_pathtofile($pathtofile)) {
+		if ( ! self::valid_pathtofile($pathtofile)) {
 			return FALSE;
 		}
 		return fileatime($pathtofile);
@@ -715,7 +671,7 @@ class DirInfo_Library {
 	 * 							$pathtofile was passed
 	 */
 	public function get_human_readable_lastacc($pathtofile, $datetime_format = NULL) {
-		if( ! is_string($datetime_format) || $datetime_format === '') {
+		if ( ! is_string($datetime_format) || $datetime_format === '') {
 			$datetime_format = $this->datetime_format;
 		}
 		$uts = $this->get_lastacc_unixts( $pathtofile );
@@ -732,7 +688,7 @@ class DirInfo_Library {
 	 * @return	int|false	user id of the file owner or false if an invalid $pathtofile was passed
 	 */
 	public function get_file_owner($pathtofile) {
-		if( ! self::valid_pathtofile($pathtofile)) {
+		if ( ! self::valid_pathtofile($pathtofile)) {
 			return FALSE;
 		}
 		return fileowner($pathtofile);
@@ -777,7 +733,7 @@ class DirInfo_Library {
 
 		$perms = fileperms( $pathtofile );
 
-		if(($perms & 0xC000) == 0xC000) {$info = 's';} // Socket
+		if (($perms & 0xC000) == 0xC000) {$info = 's';} // Socket
 		elseif (($perms & 0xA000) == 0xA000) {$info = 'l';} // Symbolic Link
 		elseif (($perms & 0x8000) == 0x8000) {$info = '-';} // Regular
 		elseif (($perms & 0x6000) == 0x6000) {$info = 'b';} // Block special
@@ -848,13 +804,13 @@ class DirInfo_Library {
 	public function get_filelist($use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
 		// If a pathtodir was passed and the path to dir was not the same as the last one used
 		// to get a filelist, build a new filelist
-		i f( ! is_null($pathtodir) && ($pathtodir !== $this->last_path || $recursive !== $this->last_recursive)) {
+		if ( ! is_null($pathtodir) && ($pathtodir !== $this->last_path || $recursive !== $this->last_recursive)) {
 			$this->traverse_directory($pathtodir, $recursive);
 			return $this->filelist;
-		} elseif(is_null($pathtodir) && $this->filecount === 0) {
+		} elseif (is_null($pathtodir) && $this->filecount === 0) {
 			$this->traverse_directory($this->pathtodir, $recursive);
 			return $this->filelist;
-		} elseif($use_selection === TRUE && $this->fileselection_count > 0) {
+		} elseif ($use_selection === TRUE && $this->fileselection_count > 0) {
 			return $this->filelist_selection;
 		} else {
 			return $this->filelist;
@@ -938,7 +894,7 @@ class DirInfo_Library {
 					// do nothing
 				} else {
 					// If it's a file, check against valid extensions and add to the list
-					if(is_file($pathtodir . $filename) === TRUE) {
+					if (is_file($pathtodir . $filename) === TRUE) {
 						$this->filelist[] = $prefix . $filename;
 					}
 
@@ -1703,6 +1659,143 @@ class DirInfo_Library {
 				'vnd.vivo'
 		)
 	);
+	
+	/**
+	 * Get Directory File Information
+	 *
+	 * Reads the specified directory and builds an array containing the filenames,
+	 * filesize, dates, and permissions
+	 *
+	 * Any sub-folders contained within the specified path are read as well.
+	 *
+	 * @access	public
+	 * @param	string	path to source
+	 * @param	bool	Look only at the top level directory specified?
+	 * @param	bool	internal variable to determine recursion status - do not use in calls
+	 * @return	array
+	 */
+	public static function dir_file_info($source_dir, $top_level_only = TRUE, $_recursion = FALSE) {
+		static $_filedata = array();
+		$relative_path = $source_dir;
+
+		if ($fp = @opendir($source_dir)) {
+			// reset the array and make sure $source_dir has a trailing slash on the initial call
+			if ($_recursion === FALSE) {
+				$_filedata = array();
+				$source_dir = rtrim(realpath($source_dir), DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+			}
+
+			// foreach (scandir($source_dir, 1) as $file) // In addition to being PHP5+, scandir() is simply not as fast
+			while (FALSE !== ($file = readdir($fp))) {
+				if (@is_dir($source_dir.$file) AND strncmp($file, '.', 1) !== 0 AND $top_level_only === FALSE) {
+					dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
+				} elseif (strncmp($file, '.', 1) !== 0) {
+					$_filedata[$file] = get_file_info($source_dir.$file);
+					$_filedata[$file]['relative_path'] = $relative_path;
+				}
+			}
+
+			return $_filedata;
+		} else {
+			return FALSE;
+		}
+	}
+
+
+	/**
+	* Get File Info
+	*
+	* Given a file and path, returns the name, path, size, date modified
+	* Second parameter allows you to explicitly declare what information you want returned
+	* Options are: name, server_path, size, date, readable, writable, executable, fileperms
+	* Returns FALSE if the file cannot be found.
+	*
+	* @access	public
+	* @param	string	path to file
+	* @param	mixed	array or comma separated string of information returned
+	* @return	array
+	*/
+	public static function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date')) {
+
+		if ( ! file_exists($file)) {
+			return FALSE;
+		}
+
+		if (is_string($returned_values)) {
+			$returned_values = explode(',', $returned_values);
+		}
+
+		foreach ($returned_values as $key) {
+			switch ($key) {
+				case 'name':
+					$fileinfo['name'] = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
+					break;
+				case 'server_path':
+					$fileinfo['server_path'] = $file;
+					break;
+				case 'size':
+					$fileinfo['size'] = filesize($file);
+					break;
+				case 'date':
+					$fileinfo['date'] = filemtime($file);
+					break;
+				case 'readable':
+					$fileinfo['readable'] = is_readable($file);
+					break;
+				case 'writable':
+					// There are known problems using is_weritable on IIS.  It may not be reliable - consider fileperms()
+					$fileinfo['writable'] = is_writable($file);
+					break;
+				case 'executable':
+					$fileinfo['executable'] = is_executable($file);
+					break;
+				case 'fileperms':
+					$fileinfo['fileperms'] = fileperms($file);
+					break;
+			}
+		}
+
+		return $fileinfo;
+	}
+
+
+	/**
+	 * Create a Directory Map
+	 *
+	 * Reads the specified directory and builds an array
+	 * representation of it.  Sub-folders contained with the
+	 * directory will be mapped as well.
+	 *
+	 * @access	public
+	 * @param	string	path to source
+	 * @param	int		depth of directories to traverse (0 = fully recursive, 1 = current dir, etc)
+	 * @return	array
+	 */
+	public static function directory_map($target_dir, $directory_depth = 0, $hidden = FALSE) {
+		if ($fp = @opendir($target_dir)) {
+			$filedata = array();
+			$new_depth = $directory_depth - 1;
+			$target_dir	= rtrim($target_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+
+			while (FALSE !== ($file = readdir($fp))) {
+				// Remove '.', '..', and hidden files [optional]
+				if ( ! trim($file, '.') OR ($hidden == FALSE && $file[0] == '.')) {
+					continue;
+				}
+
+				if (($directory_depth < 1 OR $new_depth > 0) && @is_dir($target_dir.$file)) {
+					$filedata[$file] = directory_map($target_dir.$file.DIRECTORY_SEPARATOR, $new_depth, $hidden);
+				} else {
+					$filedata[] = $file;
+				}
+			}
+
+			closedir($fp);
+			return $filedata;
+		}
+
+		return FALSE;
+	}
 
 
 }
