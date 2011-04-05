@@ -1,11 +1,4 @@
 <?php
-
-/**
- * File: getdirectorylist.inc.php
- * @package directory_info
- */
-
-
 /**
  * Generic (re-usable) class to retrieve information on files / directories
  *
@@ -122,13 +115,8 @@
  *
  */
 class DirInfo_Library {
-
-	/**********************************************************************
-	 * INITIATION OF THE DEFAULT VARIABLES USED IN THE CLASS
-	 *********************************************************************/
-
 	/**
-	 * Directory to traverse
+	 * Target directory to traverse
 	 *
 	 * - Relative path to a directory, i.e. relative to the calling file
 	 * - IMPORTANT: end the path with a trailing '/' !!!
@@ -163,7 +151,7 @@ class DirInfo_Library {
 	 * @see 	check_allowed_file()
 	 * @var		array|string	$exts
 	 */
-	public $exts = array( 'jpg', 'gif', 'jpeg', 'png', 'php', 'html');
+	public $exts = array('jpg', 'gif', 'jpeg', 'png', 'php', 'html');
 
 	/**
 	 * Array of mime types
@@ -183,7 +171,7 @@ class DirInfo_Library {
 	 * @see 	$exts
 	 * @var		array	$mimetypes
 	 */
-	public $mimetypes = array( 'image/jpeg', 'image/png', 'image/gif' );
+	public $mimetypes = array('image/jpeg', 'image/png', 'image/gif');
 
 	/**
 	 * Do a strict file type check ?
@@ -196,7 +184,7 @@ class DirInfo_Library {
 	 * @see 	$valid_mime_types
 	 * @var 	boolean		$strict
 	 */
-	public $strict = false;
+	public $strict = FALSE;
 
 	/**
 	 * Default format string for the human readable last modified and last access date
@@ -223,7 +211,7 @@ class DirInfo_Library {
 	 * @access 	private
 	 * @var 	array	$byte_suffixes
 	 **/
-	public $byte_suffixes = array( 'b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB' );
+	public $byte_suffixes = array('b', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 
 	/**
 	 * Number of byte suffixes available
@@ -235,11 +223,6 @@ class DirInfo_Library {
 	 * @var 	int		$byte_suffix_count
 	 **/
 	public $byte_suffix_count = 9;
-
-
-	/**********************************************************************
-	 * INITIATION OF THE RESULT VARIABLES USED IN THE CLASS
-	 *********************************************************************/
 
 	/**
 	 * Filelist result array
@@ -285,7 +268,6 @@ class DirInfo_Library {
 	 * @var		int		$dircount
 	 **/
 	public $dircount = 0;
-
 
 	/**
 	 * Remember last path traversed for efficiency
@@ -337,119 +319,16 @@ class DirInfo_Library {
 	public $last_mimetypes;
 
 
-	/**********************************************************************
-	 * METHODS TO CHANGE THE CLASS DEFAULTS
-	 *********************************************************************/
-
 	/**
-	 * Change the {@link $pathtodir} default
+	 * Constructor - Sets Preferences
 	 *
-	 * - Refer to {@link $pathtodir} for information on valid formats for the variable
-	 * - Returns boolean true / false to indicate whether the default was changed succesfully
-	 * @uses 	$pathtodir	to store new default
-	 * @param	string	$pathtodir
-	 * @return	bool
+	 * The constructor can be passed an array of config values
 	 */
-	public function set_default_path( $pathtodir ) {
-		if( ( is_string( $pathtodir ) && $pathtodir !== '' ) && is_dir( $pathtodir ) ) {
-			$this->pathtodir = $pathtodir;
-			return true;
+	public function __construct($config = array()) {
+		if (count($config) > 0) {
+
 		}
-		return false;
 	}
-
-	/**
-	 * Change the {@link $safe_exts} default
-	 *
-	 * - Refer to {@link $safe_exts} for information on valid formats for the variable
-	 * - Returns boolean true / false to indicate whether the default was changed succesfully
-	 * @uses 	$safe_exts	to store new default
-	 * @param	bool	$safe_exts
-	 * @return	bool
-	 */
-	public function set_safe_exts( $safe_exts ) {
-		if( is_bool( $safe_exts ) ) {
-			$this->safe_exts = $safe_exts;
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Change the {@link $exts} default
-	 *
-	 * - Refer to {@link $exts} for information on valid formats for the variable
-	 * - Returns boolean true / false to indicate whether the default was changed succesfully
-	 * @uses  	$exts	to store new default
-	 * @param	array|string	$exts
-	 * @return	bool
-	 */
-	public function set_default_exts( $exts ) {
-		$exts = $this->validate_extension_list( $exts );
-		if( $exts !== $this->exts ) {
-			$this->exts = $exts;
-			return true;
-		}
-		return false;
-
-	}
-
-	/**
-	 * Change the {@link $mimetypes} default
-	 *
-	 * - Refer to {@link $mimetypes} for information on valid formats for the variable
-	 * - Returns boolean true / false to indicate whether the default was changed succesfully
-	 * @uses 	$mimetypes	to store new default
-	 * @param	array	$mimetypes
-	 * @return	bool
-	 */
-	public function set_default_mimetypes( $mimetypes ) {
-		$mimetypes = validate_mime_types( $mimetypes );
-		if( $mimetypes !== $this->mimetypes ) {
-			$this->mimetypes = $mimetypes;
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Change the {@link $strict} default
-	 *
-	 * - Refer to {@link $strict} for information on valid formats for the variable
-	 * - Returns boolean true / false to indicate whether the default was changed succesfully
-	 * @uses 	$strict		to store new default
-	 * @param	bool	$strict
-	 * @return	bool
-	 */
-	public function set_strict( $strict ) {
-		if( is_bool( $strict ) ) {
-			$this->strict = $strict;
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Change the {@link $datetime_format} default
-	 *
-	 * - Refer to {@link $datetime_format} for information on valid formats for the variable
-	 * - Returns boolean true / false to indicate whether the default was changed succesfully
-	 * @uses 	$datetime_format	to store new default
-	 * @param	string	$datetime_format
-	 * @return	bool
-	 */
-	public function set_datetime_format( $datetime_format ) {
-		if( is_string( $datetime_format ) && $datetime_format !== '' ) {
-			$this->datetime_format = $datetime_format;
-			return true;
-		}
-		return false;
-	}
-
-
-	/**********************************************************************
-	 * METHODS TO VALIDATE SOME PASSED PARAMETERS
-	 *********************************************************************/
 
 	/**
 	 * Basic validation and parsing of a passed extensions parameter
@@ -471,27 +350,25 @@ class DirInfo_Library {
 	 * @param	array|string	$exts	[optional] extensions parameter to validate
 	 * @return	array|string	array of extensions or the string 'all'
 	 */
-	public function validate_extension_list( $exts = null ) {
-
-		if( $exts !== $this->last_passed_exts || is_null( $this->last_passed_exts ) ) {
+	public function validate_extension_list($exts = NULL) {
+		if ($exts !== $this->last_passed_exts || is_null( $this->last_passed_exts)) {
 
 			$this->last_passed_exts = $exts;
 
 			// If it's a string, check for all, otherwise create an array containing 1 item
-			if( is_string( $exts ) && $exts !== '' ) {
-				if( strtolower( $exts ) === 'all' ) {
-					$this->last_exts = strtolower( $exts );
-				}
-				else {
-					$this->last_exts = ( array( strtolower( $exts ) ) );
+			if (is_string($exts) && $exts !== '') {
+				if ( strtolower($exts) === 'all') {
+					$this->last_exts = strtolower($exts);
+				} else {
+					$this->last_exts = (array(strtolower($exts)));
 				}
 			}
 
 			// If it's an array, make lowercase (which will cast the extension to string automatically)
-			elseif( is_array( $exts ) && count( $exts ) > 0 ) {
+			elseif (is_array($exts) && count($exts) > 0) {
 				$ext_array = array();
-				foreach( $exts as $ext ) {
-					$ext_array[] = strtolower( $ext );
+				foreach ($exts as $ext) {
+					$ext_array[] = strtolower($ext);
 				}
 				$this->last_exts = $ext_array;
 			}
@@ -530,45 +407,41 @@ class DirInfo_Library {
 	 * @param	array	$mimetypes	[optional] mimetypes to validate
 	 * @return	array	validated mimetypes
 	 */
-	public function validate_mime_types( $mimetypes = null ) {
-
-		if( $mimetypes !== $this->last_passed_mimetypes || is_null( $this->last_passed_mimetypes ) ) {
+	public function validate_mime_types($mimetypes = NULL) {
+		if ($mimetypes !== $this->last_passed_mimetypes || is_null($this->last_passed_mimetypes)) {
 
 			$this->last_passed_mimetypes = $mimetypes;
 
-			if( is_string( $mimetypes ) && $mimetypes !== '' ) {
+			if (is_string($mimetypes) && $mimetypes !== '') {
 				// Cast to array and pass through
-				$mimetypes = array( $mimetypes );
+				$mimetypes = array($mimetypes);
 			}
 
-			if( is_array( $mimetypes ) && count( $mimetypes ) > 0 ) {
+			if (is_array($mimetypes) && count($mimetypes) > 0) {
 
 				$mime_array = array();
 
-				foreach( $mimetypes as $mimetype ) {
-
-					if( is_string( $mimetype ) && $mimetype !== '' ) {
-						if( strpos( $mimetype, '/') === false ) {
-							if( isset( $this->valid_mime_types[$mimetype] ) ) {
-								foreach( $this->valid_mime_types[$mimetype] as $subtype ) {
+				foreach ($mimetypes as $mimetype) {
+					if (is_string( $mimetype ) && $mimetype !== '') {
+						if (strpos($mimetype, '/') === FALSE) {
+							if (isset($this->valid_mime_types[$mimetype])) {
+								foreach ($this->valid_mime_types[$mimetype] as $subtype) {
 									$mime_array[] = $mimetype . '/' . $subtype;
 								}
 							}
-						}
-						else {
+						} else {
 							$mimeparts = explode( '/', $mimetype, 2 );
-							if( in_array( $mimeparts[1], $this->valid_mime_types[$mimeparts[0]], true) ) {
+							if (in_array($mimeparts[1], $this->valid_mime_types[$mimeparts[0]], TRUE)) {
 								$mime_array[] = $mimetype;
 							}
 						}
 					}
 				}
 
-				if( count( $mime_array ) > 0 ) {
-					$this->last_mimetypes = array_unique( $mime_array );
+				if (count($mime_array) > 0) {
+					$this->last_mimetypes = array_unique($mime_array);
 				}
-			}
-			else {
+			} else {
 				$this->last_mimetypes = $this->mimetypes;
 			}
 		}
@@ -582,17 +455,12 @@ class DirInfo_Library {
 	 * @param	string $pathtofile
 	 * @return	bool
 	 */
-	public function valid_pathtofile( $pathtofile ) {
+	public function valid_pathtofile($pathtofile) {
 		clearstatcache();
 
 		// Check if a non empty string has been passed as pathtofile
-		return ( ( is_string( $pathtofile ) && $pathtofile !== '' ) && file_exists( $pathtofile ) );
+		return ((is_string($pathtofile) && $pathtofile !== '') && file_exists($pathtofile));
 	}
-
-
-	/**********************************************************************
-	 * METHODS TO RETRIEVE INFORMATION ON INDIVIDUAL FILES
-	 *********************************************************************/
 
 	/**
 	 * Check whether the file is allowed based on extension and if $strict=true also on mimetype
@@ -616,11 +484,10 @@ class DirInfo_Library {
 	 * @param	array			$mimetypes		[optional] allowed mimetypes
 	 * @return	bool
 	 */
-	public function check_allowed_file( $pathtofile, $exts = null, $strict = null, $mimetypes = null ) {
+	public function check_allowed_file($pathtofile, $exts = NULL, $strict = NULL, $mimetypes = NULL) {
+		$strict = (is_bool($strict)) ? $strict : $this->strict;
 
-		$strict = ( is_bool( $strict ) ) ? $strict : $this->strict;
-
-		if( $strict ) {
+		if ($strict) {
 
 			/**
 			 * We only try to build a mimetype list based on the extensions when exts is not null,
@@ -629,34 +496,30 @@ class DirInfo_Library {
 			 * and the {@see check_file_mimetype()} will validate the passed parameters anyway
 			 * and will default to the class default.
 			 */
-			if( is_null( $mimetypes ) && !is_null( $exts ) ) {
-				$exts = $this->validate_extension_list( $exts );
+			if (is_null($mimetypes) && ! is_null($exts)) {
+				$exts = $this->validate_extension_list($exts);
 
-				if( is_string( $exts) && strtolower( $exts ) === 'all' ) {
+				if (is_string($exts) && strtolower($exts) === 'all') {
 					// Fall through - mimetype check superfluous
-					return ( $this->check_file_extension( $pathtofile, $exts ) );
-				}
-				elseif( $exts === $this->exts && !is_null( $this->mimetypes ) ) {
+					return ($this->check_file_extension($pathtofile, $exts));
+				} elseif ($exts === $this->exts && ! is_null($this->mimetypes)) {
 					$mimetypes = $this->mimetypes;
-				}
-				else {
-					$exts = $this->validate_extension_list( $exts );
+				} else {
+					$exts = $this->validate_extension_list($exts);
 					$mimetypes = array();
-					foreach( $exts as $ext ) {
-						if( isset( $this->mime_map[$ext] ) ) {
+					foreach($exts as $ext) {
+						if(isset($this->mime_map[$ext])) {
 							$mimetypes[] = $this->mime_map[$ext];
-						}
-						else {
+						} else {
 							trigger_error( 'The file extension <em>' . $ext . '</em> does not have a valid mime-type associated with it in the mime_map', E_USER_WARNING );
 						}
 					}
-					$mimetypes = array_unique( $mimetypes );
+					$mimetypes = array_unique($mimetypes);
 				}
 			}
-			return ( $this->check_file_extension( $pathtofile, $exts ) && $this->check_file_mimetype( $pathtofile, $mimetypes ) );
-		}
-		else {
-			return ( $this->check_file_extension( $pathtofile, $exts ) );
+			return ($this->check_file_extension($pathtofile, $exts) && $this->check_file_mimetype($pathtofile, $mimetypes) );
+		} else {
+			return ($this->check_file_extension($pathtofile, $exts));
 		}
 	}
 
@@ -674,31 +537,30 @@ class DirInfo_Library {
 	 * @param 	array|string	$exts		[optional] array of allowed extensions
 	 * @return	bool
 	 **/
-	public function check_file_extension( $filename, $exts = null ) {
-
+	public function check_file_extension($filename, $exts = NULL) {
 		// Check if a non empty string has been passed as filename
-		if( !is_string( $filename ) || $filename === '' ) {
-			return false;
+		if( ! is_string($filename) || $filename === '') {
+			return FALSE;
 		}
 
 		// Validate the optional parameters and default to the class defaults if not passed or invalid
 		$exts = $this->validate_extension_list( $exts );
 
 		// If all extensions are allowed, return true
-		if( $exts === 'all') {
-			return true;
+		if($exts === 'all') {
+			return TRUE;
 		}
 
 		// If the function is still running, check the extension against the allowed extension list
-		$pos = strrpos( $filename, '.' );
-		if( $pos !== false ) {
+		$pos = strrpos($filename, '.');
+		if($pos !== FALSE) {
 			// Strip the everything before and including the '.'
-			$file_ext = substr( $filename, ( $pos + 1 ) );
-			return( in_array( $file_ext, $exts, true ) );
+			$file_ext = substr($filename, ($pos + 1));
+			return(in_array($file_ext, $exts, TRUE));
 		}
 
 		// No extension found
-		return false;
+		return FALSE;
 	}
 
 	/**
@@ -716,13 +578,13 @@ class DirInfo_Library {
 	 * @param	array		$mimetypes	[optional] array of valid mimetypes
 	 * @return	bool
 	 */
-	public function check_file_mimetype( $pathtofile, $mimetypes = null ) {
-		if( !$this->valid_pathtofile( $pathtofile ) ) {
-			return false;
+	public function check_file_mimetype($pathtofile, $mimetypes = NULL) {
+		if( !$this->valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
-		$mimetypes = $this->validate_mime_types( $mimetypes );
-		$file_mimetype = $this->get_mime_content_type( $pathtofile );
-		return ( in_array( $file_mimetype, $mimetypes ) );
+		$mimetypes = $this->validate_mime_types($mimetypes);
+		$file_mimetype = $this->get_mime_content_type($pathtofile);
+		return (in_array($file_mimetype, $mimetypes));
 	}
 
 
@@ -735,11 +597,11 @@ class DirInfo_Library {
 	 * @param	string		$pathtofile
 	 * @return	int|false	filesize or false if an invalid $pathtofile was passed
 	 */
-	public function get_filesize( $pathtofile ) {
-		if( !DirInfo::valid_pathtofile( $pathtofile ) ) {
-			return false;
+	public function get_filesize($pathtofile) {
+		if( ! self::valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
-		return filesize( $pathtofile );
+		return filesize($pathtofile);
 	}
 
 	/**
@@ -751,9 +613,9 @@ class DirInfo_Library {
 	 * @return	string|false	human readable filesize string or false if an invalid
 	 * 							$pathtofile was passed
 	 */
-	public function get_human_readable_filesize( $pathtofile ) {
-		$filesize = $this->get_filesize( $pathtofile );
-		return ( ( $filesize !== false ) ? $this->human_readable_filesize( $filesize ) : false );
+	public function get_human_readable_filesize($pathtofile) {
+		$filesize = $this->get_filesize($pathtofile);
+		return (($filesize !== FALSE) ? $this->human_readable_filesize($filesize) : FALSE);
 	}
 
 	/**
@@ -773,28 +635,24 @@ class DirInfo_Library {
 	 * @return	string|false	human readable filesize string
 	 * 							or false if the passed variable was not an integer
 	 **/
-	public function human_readable_filesize( $filesize ) {
-
-		if( is_int( $filesize ) && $filesize > 0 ) {
+	public function human_readable_filesize($filesize) {
+		if(is_int($filesize) && $filesize > 0) {
 
 			// Get the figure to use in the string
-			for( $i = 0; ( $i < $this->byte_suffix_count && $filesize >= 1024 ); $i++ ) {
+			for($i = 0; ($i < $this->byte_suffix_count && $filesize >= 1024 ); $i++) {
 				$filesize = $filesize / 1024;
 			}
 
 			// Return the rounded figure with the appropriate suffix
-			if( $this->byte_suffixes[$i] === 'b' || $this->byte_suffixes[$i] === 'kB' ) {
-				return( round( $filesize, 0 ) . ' ' . $this->byte_suffixes[$i] );
+			if($this->byte_suffixes[$i] === 'b' || $this->byte_suffixes[$i] === 'kB') {
+				return (round( $filesize, 0 ) . ' ' . $this->byte_suffixes[$i]);
+			} else {
+				return (round($filesize, 1 ) . ' ' . $this->byte_suffixes[$i]);
 			}
-			else {
-				return( round( $filesize, 1 ) . ' ' . $this->byte_suffixes[$i] );
-			}
-		}
-		else {
-			return false;
+		} else {
+			return FALSE;
 		}
 	}
-
 
 	/**
 	 * Get the last modified unix timestamp for a file
@@ -805,11 +663,11 @@ class DirInfo_Library {
 	 * @param	string		$pathtofile
 	 * @return	int|false	unix timestamp or false if an invalid $pathtofile was passed
 	 */
-	public function get_lastmod_unixts( $pathtofile ) {
-		if( !directory_info::valid_pathtofile( $pathtofile ) ) {
-			return false;
+	public function get_lastmod_unixts($pathtofile) {
+		if( ! self::valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
-		return filemtime( $pathtofile );
+		return filemtime($pathtofile);
 	}
 
 	/**
@@ -822,12 +680,12 @@ class DirInfo_Library {
 	 * @return	string|false	human readable date/time string or false if an invalid
 	 * 							$pathtofile was passed
 	 */
-	public function get_human_readable_lastmod( $pathtofile, $datetime_format = null ) {
-		if( !is_string( $datetime_format ) || $datetime_format === '' ) {
+	public function get_human_readable_lastmod($pathtofile, $datetime_format = NULL) {
+		if( ! is_string( $datetime_format ) || $datetime_format === '') {
 			$datetime_format = $this->datetime_format;
 		}
-		$uts = $this->get_lastmod_unixts( $pathtofile );
-		return ( ( $datetime_format !== '' && $uts !== false ) ? date( $datetime_format, $uts ) : false );
+		$uts = $this->get_lastmod_unixts($pathtofile);
+		return (($datetime_format !== '' && $uts !== FALSE) ? date($datetime_format, $uts) : FALSE);
 	}
 
 	/**
@@ -839,11 +697,11 @@ class DirInfo_Library {
 	 * @param	string		$pathtofile
 	 * @return	int|false	unix timestamp or false if an invalid $pathtofile was passed
 	 */
-	public function get_lastacc_unixts( $pathtofile ) {
-		if( !directory_info::valid_pathtofile( $pathtofile ) ) {
-			return false;
+	public function get_lastacc_unixts($pathtofile) {
+		if( ! self::valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
-		return fileatime( $pathtofile );
+		return fileatime($pathtofile);
 	}
 
 	/**
@@ -856,12 +714,12 @@ class DirInfo_Library {
 	 * @return	string|false	human readable date/time string or false if an invalid
 	 * 							$pathtofile was passed
 	 */
-	public function get_human_readable_lastacc( $pathtofile, $datetime_format = null ) {
-		if( !is_string( $datetime_format ) || $datetime_format === '' ) {
+	public function get_human_readable_lastacc($pathtofile, $datetime_format = NULL) {
+		if( ! is_string($datetime_format) || $datetime_format === '') {
 			$datetime_format = $this->datetime_format;
 		}
 		$uts = $this->get_lastacc_unixts( $pathtofile );
-		return ( ( $datetime_format !== '' && $uts !== false ) ? date( $datetime_format, $uts ) : false );
+		return (($datetime_format !== '' && $uts !== FALSE) ? date($datetime_format, $uts) : FALSE);
 	}
 
 	/**
@@ -873,11 +731,11 @@ class DirInfo_Library {
 	 * @param	string		$pathtofile
 	 * @return	int|false	user id of the file owner or false if an invalid $pathtofile was passed
 	 */
-	public function get_file_owner( $pathtofile ) {
-		if( !directory_info::valid_pathtofile( $pathtofile ) ) {
-			return false;
+	public function get_file_owner($pathtofile) {
+		if( ! self::valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
-		return fileowner( $pathtofile );
+		return fileowner($pathtofile);
 	}
 
 	/**
@@ -890,16 +748,15 @@ class DirInfo_Library {
 	 * @param	string			$pathtofile
 	 * @return	string|false	mimetype string or false if an invalid $pathtofile was passed
 	 */
-	public function get_mime_content_type( $pathtofile ) {
-		if( !directory_info::valid_pathtofile( $pathtofile ) ) {
-			return false;
+	public function get_mime_content_type($pathtofile) {
+		if ( ! self::valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
 
-		if( function_exists( 'mime_content_type' ) ) {
-			return mime_content_type( $pathtofile );
-		}
-		else {
-			return exec( trim( 'file -bi ' . escapeshellarg( $pathtofile ) ) ) ;
+		if (function_exists('mime_content_type')) {
+			return mime_content_type($pathtofile);
+		} else {
+			return exec(trim('file -bi ' . escapeshellarg($pathtofile))) ;
 		}
 	}
 
@@ -912,51 +769,46 @@ class DirInfo_Library {
 	 * @param	string			$pathtofile
 	 * @return	string|false	file permission string or false if an invalid $pathtofile was passed
 	 */
-	public function get_human_readable_file_permissions( $pathtofile ) {
+	public function get_human_readable_file_permissions($pathtofile) {
 
-		if( !directory_info::valid_pathtofile( $pathtofile ) ) {
-			return false;
+		if ( ! self::valid_pathtofile($pathtofile)) {
+			return FALSE;
 		}
 
 		$perms = fileperms( $pathtofile );
 
-		if( ( $perms & 0xC000 ) == 0xC000 ) { $info = 's'; } // Socket
-		elseif( ( $perms & 0xA000 ) == 0xA000 ) { $info = 'l'; } // Symbolic Link
-		elseif( ( $perms & 0x8000 ) == 0x8000 ) { $info = '-'; } // Regular
-		elseif( ( $perms & 0x6000 ) == 0x6000 ) { $info = 'b'; } // Block special
-		elseif( ( $perms & 0x4000 ) == 0x4000 ) { $info = 'd'; } // Directory
-		elseif( ( $perms & 0x2000 ) == 0x2000 ) { $info = 'c'; } // Character special
-		elseif( ( $perms & 0x1000 ) == 0x1000 ) { $info = 'p'; } // FIFO pipe
+		if(($perms & 0xC000) == 0xC000) {$info = 's';} // Socket
+		elseif (($perms & 0xA000) == 0xA000) {$info = 'l';} // Symbolic Link
+		elseif (($perms & 0x8000) == 0x8000) {$info = '-';} // Regular
+		elseif (($perms & 0x6000) == 0x6000) {$info = 'b';} // Block special
+		elseif (($perms & 0x4000) == 0x4000) {$info = 'd';} // Directory
+		elseif (($perms & 0x2000) == 0x2000) {$info = 'c';} // Character special
+		elseif (($perms & 0x1000) == 0x1000) {$info = 'p';} // FIFO pipe
 		else { $info = 'u';	} // Unknown
 
 		// Owner
-		$info .= ( ( $perms & 0x0100 ) ? 'r' : '-' );
-		$info .= ( ( $perms & 0x0080 ) ? 'w' : '-' );
-		$info .= ( ( $perms & 0x0040 ) ?
-					( ( $perms & 0x0800 ) ? 's' : 'x' ) :
-           			( ( $perms & 0x0800 ) ? 'S' : '-' ) );
+		$info .= (($perms & 0x0100) ? 'r' : '-');
+		$info .= (($perms & 0x0080) ? 'w' : '-');
+		$info .= (($perms & 0x0040) ?
+					(($perms & 0x0800) ? 's' : 'x' ) :
+           			(($perms & 0x0800) ? 'S' : '-' ) );
 
 		// Group
-		$info .= ( ( $perms & 0x0020 ) ? 'r' : '-' );
-		$info .= ( ( $perms & 0x0010 ) ? 'w' : '-' );
-		$info .= ( ( $perms & 0x0008 ) ?
-					( ( $perms & 0x0400 ) ? 's' : 'x' ) :
-					( ( $perms & 0x0400 ) ? 'S' : '-' ) );
+		$info .= (($perms & 0x0020) ? 'r' : '-');
+		$info .= (($perms & 0x0010) ? 'w' : '-');
+		$info .= (($perms & 0x0008) ?
+					(($perms & 0x0400) ? 's' : 'x') :
+					(($perms & 0x0400) ? 'S' : '-'));
 
 		// World
-		$info .= ( ( $perms & 0x0004 ) ? 'r' : '-' );
-		$info .= ( ( $perms & 0x0002 ) ? 'w' : '-' );
-		$info .= ( ( $perms & 0x0001 ) ?
-					( ( $perms & 0x0200 ) ? 't' : 'x' ) :
-					( ( $perms & 0x0200 ) ? 'T' : '-' ) );
+		$info .= (($perms & 0x0004) ? 'r' : '-');
+		$info .= (($perms & 0x0002) ? 'w' : '-');
+		$info .= (($perms & 0x0001) ?
+					(($perms & 0x0200) ? 't' : 'x') :
+					(($perms & 0x0200) ? 'T' : '-'));
 
 		return $info;
 	}
-
-
-	/**********************************************************************
-	 * METHODS TO RETRIEVE FILE LISTS
-	 *********************************************************************/
 
 	/**
 	 * Get list of files in $pathtodir
@@ -993,22 +845,18 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	array of filenames
 	 */
-	public function get_filelist( $use_selection = null, $pathtodir = null, $recursive = null ) {
-
+	public function get_filelist($use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
 		// If a pathtodir was passed and the path to dir was not the same as the last one used
 		// to get a filelist, build a new filelist
-		if( !is_null( $pathtodir ) && ( $pathtodir !== $this->last_path || $recursive !== $this->last_recursive ) ) {
-			$this->traverse_directory( $pathtodir, $recursive );
+		i f( ! is_null($pathtodir) && ($pathtodir !== $this->last_path || $recursive !== $this->last_recursive)) {
+			$this->traverse_directory($pathtodir, $recursive);
 			return $this->filelist;
-		}
-		elseif( is_null( $pathtodir ) && $this->filecount === 0 ) {
-			$this->traverse_directory( $this->pathtodir, $recursive );
+		} elseif(is_null($pathtodir) && $this->filecount === 0) {
+			$this->traverse_directory($this->pathtodir, $recursive);
 			return $this->filelist;
-		}
-		elseif( $use_selection === true && $this->fileselection_count > 0 ) {
+		} elseif($use_selection === TRUE && $this->fileselection_count > 0) {
 			return $this->filelist_selection;
-		}
-		else {
+		} else {
 			return $this->filelist;
 		}
 	}
@@ -1027,13 +875,11 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	array of filenames
 	 */
-	public function get_dir_list( $pathtodir, $recursive = null ) {
-
-		if( !is_null( $pathtodir ) && ( $pathtodir !== $this->last_path || $recursive !== $this->last_recursive ) ) {
-			$this->traverse_directory( $pathtodir, $recursive );
-		}
-		elseif( is_null( $pathtodir ) && $this->dircount === 0 ) {
-			$this->traverse_directory( $this->pathtodir, $recursive );
+	public function get_dir_list($pathtodir, $recursive = NULL) {
+		if ( ! is_null($pathtodir) && ($pathtodir !== $this->last_path || $recursive !== $this->last_recursive)) {
+			$this->traverse_directory($pathtodir, $recursive);
+		} elseif(is_null($pathtodir ) && $this->dircount === 0) {
+			$this->traverse_directory($this->pathtodir, $recursive);
 		}
 		return $this->dirlist;
 	}
@@ -1071,9 +917,9 @@ class DirInfo_Library {
 	 * @return 	void	sets class variables {@link $filelist} and {@link $filecount}
 	 *
 	 */
-	public function traverse_directory( $pathtodir, $recursive = false, $prefix = '' ) {
+	public function traverse_directory($pathtodir, $recursive = FALSE, $prefix = '') {
 
-		if( $prefix === '' ) {
+		if ($prefix === '') {
 			$this->last_path = $pathtodir;
 			$this->last_recursive = $recursive;
 			$this->filelist = array();
@@ -1084,46 +930,42 @@ class DirInfo_Library {
 			$this->dircount = 0;
 		}
 
-		if( $handle = @opendir( $pathtodir ) ) {
-
-			while( ( $filename = readdir( $handle ) ) !== false ) {
-
-
+		if ($handle = @opendir($pathtodir)) {
+			while (($filename = readdir($handle)) !== FALSE) {
 				// Check if the file is an 'unsafe' one such as .htaccess or
 				// higher directory references, if so, skip
-				if( $this->safe_exts === true && strpos( $filename, '.' ) === 0 ) {
+				if ($this->safe_exts === TRUE && strpos($filename, '.') === 0) {
 					// do nothing
-				}
-				else {
+				} else {
 					// If it's a file, check against valid extensions and add to the list
-					if( is_file( $pathtodir . $filename ) === true ) {
+					if(is_file($pathtodir . $filename) === TRUE) {
 						$this->filelist[] = $prefix . $filename;
 					}
 
 					// If it's a directory and subdirectories should be listed,
 					// add the subdirectory to the list.
 					// If files from subdirs should be listed, run this function on the subdirectory
-					elseif( is_dir( $pathtodir . $filename ) === true ) {
+					elseif (is_dir($pathtodir . $filename) === TRUE) {
 						$this->dirlist[] = $prefix . $filename . '/';
-						if( $recursive === true) {
+						if ($recursive === TRUE) {
 							$this->traverse_directory( $pathtodir . $filename . '/', $recursive, $prefix . $filename . '/' );
 						}
 					}
 				}
-				unset( $filename );
+				unset($filename);
 			}
-			closedir( $handle );
+			closedir($handle);
 
-			$this->filecount = count( $this->filelist );
-			$this->dircount = count( $this->dirlist );
+			$this->filecount = count($this->filelist);
+			$this->dircount = count($this->dirlist);
 
 
-			if( $this->dircount > 1 ) {
-				natcasesort( $this->dirlist );
-				$this->dirlist = array_values( $this->dirlist );
+			if ($this->dircount > 1) {
+				natcasesort($this->dirlist);
+				$this->dirlist = array_values($this->dirlist);
 			}
-			if( $this->filecount > 1 ) {
-				natcasesort( $this->filelist );
+			if ($this->filecount > 1) {
+				natcasesort($this->filelist);
 				$this->filelist = array_values( $this->filelist );
 			}
 		}
@@ -1154,20 +996,19 @@ class DirInfo_Library {
 	 * @param	array			$mimetypes		[optional] allowed mimetypes
 	 * @return	array			array of filenames of files which pass the test
 	 */
-	public function get_ext_based_filelist( $use_selection = null, $pathtodir = null, $recursive = null, $exts = null, $strict = null, $mimetypes = null ) {
-
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
+	public function get_ext_based_filelist($use_selection = NULL, $pathtodir = NULL, $recursive = NULL, $exts = NULL, $strict = NULL, $mimetypes = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
 		$passed_files = array();
 
-		foreach( $files as $filename ) {
-			if( $this->check_allowed_file( $this->last_path . $filename, $exts, $strict, $mimetypes ) ) {
+		foreach ($files as $filename) {
+			if ($this->check_allowed_file($this->last_path . $filename, $exts, $strict, $mimetypes)) {
 				$passed_files[] = $filename;
 			}
 		}
 
 		$this->filelist_selection = $passed_files;
-		$this->fileselection_count = count( $this->filelist_selection );
+		$this->fileselection_count = count($this->filelist_selection);
 		return $this->filelist_selection;
 	}
 
@@ -1193,17 +1034,16 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	sorted array of filenames
 	 */
-	public function get_sorted_filelist( $sort_asc = null, $use_selection = null, $pathtodir = null, $recursive = null ) {
-
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
+	public function get_sorted_filelist($sort_asc = NULL, $use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
 		// Sort the resulting file list
-		if( count( $files ) > 1 ) {
-			natcasesort( $files );
-			if( $sort_asc === false ) {
-				$files = array_reverse( $files, true );
+		if (count( $files ) > 1) {
+			natcasesort($files);
+			if ($sort_asc === FALSE) {
+				$files = array_reverse($files, TRUE);
 			}
-			$files = array_values( $files );
+			$files = array_values($files);
 		}
 		return $files;
 	}
@@ -1227,17 +1067,16 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	sorted array of (sub-)directory names
 	 */
-	public function get_sorted_dirlist( $sort_asc = null, $pathtodir = null, $recursive = null ) {
-
-		$dirs = $this->get_dir_list( $pathtodir, $recursive );
+	public function get_sorted_dirlist($sort_asc = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$dirs = $this->get_dir_list($pathtodir, $recursive);
 
 		// Sort the resulting file list
-		if( count( $dirs ) > 1 ) {
-			natcasesort( $dirs );
-			if( $sort_asc === false ) {
-				$dirs = array_reverse( $dirs, true );
+		if (count( $dirs ) > 1) {
+			natcasesort($dirs);
+			if ($sort_asc === FALSE) {
+				$dirs = array_reverse($dirs, TRUE);
 			}
-			$dirs = array_values( $dirs );
+			$dirs = array_values($dirs);
 		}
 		return $dirs;
 	}
@@ -1260,24 +1099,23 @@ class DirInfo_Library {
 	 * 					'filename' => filename of most recent file
 	 * 					'last_modified'	=> last modified unix timestamp of the file
 	 */
-	public function get_most_recent_file( $use_selection = null, $pathtodir = null, $recursive = null ) {
-
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
+	public function get_most_recent_file($use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
 		// Initialize result
 		$last_mod_ts = 0;
 		$last_mod_file = '';
 
-		foreach( $files as $filename ) {
-			$file_mod_ts = $this->get_lastmod_unixts( $this->last_path . $filename);
-			if( $file_mod_ts > $last_mod_ts ) {
-				$last_mod_ts = $file_mod_ts;
+		foreach ($files as $filename) {
+			$file_mod_ts = $this->get_lastmod_unixts($this->last_path . $filename);
+			if ($file_mod_ts > $last_mod_ts) {
+			 	$last_mod_ts = $file_mod_ts;
 				$last_mod_file = $filename;
 			}
-			unset( $file_mod_ts );
+			unset($file_mod_ts);
 		}
 
-		return array( 'filename' => $last_mod_file, 'last_modified' => $last_mod_ts );
+		return array('filename' => $last_mod_file, 'last_modified' => $last_mod_ts);
 	}
 
 
@@ -1303,19 +1141,18 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	array of filenames of files which pass the test
 	 */
-	public function get_files_modified_since( $compare_ts, $use_selection = null, $pathtodir = null, $recursive = null ) {
+	public function get_files_modified_since($compare_ts, $use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
-
-		foreach( $files as $key => $filename ) {
-			$file_mod_ts = $this->get_lastmod_unixts( $this->last_path . $filename);
-			if( $file_mod_ts < $compare_ts ) {
-				unset( $files[$key] );
+		foreach ($files as $key => $filename) {
+			$file_mod_ts = $this->get_lastmod_unixts($this->last_path . $filename);
+			if ($file_mod_ts < $compare_ts) {
+				unset($files[$key]);
 			}
 		}
 
 		$this->filelist_selection = $files;
-		$this->fileselection_count = count( $this->filelist_selection );
+		$this->fileselection_count = count($this->filelist_selection);
 		return $this->filelist_selection;
 	}
 
@@ -1341,19 +1178,18 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	array of filenames of files which pass the test
 	 */
-	public function get_files_modified_before( $compare_ts, $use_selection = null, $pathtodir = null, $recursive = null ) {
+	public function get_files_modified_before($compare_ts, $use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
-
-		foreach( $files as $key => $filename ) {
-			$file_mod_ts = $this->get_lastmod_unixts( $this->last_path . $filename);
-			if( $file_mod_ts > $compare_ts ) {
-				unset( $files[$key] );
+		foreach ($files as $key => $filename) {
+			$file_mod_ts = $this->get_lastmod_unixts($this->last_path . $filename);
+			if ($file_mod_ts > $compare_ts) {
+				unset($files[$key]);
 			}
 		}
 
 		$this->filelist_selection = $files;
-		$this->fileselection_count = count( $this->filelist_selection );
+		$this->fileselection_count = count($this->filelist_selection);
 		return $this->filelist_selection;
 	}
 
@@ -1379,14 +1215,13 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	array of filenames of files which pass the test
 	 */
-	public function get_files_accessed_since( $compare_ts, $use_selection = null, $pathtodir = null, $recursive = null ) {
+	public function get_files_accessed_since($compare_ts, $use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
-
-		foreach( $files as $key => $filename ) {
-			$file_mod_ts = $this->get_lastacc_unixts( $this->last_path . $filename);
-			if( $file_mod_ts < $comparets ) {
-				unset( $files[$key] );
+		foreach ($files as $key => $filename) {
+			$file_mod_ts = $this->get_lastacc_unixts($this->last_path . $filename);
+			if ($file_mod_ts < $comparets) {
+				unset($files[$key]);
 			}
 		}
 
@@ -1417,19 +1252,18 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	array	array of filenames of files which pass the test
 	 */
-	public function get_files_accessed_before( $compare_ts, $use_selection = null, $pathtodir = null, $recursive = null ) {
+	public function get_files_accessed_before($compare_ts, $use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
-
-		foreach( $files as $key => $filename ) {
-			$file_mod_ts = $this->get_lastacc_unixts( $this->last_path . $filename);
-			if( $file_mod_ts > $comparets ) {
-				unset( $files[$key] );
+		foreach ($files as $key => $filename) {
+			$file_mod_ts = $this->get_lastacc_unixts($this->last_path . $filename);
+			if ($file_mod_ts > $comparets) {
+				unset($files[$key]);
 			}
 		}
 
 		$this->filelist_selection = $files;
-		$this->fileselection_count = count( $this->filelist_selection );
+		$this->fileselection_count = count($this->filelist_selection);
 		return $this->filelist_selection;
 	}
 
@@ -1450,15 +1284,14 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	int		total size of files in directory in bytes
 	 */
-	public function get_dirsize( $use_selection = null, $pathtodir = null, $recursive = null ) {
-
-		$files = $this->get_filelist( $use_selection, $pathtodir, $recursive );
+	public function get_dirsize($use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$files = $this->get_filelist($use_selection, $pathtodir, $recursive);
 
 		// Initialize result
 		$dirsize = 0;
 
-		foreach( $files as $filename ) {
-			$dirsize += $this->get_filesize( $this->last_path . $filename );
+		foreach ($files as $filename) {
+			$dirsize += $this->get_filesize($this->last_path . $filename);
 		}
 
 		return $dirsize;
@@ -1476,9 +1309,9 @@ class DirInfo_Library {
 	 * 									subdirectories
 	 * @return	string	human readable directory size string
 	 */
-	public function get_human_readable_dirsize( $use_selection = null, $pathtodir = null, $recursive = null ) {
-		$dirsize = $this->get_dirsize( $use_selection, $pathtodir, $recursive );
-		return $this->human_readable_filesize( $dirsize );
+	public function get_human_readable_dirsize($use_selection = NULL, $pathtodir = NULL, $recursive = NULL) {
+		$dirsize = $this->get_dirsize($use_selection, $pathtodir, $recursive);
+		return $this->human_readable_filesize($dirsize);
 	}
 
 	/**
