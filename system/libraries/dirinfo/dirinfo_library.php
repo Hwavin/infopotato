@@ -1687,7 +1687,7 @@ class DirInfo_Library {
 
 			// foreach (scandir($source_dir, 1) as $file) // In addition to being PHP5+, scandir() is simply not as fast
 			while (FALSE !== ($file = readdir($fp))) {
-				if (@is_dir($source_dir.$file) AND strncmp($file, '.', 1) !== 0 AND $top_level_only === FALSE) {
+				if (@is_dir($source_dir.$file) && strncmp($file, '.', 1) !== 0 && $top_level_only === FALSE) {
 					dir_file_info($source_dir.$file.DIRECTORY_SEPARATOR, $top_level_only, TRUE);
 				} elseif (strncmp($file, '.', 1) !== 0) {
 					$_filedata[$file] = get_file_info($source_dir.$file);
@@ -1716,7 +1716,6 @@ class DirInfo_Library {
 	* @return	array
 	*/
 	public static function get_file_info($file, $returned_values = array('name', 'server_path', 'size', 'date')) {
-
 		if ( ! file_exists($file)) {
 			return FALSE;
 		}
@@ -1779,11 +1778,11 @@ class DirInfo_Library {
 
 			while (FALSE !== ($file = readdir($fp))) {
 				// Remove '.', '..', and hidden files [optional]
-				if ( ! trim($file, '.') OR ($hidden == FALSE && $file[0] == '.')) {
+				if ( ! trim($file, '.') || ($hidden == FALSE && $file[0] == '.')) {
 					continue;
 				}
 
-				if (($directory_depth < 1 OR $new_depth > 0) && @is_dir($target_dir.$file)) {
+				if (($directory_depth < 1 || $new_depth > 0) && @is_dir($target_dir.$file)) {
 					$filedata[$file] = directory_map($target_dir.$file.DIRECTORY_SEPARATOR, $new_depth, $hidden);
 				} else {
 					$filedata[] = $file;
