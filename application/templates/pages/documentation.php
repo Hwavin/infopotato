@@ -88,7 +88,6 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo BASE_URI; ?>documentation/common_function/">Cookie Helper</a></li> 
 <li><a href="<?php echo BASE_URI; ?>documentation/directory/">Directory Helper</a></li> 
 <li><a href="<?php echo BASE_URI; ?>documentation/common_function/">Download Helper</a></li> 
-<li><a href="<?php echo BASE_URI; ?>documentation/common_function/">Remove XSS</a></li> 
 </ul> 
  
 </td> 
