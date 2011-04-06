@@ -103,8 +103,8 @@ class InfoPotato {
 		$worker_obj = new $worker_class;
 		
 		// Checks if the default process method exists
-		if ( ! method_exists($worker_obj, $request_method)) {	
-			Global_Functions::show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_obj}'", 'sys_error');
+		if ( ! method_exists($worker_class, $request_method)) {	
+			Global_Functions::show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_class}'", 'sys_error');
 		}
 
 		// The desginated worker prepares the related resources and sends response back to client
