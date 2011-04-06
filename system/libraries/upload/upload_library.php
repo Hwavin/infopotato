@@ -8,14 +8,14 @@ class Upload_Library {
 	public $max_width = 0;
 	public $max_height = 0;
 	public $max_filename = 0;
-	public $allowed_types = "";
-	public $file_temp = "";
-	public $file_name = "";
-	public $orig_name = "";
-	public $file_type = "";
-	public $file_size = "";
-	public $file_ext = "";
-	public $upload_path	= "";
+	public $allowed_types = '';
+	public $file_temp = '';
+	public $file_name = '';
+	public $orig_name = '';
+	public $file_type = '';
+	public $file_size = '';
+	public $file_ext = '';
+	public $upload_path	= '';
 	public $overwrite = FALSE;
 	public $encrypt_name = FALSE;
 	public $is_image = FALSE;
@@ -26,7 +26,7 @@ class Upload_Library {
 	public $error_msg = array();
 	public $mimes = array();
 	public $remove_spaces = TRUE;
-	public $temp_prefix	= "temp_file_";
+	public $temp_prefix	= 'temp_file_';
 	
 	protected $_file_name_override	= '';
 		
@@ -52,14 +52,14 @@ class Upload_Library {
 			'max_width'	=> 0,
 			'max_height' => 0,
 			'max_filename' => 0,
-			'allowed_types' => "",
-			'file_temp' => "",
-			'file_name' => "",
-			'orig_name' => "",
-			'file_type' => "",
-			'file_size' => "",
-			'file_ext' => "",
-			'upload_path' => "",
+			'allowed_types' => '',
+			'file_temp' => '',
+			'file_name' => '',
+			'orig_name' => '',
+			'file_type' => '',
+			'file_size' => '',
+			'file_ext' => '',
+			'upload_path' => '',
 			'overwrite' => FALSE,
 			'encrypt_name' => FALSE,
 			'is_image' => FALSE,
@@ -70,7 +70,7 @@ class Upload_Library {
 			'error_msg' => array(),
 			'mimes' => array(),
 			'remove_spaces'	=> TRUE,
-			'temp_prefix' => "temp_file_"
+			'temp_prefix' => 'temp_file_'
 		);	
 	
 	
