@@ -97,21 +97,21 @@ class Calendar_Library {
 	 */
 	public function generate($year = '', $month = '', $data = array()) {
 		// Set and validate the supplied month/year
-		if ($year == '')
+		if ($year == '') {
 			$year  = date("Y", $this->local_time);
-			
-		if ($month == '')
+		}	
+		if ($month == '') {
 			$month = date("m", $this->local_time);
-			
- 		if (strlen($year) == 1)
+		}	
+ 		if (strlen($year) == 1) {
 			$year = '200'.$year;
-		
- 		if (strlen($year) == 2)
+		}
+ 		if (strlen($year) == 2) {
 			$year = '20'.$year;
-
- 		if (strlen($month) == 1)
+        }
+ 		if (strlen($month) == 1) {
 			$month = '0'.$month;
-		
+		}
 		$adjusted_date = $this->adjust_date($month, $year);
 		
 		$month	= $adjusted_date['month'];
@@ -333,13 +333,13 @@ class Calendar_Library {
 	public function get_total_days($month, $year) {
 		$days_in_month	= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 
-		if ($month < 1 OR $month > 12) {
+		if ($month < 1 || $month > 12) {
 			return 0;
 		}
 
 		// Is the year a leap year?
 		if ($month == 2) {
-			if ($year % 400 == 0 OR ($year % 4 == 0 && $year % 100 != 0)) {
+			if ($year % 400 == 0 || ($year % 4 == 0 && $year % 100 != 0)) {
 				return 29;
 			}
 		}
