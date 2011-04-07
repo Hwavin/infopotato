@@ -1,7 +1,6 @@
 /*--------------------------------------------------------------
 main.css
 @author Zhou Yuan
-@copyright Institute for Learning 2009 - 2010
 -------------------------------------------------------------- */
 
 /* XHTML elements
@@ -96,17 +95,8 @@ font-weight:bold;
 vertical-align:bottom;
 }
 
-tr.odd td{
-background:#d4dae8;
-}
-
-tr.even td{
-background:#eceff6;
-}
-
 td {
 padding:10px;
-border:1px solid #c0c0c0;
 }
 
 sup, sub  { 
@@ -462,6 +452,22 @@ input.submit {
 font-size:1.5em;
 }
 
+table.grid th {
+border:1px solid #c0c0c0;
+}
+
+table.grid td {
+border:1px solid #c0c0c0;
+}
+
+tr.odd td{
+background:#d4dae8;
+}
+
+tr.even td{
+background:#eceff6;
+}
+
 /* page layout / structure
 -------------------------------------------------------------- */
 #container {
@@ -738,10 +744,6 @@ padding-left:16px;
 background:url(<?php echo BASE_URI; ?>img/shared/text.png) no-repeat; 
 padding-left:16px;
 }
-
-
-
-
 
 /* syntac highlighter*/
 .syntax  { 

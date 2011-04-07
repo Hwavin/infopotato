@@ -26,9 +26,9 @@
 <img src="<?php echo BASE_URI; ?>img/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
 
 <ul class="avater_desc">
-<li><a class="word_doc" href="<?php echo BASE_URI; ?>file/resume-word">Word</a></li>
-<li><a class="pdf_doc" href="<?php echo BASE_URI; ?>file/resume-pdf">PDF</a></li>
-<li><a class="text_doc" href="<?php echo BASE_URI; ?>file/resume-text">Text</a></li>
+<li><a class="word_doc" href="<?php echo BASE_URI; ?>resume/word">Word</a></li>
+<li><a class="pdf_doc" href="<?php echo BASE_URI; ?>resume/pdf">PDF</a></li>
+<li><a class="text_doc" href="<?php echo BASE_URI; ?>resume/text">Text</a></li>
 </ul>
 
 </div> 

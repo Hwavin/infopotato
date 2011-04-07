@@ -100,7 +100,7 @@ window.onload = function() {
 };
 </script>
  
-<table> 
+<table class="grid"> 
 <thead>
 <tr><th>Preference</th><th>Default&nbsp;Value</th><th>Options</th><th>Description</th></tr>
 </thead>

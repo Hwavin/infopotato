@@ -41,7 +41,7 @@ window.onload = function() {
 };
 </script>
 
-<table> 
+<table class="grid"> 
 <thead>
 <tr><th width="18%">PHP Function</th><th width="18%">UTF8 Method</th><th>Differences</th></tr>
 </thead>

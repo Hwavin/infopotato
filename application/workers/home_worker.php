@@ -14,4 +14,4 @@ final class Home_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/presenters/home_worker.php
+// End of file: ./application/workers/home_worker.php

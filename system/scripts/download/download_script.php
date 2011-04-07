@@ -2,6 +2,9 @@
 /**
  * Force File Download With PHP
  *
+ * If you want to do something on download abort/finish,
+ * register_shutdown_function('function_name');
+ * 
  * @param string $file the path of the file to be downloaded
  * @param string $name file name shown in the save window
  * @param string $mime_type MIME type of the target file
@@ -9,14 +12,6 @@
  * @link http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
  */
 function download($file, $name, $mime_type = '') { 
-	/*
-	This function takes a path to a file to output ($file), 
-	the filename that the browser will see ($name) and 
-	the MIME type of the file ($mime_type, optional).
-
-	If you want to do something on download abort/finish,
-	register_shutdown_function('function_name');
-	*/
 	if ( ! is_readable($file)) {
 		die('File not found or inaccessible!');
 	}
@@ -127,7 +122,7 @@ function download($file, $name, $mime_type = '') {
 		}
 		while ( ! feof($file) && ( ! connection_aborted()) && ($bytes_send < $new_length)) {
 			$buffer = fread($file, $chunksize);
-			print($buffer); //echo($buffer); // is also possible
+			echo $buffer; //echo($buffer); // is also possible
 			flush();
 			$bytes_send += strlen($buffer);
 		}

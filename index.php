@@ -88,7 +88,7 @@ define('PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
  */
 //define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
 //define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
-//define('APP_DOWNLOAD_DIR', APP_DIR.'download'.DS);
+define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 //define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 /**
