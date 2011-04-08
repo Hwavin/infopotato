@@ -45,6 +45,7 @@ class Global_Functions {
 		$buffer = ob_get_contents();
 		ob_end_clean();
 		echo $buffer;
+		exit;
 	}
 
 	/**
@@ -61,18 +62,14 @@ class Global_Functions {
 		// Is the script in a sub-folder? If so, parse out the filename and path.
 		if (strpos($script, '/') === FALSE) {
 			$path = '';
+			$filename = $script;
 		} else {
-			$x = explode('/', $script);
-			$script = end($x);			
-			unset($x[count($x)-1]);
-			$path = implode(DS, $x).DS;
+			$path = str_replace('/', DS, pathinfo($script, PATHINFO_DIRNAME));
+			$filename = substr(strrchr($script, '/'), 1);
 		}
-		
-		if ( ! preg_match('!^[a-z][a-z_]+$!', $script)) {
-			self::show_sys_error('A System Error Was Encountered', "Invalid script name '{$script}'", 'sys_error');
-		}
+
 		// Currently, all script functions are placed in system/scripts folder
-		$file_path = SYS_DIR.'scripts'.DS.$path.$script.'.php';
+		$file_path = SYS_DIR.'scripts'.DS.$path.DS.$filename.'.php';
 		
 		if ( ! file_exists($file_path)) {
 			self::show_sys_error('An Error Was Encountered', "Unknown script file '{$script}'", 'sys_error');		

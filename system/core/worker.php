@@ -111,17 +111,13 @@ class Worker {
 		// Is the template in a sub-folder? If so, parse out the filename and path.
 		if (strpos($template, '/') === FALSE) {
 			$path = '';
-		} else {
-			$x = explode('/', $template);
-			$template = end($x);			
-			unset($x[count($x) - 1]);
-			$path = implode(DS, $x).DS;
+			$filename = $template;
+		} else {	
+			$path = str_replace('/', DS, pathinfo($template, PATHINFO_DIRNAME));
+			$filename = substr(strrchr($template, '/'), 1);
 		}
-	
-		$file = $template.'.php';
-	
-		$template_file_path = APP_TEMPLATE_DIR.$path.$file;
-		
+		$template_file_path = APP_TEMPLATE_DIR.$path.DS.$filename.'.php';
+
 		ob_start();
 		if ( ! file_exists($template_file_path)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$template}'", 'sys_error');
@@ -300,13 +296,12 @@ class Worker {
 		// Is the data in a sub-folder? If so, parse out the filename and path.
 		if (strpos($data, '/') === FALSE) {
 			$path = '';
+			$filename = $data;
 		} else {
-			$x = explode('/', $data);
-			$data = end($x);			
-			unset($x[count($x)-1]);
-			$path = implode(DS, $x).DS;
+			$path = str_replace('/', DS, pathinfo($data, PATHINFO_DIRNAME));
+			$filename = substr(strrchr($data, '/'), 1);
 		}
-		
+
 		// If no alias, use the data name
 		if ($alias === '') {
 			$alias = $data;
@@ -320,7 +315,7 @@ class Worker {
 			return TRUE;
 		}
 		
-		$file_path = APP_DATA_DIR.$path.$data.'.php';
+		$file_path = APP_DATA_DIR.$path.DS.$filename.'.php';
 
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$data}'", 'sys_error');

@@ -15,8 +15,8 @@
  
 <h2>Global Constants</h2>
  
-<table>
-<tr><td>ENVIRONMENT</td><td>Define the application environment</td></tr>
+<table class="grid">
+<tr><th>ENVIRONMENT</th><th>Define the application environment</th></tr>
 <tr><td>INFOPOTATO_VERSION</td><td>Define InfoPotato Version</td></tr>
 <tr><td>BASE_URI</td><td>Set public accessible web root, ending with the trailing slash '/'</td></tr>
 <tr><td>DS</td><td>Short name of DIRECTORY_SEPARATOR, '\' for Windows, '/' for Unix</td></tr>
