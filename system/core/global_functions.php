@@ -57,22 +57,18 @@ class Global_Functions {
 	 * @return  void
 	 */    
 	public static function load_script($script) {
-		$script = strtolower($script);
+		$orig_script = strtolower($script);
 		
 		// Is the script in a sub-folder? If so, parse out the filename and path.
-		if (strpos($script, '/') === FALSE) {
-			$path = '';
-			$filename = $script;
-		} else {
-			$path = str_replace('/', DS, pathinfo($script, PATHINFO_DIRNAME));
-			$filename = substr(strrchr($script, '/'), 1);
+		if (strpos($script, '/')) {
+			$script = str_replace('/', DS, pathinfo($orig_script, PATHINFO_DIRNAME)).DS.substr(strrchr($orig_script, '/'), 1);
 		}
 
 		// Currently, all script functions are placed in system/scripts folder
-		$file_path = SYS_DIR.'scripts'.DS.$path.DS.$filename.'.php';
+		$file_path = SYS_DIR.'scripts'.DS.$script.'.php';
 		
 		if ( ! file_exists($file_path)) {
-			self::show_sys_error('An Error Was Encountered', "Unknown script file '{$script}'", 'sys_error');		
+			self::show_sys_error('An Error Was Encountered', "Unknown script file '{$orig_script}'", 'sys_error');		
 		}
 		return require_once($file_path);
 	}

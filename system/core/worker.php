@@ -106,21 +106,18 @@ class Worker {
 	 * @return  string rendered contents of template
 	 */    
 	protected function load_template($template, $template_vars = array()) {
-		$template = strtolower($template);
+		$orig_template = strtolower($template);
 		
 		// Is the template in a sub-folder? If so, parse out the filename and path.
-		if (strpos($template, '/') === FALSE) {
-			$path = '';
-			$filename = $template;
-		} else {	
-			$path = str_replace('/', DS, pathinfo($template, PATHINFO_DIRNAME));
-			$filename = substr(strrchr($template, '/'), 1);
+		if (strpos($template, '/')) {
+			$template = str_replace('/', DS, pathinfo($orig_template, PATHINFO_DIRNAME)).DS.substr(strrchr($orig_template, '/'), 1);
 		}
-		$template_file_path = APP_TEMPLATE_DIR.$path.DS.$filename.'.php';
+		
+		$template_file_path = APP_TEMPLATE_DIR.$template.'.php';
 
 		ob_start();
 		if ( ! file_exists($template_file_path)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$template}'", 'sys_error');
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
 		} else {
 			// Bring template vars into template scope
 			// Import variables from an array into the current symbol table.
@@ -292,21 +289,22 @@ class Worker {
 	 */    
 	protected function load_data($data, $alias = '') {
 		$data = strtolower($data);
+		
+		$orig_data = $data;
 
 		// Is the data in a sub-folder? If so, parse out the filename and path.
 		if (strpos($data, '/') === FALSE) {
 			$path = '';
-			$filename = $data;
 		} else {
-			$path = str_replace('/', DS, pathinfo($data, PATHINFO_DIRNAME));
-			$filename = substr(strrchr($data, '/'), 1);
+			$path = str_replace('/', DS, pathinfo($data, PATHINFO_DIRNAME)).DS;
+			$data = substr(strrchr($data, '/'), 1);		
 		}
 
 		// If no alias, use the data name
 		if ($alias === '') {
 			$alias = $data;
 		}
-		
+
 		if (method_exists($this, $alias)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
 		}
@@ -314,14 +312,14 @@ class Worker {
 		if (isset($this->$alias)) {
 			return TRUE;
 		}
-		
-		$file_path = APP_DATA_DIR.$path.DS.$filename.'.php';
+
+		$file_path = APP_DATA_DIR.$path.$data.'.php';
 
 		if ( ! file_exists($file_path)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$data}'", 'sys_error');
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
 		}
 		require_once($file_path);
-		
+
 		// Class name must be the same as the data name
 		if ( ! class_exists($data)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
@@ -330,7 +328,7 @@ class Worker {
 		// Instantiate the data object as a worker's property 
 		// The names of user-defined classes are case-insensitive
 		$this->$alias = new $data;
-		
+
 		return TRUE;	
 	}
 
@@ -350,14 +348,14 @@ class Worker {
 	protected function load_library($scope, $library, $alias = '', $config = array()) {
 		$library = strtolower($library);
 
+		$orig_library = $library;
+		
 		// Is the library in a sub-folder? If so, parse out the filename and path.
 		if (strpos($library, '/') === FALSE) {
 			$path = '';
 		} else {
-			$x = explode('/', $library);
-			$library = end($x);			
-			unset($x[count($x)-1]);
-			$path = implode(DS, $x).DS;
+			$path = str_replace('/', DS, pathinfo($library, PATHINFO_DIRNAME)).DS;
+			$library = substr(strrchr($library, '/'), 1);	
 		}
 		
 		// If no alias, use the library name
@@ -385,7 +383,7 @@ class Worker {
 		$file_path = SYS_DIR.'libraries'.DS.$path.$library.'.php';
 
 		if ( ! file_exists($file_path)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$library}'", 'sys_error');
+			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
 		}
 		require_once($file_path);
 		
