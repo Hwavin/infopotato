@@ -1,23 +1,28 @@
 <?php
 /**
- * Force File Download With PHP
+ * Force File Download
  *
  * If you want to do something on download abort/finish,
  * register_shutdown_function('function_name');
  * 
- * @param string $file the path of the file to be downloaded
- * @param string $name file name shown in the save window
- * @param string $mime_type MIME type of the target file
+ * @param string $file (required) the path of the file to be downloaded
+ * @param string $name (optional) file name shown in the save window
+ * @param string $mime_type (optional) MIME type of the target file
  * @return none
- * @link http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
+ * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
  */
-function download($file, $name, $mime_type = '') { 
+function download($file, $mime_type = '') { 
+	// Tells whether a file exists and is readable
 	if ( ! is_readable($file)) {
 		die('File not found or inaccessible!');
 	}
-	
-	$size = filesize($file);
-	$name = rawurldecode($name);
+
+	// Grab the file extension if provided
+	$dot_ext = strrchr($file, '.');
+	$file_extension = $dot_ext ? strtolower(substr($dot_ext, 1)) : '';
+
+	// File name shown in the save window
+	$save_name = strrchr($file, DIRECTORY_SEPARATOR);
 
 	// Figure out the MIME type (if not specified) 
 	$known_mime_types = array(	
@@ -67,23 +72,29 @@ function download($file, $name, $mime_type = '') {
 		'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
 	);
 
-	if ($mime_type == '') {
-		$file_extension = strtolower(substr(strrchr($file, '.'), 1));
+	if ($mime_type === '') {
 		if (array_key_exists($file_extension, $known_mime_types)) {
 			$mime_type = $known_mime_types[$file_extension];
 		} else {
 			$mime_type = 'application/force-download';
-		};
-	};
+		}
+	} else {
+		if ( ! isset($known_mime_types[$file_extension]) || $mime_type !== $known_mime_types[$file_extension]) {
+			die('Please specify the valid MIME type or leave it blank!');
+		}
+	}
+	
+	$size = filesize($file);
 
-	//@ob_end_clean(); //turn off output buffering to decrease cpu usage
+	// Turn off output buffering to decrease cpu usage
+	@ob_end_clean(); 
 
 	// Required for IE, otherwise Content-Disposition may be ignored
 	if (ini_get('zlib.output_compression')) {
 		ini_set('zlib.output_compression', 'Off');
 	}
 	header('Content-Type: '.$mime_type);
-	header('Content-Disposition: attachment; filename="'.$name.'"');
+	header('Content-Disposition: attachment; filename="'.$save_name.'"');
 	header('Content-Transfer-Encoding: binary');
 	header('Accept-Ranges: bytes');
 
@@ -113,8 +124,9 @@ function download($file, $name, $mime_type = '') {
 		header("Content-Length: ".$size);
 	}
 
-	// output the file itself 
-	$chunksize = 1*(1024*1024); //you may want to change this
+	// Output the file itself 
+	// You may want to change this
+	$chunksize = 1*(1024*1024); 
 	$bytes_send = 0;
 	if ($file = fopen($file, 'r')) {
 		if (isset($_SERVER['HTTP_RANGE'])) {
@@ -122,7 +134,7 @@ function download($file, $name, $mime_type = '') {
 		}
 		while ( ! feof($file) && ( ! connection_aborted()) && ($bytes_send < $new_length)) {
 			$buffer = fread($file, $chunksize);
-			echo $buffer; //echo($buffer); // is also possible
+			echo $buffer; 
 			flush();
 			$bytes_send += strlen($buffer);
 		}

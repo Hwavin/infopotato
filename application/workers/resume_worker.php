@@ -6,21 +6,23 @@ final class Resume_Worker extends Worker {
 		set_time_limit(0);
 		
 		$file = count($params) > 0 ? strtolower($params[0]) : '';
-		
+
 		if ($file !== '') {
 			Global_Functions::load_script('download/download_script');
 			$download_dir = APP_DOWNLOAD_DIR;
 			
 			switch ($file) {
 				case 'word' :
-					download($download_dir.'ZhouYuan_Resume.doc', 'ZhouYuan_Resume.doc', 'application/msword');
+					download($download_dir.'ZhouYuan_Resume.doc');
 					break;
 				case 'pdf' :
-					download($download_dir.'ZhouYuan_Resume.pdf', 'ZhouYuan_Resume.pdf', 'application/pdf');
+					download($download_dir.'ZhouYuan_Resume.pdf');
 					break;	
 				case 'text' :
-					download($download_dir.'ZhouYuan_Resume.txt', 'ZhouYuan_Resume.txt', 'text/plain');
+					download($download_dir.'ZhouYuan_Resume.txt');
 					break;
+				default:
+					echo 'File not found';
 			}
 		} else {
 			Global_Functions::load_script('redirect/redirect_script');
