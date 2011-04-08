@@ -18,8 +18,12 @@ function download($file, $mime_type = '') {
 	}
 
 	// Grab the file extension if provided
-	$dot_ext = strrchr($file, '.');
-	$file_extension = $dot_ext ? strtolower(substr($dot_ext, 1)) : '';
+	//$dot_ext = strrchr($file, '.');
+	//$file_extension = $dot_ext ? strtolower(substr($dot_ext, 1)) : '';
+
+	// The fastest method to get file extension?
+	// http://cowburn.info/2008/01/13/get-file-extension-comparison/
+	$file_extension = pathinfo($file, PATHINFO_EXTENSION);
 
 	// File name shown in the save window
 	$save_name = strrchr($file, DIRECTORY_SEPARATOR);
