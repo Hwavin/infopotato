@@ -89,10 +89,6 @@ function download($file, $mime_type = '') {
 	// Turn off output buffering to decrease cpu usage
 	@ob_end_clean(); 
 
-	// Required for IE, otherwise Content-Disposition may be ignored
-	if (ini_get('zlib.output_compression')) {
-		ini_set('zlib.output_compression', 'Off');
-	}
 	header('Content-Type: '.$mime_type);
 	header('Content-Disposition: attachment; filename="'.$save_name.'"');
 	header('Content-Transfer-Encoding: binary');
@@ -103,7 +99,7 @@ function download($file, $mime_type = '') {
 	header('Pragma: private');
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 
-	// multipart-download and download resuming support
+	// Multipart-download and download resuming support
 	if (isset($_SERVER['HTTP_RANGE'])) {
 		list($a, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
 		list($range) = explode(',', $range, 2);
