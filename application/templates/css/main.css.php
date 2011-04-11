@@ -192,14 +192,14 @@ font-weight: bold
 }
 
 blockquote{
-background:url(<?php echo BASE_URI; ?>img/shared/quote_left.png) no-repeat left 2px;
+background:url(<?php echo APP_URI; ?>application/images/shared/quote_left.png) no-repeat left 2px;
 font-style:italic;
 line-height:1.5em;
 padding-left:23px;
 }
 
 blockquote span{
-background:url(<?php echo BASE_URI; ?>img/shared/quote_right.png) no-repeat right 3px;
+background:url(<?php echo APP_URI; ?>application/images/shared/quote_right.png) no-repeat right 3px;
 color:#666;
 padding-right:23px;
 }
@@ -269,7 +269,7 @@ width:231px;
 height:178px;
 color:#555;
 margin-left:10px;
-background:url(<?php echo BASE_URI; ?>img/shared/note_bg.png) no-repeat center center;
+background:url(<?php echo APP_URI; ?>application/images/shared/note_bg.png) no-repeat center center;
 }
 
 .note_content {
@@ -321,12 +321,12 @@ margin: auto;
 }
 
 .back_to_top {
-background:url('<?php echo BASE_URI; ?>img/shared/back_to_top.png') no-repeat center right; 
+background:url('<?php echo APP_URI; ?>application/images/shared/back_to_top.png') no-repeat center right; 
 padding-right:20px;
 }
 
 .external_link {
-background:url('<?php echo BASE_URI; ?>img/shared/external_link.png') no-repeat center right; 
+background:url('<?php echo APP_URI; ?>application/images/shared/external_link.png') no-repeat center right; 
 padding-right:14px;
 }
 
@@ -353,7 +353,7 @@ border-top:1px dotted #ddd;
 }
 
 .tipbox {
-background:#fffecf url('<?php echo BASE_URI; ?>img/shared/tip.png') no-repeat 10px center;
+background:#fffecf url('<?php echo APP_URI; ?>application/images/shared/tip.png') no-repeat 10px center;
 padding:10px 10px 10px 35px;
 border:1px dotted #dda;
 }
@@ -505,7 +505,7 @@ margin-right:15px;
 }
 
 #logo a {
-background:url(<?php echo BASE_URI; ?>img/shared/logo.jpg) no-repeat 0 0;
+background:url(<?php echo APP_URI; ?>application/images/shared/logo.jpg) no-repeat 0 0;
 width:180px;
 text-indent:-9999px;
 }
@@ -559,7 +559,7 @@ border-top:none;
 }
 
 #onecolumn ul {
-list-style:disc url('<?php echo BASE_URI; ?>img/shared/green_dot.gif');
+list-style:disc url('<?php echo APP_URI; ?>application/images/shared/green_dot.gif');
 }
 
 #onecolumn ol {
@@ -586,7 +586,7 @@ margin:40px 0 10px 20px;
 }
 
 #download a {
-background: transparent url("<?php echo BASE_URI; ?>img/shared/download_background.png") repeat-x 0 -125px;
+background: transparent url("<?php echo APP_URI; ?>application/images/shared/download_background.png") repeat-x 0 -125px;
 color:#4a6d24;
 text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
 display:block;
@@ -599,7 +599,7 @@ position: relative;
 }
 
 #download a:hover {
-background: transparent url("<?php echo BASE_URI; ?>img/shared/download_background.png") repeat-x 0 -425px;
+background: transparent url("<?php echo APP_URI; ?>application/images/shared/download_background.png") repeat-x 0 -425px;
 text-decoration:none;
 }
 
@@ -616,7 +616,7 @@ text-align:center;
 }
 
 #download_arrow {
-background: transparent url(<?php echo BASE_URI; ?>img/shared/download_arrow.png) no-repeat;
+background: transparent url(<?php echo APP_URI; ?>application/images/shared/download_arrow.png) no-repeat;
 height: 97px;
 width: 54px;
 position: absolute;
@@ -641,11 +641,11 @@ width:280px;
 }
 
 ul#yes  {
-list-style:disc url('<?php echo BASE_URI; ?>img/shared/yes.png') !important;
+list-style:disc url('<?php echo APP_URI; ?>application/images/shared/yes.png') !important;
 }
 
 ul#no  {
-list-style:disc url('<?php echo BASE_URI; ?>img/shared/no.png') !important;
+list-style:disc url('<?php echo APP_URI; ?>application/images/shared/no.png') !important;
 }
 
 #index_right {
@@ -731,17 +731,17 @@ color:#333;
 }
 
 .word_doc {
-background:url(<?php echo BASE_URI; ?>img/shared/word.png) no-repeat; 
+background:url(<?php echo APP_URI; ?>application/images/shared/word.png) no-repeat; 
 padding-left:16px;
 }
 
 .pdf_doc {
-background:url(<?php echo BASE_URI; ?>img/shared/pdf.png) no-repeat; 
+background:url(<?php echo APP_URI; ?>application/images/shared/pdf.png) no-repeat; 
 padding-left:16px;
 }
 
 .text_doc {
-background:url(<?php echo BASE_URI; ?>img/shared/text.png) no-repeat; 
+background:url(<?php echo APP_URI; ?>application/images/shared/text.png) no-repeat; 
 padding-left:16px;
 }
 

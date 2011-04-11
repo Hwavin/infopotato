@@ -17,7 +17,7 @@ If I have seen further it is by standing on the shoulders of giants.
 </div>
 
 <div id="download">
-<a href="<?php echo BASE_URI; ?>download/sbra/" title="Download Latest Release">
+<a href="<?php echo APP_ENTRY_URI; ?>download/sbra/" title="Download Latest Release">
 <span id="download_arrow"></span>
 <span id="download_text">Download</span>
 <span id="download_version">InfoPotato 1.0.0</span>
@@ -54,7 +54,7 @@ If I have seen further it is by standing on the shoulders of giants.
 <li>No built-in Log mechanism</li> 
 </ul>
 
-<span><a href="<?php echo BASE_URI; ?>about/facts/" title="More facts about InfoPotato">Find out more &raquo;</a></span>
+<span><a href="<?php echo APP_ENTRY_URI; ?>about/facts/" title="More facts about InfoPotato">Find out more &raquo;</a></span>
 
 </div> 
 
@@ -86,7 +86,7 @@ If I have seen further it is by standing on the shoulders of giants.
 <span class="post_date">Mar 01, 2011</span>
 </div> 
 
-<span><a href="<?php echo BASE_URI; ?>news/" title="See all news about InfoPotato">See all news &raquo;</a></span>
+<span><a href="<?php echo APP_ENTRY_URI; ?>news/" title="See all news about InfoPotato">See all news &raquo;</a></span>
 
 </div>            
 

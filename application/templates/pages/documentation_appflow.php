@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Application Execution Flow
+<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Application Execution Flow
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -33,7 +33,7 @@ InfoPotato handles user requests and organizes the execution flow of an applicat
  
 <div class="content_image">
 <p>A typical workflow of InfoPotato application</p>
-<img src="<?php echo BASE_URI; ?>img/content/appflow.png" width="800" height="800" alt="Application Execution Flow" />
+<img src="<?php echo APP_URI; ?>application/images/content/appflow.png" width="800" height="800" alt="Application Execution Flow" />
 </div> 
 
 <ol> 

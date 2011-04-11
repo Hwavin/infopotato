@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Structure of a Project
+<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Structure of a Project
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -17,7 +17,7 @@ Open framework folder, it's a basic project folder for InfoPotato. Every new app
 
 <div class="content_image">
 <p>A typical workflow of Yii application</p>
-<img src="<?php echo BASE_URI; ?>/img/content/project_structure.jpg" width="330" height="113" alt="Structure of a Project" />
+<img src="<?php echo APP_URI; ?>application/images/content/project_structure.jpg" width="330" height="113" alt="Structure of a Project" />
 </div>
  
 <p>In a project folder you have:</p>

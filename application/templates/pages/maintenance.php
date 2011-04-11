@@ -28,7 +28,7 @@
   </head> 
   <body> 
     <div id="container"> 
-        <div id="header"><img src="<?php echo BASE_URI; ?>img/shared/logo.png" width="316" height="132" alt="Institute for Learning"/></div> 
+        <div id="header"><img src="<?php echo APP_ENTRY_URI; ?>img/shared/logo.png" width="316" height="132" alt="Institute for Learning"/></div> 
       <div id="text"> 
         <p>Institute for Learning is currently down for maintenance. We're working hard to restore the site as soon as possible and are sorry for any inconvenience.</p> 
         <p>Thanks for your patience!</p> 

@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Form validation
+<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Form validation
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -111,7 +111,7 @@ folder:</p>
 &lt;/div>
 &lt;?php endif; ?>
  
-&lt;form id="contact_form" method="post" action="<?php echo BASE_URI; ?>contact/send_email">  
+&lt;form id="contact_form" method="post" action="<?php echo APP_ENTRY_URI; ?>contact/send_email">  
  
 <label for="contact_subject" id="contact_subject_label" class="desc">Subject <span class="req">*</span></label>  
 &lt;input type="text" name="contact_subject" id="contact_subject" size="60" value="<?php if (isset($contact_subject)) echo $contact_subject; ?>" class="contact_input" />   

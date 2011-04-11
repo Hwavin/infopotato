@@ -48,9 +48,12 @@ define('INFOPOTATO_VERSION', '1.0.0');
 date_default_timezone_set('America/New_York');
 
 /**
- * Set public accessible web root, ending with the trailing slash '/'
+ * APP_URI is used for static assets (images) access, 
+ * APP_URI is used for resources that need InfoPotato to process
+ * Must end with the trailing slash '/'
  */
-define('BASE_URI', 'http://localhost/infopotato/index.php/');
+define('APP_URI', 'http://localhost/infopotato/');
+define('APP_ENTRY_URI', 'http://localhost/infopotato/index.php/');
 
 /**
  * '\' for Windows, '/' for Unix

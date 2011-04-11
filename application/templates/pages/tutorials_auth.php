@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>tutorials/">Tutorials</a> &gt; Authentication and Authorization
+<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>tutorials/">Tutorials</a> &gt; Authentication and Authorization
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -23,7 +23,7 @@ As mentioned above, authentication is about validating the identity of the user.
 
 <div class="syntax"><pre><span class="nt">&lt;h1&gt;</span>Login<span class="nt">&lt;/h1&gt;</span> 
  
-<span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">&quot;login_form&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">BASE_URI</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">auth/submit_login/&quot;</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">&quot;login_form&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_ENTRY_URI</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">auth/submit_login/&quot;</span><span class="nt">&gt;</span>  
  
 <span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$auth</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nv">$auth</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span> <span class="o">:</span> <span class="cp">?&gt;</span> 
 <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;center&quot;</span><span class="nt">&gt;</span>Incorrect Username/Password Combination<span class="nt">&lt;/h2&gt;</span> 
@@ -128,12 +128,12 @@ Password: <span class="nt">&lt;input</span> <span class="na">type=</span><span c
 	<span class="nv">$password</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
  
 	<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_login_auth</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span> <span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span> 
-	    <span class="nv">$base_uri</span> <span class="o">=</span> <span class="nx">BASE_URI</span><span class="p">;</span> 
+	    <span class="nv">$APP_ENTRY_URI</span> <span class="o">=</span> <span class="nx">APP_ENTRY_URI</span><span class="p">;</span> 
 	    <span class="nx">load_script</span><span class="p">(</span><span class="s1">&#39;redirect/redirect_script&#39;</span><span class="p">);</span> 
 	    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">))</span> <span class="p">{</span> 
-		<span class="nx">redirect</span><span class="p">(</span><span class="nv">$base_uri</span><span class="o">.</span><span class="s1">&#39;admin/&#39;</span><span class="p">);</span> 
+		<span class="nx">redirect</span><span class="p">(</span><span class="nv">$APP_ENTRY_URI</span><span class="o">.</span><span class="s1">&#39;admin/&#39;</span><span class="p">);</span> 
 	    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-		<span class="nx">redirect</span><span class="p">(</span><span class="nv">$base_uri</span><span class="o">.</span><span class="s1">&#39;home/&#39;</span><span class="p">);</span> 
+		<span class="nx">redirect</span><span class="p">(</span><span class="nv">$APP_ENTRY_URI</span><span class="o">.</span><span class="s1">&#39;home/&#39;</span><span class="p">);</span> 
 	    <span class="p">}</span> 
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
 	    <span class="c1">// Data to be displayed in Template</span> 

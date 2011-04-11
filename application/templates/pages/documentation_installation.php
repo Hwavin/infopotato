@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; <a href="<?php echo BASE_URI; ?>documentation/">Documentation</a> &gt; Installation
+<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Installation
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -39,7 +39,7 @@ Open the index.php file with a text editor and set your timezone, base URI, and 
 <span class="sd">/**</span> 
 <span class="sd"> * Set public accessible web root, ending with the trailing slash &#39;/&#39;</span> 
 <span class="sd"> */</span> 
-<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BASE_URI&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost/mvc/index.php/&#39;</span><span class="p">);</span> 
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;APP_ENTRY_URI&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost/mvc/index.php/&#39;</span><span class="p">);</span> 
 </pre></div> 
 
 <h2>General Config</h2>

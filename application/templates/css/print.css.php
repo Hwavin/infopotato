@@ -430,7 +430,7 @@ width:299px;
 }
 
 #column1 ul {
-list-style:disc url('<?php echo BASE_URI; ?>img/shared/arrow.gif');
+list-style:disc url('<?php echo APP_URI; ?>application/images/shared/arrow.gif');
 }
 
 #column2 {
@@ -438,7 +438,7 @@ width:299px;
 }
 
 #column2 ul {
-list-style:disc url('<?php echo BASE_URI; ?>img/shared/arrow.gif');
+list-style:disc url('<?php echo APP_URI; ?>application/images/shared/arrow.gif');
 }
 
 #column3 {
@@ -465,7 +465,7 @@ padding:10px;
 }
 
 #onecolumn ul, #rightcolumn ul {
-list-style:disc inside url('<?php echo BASE_URI; ?>img/shared/bullet.gif');
+list-style:disc inside url('<?php echo APP_URI; ?>application/images/shared/bullet.gif');
 }
 
 #onecolumn ol, #rightcolumn ol {

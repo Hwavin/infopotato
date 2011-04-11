@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo BASE_URI; ?>home">Home</a> &gt; About
+<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; About
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -12,10 +12,10 @@
 
 <div id="toc"> 
 <ul> 
-<li><a href="<?php echo BASE_URI; ?>about/" title="Motivation">Motivation</a></li> 
-<li><a href="<?php echo BASE_URI; ?>about/facts/" title="Facts">Facts</a></li> 
-<li><a href="<?php echo BASE_URI; ?>about/license/" title="License">License</a></li> 
-<li class="current_tab"><a href="<?php echo BASE_URI; ?>about/founder/" title="The Founder">The Founder</a></li> 
+<li><a href="<?php echo APP_ENTRY_URI; ?>about/" title="Motivation">Motivation</a></li> 
+<li><a href="<?php echo APP_ENTRY_URI; ?>about/facts/" title="Facts">Facts</a></li> 
+<li><a href="<?php echo APP_ENTRY_URI; ?>about/license/" title="License">License</a></li> 
+<li class="current_tab"><a href="<?php echo APP_ENTRY_URI; ?>about/founder/" title="The Founder">The Founder</a></li> 
 </ul> 
 </div>
 
@@ -23,12 +23,12 @@
 
 <div class="box_right greybox">
 <h3>My Resume</h3>
-<img src="<?php echo BASE_URI; ?>img/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
+<img src="<?php echo APP_URI; ?>application/images/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
 
 <ul class="avater_desc">
-<li><a class="word_doc" href="<?php echo BASE_URI; ?>resume/word">Word</a></li>
-<li><a class="pdf_doc" href="<?php echo BASE_URI; ?>resume/pdf">PDF</a></li>
-<li><a class="text_doc" href="<?php echo BASE_URI; ?>resume/text">Text</a></li>
+<li><a class="word_doc" href="<?php echo APP_ENTRY_URI; ?>resume/word">Word</a></li>
+<li><a class="pdf_doc" href="<?php echo APP_ENTRY_URI; ?>resume/pdf">PDF</a></li>
+<li><a class="text_doc" href="<?php echo APP_ENTRY_URI; ?>resume/text">Text</a></li>
 </ul>
 
 </div> 

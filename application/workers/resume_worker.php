@@ -26,7 +26,7 @@ final class Resume_Worker extends Worker {
 			}
 		} else {
 			Global_Functions::load_script('redirect/redirect_script');
-			redirect(BASE_URI.'about/founder/');
+			redirect(APP_ENTRY_URI.'about/founder/');
 		}
 
 	}
