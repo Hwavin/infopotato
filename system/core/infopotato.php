@@ -23,7 +23,7 @@ function __autoload($class_name) {
 	if ( ! file_exists($file)) {
 		return FALSE;
 	}
-	return require_once($file);
+	require_once($file);
 } 
 
 
