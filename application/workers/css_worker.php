@@ -7,7 +7,7 @@ final class Css_Worker extends Worker {
 		if ($css_files !== NULL) {
 			$css_content = '';
 			foreach ($css_files as $css_file) {
-				$css_content .= $this->load_template('css/'.$css_file);
+				$css_content .= $this->render_template('css/'.$css_file);
 			}
 
 			$response_data = array(

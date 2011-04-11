@@ -48,8 +48,8 @@ define('INFOPOTATO_VERSION', '1.0.0');
 date_default_timezone_set('America/New_York');
 
 /**
- * APP_URI is used for static assets (images) access, 
- * APP_URI is used for resources that need InfoPotato to process
+ * APP_URI is used for direct static assets (images) access
+ * APP_ENTRY_URI is used for resources that need InfoPotato to further process
  * Must end with the trailing slash '/'
  */
 define('APP_URI', 'http://localhost/infopotato/');
@@ -98,8 +98,7 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
  * Dispatch, prepare, response 
  */
 require_once(SYS_DIR.'infopotato_app.php');
-$app = new InfoPotato_App;
-$app->run();
+InfoPotato_App::run();
 
 // End of file: ./index.php 
 

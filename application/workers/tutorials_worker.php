@@ -5,11 +5,11 @@ final class Tutorials_Worker extends Worker {
 		
 		$layout_data = array(
 			'page_title' => 'Tutorials',
-			'content' => $this->load_template('pages/tutorials'.$name),
+			'content' => $this->render_template('pages/tutorials'.$name),
 		);
 		
 		$response_data = array(
-			'content' => $this->load_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
 		$this->response($response_data);

@@ -105,7 +105,7 @@ class Worker {
 	 * @param   array $template_vars template variables
 	 * @return  string rendered contents of template
 	 */    
-	protected function load_template($template, $template_vars = array()) {
+	protected function render_template($template, $template_vars = array()) {
 		$orig_template = strtolower($template);
 		
 		// Is the template in a sub-folder? If so, parse out the filename and path.

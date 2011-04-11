@@ -5,11 +5,11 @@ final class News_Worker extends Worker {
 		
 		$layout_data = array(
 			'page_title' => 'News',
-			'content' => $this->load_template('pages/news'.$name),
+			'content' => $this->render_template('pages/news'.$name),
 		);
 		
 		$response_data = array(
-			'content' => $this->load_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
 		$this->response($response_data);

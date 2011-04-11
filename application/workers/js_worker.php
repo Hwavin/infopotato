@@ -7,7 +7,7 @@ final class Js_Worker extends Worker {
 		if ($js_files != NULL) {
 			$js_content = '';
 			foreach ($js_files as $js_file) {
-				$js_content .= $this->load_template('js/'.$js_file);
+				$js_content .= $this->render_template('js/'.$js_file);
 			}
 			
 			$response_data = array(
