@@ -20,9 +20,6 @@ function __autoload($class_name) {
 		// In case one app worker extends another app worker
 		$file = APP_WORKER_DIR.strtolower($class_name).'.php';
 	}
-	if ( ! file_exists($file)) {
-		return FALSE;
-	}
 	require_once($file);
 } 
 
