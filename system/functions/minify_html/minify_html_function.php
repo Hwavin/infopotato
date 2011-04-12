@@ -8,8 +8,8 @@
  * 
  * @return minified HTML content
  */
-function minify_html($html) {
-	if ( ! strstr($html, '<html') OR ! strstr($html, '</html>')) {
+function minify_html_function($html) {
+	if ( ! strstr($html, '<html') || ! strstr($html, '</html>')) {
 		return $html;
 	}
 	
@@ -59,4 +59,4 @@ function minify_html($html) {
 	return $html;
 }
 
-/* End of file: ./system/scripts/minify_html/minify_html_script.php */
+/* End of file: ./system/functions/minify_html/minify_html_function.php */

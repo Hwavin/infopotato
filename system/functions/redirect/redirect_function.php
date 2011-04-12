@@ -22,7 +22,7 @@ echo '<h1>You won\'t know what hit you!</h1>';
  * @param boolean $js_wrapped whether to use <script> tag when returing JavaScript
  * @param boolean $return whether to return JavaScript code
  */
-function redirect($url, $delay = 0, $js = FALSE, $js_wrapped = TRUE, $return = FALSE) {
+function redirect_function($url, $delay = 0, $js = FALSE, $js_wrapped = TRUE, $return = FALSE) {
     $delay = (int) $delay;
     if ( ! $js) {
         if (headers_sent() || $delay > 0) {
@@ -61,4 +61,4 @@ EOT;
     exit;
 }
 
-/* End of file: ./system/scripts/redirect/redirect_script.php */
+/* End of file: ./system/functions/redirect/redirect_function.php */

@@ -4,7 +4,7 @@
  *
  * @return string the ip address
  */
-function get_client_ip(){
+function get_client_ip_function(){
    if (getenv("HTTP_CLIENT_IP") && strcasecmp(getenv("HTTP_CLIENT_IP"), "unknown"))
        $ip = getenv("HTTP_CLIENT_IP");
    else if (getenv("HTTP_X_FORWARDED_FOR") && strcasecmp(getenv("HTTP_X_FORWARDED_FOR"), "unknown"))
@@ -18,4 +18,4 @@ function get_client_ip(){
    return($ip);
 }
 
-// End of file: ./system/scripts/get_client_ip/get_client_ip_script.php
+// End of file: ./system/functions/get_client_ip/get_client_ip_function.php

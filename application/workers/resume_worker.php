@@ -23,8 +23,7 @@ final class Resume_Worker extends Worker {
 					echo 'File not found';
 			}
 		} else {
-			$this->call_function('redirect/redirect_script');
-			redirect(APP_ENTRY_URI.'about/founder/');
+			$this->call_function('redirect/redirect_function', array(APP_ENTRY_URI.'about/founder/'));
 		}
 
 	}

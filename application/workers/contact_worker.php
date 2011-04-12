@@ -29,10 +29,7 @@ final class Contact_Worker extends Worker {
 
 		// Load Form Validation library and assign post data
 		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->post));
-		
-		// Load htmlawed script
-		Global_Functions::load_script('htmlawed/htmlawed_script');
-		
+
 		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
 		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam
 		$this->fv->set_rules('contact_subject', 'Subject', 'trim|required');
@@ -42,9 +39,10 @@ final class Contact_Worker extends Worker {
 		
 		$result = $this->fv->run();
 		
-		$contact_subject = htmlawed($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
-		$contact_message = htmlawed($this->fv->set_value('contact_message'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
-		$contact_name = htmlawed($this->fv->set_value('contact_name'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
+		// Further process the input data with htmlawed function
+		$contact_subject = $this->call_function('htmlawed/htmlawed_function', array($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a')));
+		$contact_message = $this->call_function('htmlawed/htmlawed_function', array($this->fv->set_value('contact_message'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a')));
+		$contact_name = $this->call_function('htmlawed/htmlawed_function', array($this->fv->set_value('contact_name'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a')));
 		$contact_email = $this->fv->set_value('contact_email');
 
 		if ($result == FALSE) {

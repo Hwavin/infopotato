@@ -10,7 +10,7 @@
  * @link		http://codeigniter.com/user_guide/helpers/xml_helper.html
  * @return	string
  */
-function captcha_script($data = '', $img_path = '', $img_url = '', $font_path = '') {
+function captcha_function($data = '', $img_path = '', $img_url = '', $font_path = '') {
 	// The captcha function requires the GD image library.
 	// Only the img_path and img_url are required.
 	// If a "word" is not supplied, the function will generate a random ASCII string. You might put together your own word library that you can draw randomly from.
@@ -203,4 +203,4 @@ function captcha_script($data = '', $img_path = '', $img_url = '', $font_path = 
 	);
 }
 
-/* End of file: ./system/scripts/captcha_script.php */
+/* End of file: ./system/functions/captcha_function.php */

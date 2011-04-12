@@ -427,6 +427,8 @@ class Worker {
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
 		}
+		// The require_once() will check if the file has already been included, 
+		// and if so, not include (require) it again
 		require_once($file_path);
 		// Call a user function given with an array of parameters
 		call_user_func_array($func, $params);

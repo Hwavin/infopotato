@@ -13,7 +13,7 @@
  * @param	string	the $S argument can be used to disallow an otherwise legal attribute for an element, or to restrict the attribute's values
  * @return  the processed string
  */
-function htmLawed($t, $C = 1, $S = array()) {
+function htmlawed_function($t, $C = 1, $S = array()) {
 	$C = is_array($C) ? $C : array();
 	if ( ! empty($C['valid_xhtml'])) {
 		$C['elements'] = empty($C['elements']) ? '*-center-dir-font-isindex-menu-s-strike-u' : $C['elements'];
