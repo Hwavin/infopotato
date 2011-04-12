@@ -11,7 +11,7 @@
  * @return none
  * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
  */
-function download($file, $mime_type = '') { 
+function download_function($file, $mime_type = '') { 
 	// Tells whether a file exists and is readable
 	if ( ! is_readable($file)) {
 		die('File not found or inaccessible!');
@@ -145,4 +145,4 @@ function download($file, $mime_type = '') {
 	die();
 }	
 
-// End of file: ./system/scripts/download/download_script.php
+// End of file: ./system/functions/download/download_function.php

@@ -48,30 +48,6 @@ class Global_Functions {
 		exit;
 	}
 
-	/**
-	 * Script Functions Loader
-	 *
-	 * If script is located in a sub-folder, include the relative path from scripts folder.
-	 *
-	 * @param   string $script the script plugin name
-	 * @return  void
-	 */    
-	public static function load_script($script) {
-		$orig_script = strtolower($script);
-		
-		// Is the script in a sub-folder? If so, parse out the filename and path.
-		if (strpos($script, '/')) {
-			$script = str_replace('/', DS, pathinfo($orig_script, PATHINFO_DIRNAME)).DS.substr(strrchr($orig_script, '/'), 1);
-		}
-
-		// Currently, all script functions are placed in system/scripts folder
-		$file_path = SYS_DIR.'scripts'.DS.$script.'.php';
-		
-		if ( ! file_exists($file_path)) {
-			self::show_sys_error('An Error Was Encountered', "Unknown script file '{$orig_script}'", 'sys_error');		
-		}
-		return require_once($file_path);
-	}
 }
 
 

@@ -101,8 +101,8 @@ class Worker {
 	 *
 	 * If your template is located in a sub-folder, include the relative path from your templates folder.
 	 *
-	 * @param   string $template template filename and path
-	 * @param   array $template_vars template variables
+	 * @param   string $template template file path and file name
+	 * @param   array $template_vars (optional) template variables
 	 * @return  string rendered contents of template
 	 */    
 	protected function render_template($template, $template_vars = array()) {
@@ -399,6 +399,37 @@ class Worker {
 		$this->$alias = new $library($config);
 		
 		return TRUE;
+	}
+	
+	/**
+	 * Call user-defined function given with an array of parameters
+	 *
+	 * If function script is located in a sub-folder, include the relative path from functions folder
+	 *
+	 * @param   string $func the function script name
+	 * @param   array $params the parameters to be passed to the function, as an indexed array
+	 * @return  Returns the function result, or FALSE on error.
+	 */    
+	protected function call_function($func, $params = array()) {
+		$orig_func = strtolower($func);
+		
+		// Is the script in a sub-folder? If so, parse out the filename and path.
+		if (strpos($func, '/') === FALSE) {
+			$path = '';
+		} else {
+			$path = str_replace('/', DS, pathinfo($func, PATHINFO_DIRNAME)).DS;
+			$func = substr(strrchr($func, '/'), 1);	
+		}
+
+		// Currently, all script functions are placed in system/functions folder
+		$file_path = SYS_DIR.'functions'.DS.$path.$func.'.php';
+		
+		if ( ! file_exists($file_path)) {
+			Global_Functions::show_sys_error('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
+		}
+		require_once($file_path);
+		// Call a user function given with an array of parameters
+		call_user_func_array($func, $params);
 	}
 	
 	/**

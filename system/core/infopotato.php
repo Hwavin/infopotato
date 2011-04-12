@@ -12,7 +12,7 @@
  * Autoloading other core components
  *
  * @param   string $class_name the class name we are trying to load
- * @return  boolean  success or failure
+ * @return  void
  */   
 function __autoload($class_name) {
 	$file = SYS_DIR.'core'.DS.strtolower($class_name).'.php';
@@ -142,8 +142,8 @@ class InfoPotato {
 		}
 
 		// Convert programatic characters to entities
-		$bad	= array('$', 		'(', 		')',	 	'%28', 		'%29');
-		$good	= array('&#36;',	'&#40;',	'&#41;',	'&#40;',	'&#41;');
+		$bad = array('$', '(', ')', '%28', '%29');
+		$good = array('&#36;', '&#40;', '&#41;', '&#40;', '&#41;');
 
 		return str_replace($bad, $good, $str);
 	}

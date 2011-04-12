@@ -8,24 +8,22 @@ final class Resume_Worker extends Worker {
 		$file = count($params) > 0 ? strtolower($params[0]) : '';
 
 		if ($file !== '') {
-			Global_Functions::load_script('download/download_script');
 			$download_dir = APP_DOWNLOAD_DIR;
-			
 			switch ($file) {
 				case 'word' :
-					download($download_dir.'ZhouYuan_Resume.doc');
+					$this->call_function('download/download_function', array($download_dir.'ZhouYuan_Resume.doc'));
 					break;
 				case 'pdf' :
-					download($download_dir.'ZhouYuan_Resume.pdf');
+					$this->call_function('download/download_function', array($download_dir.'ZhouYuan_Resume.pdf'));
 					break;	
 				case 'text' :
-					download($download_dir.'ZhouYuan_Resume.txt');
+					$this->call_function('download/download_function', array($download_dir.'ZhouYuan_Resume.txt'));
 					break;
 				default:
 					echo 'File not found';
 			}
 		} else {
-			Global_Functions::load_script('redirect/redirect_script');
+			$this->call_function('redirect/redirect_script');
 			redirect(APP_ENTRY_URI.'about/founder/');
 		}
 
