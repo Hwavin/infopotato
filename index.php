@@ -70,6 +70,7 @@ define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_WORKER_DIR', APP_DIR.'workers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
+define('APP_FUNCTION_DIR', APP_DIR.'functions'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 
 /**

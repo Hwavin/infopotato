@@ -39,10 +39,12 @@ final class Contact_Worker extends Worker {
 		
 		$result = $this->fv->run();
 		
+		$this->call_function('SYS', 'htmlawed/htmlawed_function');
+		
 		// Further process the input data with htmlawed function
-		$contact_subject = $this->call_function('htmlawed/htmlawed_function', array($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a')));
-		$contact_message = $this->call_function('htmlawed/htmlawed_function', array($this->fv->set_value('contact_message'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a')));
-		$contact_name = $this->call_function('htmlawed/htmlawed_function', array($this->fv->set_value('contact_name'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a')));
+		$contact_subject = htmlawed_function($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
+		$contact_message = htmlawed_function($this->fv->set_value('contact_message'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
+		$contact_name = htmlawed_function($this->fv->set_value('contact_name'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
 		$contact_email = $this->fv->set_value('contact_email');
 
 		if ($result == FALSE) {

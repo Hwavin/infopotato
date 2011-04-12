@@ -8,16 +8,17 @@ final class Resume_Worker extends Worker {
 		$file = count($params) > 0 ? strtolower($params[0]) : '';
 
 		if ($file !== '') {
+			$this->call_function('SYS', 'download/download_function');
 			$download_dir = APP_DOWNLOAD_DIR;
 			switch ($file) {
 				case 'word' :
-					$this->call_function('download/download_function', array($download_dir.'ZhouYuan_Resume.doc'));
+					download_function($download_dir.'ZhouYuan_Resume.doc');
 					break;
 				case 'pdf' :
-					$this->call_function('download/download_function', array($download_dir.'ZhouYuan_Resume.pdf'));
+					download_function($download_dir.'ZhouYuan_Resume.pdf');
 					break;	
 				case 'text' :
-					$this->call_function('download/download_function', array($download_dir.'ZhouYuan_Resume.txt'));
+					download_function($download_dir.'ZhouYuan_Resume.txt');
 					break;
 				default:
 					echo 'File not found';

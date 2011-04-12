@@ -327,7 +327,7 @@ class Worker {
 
 		// Instantiate the data object as a worker's property 
 		// The names of user-defined classes are case-insensitive
-		$this->$alias = new $data;
+		$this->{$alias} = new $data;
 
 		return TRUE;	
 	}
@@ -340,9 +340,10 @@ class Worker {
 	 *
 	 * If library is located in a sub-folder, include the relative path from libraries folder.
 	 *
-	 * @param	string	the name of the class
-	 * @param	string	an optional alias name
-	 * @param	array	the optional config parameters
+	 * @param	string	$scope 'SYS' or 'APP'
+	 * @param	string	$library the name of the class
+	 * @param	string	$alias (optional) alias name
+	 * @param	array	$config the optional config parameters
 	 * @return	void
 	 */	   
 	protected function load_library($scope, $library, $alias = '', $config = array()) {
@@ -396,7 +397,7 @@ class Worker {
 		// An empty array is considered as a NULL variable
 		// The names of user-defined classes are case-insensitive
 		// Don't create static properties or methods for library
-		$this->$alias = new $library($config);
+		$this->{$alias} = new $library($config);
 		
 		return TRUE;
 	}
@@ -406,11 +407,11 @@ class Worker {
 	 *
 	 * If function script is located in a sub-folder, include the relative path from functions folder
 	 *
+	 * @param   string $scope 'SYS' or 'APP'
 	 * @param   string $func the function script name
-	 * @param   array $params the parameters to be passed to the function, as an indexed array
-	 * @return  Returns the function result, or FALSE on error.
+	 * @return  void
 	 */    
-	protected function call_function($func, $params = array()) {
+	protected function call_function($scope, $func) {
 		$orig_func = strtolower($func);
 		
 		// Is the script in a sub-folder? If so, parse out the filename and path.
@@ -421,17 +422,20 @@ class Worker {
 			$func = substr(strrchr($func, '/'), 1);	
 		}
 
-		// Currently, all script functions are placed in system/functions folder
-		$file_path = SYS_DIR.'functions'.DS.$path.$func.'.php';
-		
+		if ($scope === 'SYS') {
+			$file_path = SYS_DIR.'functions'.DS.$path.$func.'.php';
+		} elseif ($scope === 'APP') {
+			$file_path = APP_FUNCTION_DIR.$path.$func.'.php';
+		} else {
+			Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the functions folder must be specified, either 'SYS' or 'APP'", 'sys_error');
+		}
+
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
 		}
 		// The require_once() will check if the file has already been included, 
 		// and if so, not include (require) it again
 		require_once($file_path);
-		// Call a user function given with an array of parameters
-		call_user_func_array($func, $params);
 	}
 	
 	/**
