@@ -39,7 +39,7 @@ final class Contact_Worker extends Worker {
 		
 		$result = $this->fv->run();
 		
-		$this->call_function('SYS', 'htmlawed/htmlawed_function');
+		$this->load_function('SYS', 'htmlawed/htmlawed_function');
 		
 		// Further process the input data with htmlawed function
 		$contact_subject = htmlawed_function($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));

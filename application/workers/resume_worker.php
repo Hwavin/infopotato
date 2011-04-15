@@ -8,7 +8,7 @@ final class Resume_Worker extends Worker {
 		$file = count($params) > 0 ? strtolower($params[0]) : '';
 
 		if ($file !== '') {
-			$this->call_function('SYS', 'download/download_function');
+			$this->load_function('SYS', 'download/download_function');
 			$download_dir = APP_DOWNLOAD_DIR;
 			switch ($file) {
 				case 'word' :
@@ -24,7 +24,8 @@ final class Resume_Worker extends Worker {
 					echo 'File not found';
 			}
 		} else {
-			$this->call_function('redirect/redirect_function', array(APP_ENTRY_URI.'about/founder/'));
+			$this->load_function('SYS', 'redirect/redirect_function');
+			redirect_function(APP_ENTRY_URI.'about/founder/');
 		}
 
 	}

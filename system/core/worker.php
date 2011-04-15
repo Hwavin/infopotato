@@ -403,7 +403,7 @@ class Worker {
 	}
 	
 	/**
-	 * Call user-defined function given with an array of parameters
+	 * Load user-defined function
 	 *
 	 * If function script is located in a sub-folder, include the relative path from functions folder
 	 *
@@ -411,7 +411,7 @@ class Worker {
 	 * @param   string $func the function script name
 	 * @return  void
 	 */    
-	protected function call_function($scope, $func) {
+	protected function load_function($scope, $func) {
 		$orig_func = strtolower($func);
 		
 		// Is the script in a sub-folder? If so, parse out the filename and path.

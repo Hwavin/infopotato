@@ -5,6 +5,7 @@ final class Tutorials_Worker extends Worker {
 		
 		$layout_data = array(
 			'page_title' => 'Tutorials',
+			'javascripts' => $name === '_video' ? array('swfobject.js') : NULL,
 			'content' => $this->render_template('pages/tutorials'.$name),
 		);
 		
