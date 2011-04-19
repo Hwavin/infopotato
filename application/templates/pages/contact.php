@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; Contact
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; Contact
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -43,7 +43,7 @@ We hope you have enjoyed the site. If you have a question or comment that you wo
 Required field is marked with <span class="req">*</span>. 
 </p>
 
-<form id="contact_form" method="post" action="<?php echo APP_ENTRY_URI; ?>contact/" accept-charset="utf-8">  
+<form id="contact_form" method="post" action="<?php echo APP_URI_BASE; ?>contact/" accept-charset="utf-8">  
 <div>
 
 <input type="hidden" name="form_token" value="<?php if (isset($form_token)) echo $form_token; ?>" />
@@ -74,7 +74,7 @@ Required field is marked with <span class="req">*</span>.
 </div>
 
 <div class="form_item">
-<input type="submit" name="submit_btn" class="submit" id="submit_btn" value="Send" />  
+<input type="submit" name="submit_btn" class="uibutton confirm" id="submit_btn" value="Send" />  
 </div>
 
 </div>

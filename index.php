@@ -48,12 +48,13 @@ define('INFOPOTATO_VERSION', '1.0.0');
 date_default_timezone_set('America/New_York');
 
 /**
- * APP_URI is used for direct static assets (images) access
- * APP_ENTRY_URI is used for resources that need InfoPotato to further process
+ * There are two types of requests, static requests and application requests.
+ * APP_URI is used for static requests to access static assets (images) access, sometimes CDN is used
+ * APP_ENTRY_URI is used for application requests to access resources that need InfoPotato to further process
  * Must end with the trailing slash '/'
  */
-define('APP_URI', 'http://localhost/infopotato/');
-define('APP_ENTRY_URI', 'http://localhost/infopotato/index.php/');
+define('STATIC_URI_BASE', 'http://localhost/infopotato/');
+define('APP_URI_BASE', 'http://localhost/infopotato/index.php/');
 
 /**
  * '\' for Windows, '/' for Unix

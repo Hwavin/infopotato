@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Global Constants and Functions
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Global Constants and Functions
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -18,7 +18,7 @@
 <table class="grid">
 <tr><th>ENVIRONMENT</th><th>Define the application environment</th></tr>
 <tr><td>INFOPOTATO_VERSION</td><td>Define InfoPotato Version</td></tr>
-<tr><td>APP_ENTRY_URI</td><td>Set public accessible web root, ending with the trailing slash '/'</td></tr>
+<tr><td>APP_URI_BASE</td><td>Set public accessible web root, ending with the trailing slash '/'</td></tr>
 <tr><td>DS</td><td>Short name of DIRECTORY_SEPARATOR, '\' for Windows, '/' for Unix</td></tr>
 <tr><td>SYS_DIR</td><td>Define the application environment</td></tr>
 <tr><td>APP_DIR</td><td>Define the application environment</td></tr>

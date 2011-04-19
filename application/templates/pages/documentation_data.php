@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Data
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Data
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -66,7 +66,7 @@ But in InfoPotato, using other datas from within a data is <strong>NOT ALLOWED</
 
 <h2><a name="loading"></a>Loading a Data in Controller</h2> 
  
-<p>Your datas will typically be loaded and called from within your <a href="<?php echo APP_ENTRY_URI; ?>documentation/controller/">controller</a> functions. To load a data you will use the following function:</p> 
+<p>Your datas will typically be loaded and called from within your <a href="<?php echo APP_URI_BASE; ?>documentation/controller/">controller</a> functions. To load a data you will use the following function:</p> 
  
 <div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">User_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 

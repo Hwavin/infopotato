@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Application Execution Flow
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Application Execution Flow
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -27,13 +27,27 @@ The server sends the result of processing back to the browser as the next page i
 </li> 
 </ol> 
 
+<div class="infobox">
+<p>
+There are two types of requests, <strong>Static requests</strong> and <strong>Application requests</strong>.
+</p>
+
+<p>
+<strong>Static requests</strong> are made to the static resources are actually not handled by InfoPotato at all. his improves the performance for fetching static files.
+</p>
+
+<p>
+<strong>Application requests</strong> are requests forwarded to InfoPotato.
+</p>
+</div>
+
 <p>
 InfoPotato handles user requests and organizes the execution flow of an application. Understanding InfoPotato architecture is key to write efficient and durable applications. The following diagram shows a typical application execution flow of an InfoPotato application when it is handling a user HTTP request:
 </p> 
  
 <div class="content_image">
 <p>A typical workflow of InfoPotato application</p>
-<img src="<?php echo APP_URI; ?>application/images/content/appflow.png" width="800" height="800" alt="Application Execution Flow" />
+<img src="<?php echo STATIC_URI_BASE; ?>application/images/content/appflow.png" width="800" height="800" alt="Application Execution Flow" />
 </div> 
 
 <ol> 

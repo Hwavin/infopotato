@@ -1,5 +1,5 @@
 <?php
-final class Resume_Worker extends Worker {
+final class Get_Code_Worker extends Worker {
 	public function get($params = array()) {
 		// Make sure script execution doesn't time out.
         // Set maximum execution time in seconds (0 means no limit).
@@ -8,27 +8,31 @@ final class Resume_Worker extends Worker {
 		$file = count($params) > 0 ? strtolower($params[0]) : '';
 
 		if ($file !== '') {
+			// Download counter
+			$counter_file = APP_DIR.'download_counter.txt';
+			$f = fopen($counter_file, 'r');
+			$n = fread($f, filesize($counter_file));
+			fclose($f);
+			
+			$f = fopen($counter_file, 'w');
+			fwrite($f, $n+1);
+			
+			// Popup save file window
 			$this->load_function('SYS', 'download/download_function');
 			$download_dir = APP_DOWNLOAD_DIR;
 			switch ($file) {
-				case 'word' :
-					download_function($download_dir.'ZhouYuan_Resume.doc');
-					break;
-				case 'pdf' :
-					download_function($download_dir.'ZhouYuan_Resume.pdf');
-					break;	
-				case 'text' :
-					download_function($download_dir.'ZhouYuan_Resume.txt');
+				case 'infopotato' :
+					download_function($download_dir.'InfoPotato_1.0.0.zip');
 					break;
 				default:
 					echo 'File not found';
 			}
 		} else {
 			$this->load_function('SYS', 'redirect/redirect_function');
-			redirect_function(APP_URI_BASE.'about/founder/');
+			redirect_function(APP_URI_BASE.'download/');
 		}
 
 	}
 }
 
-// End of file: ./application/workers/resume_worker.php
+// End of file: ./application/workers/get_code_worker.php

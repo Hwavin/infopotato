@@ -124,7 +124,6 @@ font-style:normal;
 /* form elements */
 input[type=text], input[type=password], 
 input[type=checkbox], input[type=radio], 
-input[type=button], input[type=submit],
 textarea, select {
 font-family:Arial, Helvetica, sans-serif;
 }
@@ -147,17 +146,6 @@ padding:3px 5px;
 input:focus, textarea:focus, select:focus{
 background:#fff9d7;  
 border:1px solid #ffd324;   
-}
-
-input[type=button], input[type=submit] {
-cursor:pointer;
-background:#3b5998;
-color:#fff;
-border-color:#d9dfea #0e1f5b #0e1f5b #d9dfea;
-border-style:solid;
-border-width:1px;
-padding:3px 10px;
-font-size:1.5em;
 }
 
 legend {
@@ -192,14 +180,14 @@ font-weight: bold
 }
 
 blockquote{
-background:url(<?php echo APP_URI; ?>application/images/shared/quote_left.png) no-repeat left 2px;
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/quote_left.png) no-repeat left 2px;
 font-style:italic;
 line-height:1.5em;
 padding-left:23px;
 }
 
 blockquote span{
-background:url(<?php echo APP_URI; ?>application/images/shared/quote_right.png) no-repeat right 3px;
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/quote_right.png) no-repeat right 3px;
 color:#666;
 padding-right:23px;
 }
@@ -269,7 +257,7 @@ width:231px;
 height:178px;
 color:#555;
 margin-left:10px;
-background:url(<?php echo APP_URI; ?>application/images/shared/note_bg.png) no-repeat center center;
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/note_bg.png) no-repeat center center;
 }
 
 .note_content {
@@ -321,12 +309,12 @@ margin: auto;
 }
 
 .back_to_top {
-background:url('<?php echo APP_URI; ?>application/images/shared/back_to_top.png') no-repeat center right; 
+background:url('<?php echo STATIC_URI_BASE; ?>application/images/shared/back_to_top.png') no-repeat center right; 
 padding-right:20px;
 }
 
 .external_link {
-background:url('<?php echo APP_URI; ?>application/images/shared/external_link.png') no-repeat center right; 
+background:url('<?php echo STATIC_URI_BASE; ?>application/images/shared/external_link.png') no-repeat center right; 
 padding-right:14px;
 }
 
@@ -353,7 +341,7 @@ border-top:1px dotted #ddd;
 }
 
 .tipbox {
-background:#fffecf url('<?php echo APP_URI; ?>application/images/shared/tip.png') no-repeat 10px center;
+background:#fffecf url('<?php echo STATIC_URI_BASE; ?>application/images/shared/tip.png') no-repeat 10px center;
 padding:10px 10px 10px 35px;
 border:1px dotted #dda;
 }
@@ -505,7 +493,7 @@ margin-right:15px;
 }
 
 #logo a {
-background:url(<?php echo APP_URI; ?>application/images/shared/logo.jpg) no-repeat 0 0;
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/logo.jpg) no-repeat 0 0;
 width:180px;
 text-indent:-9999px;
 }
@@ -556,10 +544,11 @@ margin:0 auto;
 box-shadow:0 6px 15px rgba(0, 0, 0, 0.40);
 border:solid 1px #ddd;
 border-top:none;
+position:relative;
 }
 
 #onecolumn ul {
-list-style:disc url('<?php echo APP_URI; ?>application/images/shared/green_dot.gif');
+list-style:disc url('<?php echo STATIC_URI_BASE; ?>application/images/shared/green_dot.gif');
 }
 
 #onecolumn ol {
@@ -586,7 +575,7 @@ margin:40px 0 10px 20px;
 }
 
 #download a {
-background: transparent url("<?php echo APP_URI; ?>application/images/shared/download_background.png") repeat-x 0 -125px;
+background: transparent url("<?php echo STATIC_URI_BASE; ?>application/images/shared/download_background.png") repeat-x 0 -125px;
 color:#4a6d24;
 text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
 display:block;
@@ -599,7 +588,7 @@ position: relative;
 }
 
 #download a:hover {
-background: transparent url("<?php echo APP_URI; ?>application/images/shared/download_background.png") repeat-x 0 -425px;
+background: transparent url("<?php echo STATIC_URI_BASE; ?>application/images/shared/download_background.png") repeat-x 0 -425px;
 text-decoration:none;
 }
 
@@ -616,7 +605,7 @@ text-align:center;
 }
 
 #download_arrow {
-background: transparent url(<?php echo APP_URI; ?>application/images/shared/download_arrow.png) no-repeat;
+background: transparent url(<?php echo STATIC_URI_BASE; ?>application/images/shared/download_arrow.png) no-repeat;
 height: 97px;
 width: 54px;
 position: absolute;
@@ -641,11 +630,11 @@ width:280px;
 }
 
 ul#yes  {
-list-style:disc url('<?php echo APP_URI; ?>application/images/shared/yes.png') !important;
+list-style:disc url('<?php echo STATIC_URI_BASE; ?>application/images/shared/yes.png') !important;
 }
 
 ul#no  {
-list-style:disc url('<?php echo APP_URI; ?>application/images/shared/no.png') !important;
+list-style:disc url('<?php echo STATIC_URI_BASE; ?>application/images/shared/no.png') !important;
 }
 
 #index_right {
@@ -731,90 +720,19 @@ color:#333;
 }
 
 .word_doc {
-background:url(<?php echo APP_URI; ?>application/images/shared/word.png) no-repeat; 
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/word.png) no-repeat; 
 padding-left:16px;
 }
 
 .pdf_doc {
-background:url(<?php echo APP_URI; ?>application/images/shared/pdf.png) no-repeat; 
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/pdf.png) no-repeat; 
 padding-left:16px;
 }
 
 .text_doc {
-background:url(<?php echo APP_URI; ?>application/images/shared/text.png) no-repeat; 
+background:url(<?php echo STATIC_URI_BASE; ?>application/images/shared/text.png) no-repeat; 
 padding-left:16px;
 }
-
-/* syntac highlighter*/
-.syntax  { 
-background: #f8f8f8; 
-border:1px solid #ddd;
-padding:10px;
-margin-bottom:1.5em;
-}
-
-.syntax .c { color: #408080; font-style: italic } /* Comment */
-.syntax .err { border: 1px solid #FF0000 } /* Error */
-.syntax .k { color: #008000; font-weight: bold } /* Keyword */
-.syntax .o { color: #666666 } /* Operator */
-.syntax .cm { color: #408080; font-style: italic } /* Comment.Multiline */
-.syntax .cp { color: #BC7A00 } /* Comment.Preproc */
-.syntax .c1 { color: #408080; font-style: italic } /* Comment.Single */
-.syntax .cs { color: #408080; font-style: italic } /* Comment.Special */
-.syntax .gd { color: #A00000 } /* Generic.Deleted */
-.syntax .ge { font-style: italic } /* Generic.Emph */
-.syntax .gr { color: #FF0000 } /* Generic.Error */
-.syntax .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.syntax .gi { color: #00A000 } /* Generic.Inserted */
-.syntax .go { color: #808080 } /* Generic.Output */
-.syntax .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-.syntax .gs { font-weight: bold } /* Generic.Strong */
-.syntax .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.syntax .gt { color: #0040D0 } /* Generic.Traceback */
-.syntax .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-.syntax .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-.syntax .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-.syntax .kp { color: #008000 } /* Keyword.Pseudo */
-.syntax .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-.syntax .kt { color: #B00040 } /* Keyword.Type */
-.syntax .m { color: #666666 } /* Literal.Number */
-.syntax .s { color: #BA2121 } /* Literal.String */
-.syntax .na { color: #7D9029 } /* Name.Attribute */
-.syntax .nb { color: #008000 } /* Name.Builtin */
-.syntax .nc { color: #0000FF; font-weight: bold } /* Name.Class */
-.syntax .no { color: #880000 } /* Name.Constant */
-.syntax .nd { color: #AA22FF } /* Name.Decorator */
-.syntax .ni { color: #999999; font-weight: bold } /* Name.Entity */
-.syntax .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-.syntax .nf { color: #0000FF } /* Name.Function */
-.syntax .nl { color: #A0A000 } /* Name.Label */
-.syntax .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-.syntax .nt { color: #008000; font-weight: bold } /* Name.Tag */
-.syntax .nv { color: #19177C } /* Name.Variable */
-.syntax .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-.syntax .w { color: #bbbbbb } /* Text.Whitespace */
-.syntax .mf { color: #666666 } /* Literal.Number.Float */
-.syntax .mh { color: #666666 } /* Literal.Number.Hex */
-.syntax .mi { color: #666666 } /* Literal.Number.Integer */
-.syntax .mo { color: #666666 } /* Literal.Number.Oct */
-.syntax .sb { color: #BA2121 } /* Literal.String.Backtick */
-.syntax .sc { color: #BA2121 } /* Literal.String.Char */
-.syntax .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-.syntax .s2 { color: #BA2121 } /* Literal.String.Double */
-.syntax .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-.syntax .sh { color: #BA2121 } /* Literal.String.Heredoc */
-.syntax .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-.syntax .sx { color: #008000 } /* Literal.String.Other */
-.syntax .sr { color: #BB6688 } /* Literal.String.Regex */
-.syntax .s1 { color: #BA2121 } /* Literal.String.Single */
-.syntax .ss { color: #19177C } /* Literal.String.Symbol */
-.syntax .bp { color: #008000 } /* Name.Builtin.Pseudo */
-.syntax .vc { color: #19177C } /* Name.Variable.Class */
-.syntax .vg { color: #19177C } /* Name.Variable.Global */
-.syntax .vi { color: #19177C } /* Name.Variable.Instance */
-.syntax .il { color: #666666 } /* Literal.Number.Integer.Long */
-
-
 
 .news_item, .tutorials_item {
 margin:0 0 20px 0;
@@ -829,3 +747,18 @@ color:#999;
 }
 
 
+.ribbon { 
+position: absolute; 
+top: -1px; 
+right: -1px; 
+opacity: 0.9; 
+}
+
+.ribbon:hover, .ribbon:focus, .ribbon:active { 
+opacity: 1; 
+}
+
+.ribbon img { 
+display: block; 
+border: 0; 
+}

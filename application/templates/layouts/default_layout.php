@@ -16,17 +16,17 @@
 <title><?php echo $page_title; ?> | InfoPotato</title>
 
 <!-- favicon -->  
-<link rel="icon" href="<?php echo APP_ENTRY_URI; ?>img/shared/favicon.ico" type="image/x-icon" /> 
+<link rel="icon" href="<?php echo APP_URI_BASE; ?>img/shared/favicon.ico" type="image/x-icon" /> 
 
 <!-- CSS Style --> 
-<link type="text/css" rel="stylesheet" href="<?php echo APP_ENTRY_URI; ?>css/reset.css:main.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="screen, projection, handheld" charset="utf-8" /> 
-<link type="text/css" rel="stylesheet" href="<?php echo APP_ENTRY_URI; ?>css/reset.css:print.css" media="print" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/reset.css:main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="screen, projection, handheld" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/reset.css:print.css" media="print" charset="utf-8" /> 
 
 <!-- JavaScript -->
-<script type="text/javascript" language="javascript" src="<?php echo APP_ENTRY_URI; ?>js/sweet_titles.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/sweet_titles.js"></script>
 
 <?php if(isset($javascripts)) : ?>
-<script type="text/javascript" language="javascript" src="<?php echo APP_ENTRY_URI; ?>js/<?php echo implode(':', $javascripts); ?>"></script>
+<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/<?php echo implode(':', $javascripts); ?>"></script>
 <?php endif; ?>
 </head> 
 
@@ -44,13 +44,13 @@
 <!-- begin header inner topnav--> 
 <div id="topnav">
 <ul> 
-<li id="logo"><a href="<?php echo APP_ENTRY_URI; ?>home/" title="Return to frontpage">infopotato</a></li>
-<li class="nav_item"><a href="<?php echo APP_ENTRY_URI; ?>about/" title="About">About</a></li>
-<li class="nav_item"><a href="<?php echo APP_ENTRY_URI; ?>download/" title="Download">Download</a></li>
-<li class="nav_item"><a href="<?php echo APP_ENTRY_URI; ?>news/" title="News">News</a></li>
-<li class="nav_item"><a href="<?php echo APP_ENTRY_URI; ?>documentation/" title="Documentation">Documentation</a></li>
-<li class="nav_item"><a href="<?php echo APP_ENTRY_URI; ?>tutorials/" title="Tutorials">Tutorials</a></li>
-<li class="nav_item"><a href="<?php echo APP_ENTRY_URI; ?>contact/" title="Contact">Contact</a></li>
+<li id="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="Return to frontpage">infopotato</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="Download">Download</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>news/" title="News">News</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>tutorials/" title="Tutorials">Tutorials</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
 </ul>
 
 </div>	
@@ -70,7 +70,7 @@
 <?php echo $content; ?>
 <div class="clear"></div>
 <div class="hide">
-Page URI: <?php echo APP_ENTRY_URI.$_SERVER["REQUEST_URI"];?>
+Page URI: <?php echo APP_URI_BASE.$_SERVER["REQUEST_URI"];?>
 </div>
 </div> 
 <!-- end content --> 

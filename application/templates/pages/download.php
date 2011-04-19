@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; Download
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; Download
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,6 +9,11 @@
 
 <!-- begin onecolumn --> 
 <div id="onecolumn"> 
+
+<a class="ribbon" href="https://github.com/yuanzhou/infopotato" target="_blank">
+<img src="<?php echo STATIC_URI_BASE; ?>application/images/shared/ribbon.png" alt="Fork me on GitHub">
+</a>
+
 <h1 class="first_heading">Download</h1>	
 
 <h2>Option 1: Package Download</h2> 

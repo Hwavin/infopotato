@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; About
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -12,10 +12,10 @@
 
 <div id="toc"> 
 <ul> 
-<li><a href="<?php echo APP_ENTRY_URI; ?>about/" title="Motivation">Motivation</a></li>
-<li class="current_tab"><a href="<?php echo APP_ENTRY_URI; ?>about/facts/" title="Facts">Facts</a></li> 
-<li><a href="<?php echo APP_ENTRY_URI; ?>about/license/" title="License">License</a></li> 
-<li><a href="<?php echo APP_ENTRY_URI; ?>about/founder/" title="The Founder">The Founder</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li>
+<li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/facts/" title="Facts">Facts</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/license/" title="License">License</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/founder/" title="The Founder">The Founder</a></li> 
 </ul> 
 </div>
 

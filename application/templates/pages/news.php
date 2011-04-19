@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; News
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; News
 </div>
 </div>
 <!-- end breadcrumb -->

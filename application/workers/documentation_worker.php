@@ -5,6 +5,7 @@ final class Documentation_Worker extends Worker {
 		
 		$layout_data = array(
 			'page_title' => 'Documentation',
+			'stylesheets' => array('syntax.css'),
 			'content' => $this->render_template('pages/documentation'.$name),
 		);
 		

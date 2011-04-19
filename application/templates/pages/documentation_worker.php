@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_ENTRY_URI; ?>home">Home</a> &gt; <a href="<?php echo APP_ENTRY_URI; ?>documentation/">Documentation</a> &gt; Worker
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Worker
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -172,7 +172,7 @@ specifying any URI segments you'll see your Hello World message by default.</p>
 <h2>Interacting with Template</h2>
 
 <p>InfoPotato has an view class that takes care of sending your final rendered data to the web browser automatically.  More information on this can be found in the
-<strong><a href="<?php echo APP_ENTRY_URI; ?>documentation/view/" title="View">View</a></strong> class</a> pages.  In some cases, however, you might want to
+<strong><a href="<?php echo APP_URI_BASE; ?>documentation/view/" title="View">View</a></strong> class</a> pages.  In some cases, however, you might want to
 post-process the finalized data in some way and send it to the browser yourself. InfoPotato permits you to
 add a function named <dfn>load_template()</dfn> to your Worker that will receive the finalized output data.</p>
 
