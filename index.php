@@ -53,11 +53,11 @@ date_default_timezone_set('America/New_York');
  * APP_ENTRY_URI is used for application requests to access resources that need InfoPotato to further process
  * Must end with the trailing slash '/'
  */
-define('STATIC_URI_BASE', 'http://localhost/infopotato/');
+define('STATIC_URI_BASE', 'http://localhost/infopotato/application/');
 define('APP_URI_BASE', 'http://localhost/infopotato/index.php/');
 
 /**
- * '\' for Windows, '/' for Unix
+ * Shorthand directory separator constant, '\' for Windows, '/' for Unix
  * DIRECTORY_SEPARATOR is not necessary, only the forward slash, '/' should be fine
  */
 define('DS', DIRECTORY_SEPARATOR);
@@ -99,7 +99,7 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 /**
  * Dispatch, prepare, response 
  */
-require_once(SYS_DIR.'infopotato_app.php');
+require(SYS_DIR.'infopotato_app.php');
 InfoPotato_App::run();
 
 // End of file: ./index.php 

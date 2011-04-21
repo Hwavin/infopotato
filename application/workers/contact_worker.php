@@ -5,6 +5,14 @@ final class Contact_Worker extends Worker {
         session_start();
 	}
 	
+	public function put() {
+		$response_data = array(
+			'content' => isset($this->put) ? $this->put['name'] : 'dddddddddddd',
+			'type' => 'text/html',
+		);
+		$this->response($response_data);
+	}
+	
 	public function get() {
 		$_SESSION['form_token'] = uniqid();
 		

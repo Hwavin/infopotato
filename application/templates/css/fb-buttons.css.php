@@ -69,7 +69,7 @@ http://nicolasgallagher.com/lab/css3-facebook-buttons/?#button
     width: 10px; 
     height: 12px; 
     margin: 0 0.5em 0 0; 
-    background: url(<?php echo STATIC_URI_BASE; ?>application/images/shared/fb-icons.png) 99px 99px no-repeat;
+    background: url(<?php echo STATIC_URI_BASE; ?>images/shared/fb-icons.png) 99px 99px no-repeat;
 }
 
 .uibutton.edit:before  { background-position: 0 0; }

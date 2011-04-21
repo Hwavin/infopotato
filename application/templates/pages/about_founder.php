@@ -23,7 +23,7 @@
 
 <div class="box_right greybox">
 <h3>My Resume</h3>
-<img src="<?php echo STATIC_URI_BASE; ?>application/images/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
 
 <ul class="avater_desc">
 <li><a class="word_doc" href="<?php echo APP_URI_BASE; ?>resume/word">Word</a></li>

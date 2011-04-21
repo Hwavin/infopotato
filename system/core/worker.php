@@ -19,7 +19,7 @@ class Worker {
     protected $put = array();
 
 	/**
-     * @var array   Key-value array of cookie sent with the current HTTP request           
+     * @var array   An associative array of variables passed to the current script via HTTP Cookies        
      */
     protected $cookie = array();
 	
@@ -38,9 +38,11 @@ class Worker {
 	 * @return	void
 	 */
 	public function __construct() {
-		// $_GET data is simply disallowed by InfoPotato since it utilizes URI segments rather than traditional URL query strings
+		// $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings
 		$this->post = $_POST;
+		unset($_POST);
 		$this->cookie = $_COOKIE;
+		unset($_COOKIE);
 		
 		// Here's how to access the content of a PUT request in PHP
 		if ($_SERVER['REQUEST_METHOD'] == 'PUT') {

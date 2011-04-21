@@ -47,7 +47,7 @@ InfoPotato handles user requests and organizes the execution flow of an applicat
  
 <div class="content_image">
 <p>A typical workflow of InfoPotato application</p>
-<img src="<?php echo STATIC_URI_BASE; ?>application/images/content/appflow.png" width="800" height="800" alt="Application Execution Flow" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/appflow.png" width="800" height="800" alt="Application Execution Flow" />
 </div> 
 
 <ol> 

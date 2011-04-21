@@ -25,13 +25,13 @@ effect : false : Oculta los efectos de la barra de reproduccion
 */
 // Don't add comma "," at the end of the last object element
 var flashvars = {
-	file: '<?php echo STATIC_URI_BASE; ?>application/videos/demo.flv', // Flash Video File
-	image: '<?php echo STATIC_URI_BASE; ?>application/images/content/demo.jpg', // Preview photo
+	file: '<?php echo STATIC_URI_BASE; ?>videos/demo.flv', // Flash Video File
+	image: '<?php echo STATIC_URI_BASE; ?>images/content/demo.jpg', // Preview photo
 	duration: 124,
 	autostart: false, // Autoplay, make true to autoplay
 	plugins: 'captions-2',
 	'captions.back': true, // a semitransparant black background is drawn below the captions
-	'captions.file': '<?php echo STATIC_URI_BASE; ?>application/videos/captions.xml',
+	'captions.file': '<?php echo STATIC_URI_BASE; ?>videos/captions.xml',
 	'captions.state': true, // whether to show the captions on startup or not
 	dock: false // showing a controlbar button CC
 };
@@ -45,12 +45,12 @@ var attributes = {
 	id: 'demo',
 	name: 'demo'
 };
-swfobject.embedSWF('<?php echo STATIC_URI_BASE; ?>application/videos/player.swf', 'alternative_content', '480', '384', '9.0.0', '<?php echo STATIC_URI_BASE; ?>application/videos/expressInstall.swf', flashvars, params, attributes);
+swfobject.embedSWF('<?php echo STATIC_URI_BASE; ?>videos/player.swf', 'alternative_content', '480', '384', '9.0.0', '<?php echo STATIC_URI_BASE; ?>videos/expressInstall.swf', flashvars, params, attributes);
 </script>
 
 <div class="video_container">
 <div id="alternative_content">
-<a href="http://www.adobe.com/go/getflashplayer"><img src="<?php echo STATIC_URI_BASE; ?>application/images/shared/get_flash_player.gif" alt="Get Adobe Flash player" />Get Adobe Flash player</a>
+<a href="http://www.adobe.com/go/getflashplayer"><img src="<?php echo STATIC_URI_BASE; ?>images/shared/get_flash_player.gif" alt="Get Adobe Flash player" />Get Adobe Flash player</a>
 </div>
 </div>
 

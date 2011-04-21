@@ -16,7 +16,7 @@
 <title><?php echo $page_title; ?> | InfoPotato</title>
 
 <!-- favicon -->  
-<link rel="icon" href="<?php echo APP_URI_BASE; ?>img/shared/favicon.ico" type="image/x-icon" /> 
+<link rel="icon" href="<?php echo STATIC_URI_BASE; ?>images/shared/favicon.ico" type="image/x-icon" /> 
 
 <!-- CSS Style --> 
 <link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/reset.css:main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="screen, projection, handheld" charset="utf-8" /> 

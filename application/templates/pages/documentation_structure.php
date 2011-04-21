@@ -17,7 +17,7 @@ Open framework folder, it's a basic project folder for InfoPotato. Every new app
 
 <div class="content_image">
 <p>A typical workflow of Yii application</p>
-<img src="<?php echo APP_URI; ?>application/images/content/project_structure.jpg" width="330" height="113" alt="Structure of a Project" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/project_structure.jpg" width="330" height="113" alt="Structure of a Project" />
 </div>
  
 <p>In a project folder you have:</p>
