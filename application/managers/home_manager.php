@@ -1,6 +1,6 @@
 <?php
 final class Home_Manager extends Manager {
-	public function get() {
+	public function get_index() {
 		$layout_data = array(
 			'page_title' => 'Home',
 			'content' => $this->render_template('pages/home'),

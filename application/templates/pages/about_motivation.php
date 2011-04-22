@@ -13,9 +13,9 @@
 <div id="toc"> 
 <ul> 
 <li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>about/facts/" title="Facts">Facts</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>about/license/" title="License">License</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>about/founder/" title="The Founder">The Founder</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/facts/" title="Facts">Facts</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="License">License</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="The Founder">The Founder</a></li> 
 </ul> 
 </div>
 
@@ -104,6 +104,7 @@ InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates m
 <li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li>
 <li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li> 
 <li><a href="http://obullo.com/" class="external_link">Obullo</a></li>
+<li><a href="http://ownyx.com/" class="external_link">Ownyx</a></li> 
 <li><a href="http://www.peecfw.org/" class="external_link">PeecFW</a></li> 
 <li><a href="http://pheebi.com/" class="external_link">Pheebi</a></li>
 <li><a href="http://www.pluf.org/" class="external_link">Pluf</a></li> 
@@ -119,9 +120,11 @@ InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates m
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 <li><a href="http://www.spoon-library.com/" class="external_link">Spoon Library</a></li>
 <li><a href="http://www.thinkphp.cn/" class="external_link">ThinkPHP</a></li>
+<li><a href="http://thinphp.com/" class="external_link">ThinPHP</a></li>
 <li><a href="http://www.tinymvc.com/" class="external_link">TinyMVC</a></li> 
 <li><a href="http://framework.korsengineering.com/" class="external_link">Valence Web Framework</a></li>
 <li><a href="http://www.yiiframework.com/" class="external_link">Yii Framework</a></li> 
+<li><a href="http://www.tokernel.com/" class="external_link">toKernel</a></li> 
 <li><a href="http://peej.github.com/tonic/" class="external_link">Tonic</a></li> 
 </ul> 
  

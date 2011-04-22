@@ -13,9 +13,9 @@
 <div id="toc"> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>about/facts/" title="Facts">Facts</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>about/license/" title="License">License</a></li> 
-<li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/founder/" title="The Founder">The Founder</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/facts/" title="Facts">Facts</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="License">License</a></li> 
+<li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="The Founder">The Founder</a></li> 
 </ul> 
 </div>
 
@@ -26,9 +26,9 @@
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
 
 <ul class="avater_desc">
-<li><a class="word_doc" href="<?php echo APP_URI_BASE; ?>resume/word">Word</a></li>
-<li><a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>resume/pdf">PDF</a></li>
-<li><a class="text_doc" href="<?php echo APP_URI_BASE; ?>resume/text">Text</a></li>
+<li><a class="word_doc" href="<?php echo APP_URI_BASE; ?>resume/index/word">Word</a></li>
+<li><a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>resume/index/pdf">PDF</a></li>
+<li><a class="text_doc" href="<?php echo APP_URI_BASE; ?>resume/index/text">Text</a></li>
 </ul>
 
 </div> 

@@ -1,6 +1,6 @@
 <?php
 final class Documentation_Manager extends Manager {
-	public function get($params = array()) {
+	public function get_index($params = array()) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$layout_data = array(

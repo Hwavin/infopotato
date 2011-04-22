@@ -1,6 +1,6 @@
 <?php
 final class Download_Manager extends Manager {	
-	public function get() {
+	public function get_index() {
 		$layout_data = array(
 			'page_title' => 'Download',
 			'content' => $this->render_template('pages/download'),

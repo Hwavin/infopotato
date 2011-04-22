@@ -13,11 +13,6 @@ class Manager {
      */
     protected $post = array();
 
-    /**
-     * @var array   Key-value array of HTTP PUT parameters
-     */
-    protected $put = array();
-
 	/**
      * @var array   An associative array of variables passed to the current script via HTTP Cookies        
      */
@@ -40,28 +35,16 @@ class Manager {
 	public function __construct() {
 		// $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings
 		$this->post = $_POST;
+		// Disable access to $_POST, don't unset $_COOKIE otherwise $_SESSION doesn't work
 		unset($_POST);
 		$this->cookie = $_COOKIE;
-		unset($_COOKIE);
-		
-		// Here's how to access the content of a PUT request in PHP
-		if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-			$putdata = file_get_contents('php://input');
-			$exploded = explode('&', $putdata); 
-			foreach ($exploded as $pair) {
-				$item = explode('=', $pair);
-				if (count($item) == 2) {
-					$this->put[urldecode($item[0])] = urldecode($item[1]);
-				}
-			}
-		}
-		
+
 		// Check magic quotes, this feature has been DEPRECATED as of PHP 5.3.0.
 		// Magic Quotes is a process that automagically escapes incoming data to the PHP script. 
 	    // It's preferred to code with magic quotes off and to instead escape the data at runtime, as needed.
 		// Strip slashes if magic quotes is enabled so all input data is free of slashes
 		if (version_compare(PHP_VERSION, '5.3.0', '<') && get_magic_quotes_gpc()) {
-			$in = array($this->post, $this->cookie, $this->put);
+			$in = array($this->post, $this->cookie);
 			while (list($k, $v) = each($in)) {
 				foreach ($v as $key => $val) {
 					if ( ! is_array($val)) {

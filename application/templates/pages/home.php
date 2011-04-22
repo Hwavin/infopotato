@@ -17,7 +17,7 @@ If I have seen further it is by standing on the shoulders of giants.
 </div>
 
 <div id="download">
-<a href="<?php echo APP_URI_BASE; ?>get_code/infopotato/" title="Download Latest Release">
+<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/" title="Download Latest Release">
 <span id="download_arrow"></span>
 <span id="download_text">Download</span>
 <span id="download_version">InfoPotato 1.0.0</span>

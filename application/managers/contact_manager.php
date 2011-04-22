@@ -5,7 +5,7 @@ final class Contact_Manager extends Manager {
         session_start();
 	}
 
-	public function get() {
+	public function get_index() {
 		$_SESSION['form_token'] = uniqid();
 		
 		$data = array(
@@ -24,7 +24,7 @@ final class Contact_Manager extends Manager {
 		$this->response($response_data);
 	}
 
-	public function post() {
+	public function post_index() {
 		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
 
 		// Load Form Validation library and assign post data
@@ -77,7 +77,7 @@ final class Contact_Manager extends Manager {
 			$this->load_library('email/email_library', 'email', $config);		
 
 			$this->email->set_newline("\r\n");
-			$this->email->from('ifl@pitt.edu', 'InfoPotato Contact');
+			$this->email->from('zhy19@pitt.edu', 'InfoPotato Contact');
 			$this->email->reply_to($contact_email, $contact_name);
 			//$this->email->to('zhy19@pitt.edu'); 
 			//$this->email->cc('another@another-example.com'); 

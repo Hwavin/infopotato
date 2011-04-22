@@ -28,11 +28,12 @@ Thank you for being interested in InfoPotato. Any software application requires 
  
 <h3>Introduction</h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/sever_requirements/">Server Requirements</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/installation/">Installation Instructions</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/structure/">Structure of a Project</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/alternative_php/">Alternative PHP Syntax</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/style_guide/">Conventions &amp; Style Guide</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sever_requirements/">Server Requirements</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/installation/">Installation Instructions</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/">Structure of a Project</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/alternative_php/">Alternative PHP Syntax</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/style_guide/">Conventions &amp; Style Guide</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/glossary/">Glossary</a></li>
 </ul> 
  
 </td> 
@@ -40,19 +41,19 @@ Thank you for being interested in InfoPotato. Any software application requires 
  
 <h3>Core Topics</h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/appflow/">Application Execution Flow</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/global/">Global Constants and Functions</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/uri/">URI</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/manager/">Manager</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/template/">Template</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/data/">Data Object</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/sql_adapters/">SQL Database Adapters</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/helper/">Helper</a></li>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/common_function/">Error Handling</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/utf8_support/">UTF-8 Support</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/caching/">Caching</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/security/">Security</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/appflow/">Application Execution Flow</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/global/">Global Constants and Functions</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/uri/">URI</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/manager/">Manager</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/template/">Template</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/data/">Data Object</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/">SQL Database Adapters</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/library/">Library</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/helper/">Helper</a></li>  
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Error Handling</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8_support/">UTF-8 Support</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/caching/">Caching</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/security/">Security</a></li> 
 </ul> 
 
 </td> 
@@ -60,34 +61,34 @@ Thank you for being interested in InfoPotato. Any software application requires 
  
 <h3>Library Reference</h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/common_function/">Benchmarking</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/cache/">Cache</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/calendar/">Calendar</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/cookie/">Cookie</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/dirinfo/">Dir Info</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/cache/">File-based Caching</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/email/">Email</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/encypt/">Encryption</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/upload/">File Upload</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/form_validation/">Form Validation</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/ftp/">FTP</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/pagination/">Pagination</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/payment/">Payment</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/session/">Session</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/unit_test/">Unit Test</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/utf8/">UTF-8</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/user_agent/">User Agent</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/common_function/">Zip Encoding</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Benchmarking</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cache/">Cache</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/calendar/">Calendar</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cookie/">Cookie</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dirinfo/">Dir Info</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cache/">File-based Caching</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/email/">Email</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/encypt/">Encryption</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/upload/">File Upload</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/form_validation/">Form Validation</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/ftp/">FTP</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/pagination/">Pagination</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/payment/">Payment</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/unit_test/">Unit Test</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8/">UTF-8</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/">User Agent</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Zip Encoding</a></li> 
 </ul> 
 </td> 
 <td valign="top" width="25%"> 
 
 <h3>Script Reference</h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/common_function/">CAPTCHA Helper</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/common_function/">Cookie Helper</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/directory/">Directory Helper</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/common_function/">Download Helper</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">CAPTCHA Helper</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Cookie Helper</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/directory/">Directory Helper</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Download Helper</a></li> 
 </ul> 
  
 </td> 

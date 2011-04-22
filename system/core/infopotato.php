@@ -45,10 +45,9 @@ class InfoPotato {
 	 * Then the desginated manager prepares the related resources and sends response back to client
 	 */ 
 	public static function run() {	
-		// Get the incoming HTTP request method (e.g., 'GET', 'POST', 'PUT', 'DELETE')
-		// 'PUT', 'DELETE' are not supported by most web browsers, but supported by cURL or other web services clients
-		// The request methods will be lowercased and matched with the corresponding manager methods
-		$request_method = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'get';
+		// Get the incoming HTTP request method (only support 'GET' and 'POST')
+		// Other methods like 'PUT' or 'DELETE' will be treated as 'GET'
+		$request_method = (isset($_SERVER['REQUEST_METHOD']) &&  $_SERVER['REQUEST_METHOD'] === 'POST') ? 'post' : 'get';
 		
 		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default manager runs
 		// The URI string has already been decoded, like urldecode()
@@ -56,23 +55,28 @@ class InfoPotato {
 		$request_uri = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 
 		// Get the target manager and its parameters
-		$segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;
+		$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;
 
 		// Filter URI characters
-		if (isset($segments) && is_array($segments)) {
-			foreach ($segments as $val) {
+		if (isset($uri_segments) && is_array($uri_segments)) {
+			foreach ($uri_segments as $val) {
 				$val = self::_filter_uri($val);
 			}
 		}
-		// Get manager, use default if none given 
-		// All manager names are lowercased and no UTF8 encoded characters allowed
-		$manager_name = ! empty($segments[0]) ? strtolower($segments[0]) : strtolower(DEFAULT_MANAGER);
-
+		// Get manager and manager method, use default if none given (case-insensitive)
+		// All manager and manager method names are lowercased and no UTF8 encoded characters allowed
+		$manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(DEFAULT_MANAGER);
+		$method_name = ! empty($uri_segments[1]) ? strtolower($uri_segments[1]) : strtolower(DEFAULT_MANAGER_METHOD);
+		
+		// The read method is prefixed with the HTTP request method (get or post)
+		$real_method = $request_method.'_'.$method_name;
+		
 		// Get parameters and put them into an array
-		$params_cnt = count($segments);
+		// Parameters are case-sensitive
+		$params_cnt = count($uri_segments);
 		$params = array();
-		for ($i = 1; $i < $params_cnt; $i++) {
-			$params[] = $segments[$i];
+		for ($i = 2; $i < $params_cnt; $i++) {
+			$params[] = $uri_segments[$i];
 		}
 
 		// Manager file
@@ -84,7 +88,7 @@ class InfoPotato {
 		}
 		require($manager_file);
 
-		// The names of user-defined classes are case-insensitive
+		// The name of user-defined manager class (case-insensitive)
 		$manager_class = $manager_name.'_manager';
 		// Function class_exists() is matched in a case-insensitive manner
 		if ( ! class_exists($manager_class)) {
@@ -94,13 +98,13 @@ class InfoPotato {
 		// Instantiate the manager object
 		$manager_obj = new $manager_class;
 		
-		// Checks if the default process method exists
-		if ( ! method_exists($manager_class, $request_method)) {	
-			Global_Functions::show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_class}'", 'sys_error');
+		// Checks if the manager method exists
+		if ( ! method_exists($manager_obj, $real_method)) {
+			Global_Functions::show_sys_error('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
 		}
 
 		// The desginated manager prepares the related resources and sends response back to client
-		$manager_obj->$request_method($params);
+		$manager_obj->{$real_method}($params);
 	}
 	
 	/**
@@ -120,7 +124,7 @@ class InfoPotato {
 	}
 
 	/**
-	 * Filter segments for malicious characters
+	 * Filter uri_segments for malicious characters
 	 *
 	 * This lets you specify with a regular expression which characters are permitted
 	 * within your URLs. When someone tries to submit a URL with disallowed

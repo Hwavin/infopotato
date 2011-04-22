@@ -1,6 +1,6 @@
 <?php
 final class Get_Code_Manager extends Manager {
-	public function get($params = array()) {
+	public function get_index($params = array()) {
 		// Make sure script execution doesn't time out.
         // Set maximum execution time in seconds (0 means no limit).
 		set_time_limit(0);

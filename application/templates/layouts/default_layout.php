@@ -19,14 +19,14 @@
 <link rel="icon" href="<?php echo STATIC_URI_BASE; ?>images/shared/favicon.ico" type="image/x-icon" /> 
 
 <!-- CSS Style --> 
-<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/reset.css:main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="screen, projection, handheld" charset="utf-8" /> 
-<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/reset.css:print.css" media="print" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/reset.css:main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="screen, projection, handheld" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/reset.css:print.css" media="print" charset="utf-8" /> 
 
 <!-- JavaScript -->
-<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/sweet_titles.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/sweet_titles.js"></script>
 
 <?php if(isset($javascripts)) : ?>
-<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/<?php echo implode(':', $javascripts); ?>"></script>
+<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/<?php echo implode(':', $javascripts); ?>"></script>
 <?php endif; ?>
 </head> 
 

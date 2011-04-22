@@ -17,14 +17,14 @@ To demonstrate the power and ease of InfoPotato, we'll provide the following exa
 </p> 
 
 <div class="tutorials_item"> 
-<h2><a href="<?php echo APP_URI_BASE; ?>tutorials/auth/">Simple Authentication and Authorization system</a></h2> 
+<h2><a href="<?php echo APP_URI_BASE; ?>tutorials/index/auth/">Simple Authentication and Authorization system</a></h2> 
 <p> 
 Jeffery Winesett just made the last screencast in his InfoPotato tutorial series. In this tutorial, he shows how to use the database to store and retrieve message content.		<div class="clear"></div> 
 </p> 
 </div> 
 
 <div class="tutorials_item"> 
-<h2><a href="<?php echo APP_URI_BASE; ?>tutorials/performance/">Website Performance Tuning</a></h2> 
+<h2><a href="<?php echo APP_URI_BASE; ?>tutorials/index/performance/">Website Performance Tuning</a></h2> 
 <p> 
 Jeffery Winesett just made the last screencast in his InfoPotato tutorial series. In this tutorial, he shows how to use the database to store and retrieve message content.		<div class="clear"></div> 
 </p> 
