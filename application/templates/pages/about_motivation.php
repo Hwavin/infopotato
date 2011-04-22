@@ -118,6 +118,7 @@ InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates m
 <li><a href="http://www.recessframework.org/" class="external_link">Recess</a></li>
 <li><a href="http://www.slimframework.com/" class="external_link">Slim</a></li>
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
+<li><a href="http://speedphp.com/" class="external_link">SpeedPHP</a></li>
 <li><a href="http://www.spoon-library.com/" class="external_link">Spoon Library</a></li>
 <li><a href="http://www.thinkphp.cn/" class="external_link">ThinkPHP</a></li>
 <li><a href="http://thinphp.com/" class="external_link">ThinPHP</a></li>

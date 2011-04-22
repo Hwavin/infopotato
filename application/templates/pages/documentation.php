@@ -42,6 +42,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <h3>Core Topics</h3> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/appflow/">Application Execution Flow</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/entry/">Single Point of Entry</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/global/">Global Constants and Functions</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/uri/">URI</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/manager/">Manager</a></li> 
@@ -49,7 +50,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/data/">Data Object</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/">SQL Database Adapters</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/library/">Library</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/helper/">Helper</a></li>  
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/function/">Function</a></li>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Error Handling</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8_support/">UTF-8 Support</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/caching/">Caching</a></li> 

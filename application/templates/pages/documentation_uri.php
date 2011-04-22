@@ -205,7 +205,7 @@ URIs in InfoPotato are composed of segments. A typical segmented URI ffollows th
 </p>
 
 <div class="greybox">
-http://localhost/mvc/index.php/<span class="red">worker</span>/<span class="green">param1</span>/<span class="green">param2</span>
+http://localhost/infopotato/index.php/<span class="red">manager</span>/<span class="orange">method</span>/<span class="green">param1</span>/<span class="green">param2</span>
 </div>
 
 <p>

@@ -14,7 +14,7 @@ class Manager {
     protected $post = array();
 
 	/**
-     * @var array   An associative array of variables passed to the current script via HTTP Cookies        
+     * @var array   An associative array of variables passed to the current script via HTTP request Cookie header      
      */
     protected $cookie = array();
 	
