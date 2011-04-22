@@ -1,13 +1,13 @@
 <?php
 /**
- * Worker class file.
+ * Manager class file.
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-class Worker {
+class Manager {
     /**
      * @var array   Key-value array of HTTP POST parameters
      */
@@ -451,4 +451,4 @@ class Worker {
 
 }
 
-// End of file: ./system/core/worker.php 
+// End of file: ./system/core/manager.php 

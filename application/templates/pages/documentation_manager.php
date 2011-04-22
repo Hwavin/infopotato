@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Worker
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Manager
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,17 +9,17 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Worker</h1>	
+<h1 class="first_heading">Manager</h1>	
 
-<p>Workers are the heart of your application, as they determine how HTTP requests should be handled.</p>
+<p>Managers are the heart of your application, as they determine how HTTP requests should be handled.</p>
 
 <a name="what"></a>
-<h2>What is a Worker?</h2>
+<h2>What is a Manager?</h2>
 
-<p>A Worker is an instance of Worker or its child class. It is created by application when the user requests for it. A Worker is used to manage the logic for a part of your application. A Worker is simply a class file that is named in a way that can be associated with a URI. When a Worker runs, it performs the requested action which usually brings in the needed datas and renders an appropriate view. An action, at its simplest form, is just a Worker class method. </p>
+<p>A Manager is an instance of Manager or its child class. It is created by application when the user requests for it. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested action which usually brings in the needed datas and renders an appropriate view. An action, at its simplest form, is just a Manager class method. </p>
 
 <p>
-A Worker will receive control from the dispatcher and is responsible for a few things:
+A Manager will receive control from the dispatcher and is responsible for a few things:
 </p>
 
 <ul>
@@ -31,26 +31,26 @@ A Worker will receive control from the dispatcher and is responsible for a few t
 </ul>
 
 <p>
-A Worker has a default action. When the user request does not specify which action to execute, the default action will be executed. By default, the default action is named as index.
+A Manager has a default action. When the user request does not specify which action to execute, the default action will be executed. By default, the default action is named as index.
 </p>
 
 <p>Consider this URI:</p>
 
 <p class="red">example.com/index.php/<var>blog</var>/</p>
 
-<p>In the above example, InfoPotato would attempt to find a Worker named <dfn>blog_Worker.php</dfn> and load it.</p>
+<p>In the above example, InfoPotato would attempt to find a Manager named <dfn>blog_Manager.php</dfn> and load it.</p>
 
-<p><strong>When a Worker's name matches the first segment of a URI, it will be loaded.</strong></p>
+<p><strong>When a Manager's name matches the first segment of a URI, it will be loaded.</strong></p>
 
 <a name="hello"></a>
 <h2>Let's try it:&nbsp; Hello World!</h2>
 
-<p>Let's create a simple Worker so you can see it in action.  Using your text editor, create a file called <dfn>blog_Worker.php</dfn>, and put the following code in it:</p>
+<p>Let's create a simple Manager so you can see it in action.  Using your text editor, create a file called <dfn>blog_Manager.php</dfn>, and put the following code in it:</p>
 
 
 <div class="syntax">
 <pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Worker</span> <span class="k">extends</span> <span class="nx">Worker</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
 	<span class="c1">// Ohter codes </span> 
@@ -67,7 +67,7 @@ A Worker has a default action. When the user request does not specify which acti
 
 
 
-<p>Then save the file to your <dfn>application/Workers/</dfn> folder.</p>
+<p>Then save the file to your <dfn>application/Managers/</dfn> folder.</p>
 
 <p>Now visit the your site using a URL similar to this:</p>
 
@@ -75,7 +75,7 @@ A Worker has a default action. When the user request does not specify which acti
 
 <p>If you did it right, you should see <samp>Hello World!</samp>.</p>
 
-<p>Also, always make sure your Worker <dfn>extends</dfn> the parent Worker class so that it can inherit all its functions.</p>
+<p>Also, always make sure your Manager <dfn>extends</dfn> the parent Manager class so that it can inherit all its functions.</p>
 
 
 
@@ -87,13 +87,13 @@ A Worker has a default action. When the user request does not specify which acti
 
 <code>example.com/index.php/<var>blog</var>/<samp>index</samp>/</code>
 
-<p><strong>The second segment of the URI determines which function in the Worker gets called.</strong></p>
+<p><strong>The second segment of the URI determines which function in the Manager gets called.</strong></p>
 
-<p>Let's try it.  Add a new function to your Worker:</p>
+<p>Let's try it.  Add a new function to your Manager:</p>
 
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Worker</span> <span class="k">extends</span> <span class="nx">Worker</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
  
 	<span class="k">function</span> <span class="nf">process</span><span class="p">()</span> <span class="p">{</span> 
 		<span class="k">echo</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span> 
@@ -124,7 +124,7 @@ A Worker has a default action. When the user request does not specify which acti
 <p>Your function will be passed URI segments 3 and 4 ("sandals" and "123"):</p>
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Worker</span> <span class="k">extends</span> <span class="nx">Worker</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
 	<span class="c1">// Ohter codes </span> 
@@ -150,21 +150,21 @@ passed to your function will be the re-routed ones.</p>
 
 
 <a name="default"></a>
-<h2>Defining a Default Worker</h2>
+<h2>Defining a Default Manager</h2>
 
-<p>InfoPotato can be told to load a default Worker when a URI is not present,
-as will be the case when only your site root URL is requested.  To specify a default Worker, open
+<p>InfoPotato can be told to load a default Manager when a URI is not present,
+as will be the case when only your site root URL is requested.  To specify a default Manager, open
 your <dfn>index.php</dfn> file and set this variable:</p>
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="sd">/**</span> 
-<span class="sd"> * Default Worker/action if none is given in the URL, case-sensetive </span> 
+<span class="sd"> * Default Manager/action if none is given in the URL, case-sensetive </span> 
 <span class="sd"> */</span> 
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_WORKER&#39;</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">);</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
-<p>Where <var>blog</var> is the name of the Worker class you want used. If you now load your main index.php file without
+<p>Where <var>blog</var> is the name of the Manager class you want used. If you now load your main index.php file without
 specifying any URI segments you'll see your Hello World message by default.</p>
 
 
@@ -174,7 +174,7 @@ specifying any URI segments you'll see your Hello World message by default.</p>
 <p>InfoPotato has an view class that takes care of sending your final rendered data to the web browser automatically.  More information on this can be found in the
 <strong><a href="<?php echo APP_URI_BASE; ?>documentation/view/" title="View">View</a></strong> class</a> pages.  In some cases, however, you might want to
 post-process the finalized data in some way and send it to the browser yourself. InfoPotato permits you to
-add a function named <dfn>load_template()</dfn> to your Worker that will receive the finalized output data.</p>
+add a function named <dfn>load_template()</dfn> to your Manager that will receive the finalized output data.</p>
 
 <p>Here is an example:</p>
 
@@ -217,20 +217,20 @@ function _utility() {<br />
 <h2><a name="constructors"></a>Class Constructors</h2>
 
 
-<p>If you intend to use a constructor in any of your Workers, you <strong>MUST</strong> place the following line of code in it:</p>
+<p>If you intend to use a constructor in any of your Managers, you <strong>MUST</strong> place the following line of code in it:</p>
 
-<code>parent::Worker();</code>
+<code>parent::Manager();</code>
 
-<p>The reason this line is necessary is because your local constructor will be overriding the one in the parent Worker class so we need to manually call it.</p>
+<p>The reason this line is necessary is because your local constructor will be overriding the one in the parent Manager class so we need to manually call it.</p>
 
 <p>In PHP 5, constructors use the following syntax:</p>
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Worker</span> <span class="k">extends</span> <span class="nx">Worker</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
  
        <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> 
        <span class="p">{</span> 
-            <span class="k">parent</span><span class="o">::</span><span class="na">Worker</span><span class="p">();</span> 
+            <span class="k">parent</span><span class="o">::</span><span class="na">Manager</span><span class="p">();</span> 
        <span class="p">}</span> 
 <span class="p">}</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
@@ -242,7 +242,7 @@ Constructors can't return a value, but they can do some default work.</p>
 <a name="reserved"></a>
 <h2>Reserved Function Names</h2>
 
-<p>Since your Worker classes will extend the main application Worker you
+<p>Since your Manager classes will extend the main application Manager you
 must be careful not to name your functions identically to the ones used by that class, otherwise your local functions
 will override them. See <a href="reserved_names.html">Reserved Names</a> for a full list.</p>
 
@@ -251,7 +251,7 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 <p>The load_data() function comes handy when you need to use a data.</p>
 
 <div class="syntax"><pre>
-<span class="k">class</span> <span class="nc">User_Worker</span> <span class="k">extends</span> <span class="nx">Worker</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">User_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
         <span class="c1">// Load user data, this data can be used by other class methods</span> 
@@ -270,7 +270,7 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 <p>The load_library() function comes handy when you need to use a library class.</p>
 
 <div class="syntax"><pre>
-<span class="k">class</span> <span class="nc">About_Worker</span> <span class="k">extends</span> <span class="nx">Worker</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">About_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
         <span class="c1">// Load Cache library, this library can be used by other class methods</span> 
@@ -284,9 +284,9 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 <span class="p">}</span> 
 </pre></div> 
 
-<h2>Storing Workers within Sub-folders</h2> 
+<h2>Storing Managers within Sub-folders</h2> 
 <p class="tipbox">
-By default, your data files and template files can also be stored within sub-folders if you prefer that type of organization. But Worker files is NOT ALLOWED to be organized by sub-folders.
+By default, your data files and template files can also be stored within sub-folders if you prefer that type of organization. But Manager files is NOT ALLOWED to be organized by sub-folders.
 </p> 
  
  

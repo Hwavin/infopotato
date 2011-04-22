@@ -1,5 +1,5 @@
 <?php
-final class About_Worker extends Worker {
+final class About_Manager extends Manager {
 	public function get($params = array()) {
 		$name = count($params) > 0 ? $params[0] : 'motivation';
 
@@ -17,4 +17,4 @@ final class About_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/workers/about_worker.php 
+// End of file: ./application/managers/about_manager.php 

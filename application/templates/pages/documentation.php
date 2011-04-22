@@ -43,7 +43,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/appflow/">Application Execution Flow</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/global/">Global Constants and Functions</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/uri/">URI</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/worker/">Worker</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/manager/">Manager</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/template/">Template</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/data/">Data Object</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/sql_adapters/">SQL Database Adapters</a></li>

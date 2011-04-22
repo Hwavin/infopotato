@@ -1,11 +1,12 @@
 <?php
-final class News_Worker extends Worker {
+final class Documentation_Manager extends Manager {
 	public function get($params = array()) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$layout_data = array(
-			'page_title' => 'News',
-			'content' => $this->render_template('pages/news'.$name),
+			'page_title' => 'Documentation',
+			'stylesheets' => array('syntax.css'),
+			'content' => $this->render_template('pages/documentation'.$name),
 		);
 		
 		$response_data = array(
@@ -16,4 +17,4 @@ final class News_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/workers/news_worker.php
+// End of file: ./application/managers/documentation_manager.php 

@@ -1,5 +1,5 @@
 <?php
-final class Resume_Worker extends Worker {
+final class Resume_Manager extends Manager {
 	public function get($params = array()) {
 		// Make sure script execution doesn't time out.
         // Set maximum execution time in seconds (0 means no limit).
@@ -31,4 +31,4 @@ final class Resume_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/workers/resume_worker.php
+// End of file: ./application/managers/resume_manager.php

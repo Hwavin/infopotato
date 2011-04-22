@@ -1,5 +1,5 @@
 <?php
-final class Get_Code_Worker extends Worker {
+final class Get_Code_Manager extends Manager {
 	public function get($params = array()) {
 		// Make sure script execution doesn't time out.
         // Set maximum execution time in seconds (0 means no limit).
@@ -35,4 +35,4 @@ final class Get_Code_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/workers/get_code_worker.php
+// End of file: ./application/managers/get_code_manager.php

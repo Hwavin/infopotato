@@ -69,15 +69,15 @@ define('SYS_DIR', dirname(__FILE__).DS.'system'.DS);
 define('APP_DIR', dirname(__FILE__).DS.'application'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
-define('APP_WORKER_DIR', APP_DIR.'workers'.DS);
+define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
 define('APP_FUNCTION_DIR', APP_DIR.'functions'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 
 /**
- * Default worker if none is given in the URL, case-sensetive 
+ * Default manager if none is given in the URL, case-sensetive 
  */
-define('DEFAULT_WORKER', 'home');
+define('DEFAULT_MANAGER', 'home');
 
 
 /**

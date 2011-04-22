@@ -1,5 +1,5 @@
 <?php
-final class Download_Worker extends Worker {	
+final class Download_Manager extends Manager {	
 	public function get() {
 		$layout_data = array(
 			'page_title' => 'Download',
@@ -15,4 +15,4 @@ final class Download_Worker extends Worker {
 
 }
 
-// End of file: ./application/workers/download_worker.php
+// End of file: ./application/managers/download_manager.php

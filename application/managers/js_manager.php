@@ -1,5 +1,5 @@
 <?php
-final class Js_Worker extends Worker {
+final class Js_Manager extends Manager {
 	public function get($params = array()) {
 		// $js_files is an array created from $params[0]
 		$js_files = count($params) > 0 ? explode(':', $params[0]) : NULL;
@@ -19,4 +19,4 @@ final class Js_Worker extends Worker {
 	}
 }
 
-/* End of file: ./application/workers/js_worker.php */
+/* End of file: ./application/managers/js_manager.php */

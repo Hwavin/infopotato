@@ -17,8 +17,8 @@
 function __autoload($class_name) {
 	$file = SYS_DIR.'core'.DS.strtolower($class_name).'.php';
 	if ( ! file_exists($file)) {
-		// In case one app worker extends another app worker
-		$file = APP_WORKER_DIR.strtolower($class_name).'.php';
+		// In case one manager extends another manager
+		$file = APP_MANAGER_DIR.strtolower($class_name).'.php';
 	}
 	require_once($file);
 } 
@@ -41,21 +41,21 @@ class InfoPotato {
 	}
 
 	/**
-	 * Parse incoming request to get the desiered worker, request method, and params
-	 * Then the desginated worker prepares the related resources and sends response back to client
+	 * Parse incoming request to get the desiered manager, request method, and params
+	 * Then the desginated manager prepares the related resources and sends response back to client
 	 */ 
 	public static function run() {	
 		// Get the incoming HTTP request method (e.g., 'GET', 'POST', 'PUT', 'DELETE')
 		// 'PUT', 'DELETE' are not supported by most web browsers, but supported by cURL or other web services clients
-		// The request methods will be lowercased and matched with the corresponding worker methods
+		// The request methods will be lowercased and matched with the corresponding manager methods
 		$request_method = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : 'get';
 		
-		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default worker runs
+		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default manager runs
 		// The URI string has already been decoded, like urldecode()
 		// It may contain UTF-8 characters beyond ASCII
 		$request_uri = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 
-		// Get the target worker and its parameters
+		// Get the target manager and its parameters
 		$segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;
 
 		// Filter URI characters
@@ -64,9 +64,9 @@ class InfoPotato {
 				$val = self::_filter_uri($val);
 			}
 		}
-		// Get worker, use default if none given 
-		// All worker names are lowercased and no UTF8 encoded characters allowed
-		$worker_name = ! empty($segments[0]) ? strtolower($segments[0]) : strtolower(DEFAULT_WORKER);
+		// Get manager, use default if none given 
+		// All manager names are lowercased and no UTF8 encoded characters allowed
+		$manager_name = ! empty($segments[0]) ? strtolower($segments[0]) : strtolower(DEFAULT_MANAGER);
 
 		// Get parameters and put them into an array
 		$params_cnt = count($segments);
@@ -75,32 +75,32 @@ class InfoPotato {
 			$params[] = $segments[$i];
 		}
 
-		// Worker file
-		$worker_file = APP_WORKER_DIR.$worker_name.'_worker.php';
+		// Manager file
+		$manager_file = APP_MANAGER_DIR.$manager_name.'_manager.php';
 
-		// Checks if worker file exists 
-		if ( ! file_exists($worker_file)) { 
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Worker file does not exist', 'sys_error');
+		// Checks if manager file exists 
+		if ( ! file_exists($manager_file)) { 
+			Global_Functions::show_sys_error('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
 		}
-		require_once($worker_file);
+		require($manager_file);
 
 		// The names of user-defined classes are case-insensitive
-		$worker_class = $worker_name.'_worker';
+		$manager_class = $manager_name.'_manager';
 		// Function class_exists() is matched in a case-insensitive manner
-		if ( ! class_exists($worker_class)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Worker class does not exist', 'sys_error');				
+		if ( ! class_exists($manager_class)) {
+			Global_Functions::show_sys_error('An Error Was Encountered', 'Manager class does not exist', 'sys_error');				
 		}
 
-		// Instantiate the worker object
-		$worker_obj = new $worker_class;
+		// Instantiate the manager object
+		$manager_obj = new $manager_class;
 		
 		// Checks if the default process method exists
-		if ( ! method_exists($worker_class, $request_method)) {	
+		if ( ! method_exists($manager_class, $request_method)) {	
 			Global_Functions::show_sys_error('An Error Was Encountered', "The method '{$request_method}' does not exist in class '{$worker_class}'", 'sys_error');
 		}
 
-		// The desginated worker prepares the related resources and sends response back to client
-		$worker_obj->$request_method($params);
+		// The desginated manager prepares the related resources and sends response back to client
+		$manager_obj->$request_method($params);
 	}
 	
 	/**

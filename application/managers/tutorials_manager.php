@@ -1,5 +1,5 @@
 <?php
-final class Tutorials_Worker extends Worker {
+final class Tutorials_Manager extends Manager {
 	public function get($params = array()) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
@@ -17,4 +17,4 @@ final class Tutorials_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/workers/tutorials_worker.php
+// End of file: ./application/managers/tutorials_manager.php

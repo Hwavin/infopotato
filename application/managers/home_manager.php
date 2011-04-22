@@ -1,5 +1,5 @@
 <?php
-final class Home_Worker extends Worker {
+final class Home_Manager extends Manager {
 	public function get() {
 		$layout_data = array(
 			'page_title' => 'Home',
@@ -14,4 +14,4 @@ final class Home_Worker extends Worker {
 	}
 }
 
-// End of file: ./application/workers/home_worker.php
+// End of file: ./application/managers/home_manager.php
