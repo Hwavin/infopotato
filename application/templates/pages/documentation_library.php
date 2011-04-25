@@ -11,7 +11,7 @@
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">Using Library</h1>	
 
-<p>All of the available system libraries are located in your <dfn>system/libraries</dfn> folder.
+<p>The InfoPotato libraries are standalone and reusable PHP classes.  All of the available system libraries are located in your <dfn>system/libraries</dfn> folder.
 In most cases, to use one of these classes involves initializing it within a controller using the following initialization function:</p> 
 
 <p>

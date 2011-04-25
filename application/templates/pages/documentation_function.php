@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Using Helper
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; User-defined Functions
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,14 +9,14 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Using Helper</h1>	
+<h1 class="first_heading">User-defined Functions</h1>	
 
 <p>
-Helpers, as the name suggests, help you with tasks. Each helper file is simply a collection of functions in a particular category.
+User-defined Functions, as the name suggests, help you with tasks. Each helper file is simply a collection of functions in a particular category.
 </p> 
 
 <p>
-Unlike most other systems in InfoPotato, Helpers are not written in an Object Oriented format. They are simple, procedural functions. Each helper function performs one specific task, with no dependence on other functions.
+Unlike most other systems in InfoPotato, User-defined Functions are not written in an Object Oriented format. They are simple, procedural functions. Each helper function performs one specific task, with no dependence on other functions.
 </p>
 
 <p>

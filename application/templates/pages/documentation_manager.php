@@ -11,42 +11,41 @@
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">Manager</h1>	
 
-<p>Managers are the heart of your application, as they determine how HTTP requests should be handled.</p>
+<p>Managers are the heart of your application, as they determine how HTTP requests should be prepared and handled as well as the HTTP responses.</p>
 
-<a name="what"></a>
 <h2>What is a Manager?</h2>
 
-<p>A Manager is an instance of Manager or its child class. It is created by application when the user requests for it. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested action which usually brings in the needed datas and renders an appropriate view. An action, at its simplest form, is just a Manager class method. </p>
+<p>A Manager is an instance of the base Manager object or a subclass of another manager. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested method which usually brings in the needed datas and renders an appropriate template. An method, at its simplest form, is just a Manager class method prefixed with the corresponding HTTP request method (InfoPotato only supports GET and POST). In a word, the manager contains whatever arbitrary logic your application needs to create that response.</p>
 
 <p>
-A Manager will receive control from the dispatcher and is responsible for a few things:
+Typically, a Manager is responsible for a few things:
 </p>
 
 <ul>
 <li>processing GET/POST input variables</li>
+<li>loading libraries and user-defined functions</li>
+<li>loading data objects for SQL or NoSQL data access</li>
 <li>validating authentication and access levels</li>
-<li>interacting with data datas (business logic)</li>
-<li>setting template variables</li>
+<li>interacting with data objects (business logic)</li>
+<li>setting template variables and rendering templates/sub-templates</li>
 <li>rendering templates or redirecting to new URLs</li>
 </ul>
 
 <p>
-A Manager has a default action. When the user request does not specify which action to execute, the default action will be executed. By default, the default action is named as index.
+A Manager has a default method. When the user request does not specify which method to execute, the default method will be executed. You can set the DEFAULT_MANAGER_METHOD in index.php.
 </p>
 
 <p>Consider this URI:</p>
 
-<p class="red">example.com/index.php/<var>blog</var>/</p>
+<p class="red">http://www.example.com/index.php/<var>blog</var>/</p>
 
-<p>In the above example, InfoPotato would attempt to find a Manager named <dfn>blog_Manager.php</dfn> and load it.</p>
+<p>In the above example, InfoPotato would attempt to find a Manager named <dfn>blog_manager.php</dfn> and load it.</p>
 
 <p><strong>When a Manager's name matches the first segment of a URI, it will be loaded.</strong></p>
 
-<a name="hello"></a>
 <h2>Let's try it:&nbsp; Hello World!</h2>
 
-<p>Let's create a simple Manager so you can see it in action.  Using your text editor, create a file called <dfn>blog_Manager.php</dfn>, and put the following code in it:</p>
-
+<p>Let's create a simple Manager so you can see it in action. Using your text editor (Mine is Notepad++), create a file called <dfn>blog_manager.php</dfn>, and put the following code in it:</p>
 
 <div class="syntax">
 <pre><span class="cp">&lt;?php</span> 
@@ -64,9 +63,6 @@ A Manager has a default action. When the user request does not specify which act
 </pre>
 </div> 
 
-
-
-
 <p>Then save the file to your <dfn>application/Managers/</dfn> folder.</p>
 
 <p>Now visit the your site using a URL similar to this:</p>
@@ -78,8 +74,6 @@ A Manager has a default action. When the user request does not specify which act
 <p>Also, always make sure your Manager <dfn>extends</dfn> the parent Manager class so that it can inherit all its functions.</p>
 
 
-
-<a name="functions"></a>
 <h2>Functions</h2>
 
 <p>In the above example the function name is <dfn>index()</dfn>.  The "index" function is always loaded by default if the
@@ -95,11 +89,11 @@ A Manager has a default action. When the user request does not specify which act
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
  
-	<span class="k">function</span> <span class="nf">process</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 		<span class="k">echo</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span> 
 	<span class="p">}</span> 
  
-	<span class="k">function</span> <span class="nf">comments</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="k">function</span> <span class="nf">get_comments</span><span class="p">()</span> <span class="p">{</span> 
 		<span class="k">echo</span> <span class="s1">&#39;Look at this!&#39;</span><span class="p">;</span> 
 	<span class="p">}</span> 
 <span class="p">}</span> 
@@ -112,7 +106,7 @@ A Manager has a default action. When the user request does not specify which act
 
 <p>You should see your new message.</p>
 
-<a name="passinguri"></a>
+
 <h2>Passing URI Segments to your Functions</h2>
 
 <p>If your URI contains more then two segments they will be passed to your function as parameters.</p>
@@ -145,11 +139,7 @@ A Manager has a default action. When the user request does not specify which act
 <span class="cp">?&gt;</span><span class="x"> </span> 
 </pre></div> 
 
-<p class="important"><strong>Important:</strong>&nbsp; If you are using the <a href="routing.html">URI Routing</a> feature, the segments
-passed to your function will be the re-routed ones.</p>
 
-
-<a name="default"></a>
 <h2>Defining a Default Manager</h2>
 
 <p>InfoPotato can be told to load a default Manager when a URI is not present,
@@ -158,7 +148,7 @@ your <dfn>index.php</dfn> file and set this variable:</p>
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="sd">/**</span> 
-<span class="sd"> * Default Manager/action if none is given in the URL, case-sensetive </span> 
+<span class="sd"> * Default Manager/method if none is given in the URL, case-sensetive </span> 
 <span class="sd"> */</span> 
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_WORKER&#39;</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">);</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
@@ -168,7 +158,6 @@ your <dfn>index.php</dfn> file and set this variable:</p>
 specifying any URI segments you'll see your Hello World message by default.</p>
 
 
-<a name="output"></a>
 <h2>Interacting with Template</h2>
 
 <p>InfoPotato has an view class that takes care of sending your final rendered data to the web browser automatically.  More information on this can be found in the
@@ -197,7 +186,7 @@ add a function named <dfn>load_template()</dfn> to your Manager that will receiv
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
-<a name="private"></a>
+
 <h2>Private Functions</h2>
 
 
@@ -214,7 +203,7 @@ function _utility() {<br />
 <code>example.com/index.php/<var>blog</var>/<samp>_utility</samp>/</code>
 
 
-<h2><a name="constructors"></a>Class Constructors</h2>
+<h2>Class Constructors</h2>
 
 
 <p>If you intend to use a constructor in any of your Managers, you <strong>MUST</strong> place the following line of code in it:</p>
@@ -239,7 +228,7 @@ function _utility() {<br />
 <p>Constructors are useful if you need to set some default values, or run a default process when your class is instantiated.
 Constructors can't return a value, but they can do some default work.</p>
 
-<a name="reserved"></a>
+
 <h2>Reserved Function Names</h2>
 
 <p>Since your Manager classes will extend the main application Manager you

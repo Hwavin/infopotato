@@ -22,24 +22,17 @@ The latest stable version of InfoPotato is 1.0.0 You may safely use this version
 </p>  
 
 <div class="greybox">
-<p> 
 <a href="#">infopotato-1.0.0.zip</a> <a href="#">infopotato-1.0.0.tar.gz</a>
-</p> 
 </div>
 
 
-<h2>Option 2: Git</h2> 
+<h2>Option 2: InfoPotato on Git</h2> 
 <p> 
-InfoPotato is synced to a git repository hosted on <a class="external_link" href="http://github.com">GitHub</a>.
+The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
 </p> 
 
 <div class="greybox">
-<p> 
 <strong>Clone Command:</strong> <tt>git clone git://github.com/yuanzhou/infopotato.git</tt> 
-</p> 
-<p> 
-<strong>GitHub Project:</strong> <a class="external_link" href="https://github.com/yuanzhou/infopotato">https://github.com/yuanzhou/infopotato</a> 
-</p> 
 </div>
 
 <h2>Reporting Bugs</h2>

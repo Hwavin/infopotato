@@ -346,7 +346,7 @@ padding:10px 10px 10px 35px;
 border:1px dotted #dda;
 }
 
-.greybox, .bluebox, .infobox, .errorbox, .successbox { 
+.greybox, .bluebox, .infobox, .pinkbox, .greenbox { 
 padding:10px; 
 margin-bottom:20px;  
 }
@@ -369,13 +369,13 @@ color:#514721;
 border:1px solid #ffd324; 
 } 
 
-.errorbox  {  
+.pinkbox  {  
 background:#ffebe8; 
 color: #8a1f11; 
 border:1px solid #fbc2c4; 
 }  
 
-.successbox { 
+.greenbox { 
 background:#E6EFC2; 
 color:#264409; 
 border:1px solid #c6d880; 
@@ -708,10 +708,7 @@ color:#fff;
 font:11px/12px verdana,arial,serif;
 }
 
-.facts div {
-float:left;
-width:418px;
-height:100px;
+#facts {
 margin:0 10px 20px;
 padding:10px;
 background:#f7f7f7;  

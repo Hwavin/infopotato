@@ -129,39 +129,51 @@ But in InfoPotato, using other datas from within a data is <strong>NOT ALLOWED</
 If RDBMS used in your application, you can define the database connection in application/configs/database.php
 </p> 
  
-<div class="syntax">
-<pre><span class="cp">&lt;?php</span> 
-<span class="nv">$database</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-    <span class="c1">// Default database connection</span> 
-    <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
-	<span class="s1">&#39;adapter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql_adapter&#39;</span><span class="p">,</span> <span class="c1">// Name of the database adapter, case-insentive</span> 
-	<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
-	<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
-	<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The username used to connect to the database</span> 
-	<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The password used to connect to the database</span> 
-	<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="c1">// The character collation used in communicating with the database</span> 
-	<span class="s1">&#39;collate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span> <span class="c1">//  The Database Collate type. Don&#39;t change this if in doubt.</span> 
-    <span class="p">),</span> 
-    
-    <span class="c1">// Another connection example if more database required</span> 
-    <span class="s1">&#39;remote&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
-	<span class="s1">&#39;adapter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mysql_adapter&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;collate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span> 
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<span class="k">return</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="c1">// MySQL</span> 
+	<span class="s1">&#39;mysql_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+		<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+			<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
+			<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
+			<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="c1">// The username used to connect to the database</span> 
+			<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The password used to connect to the database</span> 
+			<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="c1">// The character collation used in communicating with the database</span> 
+			<span class="s1">&#39;collate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span> <span class="c1">//  The Database Collate type. Don&#39;t change this if in doubt.</span> 
+		<span class="p">),</span> 
 	<span class="p">),</span> 
 	
-    <span class="c1">// For SQLite, only need db file path</span> 
-    <span class="s1">&#39;sqlite&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
-	<span class="s1">&#39;adapter&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sqlite_adapter&#39;</span><span class="p">,</span> 
-	<span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;C:\wamp\www\framework\application\test.db&#39;</span><span class="p">,</span> 
-    <span class="p">),</span> 
+	<span class="c1">// MySQLi</span> 
+	<span class="s1">&#39;mysqli_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+		<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+			<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
+			<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
+			<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="c1">// The username used to connect to the database</span> 
+			<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The password used to connect to the database</span> 
+			<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8&#39;</span><span class="p">,</span> <span class="c1">// The character collation used in communicating with the database</span> 
+			<span class="s1">&#39;collate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;utf8_general_ci&#39;</span><span class="p">,</span> <span class="c1">//  The Database Collate type. Don&#39;t change this if in doubt.</span> 
+		<span class="p">),</span> 
+	<span class="p">),</span> 
+	
+	<span class="c1">// PostgreSQL</span> 
+	<span class="s1">&#39;postgresql_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+		<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+			<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
+			<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
+			<span class="s1">&#39;user&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="c1">// The username used to connect to the database</span> 
+			<span class="s1">&#39;pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="c1">// The password used to connect to the database</span> 
+			<span class="s1">&#39;charset&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;UTF8&#39;</span><span class="p">,</span> <span class="c1">// The character collation used in communicating with the database</span> 
+		<span class="p">),</span> 
+	<span class="p">),</span> 
+	
+	<span class="c1">// SQLite</span> 
+	<span class="s1">&#39;sqlite_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+		<span class="s1">&#39;test&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+			<span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;test.sqlite&#39;</span><span class="p">,</span> 
+		<span class="p">),</span> 
+	<span class="p">),</span> 
 <span class="p">);</span> 
-</pre>
-</div>
+</pre></div> 
  
 <h2>Storing Datas within Sub-folders</h2> 
 <p>Your data files can also be stored within sub-folders if you prefer that type of organization.  When doing so you will need to include the folder name loading the data.  Example:</p> 

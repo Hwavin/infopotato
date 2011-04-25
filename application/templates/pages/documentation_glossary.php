@@ -18,18 +18,19 @@ A Front Controller is a short PHP that lives in the web directory of your projec
 
 <h2>Manager</h2>
 <p>
-A manager is simply a page controller object which groups together a number of related actions (get, post, put, delete) that can be performed on a single entity or business object.
+A manager is simply a page controller object which groups together a number of related methods that can be performed on a single entity or business object.
 </p>
 
 <h2>Data</h2>
 <p>
-Data provides functions to collect, manipulate and format data in a convenient way for programmers to use, but can also contain other backend functionalities. They can for example perform calculations and return the resuls or perform any other kind of backend processing.
+Data provides functions to collect, manipulate and format data used in InfoPotato application in a convenient way for programmers in either SQL or NoSQL approaches. They can for example perform calculations and return the resuls or perform any other kind of backend processing.
 </p>
 
 <h2>Template</h2>
 <p>
-Tamplate is the HTML of your pages, is what users will see, and it has very litle php embedded, which must be just for displaying data, no real manipulation nor logic should be done in the template.
+Generally, tamplate is the HTML of your pages, is what users will see, and it allows very litle php embedded, which must be just for displaying data, no real manipulation nor logic should be done in the template.
 </p>
+
 
 </div> 
 <!-- end onecolumn -->

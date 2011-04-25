@@ -14,8 +14,8 @@
 <ul>
 <li>OS Platform: Windows or Linux</li>
 <li>HTTP server: Apache, NginX, Lighttpd, IIS, etc.</li>
-<li>PHP version: 5.1.6 or newer.</li>
-<li>(Optional) Database: A Database is required for most web application programming. Current supported databases are MySQL (4.1+), MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.</li>
+<li>PHP version: 5.2.0 or newer.</li>
+<li>(Optional) Database: Current supported databases are MySQL (4.1+), MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.</li>
 </ul>
 
 <h2>Requirements Checker</h2>
@@ -28,17 +28,7 @@ Part of the distribution package is a tool called the Requirements Checker. It i
 Type <span class="red">http://localhost/infopotato/requirements_check/checker.php</span> in yuor browser and then you can easily find out if your server is to understand InfoPotato.
 </p>
 
-<h2>Recommended setup</h2>
-
-<p>
-It is recommended you use a robust platform comprised of the Linux operating system, and either the Apache web-server or the <a href="http://nginx.net/" class="external_link">NGINX</a> web-server. Almost any server that supports PHP will work. If your host doesn't support one of these platforms, and mod_rewrite, you will probably be better off switching to one of the many hosting providers that do offer those choices.
-</p>
-
-<p>
-It is also <b>essential</b> that your host allows remote connections, for many of the WordPress features to work. If your host blocks outgoing HTTP connections, many parts of the WordPress will not function.
-</p>
-
-<h2>Local Testing</h2>
+<h2>Local Development/Testing</h2>
 
 <p>
 If you intend to install InfoPotato on your local computer (for testing) there are a number of packages that you can use.

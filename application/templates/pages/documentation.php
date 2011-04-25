@@ -47,7 +47,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/uri/">URI</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/manager/">Manager</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/template/">Template</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/data/">Data Object</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/data/">Data Access</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/">SQL Database Adapters</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/library/">Library</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/function/">Function</a></li>  

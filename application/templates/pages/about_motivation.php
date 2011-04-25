@@ -37,22 +37,10 @@ With more and more design and development I found myself the need of a good stru
 </p>
 
 <p>
-For a long time, I thought InfoPotato should follow the MVC architectural pattern because many other web frameworks claim themselves MVC frameworks. But one day after lunch, I came accross a book called "Building PHP Applications with Symfony, CakePHP, and Zend Framework". In this book, the author memtioned that many so-called PHP MVC frameworks are not real MVC, and the truth is many of them are following the MVP architectural pattern. Afterthat, I did more reading and I found my InfoPotato was more like MVP indeed. With more research, I realized that I don't need a MVC framework for the PHP web development, and try to follow MVC will make me feel like I'm trying to fit a square peg into a round hole. What I really need is to look at a very simple request-response handling framework. So from that monment, I rewrote InfoPotato and got rid off the concept of either MVC or MVP. InfoPotato now, is only a simple web development framework built around HTTP and REST that handles request and response.
+For a long time, I thought InfoPotato should follow the MVC architectural pattern because many other web frameworks claim themselves MVC frameworks and at during that period I didn't have a clear understanding of what is MVC. But one day after lunch, I came accross a book called "Building PHP Applications with Symfony, CakePHP, and Zend Framework". In this book, the author memtioned that many so-called PHP MVC frameworks are not real MVC, and the truth is many of them are following the MVP architectural pattern. Afterthat, I did more reading and I found my InfoPotato was more like MVP indeed. With more research, I realized that I don't need a MVC framework for the PHP web development, and try to follow MVC will make me feel like I'm trying to fit a square peg into a round hole. What I really need is to look at a very simple request-response handling framework. So from that monment, I rewrote InfoPotato and got rid off the concept of either MVC or MVP. InfoPotato now, is only a simple web development framework built around HTTP and the principles of REST that handles request and response.
 </p>
 
 <h2>Philosophy</h2>
-
-<p>The InfoPotato philosophy includes several guiding principles:</p> 
-
-<ul> 
-<li>DRY &mdash; "Don't Repeat Yourself" &mdash; suggests that writing the same code over and over again is a bad thing.</li> 
-<li>Convention Over Configuration &#8211; means that InfoPotato makes assumptions about what you want to do and how you're going to do it, rather than requiring you to specify every little thing through endless configuration files.</li> 
-<li>REST (Representational State Transfer) is the best pattern for web applications &dash; organizing your application around resources and standard HTTP verbs is the fastest way to go.</li> 
-</ul> 
-
-<p>
-When it comes to frameworks, PHP developers really need to think about <strong>performance</strong> for not only scalability reasons but for green reasons. If programs were more efficient it would cut the number of data centres and would reduce energy needs as a result. In our newly emerging age of energy awareness this does become an important aspect.
-</p>
 
 <p> 
 The main goal of InfoPotato is easy and followed by fast. It gives you the tools you will most need to make your website quickly and easily. InfoPotato also has other goals, be a very lightweight framework, simple and fast, truly loosely coupled, and high component singularity. InfoPotato wasn&#039;t designed to give you all the tools you will ever need, instead, it gives you a solid base of well-tested and most common libraries, and gives you the ability to easily add your own if you need to.
@@ -62,10 +50,14 @@ The main goal of InfoPotato is easy and followed by fast. It gives you the tools
 InfoPotato follows simplistic concepts, like <a href="http://en.wikipedia.org/wiki/KISS_principle" class="external_link">KISS</a>, <a href="http://en.wikipedia.org/wiki/You_ain't_gonna_need_it" class="external_link">YAGNI</a> and <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself" class="external_link">DRY</a>. Ensuring an easy to use, practical and easy to extend framework. Based on the design goals, I would like to say that <strong>InfoPotato is a structured toolset, which will help you to build any PHP-based website in a very easy, fast, reliable, safe and well-organized way</strong>. It's a very lightweight framework compared to other well-known PHP frameworks. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner&mdash;without loss of flexibility and expansibility.
 </p>
 
+<p>
+Besides, when it comes to frameworks, developers really need to think about <strong>performance</strong> for not only scalability reasons but for green reasons. If programs were more efficient it would cut the number of data centres and would reduce energy needs as a result. In our newly emerging age of energy awareness this does become an important aspect.
+</p>
+
 <h2>Credits</h2> 
 
 <p>
-InfoPotato is influenced by other PHP frameworks/unframeworks and incorporates many ideas and work from them. Below is a short list of those from which InfoPotato drew inspiration. Some core code and libraries/helper functions of InfoPotato are built upon the following projects.
+InfoPotato is influenced by other PHP frameworks/toolkits and incorporates many ideas and work from them. Below is a short list of those from which InfoPotato drew inspiration. Some core code and libraries/helper functions of InfoPotato are built upon the following projects.
 </p>
 
 <table cellpadding="0" cellspacing="10" border="0" width="100%"> 

@@ -10,14 +10,13 @@
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">URI</h1>	
-<a href="http://en.wikipedia.org/wiki/Percent-encoding">http://en.wikipedia.org/wiki/Percent-encoding</a>
 
-<H2>Types of URI characters</H2>
+<h2>Types of URI characters</h2>
 <p>
-The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> (or a percent character as part of a percent-encoding). <i>Reserved</i> characters are those characters that sometimes have special meaning. For example, <a href="/wiki/Forward_slash" class="mw-redirect" title="Forward slash">forward slash</a> characters are used to separate different parts of a URL (or more generally, a URI). <i>unreserved</i> characters have no such meanings. Using percent-encoding, reserved characters are represented using special character sequences. The sets of reserved and unreserved characters and the circumstances under which certain reserved characters have special meaning have changed slightly with each revision of specifications that govern URIs and URI schemes.
+The URI is the unique address or location that identifies the resource the client wants. According to <a href="http://en.wikipedia.org/wiki/Percent-encoding" class="external_link">Wikipedia</a>: The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> (or a percent character as part of a percent-encoding). <i>Reserved</i> characters are those characters that sometimes have special meaning. For example, forward slash characters are used to separate different parts of a URL (or more generally, a URI). <i>Unreserved</i> characters have no such meanings. Using percent-encoding, reserved characters are represented using special character sequences. The sets of reserved and unreserved characters and the circumstances under which certain reserved characters have special meaning have changed slightly with each revision of specifications that govern URIs and URI schemes.
 </p> 
 
-<table cellpadding="6px"> 
+<table cellpadding="6px" class="grid"> 
 <caption><a href="http://tools.ietf.org/html/rfc3986" class="external mw-magiclink-rfc">RFC 3986</a> section 2.2 <i>Reserved Characters</i> (January 2005)</caption> 
 <tr> 
 <td><code>!</code></td> 
@@ -41,7 +40,7 @@ The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> 
 </tr> 
 </table>
 
-<table cellpadding="6px"> 
+<table cellpadding="6px" class="grid"> 
 <caption><a href="http://tools.ietf.org/html/rfc3986" class="external mw-magiclink-rfc">RFC 3986</a> section 2.3 <i>Unreserved Characters</i> (January 2005)</caption> 
 <tr> 
 <td><code>A</td> 
@@ -118,7 +117,7 @@ The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> 
 </tr> 
 </table> 
 
-<table cellpadding="6px"> 
+<table cellpadding="6px" class="grid"> 
 <caption>Reserved characters after percent-encoding</caption> 
 <tr> 
 <td><code>!</code></td> 
@@ -162,7 +161,7 @@ The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> 
 </tr> 
 </table> 
 
-<table cellpadding="6px"> 
+<table cellpadding="6px" class="grid"> 
 <caption>Common characters after percent-encoding (ASCII or UTF-8 based)</caption> 
 <tr> 
 <td><code>&lt;</code></td> 
@@ -200,42 +199,34 @@ The characters allowed in a URI are either <i>reserved</i> or <i>unreserved</i> 
 </tr> 
 </table> 
 
+<h2>Specifying the Permitted URI characters</h2>
 <p>
-URIs in InfoPotato are composed of segments. A typical segmented URI ffollows this pattern:
+You can specify the permitted URI characters in the entry script index.php.
+</p>
+
+<div class="syntax"><pre>
+<span class="sd">/**</span> 
+<span class="sd"> * Default allowed URL Characters (UTF-8 encoded characters)</span> 
+<span class="sd"> *</span> 
+<span class="sd"> * By default only these are allowed: a-z 0-9~%.:_-</span> 
+<span class="sd"> * Leave blank to allow all characters</span> 
+<span class="sd"> */</span> 
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;PERMITTED_URI_CHARS&#39;</span><span class="p">,</span> <span class="s1">&#39;a-z 0-9~%.:_-&#39;</span><span class="p">);</span> 
+</pre></div> 
+
+<h2>InfoPotato's URI Pattern</h2>
+<p>
+URIs in InfoPotato are composed of segments. A typical segmented URI follows this pattern:
 </p>
 
 <div class="greybox">
-http://localhost/infopotato/index.php/<span class="red">manager</span>/<span class="orange">method</span>/<span class="green">param1</span>/<span class="green">param2</span>
+http://www.example.com/index.php/<span class="red">manager</span>/<span class="blue">method</span>/<span class="green">param1</span>/<span class="green">param2/<span class="green">param3/</span>
 </div>
 
 <p>
-The segments correspond (in order ) to a controller, a controller method, and the method arguments.
+The segments correspond (in order ) to a <span class="red">Manager</span>, a <span class="blue">Manager method</span>, and the <span class="green">method parameters</span>. There is a one-to-one relationship between a URI string and its corresponding manager class/method.
 </p>
 
-<p>
-Typically there is a one-to-one relationship between a URL string and its corresponding controller class/method. The segments in a URI normally follow this pattern:
-</p> 
- 
-<code>example.com/<dfn>class</dfn>/<samp>function</samp>/<var>id</var>/</code> 
- 
-<p>
-In some instances, however, you may want to remap this relationship so that a different class/function can be called instead of the one corresponding to the URI.
-</p> 
- 
-<p>
-For example, lets say you want your URLs to have this prototype:
-</p> 
- 
-<p> 
-example.com/product/1/<br /> 
-example.com/product/2/<br /> 
-example.com/product/3/<br /> 
-example.com/product/4/
-</p> 
- 
-<p>
-Normally the second segment of the URL is reserved for the function name, but in the example above it instead has a product ID. To overcome this, InfoPotato allows you to remap the URI handler.
-</p> 
 
 <h2>Hiding index.php</h2>
 

@@ -4,7 +4,7 @@
 <h1 class="first_heading center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
 
 <h2 class="center blue">
-If I have seen further it is by standing on the shoulders of giants.
+Built on the shoulders of giants
 </h2>
 
 <div class="greybox">
@@ -12,7 +12,7 @@ If I have seen further it is by standing on the shoulders of giants.
 <div id="intro">
 <h2 class="first_heading">What is InfoPotato?</h2>
 <p>
-<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and REST. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
+<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework for small web applications built around HTTP and the principles of REST. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
 </p>
 </div>
 
@@ -31,27 +31,27 @@ If I have seen further it is by standing on the shoulders of giants.
 <div id="index_left" class="index_column"> 
 <h2 class="first_heading">Facts about InfoPotato</h2>	
 <ul id="yes"> 
-<li>RESTful Approach</li> 
+<li>Loose RESTful Approach</li> 
 <li>Truly Loose Coupling</li> 
 <li>Truly Lightweight &amp; Fast</li> 
 <li>PATH_INFO based URI Pattern</li>
 <li>Full UTF-8 Support</li>
 <li>Multiple Database Adapters</li> 
-<li>Small learning curve &amp; Detailed docs</li>
-<li>Rich Libraries and Helpers</li>
+<li>Small Learning Curve &amp; Detailed Docs</li>
+<li>Rich Standalone Libraries</li>
 <li>Host multiple apps simultaneously</li>
 </ul> 
 
 <ul id="no"> 
 <li>No Object Relational Mapping (ORM)</li> 
 <li>No built-in I18N/L10N Support</li> 
-<li>No built-in ACL/RBAC system</li>
-<li>No built-in Tamplating system</li> 
-<li>No Automatic code generation</li> 
+<li>No built-in ACL/RBAC System</li>
+<li>No built-in Tamplating System</li> 
+<li>No Automatic Code Generation</li> 
 <li>No Javascript Library Integration</li> 
-<li>No use of command line</li> 
-<li>No URI Routing (No Need)</li> 
-<li>No built-in Log mechanism</li> 
+<li>No Command Line Use</li> 
+<li>No URI Routing</li> 
+<li>No built-in Log Mechanism</li> 
 </ul>
 
 <span><a href="<?php echo APP_URI_BASE; ?>about/facts/" title="More facts about InfoPotato">Find out more &raquo;</a></span>

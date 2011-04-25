@@ -75,7 +75,7 @@ define('APP_FUNCTION_DIR', APP_DIR.'functions'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 
 /**
- * Default manager if none is given in the URL, lowercase
+ * Default manager/method to use if none is given in the URL, lowercase
  */
 define('DEFAULT_MANAGER', 'home');
 define('DEFAULT_MANAGER_METHOD', 'index');
