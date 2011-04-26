@@ -30,6 +30,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sever_requirements/">Server Requirements</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/installation/">Installation Instructions</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/environments/">The Environments</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/">Structure of a Project</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/alternative_php/">Alternative PHP Syntax</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/style_guide/">Conventions &amp; Style Guide</a></li>

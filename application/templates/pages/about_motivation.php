@@ -112,6 +112,7 @@ InfoPotato is influenced by other PHP frameworks/toolkits and incorporates many 
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 <li><a href="http://speedphp.com/" class="external_link">SpeedPHP</a></li>
 <li><a href="http://www.spoon-library.com/" class="external_link">Spoon Library</a></li>
+<li><a href="http://symfony.com/" class="external_link">Symfony</a></li>
 <li><a href="http://www.thinkphp.cn/" class="external_link">ThinkPHP</a></li>
 <li><a href="http://thinphp.com/" class="external_link">ThinPHP</a></li>
 <li><a href="http://www.tinymvc.com/" class="external_link">TinyMVC</a></li> 

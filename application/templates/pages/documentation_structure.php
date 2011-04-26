@@ -12,11 +12,11 @@
 <h1 class="first_heading">Structure of a Project</h1>	
 
 <p>
-Open framework folder, it's a basic project folder for InfoPotato. Every new app you create uses the same project structure.
+he directory structure of an InfoPotato application is rather flexible. Open framework folder, it's a basic project folder for InfoPotato. Every new app you create uses the same project structure.
 </p>
 
 <div class="content_image">
-<p>A typical workflow of Yii application</p>
+<p>Project Structure</p>
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/project_structure.jpg" width="330" height="113" alt="Structure of a Project" />
 </div>
  

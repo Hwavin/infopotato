@@ -49,24 +49,26 @@ date_default_timezone_set('America/New_York');
 
 /**
  * There are two types of requests, static requests and application requests.
- * APP_URI is used for static requests to access static assets (images) access, sometimes CDN is used
- * APP_ENTRY_URI is used for application requests to access resources that need InfoPotato to further process
+ * STATIC_URI_BASE is used for static requests to access static assets (images) access, sometimes CDN is used
+ * APP_URI_BASE is used for application requests to access resources that need InfoPotato to further process
  * Must end with the trailing slash '/'
  */
-define('STATIC_URI_BASE', 'http://localhost/infopotato/application/');
-define('APP_URI_BASE', 'http://localhost/infopotato/index.php/');
+define('STATIC_URI_BASE', 'http://localhost/infopotato/web/');
+define('APP_URI_BASE', 'http://localhost/infopotato/web/index.php/');
 
 /**
- * Shorthand directory separator constant, '\' for Windows, '/' for Unix
- * DIRECTORY_SEPARATOR is not necessary, only the forward slash, '/' should be fine
+ * Shorthand directory separator constant
+ * On Windows, both slash (/) and backslash (\) are used as directory separator character. 
+ * In other platforms, it is the forward slash (/).
+ * DIRECTORY_SEPARATOR is not necessary, only the forward slash, '/' should be fine ???
  */
 define('DS', DIRECTORY_SEPARATOR);
 
 /**
  * Framework system/application directories
  */
-define('SYS_DIR', dirname(__FILE__).DS.'system'.DS);
-define('APP_DIR', dirname(__FILE__).DS.'application'.DS);
+define('SYS_DIR', dirname(__FILE__).DS.'../system'.DS);
+define('APP_DIR', dirname(__FILE__).DS.'../application'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);

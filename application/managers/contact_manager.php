@@ -26,7 +26,7 @@ final class Contact_Manager extends Manager {
 
 	public function post_index() {
 		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
-Global_Functions::dump($this->cookie);
+
 		// Load Form Validation library and assign post data
 		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->post));
 
