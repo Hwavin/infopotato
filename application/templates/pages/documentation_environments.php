@@ -12,7 +12,11 @@
 <h1 class="first_heading">The Environments</h1>	
 
 <p>
-f you have a look at the framework root directory, you will find two PHP files: index.php and dev.php. These files are called front controllers; all requests to the application are made through them. But why do we have two front controllers for each application? Both files point to the same application but for different environments.
+An application can run in various environments. The different environments share the same PHP code (apart from the front controller), but can have completely different configurations. For each application, InfoPotato provides two default environments: production, and development. You’re also free to add as many custom environments as you wish.
+</p>
+
+<p>
+If you have a look at the framework root directory, you will find two PHP files: <span class="red">index.php</span> and <span class="red">dev.php</span>. These files are called <strong>front controllers</strong>; all requests to the application are made through them. But why do we have two front controllers for each application? Both files point to the same application but for different environments.
 </p> 
 
 <ul>
@@ -31,6 +35,22 @@ What makes an environment unique? In the development environment for instance, t
 <p>
 But on the production environment, the cache layer should be activated and, of course, the application should display customized error messages instead of raw exceptions. So, the production environment must be optimized for performance and the user experience.
 </p>
+
+<p>
+To change the environment in which you're browsing your application, just change the front controller. For example, you are working on the development environment now:
+</p>
+
+<div class="infobox">
+http://localhost/infopotato/web/<span class="red">dev.php</span>
+</div>
+
+<p>
+However, if you want to see how the application reacts in production, call the production front controller instead:
+</p>
+
+<div class="infobox">
+http://localhost/infopotato/web/<span class="red">index.php</span>
+</div>
 
 </div> 
 <!-- end onecolumn -->

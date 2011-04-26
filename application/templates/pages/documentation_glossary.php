@@ -11,9 +11,14 @@
 <div id="onecolumn" class="inner"> 
 <h1 class="first_heading">Glossary</h1>	
 
-<h2>Front Controller</h2>
+<h2>Single Point of Entry</h2>
 <p>
-A Front Controller is a short PHP that lives in the web directory of your project. Typically, all requests are handled by executing the same front controller, whose job is to bootstrap the InfoPotato application.
+In InfoPotato, all the application requests are handled by a single point of entry script, which is index.php or dev.php. Their job is to bootstrap the InfoPotato application.
+</p>
+
+<h2>Dispatcher</h2>
+<p>
+Typically, all application requests are handled by executing the same Dispatcher, whose job is to read the request information (parses the request method, the URI segments), and determine from the URI segments which manager/method/parameters should be called.
 </p>
 
 <h2>Manager</h2>

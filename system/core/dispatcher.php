@@ -1,6 +1,6 @@
 <?php
 /**
- * InfoPotato
+ * Dispatcher
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -25,13 +25,11 @@ function __autoload($class_name) {
 
 
 /**
- * InfoPotato class
+ * Dispatcher class
  */
-class InfoPotato {
+class Dispatcher {
 	/**
 	 * Constructor
-	 *
-	 * Making it public permits an explicit call of the constructor! (e.g., $b = new Request_Dispatcher)
 	 * 
 	 * Sets instance
 	 */   
@@ -154,4 +152,4 @@ class InfoPotato {
 
 }
 
-// End of file: ./system/infopotato.php
+// End of file: ./system/dispatcher.php

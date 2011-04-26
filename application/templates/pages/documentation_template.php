@@ -12,24 +12,20 @@
 <h1 class="first_heading">Template</h1>	
 
 <p>
-Templates serve as the presentation layer of InfoPotato. A template is a PHP script consisting of mainly elements of user interface (e.g., an HTML page, an XML document, a serialized JSON array). It can contain PHP statements, but it is recommended that these statements should not alter data models and should remain relatively simple. For the spirit of separation of logic and presentation, large chunk of logic should be placed in controller or model instead of template.
+Templates serve as the presentation layer of InfoPotato. A template is a PHP script consisting of mainly elements of user interface (e.g., an HTML page fragment, an XML document, a serialized JSON array). In fact, templates can flexibly be embedded within other templates (within other templates, etc., etc.) if you need this type of hierarchy. It can contain PHP statements, but it is recommended that these statements should remain relatively simple. For the spirit of separation of logic and presentation, large chunk of logic should be placed in manager instead of template.
 </p>
 
-<p>A template is simply a web page, or a page fragment, like a header, footer, sidebar, etc. In fact, templates can flexibly be embedded within other templates (within other templates, etc., etc.) if you need this type of hierarchy.</p> 
- 
-<p>Templates are never called directly, they must be loaded by a controller.  Remember that in an MVC framework, the Controller acts as the traffic cop, so it is responsible for load_templateing a particular template. If you have not read the Controllers page you should do so before continuing.</p> 
- 
-<p>Using the example controller you created in the controller page, let's add a template to it.</p> 
+<p>Templates are never called directly, they must be loaded by a manager. Remember that in InfoPotato, the manager acts as the traffic cop, so it is responsible for loading and rendering a particular template.</p> 
  
 <div class="tipbox">
 <p>
-By default InfoPotato buffers all HTML generated from templates inside the execution context and sends a complete page once the template execution has completed (via the load_template() method). The advantage of buffering the HTML is that applications can handle exceptions that occur during execution of the template and prevent any partial results leaking to the browser.
+By default InfoPotato buffers all HTML generated from templates inside the execution context and sends a complete page once the template execution has completed (via the render_template() method). The advantage of buffering the HTML is that applications can handle exceptions that occur during execution of the template and prevent any partial results leaking to the browser.
 </p>
 </div>
 
 <h2>Creating a Template</h2> 
  
-<p>Using your text editor, create a file called blog_template.php, and put this in it:</p> 
+<p>Using your text editor, create a file called blog.php, and put this in it:</p> 
  
 <div class="syntax">
 <pre><span class="nt">&lt;html&gt;</span> 
@@ -51,7 +47,7 @@ By default InfoPotato buffers all HTML generated from templates inside the execu
  
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span> 
 </pre>
 </div> 
  
@@ -62,10 +58,10 @@ By default InfoPotato buffers all HTML generated from templates inside the execu
  
 <div class="syntax">
 <pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;blog_template&#39;</span><span class="p">),</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;blog_template&#39;</span><span class="p">),</span> 
 	<span class="p">);</span> 
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
     <span class="p">}</span> 
@@ -78,11 +74,11 @@ By default InfoPotato buffers all HTML generated from templates inside the execu
  
 <code>example.com/index.php/<var>blog</var>/</code> 
  
-<p class="important"><strong>Note:</strong> You can also put the template file in sub-folders, like "pages/blog_template.php". Then you just change the code to:
+<p class="important"><strong>Note:</strong> You can also put the template file in sub-folders, like "pages/blog.php". Then you just change the code to:
 
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;pages/blog&#39;</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/blog&#39;</span><span class="p">);</span> 
 </pre>
 </div> 
  
@@ -94,7 +90,7 @@ to include the folder name loading the template.  Example:</p>
  
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">template</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;folder_name/file_name&#39;</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;folder_name/file_name&#39;</span><span class="p">);</span> 
 </pre>
 </div> 
  
@@ -112,17 +108,9 @@ parameter of the template loading function. Here is an example using an array:</
     <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;My Message&#39;</span> 
 <span class="p">);</span> 
  
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;pages/blog_template&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/blog_template&#39;</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span> 
 </pre></div> 
- 
-<p>And here's an example using an object:</p> 
- 
-<code>$data = new Someclass();<br /> 
-$this->load_template('blogtemplate', <var>$data</var>);</code> 
- 
-<p>Note: If you use an object, the class variables will be turned into array elements.</p> 
- 
- 
+
 <h2>Returning templates as data</h2> 
  
 <div class="syntax">
@@ -181,8 +169,8 @@ The variables assigned with $this->assign() are always available to every templa
 <div class="syntax">
 <pre>
 <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;layouts/layout_template&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
-    <span class="s1">&#39;minify_html&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span> 
+    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/layout_template&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
+    <span class="s1">&#39;content_type&#39;</span> <span class="o">=&gt;</span> <span class="k">'text/html'</span><span class="p">,</span> 
 <span class="p">);</span> 
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
 </pre>

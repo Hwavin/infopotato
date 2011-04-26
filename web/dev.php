@@ -102,8 +102,8 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 /**
  * Dispatch, prepare, response 
  */
-require(SYS_DIR.'infopotato_app.php');
-InfoPotato_App::run();
+require(SYS_DIR.'app_dispatcher.php');
+App_Dispatcher::run();
 
 // End of file: ./dev.php 
 

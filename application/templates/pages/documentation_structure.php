@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Structure of a Project
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; The Directory Structure
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,32 +9,22 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Structure of a Project</h1>	
+<h1 class="first_heading">The Directory Structure</h1>	
 
 <p>
-he directory structure of an InfoPotato application is rather flexible. Open framework folder, it's a basic project folder for InfoPotato. Every new app you create uses the same project structure.
+The directory structure of an InfoPotato application is rather flexible. Open framework folder, it's a basic project folder for InfoPotato. Every new app you create uses the same project structure.
 </p>
 
-<div class="content_image">
-<p>Project Structure</p>
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/project_structure.jpg" width="330" height="113" alt="Structure of a Project" />
-</div>
- 
 <p>In a project folder you have:</p>
 
 <ul>
-<li><strong>cache</strong> - place to store your cache files.</li>
-<li><strong>class</strong> - put your useful 3rd party PHP class here to be used with InfoPotato</li>
-<li><strong>config</strong> - the 3 configuration files are here: common, routes, database configs.</li>
-<li><strong>controller</strong> - Your Controller classes here. There's a <em>MainController</em> by default.</li>
-<li><strong>model</strong> - Your Model classes here.</li>
-<li><strong>plugin</strong> - there's a file called template_tags.php for you to add features to the View</li>
-<li><strong>view</strong> - Your Html template files here.</li>
-<li><strong>viewc</strong> - Consist of compiled template files.</li>
+<li><strong>app/:</strong> - The application source code;</li>
+<li><strong>system/:</strong> - InfoPotato framework files</li>
+<li><strong>web/:</strong> - The web root directory.</li>
 </ul>
 
-<p>
-An InfoPotato application is broken down into three big categories of components: Workers, Templates, and Data/Library/Script. InfoPotato has the ability to host multiple apps simultaneously.
+<p class="tipbox">
+The web root directory is the home of all public and static files like images, stylesheets, and JavaScript files. It is also where each front controller lives.
 </p>
 
 </div> 

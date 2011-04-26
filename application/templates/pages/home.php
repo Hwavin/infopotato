@@ -54,7 +54,7 @@ Built on the shoulders of giants
 <li>No built-in Log Mechanism</li> 
 </ul>
 
-<span><a href="<?php echo APP_URI_BASE; ?>about/facts/" title="More facts about InfoPotato">Find out more &raquo;</a></span>
+<span><a href="<?php echo APP_URI_BASE; ?>about/index/facts/" title="More facts about InfoPotato">Find out more &raquo;</a></span>
 
 </div> 
 

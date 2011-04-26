@@ -13,7 +13,7 @@ if (version_compare(PHP_VERSION, '5.2.0', '<')) {
  * Define the application environment
  * Usage: development or production
  */
-define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', 'production');
  
 /**
  * Set the PHP error reporting level. If you set this in php.ini, you remove this.
@@ -102,8 +102,8 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 /**
  * Dispatch, prepare, response 
  */
-require(SYS_DIR.'infopotato_app.php');
-InfoPotato_App::run();
+require(SYS_DIR.'app_dispatcher.php');
+App_Dispatcher::run();
 
 // End of file: ./index.php 
 

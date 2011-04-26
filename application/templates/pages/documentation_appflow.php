@@ -20,13 +20,14 @@ Roughly speaking, every page or document sent from a web server to a browser is 
 There are two types of requests, <strong>Static requests</strong> and <strong>Application requests</strong>.
 </p>
 
-<p>
+<ul>
+<li>
 <strong>Static requests</strong> are made to the static resources which are actually not handled by InfoPotato. 
-</p>
-
-<p>
+</li>
+<li>
 <strong>Application requests</strong> are requests forwarded to InfoPotato for parsing.
-</p>
+</li>
+</ul>
 </div>
 
 <h2>Requests, Manager, Response Lifecycle</h2>
@@ -39,10 +40,10 @@ Every request handled by an InfoPotato project goes through the same basic lifec
 The end users interact with the clients (browsers, web services clients) and the clients send requests to the web server.
 </li> 
 <li>
-The web server receives the request and passes it to a single front controller file (e.g., index.php, the single point of entry script) that's responsible for bootstrapping the framework;
+The web server receives the request and passes it to a single point of entry script (e.g., index.php, dev.php) that's responsible for bootstrapping the framework;
 </li> 
 <li>
-InfoPotato_App is the subclass of InfoPotato, which provides the actual implementation. It reads the request information (parses the request method, the URI segments), and determines from the URI segments which manager/method/parameters should be called;
+App_Dispatcher is the subclass of Dispatcher, which provides the actual request analysis. It reads the request information (parses the request method, the URI segments), and determines from the URI segments which manager/method/parameters should be called;
 </li> 
 <li>
 The manager is executed and the code inside the manaher prepares the resource identified by the incoming URI. Based on the request method (POST and GET are supported), the corresponding manager method will load and instantiate the needed resources (data objects, libraries, user-defined functions, the corresponding template files).

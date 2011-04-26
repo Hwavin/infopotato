@@ -42,6 +42,10 @@ For a long time, I thought InfoPotato should follow the MVC architectural patter
 
 <h2>Philosophy</h2>
 
+<p>
+A framework streamlines application development by automating many of the patterns employed for a given purpose. A framework also adds structure to the code, prompting the developer to write better, more readable, and more maintainable code. Ultimately, a framework makes programming easier, since it packages complex operations into simple statements.
+</p>
+
 <p> 
 The main goal of InfoPotato is easy and followed by fast. It gives you the tools you will most need to make your website quickly and easily. InfoPotato also has other goals, be a very lightweight framework, simple and fast, truly loosely coupled, and high component singularity. InfoPotato wasn&#039;t designed to give you all the tools you will ever need, instead, it gives you a solid base of well-tested and most common libraries, and gives you the ability to easily add your own if you need to.
 </p> 

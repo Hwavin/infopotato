@@ -31,7 +31,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sever_requirements/">Server Requirements</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/installation/">Installation Instructions</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/environments/">The Environments</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/">Structure of a Project</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/">The Directory Structure</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/alternative_php/">Alternative PHP Syntax</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/style_guide/">Conventions &amp; Style Guide</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/glossary/">Glossary</a></li>
@@ -62,8 +62,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <td valign="top" width="25%"> 
  
 <h3>Library Reference</h3> 
-<ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Benchmarking</a></li> 
+<ul>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cache/">Cache</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/calendar/">Calendar</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cookie/">Cookie</a></li> 
@@ -85,12 +84,12 @@ Thank you for being interested in InfoPotato. Any software application requires 
 </td> 
 <td valign="top" width="25%"> 
 
-<h3>Script Reference</h3> 
+<h3>Function Reference</h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">CAPTCHA Helper</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Cookie Helper</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/directory/">Directory Helper</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Download Helper</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">CAPTCHA</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Cookie</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/directory/">Directory</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Download</a></li> 
 </ul> 
  
 </td> 
