@@ -17,15 +17,15 @@
  */
 class Cookie_Library {
 	// The following constants allow for nice looking callbacks to static methods
-	const delete             = 'Cookie_Library::delete';
-	const get                = 'Cookie_Library::get';
-	const reset              = 'Cookie_Library::reset';
-	const set                = 'Cookie_Library::set';
-	const set_default_domain   = 'Cookie_Library::set_default_domain';
-	const set_default_expires  = 'Cookie_Library::set_default_expires';
+	const delete = 'Cookie_Library::delete';
+	const get = 'Cookie_Library::get';
+	const reset = 'Cookie_Library::reset';
+	const set = 'Cookie_Library::set';
+	const set_default_domain = 'Cookie_Library::set_default_domain';
+	const set_default_expires = 'Cookie_Library::set_default_expires';
 	const set_default_httponly = 'Cookie_Library::set_default_httponly';
-	const set_default_path     = 'Cookie_Library::set_default_path';
-	const set_default_secure   = 'Cookie_Library::set_default_secure';
+	const set_default_path = 'Cookie_Library::set_default_path';
+	const set_default_secure = 'Cookie_Library::set_default_secure';
 	
 	/**
 	 * The cookie data assigned by $_COOKIE
@@ -119,11 +119,11 @@ class Cookie_Library {
 	 * @return void
 	 */
 	public static function reset() {
-		self::$_default_domain   = NULL;
-		self::$_default_expires  = NULL;
+		self::$_default_domain = NULL;
+		self::$_default_expires = NULL;
 		self::$_default_httponly = FALSE;
-		self::$_default_path     = NULL;
-		self::$_default_secure   = FALSE;
+		self::$_default_path = NULL;
+		self::$_default_secure = FALSE;
 	}
 	
 	

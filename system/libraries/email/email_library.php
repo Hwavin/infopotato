@@ -62,35 +62,24 @@ class Email_library {
 	 */
 	public function __construct($config = array()) {
 		if (count($config) > 0) {
-			$this->initialize($config);
+			$this->clear();
+			foreach ($config as $key => $val) {
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					} else {
+						$this->$key = $val;
+					}
+				}
+			}
 		} 
 		
 		$this->_smtp_auth = ($this->smtp_user == '' && $this->smtp_pass == '') ? FALSE : TRUE;
 		$this->_safe_mode = ((boolean)@ini_get("safe_mode") === FALSE) ? FALSE : TRUE;
 	}
 
-	
-	/**
-	 * Initialize preferences
-	 *
-	 * @param	array
-	 * @return	void
-	 */
-	public function initialize($config = array()) {
-		$this->clear();
-		foreach ($config as $key => $val) {
-			if (isset($this->$key)) {
-				$method = 'set_'.$key;
-
-				if (method_exists($this, $method)) {
-					$this->$method($val);
-				} else {
-					$this->$key = $val;
-				}
-			}
-		}
-	}
-  
 
 	/**
 	 * Initialize the Email Data

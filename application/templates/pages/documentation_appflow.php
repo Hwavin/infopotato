@@ -12,7 +12,7 @@
 <h1 class="first_heading">Application Execution Flow</h1>	
 
 <p>
-Roughly speaking, every page or document sent from a web server to a browser is the result of the same processing sequence. 
+If you want to go deeper with InfoPotato, you should understand how information flows between the framework's layers.
 </p>
 
 <div class="tipbox">

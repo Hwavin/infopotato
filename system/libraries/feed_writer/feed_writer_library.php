@@ -23,19 +23,10 @@ class Feed_Writer_Library {
 	 */	
 	public function __construct($config = array()) { 
 		if (count($config) > 0) {
-			$this->initialize($config);
+			$this->format = $config['format'];
 		}
 	}
-	
-	/**
-	 * Initialize the user preferences
-	 *
-	 * @param	array	config preferences
-	 */	
-	public function initialize($config = array()) { 
-		$this->format = $config['format'];
-	}
-	
+
 	/**
 	 * Build complete feed string from feed_data
 	 *

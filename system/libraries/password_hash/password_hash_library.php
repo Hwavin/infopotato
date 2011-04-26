@@ -43,29 +43,19 @@ class Password_Hash_Library {
 	 */
 	public function __construct($config = array()) { 
 		if (is_array($config) && count($config) > 0) {
-			$this->initialize($config);
-		}
-	}
-	
-	/**
-	 * Initialize the user preferences
-	 *
-	 * @param	array	config preferences
-	 * @return	void
-	 */	
-	public function initialize($config = array()) { 
-		$this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+			$this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
-		if ($config['iteration_count_log2'] < 4 || $config['iteration_count_log2'] > 31) {
-			$config['iteration_count_log2'] = 8;
-		}
-		$this->iteration_count_log2 = $config['iteration_count_log2'];
+			if ($config['iteration_count_log2'] < 4 || $config['iteration_count_log2'] > 31) {
+				$config['iteration_count_log2'] = 8;
+			}
+			$this->iteration_count_log2 = $config['iteration_count_log2'];
 
-		$this->portable_hashes = $config['portable_hashes'];
+			$this->portable_hashes = $config['portable_hashes'];
 
-		$this->random_state = microtime();
-		if (function_exists('getmypid')) {
-			$this->random_state .= getmypid();
+			$this->random_state = microtime();
+			if (function_exists('getmypid')) {
+				$this->random_state .= getmypid();
+			}
 		}
 	}
 

@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Data
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Data Access Object
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,21 +9,23 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Data</h1>	
+<h1 class="first_heading">Data Access Object</h1>	
 
 <p>
-Datas are responsible for any logic that surrounds the manipulation of a data entity. Its typical responsibilities are to faciliate create, retrieve, update and delete (CRUD) operations. If more advanced manipulation/processing functions are required for an entity, they will also be located here. Datas are <strong>optionally</strong> available for those who want to use a more traditional MVC approach. For many RDBMS-based web applications, datas usually represent database tables, but they could also represent Non-SQL databases, like LDAP entries, XML data, or document-oriented database, like <a href="http://www.mongodb.org/" class="external_link">MongoDB</a>.
+Data Access Objects (DAO) provides a generic API to access data stored in different database management systems (DBMS). As a result, the underlying DBMS can be changed to a different one without requiring change of the code which uses DAO to access the data.
+</p>
+
+<p>
+Data Access Objects are responsible for any logic that surrounds the manipulation of a data entity. Its typical responsibilities are to faciliate create, retrieve, update and delete (CRUD) operations. If more advanced manipulation/processing functions are required for an entity, they will also be located here. Data is <strong>optional</strong> in an InfoPotato application. For many RDBMS-based web applications, data usually represents the access to database tables, but they could also represent Non-SQL databases, like LDAP entries, XML data, or document-oriented database, like <a href="http://www.mongodb.org/" class="external_link">MongoDB</a>.
 </p> 
 
 <p>
-In an InfoPotato application, data is not required if there is no data access need. And a data is not allowed to be associated with other datas. A data can be loaded and used by different controlloers which need the data access that this data provides.
+In an InfoPotato application, the use of data layer is not required if there is no data access involved. And a data object is not allowed to be associated with other data objects. A data file can be loaded and used by different managers which need the data access that this data provides.
 </p>
 
 <h2><a name="what"></a>What is a Data?</h2> 
  
-<p>A data is an instance of CData or its child class. Datas are used to keep data and their relevant business rules. Datas are PHP classes that are designed to work with information in your database.  For example, let's say
-you use CodeIgniter to manage a blog.  You might have a data class that contains functions to insert, update, and
-retrieve your blog data. Here is an example of what such a data class might look like:</p> 
+<p>A data is an instance of the base Data object or other data objects' child class. Data object is used to keep data and their relevant business rules. For example, let's say you use InfoPotato to manage a blog. You might have a data class that contains functions to insert, update, and retrieve your blog post data. Here is an example of what such a data class might look like:</p> 
  
 <div class="syntax">
 <pre>
@@ -47,21 +49,21 @@ retrieve your blog data. Here is an example of what such a data class might look
 </div> 
  
 <p>
-Create your data PHP file in the /application/datas/ directory or in a subdirectory of /application/datas. InfoPotato will find it anywhere in the directory. By convention it should have the same name as the class.
+Create your data object file in the /application/data/ directory or in a subdirectory of /application/data. InfoPotato will find it anywhere in the directory. By convention it should have the same name as the class.
 </p> 
  
 <p>
-For example, we created a data and put it in <span class="red">application/datas/users_data.php</span>, and the the data class name will be <span class="red">Users_Data</span>.
+For example, we created a data and put it in <span class="red">application/data/users_data.php</span>, and the the data class name will be <span class="red">Users_Data</span>.
 </p> 
  
 <h2>Using other datas from within a data</h2>
 
 <p>
-It's possible for a data to depend on other datas. This occurs a lot when you have entities that link to each other. A data for managing users probably shouldn't directly modify another entity type, so instead it can ask the respective data to do the work on its behalf.
+It's possible for a data object to depend on other data objects. This occurs a lot when you have entities that link to each other. A data for managing users probably shouldn't directly modify another entity type, so instead it can ask the respective data to do the work on its behalf.
 </p>
  
 <p class="tipbox">
-But in InfoPotato, using other datas from within a data is <strong>NOT ALLOWED</strong>.
+In InfoPotato, using other data objects from within a data object is <strong>NOT ALLOWED</strong>.
 </p>
 
 <h2><a name="loading"></a>Loading a Data in Controller</h2> 

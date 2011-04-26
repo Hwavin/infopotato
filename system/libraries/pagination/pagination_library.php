@@ -61,22 +61,12 @@ class Pagination_Library {
 	 */	
 	public function __construct($config = array()) { 
 		if (is_array($config) && count($config) > 0) {
-			$this->initialize($config);
+			foreach ($config as $key => $val) {
+				$this->$key = $val;
+			}
 		}
 	}
-	
-	/**
-	 * Initialize the user preferences
-	 *
-	 * @param	array	config preferences
-	 * @return	void
-	 */	
-	public function initialize($config = array()) {
-		foreach ($config as $key => $val) {
-			$this->$key = $val;
-		}
-	}
-	
+
 	/**
      * The build_pagination method is what determines how many page numbers to display,
 	 * figures out how they should be linked, and applies CSS for styling.

@@ -12,7 +12,7 @@
 <h1 class="first_heading">Template</h1>	
 
 <p>
-Templates serve as the presentation layer of InfoPotato. A template is a PHP script consisting of mainly elements of user interface (e.g., an HTML page fragment, an XML document, a serialized JSON array). In fact, templates can flexibly be embedded within other templates (within other templates, etc., etc.) if you need this type of hierarchy. It can contain PHP statements, but it is recommended that these statements should remain relatively simple. For the spirit of separation of logic and presentation, large chunk of logic should be placed in manager instead of template.
+Templates serve as the presentation layer of InfoPotato. A template is a PHP script consisting of mainly elements of user interface (e.g., an HTML page fragment, an XML document, a serialized JSON array). In fact, templates can flexibly be embedded within other templates (within other templates, etc., etc.) if you need this type of hierarchy. It can contain PHP variables and statements, but it is recommended that these statements should remain relatively simple. For the spirit of separation of logic and presentation, large chunk of logic should be placed in manager instead of template.
 </p>
 
 <p>Templates are never called directly, they must be loaded by a manager. Remember that in InfoPotato, the manager acts as the traffic cop, so it is responsible for loading and rendering a particular template.</p> 

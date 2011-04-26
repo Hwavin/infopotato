@@ -15,7 +15,8 @@ class Form_Validation_Library {
 	 * Constructor
 	 */	
 	public function __construct($config = array()) { 
-		$this->initialize($config);
+		// Assign the $_POST data 
+		$this->_post = $config['post'];
 		
 		// Set the character encoding in MB.
 		if (function_exists('mb_internal_encoding')){
@@ -42,17 +43,6 @@ class Form_Validation_Library {
 			'is_natural' => "The %s field must contain only positive numbers.",
 			'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
 		);
-	}
-	
-	/**
-	 * Initialize the user preferences
-	 *
-	 * @param	array	config preferences
-	 * @return	void
-	 */	
-	public function initialize($config = array()) { 
-		// Assign the $_POST data 
-		$this->_post = $config['post'];
 	}
 
 	/**

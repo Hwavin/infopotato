@@ -25,16 +25,6 @@ class Cache_Library {
 	}
 	
 	/**
-	 * Initialize the user preferences
-	 *
-	 * @param	array	config preferences
-	 * @return	void
-	 */	
-	public function initialize($config = array()) { 
-		$this->_dir = $config['cache_dir'];
-	}
-	
-	/**
 	 * Find the filename for a certain key 
 	 *
 	 * @param	string
@@ -56,7 +46,7 @@ class Cache_Library {
 		}
         $cache_path = $this->_name($key);  
 
-        if ( ! file_exists($cache_path) OR ! is_readable($cache_path)) {
+        if ( ! file_exists($cache_path) || ! is_readable($cache_path)) {
             return FALSE;   
 		}
 		// Open for reading only; use 'b' to force binary mode
@@ -92,7 +82,7 @@ class Cache_Library {
 	 * @return	boolean
 	 */
     public function set($key, $data, $ttl = 3600) {  
-        if ( ! is_dir($this->_dir) OR ! $this->is_really_writable($this->_dir)) {
+        if ( ! is_dir($this->_dir) || ! $this->_is_really_writable($this->_dir)) {
             return FALSE;  
 		}
         $cache_path = $this->_name($key);  
@@ -141,7 +131,7 @@ class Cache_Library {
 	 *
 	 * @return	void
 	 */
-	public function is_really_writable($file) {	
+	private function _is_really_writable($file) {	
 		// If we're on a Unix server with safe_mode off we call is_writable
 		if (DIRECTORY_SEPARATOR == '/' && @ini_get("safe_mode") == FALSE) {
 			return is_writable($file);

@@ -6,12 +6,12 @@ class Calendar_Library {
 
 	public $show = array();
 	public $local_time;
-	public $template		= '';
-	public $start_day		= 'sunday';
-	public $month_type 		= 'long';
-	public $day_type		= 'abr';
-	public $show_next_prev	= FALSE;
-	public $next_prev_url	= '';
+	public $template = '';
+	public $start_day = 'sunday';
+	public $month_type = 'long';
+	public $day_type = 'abr';
+	public $show_next_prev = FALSE;
+	public $next_prev_url = '';
 
 	/**
 	 * Set the calendar message and sets the default time reference
@@ -66,27 +66,14 @@ class Calendar_Library {
 		$this->local_time = time();
 		
 		if (count($config) > 0) {
-			$this->initialize($config);
-		}
-	}
-	
-
-	/**
-	 * Initialize the user preferences
-	 *
-	 * Accepts an associative array as input, containing display preferences
-	 *
-	 * @param	array	config preferences
-	 * @return	void
-	 */	
-	public function initialize($config = array()) {
-		foreach ($config as $key => $val) {
-			if (isset($key)) {
-				$this->$key = $val;
+			foreach ($config as $key => $val) {
+				if (isset($key)) {
+					$this->$key = $val;
+				}
 			}
 		}
 	}
-
+	
 	/**
 	 * Generate the calendar
 	 *

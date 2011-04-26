@@ -236,7 +236,7 @@ class User_Agent_Library {
 	 * @return	mixed
 	 */		
 	private function _set_platform() {
-		if (is_array($this->platforms) AND count($this->platforms) > 0) {
+		if (is_array($this->platforms) && count($this->platforms) > 0) {
 			foreach ($this->platforms as $key => $val) {
 				if (preg_match("|".preg_quote($key)."|i", $this->agent)) {
 					$this->platform = $val;
@@ -297,7 +297,7 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _set_mobile() {
-		if (is_array($this->mobiles) AND count($this->mobiles) > 0) {		
+		if (is_array($this->mobiles) && count($this->mobiles) > 0) {		
 			foreach ($this->mobiles as $key => $val) {
 				if (strpos(strtolower($this->agent), $key) !== FALSE) {
 					$this->is_mobile = TRUE;
@@ -317,7 +317,7 @@ class User_Agent_Library {
 	 * @return	void
 	 */			
 	private function _set_languages() {
-		if ((count($this->languages) == 0) AND isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) AND $_SERVER['HTTP_ACCEPT_LANGUAGE'] != '') {
+		if ((count($this->languages) == 0) && isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && $_SERVER['HTTP_ACCEPT_LANGUAGE'] != '') {
 			$languages = preg_replace('/(;q=[0-9\.]+)/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_LANGUAGE'])));
 			
 			$this->languages = explode(',', $languages);
@@ -336,7 +336,7 @@ class User_Agent_Library {
 	 * @return	void
 	 */			
 	private function _set_charsets() {	
-		if ((count($this->charsets) == 0) AND isset($_SERVER['HTTP_ACCEPT_CHARSET']) AND $_SERVER['HTTP_ACCEPT_CHARSET'] != '') {
+		if ((count($this->charsets) == 0) && isset($_SERVER['HTTP_ACCEPT_CHARSET']) && $_SERVER['HTTP_ACCEPT_CHARSET'] != '') {
 			$charsets = preg_replace('/(;q=.+)/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_CHARSET'])));
 			
 			$this->charsets = explode(',', $charsets);
@@ -388,7 +388,7 @@ class User_Agent_Library {
 	 * @return	bool
 	 */			
 	public function is_referral() {
-		return ( ! isset($_SERVER['HTTP_REFERER']) OR $_SERVER['HTTP_REFERER'] == '') ? FALSE : TRUE;
+		return ( ! isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') ? FALSE : TRUE;
 	}
 
 
@@ -465,7 +465,7 @@ class User_Agent_Library {
 	 * @return	bool
 	 */			
 	public function referrer() {
-		return ( ! isset($_SERVER['HTTP_REFERER']) OR $_SERVER['HTTP_REFERER'] == '') ? '' : trim($_SERVER['HTTP_REFERER']);
+		return ( ! isset($_SERVER['HTTP_REFERER']) || $_SERVER['HTTP_REFERER'] == '') ? '' : trim($_SERVER['HTTP_REFERER']);
 	}
 
 

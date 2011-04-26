@@ -35,63 +35,52 @@ class Upload_Library {
 	 */
 	public function __construct($config = array()) {
 		if (count($config) > 0) {
-			$this->initialize($config);
-		}
-	}
-	
-
-	/**
-	 * Initialize preferences
-	 *
-	 * @param	array
-	 * @return	void
-	 */	
-	public function initialize($config = array()) {
-		$defaults = array(
-			'max_size' => 0,
-			'max_width'	=> 0,
-			'max_height' => 0,
-			'max_filename' => 0,
-			'allowed_types' => '',
-			'file_temp' => '',
-			'file_name' => '',
-			'orig_name' => '',
-			'file_type' => '',
-			'file_size' => '',
-			'file_ext' => '',
-			'upload_path' => '',
-			'overwrite' => FALSE,
-			'encrypt_name' => FALSE,
-			'is_image' => FALSE,
-			'image_width' => '',
-			'image_height' => '',
-			'image_type' => '',
-			'image_size_str' => '',
-			'error_msg' => array(),
-			'mimes' => array(),
-			'remove_spaces'	=> TRUE,
-			'temp_prefix' => 'temp_file_'
-		);	
-	
-	
-		foreach ($defaults as $key => $val) {
-			if (isset($config[$key])) {
-				$method = 'set_'.$key;
-				if (method_exists($this, $method)) {
-					$this->$method($config[$key]);
-				} else {
-					$this->$key = $config[$key];
-				}			
-			} else {
-				$this->$key = $val;
-			}
-		}
+			$defaults = array(
+				'max_size' => 0,
+				'max_width'	=> 0,
+				'max_height' => 0,
+				'max_filename' => 0,
+				'allowed_types' => '',
+				'file_temp' => '',
+				'file_name' => '',
+				'orig_name' => '',
+				'file_type' => '',
+				'file_size' => '',
+				'file_ext' => '',
+				'upload_path' => '',
+				'overwrite' => FALSE,
+				'encrypt_name' => FALSE,
+				'is_image' => FALSE,
+				'image_width' => '',
+				'image_height' => '',
+				'image_type' => '',
+				'image_size_str' => '',
+				'error_msg' => array(),
+				'mimes' => array(),
+				'remove_spaces'	=> TRUE,
+				'temp_prefix' => 'temp_file_'
+			);	
 		
-		// If a file_name was provided in the config, use it instead of the user input
-		// supplied file name for all uploads until initialized again
-		$this->_file_name_override = $this->file_name;
+		
+			foreach ($defaults as $key => $val) {
+				if (isset($config[$key])) {
+					$method = 'set_'.$key;
+					if (method_exists($this, $method)) {
+						$this->$method($config[$key]);
+					} else {
+						$this->$key = $config[$key];
+					}			
+				} else {
+					$this->$key = $val;
+				}
+			}
+			
+			// If a file_name was provided in the config, use it instead of the user input
+			// supplied file name for all uploads until initialized again
+			$this->_file_name_override = $this->file_name;
+		}
 	}
-	
+
 
 	/**
 	 * Perform the file upload

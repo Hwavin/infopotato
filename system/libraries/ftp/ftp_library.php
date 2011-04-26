@@ -34,29 +34,16 @@ class FTP_Library {
 	 */
 	public function __construct($config = array()) {
 		if (count($config) > 0) {
-			$this->initialize($config);
-		}
-	}
-
-
-	/**
-	 * Initialize preferences
-	 *
-	 * @access	public
-	 * @param	array
-	 * @return	void
-	 */
-	public function initialize($config = array()) {
-		foreach ($config as $key => $val) {
-			if (isset($this->$key)) {
-				$this->$key = $val;
+			foreach ($config as $key => $val) {
+				if (isset($this->$key)) {
+					$this->$key = $val;
+				}
 			}
+
+			// Prep the hostname
+			$this->hostname = preg_replace('|.+?://|', '', $this->hostname);
 		}
-
-		// Prep the hostname
-		$this->hostname = preg_replace('|.+?://|', '', $this->hostname);
 	}
-
 
 	/**
 	 * FTP Connect

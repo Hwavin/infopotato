@@ -18,16 +18,18 @@
 <table class="grid">
 <tr><th>ENVIRONMENT</th><th>Define the application environment</th></tr>
 <tr><td>INFOPOTATO_VERSION</td><td>Define InfoPotato Version</td></tr>
+<tr><td>STATIC_URI_BASE</td><td>Used for static requests to access static assets (images) access, sometimes CDN is used</td></tr>
 <tr><td>APP_URI_BASE</td><td>Set public accessible web root, ending with the trailing slash '/'</td></tr>
 <tr><td>DS</td><td>Short name of DIRECTORY_SEPARATOR, '\' for Windows, '/' for Unix</td></tr>
-<tr><td>SYS_DIR</td><td>Define the application environment</td></tr>
-<tr><td>APP_DIR</td><td>Define the application environment</td></tr>
-<tr><td>APP_DATA_DIR</td><td>Define the application environment</td></tr>
-<tr><td>APP_CONFIG_DIR</td><td>Define the application environment</td></tr>
-<tr><td>APP_WORKER_DIR</td><td>Define the application environment</td></tr>
-<tr><td>APP_LIBRARY_DIR</td><td>Define the application environment</td></tr>
-<tr><td>APP_TEMPLATE_DIR</td><td>Define the application environment</td></tr>
-<tr><td>DEFAULT_WORKER</td><td>Default worker if none is given in the URL, case-sensetive </td></tr>
+<tr><td>SYS_DIR</td><td></td></tr>
+<tr><td>APP_DIR</td><td></td></tr>
+<tr><td>APP_DATA_DIR</td><td></td></tr>
+<tr><td>APP_CONFIG_DIR</td><td></td></tr>
+<tr><td>APP_MANAGER_DIR</td><td></td></tr>
+<tr><td>APP_LIBRARY_DIR</td><td>User-defined libraries</td></tr>
+<tr><td>APP_TEMPLATE_DIR</td><td></td></tr>
+<tr><td>DEFAULT_MANAGER</td><td>Default manager if none is given in the URL, case-sensetive </td></tr>
+<tr><td>DEFAULT_MANAGER_METHOD</td><td>Default manager method if none is given in the URL, case-sensetive </td></tr>
 <tr><td>PERMITTED_URI_CHARS</td><td>Default allowed URL Characters (UTF-8 encoded characters)</td></tr>
 </table>
  
@@ -35,8 +37,6 @@
 <h3>show_sys_error(<var>$heading</var>, <var>$message</var>, <var>$template = 'sys_error'</var>)</h3> 
  
 <h3>dump(<var>$variable</var>)</h3> 
- 
-<h3>load_script(<var>$script_filename</var>)</h3> 
  
 </div> 
 <!-- end onecolumn -->

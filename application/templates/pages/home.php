@@ -61,6 +61,12 @@ Built on the shoulders of giants
 
 <div id="index_right" class="index_column"> 
 <h2 class="first_heading">The Latest News</h2>	
+
+<div class="latest_news">
+<div class="title">New tutorial added</div>
+<span class="post_date">May 12, 2011</span>
+</div> 
+
 <div class="latest_news">
 <div class="title">InfoPotato 2.0.0 Released</div>
 <span class="post_date">Mar 05, 2011</span>

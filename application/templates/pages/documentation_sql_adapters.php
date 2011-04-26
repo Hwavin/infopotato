@@ -12,7 +12,7 @@
 <h1 class="first_heading">SQL Database Adapters</h1>	
 
 <p>
-InfoPotato provides a concept of SQL database adapter for all database manipulations. Currently, there are database adapters for MySQL, MySQLi, SQLite. Each adapter class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.
+InfoPotato provides a concept of SQL database adapter for all SQL-based database manipulations. Currently, there are database adapters for MySQL, MySQLi, SQLite, and PostgreSQL. Each adapter class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.
 </p>
 
 <h2>Overview</h2>
@@ -28,7 +28,7 @@ InfoPotato provides a concept of SQL database adapter for all database manipulat
 
 <div class="syntax"> 
 <pre>
-<span class="k">class</span> <span class="nc">Users_Model</span> <span class="k">extends</span> <span class="nx">Model</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">Users_Data</span> <span class="k">extends</span> <span class="nx">Data</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="c1">// Use default database connection config</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">);</span> 
