@@ -11,12 +11,12 @@ class Manager {
     /**
      * @var array   Key-value array of HTTP POST parameters
      */
-    protected $post = array();
+    protected $POST_DATA = array();
 
 	/**
      * @var array   An associative array of variables passed to the current script via HTTP request Cookie header      
      */
-    protected $cookie = array();
+    protected $COOKIE_DATA = array();
 	
 	/**
 	 * @var  array  vars for template file assignment
@@ -34,11 +34,12 @@ class Manager {
 	 */
 	public function __construct() {
 		// $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings
-		$this->post = $_POST;
+		$this->POST_DATA = $_POST;
+		$this->COOKIE_DATA = $_COOKIE;
 		// Disable access to $_POST, don't unset $_COOKIE otherwise $_SESSION doesn't work
+		// The POST and COOKIE data can only be accessed in manager
 		unset($_POST);
-		$this->cookie = $_COOKIE;
-
+		
 		// Check magic quotes, this feature has been DEPRECATED as of PHP 5.3.0.
 		// Magic Quotes is a process that automagically escapes incoming data to the PHP script. 
 	    // It's preferred to code with magic quotes off and to instead escape the data at runtime, as needed.

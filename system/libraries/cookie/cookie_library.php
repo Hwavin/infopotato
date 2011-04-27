@@ -72,7 +72,7 @@ class Cookie_Library {
 	/**
 	 * Forces use as a static class
 	 * 
-	 * @return fCookie
+	 * @return Cookie_Library
 	 */
 	public function __construct($config = array()) { 
 		$this->_cookie = $config['cookie'];
@@ -196,7 +196,7 @@ class Cookie_Library {
 			setcookie($name, $value, $expires, $path, $domain, $secure, TRUE);
 			return; 		
 		}
-		
+		// Defines a cookie to be sent along with the rest of the HTTP headers
 		setcookie($name, $value, $expires, $path, $domain, $secure);
 	}
 	

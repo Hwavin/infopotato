@@ -28,7 +28,7 @@ final class Contact_Manager extends Manager {
 		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
 
 		// Load Form Validation library and assign post data
-		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->post));
+		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->POST_DATA));
 
 		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
 		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam
