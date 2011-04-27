@@ -10,7 +10,7 @@
 <!-- begin onecolumn --> 
 <div id="onecolumn" class="inner"> 
 
-<h1 class="first_heading">Contact Us</h1> 
+<h1 class="first_heading">Contact</h1> 
 
 <div class="box_right greybox">
 <blockquote>
@@ -26,7 +26,7 @@ We hope you have enjoyed the site. If you have a question or comment that you wo
 <!-- begin contact --> 
 <div id="contact"> 
 <?php if (isset($errors)) : ?>
-<div class="errorbox">
+<div class="pinkbox">
 <?php echo $errors; ?>
 </div>
 <?php endif; ?>
@@ -34,9 +34,9 @@ We hope you have enjoyed the site. If you have a question or comment that you wo
 
 <?php if (isset($sent)) : ?>
 <?php if ($sent == TRUE) : ?>
-<div class="successbox">Your message has been sent</div>
+<div class="greenbox">Your message has been sent</div>
 <?php else : ?>
-<div class="errorbox">Failed to send your email</div>
+<div class="pinkbox">Failed to send your email</div>
 <?php endif; ?>
 <?php else : ?>
 <p>

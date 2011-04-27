@@ -20,7 +20,7 @@ template, allowing 100% control over every aspect of its design. In addition, yo
  
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
 </pre>
 </div> 
 
@@ -33,7 +33,7 @@ template, allowing 100% control over every aspect of its design. In addition, yo
  
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
 <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cal</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">();</span> 
 </pre>
 </div> 
@@ -43,7 +43,7 @@ To show a calendar for a specific month and year you will pass this information 
  
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
 <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cal</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="m">2006</span><span class="p">,</span> <span class="m">6</span><span class="p">);</span> 
 </pre>
 </div> 
@@ -58,7 +58,7 @@ generating function.  Consider this example:</p>
  
 <div class="syntax">
 <pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
 <span class="nv">$data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
     <span class="m">3</span>  <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com/news/article/2006/03/&#39;</span><span class="p">,</span> 
     <span class="m">7</span>  <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com/news/article/2006/07/&#39;</span><span class="p">,</span> 
@@ -84,61 +84,40 @@ array of preferences in the second parameter of the loading function. Here is an
  
  
 <div class="syntax">
-<pre>
-<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span> 
+<pre><span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span> 
     <span class="s1">&#39;start_day&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;saturday&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;month_type&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;long&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;day_type&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;short&#39;</span> 
 <span class="p">);</span> 
- 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
- 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
 <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cal</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">();</span> 
-</pre>
-</div> 
+</pre></div>
  
 <p>
 The above code would start the calendar on saturday, use the "long" month heading, and the "short" day names.  More information
 regarding preferences below.
 </p> 
  
-<script type="text/javascript"> 
-function stripedList(list) {
-	var items = document.getElementById(list).getElementsByTagName('tr');
-	for (i = 0; i < items.length; i++) {
-		if ((i%2) ? false : true) {
-			items[i].className += " odd";
-		} else {
-			items[i].className += " even";
-		}
-	}
-}
-window.onload = function() {
-	stripedList('list'); 
-};
-</script>
- 
- 
-<table> 
+<table class="grid"> 
 <thead>
 <tr><th>Preference</th><th>Default&nbsp;Value</th><th>Options</th><th>Description</th></tr>
 </thead>
 
-<tbody id="list">
+<tbody>
 <tr> 
-<td class="td"><strong>template</strong></td><td class="td">None</td><td class="td">None</td><td class="td">A string containing your calendar template. See the template section below.</td> 
+<td><strong>template</strong></td><td class="td">None</td><td class="td">None</td><td class="td">A string containing your calendar template. See the template section below.</td> 
 </tr><tr> 
-<td class="td"><strong>local_time</strong></td><td class="td">time()</td><td class="td">None</td><td class="td">A Unix timestamp corresponding to the current time.</td> 
+<td><strong>local_time</strong></td><td class="td">time()</td><td class="td">None</td><td class="td">A Unix timestamp corresponding to the current time.</td> 
 </tr><tr> 
-<td class="td"><strong>start_day</strong></td><td class="td">sunday</td><td class="td">Any week day (sunday, monday, tuesday, etc.)</td><td class="td">Sets the day of the week the calendar should start on.</td> 
+<td><strong>start_day</strong></td><td class="td">sunday</td><td class="td">Any week day (sunday, monday, tuesday, etc.)</td><td class="td">Sets the day of the week the calendar should start on.</td> 
 </tr><tr> 
-<td class="td"><strong>month_type</strong></td><td class="td">long</td><td class="td">long, short</td><td class="td">Determines what version of the month name to use in the header. long = January, short = Jan.</td> 
+<td><strong>month_type</strong></td><td class="td">long</td><td class="td">long, short</td><td class="td">Determines what version of the month name to use in the header. long = January, short = Jan.</td> 
 </tr><tr> 
-<td class="td"><strong>day_type</strong></td><td class="td">abr</td><td class="td">long, short, abr</td><td class="td">Determines what version of the weekday names to use in the column headers. long = Sunday, short = Sun, abr = Su.</td> 
+<td><strong>day_type</strong></td><td class="td">abr</td><td class="td">long, short, abr</td><td class="td">Determines what version of the weekday names to use in the column headers. long = Sunday, short = Sun, abr = Su.</td> 
 </tr><tr> 
-<td class="td"><strong>show_next_prev</strong></td><td class="td">FALSE</td><td class="td">TRUE/FALSE (boolean)</td><td class="td">Determines whether to display links allowing you to toggle to next/previous months. See information on this feature below.</td> 
+<td><strong>show_next_prev</strong></td><td class="td">FALSE</td><td class="td">TRUE/FALSE (boolean)</td><td class="td">Determines whether to display links allowing you to toggle to next/previous months. See information on this feature below.</td> 
 </tr><tr> 
-<td class="td"><strong>next_prev_url</strong></td><td class="td">None</td><td class="td">A URL</td><td class="td">Sets the basepath used in the next/previous calendar links.</td> 
+<td><strong>next_prev_url</strong></td><td class="td">None</td><td class="td">A URL</td><td class="td">Sets the basepath used in the next/previous calendar links.</td> 
 </tr> 
 </tbody>
 
@@ -159,7 +138,7 @@ code similar to this example:</p>
     <span class="s1">&#39;next_prev_url&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;http://example.com/index.php/calendar/show/&#39;</span> 
 <span class="p">);</span> 
  
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;calendar/calendar_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cal&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
  
 <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cal</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="nv">$year</span><span class="p">,</span> <span class="nv">$month</span><span class="p">);</span> 
 </pre>

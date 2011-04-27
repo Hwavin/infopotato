@@ -22,7 +22,7 @@ The latest stable version of InfoPotato is 1.0.0 You may safely use this version
 </p>  
 
 <div class="greybox">
-<a href="#">infopotato-1.0.0.zip</a> <a href="#">infopotato-1.0.0.tar.gz</a>
+<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/">infopotato-1.0.0.zip</a> <a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/">infopotato-1.0.0.tar.gz</a>
 </div>
 
 

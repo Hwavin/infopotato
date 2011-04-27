@@ -129,23 +129,8 @@ function:</p>
  
 <code>$new_data = $this->encrypt->encode_from_legacy(<kbd>$old_encrypted_string</kbd>);</code> 
 
-<script type="text/javascript"> 
-function stripedList(list) {
-	var items = document.getElementById(list).getElementsByTagName('tr');
-	for (i = 0; i < items.length; i++) {
-		if ((i%2) ? false : true) {
-			items[i].className += " odd";
-		} else {
-			items[i].className += " even";
-		}
-	}
-}
-window.onload = function() {
-	stripedList('list'); 
-};
-</script>
 
-<table cellpadding="0" cellspacing="1" border="0" style="width:100%"> 
+<table class="grid"> 
 <thead>
 <tr> 
 	<th>Parameter</th> 
@@ -154,22 +139,22 @@ window.onload = function() {
 </tr> 
 </thead>
 
-<tbody id="list">
+<tbody>
 <tr> 
-	<td class="td"><strong>$orig_data</strong></td> 
-	<td class="td">n/a</td> 
-	<td class="td">The original encrypted data from CodeIgniter 1.x's Encryption library</td> 
+	<td><strong>$orig_data</strong></td> 
+	<td>n/a</td> 
+	<td>The original encrypted data from CodeIgniter 1.x's Encryption library</td> 
 </tr> 
 <tr> 
-	<td class="td"><strong>$legacy_mode</strong></td> 
-	<td class="td">MCRYPT_MODE_ECB</td> 
-	<td class="td">The Mcrypt mode that was used to generate the original encrypted data.  CodeIgniter 1.x's default was MCRYPT_MODE_ECB, and it will
+	<td><strong>$legacy_mode</strong></td> 
+	<td>MCRYPT_MODE_ECB</td> 
+	<td>The Mcrypt mode that was used to generate the original encrypted data.  CodeIgniter 1.x's default was MCRYPT_MODE_ECB, and it will
 		assume that to be the case unless overridden by this parameter.</td> 
 </tr> 
 <tr> 
-	<td class="td"><strong>$key</strong></td> 
-	<td class="td">n/a</td> 
-	<td class="td">The encryption key.  This it typically specified in your config file as outlined above.</td> 
+	<td><strong>$key</strong></td> 
+	<td>n/a</td> 
+	<td>The encryption key.  This it typically specified in your config file as outlined above.</td> 
 </tr> 
 </tbody>
 </table> 

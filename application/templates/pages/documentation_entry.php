@@ -12,7 +12,7 @@
 <h1 class="first_heading">Single Point of Entry</h1>	
 
 <p>
-In InfoPotato, all the application requests are handled by a single point of entry script, which is index.php or dev.php. Their job is to bootstrap the InfoPotato application.
+In InfoPotato, all the application requests are forwarded to a single point of entry script, which is index.php or dev.php. The single entry script represents the execution context of request processing. It also serves as the central place for keeping application-level configurations.
 </p>
 
 
