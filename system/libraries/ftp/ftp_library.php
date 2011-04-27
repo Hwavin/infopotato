@@ -28,11 +28,20 @@ class FTP_Library {
 
 
 	/**
-	 * Constructor - Sets Preferences
-	 *
-	 * The constructor can be passed an array of config values
+	 * Constructor
 	 */
 	public function __construct($config = array()) {
+		$this->_connect($config);
+	}
+
+	/**
+	 * FTP Connect
+	 *
+	 * @access	protected
+	 * @param	array	 the connection values
+	 * @return	bool
+	 */
+	protected function _connect($config = array()) {
 		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
 				if (isset($this->$key)) {
@@ -43,20 +52,7 @@ class FTP_Library {
 			// Prep the hostname
 			$this->hostname = preg_replace('|.+?://|', '', $this->hostname);
 		}
-	}
-
-	/**
-	 * FTP Connect
-	 *
-	 * @access	public
-	 * @param	array	 the connection values
-	 * @return	bool
-	 */
-	public function connect($config = array()) {
-		if (count($config) > 0) {
-			$this->initialize($config);
-		}
-
+		
 		if (($this->conn_id = @ftp_connect($this->hostname, $this->port)) === FALSE) {
 			if ($this->debug == TRUE) {
 				$this->_error('ftp_unable_to_connect');

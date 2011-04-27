@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Dir Info
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Dir Info Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,7 +9,7 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Dir Info</h1>	
+<h1 class="first_heading">Dir Info Library</h1>	
 
 <p>
 DirInfo can retrieve information on files, sub-directories and files within sub-directories.

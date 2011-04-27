@@ -16,17 +16,6 @@
  * @changes    1.0.0b   The initial implementation [wb, 2008-09-01]
  */
 class Cookie_Library {
-	// The following constants allow for nice looking callbacks to static methods
-	const delete = 'Cookie_Library::delete';
-	const get = 'Cookie_Library::get';
-	const reset = 'Cookie_Library::reset';
-	const set = 'Cookie_Library::set';
-	const set_default_domain = 'Cookie_Library::set_default_domain';
-	const set_default_expires = 'Cookie_Library::set_default_expires';
-	const set_default_httponly = 'Cookie_Library::set_default_httponly';
-	const set_default_path = 'Cookie_Library::set_default_path';
-	const set_default_secure = 'Cookie_Library::set_default_secure';
-	
 	/**
 	 * The cookie data assigned by $_COOKIE
 	 * 

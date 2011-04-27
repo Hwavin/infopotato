@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; FTP
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; FTP Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,79 +9,71 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">FTP</h1>	
+<h1 class="first_heading">FTP Library</h1>	
 
 <p>CodeIgniter's FTP Class permits files to be transfered to a remote server. Remote files can also be moved, renamed,
 and deleted.  The FTP class also includes a "mirroring" function that permits an entire local directory to be recreated remotely via FTP.</p> 
  
-<p class="important"><strong>Note:</strong>&nbsp; SFTP and SSL FTP protocols are not supported, only standard FTP.</p> 
- 
-<h2>Initializing the Class</h2> 
- 
-<p>Like most other classes in CodeIgniter, the FTP class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p> 
- 
-<code>$this->load->library('ftp');</code> 
-<p>Once loaded, the FTP object will be available using: <dfn>$this->ftp</dfn></p> 
- 
+<p class="tipbox">
+<strong>Note:</strong>&nbsp; SFTP and SSL FTP protocols are not supported, only standard FTP.
+</p> 
  
 <h2>Usage Examples</h2> 
  
 <p>In this example a connection is opened to the FTP server, and a local file is read and uploaded in ASCII mode. The
 file permissions are set to 755.  Note: Setting permissions requires PHP 5.</p> 
  
-<code> 
-$this->load->library('ftp');<br /> 
-<br /> 
-$config['hostname'] = 'ftp.example.com';<br /> 
-$config['username'] = 'your-username';<br /> 
-$config['password'] = 'your-password';<br /> 
-$config['debug']	= TRUE;<br /> 
-<br /> 
-$this->ftp->connect($config);<br /> 
-<br /> 
-$this->ftp->upload('/local/path/to/myfile.html', '/public_html/myfile.html', 'ascii', 0775);<br /> 
-<br /> 
-$this->ftp->close();
+<div class="syntax"><pre> 
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span> 
+    <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ftp.example.com&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-username&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-password&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;debug&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span> 
+<span class="p">);</span> 
  
-</code> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp/ftp_library&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">(</span><span class="s1">&#39;/local/path/to/myfile.html&#39;</span><span class="p">,</span> <span class="s1">&#39;/public_html/myfile.html&#39;</span><span class="p">,</span> <span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="m">0775</span><span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span> 
+</pre></div> 
  
  
 <p>In this example a list of files is retrieved from the server.</p> 
  
-<code> 
-$this->load->library('ftp');<br /> 
-<br /> 
-$config['hostname'] = 'ftp.example.com';<br /> 
-$config['username'] = 'your-username';<br /> 
-$config['password'] = 'your-password';<br /> 
-$config['debug']	= TRUE;<br /> 
-<br /> 
-$this->ftp->connect($config);<br /> 
-<br /> 
-$list = $this->ftp->list_files('/public_html/');<br /> 
-<br /> 
-print_r($list);<br /> 
-<br /> 
-$this->ftp->close();
-</code> 
+<div class="syntax"><pre>
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span> 
+    <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ftp.example.com&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-username&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-password&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;debug&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span> 
+<span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp/ftp_library&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+ 
+<span class="nv">$list</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">list_files</span><span class="p">(</span><span class="s1">&#39;/public_html/&#39;</span><span class="p">);</span> 
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$list</span><span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span> 
+</pre></div> 
  
 <p>In this example a local directory is mirrored on the server.</p> 
  
  
-<code> 
-$this->load->library('ftp');<br /> 
-<br /> 
-$config['hostname'] = 'ftp.example.com';<br /> 
-$config['username'] = 'your-username';<br /> 
-$config['password'] = 'your-password';<br /> 
-$config['debug']	= TRUE;<br /> 
-<br /> 
-$this->ftp->connect($config);<br /> 
-<br /> 
-$this->ftp->mirror('/path/to/myfolder/', '/public_html/myfolder/');<br /> 
-<br /> 
-$this->ftp->close();
-</code> 
+<div class="syntax"><pre>
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span> 
+    <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ftp.example.com&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-username&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-password&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;debug&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span> 
+<span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp/ftp_library&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">mirror</span><span class="p">(</span><span class="s1">&#39;/path/to/myfolder/&#39;</span><span class="p">,</span> <span class="s1">&#39;/public_html/myfolder/&#39;</span><span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span> 
+</pre></div> 
  
  
 <h1>Function Reference</h1> 
@@ -94,18 +86,18 @@ to the function, or you can store them in a config file.</p>
  
 <p>Here is an example showing how you set preferences manually:</p> 
  
-<code> 
-$this->load->library('ftp');<br /> 
-<br /> 
-$config['hostname'] = 'ftp.example.com';<br /> 
-$config['username'] = 'your-username';<br /> 
-$config['password'] = 'your-password';<br /> 
-$config['port']&nbsp;&nbsp;&nbsp;&nbsp; = 21;<br /> 
-$config['passive']&nbsp;&nbsp;= FALSE;<br /> 
-$config['debug']&nbsp;&nbsp;&nbsp;&nbsp;= TRUE;<br /> 
-<br /> 
-$this->ftp->connect($config);<br /> 
-</code> 
+<div class="syntax"><pre>
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span> <span class="p">(</span> 
+    <span class="s1">&#39;hostname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ftp.example.com&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-username&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;password&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your-password&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;debug&#39;</span> <span class="o">=&gt;</span> <span class="k">TRUE</span><span class="p">,</span> 
+    <span class="s1">&#39;port&#39;</span> <span class="o">=&gt;</span> <span class="m">21</span><span class="p">,</span> 
+    <span class="s1">&#39;passive&#39;</span> <span class="o">=&gt;</span> <span class="k">FALSE</span> 
+<span class="p">);</span> 
+ 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp/ftp_library&#39;</span><span class="p">,</span> <span class="s1">&#39;ftp&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+</pre></div> 
  
 <h3>Setting FTP Preferences in a Config File</h3> 
  
@@ -133,8 +125,10 @@ array in that file. Then save the file at <var>config/ftp.php</var> and it will 
 Example:</p> 
  
  
-<code>$this->ftp->upload('/local/path/to/myfile.html', '/public_html/myfile.html', 'ascii', 0775);</code> 
- 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">(</span><span class="s1">&#39;/local/path/to/myfile.html&#39;</span><span class="p">,</span> <span class="s1">&#39;/public_html/myfile.html&#39;</span><span class="p">,</span> <span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="m">0775</span><span class="p">);</span> 
+</pre></div> 
+
 <p><strong>Mode options are:</strong>&nbsp; <kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (the default). If
 <kbd>auto</kbd> is used it will base the mode on the file extension of the source file.</p> 
  
@@ -146,8 +140,10 @@ Example:</p>
 <p>Downloads a file from your server.  You must supply the remote path and the local path, and you can optionally set the mode.
 Example:</p> 
  
-<code>$this->ftp->download('/public_html/myfile.html', '/local/path/to/myfile.html', 'ascii');</code> 
- 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">download</span><span class="p">(</span><span class="s1">&#39;/public_html/myfile.html&#39;</span><span class="p">,</span> <span class="s1">&#39;/local/path/to/myfile.html&#39;</span><span class="p">,</span> <span class="s1">&#39;ascii&#39;</span><span class="p">);</span> 
+</pre></div> 
+
 <p><strong>Mode options are:</strong>&nbsp; <kbd>ascii</kbd>, <kbd>binary</kbd>, and <kbd>auto</kbd> (the default). If
 <kbd>auto</kbd> is used it will base the mode on the file extension of the source file.</p> 
  
@@ -157,18 +153,18 @@ Example:</p>
 <h2>$this->ftp->rename()</h2> 
 <p>Permits you to rename a file.  Supply the source file name/path and the new file name/path.</p> 
  
-<code> 
-// Renames green.html to blue.html<br /> 
-$this->ftp->rename('/public_html/foo/green.html', '/public_html/foo/blue.html');
-</code> 
+<div class="syntax"><pre>
+<span class="c1">// Renames green.html to blue.html</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">rename</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/green.html&#39;</span><span class="p">,</span> <span class="s1">&#39;/public_html/foo/blue.html&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <h2>$this->ftp->move()</h2> 
 <p>Lets you move a file.  Supply the source and destination paths:</p> 
  
-<code> 
-// Moves blog.html from "joe" to "fred"<br /> 
-$this->ftp->move('/public_html/joe/blog.html', '/public_html/fred/blog.html');
-</code> 
+<div class="syntax"><pre>
+<span class="c1">// Moves blog.html from &quot;joe&quot; to &quot;fred&quot;</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">move</span><span class="p">(</span><span class="s1">&#39;/public_html/joe/blog.html&#39;</span><span class="p">,</span> <span class="s1">&#39;/public_html/fred/blog.html&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <p>Note: if the destination file name is different the file will be renamed.</p> 
  
@@ -176,9 +172,9 @@ $this->ftp->move('/public_html/joe/blog.html', '/public_html/fred/blog.html');
 <h2>$this->ftp->delete_file()</h2> 
 <p>Lets you delete a file.  Supply the source path with the file name.</p> 
  
-<code> 
-$this->ftp->delete_file('/public_html/joe/blog.html');
-</code> 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">delete_file</span><span class="p">(</span><span class="s1">&#39;/public_html/joe/blog.html&#39;</span><span class="p">);</span> 
+</pre></div> 
  
  
 <h2>$this->ftp->delete_dir()</h2> 
@@ -188,9 +184,9 @@ $this->ftp->delete_file('/public_html/joe/blog.html');
 <b>everything</b> within the supplied path, including sub-folders and all files.  Make absolutely sure your path is correct.
 Try using the <kbd>list_files()</kbd> function first to verify that your path is correct.</p> 
  
-<code> 
-$this->ftp->delete_dir('/public_html/path/to/folder/');
-</code> 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">delete_dir</span><span class="p">(</span><span class="s1">&#39;/public_html/path/to/folder/&#39;</span><span class="p">);</span> 
+</pre></div>
  
  
  
@@ -198,11 +194,10 @@ $this->ftp->delete_dir('/public_html/path/to/folder/');
 <p>Permits you to retrieve a list of files on your server returned as an <dfn>array</dfn>.  You must supply
 the path to the desired directory.</p> 
  
-<code> 
-$list = $this->ftp->list_files('/public_html/');<br /> 
-<br /> 
-print_r($list);
-</code> 
+<div class="syntax"><pre>
+<span class="nv">$list</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">list_files</span><span class="p">(</span><span class="s1">&#39;/public_html/&#39;</span><span class="p">);</span> 
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$list</span><span class="p">);</span> 
+</pre></div> 
  
  
 <h2>$this->ftp->mirror()</h2> 
@@ -211,33 +206,29 @@ print_r($list);
 mirror via FTP based on it.  Whatever the directory structure of the original file path will be recreated on the server.
 You must supply a source path and a destination path:</p> 
  
-<code> 
-$this->ftp->mirror('/path/to/myfolder/', '/public_html/myfolder/');
-</code> 
- 
- 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">mirror</span><span class="p">(</span><span class="s1">&#39;/path/to/myfolder/&#39;</span><span class="p">,</span> <span class="s1">&#39;/public_html/myfolder/&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <h2>$this->ftp->mkdir()</h2> 
  
 <p>Lets you create a directory on your server.  Supply the path ending in the folder name you wish to create, with a trailing slash.
 Permissions can be set by passed an <kbd>octal</kbd> value in the second parameter (if you are running PHP 5).</p> 
  
-<code> 
-// Creates a folder named "bar"<br /> 
-$this->ftp->mkdir('/public_html/foo/bar/', DIR_WRITE_MODE);
-</code> 
+<div class="syntax"><pre>
+<span class="c1">// Creates a folder named &quot;bar&quot;</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">mkdir</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/bar/&#39;</span><span class="p">,</span> <span class="nx">DIR_WRITE_MODE</span><span class="p">);</span> 
+</pre></div> 
  
  
 <h2>$this->ftp->chmod()</h2> 
  
 <p>Permits you to set file permissions.  Supply the path to the file or folder you wish to alter permissions on:</p> 
  
-<code> 
-// Chmod "bar" to 777<br /> 
-$this->ftp->chmod('/public_html/foo/bar/', DIR_WRITE_MODE);
-</code> 
- 
- 
+<div class="syntax"><pre>
+<span class="c1">// Chmod &quot;bar&quot; to 777</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">chmod</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/bar/&#39;</span><span class="p">,</span> <span class="nx">DIR_WRITE_MODE</span><span class="p">);</span> 
+</pre></div> 
  
  
 <h2>$this->ftp->close();</h2> 

@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Form validation
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Form validation Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,42 +9,11 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Form Validation</h1>	
+<h1 class="first_heading">Form Validation Library</h1>	
 
 <p>InfoPotato provides a comprehensive form validation and data prepping class that helps minimize the amount of code you'll write.</p> 
- 
-<ul class="box_right greybox"> 
-<li><a href="#overview">Overview</a></li> 
-<li><a href="#tutorial">Form Validation Tutorial</a> 
-	<ul> 
-		<li><a href="#theform">The Form</a></li> 
-		<li><a href="#thecontroller">The Controller</a></li> 
-		<li><a href="#validationrules">Setting Validation Rules</a></li> 
-		<li><a href="#validationrulesasarray">Setting Validation Rules Using an Array</a></li> 
-		<li><a href="#cascadingrules">Cascading Rules</a></li> 
-		<li><a href="#preppingdata">Prepping Data</a></li> 
-		<li><a href="#repopulatingform">Re-populating the Form</a></li> 
-		<li><a href="#callbacks">Callbacks</a></li> 
-		<li><a href="#settingerrors">Setting Error Messages</a></li> 
-		<li><a href="#errordelimiters">Changing the Error Delimiters</a></li> 
-		<li><a href="#translatingfn">Translating Field Names</a></li> 
-		<li><a href="#individualerrors">Showing Errors Individually</a></li> 
-		<li><a href="#arraysasfields">Using Arrays as Field Names</a></li> 
-	</ul> 
-</li> 
-<li><a href="#rulereference">Rule Reference</a></li> 
-<li><a href="#preppingreference">Prepping Reference</a></li> 
-<li><a href="#functionreference">Function Reference</a></li> 
-<li><a href="#helperreference">Helper Reference</a></li> 
- 
-</ul> 
- 
- 
-<p>&nbsp;</p> 
- 
-<a name="overview"></a> 
-<h1>Overview</h1> 
- 
+
+<h2>Overview</h2> 
  
 <p>Before explaining InfoPotato's approach to data validation, let's describe the ideal scenario:</p> 
  
@@ -73,10 +42,7 @@ and not exceed a maximum length. The username can't be someone else's existing u
 amount of code, and to display error messages, various control structures are usually placed within the form HTML.
 Form validation, while simple to create, is generally very messy and tedious to implement.</p> 
  
-<p>&nbsp;</p> 
- 
- 
-<a name="tutorial"></a> 
+
 <h1>Form Validation Tutorial</h1> 
  
 <p>What follows is a "hands on" tutorial for implementing CodeIgniters Form Validation.</p> 
@@ -91,10 +57,6 @@ Form validation, while simple to create, is generally very messy and tedious to 
 </ol> 
  
 <p>Let's create those three things, using a member sign-up form as the example.</p> 
- 
- 
- 
-<a name="theform"></a> 
  
 <h2>The Form</h2> 
  
@@ -134,8 +96,7 @@ folder:</p>
 <!-- end contact --> 
 </pre> 
  
- 
-<a name="thecontroller"></a> 
+
 <h2>The Controller</h2> 
  
 <p>Using a text editor, create a controller called <dfn>form.php</dfn>.  In it, place this code and save it to your <samp>applications/controllers/</samp> 
@@ -190,9 +151,7 @@ class Contact_Controller extends Controller {
 }
  
 </pre> 
- 
-<a name="validationrules"></a> 
- 
+
 <h2>Setting Rules Using an Array</h2> 
  
 <p>Before moving on it should be noted that the rule setting function can be passed an array if you prefer to set all your rules in one action.
@@ -226,7 +185,6 @@ $this->form_validation->set_rules($config);
 </code> 
  
  
-<a name="cascadingrules"></a> 
 <h2>Cascading Rules</h2> 
  
 <p>CodeIgniter lets you pipe multiple rules together.  Let's try it. Change your rules in the third parameter of rule setting function, like this:</p> 
@@ -249,9 +207,6 @@ $this->form_validation->set_rules('email', 'Email', 'required|valid_email');<br 
 <p>Give it a try! Submit your form without the proper data and you'll see new error messages that correspond to your new rules.
 There are numerous rules available which you can read about in the validation reference.</p> 
  
- 
- 
-<a name="preppingdata"></a> 
 <h2>Prepping Data</h2> 
  
 <p>In addition to the validation functions like the ones we used above, you can also prep your data in various ways.
@@ -274,8 +229,6 @@ the "xss_clean" function, which removes malicious data.</p>
 <p><strong>Note:</strong> You will generally want to use the prepping functions <strong>after</strong> 
 the validation rules so if there is an error, the original data will be shown in the form.</p> 
  
- 
-<a name="callbacks"></a> 
 <h2>Callbacks: Your own Validation Functions</h2> 
  
 <p>The validation system supports callbacks to your own validation functions.  This permits you to extend the validation class
@@ -338,11 +291,7 @@ callback function for you to process.</dfn></p>
  
 <p>You can also process the form data that is passed to your callback and return it.  If your callback returns anything other than a boolean TRUE/FALSE
 it is assumed that the data is your newly processed form data.</p> 
- 
- 
- 
- 
-<a name="settingerrors"></a> 
+  
 <h2>Setting Error Messages</h2> 
  
  
@@ -364,9 +313,6 @@ it is assumed that the data is your newly processed form data.</p>
  
 <code>$this->form_validation->set_message('required', 'Your custom message here');</code> 
  
- 
- 
-<a name="translatingfn"></a> 
 <h2>Translating Field Names</h2> 
  
 <p>If you would like to store the "human" name you passed to the <dfn>set_rules()</dfn> function in a language file, and therefore make the name able to be translated, here's how:</p> 
@@ -387,8 +333,7 @@ $this->form_validation->set_rules('first_name', '<kbd>lang:</kbd>first_name', 'r
  
 <p>See the <a href="language.html">Language Class</a> page for more info regarding language files.</p> 
  
- 
-<a name="errordelimiters"></a> 
+
 <h2>Changing the Error Delimiters</h2> 
  
 <p>By default, the Form Validation class adds a paragraph tag (&lt;p&gt;) around each error message shown. You can either change these delimiters globally or
@@ -420,9 +365,6 @@ individually.</p>
 </ol> 
  
  
- 
- 
-<a name="individualerrors"></a> 
 <h2>Showing Errors Individually</h2> 
  
 <p>If you prefer to show an error message next to each form field, rather than as a list, you can use the <dfn>form_error()</dfn> function.</p> 
@@ -457,12 +399,7 @@ individually.</p>
  
 <p>For more info please see the <a href="#arraysasfields">Using Arrays as Field Names</a> section below.</p> 
  
- 
- 
- 
-<p>&nbsp;</p> 
- 
-<a name="arraysasfields"></a> 
+
 <h1>Using Arrays as Field Names</h1> 
  
 <p>The Form Validation class supports the use of arrays as field names.  Consider this example:</p> 
@@ -517,13 +454,6 @@ POST array:</p>
  
 <code>&lt;?php echo form_error('<kbd>options[color][]</kbd>'); ?></code> 
  
- 
- 
- 
-<p>&nbsp;</p> 
- 
- 
-<a name="rulereference"></a> 
 <h1>Rule Reference</h1> 
  
 <p>The following is a list of all the native rules that are available to use:</p> 
@@ -651,11 +581,7 @@ POST array:</p>
  
 <p class="important"><strong>Note:</strong> You can also use any native PHP functions that permit one parameter.</p> 
  
- 
- 
-<p>&nbsp;</p> 
- 
-<a name="preppingreference"></a> 
+
 <h1>Prepping Reference</h1> 
  
 <p>The following is a list of all the prepping functions that are available to use:</p> 
@@ -699,15 +625,7 @@ POST array:</p>
 <p class="important"><strong>Note:</strong> You can also use any native PHP functions that permit one parameter,
 like <kbd>trim</kbd>, <kbd>htmlspecialchars</kbd>, <kbd>urldecode</kbd>, etc.</p> 
  
- 
- 
- 
- 
- 
- 
-<p>&nbsp;</p> 
- 
-<a name="functionreference"></a> 
+
 <h1>Function Reference</h1> 
  
 <p>The following functions are intended for use in your controller functions.</p> 
@@ -732,10 +650,7 @@ group via the function, as described in: <a href="#savingtoconfig">Saving Groups
  
 <p>Permits you to set custom error messages.  See <a href="#settingerrors">Setting Error Messages</a> above.</p> 
  
- 
-<p>&nbsp;</p> 
- 
-<a name="helperreference"></a> 
+
 <h1>Helper Reference</h1> 
  
 <p>The following helper functions are available for use in the view files containing your forms.  Note that these are procedural functions, so they

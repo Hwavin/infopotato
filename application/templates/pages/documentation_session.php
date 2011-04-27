@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Session
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Session Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,10 +9,10 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Session</h1>	
+<h1 class="first_heading">Session Library</h1>	
 
 <p>
-Your application has a session for each user in which you can store small amounts of data that will be persisted between requests. The session is only available in the controller and the view and can use one of a number of different storage mechanisms:
+Your application has a session for each user in which you can store small amounts of data that will be persisted between requests. The session is only available in the mamager and the template and can use one of a number of different storage mechanisms:
 </p>
 
 <ul>
@@ -21,8 +21,8 @@ Your application has a session for each user in which you can store small amount
 <li>MemCacheStore – Stores the data in a memcache.</li>
 </ul>
 
-<p>
-All session stores use a cookie to store a unique ID for each session (you must use a cookie, InfoPotato will not allow you to pass the session ID in the URL as this is less secure).
+<p class="tipbox">
+All session stores use a cookie to store a unique ID for each session (you must use a cookie, InfoPotato will not allow you to pass the session ID in the URI as this is less secure).
 </p>
 
 <p>
@@ -44,11 +44,11 @@ There are three options for configuring the session, the set_path(), set_length(
 </p> 
  
  
-<p>To initialize the Session class manually in your controller, use the <dfn>$this->load_library</dfn> function:</p> 
+<p>To initialize the Session class manually in your manager, use the <dfn>$this->load_library</dfn> function:</p> 
  
 <div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;session/session_library&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">);</span> 
-</pre></div> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;session/session_library&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">);</span> 
+</pre></div>
  
 <p>Once loaded, the Sessions library object will be available using: <dfn>$this->s</dfn></p> 
  

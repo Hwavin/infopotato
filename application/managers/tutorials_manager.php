@@ -6,6 +6,7 @@ final class Tutorials_Manager extends Manager {
 		$layout_data = array(
 			'page_title' => 'Tutorials',
 			'javascripts' => $name === '_video' ? array('swfobject.js') : NULL,
+			'stylesheets' => array('syntax.css'),
 			'content' => $this->render_template('pages/tutorials'.$name),
 		);
 		

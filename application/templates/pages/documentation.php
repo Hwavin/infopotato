@@ -53,7 +53,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/">SQL Database Adapters</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/library/">Library</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/function/">Function</a></li>   
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8_support/">UTF-8 Support</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8/">UTF-8 Support</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/caching/">Caching</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/security/">Security</a></li> 
 </ul> 
@@ -78,7 +78,6 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/pagination/">Pagination</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/password_hash/">Password Hash</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8/">UTF-8</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/">User Agent</a></li> 
 </ul> 
 </td> 
