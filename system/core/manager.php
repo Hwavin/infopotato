@@ -34,10 +34,10 @@ class Manager {
 	 */
 	public function __construct() {
 		// $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings
+		// The POST and COOKIE data can only be accessed in manager
 		$this->POST_DATA = $_POST;
 		$this->COOKIE_DATA = $_COOKIE;
 		// Disable access to $_POST, don't unset $_COOKIE otherwise $_SESSION doesn't work
-		// The POST and COOKIE data can only be accessed in manager
 		unset($_POST);
 		
 		// Check magic quotes, this feature has been DEPRECATED as of PHP 5.3.0.
@@ -45,7 +45,7 @@ class Manager {
 	    // It's preferred to code with magic quotes off and to instead escape the data at runtime, as needed.
 		// Strip slashes if magic quotes is enabled so all input data is free of slashes
 		if (version_compare(PHP_VERSION, '5.3.0', '<') && get_magic_quotes_gpc()) {
-			$in = array($this->post, $this->cookie);
+			$in = array($this->POST_DATA, $this->COOKIE_DATA);
 			while (list($k, $v) = each($in)) {
 				foreach ($v as $key => $val) {
 					if ( ! is_array($val)) {
