@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; File Upload
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; File Upload Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,16 +9,15 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">File Upload</h1>	
+<h1 class="first_heading">File Upload Library</h1>	
 
-<p>InfoPotato's File Uploading Class permits files to be uploaded.  You can set various
-preferences, restricting the type and size of the files.</p> 
- 
+<p>
+InfoPotato's File Uploading Class permits files to be uploaded.  You can set various preferences, restricting the type and size of the files.
+</p> 
  
 <h2>The Process</h2> 
  
 <p>Uploading a file involves the following general process:</p> 
- 
  
 <ul> 
 <li>An upload form is displayed, allowing a user to select a file and upload it.</li> 
@@ -31,176 +30,97 @@ preferences, restricting the type and size of the files.</p>
  
 <h2>Creating the Upload Form</h2> 
  
+<p>
+Using a text editor, create a form called <span class="red">upload_form.php</span>.
+</p> 
  
+<div class="syntax"><pre><span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$message</span><span class="p">))</span> <span class="o">:</span> <span class="cp">?&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$message</span><span class="p">;</span> <span class="cp">?&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">endif</span><span class="p">;</span> <span class="cp">?&gt;</span> 
  
-<p>Using a text editor, create a form called <dfn>upload_form.php</dfn>.  In it, place this code and save it to your <samp>applications/views/</samp> 
-folder:</p> 
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">upload/post_upload/&quot;</span> <span class="na">enctype=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span> <span class="na">name=</span><span class="s">&quot;attachment&quot;</span> <span class="na">id=</span><span class="s">&quot;attachment&quot;</span> <span class="na">size=</span><span class="s">&quot;30&quot;</span> <span class="nt">/&gt;</span>   
+<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">name=</span><span class="s">&quot;submit_btn&quot;</span> <span class="na">id=</span><span class="s">&quot;submit_btn&quot;</span> <span class="na">value=</span><span class="s">&quot;Upload&quot;</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;/form&gt;</span> 
+</pre></div>  
  
+<h2>The Manager</h2> 
  
-<textarea class="textarea" style="width:100%" cols="50" rows="23"> 
-&lt;html>
-&lt;head>
-&lt;title>Upload Form&lt;/title>
-&lt;/head>
-&lt;body>
+<p>
+Using a text editor, create a manager file called <span class="red">upload_manager.php</span>.
+</p> 
  
-&lt;?php echo $error;?>
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<span class="k">class</span> <span class="nc">Upload_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_upload_form</span> <span class="p">()</span> <span class="p">{</span> 
+        <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;upload_form&#39;</span><span class="p">),</span> 
+	    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span> 
+	<span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
+    <span class="p">}</span> 
  
-&lt;?php echo form_open_multipart('upload/do_upload');?>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">post_upload_form</span> <span class="p">()</span> <span class="p">{</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;attachment&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;attachment&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span> 
+	    <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;attachment&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">strtolower</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;attachment&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span> 
+				
+	    <span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	        <span class="s1">&#39;upload_path&#39;</span> <span class="o">=&gt;</span> <span class="nx">APP_UPLOAD_DIR</span><span class="p">,</span> 
+		<span class="s1">&#39;allowed_types&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;doc|docx&#39;</span><span class="p">,</span> 
+		<span class="s1">&#39;max_size&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2048&#39;</span><span class="p">,</span> <span class="c1">// in kilobytes</span> 
+	    <span class="p">);</span> 
+				
+	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;upload/upload_library&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+            <span class="c1">// Begin to upload</span> 
+	    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">up</span><span class="o">-&gt;</span><span class="na">do_upload</span><span class="p">(</span><span class="s1">&#39;attachment&#39;</span><span class="p">))</span> <span class="p">{</span> 
+		<span class="nv">$upload_validation</span> <span class="o">=</span> <span class="k">FALSE</span><span class="p">;</span> 
+		<span class="nv">$upload_errors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">up</span><span class="o">-&gt;</span><span class="na">display_errors</span><span class="p">();</span> 
+	    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+		<span class="nv">$upload_validation</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">;</span> 
+		<span class="c1">// An array containing all of the data related to the file uploaded</span> 
+		<span class="nv">$upload_data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">up</span><span class="o">-&gt;</span><span class="na">data</span><span class="p">();</span> 
+	    <span class="p">}</span> 
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$upload_validation</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span> 
+	        <span class="c1">// Errors and submitted data to be displayed in view</span> 
+	        <span class="nv">$content_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+		    <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$upload_errors</span><span class="p">)</span> <span class="o">?</span> <span class="k">NULL</span> <span class="o">:</span> <span class="nv">$upload_errors</span><span class="p">,</span> 
+	        <span class="p">);</span> 
+	    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+                <span class="nv">$content_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+		    <span class="s1">&#39;message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Upload successfully&#39;</span><span class="p">,</span> 
+	        <span class="p">);</span> 
+            <span class="p">}</span> 
+            <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	        <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;upload_form&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
+                <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span> 
+	    <span class="p">);</span> 
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
+	<span class="p">}</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+<span class="cp">?&gt;</span><span class="x"></span> 
+</pre></div>
  
-&lt;input type="file" name="userfile" size="20" />
+<div class="tipbox">
+<strong>APP_UPLOAD_DIR</strong> is the target upload folder and this can be defined in the index.php file so that it is globally available. You'll need to set its file permissions to 777.
+</div>
+
+<h2>Test it!</h2> 
  
-&lt;br />&lt;br />
+<p>To test your form, visit your site using a URI similar to this one:</p> 
  
-&lt;input type="submit" value="upload" />
+<div class="tipbox">http://www.example.com/infopotato/web/index.php/<var>upload</var>/</div> 
  
-&lt;/form>
- 
-&lt;/body>
-&lt;/html></textarea> 
- 
-<p>You'll notice we are using a form helper to create the opening form tag.  File uploads require a multipart form, so the helper
-creates the proper syntax for you.  You'll also notice we have an $error variable.  This is so we can show error messages in the event
-the user does something wrong.</p> 
- 
- 
-<h2>The Success Page</h2> 
- 
-<p>Using a text editor, create a form called <dfn>upload_success.php</dfn>.
-In it, place this code and save it to your <samp>applications/views/</samp> folder:</p> 
- 
-<textarea class="textarea" style="width:100%" cols="50" rows="20">&lt;html>
-&lt;head>
-&lt;title>Upload Form&lt;/title>
-&lt;/head>
-&lt;body>
- 
-&lt;h3>Your file was successfully uploaded!&lt;/h3>
- 
-&lt;ul>
-&lt;?php foreach($upload_data as $item => $value):?>
-&lt;li>&lt;?php echo $item;?>: &lt;?php echo $value;?>&lt;/li>
-&lt;?php endforeach; ?>
-&lt;/ul>
- 
-&lt;p>&lt;?php echo anchor('upload', 'Upload Another File!'); ?>&lt;/p>
- 
-&lt;/body>
-&lt;/html></textarea> 
- 
- 
-<h2>The Controller</h2> 
- 
-<p>Using a text editor, create a controller called <dfn>upload.php</dfn>.  In it, place this code and save it to your <samp>applications/controllers/</samp> 
-folder:</p> 
- 
- 
-<textarea class="textarea" style="width:100%" cols="50" rows="43">&lt;?php
- 
-class Upload extends Controller {
- 
-	function Upload() {
-		parent::Controller();
-		$this->load->helper(array('form', 'url'));
-	}
- 
-	function index() {
-		$this->load->view('upload_form', array('error' => ' ' ));
-	}
- 
-	function do_upload() {
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
- 
-		$this->load->library('upload', $config);
- 
-		if ( ! $this->upload->do_upload()) {
-			$error = array('error' => $this->upload->display_errors());
- 
-			$this->load->view('upload_form', $error);
-		} else {
-			$data = array('upload_data' => $this->upload->data());
- 
-			$this->load->view('upload_success', $data);
-		}
-	}
-}
-?&gt;</textarea> 
- 
- 
-<h2>The Upload Folder</h2> 
- 
-<p>You'll need a destination folder for your uploaded images.  Create a folder at the root of your CodeIgniter installation called
-<dfn>uploads</dfn> and set its file permissions to 777.</p> 
- 
- 
-<h2>Try it!</h2> 
- 
-<p>To try your form, visit your site using a URL similar to this one:</p> 
- 
-<code>example.com/index.php/<var>upload</var>/</code> 
- 
-<p>You should see an upload form. Try uploading an image file (either a jpg, gif, or png). If the path in your
-controller is correct it should work.</p> 
- 
- 
-<p>&nbsp;</p> 
- 
-<h1>Reference Guide</h1> 
- 
- 
-<h2>Initializing the Upload Class</h2> 
- 
-<p>Like most other classes in CodeIgniter, the Upload class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p> 
- 
-<code>$this->load->library('upload');</code> 
-<p>Once the Upload class is loaded, the object will be available using: <dfn>$this->upload</dfn></p> 
- 
- 
-<h2>Setting Preferences</h2> 
- 
-<p>Similar to other libraries, you'll control what is allowed to be upload based on your preferences.  In the controller you
-built above you set the following preferences:</p> 
- 
-<code>$config['upload_path'] = './uploads/';<br /> 
-$config['allowed_types'] = 'gif|jpg|png';<br /> 
-$config['max_size']	= '100';<br /> 
-$config['max_width']  = '1024';<br /> 
-$config['max_height']  = '768';<br /> 
-<br /> 
-$this->load_library('upload/upload_library', 'upload', $config);<br /><br /> 
- 
-// Alternately you can set preferences by calling the initialize function.  Useful if you auto-load the class:<br /> 
-$this->upload->initialize($config);</code> 
- 
-<p>The above preferences should be fairly self-explanatory.  Below is a table describing all available preferences.</p> 
- 
- 
+<p>
+You should see an upload form. Try uploading an word doc file (either a doc, or docx). 
+</p> 
+
+
 <h2>Preferences</h2> 
  
 <p>The following preferences are available.  The default value indicates what will be used if you do not specify that preference.</p> 
 
-<script type="text/javascript"> 
-function stripedList(list) {
-	var items = document.getElementById(list).getElementsByTagName('tr');
-	for (i = 0; i < items.length; i++) {
-		if ((i%2) ? false : true) {
-			items[i].className += " odd";
-		} else {
-			items[i].className += " even";
-		}
-	}
-}
-window.onload = function() {
-	stripedList('list1'); 
-	stripedList('list2');
-};
-</script>
-
-<table cellpadding="0" cellspacing="1" border="0" style="width:100%"> 
+<table class="grid"> 
 <thead>
 <tr> 
 <th>Preference</th> 
@@ -210,111 +130,103 @@ window.onload = function() {
 </tr> 
 </thead>
 
-<tbody id="list1">
+<tbody>
 <tr> 
-<td class="td"><strong>upload_path</strong></td> 
-<td class="td">None</td> 
-<td class="td">None</td> 
-<td class="td">The path to the folder where the upload should be placed.  The folder must be writable and the path can be absolute or relative.</td> 
+<td><strong>upload_path</strong></td> 
+<td>None</td> 
+<td>None</td> 
+<td>The path to the folder where the upload should be placed.  The folder must be writable and the path can be absolute or relative.</td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>allowed_types</strong></td> 
-<td class="td">None</td> 
-<td class="td">None</td> 
-<td class="td">The mime types corresponding to the types of files you allow to be uploaded.  Usually the file extension can be used as the mime type.  Separate multiple types with a pipe.</td> 
+<td><strong>allowed_types</strong></td> 
+<td>None</td> 
+<td>None</td> 
+<td>The mime types corresponding to the types of files you allow to be uploaded.  Usually the file extension can be used as the mime type.  Separate multiple types with a pipe.</td> 
 </tr> 
  
  
 <tr> 
-<td class="td"><strong>file_name</strong></td> 
-<td class="td">None</td> 
-<td class="td">Desired file name</td> 
-<td class="td"> 
+<td><strong>file_name</strong></td> 
+<td>None</td> 
+<td>Desired file name</td> 
+<td> 
 	<p>If set CodeIgniter will rename the uploaded file to this name.  The extension provided in the file name must also be an allowed file type.</p> 
 </td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>overwrite</strong></td> 
-<td class="td">FALSE</td> 
-<td class="td">TRUE/FALSE (boolean)</td> 
-<td class="td">If set to true, if a file with the same name as the one you are uploading exists, it will be overwritten. If set to false, a number will be appended to the filename if another with the same name exists.</td> 
+<td><strong>overwrite</strong></td> 
+<td>FALSE</td> 
+<td>TRUE/FALSE (boolean)</td> 
+<td>If set to true, if a file with the same name as the one you are uploading exists, it will be overwritten. If set to false, a number will be appended to the filename if another with the same name exists.</td> 
 </tr> 
  
  
 <tr> 
-<td class="td"><strong>max_size</strong></td> 
-<td class="td">0</td> 
-<td class="td">None</td> 
-<td class="td">The maximum size (in kilobytes) that the file can be.  Set to zero for no limit. Note:  Most PHP installations have their own limit, as specified in the php.ini file.  Usually 2 MB (or 2048 KB) by default.</td> 
+<td><strong>max_size</strong></td> 
+<td>0</td> 
+<td>None</td> 
+<td>The maximum size (in kilobytes) that the file can be.  Set to zero for no limit. Note:  Most PHP installations have their own limit, as specified in the php.ini file.  Usually 2 MB (or 2048 KB) by default.</td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>max_width</strong></td> 
-<td class="td">0</td> 
-<td class="td">None</td> 
-<td class="td">The maximum width (in pixels) that the file can be.  Set to zero for no limit.</td> 
+<td><strong>max_width</strong></td> 
+<td>0</td> 
+<td>None</td> 
+<td>The maximum width (in pixels) that the file can be.  Set to zero for no limit.</td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>max_height</strong></td> 
-<td class="td">0</td> 
-<td class="td">None</td> 
-<td class="td">The maximum height (in pixels) that the file can be.  Set to zero for no limit.</td> 
+<td><strong>max_height</strong></td> 
+<td>0</td> 
+<td>None</td> 
+<td>The maximum height (in pixels) that the file can be.  Set to zero for no limit.</td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>max_filename</strong></td> 
-<td class="td">0</td> 
-<td class="td">None</td> 
-<td class="td">The maximum length that a file name can be.  Set to zero for no limit.</td> 
+<td><strong>max_filename</strong></td> 
+<td>0</td> 
+<td>None</td> 
+<td>The maximum length that a file name can be.  Set to zero for no limit.</td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>encrypt_name</strong></td> 
-<td class="td">FALSE</td> 
-<td class="td">TRUE/FALSE (boolean)</td> 
-<td class="td">If set to TRUE the file name will be converted to a random encrypted string. This can be useful if you would like the file saved with a name that can not be discerned by the person uploading it.</td> 
+<td><strong>encrypt_name</strong></td> 
+<td>FALSE</td> 
+<td>TRUE/FALSE (boolean)</td> 
+<td>If set to TRUE the file name will be converted to a random encrypted string. This can be useful if you would like the file saved with a name that can not be discerned by the person uploading it.</td> 
 </tr> 
  
 <tr> 
-<td class="td"><strong>remove_spaces</strong></td> 
-<td class="td">TRUE</td> 
-<td class="td">TRUE/FALSE (boolean)</td> 
-<td class="td">If set to TRUE, any spaces in the file name will be converted to underscores. This is recommended.</td> 
+<td><strong>remove_spaces</strong></td> 
+<td>TRUE</td> 
+<td>TRUE/FALSE (boolean)</td> 
+<td>If set to TRUE, any spaces in the file name will be converted to underscores. This is recommended.</td> 
 </tr> 
 </tbody>
 
 </table> 
  
- 
-<h2>Setting preferences in a config file</h2> 
- 
-<p>If you prefer not to set preferences using the above method, you can instead put them into a config file.
-Simply create a new file called the <var>upload.php</var>,  add the <var>$config</var> 
-array in that file. Then save the file in: <var>config/upload.php</var> and it will be used automatically. You
-will NOT need to use the <dfn>$this->upload->initialize</dfn> function if you save your preferences in a config file.</p> 
- 
- 
 <h2>Function Reference</h2> 
  
 <p>The following functions are available</p> 
- 
  
 <h2>$this->upload->do_upload()</h2> 
  
 <p>Performs the upload based on the preferences you've set.  Note:  By default the upload routine expects the file to come from a form field
 called <dfn>userfile</dfn>, and the form must be a "multipart type:</p> 
  
-<code>&lt;form method="post" action="some_action" enctype="multipart/form-data" /></code> 
- 
+<div class="syntax"><pre>
+<span class="nt">&lt;form</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">upload/post_upload/&quot;</span> <span class="na">enctype=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="nt">&gt;</span>  
+</pre></div> 
+
 <p>If you would like to set your own field name simply pass its value to the <dfn>do_upload</dfn> function:</p> 
  
-<code> 
-$field_name = "some_field_name";<br /> 
-$this->upload->do_upload($field_name)</code> 
- 
+<div class="syntax"><pre>
+<span class="nv">$field_name</span> <span class="o">=</span> <span class="s2">&quot;some_field_name&quot;</span><span class="p">;</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">upload</span><span class="o">-&gt;</span><span class="na">do_upload</span><span class="p">(</span><span class="nv">$field_name</span><span class="p">);</span> 
+</pre></div> 
  
 <h2>$this->upload->display_errors()</h2> 
  
@@ -324,36 +236,37 @@ returns the data so you can assign it however you need.</p>
 <h3>Formatting Errors</h3> 
 <p>By default the above function wraps any errors within &lt;p> tags.  You can set your own delimiters like this:</p> 
  
-<code>$this->upload->display_errors('<var>&lt;p></var>', '<var>&lt;/p></var>');</code> 
- 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">upload</span><span class="o">-&gt;</span><span class="na">display_errors</span><span class="p">(</span><span class="s1">&#39;&lt;p&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">);</span> 
+</pre></div>
+
 <h2>$this->upload->data()</h2> 
  
 <p>This is a helper function that returns an array containing all of the data related to the file you uploaded.
 Here is the array prototype:</p> 
  
-<code>Array<br /> 
-(<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[file_name]&nbsp;&nbsp;&nbsp;&nbsp;=> mypic.jpg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[file_type]&nbsp;&nbsp;&nbsp;&nbsp;=> image/jpeg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[file_path]&nbsp;&nbsp;&nbsp;&nbsp;=> /path/to/your/upload/<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[full_path]&nbsp;&nbsp;&nbsp;&nbsp;=> /path/to/your/upload/jpg.jpg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[raw_name]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> mypic<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[orig_name]&nbsp;&nbsp;&nbsp;&nbsp;=> mypic.jpg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[client_name]&nbsp;&nbsp;=> mypic.jpg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[file_ext]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> .jpg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[file_size]&nbsp;&nbsp;&nbsp;&nbsp;=> 22.2<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[is_image]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=> 1<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[image_width]&nbsp;&nbsp;=> 800<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[image_height] => 600<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[image_type]&nbsp;&nbsp;&nbsp;=> jpeg<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;[image_size_str] => width="800" height="200"<br /> 
-)</code> 
- 
-<h3>Explanation</h3> 
- 
+<div class="syntax"><pre>Array
+(
+    [file_name]    =&gt; mypic.jpg
+    [file_type]    =&gt; image/jpeg
+    [file_path]    =&gt; /path/to/your/upload/
+    [full_path]    =&gt; /path/to/your/upload/jpg.jpg
+    [raw_name]     =&gt; mypic
+    [orig_name]    =&gt; mypic.jpg
+    [client_name]  =&gt; mypic.jpg
+    [file_ext]     =&gt; .jpg
+    [file_size]    =&gt; 22.2
+    [is_image]     =&gt; 1
+    [image_width]  =&gt; 800
+    [image_height] =&gt; 600
+    [image_type]   =&gt; jpeg
+    [image_size_str] =&gt; width=&quot;800&quot; height=&quot;200&quot;
+)
+</pre></div> 
+  
 <p>Here is an explanation of the above array items.</p> 
  
-<table cellpadding="0" cellspacing="1" border="0" style="width:100%"> 
+<table class="grid"> 
 <thead>
 <tr><th>Item</th><th>Description</th></tr> 
 </thead>

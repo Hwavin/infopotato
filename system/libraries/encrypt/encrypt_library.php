@@ -6,7 +6,7 @@
  */
 class Encrypt_Library {
 
-	public $encryption_key	= '';
+	private $_encryption_key	= '';
 	private $_hash_type	= 'sha1';
 	private $_mcrypt_exists = FALSE;
 	private $_mcrypt_cipher;
@@ -17,8 +17,12 @@ class Encrypt_Library {
 	 *
 	 * Simply determines whether the mcrypt library exists.
 	 */
-	public function __construct() {
+	public function __construct($config = array()) {
 		$this->_mcrypt_exists = ( ! function_exists('mcrypt_encrypt')) ? FALSE : TRUE;
+		// Set the encryption key
+		if (isset($config['encryption_key'])) {
+			$this->_encryption_key = $config['encryption_key'];
+		}
 	}
 
 
@@ -33,26 +37,15 @@ class Encrypt_Library {
 	 */
 	public function get_key($key = '') {
 		if ($key == '') {
-			if ($this->encryption_key != '') {
-				return $this->encryption_key;
+			if ($this->_encryption_key != '') {
+				return $this->_encryption_key;
 			}
 		}
 
 		return md5($key);
 	}
 
-
-	/**
-	 * Set the encryption key
-	 *
-	 * @param	string
-	 * @return	void
-	 */
-	public function set_key($key = '') {
-		$this->encryption_key = $key;
-	}
-
-
+	
 	/**
 	 * Encode
 	 *
@@ -324,7 +317,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	public function set_hash($type = 'sha1') {
-		$this->_hash_type = ($type != 'sha1' AND $type != 'md5') ? 'sha1' : $type;
+		$this->_hash_type = ($type != 'sha1' && $type != 'md5') ? 'sha1' : $type;
 	}
 
 

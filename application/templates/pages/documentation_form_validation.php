@@ -460,7 +460,7 @@ POST array:</p>
  
  
  
-<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder"> 
+<table class="grid"> 
 <tr> 
 <th>Rule</th> 
 <th>Parameter</th> 
@@ -588,7 +588,7 @@ POST array:</p>
  
  
  
-<table cellpadding="0" cellspacing="1" border="0" style="width:100%" class="tableborder"> 
+<table class="grid"> 
 <tr> 
 <th>Name</th> 
 <th>Parameter</th> 

@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Encryption
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Encryption Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,7 +9,7 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Encryption</h1>	
+<h1 class="first_heading">Encryption Library</h1>	
 
 <p>The Encryption Class provides two-way data encryption.  It uses a scheme that either compiles
 the message using a randomly hashed bitwise XOR encoding scheme, or is encrypted using
@@ -49,70 +49,91 @@ for example, can only hold 4K of information.</p>
  
 <p>Like most other classes in CodeIgniter, the Encryption class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p> 
  
-<code>$this->load_library('encrypt');</code> 
+<div class="syntax"><pre>
+<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;encryption_key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;your key&#39;</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;encrypt/encrypt_library&#39;</span><span class="p">,</span> <span class="s1">&#39;encrypt&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+</pre></div>
+
 <p>Once loaded, the Encrypt library object will be available using: <dfn>$this->encrypt</dfn></p> 
  
  
 <h2>$this->encrypt->encode()</h2> 
  
 <p>Performs the data encryption and returns it as a string. Example:</p> 
-<code> 
-$msg = 'My secret message';<br /> 
-<br /> 
-$encrypted_string = $this->encrypt->encode($msg);</code> 
- 
+
+<div class="syntax"><pre>
+<span class="nv">$msg</span> <span class="o">=</span> <span class="s1">&#39;My secret message&#39;</span><span class="p">;</span> 
+<span class="nv">$encrypted_string</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">encode</span><span class="p">(</span><span class="nv">$msg</span><span class="p">);</span> 
+</pre></div> 
+
 <p>You can optionally pass your encryption key via the second parameter if you don't want to use the one in your config file:</p> 
  
-<code> 
-$msg = 'My secret message';<br /> 
-$key = 'super-secret-key';<br /> 
-<br /> 
-$encrypted_string = $this->encrypt->encode($msg, $key);</code> 
+<div class="syntax"><pre>
+<span class="nv">$msg</span> <span class="o">=</span> <span class="s1">&#39;My secret message&#39;</span><span class="p">;</span> 
+<span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;super-secret-key&#39;</span><span class="p">;</span> 
+<span class="nv">$encrypted_string</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">encode</span><span class="p">(</span><span class="nv">$msg</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span> 
+</pre></div> 
  
  
 <h2>$this->encrypt->decode()</h2> 
  
 <p>Decrypts an encoded string.  Example:</p> 
  
-<code> 
-$encrypted_string = 'APANtByIGI1BpVXZTJgcsAG8GZl8pdwwa84';<br /> 
-<br /> 
-$plaintext_string = $this->encrypt->decode($encrypted_string);</code> 
- 
+<div class="syntax"><pre>
+<span class="nv">$encrypted_string</span> <span class="o">=</span> <span class="s1">&#39;APANtByIGI1BpVXZTJgcsAG8GZl8pdwwa84&#39;</span><span class="p">;</span> 
+<span class="nv">$plaintext_string</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">decode</span><span class="p">(</span><span class="nv">$encrypted_string</span><span class="p">);</span> 
+</pre></div> 
+
 <p>You can optionally pass your encryption key via the second parameter if you don't want to use the one in your config file:</p> 
  
-<code> 
-$msg = 'My secret message';<br /> 
-$key = 'super-secret-key';<br /> 
-<br /> 
-$encrypted_string = $this->encrypt->decode($msg, $key);</code> 
+<div class="syntax"><pre>
+<span class="nv">$msg</span> <span class="o">=</span> <span class="s1">&#39;My secret message&#39;</span><span class="p">;</span> 
+<span class="nv">$key</span> <span class="o">=</span> <span class="s1">&#39;super-secret-key&#39;</span><span class="p">;</span> 
+<span class="nv">$encrypted_string</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">decode</span><span class="p">(</span><span class="nv">$msg</span><span class="p">,</span> <span class="nv">$key</span><span class="p">);</span> 
+</pre></div> 
  
  
 <h2>$this->encrypt->set_cipher();</h2> 
  
 <p>Permits you to set an Mcrypt cipher.  By default it uses <samp>MCRYPT_RIJNDAEL_256</samp>.  Example:</p> 
-<code>$this->encrypt->set_cipher(MCRYPT_BLOWFISH);</code> 
-<p>Please visit php.net for a list of  <a href="http://php.net/mcrypt">available ciphers</a>.</p> 
+
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">set_cipher</span><span class="p">(</span><span class="nx">MCRYPT_BLOWFISH</span><span class="p">);</span> 
+</pre></div> 
+
+<p>Please visit php.net for a list of  <a href="http://php.net/mcrypt" class="external_link">available ciphers</a>.</p> 
  
 <p>If you'd like to manually test whether your server supports Mcrypt you can use:</p> 
-<code>echo ( ! function_exists('mcrypt_encrypt')) ? 'Nope' : 'Yup';</code> 
+
+<div class="syntax"><pre>
+<span class="k">echo</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">function_exists</span><span class="p">(</span><span class="s1">&#39;mcrypt_encrypt&#39;</span><span class="p">))</span> <span class="o">?</span> <span class="s1">&#39;Nope&#39;</span> <span class="o">:</span> <span class="s1">&#39;Yup&#39;</span><span class="p">;</span> 
+</pre></div>  
  
  
 <h2>$this->encrypt->set_mode();</h2> 
  
 <p>Permits you to set an Mcrypt mode.  By default it uses <samp>MCRYPT_MODE_CBC</samp>.  Example:</p> 
-<code>$this->encrypt->set_mode(MCRYPT_MODE_CFB);</code> 
-<p>Please visit php.net for a list of  <a href="http://php.net/mcrypt">available modes</a>.</p> 
+
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">set_mode</span><span class="p">(</span><span class="nx">MCRYPT_MODE_CFB</span><span class="p">);</span> 
+</pre></div> 
+
+<p>Please visit php.net for a list of  <a href="http://php.net/mcrypt" class="external_link">available modes</a>.</p> 
  
  
 <h2>$this->encrypt->sha1();</h2> 
 <p>SHA1 encoding function.  Provide a string and it will return a 160 bit one way hash.  Note:  SHA1, just like MD5 is non-decodable. Example:</p> 
-<code>$hash = $this->encrypt->sha1('Some string');</code> 
+
+<div class="syntax"><pre>
+<span class="nv">$hash</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">sha1</span><span class="p">(</span><span class="s1">&#39;Some string&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <p>Many PHP installations have SHA1 support by default so if all you need is to encode a hash it's simpler to use the native
 function:</p> 
  
-<code>$hash = sha1('Some string');</code> 
+<div class="syntax"><pre>
+<span class="nv">$hash</span> <span class="o">=</span> <span class="nb">sha1</span><span class="p">(</span><span class="s1">&#39;Some string&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <p>If your server does not support SHA1 you can use the provided function.</p> 
  
@@ -127,8 +148,9 @@ function:</p>
 	You can of course extend the Encryption library if you wish and replace the new methods with the old and retain seamless compatibility with CodeIgniter 1.x
 	encrypted data, but this a decision that a developer should make cautiously and deliberately, if at all.</p> 
  
-<code>$new_data = $this->encrypt->encode_from_legacy(<kbd>$old_encrypted_string</kbd>);</code> 
-
+<div class="syntax"><pre>
+<span class="nv">$new_data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">encrypt</span><span class="o">-&gt;</span><span class="na">encode_from_legacy</span><span class="p">(</span><span class="nv">$old_encrypted_string</span><span class="p">);</span> 
+</pre></div> 
 
 <table class="grid"> 
 <thead>

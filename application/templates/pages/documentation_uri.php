@@ -216,7 +216,7 @@ You can specify the permitted URI characters in the entry script index.php.
 
 <h2>InfoPotato's URI Pattern</h2>
 <p>
-URIs in InfoPotato are composed of segments. A typical segmented URI follows this pattern:
+A clean, elegant URI scheme is an important detail in a high-quality Web application. InfoPotato encourages beautiful URI design and doesn't put any cruft in URIs, like .php. URIs in InfoPotato are composed of segments. A typical segmented URI follows this pattern:
 </p>
 
 <div class="greybox">
@@ -227,11 +227,18 @@ http://www.example.com/index.php/<span class="red">manager</span>/<span class="b
 The segments correspond (in order ) to a <span class="red">Manager</span>, a <span class="blue">Manager method</span>, and the <span class="green">method parameters</span>. There is a one-to-one relationship between a URI string and its corresponding manager class/method.
 </p>
 
+<p>
+To make the update to the URI in the templates easiler, InfoPotato provides the developers the option to define <strong>APP_URI_BASE</strong> as the base URI of all the application requests. Forr example:
+</p>
+
+<div class="syntax"><pre>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;APP_URI_BASE&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost/infopotato/web/index.php/&#39;</span><span class="p">);</span> 
+</pre></div> 
 
 <h2>Hiding index.php</h2>
 
 <p>
-By default, InfoPotato urls contain index.php. To further clean our URLs, i.e., hiding the entry script index.php in the URL.
+By default, InfoPotato urls contain index.php. To further clean our URIs, i.e., hiding the entry script index.php in the URI.
 </p>
 
 <p>
@@ -248,6 +255,24 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # otherwise forward it to index.php
 RewriteRule . index.php
 </pre>
+</div>
+
+<h2>Managing Static Resources</h2>
+
+<p>
+Web developers mostly concern themselves with the dynamic parts of web applications – the views and templates that render anew for each request. But web applications have other parts: the static files (images, CSS, Javascript, etc.) that are needed to render a complete web page.
+</p>
+
+<p>
+InfoPotato provides the developers the option to define a <strong>STATIC_URI_BASE</strong> for accessing to their static resources.
+</p>
+
+<div class="syntax"><pre>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;STATIC_URI_BASE&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost/infopotato/web/&#39;</span><span class="p">);</span> 
+</pre></div> 
+
+<div class="tipbox">
+If you are serving static files from a cloud storage provider like Amazon's S3 and/or a CDN (content delivery network), just set <strong>STATIC_URI_BASE</strong> to the target URI base.
 </div>
 
 </div> 
