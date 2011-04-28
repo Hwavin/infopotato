@@ -15,7 +15,7 @@
 
 <h2>What is a Manager?</h2>
 
-<p>A Manager is an instance of the base Manager object or a subclass of another manager. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested method which usually brings in the needed datas and renders an appropriate template. An method, at its simplest form, is just a Manager class method prefixed with the corresponding HTTP request method (InfoPotato only supports GET and POST). In a word, the manager contains whatever arbitrary logic your application needs to create that response.</p>
+<p>A Manager is an instance of the base Manager object or a subclass of another manager. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested method which usually brings in the needed datas and produces the output in the proper format (whether that's a PHP+HTML/HTML page, XML document, or JSON response). An method, at its simplest form, is just a Manager class method prefixed with the corresponding HTTP request method (InfoPotato only supports GET and POST). In a word, the manager contains whatever arbitrary logic your application needs to create that response.</p>
 
 <p>
 Typically, a Manager is responsible for a few things:
@@ -28,7 +28,7 @@ Typically, a Manager is responsible for a few things:
 <li>validating authentication and access levels</li>
 <li>interacting with data objects (business logic)</li>
 <li>setting template variables and rendering templates/sub-templates</li>
-<li>rendering templates or redirecting to new URLs</li>
+<li>rendering templates or redirecting to new URIs</li>
 </ul>
 
 <p>

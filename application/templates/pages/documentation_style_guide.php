@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Style Guide
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Conventions &amp; Style Guide
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,7 +9,7 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Style Guide</h1>	
+<h1 class="first_heading">Conventions &amp; Style Guide</h1>	
 
 <div class="box_right greybox">
 <blockquote>
@@ -18,7 +18,7 @@
 </blockquote>
 </div>
 
-<p>The following page describes the use of coding rules adhered to when developing CodeIgniter.</p> 
+<p>The following page describes the use of coding rules adhered to when developing InfoPotato.</p> 
  
 <h2>Text Encoding</h2> 
 <p>
@@ -36,7 +36,7 @@ preventing the application from being able to set its own headers.  Unix line en
 be used (LF).</p> 
 
 
-<h2><a name="php_closing_tag"></a>PHP Closing Tag</h2> 
+<h2>PHP Closing Tag</h2> 
 
 <p>The PHP closing tag on a PHP document <strong>?&gt;</strong> is optional to the PHP parser.  However, if used, any whitespace following the closing tag, whether introduced
 by the developer, user, or an FTP application, can cause unwanted output, PHP errors, or if the latter are suppressed, blank pages.  For this reason, all PHP files should
@@ -56,7 +56,7 @@ This allows you to still identify a file as being complete and not truncated.</p
 </pre></div> 
 
 
-<h2><a name="class_and_method_naming"></a>Class and Method Naming</h2> 
+<h2>Class and Method Naming</h2> 
 
 <p>
 Class names should always have their first letter uppercase. Multiple words should be separated with an underscore, and not CamelCased. All other class methods should be entirely lowercased and named to clearly indicate their function, preferably including a verb. Try to avoid overly long and verbose names.
@@ -85,7 +85,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
 
 
-<h2><a name="variable_names"></a>Variable Names</h2> 
+<h2>Variable Names</h2> 
 <p>The guidelines for variable naming is very similar to that used for class methods.  Namely, variables should contain only lowercase letters, use underscore separators, and be reasonably named to indicate their purpose and contents. Very short, non-word variables should only be used as iterators in for() loops.</p> 
 <strong>INCORRECT</strong>:
 <div class="syntax"><pre>
@@ -106,7 +106,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
 
  
-<h2><a name="commenting"></a>Commenting</h2> 
+<h2>Commenting</h2> 
 <p>In general, code should be commented prolifically.  It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line.  There is not a required format for comments, but the following are recommended.</p> 
 
 <p><a href="http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblock">DocBlock</a> style comments preceding class and method declarations so they can be picked up by IDEs:</p> 
@@ -154,8 +154,8 @@ Class names should always have their first letter uppercase. Multiple words shou
 
  
  
-<h2><a name="constants"></a>Constants</h2> 
-<p>Constants follow the same guidelines as do variables, except constants should always be fully uppercase.  <em>Always use CodeIgniter constants when appropriate, i.e. SLASH, LD, RD, PATH_CACHE, etc.</em></p> 
+<h2>Constants</h2> 
+<p>Constants follow the same guidelines as do variables, except constants should always be fully uppercase.  <em>Always use InfoPotato constants when appropriate, i.e. SLASH, LD, RD, PATH_CACHE, etc.</em></p> 
 <strong>INCORRECT</strong>:
 <div class="syntax"><pre>
 <span class="nx">myConstant</span>	<span class="c1">// missing underscore separator and not fully uppercase</span> 
@@ -174,7 +174,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 
  
  
-<h2><a name="true_false_and_null"></a>TRUE, FALSE, and NULL</h2> 
+<h2>TRUE, FALSE, and NULL</h2> 
 
 <p>
 <strong>TRUE</strong>, <strong>FALSE</strong>, and <strong>NULL</strong> keywords should always be fully uppercase.
@@ -197,7 +197,7 @@ Class names should always have their first letter uppercase. Multiple words shou
  
  
  
-<h2><a name="logical_operators"></a>Logical Operators</h2> 
+<h2>Logical Operators</h2> 
 
 <p>Use of <strong>||</strong> is discouraged as its clarity on some output devices is low (looking like the number 11 for instance).
 <strong>&amp;&amp;</strong> is preferred over <strong>AND</strong> but either are acceptable, and a space should always precede and follow <strong>!</strong>.</p> 
@@ -218,10 +218,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
  
 
- 
- 
- 
-<h2><a name="comparing_return_values_and_typecasting"></a>Comparing Return Values and Typecasting</h2> 
+<h2>Comparing Return Values and Typecasting</h2> 
 <p>Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons.  Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation.</p> 
 <p>Use the same stringency in returning and checking your own variables.  Use <strong>===</strong> and <strong>!==</strong> as necessary.
 
@@ -263,31 +260,27 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
  
  
-<h2><a name="debugging_code"></a>Debugging Code</h2> 
+<h2>Debugging Code</h2> 
 <p>No debugging code can be left in place for submitted add-ons unless it is commented out, i.e. no var_dump(), print_r(), die(), and exit() calls that were used while creating the add-on, unless they are commented out.</p> 
 
 <div class="syntax"><pre>
 <span class="c1">//print_r($foo);</span> 
 </pre></div> 
   
-<h2><a name="one_file_per_class"></a>One File per Class</h2> 
-<p>Use separate files for each class your add-on uses, unless the classes are <em>closely related</em>.  An example of CodeIgniter files that contains multiple classes is the Database class file, which contains both the DB class and the DB_Cache class, and the Magpie plugin, which contains both the Magpie and Snoopy classes.</p> 
+<h2>One File per Class</h2> 
+<p>Use separate files for each class your add-on uses, unless the classes are <em>closely related</em>.  An example of InfoPotato files that contains multiple classes is the Database class file, which contains both the DB class and the DB_Cache class, and the Magpie plugin, which contains both the Magpie and Snoopy classes.</p> 
 
  
- 
- 
-<h2><a name="whitespace"></a>Whitespace</h2> 
+<h2>Whitespace</h2> 
 <p>Use tabs for whitespace in your code, not spaces.  This may seem like a small thing, but using tabs instead of whitespace allows the developer looking at your code to have indentation at levels that they prefer and customize in whatever application they use.  And as a side benefit, it results in (slightly) more compact files, storing one tab character versus, say, four space characters.</p> 
 
  
  
-<h2><a name="line_breaks"></a>Line Breaks</h2> 
+<h2>Line Breaks</h2> 
 <p>Files must be saved with Unix line breaks.  This is more of an issue for developers who work in Windows, but in any case ensure that your text editor is setup to save files with Unix line breaks.</p> 
 
- 
- 
- 
-<h2><a name="code_indenting"></a>Code Indenting</h2> 
+
+<h2>Code Indenting</h2> 
 <p>Use Allman style indenting.  With the exception of Class declarations, braces are always placed on a line by themselves, and indented at the same level as the control statement that "owns" them.</p> 
 
 <strong>CORRECT</strong>:
@@ -314,12 +307,11 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div>
  
  
-<h2><a name="bracket_spacing"></a>Bracket and Parenthetic Spacing</h2> 
+<h2>Bracket and Parenthetic Spacing</h2> 
 <p>In general, parenthesis and brackets should not use any additional spaces.  The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability.</p> 
 
 
- 
-<h2><a name="private_methods_and_variables"></a>Private Methods and Variables</h2> 
+<h2>Private Methods and Variables</h2> 
 
 <p>Methods and variables that are only accessed internally by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore.</p> 
 
@@ -346,7 +338,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 
  
  
-<h2><a name="short_open_tags"></a>Short Open Tags</h2> 
+<h2>Short Open Tags</h2> 
 <p>Always use full PHP opening tags, in case a server does not have short_open_tag enabled.</p> 
 
 <strong>INCORRECT</strong>:
@@ -360,7 +352,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
 
  
-<h2><a name="one_statement_per_line"></a>One Statement Per Line</h2> 
+<h2>One Statement Per Line</h2> 
 <p>Never combine statements on one line.</p> 
 
 <strong>INCORRECT</strong>:
@@ -376,7 +368,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
 
  
-<h2><a name="strings"></a>Strings</h2> 
+<h2>Strings</h2> 
 <p>Always use single quoted strings unless you need variables parsed, and in cases where you do need variables parsed, use braces to prevent greedy token parsing.  You may also use double-quoted strings if the string contains single quotes, so you do not have to use escape characters.</p> 
 
 <strong>INCORRECT</strong>:
@@ -394,7 +386,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
 
  
-<h2><a name="default_function_arguments"></a>Default Function Arguments</h2> 
+<h2>Default Function Arguments</h2> 
 <p>Whenever appropriate, provide function argument defaults, which helps prevent PHP errors with mistaken calls and provides common fallback values which can save a few lines of code. Example:</p> 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="nv">$bar</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nv">$baz</span> <span class="o">=</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span> 
