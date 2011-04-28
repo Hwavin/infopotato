@@ -6,7 +6,7 @@ syntac highlighter
 background: #f8f8f8; 
 border:1px solid #ddd;
 padding:10px;
-margin-bottom:1.5em;
+margin:1.5em 0;
 }
 
 .syntax .c { color: #408080; font-style: italic } /* Comment */

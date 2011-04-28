@@ -78,7 +78,7 @@ line-height:180%;
 }
 
 ul, ol { 
-margin-bottom:1.4em; 
+margin-bottom:1.5em; 
 }
 
 table {

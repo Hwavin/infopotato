@@ -14,7 +14,11 @@
 <p>InfoPotato uses a few constants and functions for its operation that are globally defined, and are available to you at any point. These do not require loading any libraries or helpers.</p> 
  
 <h2>Global Constants</h2>
- 
+
+<p>
+The following global constants are defined in the index.php or dev.php scripts.
+</p>
+
 <table class="grid">
 <tr><th>ENVIRONMENT</th><th>Define the application environment</th></tr>
 <tr><td>INFOPOTATO_VERSION</td><td>Define InfoPotato Version</td></tr>
@@ -34,9 +38,20 @@
 </table>
  
 <h2>Global Functions</h2>
+
+<p>
+Global_Functions is a class which contains two static functions can be used accross all the compontents of InfoPotato.
+</p>
+
 <h3>show_sys_error(<var>$heading</var>, <var>$message</var>, <var>$template = 'sys_error'</var>)</h3> 
  
-<h3>dump(<var>$variable</var>)</h3> 
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">show_sys_error</span><span class="p">(</span><span class="s1">&#39;An Error Was Encountered&#39;</span><span class="p">,</span> <span class="s1">&#39;Error message goes here&#39;</span><span class="p">,</span> <span class="s1">&#39;sys_error&#39;</span><span class="p">);</span> 
+<span class="p">}</span> 
+</pre></div> 
  
+<h3>dump(<var>$variable</var>)</h3> 
+
 </div> 
 <!-- end onecolumn -->

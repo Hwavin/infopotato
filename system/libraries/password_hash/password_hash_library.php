@@ -32,29 +32,31 @@
  * @link based on http://www.openwall.com/phpass/
  */
 class Password_Hash_Library {
-	public $itoa64;
-	public $iteration_count_log2;
-	public $portable_hashes;
-	public $random_state;
+	private $_itoa64;
+	private $_iteration_count_log2;
+	private $_portable_hashes;
+	private $_random_state;
 	
 	/**
 	 * Constructor
 	 *
+	 * 'iteration_count_log2'
+	 * 'portable_hashes'
 	 */
 	public function __construct($config = array()) { 
 		if (is_array($config) && count($config) > 0) {
-			$this->itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+			$this->_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 			if ($config['iteration_count_log2'] < 4 || $config['iteration_count_log2'] > 31) {
 				$config['iteration_count_log2'] = 8;
 			}
-			$this->iteration_count_log2 = $config['iteration_count_log2'];
+			$this->_iteration_count_log2 = $config['iteration_count_log2'];
 
-			$this->portable_hashes = $config['portable_hashes'];
+			$this->_portable_hashes = $config['portable_hashes'];
 
-			$this->random_state = microtime();
+			$this->_random_state = microtime();
 			if (function_exists('getmypid')) {
-				$this->random_state .= getmypid();
+				$this->_random_state .= getmypid();
 			}
 		}
 	}
@@ -69,10 +71,10 @@ class Password_Hash_Library {
 		if (strlen($output) < $count) {
 			$output = '';
 			for ($i = 0; $i < $count; $i += 16) {
-				$this->random_state =
-				    md5(microtime() . $this->random_state);
+				$this->_random_state =
+				    md5(microtime() . $this->_random_state);
 				$output .=
-				    pack('H*', md5($this->random_state));
+				    pack('H*', md5($this->_random_state));
 			}
 			$output = substr($output, 0, $count);
 		}
@@ -85,22 +87,22 @@ class Password_Hash_Library {
 		$i = 0;
 		do {
 			$value = ord($input[$i++]);
-			$output .= $this->itoa64[$value & 0x3f];
+			$output .= $this->_itoa64[$value & 0x3f];
 			if ($i < $count) {
 				$value |= ord($input[$i]) << 8;
 			}
-			$output .= $this->itoa64[($value >> 6) & 0x3f];
+			$output .= $this->_itoa64[($value >> 6) & 0x3f];
 			if ($i++ >= $count) {
 				break;
 			}
 			if ($i < $count) {
 				$value |= ord($input[$i]) << 16;
 			}
-			$output .= $this->itoa64[($value >> 12) & 0x3f];
+			$output .= $this->_itoa64[($value >> 12) & 0x3f];
 			if ($i++ >= $count) {
 				break;
 			}
-			$output .= $this->itoa64[($value >> 18) & 0x3f];
+			$output .= $this->_itoa64[($value >> 18) & 0x3f];
 		} while ($i < $count);
 
 		return $output;
@@ -108,7 +110,7 @@ class Password_Hash_Library {
 
 	public function gensalt_private($input) {
 		$output = '$P$';
-		$output .= $this->itoa64[min($this->iteration_count_log2 + ((PHP_VERSION >= '5') ? 5 : 3), 30)];
+		$output .= $this->_itoa64[min($this->_iteration_count_log2 + ((PHP_VERSION >= '5') ? 5 : 3), 30)];
 		$output .= $this->encode64($input, 6);
 
 		return $output;
@@ -124,7 +126,7 @@ class Password_Hash_Library {
 		if ($id != '$P$' && $id != '$H$') {
 			return $output;
 		}
-		$count_log2 = strpos($this->itoa64, $setting[3]);
+		$count_log2 = strpos($this->_itoa64, $setting[3]);
 		if ($count_log2 < 7 || $count_log2 > 30) {
 			return $output;
 		}
@@ -159,16 +161,16 @@ class Password_Hash_Library {
 	}
 
 	public function gensalt_extended($input) {
-		$count_log2 = min($this->iteration_count_log2 + 8, 24);
+		$count_log2 = min($this->_iteration_count_log2 + 8, 24);
 		# This should be odd to not reveal weak DES keys, and the
 		# maximum valid value is (2**24 - 1) which is odd anyway.
 		$count = (1 << $count_log2) - 1;
 
 		$output = '_';
-		$output .= $this->itoa64[$count & 0x3f];
-		$output .= $this->itoa64[($count >> 6) & 0x3f];
-		$output .= $this->itoa64[($count >> 12) & 0x3f];
-		$output .= $this->itoa64[($count >> 18) & 0x3f];
+		$output .= $this->_itoa64[$count & 0x3f];
+		$output .= $this->_itoa64[($count >> 6) & 0x3f];
+		$output .= $this->_itoa64[($count >> 12) & 0x3f];
+		$output .= $this->_itoa64[($count >> 18) & 0x3f];
 
 		$output .= $this->encode64($input, 3);
 
@@ -187,8 +189,8 @@ class Password_Hash_Library {
 		$itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 		$output = '$2a$';
-		$output .= chr(ord('0') + $this->iteration_count_log2 / 10);
-		$output .= chr(ord('0') + $this->iteration_count_log2 % 10);
+		$output .= chr(ord('0') + $this->_iteration_count_log2 / 10);
+		$output .= chr(ord('0') + $this->_iteration_count_log2 % 10);
 		$output .= '$';
 
 		$i = 0;
@@ -218,7 +220,7 @@ class Password_Hash_Library {
 	public function hash_password($password) {
 		$random = '';
 
-		if (CRYPT_BLOWFISH == 1 && ! $this->portable_hashes) {
+		if (CRYPT_BLOWFISH == 1 && ! $this->_portable_hashes) {
 			$random = $this->get_random_bytes(16);
 			$hash = crypt($password, $this->gensalt_blowfish($random));
 			if (strlen($hash) == 60) {
@@ -226,7 +228,7 @@ class Password_Hash_Library {
 			}
 		}
 
-		if (CRYPT_EXT_DES == 1 && ! $this->portable_hashes) {
+		if (CRYPT_EXT_DES == 1 && ! $this->_portable_hashes) {
 			if (strlen($random) < 3) {
 				$random = $this->get_random_bytes(3);
 			}
