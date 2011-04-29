@@ -85,7 +85,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <h3>Function Reference</h3> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/captcha/">CAPTCHA</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/common_function/">Download</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/download/">Download</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/redirect/">Redirection</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/minify_html/">Minify HTML</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/htmlawed/">HtmLawed</a></li>

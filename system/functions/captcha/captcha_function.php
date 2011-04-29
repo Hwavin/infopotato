@@ -29,7 +29,7 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 
 	foreach ($defaults as $key => $val) {
 		if ( ! is_array($data)) {
-			if ( ! isset($$key) OR $$key == '') {
+			if ( ! isset($$key) || $$key == '') {
 				$$key = $val;
 			}
 		} else {
@@ -37,7 +37,7 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 		}
 	}
 
-	if ($img_path == '' OR $img_url == '') {
+	if ($img_path == '' || $img_url == '') {
 		return FALSE;
 	}
 
@@ -63,7 +63,7 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 	$current_dir = @opendir($img_path);
 
 	while($filename = @readdir($current_dir)) {
-		if ($filename != "." and $filename != ".." and $filename != "index.html") {
+		if ($filename != "." && $filename != ".." && $filename != "index.html") {
 			$name = str_replace(".jpg", "", $filename);
 			
 			// The expired images will be deleted when this function is called again
@@ -153,7 +153,7 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 	//  Write the text
 	// -----------------------------------
 
-	$use_font = ($font_path != '' AND file_exists($font_path) AND function_exists('imagettftext')) ? TRUE : FALSE;
+	$use_font = ($font_path != '' && file_exists($font_path) && function_exists('imagettftext')) ? TRUE : FALSE;
 
 	if ($use_font == FALSE) {
 		$font_size = 5;

@@ -33,8 +33,21 @@
  */
 class Password_Hash_Library {
 	private $_itoa64;
+	
+	/**
+	 * Base-2 logarithm of the iteration count used for password stretching
+	 * 
+	 * @var string
+	 */
 	private $_iteration_count_log2;
+	
+	/**
+	 * Do we require the hashes to be portable to older systems (less secure)?
+	 * 
+	 * @var boolean
+	 */
 	private $_portable_hashes;
+	
 	private $_random_state;
 	
 	/**

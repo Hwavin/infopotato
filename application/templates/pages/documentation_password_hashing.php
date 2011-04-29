@@ -31,5 +31,25 @@ The preferred (most secure) hashing method supported by phpass is the OpenBSD-st
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;password_hash/password_hash_library&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
 </pre></div>
 
+<h2>How to create Password hashing</h2>
+
+<div class="syntax"><pre>
+<span class="nv">$hashed_password</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pass</span><span class="o">-&gt;</span><span class="na">hash_password</span><span class="p">(</span><span class="nv">$password</span><span class="p">);</span> 
+</pre></div> 
+
+<p>
+Decent systems/applications do not actually store users' passwords. Instead, they transform new passwords being set/changed into password hashes with cryptographic (one-way) hash functions, and they store those hashes.
+</p>
+
+<p>
+Let's try to create the same password hashing, just for kicks. The script succeeds again, and we get a new hash encoding string whihc is indeed almost entirely different.
+</p>
+
+<h2>How to authenticate created password</h2>
+
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pass</span><span class="o">-&gt;</span><span class="na">check_password</span><span class="p">(</span><span class="nv">$password</span><span class="p">,</span> <span class="nv">$hashed_password</span><span class="p">)</span> 
+</pre></div> 
+
 </div> 
 <!-- end onecolumn -->

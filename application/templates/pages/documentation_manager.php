@@ -158,6 +158,12 @@ your <dfn>index.php</dfn> file and set this variable:</p>
 specifying any URI segments you'll see your Hello World message by default.</p>
 
 
+<h2>Dealing with $_GET, $_POST, and $_COOKIE</h2>
+
+<p>
+While using InfoPotato, you would never use $_GET, $_POST, and $_COOKIE. $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings. Instead we take use of the $POST_DATA and $COOKIE_DATA variables which can only be accessed in managers
+</p>
+
 <h2>Interacting with Template</h2>
 
 <p>InfoPotato has an view class that takes care of sending your final rendered data to the web browser automatically.  More information on this can be found in the
