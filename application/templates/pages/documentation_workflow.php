@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Application Execution Flow
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Request Processing Workflow
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,7 +9,7 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Application Execution Flow</h1>	
+<h1 class="first_heading">Request Processing Workflow</h1>	
 
 <p>
 If you want to go deeper with InfoPotato, you should understand how information flows between the framework's layers.
@@ -35,7 +35,12 @@ There are two types of requests, <strong>Static requests</strong> and <strong>Ap
 Every request handled by an InfoPotato application goes through the same basic lifecycle. The framework takes care of the repetitive tasks and ultimately executes a manager, which houses your custom application code:
 </p>
 
-<ol class="greenbox"> 
+<div class="content_image"> 
+<p><strong>A typical workflow of InfoPotato application</strong></p> 
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/workflow.jpg" width="876" height="238" alt="Application Workflow" /> 
+</div> 
+
+<ol> 
 <li>
 The end user interacts with the client (browser, web services client) and the client sends a request to the web server.
 </li> 
@@ -49,7 +54,7 @@ App_Dispatcher is the subclass of the core Dispatcher, which provides the actual
 The manager is executed and the code inside the manaher prepares the resource identified by the incoming URI. Based on the request method (POST and GET are supported), the corresponding manager method will load and instantiate the needed resources (data objects, libraries, user-defined functions, the corresponding template files).
 </li> 
 <li>
-The HTTP headers and content of the response are sent back to the client (web browser or web service client).
+The manager sends the HTTP headers and content of the response back to the client (web browser or web service client).
 </li>
 </ol> 
  

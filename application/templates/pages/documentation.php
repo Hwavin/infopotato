@@ -12,6 +12,9 @@
 <h1 class="first_heading">Documentation</h1> 
 
 <div class="box_right greybox">
+
+<img src="http://localhost/infopotato/web/images/shared/new_ribbon.png" width="37" height="36" class="new_ribbon" alt="New"> 
+
 <h3>Offline Documentation</h3>
 <p>
 Grab an <a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>file/resume-pdf">Offline Documentation</a> containing all topics listed below.
@@ -42,7 +45,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
  
 <h3>Core Topics</h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/appflow/">Application Execution Flow</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/workflow/">Request Processing Workflow</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/global/">Global Constants and Functions</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/uri/">URI</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dispatcher/">Dispatcher</a></li> 

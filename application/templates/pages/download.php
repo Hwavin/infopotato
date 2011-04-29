@@ -11,7 +11,7 @@
 <div id="onecolumn"> 
 
 <a class="ribbon" href="https://github.com/yuanzhou/infopotato" target="_blank">
-<img src="<?php echo STATIC_URI_BASE; ?>images/shared/ribbon.png" alt="Fork me on GitHub">
+<img src="<?php echo STATIC_URI_BASE; ?>images/shared/git_ribbon.png" width="149" height="149" alt="Fork me on GitHub">
 </a>
 
 <h1 class="first_heading">Download</h1>	

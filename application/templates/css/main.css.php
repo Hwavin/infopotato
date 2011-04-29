@@ -20,10 +20,9 @@ background:#ffcc89;
 color:#222; 
 }
 
-/* (0.75 * 16px = 12px) */
 body {
 font-family:Arial, Helvetica, sans-serif;
-font-size:85%;
+font-size:90%;
 color: #555; 
 }
 
@@ -381,6 +380,7 @@ float:right;
 width:220px;
 margin:0 0 0 10px;
 padding:10px;
+position:relative;
 }
 
 /* form related */
@@ -750,6 +750,18 @@ opacity: 1;
 }
 
 .ribbon img { 
+display: block; 
+border: 0; 
+}
+
+.new_ribbon { 
+position: absolute; 
+top: -4px; 
+right: -4px; 
+opacity: 0.9; 
+}
+
+.new_ribbon img { 
 display: block; 
 border: 0; 
 }
