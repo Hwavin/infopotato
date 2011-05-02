@@ -562,6 +562,18 @@ width:590px;
 float:left;
 }
 
+#home_banner {
+position: relative; 
+margin-top:10px;
+margin-left:-35px;
+}
+
+#home_banner h1 {
+position: absolute; 
+top: 0px; 
+right: 25px; 
+}
+
 #download {
 float:right;
 width:280px;
@@ -761,7 +773,3 @@ right: -4px;
 opacity: 0.9; 
 }
 
-.new_ribbon img { 
-display: block; 
-border: 0; 
-}

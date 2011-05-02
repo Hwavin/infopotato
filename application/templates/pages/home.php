@@ -1,7 +1,10 @@
 <!-- begin onecolumn --> 
 <div id="onecolumn">
 
+<div id="home_banner">
 <h1 class="first_heading center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/grey_banner.png" width="990" height="73" alt="" />
+</div>
 
 <h2 class="center blue">
 Built on the shoulders of giants
@@ -26,7 +29,6 @@ Built on the shoulders of giants
 
 <div class="clear"></div>
 </div>
-
 
 <div id="index_left" class="index_column"> 
 <h2 class="first_heading">Facts about InfoPotato</h2>	
