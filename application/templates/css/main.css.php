@@ -296,14 +296,14 @@ padding:3px;
 .content_image {
 margin:10px auto 20px auto;
 background-color: #f4f4f4;
-border:1px solid #ddd;
-padding:20px;
+border:1px solid #ccc;
+padding:20px 10px;
 text-align: center;
 }
 
 .content_image img {
 background-color: #f4f4f4;
-border: 1px solid #ccc;
+border: 1px solid #ddd;
 margin: auto;
 }
 

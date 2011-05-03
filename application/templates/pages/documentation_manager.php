@@ -27,7 +27,7 @@ Typically, a Manager is responsible for a few things:
 <li>loading data objects for SQL or NoSQL data access</li>
 <li>validating authentication and access levels</li>
 <li>interacting with data objects (business logic)</li>
-<li>setting template variables and rendering templates/sub-templates</li>
+<li>assigning template variables and "push" the data to the template to render the output result.</li>
 <li>rendering templates or redirecting to new URIs</li>
 </ul>
 
