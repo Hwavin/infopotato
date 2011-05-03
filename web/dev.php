@@ -1,6 +1,6 @@
 <?php
 /**
- * This file acts as the "Single Point of Entry" to your application, all requests are sent to index.php.
+ * This file acts as the "Bootstrap" to your application, all requests are sent to index.php.
  * This file is responsible for initializing the framework: loading files, reading configuration data, 
  * parsing the URI into actionable information, and populating the objects that encapsulate the request. 
  */
