@@ -15,6 +15,10 @@
 As you may already know, the web server receives the requests and passe them to an InfoPotato application via the bootstrap script (e.g., index.php, dev.php) which is responsible for instantiating the framework by invoking App_Dispatcher, in which all requests are intercepted and dispatched to individual Managers based on the URI requested.
 </p>
 
+<p>
+Dispatching is the process of extracting the manager name, method name, and optional parameters contained in it, and then instantiating a manager and calling the appropriate method of that manager.
+</p>
+
 <h2>What is Dispatcher and what does it do?</h2>
 <p>
 In InfoPotato, dispatcher represents the execution context of the initial application request processing. In brief, dispatcher translates URI to manager-method-paramter triads. In detail, the dispatch process can be describes as follows:

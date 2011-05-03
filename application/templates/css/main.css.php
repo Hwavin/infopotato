@@ -564,14 +564,19 @@ float:left;
 
 #home_banner {
 position: relative; 
-margin-top:10px;
-margin-left:-35px;
+margin:10px 0 20px -35px;
 }
 
 #home_banner h1 {
 position: absolute; 
 top: 0px; 
 right: 25px; 
+}
+
+#home_banner h2 {
+position: absolute; 
+top: 50px; 
+right: 285px; 
 }
 
 #download {
