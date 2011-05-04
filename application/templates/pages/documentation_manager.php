@@ -43,6 +43,22 @@ A Manager has a default method. When the user request does not specify which met
 
 <p><strong>When a Manager's name matches the first segment of a URI, it will be loaded.</strong></p>
 
+
+<h2>Manager Naming and Anatomy</h2>
+<p>
+A manager's filename can be basically anything. The name of the manager class must correspond to the filename.
+</p>
+
+<ul>
+<li>must reside in the managers directory</li>
+<li>manager filename must be lowercase, e.g. blog_manager.php</li>
+<li>manager class must map to filename and capitalized, and must be appended with _Manager, e.g. Blog_Manager</li>
+<li>must have the Manager class as (grand)parent</li>
+<li>manager methods preceded by '_' (e.g. _do_something() ) cannot be called by the URI mapping</li>
+<li>only the methods begin with the HTTP request method, like 'get_' or 'post_', can be called</li>
+</ul>
+
+
 <h2>Let's try it:&nbsp; Hello World!</h2>
 
 <p>Let's create a simple Manager so you can see it in action. Using your text editor (Mine is Notepad++), create a file called <dfn>blog_manager.php</dfn>, and put the following code in it:</p>
@@ -55,7 +71,7 @@ A Manager has a default method. When the user request does not specify which met
 	<span class="c1">// Ohter codes </span> 
     <span class="p">}</span> 
 	
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">echo</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 
@@ -150,7 +166,8 @@ your <dfn>index.php</dfn> file and set this variable:</p>
 <span class="sd">/**</span> 
 <span class="sd"> * Default Manager/method if none is given in the URL, case-sensetive </span> 
 <span class="sd"> */</span> 
-<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_WORKER&#39;</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">);</span> 
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_MANAGER&#39;</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">);</span> 
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_MANAGER_METHOD&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">);</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
@@ -166,26 +183,25 @@ While using InfoPotato, you would never use $_GET, $_POST, and $_COOKIE. $_GET d
 
 <h2>Interacting with Template</h2>
 
-<p>InfoPotato has an view class that takes care of sending your final rendered data to the web browser automatically.  More information on this can be found in the
-<strong><a href="<?php echo APP_URI_BASE; ?>documentation/view/" title="View">View</a></strong> class</a> pages.  In some cases, however, you might want to
-post-process the finalized data in some way and send it to the browser yourself. InfoPotato permits you to
-add a function named <dfn>load_template()</dfn> to your Manager that will receive the finalized output data.</p>
+<p>The Manager has a render_template() method that takes care of sending your final rendered data to the client automatically. In some cases, however, you might want to
+post-process the finalized data in some way and send it to the browser yourself. InfoPotato also permits you to
+use <dfn>render_template()</dfn> to your Manager that will receive the finalized output data.</p>
 
 <p>Here is an example:</p>
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">function</span> <span class="nf">process</span><span class="p">()</span> <span class="p">{</span> 
+<span class="k">function</span> <span class="nf">get_entry</span><span class="p">()</span> <span class="p">{</span> 
     <span class="nv">$content_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
         <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some data&#39;</span><span class="p">,</span> 
     <span class="p">);</span> 
  
     <span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
         <span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;New Time Entry&#39;</span><span class="p">,</span> 
-        <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;pages/new_entry_activity_one&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
+        <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/new_entry_activity_one&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
     <span class="p">);</span> 
  
     <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-        <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;layouts/layout&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+        <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/layout&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
     <span class="p">);</span> 
     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
 <span class="p">}</span> 
@@ -212,9 +228,11 @@ function _utility() {<br />
 <h2>Class Constructors</h2>
 
 
-<p>If you intend to use a constructor in any of your Managers, you <strong>MUST</strong> place the following line of code in it:</p>
+<p>
+If you declare a constructor in your manager, for example to load some resources for the entire manager, you have to call the parent constructor.
+</p>
 
-<code>parent::Manager();</code>
+<code>parent::__construct();</code>
 
 <p>The reason this line is necessary is because your local constructor will be overriding the one in the parent Manager class so we need to manually call it.</p>
 
@@ -225,7 +243,7 @@ function _utility() {<br />
  
        <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> 
        <span class="p">{</span> 
-            <span class="k">parent</span><span class="o">::</span><span class="na">Manager</span><span class="p">();</span> 
+            <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
        <span class="p">}</span> 
 <span class="p">}</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
@@ -253,7 +271,7 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;user_data&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span>);</span> 
     <span class="p">}</span> 
  
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_post</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_posts</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="c1">// Load post data, this data can only be used by this class method</span> 
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;post_data&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span> 
     <span class="p">}</span> 
@@ -272,9 +290,9 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;cache/cache_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cache_dir&#39;</span><span class="o">=&gt;</span><span class="nx">APP_CACHE_DIR</span><span class="p">));</span> 
     <span class="p">}</span> 
  
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">send_email</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">post_email</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="c1">// Load Form Validation library, this library can only be used by this class method</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;form_validation/form_validation_library&#39;</span><span class="p">,</span> <span class="s1">&#39;fv&#39;</span><span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;form_validation/form_validation_library&#39;</span><span class="p">,</span> <span class="s1">&#39;fv&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">));</span>
     <span class="p">}</span> 
 <span class="p">}</span> 
 </pre></div> 

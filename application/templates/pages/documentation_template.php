@@ -95,7 +95,7 @@ to include the folder name loading the template.  Example:</p>
 </div> 
  
  
-<h2>Adding Dynamic Data to the Template</h2> 
+<h2>Passing Dynamic Data to the Template</h2> 
  
 <p>Data is passed from the controller to the template by way of an <strong>array</strong> or an <strong>object</strong> in the second
 parameter of the template loading function. Here is an example using an array:</p> 
@@ -120,7 +120,7 @@ parameter of the template loading function. Here is an example using an array:</
 </div>  
  
  
-<h2>Assign global variables to template</h2> 
+<h2>Assigning global variables to template</h2> 
  
 <p> 
 The variables assigned with $this->assign() are always available to every template thereafter.
@@ -134,12 +134,12 @@ The variables assigned with $this->assign() are always available to every templa
 </pre>
 </div> 
  
-<h2>Output the rendered template to browser</h2> 
+<h2>Output the rendered template to the client</h2> 
  
 <div class="syntax">
 <pre><span class="cp">&lt;?php</span> 
 <span class="sd">/**</span> 
-<span class="sd">* Output the rendered template to browser</span> 
+<span class="sd">* Output the rendered template to the client</span> 
 <span class="sd">* </span> 
 <span class="sd">* @param array $config options</span> 
 <span class="sd">* </span> 
@@ -175,7 +175,29 @@ The variables assigned with $this->assign() are always available to every templa
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
 </pre>
 </div> 
- 
+
+<h2>Templates within Templates</h2>
+<p>
+Using render_template() you can load and render templates within other templates:
+</p>
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<span class="k">class</span> <span class="nc">Home_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	    <span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/home&#39;</span><span class="p">),</span> 
+	<span class="p">);</span> 
+		
+	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/default_layout&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+	    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span><span class="p">,</span> 
+	<span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div>
+
 <h2>Layout</h2> 
 <p>
 Layout is a special template that is used to decorate templates. It usually contains portions of user interface that are common among several templates. For example, a layout may contain header and footer portions and embed the content template in between,

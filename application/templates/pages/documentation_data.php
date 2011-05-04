@@ -23,7 +23,7 @@ Data Access Objects are responsible for any logic that surrounds the manipulatio
 In an InfoPotato application, the use of data layer is not required if there is no data access involved. And a data object is not allowed to be associated with other data objects. A data file can be loaded and used by different managers which need the data access that this data provides.
 </p>
 
-<h2><a name="what"></a>What is a Data?</h2> 
+<h2>What is a Data?</h2> 
  
 <p>A data is an instance of the base Data object or other data objects' child class. Data object is used to keep data and their relevant business rules. For example, let's say you use InfoPotato to manage a blog. You might have a data class that contains functions to insert, update, and retrieve your blog post data. Here is an example of what such a data class might look like:</p> 
  
@@ -55,7 +55,15 @@ Create your data object file in the /application/data/ directory or in a subdire
 <p>
 For example, we created a data and put it in <span class="red">application/data/users_data.php</span>, and the the data class name will be <span class="red">Users_Data</span>.
 </p> 
- 
+
+<h2>Naming Data Objects</h2>
+<ul>
+<li>All Data Object Files go into the application/data/ directory. This directory can be defined using APP_DATA_DIR</li>
+<li>Data filenames are lowercase, have _data appended to them and should be the singular form of the name.</li>
+<li>The Data class name is capitalized, must have _Data appended to it and should be the singular form of the name.</li>
+<li>Sub folder is supported, e.g., you can have application/data/blog/post_data.php</li>
+</ul>
+
 <h2>Using other datas from within a data</h2>
 
 <p>
@@ -66,12 +74,12 @@ It's possible for a data object to depend on other data objects. This occurs a l
 In InfoPotato, using other data objects from within a data object is <strong>NOT ALLOWED</strong>.
 </p>
 
-<h2><a name="loading"></a>Loading a Data in Controller</h2> 
+<h2>Loading a Data in Manager</h2> 
  
-<p>Your datas will typically be loaded and called from within your <a href="<?php echo APP_URI_BASE; ?>documentation/controller/">controller</a> functions. To load a data you will use the following function:</p> 
+<p>Your datas will typically be loaded and called from within your manager functions. To load a data you will use the following function:</p> 
  
 <div class="syntax"><pre>
-<span class="k">class</span> <span class="nc">User_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">User_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
         <span class="c1">// Load user data, this data can be used by other class methods</span> 
@@ -125,7 +133,7 @@ In InfoPotato, using other data objects from within a data object is <strong>NOT
 <span class="p">}</span> 
 </pre></div>  
  
-<h2><a name="conn"></a>Connecting to your Database</h2> 
+<h2>Connecting to your Database</h2> 
  
 <p>
 If RDBMS used in your application, you can define the database connection in application/configs/database.php
