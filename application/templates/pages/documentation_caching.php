@@ -21,10 +21,22 @@ Caching is the practice of trading space (RAM or disk) for extra speed. Data is 
 There are a number of different caching mechanisms (which perform logically different tasks) which turn up in PHP applications and should be understood to avoid confusion.
 </p> 
  
-<h2>Script Caching</h2>
+<h2>PHP Script Caching</h2>
 
 <p>
-There are a number of Script Caching engines available which act as “add ons” to the base PHP installation;
+The core of PHP is the Zend Engine which parses PHP code and translates it into a byte code, then interprets the byte code. In PHP the source code file is reparsed for every request made to the server, even if no changes have been made since the last time it was parsed. Script Caching saves the byte code to a file (known as compiling), so that the source code does not have to be reparsed if it hasn’t changed. Parsing can take a substantial amount of time on each request. For many scripts, the time required to parse the PHP code into byte code will take longer than the time need to interpret it.
+</p>
+
+<p>
+When a site visitor asks the web server for a PHP page, the web server starts a PHP engine to run that script. The engine converts programmer instructions into simpler instructions the computer can understand. This conversion process, or compilation, takes time. When the compilation is done, the engine runs the PHP program, which builds a web page and returns it to the site visitor.
+</p>
+
+<p>
+By default, the PHP engine re-compiles the requested PHP scripts every time a visitor loads a web page for the site. Because the PHP application program changes rarely (only when you install a new version), re-compiling it over and over again is redundant. Instead, when a PHP accelerator script cache is installed, the PHP engine compiles the application just once and saves the results into the script cache. The next time the program is needed, the engine re-uses the compiled script in the cache. This saves time, speeding up the web site.
+</p>
+
+<p>
+There are a number of popular Script Caching engines available which act as "add ons" to the base PHP installation;
 </p>
 
 <ul>

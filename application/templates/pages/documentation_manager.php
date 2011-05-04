@@ -64,6 +64,26 @@ A manager's filename can be basically anything. The name of the manager class mu
 InfoPotato was designed with REST in mind from the beginning. The "{request method}_{URI method segment}" manager methods are special because they can only be accessed by using the corresponding HTTP request method. This semantic difference enables true RESTful behavior, because it separates processing actions from requesting ones, while still allowing you to use the same URI.
 </p>
 
+<p>
+To elucidate, let's begin with a simple example of a contact manager (application/managers/contact_manager.php).
+</p>
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<span class="k">class</span> <span class="nc">Conatct_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="c1">// Display the contact form</span> 
+    <span class="p">}</span> 
+ 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">post_index</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="c1">// Process the submitted contact data</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div> 
+
+<p>
+Notice that these two methods are prefixed with the type of HTTP request that was issued. This separation concept is adopted from the WebPY framework and its subsequent PHP clone, WebPHP.
+</p>
+
 <div class="tipbox">
 <pre>
 <strong>GET /contact/</strong>
@@ -76,102 +96,6 @@ Method: post_index()
 </pre>
 </div>
 
-
-<h2>Let's try it:&nbsp; Hello World!</h2>
-
-<p>Let's create a simple Manager so you can see it in action. Using your text editor (Mine is Notepad++), create a file called <dfn>blog_manager.php</dfn>, and put the following code in it:</p>
-
-<div class="syntax">
-<pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
-	<span class="c1">// Ohter codes </span> 
-    <span class="p">}</span> 
-	
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">echo</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span> 
-    <span class="p">}</span> 
-<span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"> </span> 
-</pre>
-</div> 
-
-<p>Then save the file to your <dfn>application/Managers/</dfn> folder.</p>
-
-<p>Now visit the your site using a URL similar to this:</p>
-
-<p class="red">example.com/index.php/<var>blog</var>/</p>
-
-<p>If you did it right, you should see <samp>Hello World!</samp>.</p>
-
-<p>Also, always make sure your Manager <dfn>extends</dfn> the parent Manager class so that it can inherit all its functions.</p>
-
-
-<h2>Functions</h2>
-
-<p>In the above example the function name is <dfn>index()</dfn>.  The "index" function is always loaded by default if the
-<strong>second segment</strong> of the URI is empty.  Another way to show your "Hello World" message would be this:</p>
-
-<code>example.com/index.php/<var>blog</var>/<samp>index</samp>/</code>
-
-<p><strong>The second segment of the URI determines which function in the Manager gets called.</strong></p>
-
-<p>Let's try it.  Add a new function to your Manager:</p>
-
-
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
- 
-	<span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
-		<span class="k">echo</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span> 
-	<span class="p">}</span> 
- 
-	<span class="k">function</span> <span class="nf">get_comments</span><span class="p">()</span> <span class="p">{</span> 
-		<span class="k">echo</span> <span class="s1">&#39;Look at this!&#39;</span><span class="p">;</span> 
-	<span class="p">}</span> 
-<span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
-</pre></div> 
-
-<p>Now load the following URL to see the <dfn>comment</dfn> function:</p>
-
-<code>example.com/index.php/<var>blog</var>/<samp>comments</samp>/</code>
-
-<p>You should see your new message.</p>
-
-
-<h2>Passing URI Segments to your Functions</h2>
-
-<p>If your URI contains more then two segments they will be passed to your function as parameters.</p>
-
-<p>For example, lets say you have a URI like this:</p>
-
-<code>example.com/index.php/<var>products</var>/<samp>shoes</samp>/<kbd>sandals</kbd>/<dfn>123</dfn></code>
-
-<p>Your function will be passed URI segments 3 and 4 ("sandals" and "123"):</p>
-
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
-	<span class="c1">// Ohter codes </span> 
-    <span class="p">}</span> 
-	
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">process</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">echo</span> <span class="s1">&#39;Hello World!&#39;</span><span class="p">;</span> 
-    <span class="p">}</span> 
- 
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">_get_date</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="nb">date</span><span class="p">();</span> 
-    <span class="p">}</span> 
- 
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_get_user</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">echo</span> <span class="s1">&#39;Joe&#39;</span><span class="p">;</span> 
-    <span class="p">}</span> 
-<span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"> </span> 
-</pre></div> 
 
 
 <h2>Defining a Default Manager</h2>

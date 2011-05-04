@@ -189,7 +189,7 @@ If RDBMS used in your application, you can define the database connection in app
 <p>Your data files can also be stored within sub-folders if you prefer that type of organization.  When doing so you will need to include the folder name loading the data.  Example:</p> 
  
 <div class="syntax"><pre>
-<span class="k">class</span> <span class="nc">User_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
+<span class="k">class</span> <span class="nc">User_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_post</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="c1">// Load post data, this data file is stored under /datas/post/ folder</span> 
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;post/post_data&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span> 

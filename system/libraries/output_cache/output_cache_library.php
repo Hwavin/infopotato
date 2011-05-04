@@ -1,11 +1,11 @@
 <?php
 /**
- * File-based Cache Class
+ * File-based Output Cache Class
  *		
  * @link		based on http://www.jongales.com/blog/2009/02/18/simple-file-based-php-cache-class/
  * @link        based on http://www.rooftopsolutions.nl/article/107
  */
-class Cache_Library {  
+class Output_Cache_Library {  
 	
 	/**
 	 * @var string The cache dir. The dir should end with DIRECTORY_SEPARATOR
@@ -159,4 +159,4 @@ class Cache_Library {
 	}
 } 
  
-/* End of file: ./system/libraries/cache/cache_library.php */
+/* End of file: ./system/libraries/output_cache/output_cache_library.php */

@@ -1,7 +1,7 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Cache Library
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Output Cache Library
 </div>
 </div>
 <!-- end breadcrumb -->
@@ -9,7 +9,7 @@
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Cache Library</h1>	
+<h1 class="first_heading">Output Cache Library</h1>	
 
 <p>InfoPotato lets you cache your pages in order to achieve maximum performance.</p> 
  
@@ -18,15 +18,15 @@ server resources, memory, and processing cycles utilized, which affect your page
 By caching your pages, since they are saved in their fully rendered state, you can achieve performance that nears that of static web pages.</p> 
  
  
-<h2>How Does Caching Work?</h2> 
+<h2>How Does Output Caching Work?</h2> 
  
-<p>Caching can be enabled on a per-page basis, and you can set the length of time that a page should remain cached before being refreshed.
+<p>Output Caching can be enabled on a per-page basis, and you can set the length of time that a page should remain cached before being refreshed.
 When a page is loaded for the first time, the cache file will be written to your <dfn>user-defined cache</dfn> folder.  On subsequent page loads the cache file will be retrieved
 and sent to the requesting user's browser.  If it has expired, it will be deleted and refreshed before being sent to the browser.</p> 
  
 <p>Note: The Benchmark tag is not cached so you can still view your page load speed when caching is enabled.</p> 
  
-<h2>Define Cache Folder</h2> 
+<h2>Define Output Cache Folder</h2> 
  
 <p>To define the target cache folder, put the following code in <dfn>index.php</dfn></p> 
  
@@ -36,12 +36,12 @@ and sent to the requesting user's browser.  If it has expired, it will be delete
 </pre>
 </div> 
  
-<h2>Use Cache in Manager</h2> 
+<h2>Use Output Cache in Manager</h2> 
  
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">class</span> <span class="nc">Home_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;cache/cache_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cache_dir&#39;</span><span class="o">=&gt;</span><span class="nx">APP_CACHE_DIR</span><span class="p">));</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;output_cache/output_cache_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cache_dir&#39;</span><span class="o">=&gt;</span><span class="nx">APP_CACHE_DIR</span><span class="p">));</span> 
 	<span class="nv">$cached_data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">);</span> 
 	<span class="k">if</span> <span class="p">(</span><span class="nv">$cached_data</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span>  
 	    <span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 

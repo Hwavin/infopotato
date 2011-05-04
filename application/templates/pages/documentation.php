@@ -65,7 +65,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
  
 <h3>Library Reference</h3> 
 <ul>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cache/">Cache</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/output_cache/">Output Cache</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/calendar/">Calendar</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cookie/">Cookie</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cart/">Shopping Cart</a></li> 
