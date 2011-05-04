@@ -16,7 +16,7 @@ As you may already know, the web server receives the requests and passe them to 
 </p>
 
 <p>
-Dispatching is the process of extracting the manager name, method name, and optional parameters contained in it, and then instantiating a manager and calling the appropriate method of that manager.
+Dispatching is the process of loading and instantiating a specific manager and executing a specific method with given parameters
 </p>
 
 <h2>What is Dispatcher and what does it do?</h2>

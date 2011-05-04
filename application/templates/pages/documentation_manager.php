@@ -55,8 +55,26 @@ A manager's filename can be basically anything. The name of the manager class mu
 <li>manager class must map to filename and capitalized, and must be appended with _Manager, e.g. Blog_Manager</li>
 <li>must have the Manager class as (grand)parent</li>
 <li>manager methods preceded by '_' (e.g. _do_something() ) cannot be called by the URI mapping</li>
-<li>only the methods begin with the HTTP request method, like 'get_' or 'post_', can be called</li>
+<li>web-accessible manager methods are prefixed with either "get_" or "post", depending on the HTTP request method (GET/POST).</li>
 </ul>
+
+
+<h2>Method Conventions - RESTful by Default</h2>
+<p>
+InfoPotato was designed with REST in mind from the beginning. The "{request method}_{URI method segment}" manager methods are special because they can only be accessed by using the corresponding HTTP request method. This semantic difference enables true RESTful behavior, because it separates processing actions from requesting ones, while still allowing you to use the same URI.
+</p>
+
+<div class="tipbox">
+<pre>
+<strong>GET /contact/</strong>
+Manager: application/managers/contact_manager.php
+Method: get_index()
+
+<strong>POST /contact/</strong>
+Manager: application/managers/contact_manager.php
+Method: post_index()
+</pre>
+</div>
 
 
 <h2>Let's try it:&nbsp; Hello World!</h2>
