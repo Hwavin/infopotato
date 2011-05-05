@@ -17,9 +17,9 @@ InfoPotato provides a concept of SQL database adapter for all SQL-based database
 
 <h2>Overview</h2>
 <ul>
-<li>It automatically caches query results and allows you to use easy to understand functions to manipulate and extract them without causing extra server overhead</li>
+<li>It allows you to cache query results and manipulate and extract them without causing extra server overhead</li>
 <li>It has excellent debug functions making it lightning-fast to see what’s going on in your SQL code</li>
-<li>Most ezSQL functions can return results as Objects (OBJECT), Associative Arrays (ARRAY_A), or Numerical Arrays (ARRAY_N)</li>
+<li>Most DB_Adapter functions can return results as Objects (OBJECT), Associative Arrays (ARRAY_A), or Numerical Arrays (ARRAY_N)</li>
 </ul>
 
 <h2>Quick Start</h2>

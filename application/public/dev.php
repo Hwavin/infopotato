@@ -53,8 +53,8 @@ date_default_timezone_set('America/New_York');
  * APP_URI_BASE is used for application requests to access resources that need InfoPotato to further process
  * Must end with the trailing slash '/'
  */
-define('STATIC_URI_BASE', 'http://localhost/infopotato/web/');
-define('APP_URI_BASE', 'http://localhost/infopotato/web/dev.php/');
+define('STATIC_URI_BASE', 'http://localhost/infopotato/application/public/');
+define('APP_URI_BASE', 'http://localhost/infopotato/application/public/dev.php/');
 
 /**
  * Shorthand directory separator constant
@@ -67,8 +67,8 @@ define('DS', DIRECTORY_SEPARATOR);
 /**
  * Framework system/application directories
  */
-define('SYS_DIR', dirname(__FILE__).DS.'../system'.DS);
-define('APP_DIR', dirname(__FILE__).DS.'../application'.DS);
+define('SYS_DIR', dirname(__FILE__).DS.'../../system'.DS);
+define('APP_DIR', dirname(__FILE__).DS.'../../application'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);

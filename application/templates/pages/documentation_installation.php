@@ -22,25 +22,31 @@ Installation of InfoPotato mainly involves the following steps:
 </blockquote>
 </div>
 
-<h2>Step 1</h2>
-<p>
-Download the lastest InfoPotato framework.
-</p>
 
-<h2>Step 2</h2>
+<ul class="list_numbered"> 
+<li>
+<span class="big_number">1.</span>
 <p>
-Unpack the InfoPotato release file to a Web-accessible directory.
+Download the lastest InfoPotato framework and then unpack the release file to a web-accessible directory.
 </p>
+</li> 
 
-<h2>Step 3</h2>
+<li>
+<span class="big_number">2.</span>
 <p>
-Check your local environment by using the Requirements Checker tool.
+Check your local environment settings by using the Requirements Checker tool to make sure your local development environment meets the minimal requirements.
 </p>
+</li> 
 
-<h2>Step 4</h2>
+<li>
+<span class="big_number">3.</span>
 <p>
-Open the index.php file with a text editor and set the Environment Mode, your timezone, base URI, and default manager/method, permitted URI characters, and other application related directories.
+Open the bootstrap file (e.g., index.php) with a text editor and set the Environment Mode, your timezone, base URI, and default manager/method, permitted URI characters, and other application related directories.
 </p>
+</li> 
+
+</ul> 
+
 
 <h2>Database Config</h2>
 <p>

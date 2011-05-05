@@ -777,3 +777,29 @@ top: -4px;
 right: -4px; 
 opacity: 0.9; 
 }
+
+/* Numbered List */
+.list_numbered {
+line-height: 20px;
+list-style: none;
+}
+
+.list_numbered li {
+line-height: 20px;
+list-style: none;
+margin:0 0 20px 0;
+}
+
+span.big_number {
+float: left;
+width: 60px;
+line-height: 44px;
+display: block;
+height: 60px;
+font-size: 40px;
+color: #5B74A8;
+}
+
+.list_numbered li p {
+overflow: hidden;
+}
