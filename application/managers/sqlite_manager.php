@@ -7,6 +7,8 @@ final class SQLite_Manager extends Manager {
 		$users_info = $this->u->get_users_info();
 		
 		//$this->u->add_user('dsadas', 'dadsasada');
+
+		Global_Functions::dump(APP_DIR.'bios.xml', 'xml');
 		
 		//Global_Functions::dump($user_info);
 		Global_Functions::dump($users_info);

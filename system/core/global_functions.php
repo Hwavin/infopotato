@@ -39,13 +39,8 @@ class Global_Functions {
 	 * @param	mixed the variable to be dumped
 	 * @return	void
 	 */
-	public static function dump($var) {
-		ob_start();
-		include(SYS_DIR.'core'.DS.'sys_templates'.DS.'dump.php');
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		echo $buffer;
-		exit;
+	public static function dump($var, $force_type = '', $collapsed = FALSE) {
+		new Dump($var, $force_type, $collapsed);
 	}
 
 }

@@ -66,9 +66,10 @@ define('DS', DIRECTORY_SEPARATOR);
 
 /**
  * Framework system/application directories
+ * You can specify the absolute DIR path
  */
-define('SYS_DIR', dirname(__FILE__).DS.'../../system'.DS);
-define('APP_DIR', dirname(__FILE__).DS.'../../application'.DS);
+define('SYS_DIR', dirname(dirname(dirname(__FILE__).DS)).DS.'system'.DS);
+define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);

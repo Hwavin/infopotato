@@ -11,6 +11,8 @@ final class Home_Manager extends Manager {
 			'type' => 'text/html',
 		);
 		$this->response($response_data);
+		
+		
 	}
 }
 

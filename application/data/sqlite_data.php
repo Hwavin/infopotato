@@ -14,7 +14,7 @@ class SQLite_Data extends Data {
 	
 	public function get_users_info() { 
 		$sql = $this->db->prepare("SELECT * FROM t1");
-		$this->db->vardump($this->db->get_results($sql, ARRAY_A));
+		//$this->db->vardump($this->db->get_results($sql, ARRAY_A));
 		return $this->db->get_results($sql, ARRAY_A);
 	}
 	
