@@ -17,18 +17,18 @@ final class SQLite_Manager extends Manager {
 		new Dump($this->u);
 		
 		$variable_test = array(
-    "first"=>"1",
-    "second",
-    "third"=>array(
-        "inner third 1",
-        "inner third 2"=>"yeah"),
-    "fourth");
+			"first"=>"1",
+			"second",
+			"third"=>array(
+				"inner third 1",
+				"inner third 2"=>"yeah"),
+			"fourth");
 
-new Dump($variable_test);
+		new Dump($variable_test);
 
-	$this->load_library('SYS', 'snoopy/snoopy_library', 'snoopy');
-	$this->snoopy->fetchlinks("http://www.instituteforlearning.org/");
-	new Dump($this->snoopy->results);
+		$this->load_library('SYS', 'snoopy/snoopy_library', 'snoopy');
+		$this->snoopy->fetchlinks("http://www.instituteforlearning.org/");
+		new Dump($this->snoopy->results);
 	}
 }
 
