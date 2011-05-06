@@ -8,7 +8,7 @@ final class Users_Manager extends Manager {
 
 		//Global_Functions::dump($user_info);
 		Global_Functions::dump($users_info);
-	}
+
 }
 
 // End of file: ./application/managers/users_manager.php

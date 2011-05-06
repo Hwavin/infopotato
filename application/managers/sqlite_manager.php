@@ -8,10 +8,24 @@ final class SQLite_Manager extends Manager {
 		
 		//$this->u->add_user('dsadas', 'dadsasada');
 
-		Global_Functions::dump(APP_DIR.'bios.xml', 'xml');
+		Global_Functions::dump(APP_DIR.'bios.xml', 'XMl');
 		
 		//Global_Functions::dump($user_info);
 		Global_Functions::dump($users_info);
+		Global_Functions::dump($this->u);
+		
+		new Dump($this->u);
+		
+		$variable_test = array(
+    "first"=>"1",
+    "second",
+    "third"=>array(
+        "inner third 1",
+        "inner third 2"=>"yeah"),
+    "fourth");
+
+new Dump($variable_test);
+
 	}
 }
 
