@@ -48,7 +48,7 @@ class Dump {
 		// Only include js and css scripts once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
-			$this->init_JS_and_CSS();
+			self::init_JS_and_CSS();
 		}
 
 		switch (strtolower($force_type)) {
@@ -107,7 +107,6 @@ class Dump {
 		// since the returned string may be subject to change in a future version. 
 		// In addition, it is slow too, as it involves string comparison.
         // Instead, use the is_* functions.
-		
 		if (is_resource($var)) {
 			$this->var_is_resource($var);
 		} elseif (is_object($var)) {
@@ -115,7 +114,7 @@ class Dump {
 		} elseif (is_array($var)) {
 			$this->var_is_array($var);
 		} elseif (is_null($var)) {
-			$this->var_is_NULL();
+			$this->var_is_null();
 		} elseif (is_bool($var)) {
 			$this->var_is_boolean($var);
 		} else {
@@ -125,7 +124,7 @@ class Dump {
 	}
 	
 	// If variable is a NULL type
-	public function var_is_NULL() {
+	public function var_is_null() {
 		echo 'NULL';
 	}
 	
@@ -143,7 +142,7 @@ class Dump {
 		$this->make_table_header('array', 'array');
 		if (is_array($var)) {
 			foreach ($var as $key => $value) {
-				$this->make_td_header('array', $key);
+				self::make_td_header('array', $key);
 				
 				// Check for recursion
 				if (is_array($value)) {
@@ -331,7 +330,7 @@ class Dump {
 		}
 	}
 
-	public function init_JS_and_CSS() {
+	public static function init_JS_and_CSS() {
 		echo <<<SCRIPTS
 			<script language="JavaScript">
 			/* code modified from ColdFusion's cfdump code */

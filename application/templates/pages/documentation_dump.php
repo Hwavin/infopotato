@@ -98,7 +98,7 @@
 <h1 class="first_heading">Dump Variable</h1>	
 
 <p>
-The Dump class is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dBug</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. Variable types supported are: 
+The Dump class is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dBug</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. This is a much better presentation of a variable's contents than PHP's var_dump and print_r functions. Variable types supported are: 
 </p>
 
 <ul>
@@ -144,30 +144,30 @@ This is my string
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
-<table cellspacing="2" cellpadding="3" class="dBug_array"> 
-				<tr> 
-					<td class="dBug_arrayHeader" colspan=2 onClick='dBug_toggleTable(this)'>array</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">first</td> 
-				<td>1</td></tr> 
+<table cellspacing="2" cellpadding="3" class="dBug_array grid"> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">0</td> 
-				<td>second</td></tr> 
+<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">first</td> 
+<td>1</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">third</td> 
-				<td><table cellspacing=2 cellpadding=3 class="dBug_array"> 
-				<tr> 
-					<td class="dBug_arrayHeader" colspan=2 onClick='dBug_toggleTable(this)'>array</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">0</td> 
-				<td>inner third 1</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">0</td> 
+<td>second</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">inner third 2</td> 
-				<td>yeah</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">third</td> 
+<td><table cellspacing=2 cellpadding="3" class="dBug_array"> 
+<tr> 
+<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">0</td> 
+<td>inner third 1</td></tr> 
+<tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">inner third 2</td> 
+<td>yeah</td></tr> 
 </table></td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">1</td> 
-				<td>fourth</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">1</td> 
+<td>fourth</td></tr> 
 </table>
 
 <h2>Sample Usage - object</h2>
@@ -203,24 +203,24 @@ This is my string
 <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
 </pre></div> 
 
-<table cellspacing=2 cellpadding=3 class="dBug_object"> 
-				<tr> 
-					<td class="dBug_objectHeader" colspan=2 onClick='dBug_toggleTable(this)'>object</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">edible</td> 
-				<td>spinach</td></tr> 
+<table cellspacing="2" cellpadding="3" class="dBug_object grid"> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">color</td> 
-				<td>green</td></tr> 
+<td class="dBug_objectHeader" colspan="2" onClick='dBug_toggleTable(this)'>object</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">edible</td> 
+<td>spinach</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">vegetable</td> 
-				<td>[method]</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">color</td> 
+<td>green</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">is_edible</td> 
-				<td>[method]</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">vegetable</td> 
+<td>[method]</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">what_color</td> 
-				<td>[method]</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">is_edible</td> 
+<td>[method]</td></tr> 
+<tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">what_color</td> 
+<td>[method]</td></tr> 
 </table>
 
 <h2>Sample Usage - XML</h2>
@@ -235,97 +235,97 @@ When an xml variable is dumped as is, it is recognized as a string. This is even
 <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">);</span> 
 </pre></div> 
 
-<table cellspacing=2 cellpadding=3 class="dBug_xml"> 
-				<tr> 
-					<td class="dBug_xmlHeader" colspan=2 onClick='dBug_toggleTable(this)'>XML Document</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Root</td> 
-				<td><table cellspacing=2 cellpadding=3 class="dBug_xml"> 
-				<tr> 
-					<td class="dBug_xmlHeader" colspan=2 onClick='dBug_toggleTable(this)'>Element</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
-				<td><strong>chapter</strong></td></tr> 
+<table cellspacing=2 cellpadding="3" class="dBug_xml grid"> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
-				<td>&nbsp;</td></tr> 
+<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>XML Document</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Root</td> 
+<td><table cellspacing=2 cellpadding="3" class="dBug_xml"> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
-				<td> 
-	</td></tr> 
+<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td><strong>chapter</strong></td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
-				<td>&nbsp;</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
+<td>&nbsp;</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
-				<td><table cellspacing=2 cellpadding=3 class="dBug_xml"> 
-				<tr> 
-					<td class="dBug_xmlHeader" colspan=2 onClick='dBug_toggleTable(this)'>Element</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
-				<td><strong>TITLE</strong></td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td> 
+</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
-				<td>&nbsp;</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td>&nbsp;</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
-				<td>This is my title</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
+<td><table cellspacing=2 cellpadding="3" class="dBug_xml"> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
-				<td>&nbsp;</td></tr> 
+<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td><strong>TITLE</strong></td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
-				<td></td></tr> 
-</table><table cellspacing=2 cellpadding=3 class="dBug_xml"> 
-				<tr> 
-					<td class="dBug_xmlHeader" colspan=2 onClick='dBug_toggleTable(this)'>Element</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
-				<td><strong>tgroup</strong></td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
+<td>&nbsp;</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
-				<td><table cellspacing=2 cellpadding=3 class="dBug_array"> 
-				<tr> 
-					<td class="dBug_arrayHeader" colspan=2 onClick='dBug_toggleTable(this)'>array</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">cols</td> 
-				<td>3</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td>This is my title</td></tr> 
+<tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td>&nbsp;</td></tr> 
+<tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
+<td></td></tr> 
+</table><table cellspacing="2" cellpadding="3" class="dBug_xml"> 
+<tr> 
+<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td><strong>tgroup</strong></td></tr> 
+<tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
+<td><table cellspacing=2 cellpadding="3" class="dBug_array"> 
+<tr> 
+<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">cols</td> 
+<td>3</td></tr> 
 </table></td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
-				<td> 
-		
-		</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td> 
+
+</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
-				<td> Another comment here
-			on second line </td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td> Another comment here
+on second line </td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
-				<td><table cellspacing=2 cellpadding=3 class="dBug_xml"> 
-				<tr> 
-					<td class="dBug_xmlHeader" colspan=2 onClick='dBug_toggleTable(this)'>Element</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
-				<td><strong>entry</strong></td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
+<td><table cellspacing=2 cellpadding="3" class="dBug_xml"> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
-				<td><table cellspacing=2 cellpadding=3 class="dBug_array"> 
-				<tr> 
-					<td class="dBug_arrayHeader" colspan=2 onClick='dBug_toggleTable(this)'>array</td> 
-				</tr><tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">morerows</td> 
-				<td>1</td></tr> 
+<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td><strong>entry</strong></td></tr> 
+<tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
+<td><table cellspacing="2" cellpadding="3" class="dBug_array"> 
+<tr> 
+<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+</tr><tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">morerows</td> 
+<td>1</td></tr> 
 </table></td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
-				<td>b1</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td>b1</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
-				<td>&nbsp;</td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td>&nbsp;</td></tr> 
 <tr> 
-				<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
-				<td></td></tr> 
+<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
+<td></td></tr> 
 </table></td></tr> 
 </table></td></tr> 
 </table></td></tr> 
