@@ -26,6 +26,9 @@ final class SQLite_Manager extends Manager {
 
 new Dump($variable_test);
 
+	$this->load_library('SYS', 'snoopy/snoopy_library', 'snoopy');
+	$this->snoopy->fetchlinks("http://www.instituteforlearning.org/");
+	new Dump($this->snoopy->results);
 	}
 }
 

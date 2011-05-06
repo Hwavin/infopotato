@@ -82,7 +82,6 @@ margin-bottom:1.5em;
 
 table {
 margin-bottom:1.4em; 
-width:100%;
 background-color:#fff;
 }
 
