@@ -24,7 +24,7 @@
  * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * Original code from {@link http://php.justinvincent.com Justin Vincent (justin@visunet.ie)}
+ * Original code from {@link http://dbug.ospinto.com}
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
@@ -50,7 +50,9 @@ class Dump {
 			define('DUMP_INIT', TRUE);
 			self::init_JS_and_CSS();
 		}
-
+		// Enable collapse of tables when initiated.
+		$this->collapsed = $collapsed;
+		
 		switch (strtolower($force_type)) {
 			case 'array':
 				$this->var_is_array($var);
@@ -64,25 +66,23 @@ class Dump {
 			default:
 				$this->check_type($var);
 		}
-		
-		$this->collapsed = $collapsed;
 	}
 
 	// Create the main table header, can't show the variable name
 	public function make_table_header($type, $header, $colspan = 2) {
-		$str_i = ($this->collapsed) ? "style=\"font-style:italic\" " : ""; 
+		$str_i = ($this->collapsed) ? "style=\"font-style:italic\" " : ''; 
 		
-		echo "<table cellspacing=\"2\" cellpadding=\"3\" class=\"dBug_".$type."\">
+		echo "<table cellspacing=\"2\" cellpadding=\"3\" class=\"dump_".$type."\">
 				<tr>
-					<td ".$str_i."class=\"dBug_".$type."Header\" colspan=".$colspan." onClick='dBug_toggleTable(this)'>".$header."</td>
+					<td ".$str_i."class=\"dump_".$type."_header\" colspan=".$colspan." onClick='dump_toggle_table(this)'>".$header."</td>
 				</tr>";
 	}
 	
 	// Create the table row header
 	public function make_td_header($type, $header) {
-		$str_d = ($this->collapsed) ? " style=\"display:none\"" : "";
+		$str_d = ($this->collapsed) ? " style=\"display:none\"" : '';
 		echo "<tr".$str_d.">
-				<td valign=\"top\" onClick='dBug_toggleRow(this)' class=\"dBug_".$type."Key\">".$header."</td>
+				<td valign=\"top\" onClick='dump_toggle_row(this)' class=\"dump_".$type."_key\">".$header."</td>
 				<td>";
 	}
 	
@@ -142,7 +142,7 @@ class Dump {
 		$this->make_table_header('array', 'array');
 		if (is_array($var)) {
 			foreach ($var as $key => $value) {
-				self::make_td_header('array', $key);
+				$this->make_td_header('array', $key);
 				
 				// Check for recursion
 				if (is_array($value)) {
@@ -159,8 +159,9 @@ class Dump {
 				}
 				echo $this->close_td_row();
 			}
+		} else {
+			echo '<tr><td>'.$this->error('array').$this->close_td_row();
 		}
-		else echo '<tr><td>'.$this->error('array').$this->close_td_row();
 		array_pop($this->arr_history);
 		echo '</table>';
 	}
@@ -188,8 +189,9 @@ class Dump {
 				}
 				if (in_array(gettype($value), $this->arr_type)) {
 					$this->check_type($value);
+				} else {
+					echo $value;
 				}
-				else echo $value;
 				echo $this->close_td_row();
 			}
 			$arr_obj_methods = get_class_methods(get_class($var));
@@ -197,8 +199,9 @@ class Dump {
 				$this->make_td_header('object', $value);
 				echo '[method]'.$this->close_td_row();
 			}
+		} else {
+			echo '<tr><td>'.$this->error('object').$this->close_td_row();
 		}
-		else echo '<tr><td>'.$this->error('object').$this->close_td_row();
 		array_pop($this->arr_history);
 		echo '</table>';
 	}
@@ -334,42 +337,42 @@ class Dump {
 		echo <<<SCRIPTS
 			<script language="JavaScript">
 			/* code modified from ColdFusion's cfdump code */
-				function dBug_toggleRow(source) {
+				function dump_toggle_row(source) {
 					var target = (document.all) ? source.parentElement.cells[1] : source.parentNode.lastChild;
-					dBug_toggleTarget(target,dBug_toggleSource(source));
+					dump_toggle_target(target, dump_toggle_source(source));
 				}
 				
-				function dBug_toggleSource(source) {
-					if (source.style.fontStyle=='italic') {
-						source.style.fontStyle='normal';
+				function dump_toggle_source(source) {
+					if (source.style.fontStyle == 'italic') {
+						source.style.fontStyle = 'normal';
 						source.title='click to collapse';
 						return 'open';
 					} else {
-						source.style.fontStyle='italic';
-						source.title='click to expand';
+						source.style.fontStyle = 'italic';
+						source.title = 'click to expand';
 						return 'closed';
 					}
 				}
 			
-				function dBug_toggleTarget(target,switchToState) {
-					target.style.display = (switchToState=='open') ? '' : 'none';
+				function dump_toggle_target(target, switchToState) {
+					target.style.display = (switchToState == 'open') ? '' : 'none';
 				}
 			
-				function dBug_toggleTable(source) {
-					var switchToState=dBug_toggleSource(source);
+				function dump_toggle_table(source) {
+					var switchToState = dump_toggle_source(source);
 					if(document.all) {
-						var table=source.parentElement.parentElement;
-						for(var i=1;i<table.rows.length;i++) {
-							target=table.rows[i];
-							dBug_toggleTarget(target,switchToState);
+						var table = source.parentElement.parentElement;
+						for(var i=1; i<table.rows.length; i++) {
+							target = table.rows[i];
+							dump_toggle_target(target, switchToState);
 						}
 					}
 					else {
-						var table=source.parentNode.parentNode;
-						for (var i=1;i<table.childNodes.length;i++) {
-							target=table.childNodes[i];
+						var table = source.parentNode.parentNode;
+						for (var i=1; i<table.childNodes.length; i++) {
+							target = table.childNodes[i];
 							if(target.style) {
-								dBug_toggleTarget(target,switchToState);
+								dump_toggle_target(target,switchToState);
 							}
 						}
 					}
@@ -377,45 +380,45 @@ class Dump {
 			</script>
 			
 			<style type="text/css">
-				table.dBug_array,table.dBug_object,table.dBug_resource,table.dBug_resourceC,table.dBug_xml {
+				table.dump_array,table.dump_object,table.dump_resource,table.dump_resourceC,table.dump_xml {
 					font-family:Verdana, Arial, Helvetica, sans-serif; color:#000; font-size:12px;
 				}
 				
-				.dBug_arrayHeader,
-				.dBug_objectHeader,
-				.dBug_resourceHeader,
-				.dBug_resourceCHeader,
-				.dBug_xmlHeader 
+				.dump_array_header,
+				.dump_object_header,
+				.dump_resource_header,
+				.dump_resourceC_header,
+				.dump_xml_header 
 					{ font-weight:bold; color:#fff; cursor:pointer; }
 				
-				.dBug_arrayKey,
-				.dBug_objectKey,
-				.dBug_xmlKey 
+				.dump_array_key,
+				.dump_object_key,
+				.dump_xml_key
 					{ cursor:pointer; }
 					
 				/* array */
-				table.dBug_array { background-color:#006600; }
-				table.dBug_array td { background-color:#fff; }
-				table.dBug_array td.dBug_arrayHeader { background-color:#009900; }
-				table.dBug_array td.dBug_arrayKey { background-color:#CCFFCC; }
+				table.dump_array { background-color:#006600; }
+				table.dump_array td { background-color:#fff; }
+				table.dump_array td.dump_array_header { background-color:#009900; }
+				table.dump_array td.dump_array_key { background-color:#CCFFCC; }
 				
 				/* object */
-				table.dBug_object { background-color:#0000CC; }
-				table.dBug_object td { background-color:#fff; }
-				table.dBug_object td.dBug_objectHeader { background-color:#4444CC; }
-				table.dBug_object td.dBug_objectKey { background-color:#CCDDFF; }
+				table.dump_object { background-color:#0000CC; }
+				table.dump_object td { background-color:#fff; }
+				table.dump_object td.dump_object_header { background-color:#4444CC; }
+				table.dump_object td.dump_object_key { background-color:#CCDDFF; }
 				
 				/* resource */
-				table.dBug_resource, table.dBug_resourceC { background-color:#884488; }
-				table.dBug_resource td, table.dBug_resourceC td { background-color:#fff; }
-				table.dBug_resource td.dBug_resourceHeader, table.dBug_resourceC td.dBug_resourceCHeader { background-color:#AA66AA; }
-				table.dBug_resource td.dBug_resourceKey, table.dBug_resourceC td.dBug_resourceCKey { background-color:#FFDDFF; }
+				table.dump_resource, table.dump_resourceC { background-color:#884488; }
+				table.dump_resource td, table.dump_resourceC td { background-color:#fff; }
+				table.dump_resource td.dump_resource_header, table.dump_resourceC td.dump_resourceC_header { background-color:#AA66AA; }
+				table.dump_resource td.dump_resource_key, table.dump_resourceC td.dump_resourceC_key { background-color:#FFDDFF; }
 				
 				/* xml */
-				table.dBug_xml { background-color:#888; }
-				table.dBug_xml td { background-color:#fff; }
-				table.dBug_xml td.dBug_xmlHeader { background-color:#aaa; }
-				table.dBug_xml td.dBug_xmlKey { background-color:#ddd; }
+				table.dump_xml { background-color:#888; }
+				table.dump_xml td { background-color:#fff; }
+				table.dump_xml td.dump_xml_header { background-color:#aaa; }
+				table.dump_xml td.dump_xml_key { background-color:#ddd; }
 			</style>
 SCRIPTS;
 	}

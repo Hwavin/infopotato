@@ -42,7 +42,7 @@ class Global_Functions {
 	public static function dump($var, $force_type = '', $collapsed = FALSE) {
 		new Dump($var, $force_type, $collapsed);
 	}
-
+	
 }
 
 
