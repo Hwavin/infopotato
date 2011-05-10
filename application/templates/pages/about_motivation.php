@@ -58,7 +58,7 @@ Besides, when it comes to frameworks, developers really need to think about <str
 InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits and incorporates many ideas and work from them. Below is a short list of those PHP frameworks from which InfoPotato drew inspiration. Some core code and libraries/helper functions of InfoPotato are built upon the following projects.
 </p>
 
-<table> 
+<table width="100%"> 
 <tr> 
 <td width="25%"> 
 <ul> 

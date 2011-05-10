@@ -82,6 +82,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/password_hashing/">Password Hashing</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/">User Agent</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/mobile_detect/">Mobile Device Detection</a></li> 
 </ul> 
 </td> 
 <td valign="top" width="25%"> 
