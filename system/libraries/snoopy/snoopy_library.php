@@ -35,150 +35,174 @@ class Snoopy_Library {
 	/* user definable vars */
 
 	/**
-	 * @var  string  host name we are connecting to
+	 * host name we are connecting to 
+	 * @var  string  
 	 */
 	public $host = 'www.php.net'; 
 	
 	/**
-	 * @var  integer  port we are connecting to
+	 * port we are connecting to
+	 * @var  integer
 	 */
 	public $port = 80;
 	
 	/**
-	 * @var  string  proxy host to use
+	 * proxy host to use
+	 * @var  string  
 	 */
 	public $proxy_host = ''; 
 	
 	
 	/**
-	 * @var  string  proxy port to use
+	 * proxy port to use 
+	 * @var  string  
 	 */
 	 public $proxy_port = '';
 	
 	/**
-	 * @var  string  proxy user to use
+	 * proxy user to use
+	 * @var  string  
 	 */
 	public $proxy_user = '';
 	
 	/**
-	 * @var  string  proxy password to use
+	 * proxy password to use
+	 * @var  string  
 	 */
 	public $proxy_pass = '';
 	
 	/**
-	 * @var  string  agent we masquerade as
+	 * agent we masquerade as
+	 * @var  string  
 	 */
 	public $agent =	'Snoopy v1.2.4';
 	
 	/**
-	 * @var  string  referer info to pass
+	 * referer info to pass
+	 * @var  string  
 	 */
 	public $referer = '';
 	
 	/**
-	 * @var  array  array of cookies to pass
+	 * array of cookies to pass
+	 * @var  array  
 	 * $cookies["username"]="joe";
 	 */
 	public $cookies = array();
 	
 	/**
-	 * @var  array  array of raw headers to send
+	 * array of raw headers to send
+	 * @var  array  
 	 * $rawheaders["Content-type"]="text/html";
 	 */
 	public $rawheaders = array();	
 
 	/**
-	 * @var  integer  http redirection depth maximum. 0 = disallow
+	 * http redirection depth maximum. 0 = disallow
+	 * @var  integer  
 	 */
 	public $maxredirs =	5;
 	
 	/**
-	 * @var  string  contains address of last redirected address
+	 * contains address of last redirected address
+	 * @var  string  
 	 */
 	public $lastredirectaddr = '';
 	
 	/**
-	 * @var  boolean  allows redirection off-site
+	 * allows redirection off-site
+	 * @var  boolean  
 	 */
 	public $offsiteok =	TRUE;
 	
 	/**
-	 * @var  integer  frame content depth maximum. 0 = disallow
+	 * frame content depth maximum. 0 = disallow
+	 * @var  integer  
 	 */
 	public $maxframes =	0;
 	
 	/**
-	 * @var  boolean  expand links to fully qualified URLs. this only applies to fetchlinks() submitlinks(), and submittext()
+	 * expand links to fully qualified URLs. this only applies to fetchlinks() submitlinks(), and submittext()
+	 * @var  boolean  
 	 */
 	public $expandlinks	= TRUE;	
 	
 	/**
-	 * @var  boolean  
 	 * pass set cookies back through redirects
+	 * @var  boolean  
 	 * NOTE: this currently does not respect dates, domains or paths.
 	 */
 	public $passcookies	= TRUE;	
 
 	/**
-	 * @var  string  user for http authentication
+	 * user for http authentication
+	 * @var  string  
 	 */
 	public $user = '';
 	
 	/**
-	 * @var  string  password for http authentication
+	 * password for http authentication
+	 * @var  string  
 	 */
 	public $pass = '';
 	
 	/**
-	 * @var  string  http accept types
+	 * http accept types
+	 * @var  string  
 	 */
 	public $accept = 'image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*';
 	
 	/**
-	 * @var  string  where the content is put
+	 * where the content is put
+	 * @var  string  
 	 */
 	public $results = '';
 		
 	/**
-	 * @var  string  error messages sent here
+	 * error messages sent here
+	 * @var  string  
 	 */
 	public $error =	'';
 	
 	/**
-	 * @var  string  response code returned from server
+	 * response code returned from server
+	 * @var  string  
 	 */
 	public $response_code =	'';
 	
 	/**
-	 * @var  array  headers returned from server sent here
+	 * headers returned from server sent here
+	 * @var  array  
 	 */
 	public $headers	= array();
 	
 	/**
-	 * @var  integer  max return data length (body)
+	 * max return data length (body)
+	 * @var  integer  
 	 */
 	public $maxlength =	500000;
 	
 	/**
-	 * @var  integer  timeout on read operations, in seconds
-	 * supported only since PHP 4 Beta 4
+	 * timeout on read operations, in seconds
+	 * @var  integer
 	 */
 	public $read_timeout = 0;	
 	
 	/**
-	 * @var  boolean  set to 0 to disallow timeouts
-	 * if a read operation timed out
+	 * set to 0 to disallow timeouts if a read operation timed out
+	 * @var  boolean
 	 */										
 	public $timed_out =	FALSE;
 	
 	/**
-	 * @var  string  http request status
+	 * http request status
+	 * @var  string  
 	 */
 	public $status = 0;
 
 	/**
-	 * @var  string  temporary directory that the webserver has permission to write to. 
-	 * under Windows, this should be C:\temp
+	 * temporary directory that the webserver has permission to write to. under Windows, this should be C:\temp
+	 * @var  string  
 	 */
 	public $temp_dir = '/tmp';
 	
@@ -197,62 +221,74 @@ class Snoopy_Library {
 	/**** Private variables ****/	
 	
 	/**
-	 * @var  integer  max line length (headers)
+	 * max line length (headers)
+	 * @var  integer  
 	 */
 	private	$_maxlinelen = 4096;
 	
 	/**
-	 * @var  string  default http request method
+	 * default http request method
+	 * @var  string  
 	 */
 	private $_httpmethod = 'GET';
 	
 	/**
-	 * @var  string  default http request version
+	 * default http request version
+	 * @var  string  
 	 */
 	private $_httpversion =	'HTTP/1.0';
 	
 	/**
-	 * @var  string  default submit method
+	 * default submit method
+	 * @var  string  
 	 */
 	private $_submit_method	= 'POST';
 	
 	/**
-	 * @var  string  default submit type
+	 * default submit type
+	 * @var  string  
 	 */
 	private $_submit_type =	'application/x-www-form-urlencoded';
 	
 	/**
-	 * @var  string  MIME boundary for multipart/form-data submit type
+	 * MIME boundary for multipart/form-data submit type
+	 * @var  string  
 	 */
 	private $_mime_boundary	= '';
 	
 	/**
-	 * @var  boolean  will be set if page fetched is a redirect
+	 * will be set if page fetched is a redirect
+	 * @var  boolean  
 	 */
 	private $_redirectaddr = FALSE;
 	
 	/**
-	 * @var  integer  increments on an http redirect
+	 * increments on an http redirect
+	 * @var  integer  
 	 */
 	private $_redirectdepth	= 0;
 	
 	/**
-	 * @var  string  frame src urls
+	 * frame src urls
+	 * @var  string  
 	 */
 	private $_frameurls = array();
 	
 	/**
-	 * @var  integer  increments on frame depth
+	 * increments on frame depth
+	 * @var  integer  
 	 */
 	private $_framedepth = 0;
 	
 	/**
-	 * @var  boolean  set if using a proxy server
+	 * set if using a proxy server
+	 * @var  boolean  
 	 */
 	private $_isproxy =	FALSE;
 	
 	/**
-	 * @var  integer  timeout for socket connection
+	 * timeout for socket connection
+	 * @var  integer  
 	 */
 	private $_fp_timeout = 30;
 

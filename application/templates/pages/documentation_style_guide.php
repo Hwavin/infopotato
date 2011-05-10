@@ -109,32 +109,27 @@ Class names should always have their first letter uppercase. Multiple words shou
 <h2>Commenting</h2> 
 <p>In general, code should be commented prolifically.  It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line.  There is not a required format for comments, but the following are recommended.</p> 
 
-<p><a href="http://manual.phpdoc.org/HTMLSmartyConverter/HandS/phpDocumentor/tutorial_phpDocumentor.howto.pkg.html#basics.docblock">DocBlock</a> style comments preceding class and method declarations so they can be picked up by IDEs:</p> 
+<p>Header Comment Blocks</p> 
 
-<div class="syntax"><pre>
+<p>
+All source code files in the InfoPotato distribution should contain the following comment block as the header:
+</p> 
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="sd">/**</span> 
-<span class="sd"> * Super Class</span> 
+<span class="sd"> * Description</span> 
 <span class="sd"> *</span> 
-<span class="sd"> * @package	Package Name</span> 
-<span class="sd"> * @subpackage	Subpackage</span> 
-<span class="sd"> * @category	Category</span> 
-<span class="sd"> * @author	Author Name</span> 
-<span class="sd"> * @link	http://example.com</span> 
-<span class="sd"> */</span> 
-<span class="k">class</span> <span class="nc">Super_class</span> <span class="p">{</span> 
-</pre></div>
- 
-<div class="syntax"><pre>
-<span class="sd">/**</span> 
-<span class="sd"> * Encodes string for use in XML</span> 
+<span class="sd"> * Copyright 2009-2011 The InfoPotato Project (http://www.infopotato.com/)</span> 
 <span class="sd"> *</span> 
-<span class="sd"> * @access	public</span> 
-<span class="sd"> * @param	string</span> 
-<span class="sd"> * @return	string</span> 
+<span class="sd"> * @author   Original Author &lt;author@example.com&gt;</span> 
+<span class="sd"> * @author   Your Name &lt;you@example.com&gt;</span> 
+<span class="sd"> * @package  Package</span> 
+<span class="sd"> * @license  http://www.opensource.org/licenses/mit-license.php MIT Licence</span> 
+<span class="sd"> * @since    InfoPotato 1.0.0 [only if needed]</span> 
 <span class="sd"> */</span> 
-<span class="k">function</span> <span class="nf">xml_encode</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span> <span class="p">{</span> 
+<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
- 
+
 <p>Use single line comments within code, leaving a blank line between large comment blocks and code.</p> 
  
 <div class="syntax"><pre>
@@ -172,7 +167,36 @@ Class names should always have their first letter uppercase. Multiple words shou
 <span class="nv">$str</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="nx">LD</span><span class="o">.</span><span class="s1">&#39;foo&#39;</span><span class="o">.</span><span class="nx">RD</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span> 
 </pre></div> 
 
+<h2>Control Structures</h2>
+
+<p>
+These include if, for, while, switch, etc. Here is an example if statement, since it is the most complicated of them:
+</p>
+
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">((</span><span class="nx">condition1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition2</span><span class="p">))</span> <span class="p">{</span> 
+    <span class="nx">action1</span><span class="p">;</span> 
+<span class="p">}</span> <span class="k">elseif</span> <span class="p">((</span><span class="nx">condition3</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">condition4</span><span class="p">))</span> <span class="p">{</span> 
+    <span class="nx">action2</span><span class="p">;</span> 
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+    <span class="nx">defaultaction</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div> 
  
+<p>
+Multi-line if conditions are braced this way:
+</p>
+ 
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">((</span><span class="nx">condition1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition2</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition3</span><span class="p">)</span> <span class="o">||</span> 
+    <span class="p">(</span><span class="nx">condition4</span><span class="p">))</span> <span class="p">{</span> 
+    <span class="nx">action1</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div> 
+ 
+<p class="tipbox">
+Control statements should have one space between the control keyword and opening parenthesis, to distinguish them from function calls. Do not omit the curly braces under any circumstance. 
+</p>
  
 <h2>TRUE, FALSE, and NULL</h2> 
 
@@ -385,7 +409,32 @@ Class names should always have their first letter uppercase. Multiple words shou
 <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT foo FROM bar WHERE baz = &#39;bag&#39;&quot;</span><span class="p">;</span> 
 </pre></div> 
 
+
+<h2>Array Definitions</h2>
  
+<p>
+When defining arrays, or nested arrays, use the following format, where indentation is noted via the closing parenthesis characters:
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$arrayname</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+    <span class="s1">&#39;name1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value1&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;name2&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+        <span class="s1">&#39;subname1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;subvalue1&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;subname2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;subvalue2&#39;</span> 
+    <span class="p">),</span> 
+<span class="p">);</span> 
+</pre></div> 
+ 
+<p>
+The only exception should be for empty or short arrays that fit on one line, which may be written as:
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$arrayname</span><span class="p">[</span><span class="s1">&#39;index&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span> 
+<span class="nv">$arrayvar</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;foo1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bar1&#39;</span><span class="p">);</span> 
+</pre></div> 
+
 <h2>Default Function Arguments</h2> 
 <p>Whenever appropriate, provide function argument defaults, which helps prevent PHP errors with mistaken calls and provides common fallback values which can save a few lines of code. Example:</p> 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 

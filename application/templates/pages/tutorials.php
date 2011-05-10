@@ -30,6 +30,13 @@ Jeffery Winesett just made the last screencast in his InfoPotato tutorial series
 </p> 
 </div> 
 
+<div class="tutorials_item"> 
+<h2><a href="<?php echo APP_URI_BASE; ?>tutorials/index/apc/">Understanding APC</a></h2> 
+<p> 
+http://techportal.ibuildings.com/2010/10/07/understanding-apc/
+</p> 
+</div> 
+
 </div> 
 <!-- end onecolumn --> 
  

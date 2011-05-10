@@ -11,7 +11,8 @@
 
 class SQLite_Adapter extends DB_adapter {
 	/**
-	 * @var  string  Database file path
+	 * Database file path
+	 * @var  string  
 	 */
 	public $dbpath = '';
 

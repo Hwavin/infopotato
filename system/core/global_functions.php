@@ -1,6 +1,6 @@
 <?php
 /**
- * These global functions can be used directly in InfoPotato, dispattcher, manager, template, and data object
+ * These global functions can be used directly in InfoPotato, dispatcher, manager, template, and data access object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/

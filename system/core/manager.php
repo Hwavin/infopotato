@@ -9,17 +9,20 @@
  */
 class Manager {
     /**
-     * @var array   Key-value array of HTTP POST parameters
+     * Key-value array of HTTP POST parameters
+	 * @var array   
      */
     protected $POST_DATA = array();
 
 	/**
-     * @var array   An associative array of variables passed to the current script via HTTP request Cookie header      
+     * An associative array of variables passed to the current script via HTTP request Cookie header      
+	 * @var array   
      */
     protected $COOKIE_DATA = array();
 	
 	/**
-	 * @var  array  vars for template file assignment
+	 * vars for template file assignment
+	 * @var  array  
 	 */
 	protected $global_template_vars = array();
 

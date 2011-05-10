@@ -214,7 +214,7 @@ You can specify the permitted URI characters in the entry script index.php.
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;PERMITTED_URI_CHARS&#39;</span><span class="p">,</span> <span class="s1">&#39;a-z 0-9~%.:_-&#39;</span><span class="p">);</span> 
 </pre></div> 
 
-<h2>InfoPotato's URI Pattern</h2>
+<h2>InfoPotato's URI mapping to manager methods</h2>
 <p>
 A clean, elegant URI scheme is an important detail in a high-quality Web application. InfoPotato encourages beautiful URI design and doesn't put any cruft in URIs, like .php. URIs in InfoPotato are composed of segments. A typical segmented URI follows this pattern:
 </p>
@@ -224,7 +224,7 @@ http://www.example.com/index.php/<span class="red">manager</span>/<span class="b
 </div>
 
 <p>
-The segments correspond (in order ) to a <span class="red">Manager</span>, a <span class="blue">Manager method</span>, and the <span class="green">method parameters</span>. There is a one-to-one relationship between a URI string and its corresponding manager class/method.
+The segments correspond (in order ) to a <span class="red">Manager</span>, a <span class="blue">Manager method</span>, and the <span class="green">method parameters</span>. There is a one-to-one relationship between a URI string and its corresponding manager class/method. Part of the advantage of using InfoPotato is that it has a very clear and understandable URI mapping structure. Given a URI the programmer knows exactly which function is being run in which file and which parameters are being passed to that function. This makes InfoPotato one of the best environments to develop in especially for groups of programmers working on the same code base.
 </p>
 
 <p>

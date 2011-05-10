@@ -252,7 +252,7 @@ class Dump {
 		
 		// Read xml file, if xml is not a file, attempt to read it as a string
 		if ($xml_file) {
-			while ($data = str_replace("\n", "", fread($fp, 4096)))
+			while ($data = str_replace("\n", '', fread($fp, 4096)))
 				$this->xml_parse($xml_parser, $data, feof($fp));
 		} else {
 			if ( ! is_string($var)) {

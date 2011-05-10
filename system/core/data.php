@@ -10,7 +10,8 @@
 class Data {
 	
 	/**
-	 * @var  object  $db database object instance
+	 * Database object instance
+	 * @var  object
 	 */
 	protected $db;
 	

@@ -9,33 +9,39 @@
  */
 
 class MySQL_Adapter extends DB_Adapter{
-		/**
-	 * @var  string  Database host
+	/**
+	 * Database host
+	 * @var  string  
 	 */
 	public $dbhost = '';
 	
 	/**
-	 * @var  string  Database username
+	 * Database username
+	 * @var  string  
 	 */
 	public $dbuser = '';
 	
 	/**
-	 * @var  string  Database user password
+	 * Database user password
+	 * @var  string  
 	 */
 	public $dbpass = '';
 	
 	/**
-	 * @var  string  Database to be used
+	 * Database to be used
+	 * @var  string  
 	 */
 	public $dbname = '';
 	
 	/**
-	 * @var  string  Database table columns charset
+	 * Database table columns charset
+	 * @var  string  
 	 */
 	public $charset;
 
 	/**
-	 * @var  string  Database table columns collate
+	 * Database table columns collate
+	 * @var  string  
 	 */
 	public $collate;
 
