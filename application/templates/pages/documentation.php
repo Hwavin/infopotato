@@ -13,7 +13,7 @@
 
 <div class="box_right greybox">
 
-<img src="http://localhost/infopotato/web/images/shared/new_ribbon.png" width="37" height="36" class="new_ribbon" alt="New"> 
+<img src="<?php echo STATIC_URI_BASE; ?>images/shared/new_ribbon.png" width="37" height="36" class="new_ribbon" alt="New"> 
 
 <h3>Offline Documentation</h3>
 <p>
@@ -25,7 +25,7 @@ Grab an <a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>file/resume-pdf">Off
 Thank you for being interested in InfoPotato. Any software application requires some effort to learn. We’ve done our best to minimize the learning curve while making the process as enjoyable as possible. This documentation assumes that you have a general understanding of PHP and a basic understanding of object-oriented programming (OOP). Different functionality within the framework makes use of different technologies – such as SQL, JavaScript, CSS, and XML – and this documentation does not attempt to explain those technologies, only how they are used in context. This documentation is a work in progress. There are planned areas I haven't written yet. Without much babble, start your journey and see how you can use InfoPotato.
 </p>
 
-<table cellpadding="0" cellspacing="10" border="0" width="100%"> 
+<table width="100%"> 
 <tr> 
 <td valign="top" width="25%"> 
  
