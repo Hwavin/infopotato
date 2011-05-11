@@ -370,7 +370,7 @@ class Email_library {
 			return;
 		}
 
-		if ($n < 1 OR $n > 5) {
+		if ($n < 1 || $n > 5) {
 			$this->priority = 3;
 			return;
 		}
@@ -481,9 +481,9 @@ class Email_library {
 	private function _get_content_type() {
 		if	($this->mailtype == 'html' &&  count($this->_attach_name) == 0) {
 			return 'html';
-		} elseif	($this->mailtype == 'html' &&  count($this->_attach_name)  > 0) {
+		} elseif ($this->mailtype == 'html' &&  count($this->_attach_name)  > 0) {
 			return 'html-attach';
-		} elseif	($this->mailtype == 'text' &&  count($this->_attach_name)  > 0) {
+		} elseif ($this->mailtype == 'text' &&  count($this->_attach_name)  > 0) {
 			return 'plain-attach';
 		} else {
 			return 'plain';
@@ -668,8 +668,7 @@ class Email_library {
 			$temp = '';
 			while((strlen($line)) > $charlim) {
 				// If the over-length word is a URL we won't wrap it
-				if (preg_match("!\[url.+\]|://|wwww.!", $line))
-				{
+				if (preg_match("!\[url.+\]|://|wwww.!", $line)) {
 					break;
 				}
 
@@ -928,7 +927,7 @@ class Email_library {
 		// Set the character limit
 		// Don't allow over 76, as that will make servers and MUAs barf
 		// all over quoted-printable data
-		if ($charlim == '' OR $charlim > '76') {
+		if ($charlim == '' || $charlim > '76') {
 			$charlim = '76';
 		}
 
@@ -967,7 +966,7 @@ class Email_library {
 
 				// Convert spaces and tabs but only if it's the end of the line
 				if ($i == ($length - 1)) {
-					$char = ($ascii == '32' OR $ascii == '9') ? $escape.sprintf('%02s', dechex($ascii)) : $char;
+					$char = ($ascii == '32' || $ascii == '9') ? $escape.sprintf('%02s', dechex($ascii)) : $char;
 				}
 
 				// encode = signs
@@ -1031,7 +1030,7 @@ class Email_library {
 			$ascii = ord($char);
 
 			// convert ALL non-printable ASCII characters and our specials
-			if ($ascii < 32 OR $ascii > 126 OR in_array($char, $convert)) {
+			if ($ascii < 32 || $ascii > 126 || in_array($char, $convert)) {
 				$char = '='.dechex($ascii);
 			}
 
@@ -1158,7 +1157,7 @@ class Email_library {
 	 * @return	string
 	 */
 	private function _remove_nl_callback($matches) {
-		if (strpos($matches[1], "\r") !== FALSE OR strpos($matches[1], "\n") !== FALSE) {
+		if (strpos($matches[1], "\r") !== FALSE || strpos($matches[1], "\n") !== FALSE) {
 			$matches[1] = str_replace(array("\r\n", "\r", "\n"), '', $matches[1]);
 		}
 
@@ -1236,7 +1235,7 @@ class Email_library {
 	private function _send_with_sendmail() {
 		$fp = @popen($this->mailpath . " -oi -f ".$this->clean_email($this->_headers['From'])." -t", 'w');
 
-		if ($fp === FALSE OR $fp === NULL) {
+		if ($fp === FALSE || $fp === NULL) {
 			// server probably has popen disabled, so nothing we can do to get a verbose error.
 			return FALSE;
 		}
@@ -1349,44 +1348,39 @@ class Email_library {
 	 */
 	private function _send_command($cmd, $data = '') {
 		switch ($cmd) {
-			case 'hello' :
-
-					if ($this->_smtp_auth OR $this->_get_encoding() == '8bit')
-						$this->_send_data('EHLO '.$this->_get_hostname());
-					else
-						$this->_send_data('HELO '.$this->_get_hostname());
-
-						$resp = 250;
-			break;
-			case 'from' :
-
-						$this->_send_data('MAIL FROM:<'.$data.'>');
-
-						$resp = 250;
-			break;
-			case 'to'	:
-
-						$this->_send_data('RCPT TO:<'.$data.'>');
-
-						$resp = 250;
-			break;
+			case 'hello':
+				if ($this->_smtp_auth || $this->_get_encoding() == '8bit') {
+					$this->_send_data('EHLO '.$this->_get_hostname());
+				} else {
+					$this->_send_data('HELO '.$this->_get_hostname());
+				}
+				$resp = 250;
+				break;
+			
+			case 'from':
+				$this->_send_data('MAIL FROM:<'.$data.'>');
+				$resp = 250;
+				break;
+				
+			case 'to':
+				$this->_send_data('RCPT TO:<'.$data.'>');
+				$resp = 250;
+				break;
+			
 			case 'data'	:
-
-						$this->_send_data('DATA');
-
-						$resp = 354;
-			break;
+				$this->_send_data('DATA');
+				$resp = 354;
+				break;
+			
 			case 'quit'	:
-
-						$this->_send_data('QUIT');
-
-						$resp = 221;
-			break;
+				$this->_send_data('QUIT');
+				$resp = 221;
+				break;
 		}
 
 		$reply = $this->_get_smtp_data();
 
-		$this->_debug_msg[] = "<pre>".$cmd.": ".$reply."</pre>";
+		$this->_debug_msg[] = '<pre>'.$cmd.': '.$reply.'</pre>';
 
 		if (substr($reply, 0, 3) != $resp) {
 			$this->_set_error_message('email_smtp_error', $reply);
@@ -1411,7 +1405,7 @@ class Email_library {
 			return TRUE;
 		}
 
-		if ($this->smtp_user == ""  &&  $this->smtp_pass == "") {
+		if ($this->smtp_user == ''  &&  $this->smtp_pass == '') {
 			$this->_set_error_message('email_no_smtp_unpw');
 			return FALSE;
 		}
@@ -1456,8 +1450,7 @@ class Email_library {
 		if ( ! fwrite($this->_smtp_connect, $data . $this->newline)) {
 			$this->_set_error_message('email_smtp_data_failure', $data);
 			return FALSE;
-		}
-		else {
+		} else {
 			return TRUE;
 		}
 	}
@@ -1469,12 +1462,12 @@ class Email_library {
 	 * @return	string
 	 */
 	private function _get_smtp_data() {
-		$data = "";
+		$data = '';
 
 		while ($str = fgets($this->_smtp_connect, 512)) {
 			$data .= $str;
 
-			if (substr($str, 3, 1) == " ") {
+			if (substr($str, 3, 1) == ' ') {
 				break;
 			}
 		}
@@ -1503,9 +1496,9 @@ class Email_library {
 			return $this->_IP;
 		}
 
-		$cip = (isset($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP'] != "") ? $_SERVER['HTTP_CLIENT_IP'] : FALSE;
-		$rip = (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] != "") ? $_SERVER['REMOTE_ADDR'] : FALSE;
-		$fip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != "") ? $_SERVER['HTTP_X_FORWARDED_FOR'] : FALSE;
+		$cip = (isset($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP'] != '') ? $_SERVER['HTTP_CLIENT_IP'] : FALSE;
+		$rip = (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] != '') ? $_SERVER['REMOTE_ADDR'] : FALSE;
+		$fip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != '') ? $_SERVER['HTTP_X_FORWARDED_FOR'] : FALSE;
 
 		if ($cip && $rip) 	$this->_IP = $cip;
 		elseif ($rip)		$this->_IP = $rip;
@@ -1589,94 +1582,95 @@ class Email_library {
 	 * @return	string
 	 */
 	private function _mime_types($ext = "") {
-		$mimes = array(	'hqx'	=>	'application/mac-binhex40',
-						'cpt'	=>	'application/mac-compactpro',
-						'doc'	=>	'application/msword',
-						'bin'	=>	'application/macbinary',
-						'dms'	=>	'application/octet-stream',
-						'lha'	=>	'application/octet-stream',
-						'lzh'	=>	'application/octet-stream',
-						'exe'	=>	'application/octet-stream',
-						'class'	=>	'application/octet-stream',
-						'psd'	=>	'application/octet-stream',
-						'so'	=>	'application/octet-stream',
-						'sea'	=>	'application/octet-stream',
-						'dll'	=>	'application/octet-stream',
-						'oda'	=>	'application/oda',
-						'pdf'	=>	'application/pdf',
-						'ai'	=>	'application/postscript',
-						'eps'	=>	'application/postscript',
-						'ps'	=>	'application/postscript',
-						'smi'	=>	'application/smil',
-						'smil'	=>	'application/smil',
-						'mif'	=>	'application/vnd.mif',
-						'xls'	=>	'application/vnd.ms-excel',
-						'ppt'	=>	'application/vnd.ms-powerpoint',
-						'wbxml'	=>	'application/vnd.wap.wbxml',
-						'wmlc'	=>	'application/vnd.wap.wmlc',
-						'dcr'	=>	'application/x-director',
-						'dir'	=>	'application/x-director',
-						'dxr'	=>	'application/x-director',
-						'dvi'	=>	'application/x-dvi',
-						'gtar'	=>	'application/x-gtar',
-						'php'	=>	'application/x-httpd-php',
-						'php4'	=>	'application/x-httpd-php',
-						'php3'	=>	'application/x-httpd-php',
-						'phtml'	=>	'application/x-httpd-php',
-						'phps'	=>	'application/x-httpd-php-source',
-						'js'	=>	'application/x-javascript',
-						'swf'	=>	'application/x-shockwave-flash',
-						'sit'	=>	'application/x-stuffit',
-						'tar'	=>	'application/x-tar',
-						'tgz'	=>	'application/x-tar',
-						'xhtml'	=>	'application/xhtml+xml',
-						'xht'	=>	'application/xhtml+xml',
-						'zip'	=>	'application/zip',
-						'mid'	=>	'audio/midi',
-						'midi'	=>	'audio/midi',
-						'mpga'	=>	'audio/mpeg',
-						'mp2'	=>	'audio/mpeg',
-						'mp3'	=>	'audio/mpeg',
-						'aif'	=>	'audio/x-aiff',
-						'aiff'	=>	'audio/x-aiff',
-						'aifc'	=>	'audio/x-aiff',
-						'ram'	=>	'audio/x-pn-realaudio',
-						'rm'	=>	'audio/x-pn-realaudio',
-						'rpm'	=>	'audio/x-pn-realaudio-plugin',
-						'ra'	=>	'audio/x-realaudio',
-						'rv'	=>	'video/vnd.rn-realvideo',
-						'wav'	=>	'audio/x-wav',
-						'bmp'	=>	'image/bmp',
-						'gif'	=>	'image/gif',
-						'jpeg'	=>	'image/jpeg',
-						'jpg'	=>	'image/jpeg',
-						'jpe'	=>	'image/jpeg',
-						'png'	=>	'image/png',
-						'tiff'	=>	'image/tiff',
-						'tif'	=>	'image/tiff',
-						'css'	=>	'text/css',
-						'html'	=>	'text/html',
-						'htm'	=>	'text/html',
-						'shtml'	=>	'text/html',
-						'txt'	=>	'text/plain',
-						'text'	=>	'text/plain',
-						'log'	=>	'text/plain',
-						'rtx'	=>	'text/richtext',
-						'rtf'	=>	'text/rtf',
-						'xml'	=>	'text/xml',
-						'xsl'	=>	'text/xml',
-						'mpeg'	=>	'video/mpeg',
-						'mpg'	=>	'video/mpeg',
-						'mpe'	=>	'video/mpeg',
-						'qt'	=>	'video/quicktime',
-						'mov'	=>	'video/quicktime',
-						'avi'	=>	'video/x-msvideo',
-						'movie'	=>	'video/x-sgi-movie',
-						'doc'	=>	'application/msword',
-						'word'	=>	'application/msword',
-						'xl'	=>	'application/excel',
-						'eml'	=>	'message/rfc822'
-					);
+		$mimes = array(	
+			'hqx'	=>	'application/mac-binhex40',
+			'cpt'	=>	'application/mac-compactpro',
+			'doc'	=>	'application/msword',
+			'bin'	=>	'application/macbinary',
+			'dms'	=>	'application/octet-stream',
+			'lha'	=>	'application/octet-stream',
+			'lzh'	=>	'application/octet-stream',
+			'exe'	=>	'application/octet-stream',
+			'class'	=>	'application/octet-stream',
+			'psd'	=>	'application/octet-stream',
+			'so'	=>	'application/octet-stream',
+			'sea'	=>	'application/octet-stream',
+			'dll'	=>	'application/octet-stream',
+			'oda'	=>	'application/oda',
+			'pdf'	=>	'application/pdf',
+			'ai'	=>	'application/postscript',
+			'eps'	=>	'application/postscript',
+			'ps'	=>	'application/postscript',
+			'smi'	=>	'application/smil',
+			'smil'	=>	'application/smil',
+			'mif'	=>	'application/vnd.mif',
+			'xls'	=>	'application/vnd.ms-excel',
+			'ppt'	=>	'application/vnd.ms-powerpoint',
+			'wbxml'	=>	'application/vnd.wap.wbxml',
+			'wmlc'	=>	'application/vnd.wap.wmlc',
+			'dcr'	=>	'application/x-director',
+			'dir'	=>	'application/x-director',
+			'dxr'	=>	'application/x-director',
+			'dvi'	=>	'application/x-dvi',
+			'gtar'	=>	'application/x-gtar',
+			'php'	=>	'application/x-httpd-php',
+			'php4'	=>	'application/x-httpd-php',
+			'php3'	=>	'application/x-httpd-php',
+			'phtml'	=>	'application/x-httpd-php',
+			'phps'	=>	'application/x-httpd-php-source',
+			'js'	=>	'application/x-javascript',
+			'swf'	=>	'application/x-shockwave-flash',
+			'sit'	=>	'application/x-stuffit',
+			'tar'	=>	'application/x-tar',
+			'tgz'	=>	'application/x-tar',
+			'xhtml'	=>	'application/xhtml+xml',
+			'xht'	=>	'application/xhtml+xml',
+			'zip'	=>	'application/zip',
+			'mid'	=>	'audio/midi',
+			'midi'	=>	'audio/midi',
+			'mpga'	=>	'audio/mpeg',
+			'mp2'	=>	'audio/mpeg',
+			'mp3'	=>	'audio/mpeg',
+			'aif'	=>	'audio/x-aiff',
+			'aiff'	=>	'audio/x-aiff',
+			'aifc'	=>	'audio/x-aiff',
+			'ram'	=>	'audio/x-pn-realaudio',
+			'rm'	=>	'audio/x-pn-realaudio',
+			'rpm'	=>	'audio/x-pn-realaudio-plugin',
+			'ra'	=>	'audio/x-realaudio',
+			'rv'	=>	'video/vnd.rn-realvideo',
+			'wav'	=>	'audio/x-wav',
+			'bmp'	=>	'image/bmp',
+			'gif'	=>	'image/gif',
+			'jpeg'	=>	'image/jpeg',
+			'jpg'	=>	'image/jpeg',
+			'jpe'	=>	'image/jpeg',
+			'png'	=>	'image/png',
+			'tiff'	=>	'image/tiff',
+			'tif'	=>	'image/tiff',
+			'css'	=>	'text/css',
+			'html'	=>	'text/html',
+			'htm'	=>	'text/html',
+			'shtml'	=>	'text/html',
+			'txt'	=>	'text/plain',
+			'text'	=>	'text/plain',
+			'log'	=>	'text/plain',
+			'rtx'	=>	'text/richtext',
+			'rtf'	=>	'text/rtf',
+			'xml'	=>	'text/xml',
+			'xsl'	=>	'text/xml',
+			'mpeg'	=>	'video/mpeg',
+			'mpg'	=>	'video/mpeg',
+			'mpe'	=>	'video/mpeg',
+			'qt'	=>	'video/quicktime',
+			'mov'	=>	'video/quicktime',
+			'avi'	=>	'video/x-msvideo',
+			'movie'	=>	'video/x-sgi-movie',
+			'doc'	=>	'application/msword',
+			'word'	=>	'application/msword',
+			'xl'	=>	'application/excel',
+			'eml'	=>	'message/rfc822'
+		);
 
 		return ( ! isset($mimes[strtolower($ext)])) ? "application/x-unknown-content-type" : $mimes[strtolower($ext)];
 	}

@@ -57,12 +57,15 @@ class Dump {
 			case 'array':
 				$this->var_is_array($var);
 				break;
+			
 			case 'object':
 				$this->var_is_object($var);
 				break;
+			
 			case 'xml':
 				$this->var_is_xml_resource($var);
 				break;
+			
 			default:
 				$this->check_type($var);
 		}
@@ -214,9 +217,11 @@ class Dump {
 			case 'gd':
 				$this->var_is_gd_resource($var);
 				break;
+			
 			case 'xml':
 				$this->var_is_xml_resource($var);
 				break;
+			
 			default:
 				echo get_resource_type($var).$this->close_td_row();
 				break;

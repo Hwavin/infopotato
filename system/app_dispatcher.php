@@ -8,7 +8,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-require(dirname(__FILE__).DS.'core'.DS.'dispatcher.php');
+require_once dirname(__FILE__).DS.'core'.DS.'dispatcher.php';
 
 /**
  * It encapsulates {@link Dispatcher} which provides the actual implementation.

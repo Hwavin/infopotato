@@ -1,20 +1,19 @@
+<!-- begin home banner -->
+<div id="home">
+<div class="inner">
+<h1 class="first_heading center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
+</div>
+</div>
+<!-- end home banner -->
+<div class="clear"></div>
+
+
 <!-- begin onecolumn --> 
 <div id="onecolumn">
 
-<div id="home_banner">
-<h1 class="first_heading center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
-<h2 class="center blue">
-Built on the shoulders of giants
-</h2>
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/grey_banner.png" width="990" height="120" alt="" />
-</div>
-
-
-
-<div class="greybox">
-
-<div id="intro">
-<h2 class="first_heading">What is InfoPotato?</h2>
+<div class="greenbox" id="intro">
+<div id="intro_text">
+<h2 class="first_heading">InfoPotato &mdash; <em class="blue">Built on the shoulders of giants</em></h2>
 <p>
 <strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
 </p>

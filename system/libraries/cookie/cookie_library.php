@@ -166,16 +166,20 @@ class Cookie_Library {
 			$header_string = urlencode($name) . '=' . urlencode($value);
 			if ($expires) {
 				$header_string .= '; expires=' . gmdate('D, d-M-Y H:i:s T', $expires); 		
-			}
+			} 
+			
 			if ($path) {
 				$header_string .= '; path=' . $path;	
 			}
+			
 			if ($domain) {
 				$header_string .= '; domain=' . $domain;	
 			}
+			
 			if ($secure) {
 				$header_string .= '; secure';	
 			}
+			
 			$header_string .= '; httponly';
 			header('Set-Cookie: ' . $header_string, FALSE);
 			return;

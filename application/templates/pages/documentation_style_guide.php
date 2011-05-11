@@ -56,7 +56,126 @@ This allows you to still identify a file as being complete and not truncated.</p
 </pre></div> 
 
 
-<h2>Class and Method Naming</h2> 
+<h2>Indenting and Line Length</h2>
+
+<p>
+Use an indent of 4 spaces, with no tabs. This helps to avoid problems with diffs, patches, SVN history and annotations.
+</p>
+
+<p>
+It is recommended to keep lines at approximately 75-85 characters long for better code readability. <a href="http://paul-m-jones.com/archives/276" class="external_link">Paul M. Jones</a> has some thoughts about that limit.
+</p>
+
+
+<h2>Control Structures</h2>
+
+<p>
+These include if, for, while, switch, etc. Here is an example if statement, since it is the most complicated of them:
+</p>
+
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">((</span><span class="nx">condition1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition2</span><span class="p">))</span> <span class="p">{</span> 
+    <span class="nx">action1</span><span class="p">;</span> 
+<span class="p">}</span> <span class="k">elseif</span> <span class="p">((</span><span class="nx">condition3</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">condition4</span><span class="p">))</span> <span class="p">{</span> 
+    <span class="nx">action2</span><span class="p">;</span> 
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+    <span class="nx">defaultaction</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div> 
+ 
+<p>
+Split long if statements onto several lines
+</p>
+ 
+<p>
+Long if statements may be split onto several lines when the character/line limit would be exceeded. The conditions have to be positioned onto the following line, and indented 4 characters. The logical operators (&&, ||, etc.) should be at the beginning of the line to make it easier to comment (and exclude) the condition. The closing parenthesis and opening brace get their own line at the end of the conditions.
+</p>
+ 
+<p>
+Keeping the operators at the beginning of the line has two advantages: It is trivial to comment out a particular line during development while keeping syntactically correct code (except of course the first line). Further is the logic kept at the front where it's not forgotten. Scanning such conditions is very easy since they are aligned below each other.
+</p>
+
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">((</span><span class="nv">$condition1</span> 
+    <span class="o">||</span> <span class="nv">$condition2</span><span class="p">)</span> 
+    <span class="o">&amp;&amp;</span> <span class="nv">$condition3</span> 
+    <span class="o">&amp;&amp;</span> <span class="nv">$condition4</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="c1">//code here</span> 
+<span class="p">}</span> 
+</pre></div> 
+
+<p>
+The best case is of course when the line does not need to be split. When the if clause is really long enough to be split, it might be better to simplify it. In such cases, you could express conditions as variables an compare them in the if() condition. This has the benefit of "naming" and splitting the condition sets into smaller, better understandable chunks:
+</p>
+ 
+<div class="syntax"><pre>
+<span class="nv">$is_foo</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$condition1</span> <span class="o">||</span> <span class="nv">$condition2</span><span class="p">);</span> 
+<span class="nv">$is_bar</span> <span class="o">=</span> <span class="p">(</span><span class="nv">$condition3</span> <span class="o">&amp;&amp;</span> <span class="nv">$condtion4</span><span class="p">);</span> 
+<span class="k">if</span> <span class="p">(</span><span class="nv">$is_foo</span> <span class="o">&amp;&amp;</span> <span class="nv">$is_bar</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="c1">// ....</span> 
+<span class="p">}</span> 
+</pre></div>
+ 
+<p class="tipbox">
+Control statements should have one space between the control keyword and opening parenthesis, to distinguish them from function calls. You are strongly encouraged to always use curly braces even in situations where they are technically optional. Having them increases readability and decreases the likelihood of logic errors being introduced when new lines are added.
+</p>
+ 
+<p>For switch statements:</p>
+
+<div class="syntax"><pre>
+<span class="k">switch</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="k">case</span> <span class="m">1</span><span class="o">:</span> 
+        <span class="nx">action1</span><span class="p">;</span> 
+        <span class="k">break</span><span class="p">;</span> 
+ 
+    <span class="k">case</span> <span class="m">2</span><span class="o">:</span> 
+        <span class="nx">action2</span><span class="p">;</span> 
+        <span class="k">break</span><span class="p">;</span> 
+ 
+    <span class="k">default</span><span class="o">:</span> 
+        <span class="nx">defaultaction</span><span class="p">;</span> 
+        <span class="k">break</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div>
+
+<p>Ternary operators</p>
+
+<p>
+The same rule as for if clauses also applies for the ternary operator: It may be split onto several lines, keeping the question mark and the colon at the front.
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$a</span> <span class="o">=</span> <span class="nv">$condition1</span> <span class="o">&amp;&amp;</span> <span class="nv">$condition2</span> 
+    <span class="o">?</span> <span class="nv">$foo</span> <span class="o">:</span> <span class="nv">$bar</span><span class="p">;</span> 
+ 
+<span class="nv">$b</span> <span class="o">=</span> <span class="nv">$condition3</span> <span class="o">&amp;&amp;</span> <span class="nv">$condition4</span> 
+    <span class="o">?</span> <span class="nv">$foo_man_this_is_too_long_what_should_i_do</span> 
+    <span class="o">:</span> <span class="nv">$bar</span><span class="p">;</span> 
+</pre></div> 
+
+
+<h2>Function Calls</h2>
+
+<p>
+Functions should be called with no spaces between the function name, the opening parenthesis, and the first parameter; spaces between commas and each parameter, and no space between the last parameter, the closing parenthesis, and the semicolon. Here's an example:
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$var</span> <span class="o">=</span> <span class="nx">foo</span><span class="p">(</span><span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">,</span> <span class="nv">$quux</span><span class="p">);</span> 
+</pre></div> 
+
+<p>
+As displayed above, there should be one space on either side of an equals sign used to assign the return value of a function to a variable.
+</p>
+
+
+<h2>Class Definitions</h2>
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<span class="k">class</span> <span class="nc">Foo_Bar</span> <span class="p">{</span> 
+    <span class="c1">//... code goes here</span> 
+<span class="p">}</span> 
+</pre></div> 
 
 <p>
 Class names should always have their first letter uppercase. Multiple words should be separated with an underscore, and not CamelCased. All other class methods should be entirely lowercased and named to clearly indicate their function, preferably including a verb. Try to avoid overly long and verbose names.
@@ -85,6 +204,21 @@ Class names should always have their first letter uppercase. Multiple words shou
 </pre></div> 
 
 
+<h2>Function Definitions</h2>
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<span class="k">function</span> <span class="nf">foo_function</span><span class="p">(</span><span class="nv">$arg1</span><span class="p">,</span> <span class="nv">$arg2</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="nx">statement</span><span class="p">;</span> 
+    <span class="p">}</span> 
+    <span class="k">return</span> <span class="nv">$val</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div> 
+
+<p class="tipbox">
+Arguments with default values go at the end of the argument list. Always attempt to return a meaningful value from a function if one is appropriate. 
+</p>
+
 <h2>Variable Names</h2> 
 <p>The guidelines for variable naming is very similar to that used for class methods.  Namely, variables should contain only lowercase letters, use underscore separators, and be reasonably named to indicate their purpose and contents. Very short, non-word variables should only be used as iterators in for() loops.</p> 
 <strong>INCORRECT</strong>:
@@ -109,7 +243,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 <h2>Commenting</h2> 
 <p>In general, code should be commented prolifically.  It not only helps describe the flow and intent of the code for less experienced programmers, but can prove invaluable when returning to your own code months down the line.  There is not a required format for comments, but the following are recommended.</p> 
 
-<p>Header Comment Blocks</p> 
+<p><strong>Header Comment Blocks</strong></p>
 
 <p>
 All source code files in the InfoPotato distribution should contain the following comment block as the header:
@@ -147,10 +281,21 @@ All source code files in the InfoPotato distribution should contain the followin
 <span class="nv">$parts</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">foo</span><span class="p">(</span><span class="nv">$parts</span><span class="p">);</span> 
 </pre></div> 
 
+<h2>Including Code</h2>
+
+<p>
+Anywhere you are unconditionally including a class file, use <strong>require_once</strong>. Anywhere you are conditionally including a class file (for example, factory methods), use <strong>include_once</strong>. Either of these will ensure that class files are included only once. They share the same file list, so you don't need to worry about mixing them - a file included with <strong>require_once</strong> will not be included again by <strong>include_once</strong>.
+</p>
  
- 
+<p class="tipbox">
+<strong>include_once</strong> and <strong>require_once</strong> are statements, not functions. Parentheses should not surround the subject filename.
+</p>
+
 <h2>Constants</h2> 
-<p>Constants follow the same guidelines as do variables, except constants should always be fully uppercase.  <em>Always use InfoPotato constants when appropriate, i.e. SLASH, LD, RD, PATH_CACHE, etc.</em></p> 
+<p>
+Constants should always be all-uppercase, with underscores to separate words.
+</p> 
+
 <strong>INCORRECT</strong>:
 <div class="syntax"><pre>
 <span class="nx">myConstant</span>	<span class="c1">// missing underscore separator and not fully uppercase</span> 
@@ -167,37 +312,7 @@ All source code files in the InfoPotato distribution should contain the followin
 <span class="nv">$str</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="nx">LD</span><span class="o">.</span><span class="s1">&#39;foo&#39;</span><span class="o">.</span><span class="nx">RD</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="nv">$str</span><span class="p">);</span> 
 </pre></div> 
 
-<h2>Control Structures</h2>
 
-<p>
-These include if, for, while, switch, etc. Here is an example if statement, since it is the most complicated of them:
-</p>
-
-<div class="syntax"><pre>
-<span class="k">if</span> <span class="p">((</span><span class="nx">condition1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition2</span><span class="p">))</span> <span class="p">{</span> 
-    <span class="nx">action1</span><span class="p">;</span> 
-<span class="p">}</span> <span class="k">elseif</span> <span class="p">((</span><span class="nx">condition3</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">condition4</span><span class="p">))</span> <span class="p">{</span> 
-    <span class="nx">action2</span><span class="p">;</span> 
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-    <span class="nx">defaultaction</span><span class="p">;</span> 
-<span class="p">}</span> 
-</pre></div> 
- 
-<p>
-Multi-line if conditions are braced this way:
-</p>
- 
-<div class="syntax"><pre>
-<span class="k">if</span> <span class="p">((</span><span class="nx">condition1</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition2</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">condition3</span><span class="p">)</span> <span class="o">||</span> 
-    <span class="p">(</span><span class="nx">condition4</span><span class="p">))</span> <span class="p">{</span> 
-    <span class="nx">action1</span><span class="p">;</span> 
-<span class="p">}</span> 
-</pre></div> 
- 
-<p class="tipbox">
-Control statements should have one space between the control keyword and opening parenthesis, to distinguish them from function calls. Do not omit the curly braces under any circumstance. 
-</p>
- 
 <h2>TRUE, FALSE, and NULL</h2> 
 
 <p>
@@ -217,30 +332,6 @@ Control statements should have one space between the control keyword and opening
 <span class="nv">$bar</span> <span class="o">=</span> <span class="k">FALSE</span><span class="p">;</span> 
 <span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="nv">$bar</span> <span class="o">=</span> <span class="k">NULL</span><span class="p">)</span> 
 </pre></div> 
-
- 
- 
- 
-<h2>Logical Operators</h2> 
-
-<p>Use of <strong>||</strong> is discouraged as its clarity on some output devices is low (looking like the number 11 for instance).
-<strong>&amp;&amp;</strong> is preferred over <strong>AND</strong> but either are acceptable, and a space should always precede and follow <strong>!</strong>.</p> 
-<strong>INCORRECT</strong>:
-<div class="syntax"><pre>
-<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span> <span class="o">||</span> <span class="nv">$bar</span><span class="p">)</span> 
-<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span> <span class="k">AND</span> <span class="nv">$bar</span><span class="p">)</span>  <span class="c1">// okay but not recommended for common syntax highlighting applications</span> 
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$foo</span><span class="p">)</span> 
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nb">is_array</span><span class="p">(</span><span class="nv">$foo</span><span class="p">))</span> 
-</pre></div> 
- 
-<strong>CORRECT</strong>:
-<div class="syntax"><pre>
-<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span> <span class="k">OR</span> <span class="nv">$bar</span><span class="p">)</span> 
-<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span> <span class="o">&amp;&amp;</span> <span class="nv">$bar</span><span class="p">)</span> <span class="c1">// recommended</span> 
-<span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$foo</span><span class="p">)</span> 
-<span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nb">is_array</span><span class="p">(</span><span class="nv">$foo</span><span class="p">))</span> 
-</pre></div> 
- 
 
 <h2>Comparing Return Values and Typecasting</h2> 
 <p>Some PHP functions return FALSE on failure, but may also have a valid return value of "" or 0, which would evaluate to FALSE in loose comparisons.  Be explicit by comparing the variable type when using these return values in conditionals to ensure the return value is indeed what you expect, and not a value that has an equivalent loose-type evaluation.</p> 
@@ -303,33 +394,6 @@ Control statements should have one space between the control keyword and opening
 <h2>Line Breaks</h2> 
 <p>Files must be saved with Unix line breaks.  This is more of an issue for developers who work in Windows, but in any case ensure that your text editor is setup to save files with Unix line breaks.</p> 
 
-
-<h2>Code Indenting</h2> 
-<p>Use Allman style indenting.  With the exception of Class declarations, braces are always placed on a line by themselves, and indented at the same level as the control statement that "owns" them.</p> 
-
-<strong>CORRECT</strong>:
-<div class="syntax"><pre>
-<span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="nv">$bar</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="c1">// ...</span> 
-<span class="p">}</span> 
- 
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$arr</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$val</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="c1">// ...</span> 
-<span class="p">}</span> 
- 
-<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span> <span class="o">==</span> <span class="nv">$bar</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="c1">// ...</span> 
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-    <span class="c1">// ...</span> 
-<span class="p">}</span> 
- 
-<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="m">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="k">for</span> <span class="p">(</span><span class="nv">$j</span> <span class="o">=</span> <span class="m">0</span><span class="p">;</span> <span class="nv">$j</span> <span class="o">&lt;</span> <span class="m">10</span><span class="p">;</span> <span class="nv">$j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> 
-	<span class="c1">// ...</span> 
-    <span class="p">}</span> 
-<span class="p">}</span> 
-</pre></div>
- 
  
 <h2>Bracket and Parenthetic Spacing</h2> 
 <p>In general, parenthesis and brackets should not use any additional spaces.  The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability.</p> 
@@ -443,9 +507,100 @@ The only exception should be for empty or short arrays that fit on one line, whi
 <span class="p">}</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
+
+<h2>Best practices</h2>
  
-</div> 
+<p>
+There are other things not covered by PEAR Coding Standards which are mostly subject of personal preference and not directly related to readability of the code. Things like "single quotes vs double quotes" are features of PHP itself to make programming easier and there are no reasons not use one way in preference to another. Such best practices are left solely on developer to decide. The only recommendation could be made to keep consistency within package and respect personal style of other developers.
+</p>
+
+<h3>Readability of code blocks</h3>
  
+<p>
+Related lines of code should be grouped into blocks, seperated from each other to keep readability as high as possible. The definition of "related" depends on the code :)
+
+For example:
+</p>
+
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$bar</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span> 
+<span class="p">}</span> 
+<span class="k">if</span> <span class="p">(</span><span class="nv">$spam</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$ham</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span> 
+<span class="p">}</span> 
+<span class="k">if</span> <span class="p">(</span><span class="nv">$pinky</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$brain</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div> 
+
+<p>
+is a lot easier to read when seperated:
+</p>
+
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$bar</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span> 
+<span class="p">}</span> 
  
+<span class="k">if</span> <span class="p">(</span><span class="nv">$spam</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$ham</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span> 
+<span class="p">}</span> 
+ 
+<span class="k">if</span> <span class="p">(</span><span class="nv">$pinky</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="nv">$brain</span> <span class="o">=</span> <span class="m">1</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div>
+
+<h3>Return early</h3>
+
+<p>
+To keep readability in functions and methods, it is wise to return early if simple conditions apply that can be checked at the beginning of a method:
+</p>
+
+<div class="syntax"><pre>
+<span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="c1">//assume</span> 
+        <span class="c1">//that</span> 
+        <span class="c1">//here</span> 
+        <span class="c1">//is</span> 
+        <span class="c1">//the</span> 
+        <span class="c1">//whole</span> 
+        <span class="c1">//logic</span> 
+        <span class="c1">//of</span> 
+        <span class="c1">//this</span> 
+        <span class="c1">//method</span> 
+        <span class="k">return</span> <span class="nv">$calculated_value</span><span class="p">;</span> 
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
+        <span class="k">return</span> <span class="k">NULL</span><span class="p">;</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div>
+
+<p>
+It's better to return early, keeping indentation and brain power needed to follow the code low.
+</p>
+
+<div class="syntax"><pre>
+<span class="k">function</span> <span class="nf">foo</span><span class="p">(</span><span class="nv">$bar</span><span class="p">,</span> <span class="nv">$baz</span><span class="p">)</span> <span class="p">{</span> 
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$foo</span><span class="p">)</span> <span class="p">{</span> 
+        <span class="k">return</span> <span class="k">NULL</span><span class="p">;</span> 
+    <span class="p">}</span> 
+ 
+    <span class="c1">//assume</span> 
+    <span class="c1">//that</span> 
+    <span class="c1">//here</span> 
+    <span class="c1">//is</span> 
+    <span class="c1">//the</span> 
+    <span class="c1">//whole</span> 
+    <span class="c1">//logic</span> 
+    <span class="c1">//of</span> 
+    <span class="c1">//this</span> 
+    <span class="c1">//method</span> 
+    <span class="k">return</span> <span class="nv">$calculated_value</span><span class="p">;</span> 
+<span class="p">}</span> 
+</pre></div> 
+
 </div> 
 <!-- end onecolumn -->

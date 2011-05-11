@@ -44,11 +44,13 @@ EOT;
     if ($js_wrapped) {
         $out .= '<script language="JavaScript" type="text/javascript">';
     }
+	
     if ($delay > 0) {
         $out .= "window.setTimeout(function () { document.location='{$url}'; }, {$delay});";
     } else {
         $out .= "document.location='{$url}';";
     }
+	
     if ($js_wrapped) {
         $out .= '</script>';
     }

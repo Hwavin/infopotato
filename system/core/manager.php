@@ -10,18 +10,21 @@
 class Manager {
     /**
      * Key-value array of HTTP POST parameters
+	 * 
 	 * @var array   
      */
     protected $POST_DATA = array();
 
 	/**
      * An associative array of variables passed to the current script via HTTP request Cookie header      
+	 *
 	 * @var array   
      */
     protected $COOKIE_DATA = array();
 	
 	/**
 	 * vars for template file assignment
+	 *
 	 * @var  array  
 	 */
 	protected $global_template_vars = array();
@@ -114,7 +117,7 @@ class Manager {
 			if (is_array($template_vars) && (count($template_vars) > 0)) {
 				extract($template_vars);
 			}
-			include($template_file_path);
+			require_once $template_file_path;
 		}	
 		$content = ob_get_contents();
 		ob_end_clean();
@@ -162,7 +165,7 @@ class Manager {
 			$is_compressed = FALSE;
 			if (in_array($config['type'], $mime_types)) {
 				// The number of bytes of the response body in octets (8-bit bytes), not the number of characters
-				$headers['Content-Length'] = (string) UTF8::len($config['content']);
+				//$headers['Content-Length'] = (string) UTF8::len($config['content']);
 				$compression_method = self::_get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
 				$compressed = isset($config['compression_level']) 
@@ -174,7 +177,7 @@ class Manager {
 				if ($compressed !== FALSE) {
 					$headers['Vary'] = 'Accept-Encoding';
 					$headers['Content-Encoding'] = $compression_method[1];
-					$headers['Content-Length'] = (string) UTF8::len($compressed);
+					//$headers['Content-Length'] = (string) UTF8::len($compressed);
 					$is_compressed = TRUE;
 				}
 			}
@@ -217,10 +220,12 @@ class Manager {
 			|| strpos($ae, 'deflate, gzip,') === 0) { 
             return array('gzip', 'gzip');
         }
+		
         // gzip checks (slow)
         if (preg_match('@(?:^|,)\\s*((?:x-)?gzip)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)) {
             return array('gzip', $m[1]);
         }
+		
         if ($allow_deflate) {
             // deflate checks    
             $ae_rev = strrev($ae);
@@ -232,6 +237,7 @@ class Manager {
                 return array('deflate', 'deflate');
             }
         }
+		
         if ($allow_compress && preg_match('@(?:^|,)\\s*((?:x-)?compress)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)) {
             return array('compress', $m[1]);
         }
@@ -253,6 +259,7 @@ class Manager {
         if ($compression_method[0] === '' || ($compression_level == 0) || ! extension_loaded('zlib')) {
             return FALSE;
         }
+		
         if ($compression_method[0] === 'deflate') {
             $compressed = gzdeflate($content, $compression_level);
         } elseif ($compression_method[0] === 'gzip') {
@@ -260,6 +267,7 @@ class Manager {
         } else {
             $compressed = gzcompress($content, $compression_level);
         }
+		
         if ($compressed === FALSE) {
             return FALSE;
         }
@@ -297,6 +305,7 @@ class Manager {
 		if (method_exists($this, $alias)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
 		}
+		
 		// Data already loaded? silently skip
 		if (isset($this->$alias)) {
 			return TRUE;
@@ -307,7 +316,7 @@ class Manager {
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
 		}
-		require_once($file_path);
+		require_once $file_path;
 
 		// Class name must be the same as the data name
 		if ( ! class_exists($data)) {
@@ -375,7 +384,7 @@ class Manager {
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
 		}
-		require_once($file_path);
+		require_once $file_path;
 		
 		// Class name must be the same as the library name
 		if ( ! class_exists($library)) {
@@ -422,9 +431,9 @@ class Manager {
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
 		}
-		// The require_once() will check if the file has already been included, 
+		// The require_once() statement will check if the file has already been included, 
 		// and if so, not include (require) it again
-		require_once($file_path);
+		require_once $file_path;
 	}
 	
 	/**

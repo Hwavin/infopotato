@@ -102,7 +102,7 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 /**
  * Dispatch, prepare, response 
  */
-require(SYS_DIR.'app_dispatcher.php');
+require_once SYS_DIR.'app_dispatcher.php';
 App_Dispatcher::run();
 
 // End of file: ./dev.php 

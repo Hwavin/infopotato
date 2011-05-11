@@ -6,7 +6,7 @@
  */
 class Encrypt_Library {
 
-	private $_encryption_key	= '';
+	private $_encryption_key = '';
 	private $_hash_type	= 'sha1';
 	private $_mcrypt_exists = FALSE;
 	private $_mcrypt_cipher;

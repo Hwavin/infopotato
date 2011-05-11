@@ -27,11 +27,11 @@ define('ENVIRONMENT', 'production');
 switch (ENVIRONMENT) {
 	case 'development':
 		error_reporting(E_ALL | E_STRICT);
-	break;
+	    break;
 
 	case 'production':
 		error_reporting(0);
-	break;
+	    break;
 
 	default:
 		exit('The application environment is not set correctly.');
@@ -103,7 +103,7 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 /**
  * Dispatch, prepare, response 
  */
-require(SYS_DIR.'app_dispatcher.php');
+require_once SYS_DIR.'app_dispatcher.php';
 App_Dispatcher::run();
 
 // End of file: ./index.php 

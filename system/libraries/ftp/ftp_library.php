@@ -119,14 +119,14 @@ class FTP_Library {
 	 * @return	bool
 	 */
 	public function changedir($path = '', $supress_debug = FALSE) {
-		if ($path == '' OR ! $this->_is_conn()) {
+		if ($path == '' || ! $this->_is_conn()) {
 			return FALSE;
 		}
 
 		$result = @ftp_chdir($this->conn_id, $path);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE AND $supress_debug == FALSE) {
+			if ($this->debug == TRUE && $supress_debug == FALSE) {
 				$this->_error('ftp_unable_to_changedir');
 			}
 			return FALSE;
@@ -144,7 +144,7 @@ class FTP_Library {
 	 * @return	bool
 	 */
 	public function mkdir($path = '', $permissions = NULL) {
-		if ($path == '' OR ! $this->_is_conn()) {
+		if ($path == '' || ! $this->_is_conn()) {
 			return FALSE;
 		}
 
@@ -333,7 +333,7 @@ class FTP_Library {
 
 		$list = $this->list_files($filepath);
 
-		if ($list !== FALSE AND count($list) > 0) {
+		if ($list !== FALSE && count($list) > 0) {
 			foreach ($list as $item) {
 				// If we can't delete the item it's probaly a folder so
 				// we'll recursively call delete_dir()
@@ -427,7 +427,7 @@ class FTP_Library {
 			// Attempt to open the remote file path.
 			if ( ! $this->changedir($rempath, TRUE)) {
 				// If it doesn't exist we'll attempt to create the direcotory
-				if ( ! $this->mkdir($rempath) OR ! $this->changedir($rempath)) {
+				if ( ! $this->mkdir($rempath) || ! $this->changedir($rempath)) {
 					return FALSE;
 				}
 			}

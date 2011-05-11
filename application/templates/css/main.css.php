@@ -527,11 +527,16 @@ height:10px;
 background:#597eaa;
 }
 
+#home{
+background:#ededed;
+border-bottom:1px solid #C6D880; 
+}
+
 /* content onecolumn
 -------------------------------------------------------------- */
 #onecolumn {
 width:920px;
-padding:10px 20px 20px;
+padding:20px;
 margin:0 auto;
 -moz-box-shadow:0 6px 15px rgba(0, 0, 0, 0.40);
 -webkit-box-shadow:0 6px 15px rgba(0, 0, 0, 0.40);
@@ -557,25 +562,12 @@ padding:3px 0;
 /* homepage
 -------------------------------------------------------------- */
 #intro {
+margin-top:10px;
+}
+
+#intro_text {
 width:590px;
 float:left;
-}
-
-#home_banner {
-position: relative; 
-margin:10px 0 20px -35px;
-}
-
-#home_banner h1 {
-position: absolute; 
-top: 0px; 
-right: 25px; 
-}
-
-#home_banner h2 {
-position: absolute; 
-top: 50px; 
-right: 285px; 
 }
 
 #download {
@@ -802,3 +794,4 @@ color: #5B74A8;
 .list_numbered li p {
 overflow: hidden;
 }
+

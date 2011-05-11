@@ -96,7 +96,7 @@ class Pagination_Library {
 		$this->offset_low = ($this->current_page - 1) * $this->items_per_page;
 		$this->offset_high = $this->current_page * $this->items_per_page;
 		
-		return Array(
+		return array(
 			'items_total' => $this->items_total,
 			'items_per_page' => $this->items_per_page,
 			'num_pages' => $this->num_pages,

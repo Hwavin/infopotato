@@ -4,17 +4,23 @@
  */
 class Feed_Writer_Library {
 	/**
-	 * @var string The feed version - rss20, rss10, rss092, atom
+	 * The feed version - rss20, rss10, rss092, atom
+	 * 
+	 * @var string 
 	 */
 	private $format = 'rss20';
 	
 	/**
-	 * @var string The items in feed 'body'
+	 * The items in feed 'body'
+	 *
+	 * @var string 
 	 */
 	private $items = '';
 	
 	/**
-	 * @var string The complete feed content ('head' + 'body')
+	 * The complete feed content ('head' + 'body')
+	 *
+	 * @var string 
 	 */
 	private $feed = '';
 	
@@ -75,6 +81,7 @@ class Feed_Writer_Library {
 				$item .= "\t\t" . '<link>' . $this->_strip($a['link']) . '</link>' . "\n";
 				$item .= "\t" . '</item>' . "\n";
 				break;
+			
 			case 'rss10':
 				$item = "\t" . '<item rdf:about="' . $this->_strip($a['link']) . '">' . "\n";
 				$item .= "\t\t" . '<title>' . $this->_strip($a['title']) . '</title>' . "\n";
@@ -85,6 +92,7 @@ class Feed_Writer_Library {
 				$item .= "\t\t" . '<dc:creator>' . $this->_strip($a['author']) . '</dc:creator>' . "\n";
 				$item .= "\t" . '</item>' . "\n";
 				break;
+			
 			case 'rss20':
 				$item = "\t" . '<item>' . "\n";
 				$item .= "\t\t" . '<title>' . $this->_strip($a['title']) . '</title>' . "\n";
@@ -94,6 +102,7 @@ class Feed_Writer_Library {
 				$item .= "\t\t" . '<author>' . $this->_strip($a['author']) . '</author>' . "\n";
 				$item .= "\t" . '</item>' . "\n";
 				break;
+			
 			case 'atom':
 				$item = "\t" . '<entry>' . "\n";
 				$item .= "\t\t" . '<id>' . $this->_strip($a['id']) . '</id>' . "\n";
@@ -131,6 +140,7 @@ class Feed_Writer_Library {
 				$this->feed .= $this->items;
 				$this->feed .= '</rdf:RDF>';
 				break;
+			
 			case 'rss10':
 				$this->feed .= '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">' . "\n";
 				$this->feed .= '<channel>' . "\n";
@@ -153,6 +163,7 @@ class Feed_Writer_Library {
 				$this->feed .= '</channel>' . "\n";
 				$this->feed .= '</rss>' . "\n";
 				break;
+			
 			// http://www.atomenabled.org/developers/syndication/
 			case 'atom': 
 				$this->feed .= '<feed version="0.3" xmlns="http://purl.org/atom/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="zh-cn">' . "\n";

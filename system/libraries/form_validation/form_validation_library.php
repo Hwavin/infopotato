@@ -66,7 +66,7 @@ class Form_Validation_Library {
 		if (is_array($field)) {
 			foreach ($field as $row) {
 				// Houston, we have a problem...
-				if ( ! isset($row['field']) OR ! isset($row['rules'])) {
+				if ( ! isset($row['field']) || ! isset($row['rules'])) {
 					continue;
 				}
 
@@ -80,7 +80,7 @@ class Form_Validation_Library {
 		}
 		
 		// No fields? Nothing to do...
-		if ( ! is_string($field) OR  ! is_string($rules) OR $field == '') {
+		if ( ! is_string($field) ||  ! is_string($rules) || $field == '') {
 			return;
 		}
 
@@ -90,7 +90,7 @@ class Form_Validation_Library {
 		// Is the field name an array?  We test for the existence of a bracket "[" in
 		// the field name to determine this.  If it is an array, we break it apart
 		// into its components so that we can fetch the corresponding POST data later		
-		if (strpos($field, '[') !== FALSE AND preg_match_all('/\[(.*?)\]/', $field, $matches)) {	
+		if (strpos($field, '[') !== FALSE && preg_match_all('/\[(.*?)\]/', $field, $matches)) {	
 			// Note: Due to a bug in current() that affects some versions
 			// of PHP we can not pass function call directly into it
 			$x = explode('[', $field);
@@ -164,7 +164,7 @@ class Form_Validation_Library {
 	 * @return	void
 	 */	
 	public function field_error($field = '', $prefix = '', $suffix = '') {	
-		if ( ! isset($this->_field_data[$field]['error']) OR $this->_field_data[$field]['error'] == '') {
+		if ( ! isset($this->_field_data[$field]['error']) || $this->_field_data[$field]['error'] == '') {
 			return '';
 		}
 		
@@ -356,13 +356,13 @@ class Form_Validation_Library {
 		}
 		
 		// If the field is blank, but NOT required, no further tests are necessary
-		if ( ! in_array('required', $rules) AND is_null($postdata)) {
+		if ( ! in_array('required', $rules) && is_null($postdata)) {
 			return;
 		}
 
 		// Isset Test. Typically this rule will only apply to checkboxes.
 		if (is_null($postdata)) {
-			if (in_array('isset', $rules, TRUE) OR in_array('required', $rules)) {
+			if (in_array('isset', $rules, TRUE) || in_array('required', $rules)) {
 				// Set the message type
 				$type = (in_array('required', $rules)) ? 'required' : 'isset';
 			
@@ -391,7 +391,7 @@ class Form_Validation_Library {
 			
 			// We set the $postdata variable with the current data in our master array so that
 			// each cycle of the loop is dealing with the processed data from the last cycle
-			if ($row['is_array'] == TRUE AND is_array($this->_field_data[$row['field']]['postdata'])) {
+			if ($row['is_array'] == TRUE && is_array($this->_field_data[$row['field']]['postdata'])) {
 				// We shouldn't need this safety, but just in case there isn't an array index
 				// associated with this cycle we'll bail out
 				if ( ! isset($this->_field_data[$row['field']]['postdata'][$cycles])) {
@@ -447,7 +447,7 @@ class Form_Validation_Library {
 				
 				// Is the parameter we are inserting into the error message the name
 				// of another field?  If so we need to grab its "field label"
-				if (isset($this->_field_data[$param]) AND isset($this->_field_data[$param]['label'])) {
+				if (isset($this->_field_data[$param]) && isset($this->_field_data[$param]['label'])) {
 					$param = $this->_field_data[$param]['label'];
 				}
 				
@@ -497,8 +497,8 @@ class Form_Validation_Library {
 	 * @return	string
 	 */	
 	public function set_select($field = '', $value = '', $default = FALSE) {		
-		if ( ! isset($this->_field_data[$field]) OR ! isset($this->_field_data[$field]['postdata'])) {
-			if ($default === TRUE AND count($this->_field_data) === 0) {
+		if ( ! isset($this->_field_data[$field]) || ! isset($this->_field_data[$field]['postdata'])) {
+			if ($default === TRUE && count($this->_field_data) === 0) {
 				return ' selected="selected"';
 			}
 			return '';
@@ -511,7 +511,7 @@ class Form_Validation_Library {
 				return '';
 			}
 		} else {
-			if (($field == '' OR $value == '') OR ($field != $value)) {
+			if (($field == '' || $value == '') || ($field != $value)) {
 				return '';
 			}
 		}
@@ -531,8 +531,8 @@ class Form_Validation_Library {
 	 * @return	string
 	 */	
 	public function set_radio($field = '', $value = '', $default = FALSE) {
-		if ( ! isset($this->_field_data[$field]) OR ! isset($this->_field_data[$field]['postdata'])) {
-			if ($default === TRUE AND count($this->_field_data) === 0) {
+		if ( ! isset($this->_field_data[$field]) || ! isset($this->_field_data[$field]['postdata'])) {
+			if ($default === TRUE && count($this->_field_data) === 0) {
 				return ' checked="checked"';
 			}
 			return '';
@@ -545,7 +545,7 @@ class Form_Validation_Library {
 				return '';
 			}
 		} else {
-			if (($field == '' OR $value == '') OR ($field != $value)) {
+			if (($field == '' || $value == '') || ($field != $value)) {
 				return '';
 			}
 		}
@@ -565,8 +565,8 @@ class Form_Validation_Library {
 	 * @return	string
 	 */	
 	public function set_checkbox($field = '', $value = '', $default = FALSE) {
-		if ( ! isset($this->_field_data[$field]) OR ! isset($this->_field_data[$field]['postdata'])) {
-			if ($default === TRUE AND count($this->_field_data) === 0) {
+		if ( ! isset($this->_field_data[$field]) || ! isset($this->_field_data[$field]['postdata'])) {
+			if ($default === TRUE && count($this->_field_data) === 0) {
 				return ' checked="checked"';
 			}
 			return '';
@@ -579,7 +579,7 @@ class Form_Validation_Library {
 				return '';
 			}
 		} else {
-			if (($field == '' OR $value == '') OR ($field != $value)) {
+			if (($field == '' || $value == '') || ($field != $value)) {
 				return '';
 			}
 		}
@@ -861,7 +861,7 @@ class Form_Validation_Library {
 			return $data;
 		}
 		
-		if ($this->_safe_form_data == FALSE OR $data === '') {
+		if ($this->_safe_form_data == FALSE || $data === '') {
 			return $data;
 		}
 

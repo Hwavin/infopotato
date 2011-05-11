@@ -10,30 +10,35 @@
 class PostgreSQL_Adapter extends DB_Adapter {
 	/**
 	 * Database host
+	 *
 	 * @var  string  
 	 */
 	public $dbhost = '';
 	
 	/**
 	 * Database username
+	 *
 	 * @var  string  
 	 */
 	public $dbuser = '';
 	
 	/**
 	 * Database user password
+	 *
 	 * @var  string  
 	 */
 	public $dbpass = '';
 	
 	/**
 	 * Database to be used
+	 *
 	 * @var  string  
 	 */
 	public $dbname = '';
 	
 	/**
 	 * Database table columns charset
+	 *
 	 * @var  string  
 	 */
 	public $charset;

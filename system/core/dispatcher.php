@@ -20,7 +20,7 @@ function __autoload($class_name) {
 		// In case one manager extends another manager
 		$file = APP_MANAGER_DIR.strtolower($class_name).'.php';
 	}
-	require_once($file);
+	require_once $file;
 } 
 
 
@@ -84,7 +84,7 @@ class Dispatcher {
 		if ( ! file_exists($manager_file)) { 
 			Global_Functions::show_sys_error('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
 		}
-		require($manager_file);
+		require_once $manager_file;
 
 		// The name of user-defined manager class (case-insensitive)
 		$manager_class = $manager_name.'_manager';

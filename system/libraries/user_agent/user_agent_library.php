@@ -255,7 +255,7 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _set_browser() {
-		if (is_array($this->browsers) AND count($this->browsers) > 0) {
+		if (is_array($this->browsers) && count($this->browsers) > 0) {
 			foreach ($this->browsers as $key => $val) {		
 				if (preg_match("|".preg_quote($key).".*?([0-9\.]+)|i", $this->agent, $match)) {
 					$this->is_browser = TRUE;
@@ -277,7 +277,7 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _set_robot() {
-		if (is_array($this->robots) AND count($this->robots) > 0) {		
+		if (is_array($this->robots) && count($this->robots) > 0) {		
 			foreach ($this->robots as $key => $val) {
 				if (preg_match("|".preg_quote($key)."|i", $this->agent)) {
 					$this->is_robot = TRUE;

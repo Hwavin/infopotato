@@ -111,24 +111,31 @@ class Upload_Library {
 				case 1:	// UPLOAD_ERR_INI_SIZE
 					$this->set_error('upload_file_exceeds_limit');
 					break;
+				
 				case 2: // UPLOAD_ERR_FORM_SIZE
 					$this->set_error('upload_file_exceeds_form_limit');
 					break;
+				
 				case 3: // UPLOAD_ERR_PARTIAL
 				   $this->set_error('upload_file_partial');
 					break;
+				
 				case 4: // UPLOAD_ERR_NO_FILE
 				   $this->set_error('upload_no_file_selected');
 					break;
+				
 				case 6: // UPLOAD_ERR_NO_TMP_DIR
 					$this->set_error('upload_no_temp_directory');
 					break;
+				
 				case 7: // UPLOAD_ERR_CANT_WRITE
 					$this->set_error('upload_unable_to_write_file');
 					break;
+				
 				case 8: // UPLOAD_ERR_EXTENSION
 					$this->set_error('upload_stopped_by_extension');
 					break;
+				
 				default : $this->set_error('upload_no_file_selected');
 					break;
 			}
@@ -443,7 +450,7 @@ class Upload_Library {
 			return TRUE;
 		}
 		
-		if (count($this->allowed_types) == 0 OR ! is_array($this->allowed_types)) {
+		if (count($this->allowed_types) == 0 || ! is_array($this->allowed_types)) {
 			$this->set_error('upload_no_file_types');
 			return FALSE;
 		}
@@ -487,7 +494,7 @@ class Upload_Library {
 	 * @return	bool
 	 */	
 	public function is_allowed_filesize() {
-		if ($this->max_size != 0  AND  $this->file_size > $this->max_size) {
+		if ($this->max_size != 0  &&  $this->file_size > $this->max_size) {
 			return FALSE;
 		} else {
 			return TRUE;
@@ -508,11 +515,11 @@ class Upload_Library {
 		if (function_exists('getimagesize')) {
 			$D = @getimagesize($this->file_temp);
 
-			if ($this->max_width > 0 AND $D['0'] > $this->max_width) {
+			if ($this->max_width > 0 && $D['0'] > $this->max_width) {
 				return FALSE;
 			}
 
-			if ($this->max_height > 0 AND $D['1'] > $this->max_height) {
+			if ($this->max_height > 0 && $D['1'] > $this->max_height) {
 				return FALSE;
 			}
 
@@ -536,7 +543,7 @@ class Upload_Library {
 			return FALSE;
 		}
 		
-		if (function_exists('realpath') AND @realpath($this->upload_path) !== FALSE) {
+		if (function_exists('realpath') && @realpath($this->upload_path) !== FALSE) {
 			$this->upload_path = str_replace("\\", "/", realpath($this->upload_path));
 		}
 

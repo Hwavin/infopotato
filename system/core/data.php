@@ -48,7 +48,7 @@ class Data {
 		
 		if ( ! empty($conn)) {
 			// Load data source config
-			$data_source = require_once(APP_CONFIG_DIR.'data_source.php');
+			$data_source = require_once APP_CONFIG_DIR.'data_source.php';
 			// Checks if worker file exists 
 			if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
 				Global_Functions::show_sys_error('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');

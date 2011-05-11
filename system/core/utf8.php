@@ -1054,38 +1054,38 @@ class UTF8 {
 			
 			case 2:
 				if ($b[0] < 0xC2 || $b[0] > 0xDF ||
-					  $b[1] < 0x80 || $b[1] > 0xBF) {
+					$b[1] < 0x80 || $b[1] > 0xBF) {
 					$invalid = TRUE;
 					break;
 				}
 				$bin = substr(decbin($b[0]), 3) .
-						   substr(decbin($b[1]), 2);
+						substr(decbin($b[1]), 2);
 				break;
 			
 			case 3:
 				if ($b[0] < 0xE0 || $b[0] > 0xEF ||
-					  $b[1] < 0x80 || $b[1] > 0xBF ||
-					  $b[2] < 0x80 || $b[2] > 0xBF) {
+					$b[1] < 0x80 || $b[1] > 0xBF ||
+					$b[2] < 0x80 || $b[2] > 0xBF) {
 					$invalid = TRUE;
 					break;
 				}
 				$bin = substr(decbin($b[0]), 4) .
-						   substr(decbin($b[1]), 2) .
-						   substr(decbin($b[2]), 2);
+						substr(decbin($b[1]), 2) .
+						substr(decbin($b[2]), 2);
 				break;
 			
 			case 4:
 				if ($b[0] < 0xF0 || $b[0] > 0xF4 ||
-					  $b[1] < 0x80 || $b[1] > 0xBF ||
-					  $b[2] < 0x80 || $b[2] > 0xBF ||
-					  $b[3] < 0x80 || $b[3] > 0xBF) {
+					$b[1] < 0x80 || $b[1] > 0xBF ||
+					$b[2] < 0x80 || $b[2] > 0xBF ||
+					$b[3] < 0x80 || $b[3] > 0xBF) {
 					$invalid = TRUE;
 					break;
 				}
 				$bin = substr(decbin($b[0]), 5) .
-						   substr(decbin($b[1]), 2) .
-						   substr(decbin($b[2]), 2) .
-						   substr(decbin($b[3]), 2);
+						substr(decbin($b[1]), 2) .
+						substr(decbin($b[2]), 2) .
+						substr(decbin($b[3]), 2);
 				break;
 			
 			default:
@@ -1284,7 +1284,7 @@ class UTF8 {
 	 */
 	public static function rpos($haystack, $needle, $offset = 0) {
 		// We get better performance falling back for ASCII strings
-		if (!self::detect($haystack)) {
+		if ( ! self::detect($haystack)) {
 			return strrpos($haystack, $needle, $offset);
 		}
 		

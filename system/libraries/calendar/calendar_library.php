@@ -1,6 +1,11 @@
 <?php
 /**
- * Calendar Class
+ * Calendar Library
+ *
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Calendar_Library {
 
@@ -85,20 +90,25 @@ class Calendar_Library {
 	public function generate($year = '', $month = '', $data = array()) {
 		// Set and validate the supplied month/year
 		if ($year == '') {
-			$year  = date("Y", $this->local_time);
+			$year  = date('Y', $this->local_time);
 		}	
+		
 		if ($month == '') {
-			$month = date("m", $this->local_time);
+			$month = date('m', $this->local_time);
 		}	
+		
  		if (strlen($year) == 1) {
 			$year = '200'.$year;
 		}
+		
  		if (strlen($year) == 2) {
 			$year = '20'.$year;
         }
+		
  		if (strlen($month) == 1) {
 			$month = '0'.$month;
 		}
+		
 		$adjusted_date = $this->adjust_date($month, $year);
 		
 		$month	= $adjusted_date['month'];
@@ -257,9 +267,10 @@ class Calendar_Library {
 	 * @return	array
 	 */
 	public function get_day_names($day_type = '') {
-		if ($day_type != '')
+		if ($day_type != '') {
 			$this->day_type = $day_type;
-	
+	    }
+		
 		if ($this->day_type == 'long') {
 			$day_names = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
 		} elseif ($this->day_type == 'short') {

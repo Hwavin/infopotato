@@ -84,7 +84,7 @@ class Mobile_Detect_Library {
 
     protected function _is_device($device) {
         $var    = 'is_' . strtolower($device);
-        $return = $this->$var === null ? (bool) preg_match("/" . $this->devices[$device] . "/i", $this->user_agent) : $this->$var;
+        $return = $this->$var === NULL ? (bool) preg_match("/" . $this->devices[$device] . "/i", $this->user_agent) : $this->$var;
 
         if (($device != 'generic' && $return == TRUE) || $device == 'ipad') {
             $this->is_generic = FALSE;
