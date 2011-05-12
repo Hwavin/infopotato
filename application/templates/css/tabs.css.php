@@ -3,7 +3,7 @@ tabs.css
 @author Zhou Yuan
 -------------------------------------------------------------- */
 #toc {
-margin: 1.5em 0;
+margin: 10px 0;
 }
 
 #toc ul {

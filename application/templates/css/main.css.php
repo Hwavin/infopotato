@@ -551,7 +551,7 @@ padding-bottom:20px;
 }
 
 #breadcrumb h1{
-padding:10px 0 0 0;
+padding:0;
 }
 
 /* homepage
