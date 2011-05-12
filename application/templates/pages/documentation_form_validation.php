@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Form validation Library
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Form Validation Library</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Form Validation Library</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Form validation Library
+</div>
+<!-- end breadcrumb -->
 
 <p>InfoPotato provides a comprehensive form validation and data prepping class that helps minimize the amount of code you'll write.</p> 
 

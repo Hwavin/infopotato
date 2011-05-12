@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; SQL Database Adapters
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">SQL Database Adapters</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">SQL Database Adapters</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; SQL Database Adapters
+</div>
+<!-- end breadcrumb -->
 
 <p>
 InfoPotato provides a concept of SQL database adapter for all SQL-based database manipulations. Currently, there are database adapters for MySQL, MySQLi, SQLite, and PostgreSQL. Each adapter class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.

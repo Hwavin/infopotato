@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Directory
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Directory</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Directory</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Directory
+</div>
+<!-- end breadcrumb -->
 
 <p>
 This function reads the directory path specified in the first parameter and builds an array representation of it and all its contained files.

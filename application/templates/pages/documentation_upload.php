@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; File Upload Library
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">File Upload Library</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">File Upload Library</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; File Upload Library
+</div>
+<!-- end breadcrumb -->
 
 <p>
 InfoPotato's File Uploading Class permits files to be uploaded.  You can set various preferences, restricting the type and size of the files.

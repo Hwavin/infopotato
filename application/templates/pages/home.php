@@ -12,8 +12,7 @@
 </div>
 
 <div id="download">
-<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/" title="Download Latest Release">
-<span id="download_arrow"></span>
+<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/" class="uibutton large special" title="Download Latest Release">
 <span id="download_text">Download</span>
 <span id="download_version">InfoPotato 1.0.0</span>
 </a>

@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Function
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
+
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
 <h1 class="first_heading">Function</h1>	
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Function
+</div>
+<!-- end breadcrumb -->
 
 <p>
 InfoPotato allows user to load any User-defined Functions to facilate the manager's with tasks. Each function file is simply a PHP function in a particular category.

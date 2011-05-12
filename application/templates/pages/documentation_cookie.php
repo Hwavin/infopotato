@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Cookie Library
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Cookie Library</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Cookie Library</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Cookie Library
+</div>
+<!-- end breadcrumb -->
 
 <p>
 The Cookie class helps to make PHP's cookie API more consistent, while adding the ability to set default parameters and create httponly cookies in older versions of PHP 5.

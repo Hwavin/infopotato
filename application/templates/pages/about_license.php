@@ -1,12 +1,3 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn"> 
 
@@ -18,8 +9,13 @@
 <li><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="The Founder">The Founder</a></li> 
 </ul> 
 </div>
-
-<h1 class="first_heading">License</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">License</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
+</div>
+<!-- end breadcrumb -->
 
 <p> 
 The source code and documentation for InfoPotato are licensed under two separate licenses due to their nature of being two vastly different things. 

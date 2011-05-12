@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Download Function
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Download Function</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Download Function</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Download Function
+</div>
+<!-- end breadcrumb -->
 
 <p>
 The download function will force a file to be saved to your desktop.
@@ -29,7 +26,7 @@ Once this function is loaded, <strong>download_function($file, $mime_type = '')<
 <span class="nx">download_function</span><span class="p">(</span><span class="nv">$download_dir</span><span class="o">.</span><span class="s1">&#39;ZhouYuan_Resume.doc&#39;</span><span class="p">);</span> 
 </pre></div>
 
-<div class="tipbox">
+<div class="notebox">
 You can edit the function and add more MIME types based on your actual needs.
 </div>
 

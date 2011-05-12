@@ -5,6 +5,7 @@ syntac highlighter
 .syntax  { 
 background: #f8f8f8; 
 border:1px solid #ddd;
+border-left:3px solid #ddd;
 padding:10px;
 margin:1.5em 0;
 }

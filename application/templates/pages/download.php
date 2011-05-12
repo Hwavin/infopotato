@@ -1,20 +1,19 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; Download
-</div>
-</div>
-<!-- end breadcrumb -->
+
 <div class="clear"></div>
 
 <!-- begin onecolumn --> 
 <div id="onecolumn"> 
 
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Download</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; Download
+</div>
+<!-- end breadcrumb -->
+
 <a class="ribbon" href="https://github.com/yuanzhou/infopotato" target="_blank">
 <img src="<?php echo STATIC_URI_BASE; ?>images/shared/git_ribbon.png" width="149" height="149" alt="Fork me on GitHub">
-</a>
-
-<h1 class="first_heading">Download</h1>	
+</a>	
 
 <h2>Option 1: Package Download</h2> 
 <p> 

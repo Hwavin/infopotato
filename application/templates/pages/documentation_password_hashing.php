@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Password Hashing Library
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
+
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
 <h1 class="first_heading">Password Hashing Library</h1>	
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Password Hashing Library
+</div>
+<!-- end breadcrumb -->
 
 <p>
 This is a portable public domain password hashing library based on the <a href="http://www.openwall.com/phpass/" class="external_link">Portable PHP password hashing framework</a>

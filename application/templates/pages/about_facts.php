@@ -1,12 +1,3 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn"> 
 
@@ -19,7 +10,13 @@
 </ul> 
 </div>
 
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
 <h1 class="first_heading">Facts about InfoPotato</h1>	
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
+</div>
+<!-- end breadcrumb -->
+
 
 <p> 
 Whether you are a developer building a fairly simple website, or a team of distributed developers building a complex web application, using InfoPotato is like augmenting your development team with additional experienced, professional, and efficient resources. 
@@ -105,8 +102,6 @@ The auto generated frontend/backend design which are usually hard to modify and 
 InfoPotato doesn't require  the use of command line. Why bother?
 </li>
 </ul>
-
-
 
 <div class="clear"></div>
 

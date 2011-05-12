@@ -1,12 +1,3 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn --> 
 <div id="onecolumn" class="inner"> 
 
@@ -19,7 +10,13 @@
 </ul> 
 </div>
 
-<h1 class="first_heading">Motivation</h1>	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Motivation</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
+</div>
+<!-- end breadcrumb -->
+	
 
 <div class="box_right greybox">
 <blockquote>

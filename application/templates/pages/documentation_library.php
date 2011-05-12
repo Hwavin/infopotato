@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Library
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Library</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Library</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Library
+</div>
+<!-- end breadcrumb -->
 
 <p>In InfoPotato, libraries are standalone and reusable PHP classes to be used in managers. All of the available system libraries are located in your <span class="red">system/libraries</span> folder. You can also use your own libraries for each application by putting them in application libraries filder which can be defined in the single point of entry script. In most cases, to use one of these classes involves initializing it within a controller using the following initialization function:</p> 
 

@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; UTF-8 Support
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">UTF-8 Support</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">UTF-8 Support</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; UTF-8 Support
+</div>
+<!-- end breadcrumb -->
 
 <p>
 After some experience with PHP, developers will often start to notice issues related to character encoding including "weird" characters and multiple characters where there should only be one. Handling character encoding on the web usually means support the UTF-8 character encoding to allow for more than the standard ASCII characters present on US keyboard layouts.

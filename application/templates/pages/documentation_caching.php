@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Caching
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
+
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
 <h1 class="first_heading">Caching</h1>	
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Caching
+</div>
+<!-- end breadcrumb -->
 
 <a href="http://www.phpwact.org/php/caching">http://www.phpwact.org/php/caching</a>
 

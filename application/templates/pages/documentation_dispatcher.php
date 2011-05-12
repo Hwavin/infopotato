@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Dispatcher
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Dispatcher</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Dispatcher</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Dispatcher
+</div>
+<!-- end breadcrumb -->
 
 <p>
 As you may already know, the web server receives the requests and passe them to an InfoPotato application via the bootstrap script (e.g., index.php, dev.php) which is responsible for instantiating the framework by invoking App_Dispatcher, in which all requests are intercepted and dispatched to individual Managers based on the URI requested.

@@ -1,15 +1,12 @@
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Request Processing Workflow
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
-
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Request Processing Workflow</h1>	
+
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Request Processing Workflow</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Request Processing Workflow
+</div>
+<!-- end breadcrumb -->
 
 <p>
 If you want to go deeper with InfoPotato, you should understand how information flows between the framework's layers.

@@ -506,14 +506,6 @@ background-color:#5c75aa;
 padding:0 10px;
 }
 
-/* breadcrumb
--------------------------------------------------------------- */
-#breadcrumb{
-font-weight:700;
-color:#264409; 
-border-bottom:1px solid #ccc; 
-}
-
 /* content
 -------------------------------------------------------------- */
 #content {
@@ -551,6 +543,16 @@ margin-left:20px;
 padding:3px 0;
 }
 
+#breadcrumb {
+border-bottom:1px solid #ddd; 
+margin-bottom:20px;
+padding-bottom:20px;
+}
+
+#breadcrumb h1{
+padding:10px 0 0 0;
+}
+
 /* homepage
 -------------------------------------------------------------- */
 #intro {
@@ -558,31 +560,23 @@ margin-top:10px;
 }
 
 #intro_text {
-width:590px;
+width:600px;
 float:left;
 }
 
 #download {
 float:right;
-width:280px;
+width:260px;
 margin:40px 0 10px 20px;
 }
 
 #download a {
-background: transparent url("<?php echo STATIC_URI_BASE; ?>images/shared/download_background.png") repeat-x 0 -125px;
-color:#4a6d24;
-text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
-display:block;
-border: solid 1px #5a8032;
--moz-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.35), inset 0px 0px 1px #fafafa;
--webkit-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.35);
-box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.35);
-padding: 15px 15px 15px 65px;
-position: relative;
+
+padding: 15px 30px;
+
 }
 
 #download a:hover {
-background: transparent url("<?php echo STATIC_URI_BASE; ?>images/shared/download_background.png") repeat-x 0 -425px;
 text-decoration:none;
 }
 
@@ -596,15 +590,6 @@ font-size: 32px;
 #download_version {
 display: block;
 text-align:center;
-}
-
-#download_arrow {
-background: transparent url(<?php echo STATIC_URI_BASE; ?>images/shared/download_arrow.png) no-repeat;
-height: 97px;
-width: 54px;
-position: absolute;
-left: 0;
-top: -18px;
 }
 
 .index_column ul {

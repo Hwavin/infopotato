@@ -84,18 +84,16 @@
 				table.dump_xml td.dump_xml_hey { background-color:#ddd; }
 			</style>
 
-<!-- begin breadcrumb -->
-<div id="breadcrumb">
-<div class="inner">
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Dump Variable
-</div>
-</div>
-<!-- end breadcrumb -->
-<div class="clear"></div>
 
 <!-- begin onecolumn -->
 <div id="onecolumn" class="inner"> 
-<h1 class="first_heading">Dump Variable</h1>	
+	
+<!-- begin breadcrumb -->
+<div id="breadcrumb">
+<h1 class="first_heading">Dump Variable</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Dump Variable
+</div>
+<!-- end breadcrumb -->
 
 <p>
 The Dump class is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dump</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. This is a much better presentation with more visual output of a variable's contents than PHP's <span class="red">var_dump()</span> and <span class="red">print_r()</span> functions. Variable types supported are: 
