@@ -2,6 +2,8 @@
 final class Ajax_Manager extends Manager {
 	public function get_index($params = array()) {
 		$name = count($params) > 0 ? $params[0] : '';
+		
+		echo $name;
 	}
 	
 	public function post_index($params = array()) {
