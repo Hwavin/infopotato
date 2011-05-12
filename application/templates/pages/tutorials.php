@@ -1,6 +1,3 @@
-
-<div class="clear"></div>
-
 <!-- begin onecolumn --> 
 <div id="onecolumn" class="inner"> 
 

@@ -281,14 +281,14 @@ float:right;
 
 .content_pic_left {
 float:left;
-margin:0 10px 0 0;
+margin:0 20px 0 0;
 border:1px solid #ddd;
 padding:3px;
 }
 
 .content_pic_right {
 float:right;
-margin:0 0 0 10px;
+margin:0 0 0 20px;
 border:1px solid #ddd;
 padding:3px;
 }
@@ -470,7 +470,7 @@ margin:0 auto;
 }
 
 #topnav {
-width:800px;
+width:920px;
 float:left;
 }
 
@@ -773,3 +773,29 @@ color: #5B74A8;
 overflow: hidden;
 }
 
+
+/* Client Showcase */
+.client{
+float:left;
+width:212px;
+margin-left:70px;
+margin-bottom:30px;
+}
+
+.client img{
+border:3px solid #d9d9d9;
+}
+
+.client a:hover img{
+border:3px solid #3b5998;
+}
+
+.client a:hover{
+text-decoration:none;
+}
+
+.client .title{
+font-size: 16px;
+font-weight:normal;
+margin-top:10px;
+}

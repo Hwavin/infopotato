@@ -48,6 +48,7 @@
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="Download">Download</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>news/" title="News">News</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>showcase/" title="Showcase">Showcase</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>tutorials/" title="Tutorials">Tutorials</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
