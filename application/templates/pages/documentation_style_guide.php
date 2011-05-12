@@ -116,7 +116,7 @@ The best case is of course when the line does not need to be split. When the if 
 <span class="p">}</span> 
 </pre></div>
  
-<p class="tipbox">
+<p class="notebox">
 Control statements should have one space between the control keyword and opening parenthesis, to distinguish them from function calls. You are strongly encouraged to always use curly braces even in situations where they are technically optional. Having them increases readability and decreases the likelihood of logic errors being introduced when new lines are added.
 </p>
  
@@ -215,7 +215,7 @@ Class names should always have their first letter uppercase. Multiple words shou
 <span class="p">}</span> 
 </pre></div> 
 
-<p class="tipbox">
+<p class="notebox">
 Arguments with default values go at the end of the argument list. Always attempt to return a meaningful value from a function if one is appropriate. 
 </p>
 
@@ -287,7 +287,7 @@ All source code files in the InfoPotato distribution should contain the followin
 Anywhere you are unconditionally including a class file, use <strong>require_once</strong>. Anywhere you are conditionally including a class file (for example, factory methods), use <strong>include_once</strong>. Either of these will ensure that class files are included only once. They share the same file list, so you don't need to worry about mixing them - a file included with <strong>require_once</strong> will not be included again by <strong>include_once</strong>.
 </p>
  
-<p class="tipbox">
+<p class="notebox">
 <strong>include_once</strong> and <strong>require_once</strong> are statements, not functions. Parentheses should not surround the subject filename.
 </p>
 

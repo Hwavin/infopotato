@@ -59,7 +59,7 @@ Following is a very simple example which tells you how to create your own librar
 <span class="p">}</span> 
 </pre></div> 
 
-<div class="tipbox">
+<div class="notebox">
 All the user-defined libraries should be named like xxx_Library. All the perference parameters are passed through $config array within the constructer. If no parameters needed, just leave it blank.
 </div>
 

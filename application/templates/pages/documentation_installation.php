@@ -58,7 +58,7 @@ If you intend to use a database, open the application/configs/database.php file 
 If you wish to increase security by hiding the location of your InfoPotato files you can rename the system and application folders to something more private. If you do rename them, you must open your main index.php file and set the SYS_DIR and APP_DIR variables at the top of the file with the new name you've chosen.
 </p>
 
-<p class="tipbox">
+<p class="notebox">
 To make your installation secure from the start, you should put InfoPotato system folder out of the Web-accessible directory. Only the entry script (index.php) and static resources (like stylesheets, JavaScripts and images.) needs to be exposed to Web users. All other PHP files can be hidden from the browser, which is a good idea as far as security is concerned. 
 </p>
 

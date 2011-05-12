@@ -72,7 +72,7 @@ else if ($this->agent->is_browser())<br />
 &nbsp;&nbsp;&nbsp;&nbsp;echo 'You are using a browser.';<br /> 
 }</code> 
  
-<p class="infobox"><strong>Note:</strong>&nbsp; The string "Safari" in this example is an array key in the list of browser definitions.
+<p class="notebox"><strong>Note:</strong>&nbsp; The string "Safari" in this example is an array key in the list of browser definitions.
 You can find this list in <dfn>application/config/user_agents.php</dfn> if you want to add new browsers or change the stings.</p> 
  
 <h2>$this->agent->is_mobile()</h2> 
@@ -94,7 +94,7 @@ else<br />
 <h2>$this->agent->is_robot()</h2> 
 <p>Returns TRUE/FALSE (boolean) if the user agent is a known robot.</p> 
  
-<p class="infobox"><strong>Note:</strong>&nbsp; The user agent library only contains the most common robot
+<p class="notebox"><strong>Note:</strong>&nbsp; The user agent library only contains the most common robot
 definitions.  It is not a complete list of bots. There are hundreds of them so searching for each one would not be
 very efficient. If you find that some bots that commonly visit your site are missing from the list you can add them to your
 <dfn>application/config/user_agents.php</dfn> file.</p> 
@@ -141,7 +141,7 @@ very efficient. If you find that some bots that commonly visit your site are mis
 &nbsp;&nbsp;&nbsp;&nbsp;echo 'You accept English!';<br /> 
 }</code> 
  
-<p class="infobox"><strong>Note:</strong> This function is not typically very reliable
+<p class="notebox"><strong>Note:</strong> This function is not typically very reliable
 since some browsers do not provide language info, and even among those that do, it is not always accurate. </p> 
  
  
@@ -154,7 +154,7 @@ since some browsers do not provide language info, and even among those that do, 
 &nbsp;&nbsp;&nbsp;&nbsp;echo 'You browser supports UTF-8!';<br /> 
 }</code> 
  
-<p class="infobox"><strong>Note:</strong> This function is not typically very reliable
+<p class="notebox"><strong>Note:</strong> This function is not typically very reliable
 since some browsers do not provide character-set info, and even among those that do, it is not always accurate. </p> 
  
  

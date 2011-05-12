@@ -1,17 +1,9 @@
-<!-- begin home banner -->
-<div id="home">
-<div class="inner">
-<h1 class="first_heading center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
-</div>
-</div>
-<!-- end home banner -->
-<div class="clear"></div>
-
-
 <!-- begin onecolumn --> 
 <div id="onecolumn">
 
-<div class="greenbox" id="intro">
+<h1 class="first_heading center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
+
+<div class="greybox" id="intro">
 <div id="intro_text">
 <h2 class="first_heading">InfoPotato &mdash; <em class="blue">Built on the shoulders of giants</em></h2>
 <p>

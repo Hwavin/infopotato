@@ -40,7 +40,7 @@ But on the production environment, the cache layer should be activated and, of c
 To change the environment in which you're browsing your application, just change the front controller. For example, you are working on the development environment now:
 </p>
 
-<div class="infobox">
+<div class="syntax">
 http://localhost/infopotato/web/<span class="red">dev.php</span>
 </div>
 
@@ -48,7 +48,7 @@ http://localhost/infopotato/web/<span class="red">dev.php</span>
 However, if you want to see how the application reacts in production, call the production front controller instead:
 </p>
 
-<div class="infobox">
+<div class="syntax">
 http://localhost/infopotato/web/<span class="red">index.php</span>
 </div>
 

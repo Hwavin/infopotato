@@ -45,7 +45,7 @@ A function may be defined using syntax such as the following:
 <span class="p">}</span> 
 </pre></div> 
 
-<div class="tipbox">
+<div class="notebox">
 All the user-defined functions should be named like xxx_function
 </div>
 

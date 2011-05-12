@@ -40,7 +40,7 @@ You can use a simple function to redirect a user from the page they entered to a
 <span class="nx">redirect_function</span><span class="p">(</span><span class="nx">APP_URI_BASE</span><span class="o">.</span><span class="s1">&#39;about/founder/&#39;</span><span class="p">);</span> 
 </pre></div> 
 
-<div class="tipbox">
+<div class="notebox">
 You can edit the function and add more MIME types based on your actual needs.
 </div>
 

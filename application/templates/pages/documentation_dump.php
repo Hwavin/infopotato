@@ -1,11 +1,11 @@
 <script language="JavaScript"> 
 /* code modified from ColdFusion's cfdump code */
-				function dBug_toggleRow(source) {
+				function dump_toggle_row(source) {
 					var target = (document.all) ? source.parentElement.cells[1] : source.parentNode.lastChild;
-					dBug_toggleTarget(target,dBug_toggleSource(source));
+					dump_toggle_target(target,dump_toggle_source(source));
 				}
 				
-				function dBug_toggleSource(source) {
+				function dump_toggle_source(source) {
 					if (source.style.fontStyle=='italic') {
 						source.style.fontStyle='normal';
 						source.title='click to collapse';
@@ -17,17 +17,17 @@
 					}
 				}
 			
-				function dBug_toggleTarget(target,switchToState) {
+				function dump_toggle_target(target,switchToState) {
 					target.style.display = (switchToState=='open') ? '' : 'none';
 				}
 			
-				function dBug_toggleTable(source) {
-					var switchToState=dBug_toggleSource(source);
+				function dump_toggle_table(source) {
+					var switchToState=dump_toggle_source(source);
 					if(document.all) {
 						var table=source.parentElement.parentElement;
 						for(var i=1;i<table.rows.length;i++) {
 							target=table.rows[i];
-							dBug_toggleTarget(target,switchToState);
+							dump_toggle_target(target,switchToState);
 						}
 					}
 					else {
@@ -35,7 +35,7 @@
 						for (var i=1;i<table.childNodes.length;i++) {
 							target=table.childNodes[i];
 							if(target.style) {
-								dBug_toggleTarget(target,switchToState);
+								dump_toggle_target(target,switchToState);
 							}
 						}
 					}
@@ -43,45 +43,45 @@
 			</script>
 			
 			<style type="text/css">
-				table.dBug_array,table.dBug_object,table.dBug_resource,table.dBug_resourceC,table.dBug_xml {
+				table.dump_array,table.dump_object,table.dump_resource,table.dump_resourceC,table.dump_xml {
 					font-family:Verdana, Arial, Helvetica, sans-serif; color:#000; font-size:12px;
 				}
 				
-				.dBug_arrayHeader,
-				.dBug_objectHeader,
-				.dBug_resourceHeader,
-				.dBug_resourceCHeader,
-				.dBug_xmlHeader 
+				.dump_array_header,
+				.dump_object_header,
+				.dump_resource_header,
+				.dump_resourceC_header,
+				.dump_xml_header 
 					{ font-weight:bold; color:#fff; cursor:pointer; }
 				
-				.dBug_arrayKey,
-				.dBug_objectKey,
-				.dBug_xmlKey 
+				.dump_array_key,
+				.dump_object_key,
+				.dump_xml_key 
 					{ cursor:pointer; }
 					
 				/* array */
-				table.dBug_array { background-color:#006600; }
-				table.dBug_array td { background-color:#fff; }
-				table.dBug_array td.dBug_arrayHeader { background-color:#009900; }
-				table.dBug_array td.dBug_arrayKey { background-color:#CCFFCC; }
+				table.dump_array { background-color:#006600; }
+				table.dump_array td { background-color:#fff; }
+				table.dump_array td.dump_array_header { background-color:#009900; }
+				table.dump_array td.dump_array_key { background-color:#CCFFCC; }
 				
 				/* object */
-				table.dBug_object { background-color:#0000CC; }
-				table.dBug_object td { background-color:#fff; }
-				table.dBug_object td.dBug_objectHeader { background-color:#4444CC; }
-				table.dBug_object td.dBug_objectKey { background-color:#CCDDFF; }
+				table.dump_object { background-color:#0000CC; }
+				table.dump_object td { background-color:#fff; }
+				table.dump_object td.dump_object_header { background-color:#4444CC; }
+				table.dump_object td.dump_object_key { background-color:#CCDDFF; }
 				
 				/* resource */
-				table.dBug_resource, table.dBug_resourceC { background-color:#884488; }
-				table.dBug_resource td, table.dBug_resourceC td { background-color:#fff; }
-				table.dBug_resource td.dBug_resourceHeader, table.dBug_resourceC td.dBug_resourceCHeader { background-color:#AA66AA; }
-				table.dBug_resource td.dBug_resourceKey, table.dBug_resourceC td.dBug_resourceCKey { background-color:#FFDDFF; }
+				table.dump_resource, table.dump_resourceC { background-color:#884488; }
+				table.dump_resource td, table.dump_resourceC td { background-color:#fff; }
+				table.dump_resource td.dump_resource_header, table.dump_resourceC td.dump_resourceC_header { background-color:#AA66AA; }
+				table.dump_resource td.dump_resource_key, table.dump_resourceC td.dump_resourceC_key { background-color:#FFDDFF; }
 				
 				/* xml */
-				table.dBug_xml { background-color:#888; }
-				table.dBug_xml td { background-color:#fff; }
-				table.dBug_xml td.dBug_xmlHeader { background-color:#aaa; }
-				table.dBug_xml td.dBug_xmlKey { background-color:#ddd; }
+				table.dump_xml { background-color:#888; }
+				table.dump_xml td { background-color:#fff; }
+				table.dump_xml td.dump_xml_header { background-color:#aaa; }
+				table.dump_xml td.dump_xml_hey { background-color:#ddd; }
 			</style>
 
 <!-- begin breadcrumb -->
@@ -98,7 +98,7 @@
 <h1 class="first_heading">Dump Variable</h1>	
 
 <p>
-The Dump class is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dBug</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. This is a much better presentation with more visual output of a variable's contents than PHP's <span class="red">var_dump()</span> and <span class="red">print_r()</span> functions. Variable types supported are: 
+The Dump class is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dump</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. This is a much better presentation with more visual output of a variable's contents than PHP's <span class="red">var_dump()</span> and <span class="red">print_r()</span> functions. Variable types supported are: 
 </p>
 
 <ul>
@@ -144,29 +144,29 @@ This is my string
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
-<table cellspacing="2" cellpadding="3" class="dBug_array grid"> 
+<table cellspacing="2" cellpadding="3" class="dump_array grid"> 
 <tr> 
-<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+<td class="dump_array_header" colspan="2" onClick='dump_toggle_table(this)'>array</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">first</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">first</td> 
 <td>1</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">0</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">0</td> 
 <td>second</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">third</td> 
-<td><table cellspacing=2 cellpadding="3" class="dBug_array"> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">third</td> 
+<td><table cellspacing=2 cellpadding="3" class="dump_array"> 
 <tr> 
-<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+<td class="dump_arrayHeader" colspan="2" onClick='dump_toggle_table(this)'>array</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">0</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">0</td> 
 <td>inner third 1</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">inner third 2</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">inner third 2</td> 
 <td>yeah</td></tr> 
 </table></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">1</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">1</td> 
 <td>fourth</td></tr> 
 </table>
 
@@ -203,30 +203,30 @@ This is my string
 <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
 </pre></div> 
 
-<table cellspacing="2" cellpadding="3" class="dBug_object grid"> 
+<table cellspacing="2" cellpadding="3" class="dump_object grid"> 
 <tr> 
-<td class="dBug_objectHeader" colspan="2" onClick='dBug_toggleTable(this)'>object</td> 
+<td class="dump_object_header" colspan="2" onClick='dump_toggle_table(this)'>object</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">edible</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_object_key">edible</td> 
 <td>spinach</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">color</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_object_key">color</td> 
 <td>green</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">vegetable</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_object_key">vegetable</td> 
 <td>[method]</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">is_edible</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_object_key">is_edible</td> 
 <td>[method]</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_objectKey">what_color</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_object_key">what_color</td> 
 <td>[method]</td></tr> 
 </table>
 
 <h2>Sample Usage - XML</h2>
 
 <p>
-When an xml variable is dumped as is, it is recognized as a string. This is even so with PHP's var_dump. The dBug class has a second optional parameter where you pass in the string "xml".
+When an xml variable is dumped as is, it is recognized as a string. This is even so with PHP's var_dump. The dump class has a second optional parameter where you pass in the string "xml".
 </p>
 
 <div class="syntax"><pre>
@@ -235,96 +235,96 @@ When an xml variable is dumped as is, it is recognized as a string. This is even
 <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">);</span> 
 </pre></div> 
 
-<table cellspacing=2 cellpadding="3" class="dBug_xml grid"> 
+<table cellspacing=2 cellpadding="3" class="dump_xml grid"> 
 <tr> 
-<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>XML Document</td> 
+<td class="dump_xml_header" colspan="2" onClick='dump_toggle_table(this)'>XML Document</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Root</td> 
-<td><table cellspacing=2 cellpadding="3" class="dBug_xml"> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Root</td> 
+<td><table cellspacing=2 cellpadding="3" class="dump_xml"> 
 <tr> 
-<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+<td class="dump_xmlHeader" colspan="2" onClick='dump_toggle_table(this)'>Element</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Name</td> 
 <td><strong>chapter</strong></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Attributes</td> 
 <td>&nbsp;</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Text</td> 
 <td> 
 </td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Comment</td> 
 <td>&nbsp;</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
-<td><table cellspacing=2 cellpadding="3" class="dBug_xml"> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Children</td> 
+<td><table cellspacing=2 cellpadding="3" class="dump_xml"> 
 <tr> 
-<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+<td class="dump_xml_header" colspan="2" onClick='dump_toggle_table(this)'>Element</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Name</td> 
 <td><strong>TITLE</strong></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Attributes</td> 
 <td>&nbsp;</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Text</td> 
 <td>This is my title</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Comment</td> 
 <td>&nbsp;</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Children</td> 
 <td></td></tr> 
-</table><table cellspacing="2" cellpadding="3" class="dBug_xml"> 
+</table><table cellspacing="2" cellpadding="3" class="dump_xml"> 
 <tr> 
-<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+<td class="dump_xml_header" colspan="2" onClick='dump_toggle_table(this)'>Element</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Name</td> 
 <td><strong>tgroup</strong></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
-<td><table cellspacing=2 cellpadding="3" class="dBug_array"> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Attributes</td> 
+<td><table cellspacing=2 cellpadding="3" class="dump_array"> 
 <tr> 
-<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+<td class="dump_array_header" colspan="2" onClick='dump_toggle_table(this)'>array</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">cols</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">cols</td> 
 <td>3</td></tr> 
 </table></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Text</td> 
 <td> 
 
 </td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Comment</td> 
 <td> Another comment here
 on second line </td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
-<td><table cellspacing=2 cellpadding="3" class="dBug_xml"> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Children</td> 
+<td><table cellspacing=2 cellpadding="3" class="dump_xml"> 
 <tr> 
-<td class="dBug_xmlHeader" colspan="2" onClick='dBug_toggleTable(this)'>Element</td> 
+<td class="dump_xml_header" colspan="2" onClick='dump_toggle_table(this)'>Element</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Name</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Name</td> 
 <td><strong>entry</strong></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Attributes</td> 
-<td><table cellspacing="2" cellpadding="3" class="dBug_array"> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Attributes</td> 
+<td><table cellspacing="2" cellpadding="3" class="dump_array"> 
 <tr> 
-<td class="dBug_arrayHeader" colspan="2" onClick='dBug_toggleTable(this)'>array</td> 
+<td class="dump_array_header" colspan="2" onClick='dump_toggle_table(this)'>array</td> 
 </tr><tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_arrayKey">morerows</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_array_key">morerows</td> 
 <td>1</td></tr> 
 </table></td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Text</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Text</td> 
 <td>b1</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Comment</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Comment</td> 
 <td>&nbsp;</td></tr> 
 <tr> 
-<td valign="top" onClick='dBug_toggleRow(this)' class="dBug_xmlKey">Children</td> 
+<td valign="top" onClick='dump_toggle_row(this)' class="dump_xml_key">Children</td> 
 <td></td></tr> 
 </table></td></tr> 
 </table></td></tr> 

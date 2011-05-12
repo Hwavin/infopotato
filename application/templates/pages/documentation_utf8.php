@@ -15,7 +15,7 @@
 After some experience with PHP, developers will often start to notice issues related to character encoding including "weird" characters and multiple characters where there should only be one. Handling character encoding on the web usually means support the UTF-8 character encoding to allow for more than the standard ASCII characters present on US keyboard layouts.
 </p>
 
-<div class="tipbox">
+<div class="notebox">
 <ul>
 <li>
 <a href="http://www.phpwact.org/php/i18n/utf-8">http://www.phpwact.org/php/i18n/utf-8</a>
@@ -236,7 +236,7 @@ This method should be used when importing data into a system from an external da
 <tt>$cleaned_string = UTF8::clean($imported_string);</tt>
 </div>
 
-<p class="tipbox">
+<p class="notebox">
 UFT8::len() is used in worker.php to caculate the content length of the response body message.
 </p>
 

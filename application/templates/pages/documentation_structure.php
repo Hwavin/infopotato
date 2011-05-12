@@ -23,7 +23,7 @@ The directory structure of an InfoPotato application is rather flexible. Open fr
 <li><strong>web/:</strong> - The web root directory.</li>
 </ul>
 
-<p class="tipbox">
+<p class="notebox">
 The web root directory is the home of all public and static files like images, stylesheets, and JavaScript files. It is also where each front controller lives.
 </p>
 

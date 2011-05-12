@@ -271,7 +271,7 @@ InfoPotato provides the developers the option to define a <strong>STATIC_URI_BAS
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;STATIC_URI_BASE&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost/infopotato/web/&#39;</span><span class="p">);</span> 
 </pre></div> 
 
-<div class="tipbox">
+<div class="notebox">
 If you are serving static files from a cloud storage provider like Amazon's S3 and/or a CDN (content delivery network), just set <strong>STATIC_URI_BASE</strong> to the target URI base.
 </div>
 

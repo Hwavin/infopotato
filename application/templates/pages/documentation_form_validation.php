@@ -331,7 +331,7 @@ individually.</p>
  
 <code>$this->form_validation->required($string);</code> 
  
-<p class="tipbox">You can also use any native PHP functions that permit one parameter.</p> 
+<p class="notebox">You can also use any native PHP functions that permit one parameter.</p> 
 
  
 </div> 

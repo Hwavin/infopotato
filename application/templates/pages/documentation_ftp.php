@@ -180,7 +180,7 @@ Example:</p>
 <h2>$this->ftp->delete_dir()</h2> 
 <p>Lets you delete a directory and everything it contains.  Supply the source path to the directory with a trailing slash.</p> 
  
-<p class="important"><strong>Important</strong>&nbsp; Be VERY careful with this function.  It will recursively delete
+<p><strong>Important</strong>&nbsp; Be VERY careful with this function.  It will recursively delete
 <b>everything</b> within the supplied path, including sub-folders and all files.  Make absolutely sure your path is correct.
 Try using the <kbd>list_files()</kbd> function first to verify that your path is correct.</p> 
  

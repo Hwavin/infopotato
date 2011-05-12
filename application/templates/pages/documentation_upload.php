@@ -101,7 +101,7 @@ Using a text editor, create a manager file called <span class="red">upload_manag
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div>
  
-<div class="tipbox">
+<div class="notebox">
 <strong>APP_UPLOAD_DIR</strong> is the target upload folder and this can be defined in the index.php file so that it is globally available. You'll need to set its file permissions to 777.
 </div>
 

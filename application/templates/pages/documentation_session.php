@@ -21,7 +21,7 @@ Your application has a session for each user in which you can store small amount
 <li>MemCacheStore – Stores the data in a memcache.</li>
 </ul>
 
-<p class="tipbox">
+<p class="notebox">
 All session stores use a cookie to store a unique ID for each session (you must use a cookie, InfoPotato will not allow you to pass the session ID in the URI as this is less secure).
 </p>
 
@@ -97,7 +97,7 @@ By default PHP will only allow access to the $_SESSION superglobal values by pag
 Session fixation is an exploit where an attacker provides a user with a known session id and then uses the same session id to access their authentication session once they have logged in. Below is a simple example of a URL that allows the attacker to know the user's session id:
 </p> 
  
-<div class="infobox">
+<div class="syntax">
 http://example.com/login.php?PHPSESSID=abcdef1234567890
 </div> 
  

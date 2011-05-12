@@ -72,7 +72,6 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cart/">Shopping Cart</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dirinfo/">Dir Info</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/feed_writer/">Feed Writer</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cache/">File-based Caching</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/email/">Email</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/encypt/">Encryption</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/upload/">File Upload</a></li> 

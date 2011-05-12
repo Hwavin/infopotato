@@ -84,7 +84,7 @@ To elucidate, let's begin with a simple example of a contact manager (applicatio
 Notice that these two methods are prefixed with the type of HTTP request that was issued. This separation concept is adopted from the WebPY framework and its subsequent PHP clone, WebPHP.
 </p>
 
-<div class="tipbox">
+<div class="notebox">
 <pre>
 <strong>GET /contact/</strong>
 Manager: application/managers/contact_manager.php
@@ -240,7 +240,7 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 </pre></div> 
 
 <h2>Storing Managers within Sub-folders</h2> 
-<p class="tipbox">
+<p class="notebox">
 By default, your data files and template files can also be stored within sub-folders if you prefer that type of organization. But Manager files is NOT ALLOWED to be organized by sub-folders.
 </p> 
  

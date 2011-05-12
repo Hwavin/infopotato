@@ -137,13 +137,13 @@ function:</p>
  
 <p>If your server does not support SHA1 you can use the provided function.</p> 
  
-<h2 id="legacy">$this->encrypt->encode_from_legacy(<kbd>$orig_data</kbd>, <kbd>$legacy_mode</kbd> = MCRYPT_MODE_ECB, <kbd>$key</kbd> = '');</h2> 
+<h2>$this->encrypt->encode_from_legacy(<kbd>$orig_data</kbd>, <kbd>$legacy_mode</kbd> = MCRYPT_MODE_ECB, <kbd>$key</kbd> = '');</h2> 
 <p>Enables you to re-encode data that was originally encrypted with CodeIgniter 1.x to be compatible with the Encryption library in CodeIgniter 2.x.  It is only
 	necessary to use this method if you have encrypted data stored permanently such as in a file or database and are on a server that supports Mcrypt.  "Light" use encryption
 	such as encrypted session data or transitory encrypted flashdata require no intervention on your part.  However, existing encrypted Sessions will be
 	destroyed since data encrypted prior to 2.x will not be decoded.</p> 
  
-<p class="important"><strong>Why only a method to re-encode the data instead of maintaining legacy methods for both encoding and decoding?</strong>  The algorithms in
+<p><strong>Why only a method to re-encode the data instead of maintaining legacy methods for both encoding and decoding?</strong>  The algorithms in
 	the Encryption library have improved in CodeIgniter 2.x	both for performance and security, and we do not wish to encourage continued use of the older methods.
 	You can of course extend the Encryption library if you wish and replace the new methods with the old and retain seamless compatibility with CodeIgniter 1.x
 	encrypted data, but this a decision that a developer should make cautiously and deliberately, if at all.</p> 
