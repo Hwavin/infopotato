@@ -338,6 +338,7 @@ border-top:1px dotted #ddd;
 background:#fffecf url('<?php echo STATIC_URI_BASE; ?>images/shared/note.png') no-repeat 10px center;
 padding:10px 10px 10px 35px;
 border:1px dotted #dda;
+line-height:180%;
 }
 
 .greybox, .bluebox, .yellowbox, .pinkbox, .greenbox { 

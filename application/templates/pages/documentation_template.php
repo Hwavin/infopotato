@@ -15,9 +15,7 @@ Templates serve as the presentation layer of InfoPotato. A template is a PHP scr
 <p>Templates are never called directly, they must be loaded by a manager. Remember that in InfoPotato, the manager acts as the traffic cop, so it is responsible for loading and rendering a particular template.</p> 
  
 <div class="notebox">
-<p>
 By default InfoPotato buffers all HTML generated from templates inside the execution context and sends a complete page once the template execution has completed (via the render_template() method). The advantage of buffering the HTML is that applications can handle exceptions that occur during execution of the template and prevent any partial results leaking to the browser.
-</p>
 </div>
 
 <h2>Creating a Template</h2> 

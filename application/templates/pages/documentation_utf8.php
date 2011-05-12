@@ -12,7 +12,6 @@
 After some experience with PHP, developers will often start to notice issues related to character encoding including "weird" characters and multiple characters where there should only be one. Handling character encoding on the web usually means support the UTF-8 character encoding to allow for more than the standard ASCII characters present on US keyboard layouts.
 </p>
 
-<div class="notebox">
 <ul>
 <li>
 <a href="http://www.phpwact.org/php/i18n/utf-8">http://www.phpwact.org/php/i18n/utf-8</a>
@@ -24,7 +23,6 @@ After some experience with PHP, developers will often start to notice issues rel
 <a href="http://htmlpurifier.org/docs/enduser-utf8.html">http://htmlpurifier.org/docs/enduser-utf8.html</a>
 </li>
 </ul>
-</div>
 
 
 <h2>What is UTF-8? Iñtërnâtiônàlizætiøn</h2>

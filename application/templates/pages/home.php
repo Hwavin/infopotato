@@ -5,7 +5,7 @@
 
 <div class="greybox" id="intro">
 <div id="intro_text">
-<h2 class="first_heading">InfoPotato &mdash; <em class="blue">Built on the shoulders of giants</em></h2>
+<h2 class="first_heading">InfoPotato &mdash; <span class="blue">Built on the shoulders of giants</span></h2>
 <p>
 <strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
 </p>
