@@ -81,7 +81,7 @@ Email*: <span class="nt">&lt;input</span> <span class="na">type=</span><span cla
 Using a text editor, create a manager file called <span class="red">contact_manager.php</span>.
 </p> 
  
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">final</span> <span class="k">class</span> <span class="nc">Contact_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
@@ -129,9 +129,7 @@ Using a text editor, create a manager file called <span class="red">contact_mana
 	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
 	<span class="p">}</span> 
 	
-<span class="p">}</span> 
- 
-<span class="c1">// End of file: ./application/managers/contact_manager.php </span> 
+<span class="p">}</span>
 </pre></div>
 
 <p class="tipbox">

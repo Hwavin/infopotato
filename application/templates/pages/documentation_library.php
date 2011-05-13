@@ -39,7 +39,7 @@ For example, to load the validation class you would do this:
 Following is a very simple example which tells you how to create your own library.
 </p> 
  
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="sd">/**</span> 
 <span class="sd"> * Create a user-defined library</span> 
 <span class="sd"> *</span> 

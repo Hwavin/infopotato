@@ -127,7 +127,7 @@ This is my string
 
 <h2>Sample Usage - array</h2>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="nv">$variable</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
     <span class="s1">&#39;first&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;second&#39;</span><span class="p">,</span> 
@@ -139,7 +139,6 @@ This is my string
 <span class="p">);</span> 
  
 <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
 <table cellspacing="2" cellpadding="3" class="dump_array grid"> 
@@ -170,7 +169,7 @@ This is my string
 
 <h2>Sample Usage - object</h2>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">Vegetable</span> <span class="p">{</span> 
  
    <span class="k">public</span> <span class="nv">$edible</span><span class="p">;</span> 
@@ -190,7 +189,6 @@ This is my string
    <span class="p">}</span> 
    
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
 <p>Then in the manager file, you can create an instance of the above class and dump this object</p>

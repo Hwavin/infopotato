@@ -136,7 +136,7 @@ In InfoPotato, using other data objects from within a data object is <strong>NOT
 If RDBMS used in your application, you can define the database connection in application/configs/database.php
 </p> 
  
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">return</span> <span class="k">array</span><span class="p">(</span> 
 	<span class="c1">// MySQL</span> 
 	<span class="s1">&#39;mysql_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 

@@ -35,7 +35,7 @@ and sent to the requesting user's browser.  If it has expired, it will be delete
  
 <h2>Use Output Cache in Manager</h2> 
  
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">Home_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;output_cache/output_cache_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cache_dir&#39;</span><span class="o">=&gt;</span><span class="nx">APP_CACHE_DIR</span><span class="p">));</span> 
@@ -60,7 +60,6 @@ and sent to the requesting user's browser.  If it has expired, it will be delete
 	<span class="p">}</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"> </span> 
 </pre></div> 
 
 </div> 

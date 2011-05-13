@@ -52,7 +52,7 @@ By default InfoPotato buffers all HTML generated from templates inside the execu
 <p>Now, open the controller file you made earlier called blog_template.php, and replace the echo statement with the template loading function:</p> 
  
 <div class="syntax">
-<pre><span class="cp">&lt;?php</span> 
+<pre>
 <span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
@@ -61,7 +61,6 @@ By default InfoPotato buffers all HTML generated from templates inside the execu
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
  
  
@@ -132,7 +131,7 @@ The variables assigned with $this->assign() are always available to every templa
 <h2>Output the rendered template to the client</h2> 
  
 <div class="syntax">
-<pre><span class="cp">&lt;?php</span> 
+<pre>
 <span class="sd">/**</span> 
 <span class="sd">* Output the rendered template to the client</span> 
 <span class="sd">* </span> 
@@ -155,7 +154,6 @@ The variables assigned with $this->assign() are always available to every templa
 <span class="k">public</span> <span class="k">function</span> <span class="nf">response</span><span class="p">(</span><span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span> <span class="p">{</span> 
     <span class="c1">// code</span> 
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre>
 </div>  
 
@@ -176,7 +174,7 @@ The variables assigned with $this->assign() are always available to every templa
 Using render_template() you can load and render templates within other templates:
 </p>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">Home_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 

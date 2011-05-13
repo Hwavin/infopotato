@@ -35,7 +35,7 @@ Then the functions in download_script.php are available to be called.
 A function may be defined using syntax such as the following:
 </p>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">function</span> <span class="nf">foo_function</span><span class="p">(</span><span class="nv">$arg_1</span><span class="p">,</span> <span class="nv">$arg_2</span><span class="p">,</span> <span class="cm">/* ..., */</span> <span class="nv">$arg_n</span><span class="p">)</span> <span class="p">{</span> 
     <span class="k">echo</span> <span class="s2">&quot;Example function.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">;</span> 
     <span class="k">return</span> <span class="nv">$retval</span><span class="p">;</span> 

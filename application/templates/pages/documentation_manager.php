@@ -65,7 +65,7 @@ InfoPotato was designed with REST in mind from the beginning. The "{request meth
 To elucidate, let's begin with a simple example of a contact manager (application/managers/contact_manager.php).
 </p>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">Conatct_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
         <span class="c1">// Display the contact form</span> 
@@ -101,13 +101,12 @@ Method: post_index()
 as will be the case when only your site root URL is requested.  To specify a default Manager, open
 your <dfn>index.php</dfn> file and set this variable:</p>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="sd">/**</span> 
 <span class="sd"> * Default Manager/method if none is given in the URL, case-sensetive </span> 
 <span class="sd"> */</span> 
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_MANAGER&#39;</span><span class="p">,</span> <span class="s1">&#39;home&#39;</span><span class="p">);</span> 
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;DEFAULT_MANAGER_METHOD&#39;</span><span class="p">,</span> <span class="s1">&#39;index&#39;</span><span class="p">);</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
 <p>Where <var>blog</var> is the name of the Manager class you want used. If you now load your main index.php file without
@@ -128,7 +127,7 @@ use <dfn>render_template()</dfn> to your Manager that will receive the finalized
 
 <p>Here is an example:</p>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">function</span> <span class="nf">get_entry</span><span class="p">()</span> <span class="p">{</span> 
     <span class="nv">$content_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
         <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;some data&#39;</span><span class="p">,</span> 
@@ -144,24 +143,29 @@ use <dfn>render_template()</dfn> to your Manager that will receive the finalized
     <span class="p">);</span> 
     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
 
 
 <h2>Private Functions</h2>
 
 
-<p>In some cases you may want certain functions hidden from public access.  To make a function private, simply add an
-underscore as the name prefix and it will not be served via a URL request. For example, if you were to have a function like this:</p>
+<p>
+In some cases you may want certain functions hidden from public access.  To make a function private, simply add an underscore as the name prefix and it will not be served via a URL request. For example, if you were to have a class function like this:
+</p>
 
-<code>
-function _utility() {<br />
-&nbsp;&nbsp;// some code<br />
-}</code>
+<div class="syntax"><pre>
+<span class="k">class</span> <span class="nc">Conatct_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">_send_email</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="c1">// Code goes here</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div> 
 
 <p>Trying to access it via the URL, like this, will not work:</p>
 
-<code>example.com/index.php/<var>blog</var>/<samp>_utility</samp>/</code>
+<div class="syntax">
+example.com/index.php/contact/_send_email/
+</div>
 
 
 <h2>Class Constructors</h2>
@@ -177,16 +181,13 @@ If you declare a constructor in your manager, for example to load some resources
 
 <p>In PHP 5, constructors use the following syntax:</p>
 
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">Blog_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
- 
-       <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> 
-       <span class="p">{</span> 
+       <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
             <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
        <span class="p">}</span> 
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
-</pre></div>
+</pre></div> 
 
 <p>Constructors are useful if you need to set some default values, or run a default process when your class is instantiated.
 Constructors can't return a value, but they can do some default work.</p>

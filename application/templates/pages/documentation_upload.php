@@ -47,7 +47,7 @@ Using a text editor, create a form called <span class="red">upload_form.php</spa
 Using a text editor, create a manager file called <span class="red">upload_manager.php</span>.
 </p> 
  
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="k">class</span> <span class="nc">Upload_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_upload_form</span> <span class="p">()</span> <span class="p">{</span> 
         <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
@@ -95,7 +95,6 @@ Using a text editor, create a manager file called <span class="red">upload_manag
 	<span class="p">}</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div>
  
 <div class="notebox">

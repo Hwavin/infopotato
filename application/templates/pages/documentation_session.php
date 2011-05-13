@@ -275,7 +275,7 @@ The static methods add() and remove() allow adding and removing values from arra
 When a value stored in the session is an array, it is possible to use array dereference syntax in the element name to access a specific array key. This syntax works with set(), get(), delete(), add() and remove().
 </p> 
  
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
+<div class="syntax"><pre>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> 
     <span class="s1">&#39;user&#39;</span><span class="p">,</span> 
     <span class="k">array</span><span class="p">(</span> 
@@ -285,7 +285,6 @@ When a value stored in the session is an array, it is possible to use array dere
 <span class="p">);</span> 
 <span class="c1">// This will echo John</span> 
 <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[first_name]&#39;</span><span class="p">);</span> 
-<span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
  
 <p>Array dereferencing can be any number of layers deep.</p> 
