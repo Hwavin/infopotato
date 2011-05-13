@@ -103,27 +103,25 @@ function handlePlayGame(response) {
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">Ajax</h1>
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Ajax
+<h1 class="first_heading">Ajax Interaction</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Ajax Interaction
 </div>
 <!-- end breadcrumb -->
 
 <p>
-Basically, the Ajax equation involves incorporating the following technologies:
+Ajax makes web pages feel more responsive by exchanging small amounts of data with the server behind the scenes, so that the entire web page does not have to be reloaded each time the user makes a change. This is meant to increase the web page's interactivity, speed, and usability.
 </p>
 
-<ul>
-<li>HTML / XHTML and CSS for presentation</li>
-<li>Client-server communication via an XMLHttpRequest object</li>
-<li>Crawling the DOM and modify DHTML via a client-side scripting language like JavaScript</li>
-</ul>
+<p>
+An Ajax interaction is made up of three parts: a caller (a link, a button, a form, a clock, or any control that the user manipulates to launch the action), a server action, and a zone in the page to display the response of the action. You can build more complex interactions if the remote action returns data to be processed by a javascript function on the client side.
+</p>
 
 <p>
 To give the developers the full control of their applications, InfoPotato doesn't come with any JavaScript libraries to help you enrich your PHP applications with Ajax.
 </p>
 
 <div class="notebox">
-Only GET and POST requests are supported by InfoPotato when working with Ajax
+Only GET and POST requests are supported by InfoPotato.
 </div>
 
 
@@ -146,6 +144,24 @@ According to <a href="http://developer.yahoo.com/performance/rules.html#ajax_get
 
 <p>
 An interesting side affect is that POST without actually posting any data behaves like GET. Based on the HTTP specs, GET is meant for retrieving information, so it makes sense (semantically) to use GET when you're only requesting data, as opposed to sending data to be stored server-side.
+</p>
+
+<div class="notebox">
+GET requests should be used for simply retrieving data from the server. POST requests are optimal when sending form data, or large sets of data, to the server.
+</div>
+
+<h2>Ajax Request URI</h2>
+
+<p>
+Due to the GET request URI pattern designed in InfoPotato, query string that contains data to be passed to web applications is not supported. When formatting the Ajax GET URI, you should follow this URI format:
+</p>
+
+<div class="syntax">
+http://www.example.com/index.php/<span class="red">manager</span>/<span class="blue">method</span>/<span class="green">param1</span>/<span class="green">param2/<span class="green">param3/</span>
+</div>
+
+<p>
+Just follow the regular URI parameters format when making an Ajax POST request. Since all the data sent to the server are stored in the HTTP request body instead of appearing in the URI.
 </p>
 
 </div> 

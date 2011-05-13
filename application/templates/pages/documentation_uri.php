@@ -216,7 +216,7 @@ You can specify the permitted URI characters in the entry script index.php.
 A clean, elegant URI scheme is an important detail in a high-quality Web application. InfoPotato encourages beautiful URI design and doesn't put any cruft in URIs, like .php. URIs in InfoPotato are composed of segments. A typical segmented URI follows this pattern:
 </p>
 
-<div class="greybox">
+<div class="syntax">
 http://www.example.com/index.php/<span class="red">manager</span>/<span class="blue">method</span>/<span class="green">param1</span>/<span class="green">param2/<span class="green">param3/</span>
 </div>
 
