@@ -52,6 +52,11 @@
 
 <div class="clear"></div>
 
+<div class="pagination">
+<?php echo $pagination;?>
+</div>
+
+
 </div> 
 <!-- end onecolumn --> 
  

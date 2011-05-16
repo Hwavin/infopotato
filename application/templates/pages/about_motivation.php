@@ -110,6 +110,7 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://www.tokernel.com/" class="external_link">toKernel</a></li> 
 <li><a href="http://peej.github.com/tonic/" class="external_link">Tonic</a></li> 
 <li><a href="http://www.yiiframework.com/" class="external_link">Yii Framework</a></li> 
+<li><a href="http://www.rainframework.com/" class="external_link">Rain Framework</a></li> 
 </ul> 
 </td> 
 </tr> 

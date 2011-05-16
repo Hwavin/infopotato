@@ -41,7 +41,7 @@ class Mobile_Detect_Library {
 
         if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
             $this->is_mobile = TRUE;
-        } elseif (strpos($this->accept,'text/vnd.wap.wml') > 0 || strpos($accept,'application/vnd.wap.xhtml+xml') > 0) {
+        } elseif (strpos($this->accept, 'text/vnd.wap.wml') > 0 || strpos($accept, 'application/vnd.wap.xhtml+xml') > 0) {
             $this->is_mobile = TRUE;
         } else {
             foreach ($this->devices as $device => $regexp) {

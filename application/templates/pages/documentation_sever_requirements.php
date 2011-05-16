@@ -28,13 +28,14 @@ Type <span class="red">http://localhost/infopotato/requirements_check/checker.ph
 <h2>Local Development/Testing</h2>
 
 <p>
-If you intend to install InfoPotato on your local computer (for testing) there are a number of packages that you can use.
+If you intend to install InfoPotato on your local computer (for testing) there are a number of Apache–MySQL–PHP packages that you can use.
 </p>
 
 <ul>
 <li><a href="http://www.apachefriends.org/en/xampp.html" class="external_link">XAMPP</a> - Multi-platform - Apache, MySQL, PHP</li>
-<li><a href="http://www.wampserver.com/en/" class="external_link">Wampserver</a> - Windows platform - Apache, MySQL, PHP, PhpMyAdmin</li>
-<li><a href="http://www.easyphp.org/" class="external_link">EasyPHP</a> - Windows platform - Apache, MySQL, PHP, PhpMyAdmin, Xdebug</li>
+<li><a href="http://www.mamp.info/en/index.html" class="external_link">MAMP</a> - Macintosh - Apache - MySQL - PHP</li>
+<li><a href="http://www.wampserver.com/en/" class="external_link">Wampserver</a> - Windows - Apache, MySQL, PHP, PhpMyAdmin</li>
+<li><a href="http://www.easyphp.org/" class="external_link">EasyPHP</a> - Windows - Apache, MySQL, PHP, PhpMyAdmin, Xdebug</li>
 <li>Install Apache, MySQL, PHP separately and configure them all to work together.</li>
 </ul>
 
