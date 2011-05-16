@@ -8,7 +8,7 @@ final class Showcase_Manager extends Manager {
 		$config = array(
 			'base_uri' => 'http://localhost/infopotato/application/public/index.php/showcase/index/',
 			'items_total' => 200, 
-			'current_page' => $page,
+			'current_page' => 10,
 			'current_page_class' => 'current_page'
 		);
 		$this->load_library('SYS', 'pagination/pagination_library', 'page', $config);

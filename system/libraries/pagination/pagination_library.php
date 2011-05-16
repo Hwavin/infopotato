@@ -146,7 +146,7 @@ class Pagination_Library {
 		// Create the pagination link
 		$output = '';
 		if ($pagination_data['current_page'] !== 1) {
-			$output = '<a href="'.$this->base_uri.$pagination_data['prev_page'].'" title="Previous Page">&laquo; Prev</a> ';
+			$output = '<a href="'.$this->base_uri.$pagination_data['prev_page'].'">&laquo; Prev</a> ';
 		}
 		
 		for ($i = 1; $i <= $pagination_data['num_pages']; $i++) {
@@ -158,7 +158,7 @@ class Pagination_Library {
 				if ($i === $pagination_data['current_page']) {
 					$output .= '<span class="'.$this->current_page_class.'">'.$i.'</span>'; 
 				} else {
-					$output .= '<a href="'.$this->base_uri.$i.'" title="Go to page '.$i.' of '.$pagination_data['num_pages'].'">'.$i.'</a>'; 
+					$output .= '<a href="'.$this->base_uri.$i.'">'.$i.'</a>'; 
 				}
 			}
 			
@@ -168,7 +168,7 @@ class Pagination_Library {
 		}
 		
 		if ($pagination_data['current_page'] != $pagination_data['num_pages']) {
-			$output .= '<a href="'.$this->base_uri.$pagination_data['next_page'].'" title="Next Page">Next &raquo;</a>'; 
+			$output .= '<a href="'.$this->base_uri.$pagination_data['next_page'].'">Next &raquo;</a>'; 
 		}
 		
 		return $output;

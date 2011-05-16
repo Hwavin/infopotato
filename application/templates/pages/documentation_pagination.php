@@ -32,10 +32,66 @@ Here is a simple example showing how to create pagination in one of your manager
 'current_page_class' is the user-defined CSS class slelector for the current page
 </div>
 
-<p>How it looks - Sample</p>
+<h2>Sample Template and Output</h2>
 
+<div class="syntax"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;pagination&quot;</span><span class="nt">&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$pagination</span><span class="p">;</span><span class="cp">?&gt;</span> 
+<span class="nt">&lt;/div&gt;</span> 
+</pre></div> 
+
+<p>
+After template renderring, you will get the following HTML output:
+</p>
+
+<div class="syntax"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;pagination&quot;</span><span class="nt">&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/9&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;laquo;</span> Prev<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/1&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/a&gt;</span>...
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/7&quot;</span><span class="nt">&gt;</span>7<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">quot;http://www.example.com/index.php/pagination/index/8&quot;</span><span class="nt">&gt;</span>8<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/9&quot;</span><span class="nt">&gt;</span>9<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;current_page&quot;</span><span class="nt">&gt;</span>10<span class="nt">&lt;/span&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/11&quot;</span><span class="nt">&gt;</span>11<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/12&quot;</span><span class="nt">&gt;</span>12<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/13&quot;</span><span class="nt">&gt;</span>13<span class="nt">&lt;/a&gt;</span>...
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/20&quot;</span><span class="nt">&gt;</span>20<span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.example.com/index.php/pagination/index/11&quot;</span><span class="nt">&gt;</span>Next <span class="ni">&amp;raquo;</span><span class="nt">&lt;/a&gt;</span> 
+<span class="nt">&lt;/div&gt;</span> 
+</pre></div> 
+
+<p>Adding some CSS style</p>
+
+<div class="syntax"><pre>.pagination {
+margin-bottom:10px;
+}
+ 
+.pagination a{
+padding:2px 6px;
+margin:0 5px;
+border:3px solid #ddd;
+olor:#fff;
+}
+ 
+.pagination a:hover {
+background-color:#f7f7f7;
+border:3px solid #3b5998;
+text-decoration:underline;
+color:#3b5998;
+}
+ 
+.pagination span.current_page {
+border:3px solid #3b5998;
+padding:2px 6px;
+margin:0 3px;
+color:#3b5998;
+background-color:#fff;
+text-decoration:none;
+}
+</pre></div>
+
+<p>When the first page is the current page</p>
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/pagination.jpg" title="Pagination" />
 
+<p>When the 10th page is the current page</p>
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/pagination2.jpg" title="Pagination" />
 
 </div> 
