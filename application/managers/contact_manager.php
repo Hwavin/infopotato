@@ -33,7 +33,7 @@ final class Contact_Manager extends Manager {
 		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
 		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam
 		$this->fv->set_rules('contact_subject', 'Subject', 'trim|required');
-		$this->fv->set_rules('contact_message', 'Message', 'trim|encode_php_tags|required|strtoupper|prep_for_form');
+		$this->fv->set_rules('contact_message', 'Message', 'trim|required|encode_php_tags|strtoupper|prep_for_form');
 		$this->fv->set_rules('contact_name', 'Name', 'trim|required');
 		$this->fv->set_rules('contact_email', 'Email', 'trim|required|valid_email');
 		

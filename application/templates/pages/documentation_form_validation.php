@@ -139,69 +139,40 @@ Any native PHP function that accepts one parameter can be used as a rule, like <
 
 <h2>Changing the Error Delimiters</h2> 
  
-<p>By default, the Form Validation class adds a paragraph tag (&lt;p&gt;) around each error message shown. You can either change these delimiters globally or
-individually.</p> 
+<p>
+By default, the Form Validation class adds a paragraph tag (&lt;div&gt;) around each error message shown. You can either change these delimiters globally or individually.
+</p> 
+
+<p>
+To globally change the error delimiters for each error message, in your manager function, just after loading the Form Validation class, add this:
+</p> 
  
-<ol> 
- 
-<li><strong>Changing delimiters Globally</strong> 
- 
-<p>To globally change the error delimiters, in your controller function, just after loading the Form Validation class, add this:</p> 
- 
-<code>$this->form_validation->set_error_delimiters('<kbd>&lt;div class="error"></kbd>', '<kbd>&lt;/div></kbd>');</code> 
- 
-<p>In this example, we've switched to using div tags.</p> 
- 
-</li> 
- 
-<li><strong>Changing delimiters Individually</strong> 
- 
-<p>Each of the two error generating functions shown in this tutorial can be supplied their own delimiters as follows:</p> 
- 
-<code>&lt;?php echo form_error('field name', '<kbd>&lt;div class="error"></kbd>', '<kbd>&lt;/div></kbd>'); ?></code> 
- 
-<p>Or:</p> 
- 
-<code>&lt;?php echo validation_errors('<kbd>&lt;div class="error"></kbd>', '<kbd>&lt;/div></kbd>'); ?></code> 
- 
-</li> 
-</ol> 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fv</span><span class="o">-&gt;</span><span class="na">set_error_delimiters</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;error&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">);</span> 
+</pre></div> 
+
+<p>In this example, we've switched to using div tags with CSS selector added.</p> 
+
  
  
-<h2>Showing Errors Individually</h2> 
- 
-<p>If you prefer to show an error message next to each form field, rather than as a list, you can use the <dfn>form_error()</dfn> function.</p> 
- 
-<p>Try it! Change your form so that it looks like this:</p> 
- 
-<textarea class="textarea" style="width:100%" cols="50" rows="18"> 
-&lt;h5>Username&lt;/h5>
-&lt;?php echo form_error('username'); ?>
-&lt;input type="text" name="username" value="&lt;?php echo set_value('username'); ?>" size="50" />
- 
-&lt;h5>Password&lt;/h5>
-&lt;?php echo form_error('password'); ?>
-&lt;input type="text" name="password" value="&lt;?php echo set_value('password'); ?>" size="50" />
- 
-&lt;h5>Password Confirm&lt;/h5>
-&lt;?php echo form_error('passconf'); ?>
-&lt;input type="text" name="passconf" value="&lt;?php echo set_value('passconf'); ?>" size="50" />
- 
-&lt;h5>Email Address&lt;/h5>
-&lt;?php echo form_error('email'); ?>
-&lt;input type="text" name="email" value="&lt;?php echo set_value('email'); ?>" size="50" />
-</textarea> 
- 
-<p>If there are no errors, nothing will be shown.  If there is an error, the message will appear.</p> 
- 
-<p><strong>Important Note:</strong> If you use an array as the name of a form field, you must supply it as an array to the function.  Example:</p> 
- 
-<code>&lt;?php echo form_error('<kbd>options[size]</kbd>'); ?><br /> 
-&lt;input type="text" name="<kbd>options[size]</kbd>" value="&lt;?php echo set_value("<kbd>options[size]</kbd>"); ?>" size="50" />
-</code> 
- 
-<p>For more info please see the <a href="#arraysasfields">Using Arrays as Field Names</a> section below.</p> 
- 
+<h2>Display Errors</h2> 
+
+<p>
+You can display all the error messages in a list as follows:
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$errors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fv</span><span class="o">-&gt;</span><span class="na">form_errors</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;error&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">);</span> 
+</pre></div>
+
+<p>
+If you prefer to show an error message next to each form field, rather than as a list, you can use the following function to get the individual error message for each field.
+</p> 
+
+<div class="syntax"><pre>
+<span class="nv">$field_error</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fv</span><span class="o">-&gt;</span><span class="na">field_error</span><span class="p">(</span><span class="s1">&#39;field_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;p class=&quot;error&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">);</span> 
+</pre></div> 
+
 
 <h2>Rule Reference</h2> 
  
@@ -213,20 +184,23 @@ individually.</p>
 <th>Parameter</th> 
 <th>Description</th> 
 <th>Example</th> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>required</strong></td> 
 <td>No</td> 
 <td>Returns FALSE if the form element is empty.</td> 
 <td>&nbsp;</td> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>matches</strong></td> 
 <td>Yes</td> 
 <td>Returns FALSE if the form element does not match the one in the parameter.</td> 
 <td>matches[form_item]</td> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>min_length</strong></td> 
 <td>Yes</td> 
 <td>Returns FALSE if the form element is shorter then the parameter value.</td> 
@@ -237,26 +211,30 @@ individually.</p>
 <td>Yes</td> 
 <td>Returns FALSE if the form element is longer then the parameter value.</td> 
 <td>max_length[12]</td> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>exact_length</strong></td> 
 <td>Yes</td> 
 <td>Returns FALSE if the form element is not exactly the parameter value.</td> 
 <td>exact_length[8]</td> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>alpha</strong></td> 
 <td>No</td> 
 <td>Returns FALSE if the form element contains anything other than alphabetical characters.</td> 
 <td>&nbsp;</td> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>alpha_numeric</strong></td> 
 <td>No</td> 
 <td>Returns FALSE if the form element contains anything other than alpha-numeric characters.</td> 
 <td>&nbsp;</td> 
-</tr><tr> 
- 
+</tr>
+
+<tr> 
 <td><strong>alpha_dash</strong></td> 
 <td>No</td> 
 <td>Returns FALSE if the form element contains anything other than alpha-numeric characters, underscores or dashes.</td> 
@@ -277,6 +255,20 @@ individually.</p>
 <td>&nbsp;</td> 
 </tr> 
  
+<tr> 
+<td><strong>greater_than</strong></td> 
+<td>Yes</td> 
+<td>Returns FALSE if the form element is less than the parameter value or not numeric.</td> 
+<td>greater_than[8]</td> 
+</tr> 
+
+<tr> 
+<td><strong>less_than</strong></td> 
+<td>Yes</td> 
+<td>Returns FALSE if the form element is greater than the parameter value or not numeric.</td> 
+<td>less_than[8]</td> 
+</tr> 
+
 <tr> 
 <td><strong>is_natural</strong></td> 
 <td>No</td> 
@@ -306,27 +298,17 @@ individually.</p>
 </tr> 
  
 <tr> 
-<td><strong>valid_ip</strong></td> 
-<td>No</td> 
-<td>Returns FALSE if the supplied IP is not valid.</td> 
-<td>&nbsp;</td> 
-</tr> 
- 
-<tr> 
 <td><strong>valid_base64</strong></td> 
 <td>No</td> 
 <td>Returns FALSE if the supplied string contains anything other than valid Base64 characters.</td> 
 <td>&nbsp;</td> 
 </tr> 
  
- 
 </table> 
- 
-<p><strong>Note:</strong> These rules can also be called as discrete functions. For example:</p> 
- 
-<code>$this->form_validation->required($string);</code> 
- 
-<p class="notebox">You can also use any native PHP functions that permit one parameter.</p> 
+
+<div class="notebox">
+You can also use any native PHP functions that permit one parameter.
+</div> 
 
  
 </div> 
