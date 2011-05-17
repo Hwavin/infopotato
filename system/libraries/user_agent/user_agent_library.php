@@ -1,14 +1,11 @@
 <?php
-/**
- * User Agent Class
+ /**
+ * User Agent Library
  *
- * Identifies the platform, browser, robot, or mobile devise of the browsing agent
- *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	User Agent
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/libraries/user_agent.html
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class User_Agent_Library {
 
@@ -37,7 +34,6 @@ class User_Agent_Library {
 	 *
 	 * Sets the User Agent and runs the compilation routine
 	 *
-	 * @access	public
 	 * @return	void
 	 */		
 	public function __construct() {
@@ -215,7 +211,6 @@ class User_Agent_Library {
 	/**
 	 * Compile the User Agent Data
 	 *
-	 * @access	private
 	 * @return	bool
 	 */		
 	private function _compile_data() {
@@ -232,7 +227,6 @@ class User_Agent_Library {
 	/**
 	 * Set the Platform
 	 *
-	 * @access	private
 	 * @return	mixed
 	 */		
 	private function _set_platform() {
@@ -251,7 +245,6 @@ class User_Agent_Library {
 	/**
 	 * Set the Browser
 	 *
-	 * @access	private
 	 * @return	bool
 	 */		
 	private function _set_browser() {
@@ -273,7 +266,6 @@ class User_Agent_Library {
 	/**
 	 * Set the Robot
 	 *
-	 * @access	private
 	 * @return	bool
 	 */		
 	private function _set_robot() {
@@ -293,7 +285,6 @@ class User_Agent_Library {
 	/**
 	 * Set the Mobile Device
 	 *
-	 * @access	private
 	 * @return	bool
 	 */		
 	private function _set_mobile() {
@@ -313,7 +304,6 @@ class User_Agent_Library {
 	/**
 	 * Set the accepted languages
 	 *
-	 * @access	private
 	 * @return	void
 	 */			
 	private function _set_languages() {
@@ -332,7 +322,6 @@ class User_Agent_Library {
 	/**
 	 * Set the accepted character sets
 	 *
-	 * @access	private
 	 * @return	void
 	 */			
 	private function _set_charsets() {	
@@ -351,7 +340,6 @@ class User_Agent_Library {
 	/**
 	 * Is Browser
 	 *
-	 * @access	public
 	 * @return	bool
 	 */		
 	public function is_browser() {
@@ -362,7 +350,6 @@ class User_Agent_Library {
 	/**
 	 * Is Robot
 	 *
-	 * @access	public
 	 * @return	bool
 	 */		
 	public function is_robot() {
@@ -373,7 +360,6 @@ class User_Agent_Library {
 	/**
 	 * Is Mobile
 	 *
-	 * @access	public
 	 * @return	bool
 	 */		
 	public function is_mobile() {
@@ -384,7 +370,6 @@ class User_Agent_Library {
 	/**
 	 * Is this a referral from another site?
 	 *
-	 * @access	public
 	 * @return	bool
 	 */			
 	public function is_referral() {
@@ -396,7 +381,6 @@ class User_Agent_Library {
 	 * Returns a string containing the full user agent string. Typically it will be something like this:
 	 * Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.0.4) Gecko/20060613 Camino/1.0.2
 	 *
-	 * @access	public
 	 * @return	string
 	 */			
 	public function agent_string() {
@@ -407,7 +391,6 @@ class User_Agent_Library {
 	/**
 	 * Get Platform
 	 *
-	 * @access	public
 	 * @return	string
 	 */			
 	public function platform() {
@@ -418,7 +401,6 @@ class User_Agent_Library {
 	/**
 	 * Get Browser Name
 	 *
-	 * @access	public
 	 * @return	string
 	 */			
 	public function browser() {
@@ -429,7 +411,6 @@ class User_Agent_Library {
 	/**
 	 * Get the Browser Version
 	 *
-	 * @access	public
 	 * @return	string
 	 */			
 	public function version() {
@@ -440,7 +421,6 @@ class User_Agent_Library {
 	/**
 	 * Get The Robot Name
 	 *
-	 * @access	public
 	 * @return	string
 	 */				
 	public function robot() {
@@ -450,7 +430,6 @@ class User_Agent_Library {
 	/**
 	 * Get the Mobile Device
 	 *
-	 * @access	public
 	 * @return	string
 	 */			
 	public function mobile() {
@@ -461,7 +440,6 @@ class User_Agent_Library {
 	/**
 	 * Get the referrer
 	 *
-	 * @access	public
 	 * @return	bool
 	 */			
 	public function referrer() {
@@ -472,7 +450,6 @@ class User_Agent_Library {
 	/**
 	 * Get the accepted languages
 	 *
-	 * @access	public
 	 * @return	array
 	 */			
 	public function languages() {
@@ -487,7 +464,6 @@ class User_Agent_Library {
 	/**
 	 * Get the accepted Character Sets
 	 *
-	 * @access	public
 	 * @return	array
 	 */			
 	public function charsets() {
@@ -502,7 +478,6 @@ class User_Agent_Library {
 	/**
 	 * Test for a particular language
 	 *
-	 * @access	public
 	 * @return	bool
 	 */			
 	public function accept_lang($lang = 'en') {
@@ -513,7 +488,6 @@ class User_Agent_Library {
 	/**
 	 * Test for a particular character set
 	 *
-	 * @access	public
 	 * @return	bool
 	 */			
 	public function accept_charset($charset = 'utf-8') {

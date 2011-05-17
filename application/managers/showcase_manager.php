@@ -8,8 +8,9 @@ final class Showcase_Manager extends Manager {
 		$config = array(
 			'base_uri' => 'http://localhost/infopotato/application/public/index.php/showcase/index/',
 			'items_total' => 200, 
-			'current_page' => 10,
-			'current_page_class' => 'current_page'
+			'current_page' => 3,
+			'current_page_class' => 'current_page',
+			'mid_range' => 7
 		);
 		$this->load_library('SYS', 'pagination/pagination_library', 'page', $config);
 		
@@ -29,6 +30,8 @@ final class Showcase_Manager extends Manager {
 			'type' => 'text/html',
 		);
 		$this->response($response_data);
+		
+		Global_Functions::dump($this->page->get_pagination_data());
 	}
 }
 

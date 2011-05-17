@@ -716,7 +716,7 @@ class Form_Validation_Library {
 	public function alpha($str) {
 		return ( ! preg_match("/^([a-z])+$/i", $str)) ? FALSE : TRUE;
 	}
-	
+
 
 	/**
 	 * Alpha-numeric

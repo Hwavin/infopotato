@@ -173,6 +173,9 @@ If you prefer to show an error message next to each form field, rather than as a
 <span class="nv">$field_error</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fv</span><span class="o">-&gt;</span><span class="na">field_error</span><span class="p">(</span><span class="s1">&#39;field_name&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;p class=&quot;error&quot;&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;/p&gt;&#39;</span><span class="p">);</span> 
 </pre></div> 
 
+<div class="notebox">
+Change 'field_name' to the name of the actual field (e.g., 'email').
+</div>
 
 <h2>Rule Reference</h2> 
  

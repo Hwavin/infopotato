@@ -1,6 +1,6 @@
 <?php
 /**
- * File UploadingLibrary
+ * File Uploading Library
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
