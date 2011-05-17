@@ -23,7 +23,7 @@ We hope you have enjoyed the site. If you have a question or comment that you wo
 <!-- begin contact --> 
 <div id="contact"> 
 <?php if (isset($errors)) : ?>
-<div class="pinkbox">
+<div class="pinkbox form_error">
 <?php echo $errors; ?>
 </div>
 <?php endif; ?>

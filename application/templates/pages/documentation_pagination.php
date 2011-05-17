@@ -58,7 +58,7 @@ After template renderring, you will get the following HTML output:
 <span class="nt">&lt;/div&gt;</span> 
 </pre></div> 
 
-<p>Adding some CSS style</p>
+<h2>Adding some CSS style</h2>
 
 <div class="syntax"><pre>.pagination {
 margin-bottom:10px;
@@ -88,6 +88,7 @@ text-decoration:none;
 }
 </pre></div>
 
+<h2>Final Visual Output</h2>
 <p>When the first page is the current page</p>
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/pagination.jpg" title="Pagination" />
 

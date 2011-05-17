@@ -1,21 +1,32 @@
 <?php
 /**
- * Form Validation Class
+ * Form Validation Library
+ *
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Form_Validation_Library {
-	private $_post			= array();	
-	private $_field_data			= array();	
-	private $_error_array			= array();
-	private $_error_messages		= array();	
-	private $_error_prefix			= '<p>';
-	private $_error_suffix			= '</p>';
-	private $_safe_form_data 		= FALSE;
+	/**
+	 * Key-value array of HTTP POST parameters to be validated
+	 * 
+	 * @var array
+	 */
+	private $_post = array();	
+	
+	private $_field_data = array();	
+	private $_error_array = array();
+	private $_error_messages = array();	
+	private $_error_prefix = '<div>';
+	private $_error_suffix = '</div>';
+	private $_safe_form_data = FALSE;
 	
 	/**
 	 * Constructor
 	 */	
 	public function __construct($config = array()) { 
-		// Assign the $_POST data 
+		// Assign the $POST_DATA array
 		$this->_post = $config['post'];
 		
 		// Set the character encoding in MB.
@@ -40,6 +51,9 @@ class Form_Validation_Library {
 			'is_numeric' => "The %s field must contain only numeric characters.",
 			'is_integer' => "The %s field must contain an integer.",
 			'matches' => "The %s field does not match the %s field.",
+			'decimal' => "The %s field must contain a decimal number.",
+			'less_than' => "The %s field must contain a number less than %s.",
+            'greater_than' => "The %s field must contain a number greater than %s.",
 			'is_natural' => "The %s field must contain only positive numbers.",
 			'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
 		);
@@ -51,36 +65,14 @@ class Form_Validation_Library {
 	 * This function takes an array of field names and validation
 	 * rules as input, validates the info, and stores it
 	 *
-	 * @param	mixed
-	 * @param	string
+	 * @param	string  the field name
+	 * @param	string  
+	 * @param	string  
 	 * @return	void
 	 */
-	public function set_rules($field, $label = '', $rules = '') {
+	public function set_rules($field = '', $label = '', $rules = '') {
 		// No reason to set rules if we have no POST data
 		if (count($this->_post) == 0) {
-			return;
-		}
-	
-		// If an array was passed via the first parameter instead of indidual string
-		// values we cycle through it and recursively call this function.
-		if (is_array($field)) {
-			foreach ($field as $row) {
-				// Houston, we have a problem...
-				if ( ! isset($row['field']) || ! isset($row['rules'])) {
-					continue;
-				}
-
-				// If the field label wasn't passed we use the field name
-				$label = ( ! isset($row['label'])) ? $row['field'] : $row['label'];
-
-				// Here we go!
-				$this->set_rules($row['field'], $label, $row['rules']);
-			}
-			return;
-		}
-		
-		// No fields? Nothing to do...
-		if ( ! is_string($field) ||  ! is_string($rules) || $field == '') {
 			return;
 		}
 
@@ -104,42 +96,23 @@ class Form_Validation_Library {
 			
 			$is_array = TRUE;
 		} else {
-			$indexes 	= array();
-			$is_array	= FALSE;		
+			$indexes = array();
+			$is_array = FALSE;		
 		}
 		
 		// Build our master array		
 		$this->_field_data[$field] = array(
-			'field'				=> $field, 
-			'label'				=> $label, 
-			'rules'				=> $rules,
-			'is_array'			=> $is_array,
-			'keys'				=> $indexes,
-			'postdata'			=> NULL,
-			'error'				=> ''
+			'field'	=> $field, 
+			'label' => $label, 
+			'rules' => $rules,
+			'is_array' => $is_array,
+			'keys' => $indexes,
+			'postdata' => NULL,
+			'error' => ''
 		);
 	}
 
 
-	/**
-	 * Set Error Message
-	 *
-	 * Lets users set their own error messages on the fly.  Note:  The key
-	 * name has to match the  function name that it corresponds to.
-	 *
-	 * @param	string
-	 * @param	string
-	 * @return	string
-	 */
-	public function set_message($lang, $val = '') {
-		if ( ! is_array($lang)) {
-			$lang = array($lang => $val);
-		}
-	
-		$this->_error_messages = array_merge($this->_error_messages, $lang);
-	}
-	
-	
 	/**
 	 * Set The Error Delimiter
 	 *
@@ -149,7 +122,7 @@ class Form_Validation_Library {
 	 * @param	string
 	 * @return	void
 	 */	
-	public function set_error_delimiters($prefix = '<p>', $suffix = '</p>') {
+	public function set_error_delimiters($prefix = '<div>', $suffix = '</div>') {
 		$this->_error_prefix = $prefix;
 		$this->_error_suffix = $suffix;
 	}
@@ -161,7 +134,9 @@ class Form_Validation_Library {
 	 * Gets the error message associated with a particular field
 	 *
 	 * @param	string	the field name
-	 * @return	void
+	 * @param	string
+	 * @param	string
+	 * @return	string
 	 */	
 	public function field_error($field = '', $prefix = '', $suffix = '') {	
 		if ( ! isset($this->_field_data[$field]['error']) || $this->_field_data[$field]['error'] == '') {
@@ -188,7 +163,7 @@ class Form_Validation_Library {
 	 *
 	 * @param	string
 	 * @param	string
-	 * @return	str 
+	 * @return	string 
 	 */	
 	public function form_errors($prefix = '', $suffix = '') {
 		// No errrors, validation passes!
@@ -222,24 +197,22 @@ class Form_Validation_Library {
 	 *
 	 * @return	bool
 	 */		
-	public function run($group = '') {
-		// Do we even have any data to process?  Mm?
+	public function run() {
+		// Do we even have any data to process?
 		if (count($this->_post) == 0) {
 			return FALSE;
 		}
 		
 		// Does the _field_data array containing the validation rules exist?
-		// If not, we look to see if they were assigned via a config file
 		if (count($this->_field_data) == 0) {
 			return FALSE;
 		}
-							
+
 		// Cycle through the rules for each field, match the 
 		// corresponding $this->_post item and test for errors
 		foreach ($this->_field_data as $field => $row) {		
 			// Fetch the data from the corresponding $this->_post array and cache it in the _field_data array.
 			// Depending on whether the field name is an array or a string will determine where we get it from.
-			
 			if ($row['is_array'] == TRUE) {
 				$this->_field_data[$field]['postdata'] = $this->_reduce_array($this->_post, $row['keys']);
 			} else {
@@ -408,8 +381,8 @@ class Form_Validation_Library {
 			// Rules can contain a parameter: max_length[5]
 			$param = FALSE;
 			if (preg_match("/(.*?)\[(.*?)\]/", $rule, $match)) {
-				$rule	= $match[1];
-				$param	= $match[2];
+				$rule = $match[1];
+				$param = $match[2];
 			}
 			
 			// Call the function that corresponds to the rule		
@@ -688,7 +661,7 @@ class Form_Validation_Library {
 	 * @return	bool
 	 */	
 	public function form_token($str, $val) {
-		return ($str != $val) ? FALSE : TRUE;
+		return ($str !== $val) ? FALSE : TRUE;
 	}
 	
 	/**
@@ -699,7 +672,7 @@ class Form_Validation_Library {
 	 * @return	bool
 	 */	
 	public function equals($str, $val) {
-		return ($str != $val) ? FALSE : TRUE;
+		return ($str !== $val) ? FALSE : TRUE;
 	}
 
 	/**
@@ -780,7 +753,7 @@ class Form_Validation_Library {
 
 
     /**
-     * Is Numeric
+     * Finds whether a variable is a number or a numeric string
      *
      * @param    string
      * @return    bool
@@ -800,6 +773,42 @@ class Form_Validation_Library {
 		return (bool)preg_match( '/^[\-+]?[0-9]+$/', $str);
 	}
 
+	/**
+	 * Decimal number
+	 *
+	 * @param	string
+	 * @return	bool
+	 */
+	public function decimal($str) {
+		return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $str);
+	}
+	
+	/**
+	 * Greather than
+	 *
+	 * @param	string
+	 * @return	bool
+	 */
+	public function greater_than($str, $min) {
+		if ( ! is_numeric($str)) {
+			return FALSE;
+		}
+		return $str > $min;
+	}
+
+
+	/**
+	 * Less than
+	 *
+	 * @param	string
+	 * @return	bool
+	 */
+	public function less_than($str, $max) {
+		if ( ! is_numeric($str)) {
+			return FALSE;
+		}
+		return $str < $max;
+	}
 	
     /**
      * Is a Natural number  (0,1,2,3, etc.)

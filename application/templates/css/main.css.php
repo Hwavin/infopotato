@@ -799,3 +799,8 @@ font-size: 16px;
 font-weight:normal;
 margin-top:10px;
 }
+
+/* Contact Form Error Messages */
+.form_error div {
+line-height:180%;
+}

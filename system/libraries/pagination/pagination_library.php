@@ -1,8 +1,12 @@
 <?php
 /**
- * PHP pagination class
+ * Pagination Library
+ *
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-
 class Pagination_Library {
 	/**
      * The desired number of items to be shown on each page.
