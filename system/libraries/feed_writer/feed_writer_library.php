@@ -8,28 +8,28 @@ class Feed_Writer_Library {
 	 * 
 	 * @var string 
 	 */
-	private $format = 'rss20';
+	private $_format = 'rss20';
 	
 	/**
 	 * The items in feed 'body'
 	 *
 	 * @var string 
 	 */
-	private $items = '';
+	private $_items = '';
 	
 	/**
 	 * The complete feed content ('head' + 'body')
 	 *
 	 * @var string 
 	 */
-	private $feed = '';
+	private $_feed = '';
 	
 	/**
 	 * Constructor
 	 */	
 	public function __construct($config = array()) { 
 		if (count($config) > 0) {
-			$this->format = $config['format'];
+			$this->_format = $config['format'];
 		}
 	}
 
@@ -47,7 +47,7 @@ class Feed_Writer_Library {
 		// Build feed head then put head and body together
 		$this->_assemble_feed($feed_data['head']) ;
 		
-		return $this->feed;
+		return $this->_feed;
 	}
 	
 	/**
@@ -73,7 +73,7 @@ class Feed_Writer_Library {
 	 * @return	void
 	 */	
 	private function _add_item($a) {
-		switch ($this->format) {
+		switch ($this->_format) {
 			case 'rss092':
 				$item = "\t" . '<item>' . "\n";
 				$item .= "\t\t" . '<title>' . $this->_strip($a['title']) . '</title>				' . "\n";
@@ -117,7 +117,7 @@ class Feed_Writer_Library {
 				$item .= "\t" . '</entry>' . "\n";
 				break;
 		}
-		$this->items .= $item;
+		$this->_items .= $item;
 	}
 	
 	/**
@@ -127,52 +127,52 @@ class Feed_Writer_Library {
 	 * @return	void
 	 */
 	private function _assemble_feed($fa) {
-		$this->feed = '<?xml version="1.0" encoding="utf-8"?>' . "\n"; 
+		$this->_feed = '<?xml version="1.0" encoding="utf-8"?>' . "\n"; 
 		// $fa = func_get_args();
-		switch ($this->format) {
+		switch ($this->_format) {
 			case 'rss092':
-				$this->feed .= '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://my.netscape.com/rdf/simple/0.9/">' . "\n";
-				$this->feed .= '<channel>' . "\n";
-				$this->feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
-				$this->feed .= "\t" . '<description><![CDATA[' . $fa['description'] . ']]></description>' . "\n";
-				$this->feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
-				$this->feed .= '</channel>' . "\n";
-				$this->feed .= $this->items;
-				$this->feed .= '</rdf:RDF>';
+				$this->_feed .= '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://my.netscape.com/rdf/simple/0.9/">' . "\n";
+				$this->_feed .= '<channel>' . "\n";
+				$this->_feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
+				$this->_feed .= "\t" . '<description><![CDATA[' . $fa['description'] . ']]></description>' . "\n";
+				$this->_feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
+				$this->_feed .= '</channel>' . "\n";
+				$this->_feed .= $this->_items;
+				$this->_feed .= '</rdf:RDF>';
 				break;
 			
 			case 'rss10':
-				$this->feed .= '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">' . "\n";
-				$this->feed .= '<channel>' . "\n";
-				$this->feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
-				$this->feed .= "\t" . '<description><![CDATA[' . $fa['description'] . ']]></description>' . "\n";
-				$this->feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
-				$this->feed .= $this->items;
-				$this->feed .= '</channel>' . "\n";
-				$this->feed .= '</rdf:RDF>' . "\n";
+				$this->_feed .= '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">' . "\n";
+				$this->_feed .= '<channel>' . "\n";
+				$this->_feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
+				$this->_feed .= "\t" . '<description><![CDATA[' . $fa['description'] . ']]></description>' . "\n";
+				$this->_feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
+				$this->_feed .= $this->_items;
+				$this->_feed .= '</channel>' . "\n";
+				$this->_feed .= '</rdf:RDF>' . "\n";
 				break;
 			// http://cyber.law.harvard.edu/rss/rss.html#hrelementsOfLtitemgt
 			case 'rss20':
-				$this->feed .= '<rss version="2.0">' . "\n";
-				$this->feed .= '<channel>' . "\n";
-				$this->feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
-				$this->feed .= "\t" . '<description><![CDATA[' . $fa['description'] . ']]></description>' . "\n";
-				$this->feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
-				$this->feed .= "\t" . '<lastBuildDate>' . date('D, d M Y H:i:s', $fa['date']) . ' GMT</lastBuildDate>' . "\n";
-				$this->feed .= $this->items;
-				$this->feed .= '</channel>' . "\n";
-				$this->feed .= '</rss>' . "\n";
+				$this->_feed .= '<rss version="2.0">' . "\n";
+				$this->_feed .= '<channel>' . "\n";
+				$this->_feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
+				$this->_feed .= "\t" . '<description><![CDATA[' . $fa['description'] . ']]></description>' . "\n";
+				$this->_feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
+				$this->_feed .= "\t" . '<lastBuildDate>' . date('D, d M Y H:i:s', $fa['date']) . ' GMT</lastBuildDate>' . "\n";
+				$this->_feed .= $this->_items;
+				$this->_feed .= '</channel>' . "\n";
+				$this->_feed .= '</rss>' . "\n";
 				break;
 			
 			// http://www.atomenabled.org/developers/syndication/
 			case 'atom': 
-				$this->feed .= '<feed version="0.3" xmlns="http://purl.org/atom/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="zh-cn">' . "\n";
-				$this->feed .= "\t" . '<id>http://example.com/</id>' . "\n";
-				$this->feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
-				$this->feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
-				$this->feed .= "\t" . '<updated>' . substr($fa['date'], 0, 4) . '-' . substr($fa['date'], 4, 2) . '-' . substr($fa['date'], 6, 2) . 'T' . substr($fa['date'], 8, 2) . ':' . substr($fa['date'], 10, 2) . ':' . substr($fa['date'], 12, 4) . '</updated>' . "\n";
-				$this->feed .= $this->items;
-				$this->feed .= '</feed>' . "\n";
+				$this->_feed .= '<feed version="0.3" xmlns="http://purl.org/atom/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="zh-cn">' . "\n";
+				$this->_feed .= "\t" . '<id>http://example.com/</id>' . "\n";
+				$this->_feed .= "\t" . '<title>' . $this->_strip($fa['title']) . '</title>' . "\n";
+				$this->_feed .= "\t" . '<link>' . $this->_strip($fa['link']) . '</link>' . "\n";
+				$this->_feed .= "\t" . '<updated>' . substr($fa['date'], 0, 4) . '-' . substr($fa['date'], 4, 2) . '-' . substr($fa['date'], 6, 2) . 'T' . substr($fa['date'], 8, 2) . ':' . substr($fa['date'], 10, 2) . ':' . substr($fa['date'], 12, 4) . '</updated>' . "\n";
+				$this->_feed .= $this->_items;
+				$this->_feed .= '</feed>' . "\n";
 				break;
 		}
 	}

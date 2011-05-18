@@ -14,28 +14,28 @@ class Pagination_Library {
 	 * 
 	 * @var integer 
      */
-	public $items_per_page = 10;
+	protected $items_per_page = 10;
 	
 	/**
      * The total number of items you'll be paginating.
      *
      * @var integer
      */
-	public $items_total;
+	protected $items_total;
 	
 	/**
      * The page the user is viewing. Will always be an integer >= 1
 	 * 
 	 * @var integer 
      */
-	public $current_page;
+	protected $current_page = 1;
 	
 	/**
      * The CSS class for current page
 	 * 
 	 * @var string
      */
-	public $current_page_class = '';
+	protected $current_page_class = '';
 	
 	/**
      * The number of pages to show 'around' the current page, is odd and >=3
@@ -52,28 +52,14 @@ class Pagination_Library {
 	 * 
 	 * @var integer 
      */
-	public $mid_range = 7;
-	
-	/**
-     * The offset
-	 * 
-	 * @var integer 
-     */
-	public $offset_low;
-	
-	/**
-     * The offset
-	 * 
-	 * @var integer 
-     */
-	public $offset_high;
+	protected $mid_range = 7;
 	
 	/**
      * The base page URI we are linking to
 	 * 
 	 * @var string
      */
-	public $base_uri = '';
+	protected $base_uri = '';
 	
 	/**
      * The pagination data in an array for debug
@@ -86,7 +72,7 @@ class Pagination_Library {
 	 * Constructor
 	 */	
 	public function __construct($config = array()) { 
-		if (is_array($config) && count($config) > 0) {
+		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
 				$this->$key = $val;
 			}
@@ -120,15 +106,16 @@ class Pagination_Library {
 
 		// For easy debug
 		$this->_pagination_data = array(
+			'base_uri' => $this->base_uri,
 			'items_total' => $this->items_total,
 			'items_per_page' => $this->items_per_page,
-			'num_pages' => $num_pages,
+			'mid_range' => $this->mid_range,
 			'current_page' => $this->current_page,
 			'prev_page' => $this->current_page - 1,
 			'next_page' => $this->current_page + 1,
+			'num_pages' => $num_pages,
 			// Create an array containing a range of elements
 			'range' => range($start_range, $end_range), 
-			'mid_range' => $this->mid_range,
 		);
 		
 		// Create the pagination link

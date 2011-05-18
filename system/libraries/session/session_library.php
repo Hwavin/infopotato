@@ -18,22 +18,30 @@
 class Session_Library {
 
 	/**
-	 * @var integer The length for a normal session
+	 * The length for a normal session
+	 * 
+	 * @var integer 
 	 */
 	private $_normal_timespan = NULL;
 	
 	/**
-	 * @var boolean If the session is open
+	 * If the session is open
+	 * 
+	 * @var boolean 
 	 */
 	private $_open = FALSE;
 	
 	/**
-	 * @var integer The length for a persistent session cookie - one that survives browser restarts
+	 * The length for a persistent session cookie - one that survives browser restarts
+	 * 
+	 * @var integer 
 	 */
 	private $_persistent_timespan = NULL;
 	
 	/**
-	 * @var boolean If the session ID was regenerated during this script
+	 * If the session ID was regenerated during this script
+	 * 
+	 * @var boolean 
 	 */
 	private $_regenerated = FALSE;
 	

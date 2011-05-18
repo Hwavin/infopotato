@@ -19,6 +19,8 @@ Here is a simple example showing how to create pagination in one of your manager
     <span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
 	<span class="s1">&#39;base_uri&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://www.example.com/index.php/pagination/index/&#39;</span><span class="p">,</span> 
 	<span class="s1">&#39;items_total&#39;</span> <span class="o">=&gt;</span> <span class="m">200</span><span class="p">,</span> 
+        <span class="s1">&#39;items_per_page&#39;</span> <span class="o">=&gt;</span> <span class="m">10</span><span class="p">,</span> 
+        <span class="s1">&#39;mid_range&#39;</span> <span class="o">=&gt;</span> <span class="m">9</span><span class="p">,</span> 
 	<span class="s1">&#39;current_page&#39;</span> <span class="o">=&gt;</span> <span class="nv">$current_page</span><span class="p">,</span> 
 	<span class="s1">&#39;current_page_class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;current_page&#39;</span> 
     <span class="p">);</span> 
@@ -31,6 +33,16 @@ Here is a simple example showing how to create pagination in one of your manager
 <div class="notebox">
 'current_page_class' is the user-defined CSS class slelector for the current page
 </div>
+
+<h2>Get all the pagination data for simple debug</h2>
+
+<p>
+You can also get an array which contains all the pagination data by calling the <span class="red">get_pagination_data()</span> method.
+</p>
+
+<div class="syntax"><pre>
+<span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">get_pagination_data</span><span class="p">());</span> 
+</pre></div>  
 
 <h2>Sample Template and Output</h2>
 

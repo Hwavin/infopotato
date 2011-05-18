@@ -10,21 +10,25 @@
  */
 class FTP_Library {
 
-	public $hostname = '';
-	public $username = '';
-	public $password = '';
-	public $port = 21;
-	public $passive	= TRUE;
+	protected $hostname = '';
+	protected $username = '';
+	protected $password = '';
+	protected $port = 21;
+	protected $passive = TRUE;
 	
 	/**
-	 * @var  bollean  Whether to enable debugging to display error messages
+	 * Whether to enable debugging to display error messages
+	 * 
+	 * @var  bollean  
 	 */
-	public $debug = FALSE; 
+	protected $debug = FALSE; 
 	
 	/**
-	 * @var  bollean  Whether to use passive mode. Passive is set automatically by default
+	 * Whether to use passive mode. Passive is set automatically by default
+	 * 
+	 * @var  bollean  
 	 */
-	public $conn_id	= FALSE;
+	protected $conn_id = FALSE;
 
 
 	/**

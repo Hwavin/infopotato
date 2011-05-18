@@ -13,31 +13,34 @@ class Mobile_Detect_Library {
     protected $accept;
     protected $user_agent;
     
-    protected $is_mobile     = FALSE;
-    protected $is_android    = NULL;
+    protected $is_mobile = FALSE;
+    protected $is_android = NULL;
     protected $is_blackberry = NULL;
-    protected $is_opera      = NULL;
-    protected $is_palm       = NULL;
-    protected $is_windows    = NULL;
-    protected $is_generic    = NULL;
-	protected $is_iphone     = NULL;
-    protected $is_ipad       = NULL;
+    protected $is_opera = NULL;
+    protected $is_palm = NULL;
+    protected $is_windows = NULL;
+    protected $is_generic = NULL;
+	protected $is_iphone = NULL;
+    protected $is_ipad = NULL;
 
     protected $devices = array(
-        'android'       => 'android',
-        'blackberry'    => 'blackberry',
-        'iphone'        => '(iphone|ipod)',
-		'ipad'          => 'ipad',
-        'opera'         => '(opera mini|opera mobi)',
-        'palm'          => '(avantgo|blazer|elaine|hiptop|palm|plucker|xiino)',
-        'windows'       => 'windows ce; (iemobile|ppc|smartphone)',
-        'generic'       => '(kindle|mobile|mmp|midp|o2|pda|pocket|psp|symbian|smartphone|treo|up.browser|up.link|vodafone|wap|nokia|samsung|SonyEricsson)'
+        'android' => 'android',
+        'blackberry' => 'blackberry',
+        'iphone' => '(iphone|ipod)',
+		'ipad' => 'ipad',
+        'opera' => '(opera mini|opera mobi)',
+        'palm' => '(avantgo|blazer|elaine|hiptop|palm|plucker|xiino)',
+        'windows' => 'windows ce; (iemobile|ppc|smartphone)',
+        'generic' => '(kindle|mobile|mmp|midp|o2|pda|pocket|psp|symbian|smartphone|treo|up.browser|up.link|vodafone|wap|nokia|samsung|SonyEricsson)'
     );
 
 
+	/**
+     * Constructor
+     */
     public function __construct() {
         $this->user_agent = $_SERVER['HTTP_USER_AGENT'];
-        $this->accept     = $_SERVER['HTTP_ACCEPT'];
+        $this->accept = $_SERVER['HTTP_ACCEPT'];
 
         if (isset($_SERVER['HTTP_X_WAP_PROFILE']) || isset($_SERVER['HTTP_PROFILE'])) {
             $this->is_mobile = TRUE;
@@ -83,7 +86,7 @@ class Mobile_Detect_Library {
 
 
     protected function _is_device($device) {
-        $var    = 'is_' . strtolower($device);
+        $var  = 'is_' . strtolower($device);
         $return = $this->$var === NULL ? (bool) preg_match("/" . $this->devices[$device] . "/i", $this->user_agent) : $this->$var;
 
         if (($device != 'generic' && $return == TRUE) || $device == 'ipad') {

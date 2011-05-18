@@ -9,64 +9,67 @@
  */
 class Calendar_Library {
 
-	public $show = array();
-	public $local_time;
-	public $template = '';
-	public $start_day = 'sunday';
-	public $month_type = 'long';
-	public $day_type = 'abr';
-	public $show_next_prev = FALSE;
-	public $next_prev_url = '';
+	protected $show = array();
+	protected $local_time;
+	
+	protected $template = '';
+	protected $start_day = 'sunday';
+	protected $month_type = 'long';
+	protected $day_type = 'abr';
+	protected $show_next_prev = FALSE;
+	protected $next_prev_url = '';
 
 	/**
 	 * Set the calendar message and sets the default time reference
 	 */
 	public function __construct($config = array()) {		
-		$this->show['cal_su'] = "Su";
-		$this->show['cal_mo'] = "Mo";
-		$this->show['cal_tu'] = "Tu";
-		$this->show['cal_we'] = "We";
-		$this->show['cal_th'] = "Th";
-		$this->show['cal_fr'] = "Fr";
-		$this->show['cal_sa'] = "Sa";
-		$this->show['cal_sun'] = "Sun";
-		$this->show['cal_mon'] = "Mon";
-		$this->show['cal_tue'] = "Tue";
-		$this->show['cal_wed'] = "Wed";
-		$this->show['cal_thu'] = "Thu";
-		$this->show['cal_fri'] = "Fri";
-		$this->show['cal_sat'] = "Sat";
-		$this->show['cal_sunday'] = "Sunday";
-		$this->show['cal_monday'] = "Monday";
-		$this->show['cal_tuesday'] = "Tuesday";
-		$this->show['cal_wednesday'] = "Wednesday";
-		$this->show['cal_thursday']	= "Thursday";
-		$this->show['cal_friday'] = "Friday";
-		$this->show['cal_saturday']	= "Saturday";
-		$this->show['cal_jan'] = "Jan";
-		$this->show['cal_feb'] = "Feb";
-		$this->show['cal_mar'] = "Mar";
-		$this->show['cal_apr'] = "Apr";
-		$this->show['cal_may'] = "May";
-		$this->show['cal_jun'] = "Jun";
-		$this->show['cal_jul'] = "Jul";
-		$this->show['cal_aug'] = "Aug";
-		$this->show['cal_sep'] = "Sep";
-		$this->show['cal_oct'] = "Oct";
-		$this->show['cal_nov'] = "Nov";
-		$this->show['cal_dec'] = "Dec";
-		$this->show['cal_january'] = "January";
-		$this->show['cal_february'] = "February";
-		$this->show['cal_march'] = "March";
-		$this->show['cal_april'] = "April";
-		$this->show['cal_mayl'] = "May";
-		$this->show['cal_june'] = "June";
-		$this->show['cal_july'] = "July";
-		$this->show['cal_august'] = "August";
-		$this->show['cal_september'] = "September";
-		$this->show['cal_october'] = "October";
-		$this->show['cal_november']	= "November";
-		$this->show['cal_december'] = "December";
+		$this->show = array(
+			'cal_su' => 'Su',
+			'cal_mo' => 'Mo',
+			'cal_tu' => 'Tu',
+			'cal_we' => 'We',
+			'cal_th' => 'Th',
+			'cal_fr' => 'Fr',
+			'cal_sa' => 'Sa',
+			'cal_sun' => 'Sun',
+			'cal_mon' => 'Mon',
+			'cal_tue' => 'Tue',
+			'cal_wed' => 'Wed',
+			'cal_thu' => 'Thu',
+			'cal_fri' => 'Fri',
+			'cal_sat' => 'Sat',
+			'cal_sunday' => 'Sunday',
+			'cal_monday' => 'Monday',
+			'cal_tuesday' => 'Tuesday',
+			'cal_wednesday' => 'Wednesday',
+			'cal_thursday' => 'Thursday',
+			'cal_friday' => 'Friday',
+			'cal_saturday'=> 'Saturday',
+			'cal_jan' => 'Jan',
+			'cal_feb' => 'Feb',
+			'cal_mar' => 'Mar',
+			'cal_apr' => 'Apr',
+			'cal_may' => 'May',
+			'cal_jun' => 'Jun',
+			'cal_jul' => 'Jul',
+			'cal_aug' => 'Aug',
+			'cal_sep' => 'Sep',
+			'cal_oct' => 'Oct',
+			'cal_nov' => 'Nov',
+			'cal_dec' => 'Dec',
+			'cal_january' => 'January',
+			'cal_february' => 'February',
+			'cal_march' => 'March',
+			'cal_april' => 'April',
+			'cal_mayl' => 'May',
+			'cal_june' => 'June',
+			'cal_july' => 'July',
+			'cal_august' => 'August',
+			'cal_september' => 'September',
+			'cal_october' => 'October',
+			'cal_november'	=> 'November',
+			'cal_december' => 'December',
+		);
 		
 		$this->local_time = time();
 		

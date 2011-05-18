@@ -35,7 +35,7 @@ class Snoopy_Library {
 	/* user definable vars */
 
 	/**
-	 * host name we are connecting to 
+	 * Host name we are connecting to 
 	 *
 	 * @var  string  
 	 */

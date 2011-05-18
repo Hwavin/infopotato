@@ -9,31 +9,30 @@
  */
 class Upload_Library {
 	
-	public $max_size = 0;
-	public $max_width = 0;
-	public $max_height = 0;
-	public $max_filename = 0;
-	public $allowed_types = '';
-	public $file_temp = '';
-	public $file_name = '';
-	public $orig_name = '';
-	public $file_type = '';
-	public $file_size = '';
-	public $file_ext = '';
-	public $upload_path	= '';
-	public $overwrite = FALSE;
-	public $encrypt_name = FALSE;
-	public $is_image = FALSE;
-	public $image_width	= '';
-	public $image_height = '';
-	public $image_type = '';
-	public $image_size_str = '';
-	public $error_msg = array();
-	public $mimes = array();
-	public $remove_spaces = TRUE;
-	public $temp_prefix	= 'temp_file_';
-	
-	protected $_file_name_override	= '';
+	protected $max_size = 0;
+	protected $max_width = 0;
+	protected $max_height = 0;
+	protected $max_filename = 0;
+	protected $allowed_types = '';
+	protected $file_temp = '';
+	protected $file_name = '';
+	protected $orig_name = '';
+	protected $file_type = '';
+	protected $file_size = '';
+	protected $file_ext = '';
+	protected $upload_path	= '';
+	protected $overwrite = FALSE;
+	protected $encrypt_name = FALSE;
+	protected $is_image = FALSE;
+	protected $image_width	= '';
+	protected $image_height = '';
+	protected $image_type = '';
+	protected $image_size_str = '';
+	protected $error_msg = array();
+	protected $mimes = array();
+	protected $remove_spaces = TRUE;
+	protected $temp_prefix	= 'temp_file_';
+	protected $file_name_override = '';
 		
 	/**
 	 * Constructor
@@ -82,7 +81,7 @@ class Upload_Library {
 			
 			// If a file_name was provided in the config, use it instead of the user input
 			// supplied file name for all uploads until initialized again
-			$this->_file_name_override = $this->file_name;
+			$this->file_name_override = $this->file_name;
 		}
 	}
 
@@ -163,15 +162,15 @@ class Upload_Library {
 		}
 		
 		// if we're overriding, let's now make sure the new name and type is allowed
-		if ($this->_file_name_override != '') {
-			$this->file_name = $this->_prep_filename($this->_file_name_override);
+		if ($this->file_name_override != '') {
+			$this->file_name = $this->_prep_filename($this->file_name_override);
 
 			// If no extension was provided in the file_name config item, use the uploaded one
-			if(strpos($this->_file_name_override, '.') === FALSE) {
+			if(strpos($this->file_name_override, '.') === FALSE) {
 				$this->file_name .= $this->file_ext;
 			} else {
 				// An extension was provided, lets have it!
-				$this->file_ext	 = $this->get_extension($this->_file_name_override);
+				$this->file_ext	 = $this->get_extension($this->file_name_override);
 			}
 
 			if ( ! $this->is_allowed_filetype(TRUE)) {

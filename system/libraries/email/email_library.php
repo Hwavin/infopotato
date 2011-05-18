@@ -5,30 +5,156 @@
  * Permits email to be sent using Mail, Sendmail, or SMTP.
  */
 class Email_library {
-
-	public $useragent		= 'PHP Email Class';
-	public $mailpath		= '/usr/sbin/sendmail';	// Sendmail path
-	public $protocol		= 'mail';	// mail/sendmail/smtp
-	public $smtp_host		= '';		// SMTP Server.  Example: mail.earthlink.net
-	public $smtp_user		= '';		// SMTP Username
-	public $smtp_pass		= '';		// SMTP Password
-	public $smtp_port		= "25";		// SMTP Port
-	public $smtp_timeout	= 5;		// SMTP Timeout in seconds
-	public $wordwrap		= TRUE;		// TRUE/FALSE  Turns word-wrap on/off
-	public $wrapchars		= '76';		// Number of characters to wrap at.
-	public $mailtype		= 'text';	// text/html  Defines email formatting
-	public $charset			= 'utf-8';	// Default char set: iso-8859-1 or us-ascii
-	public $multipart		= "mixed";	// "mixed" (in the body) or "related" (separate)
-	public $alt_message		= '';		// Alternative message for HTML emails
-	public $validate		= FALSE;	// TRUE/FALSE.  Enables email validation
-	public $priority		= "3";		// Default priority (1 - 5)
-	public $newline			= "\n";		// Default newline. "\r\n" or "\n" (Use "\r\n" to comply with RFC 822)
-	public $crlf			= "\n";		// The RFC 2045 compliant CRLF for quoted-printable is "\r\n".  Apparently some servers,
-										// even on the receiving end think they need to muck with CRLFs, so using "\n", while
-										// distasteful, is the only thing that seems to work for all environments.
-	public $send_multipart	= TRUE;		// TRUE/FALSE - Yahoo does not like multipart alternative, so this is an override.  Set to FALSE for Yahoo.
-	public $bcc_batch_mode	= FALSE;	// TRUE/FALSE  Turns on/off Bcc batch feature
-	public $bcc_batch_size	= 200;		// If bcc_batch_mode = TRUE, sets max number of Bccs in each batch
+	/**
+	 * User Agent
+	 * 
+	 * @var string
+	 */
+	protected $useragent = 'InfoPotato Email Class';
+	
+	/**
+	 * Sendmail path
+	 * 
+	 * @var string
+	 */
+	protected $mailpath	= '/usr/sbin/sendmail';
+	
+	/**
+	 * mail/sendmail/smtp
+	 * 
+	 * @var string
+	 */
+	protected $protocol = 'mail';
+	
+	/**
+	 * SMTP Server.  Example: mail.earthlink.net
+	 * 
+	 * @var string
+	 */
+	protected $smtp_host = '';
+	
+	/**
+	 * SMTP Username
+	 * 
+	 * @var string
+	 */
+	protected $smtp_user = '';
+	
+	/**
+	 * SMTP Password
+	 * 
+	 * @var string
+	 */
+	protected $smtp_pass = '';
+	
+	/**
+	 * SMTP Port
+	 * 
+	 * @var string
+	 */
+	protected $smtp_port = '25';
+	
+	/**
+	 * SMTP Timeout in seconds
+	 * 
+	 * @var string
+	 */
+	protected $smtp_timeout	= 5;		// 
+	
+	/**
+	 * TRUE/FALSE  Turns word-wrap on/off
+	 * 
+	 * @var booleab
+	 */
+	protected $wordwrap = TRUE;
+	
+	/**
+	 * Number of characters to wrap at.
+	 * 
+	 * @var string
+	 */
+	protected $wrapchars = '76';
+	
+	/**
+	 * text/html  Defines email formatting
+	 * 
+	 * @var string
+	 */
+	protected $mailtype = 'text';
+	
+	/**
+	 * Default char set: iso-8859-1 or us-ascii
+	 * 
+	 * @var string
+	 */
+	protected $charset = 'utf-8';
+	
+	/**
+	 * "mixed" (in the body) or "related" (separate)
+	 * 
+	 * @var string
+	 */
+	protected $multipart = 'mixed';
+	
+	/**
+	 * Alternative message for HTML emails
+	 * 
+	 * @var string
+	 */
+	protected $alt_message = '';		// 
+	
+	/**
+	 * TRUE/FALSE.  Enables email validation
+	 * 
+	 * @var boolean
+	 */
+	protected $validate = FALSE;
+	
+	/**
+	 * Default priority (1 - 5)
+	 * 
+	 * @var string
+	 */
+	protected $priority	= '3';
+	
+	/**
+	 * Default newline. "\r\n" or "\n" (Use "\r\n" to comply with RFC 822)
+	 * 
+	 * @var string
+	 */
+	protected $newline = "\n";
+	
+	/**
+	 * The RFC 2045 compliant CRLF for quoted-printable is "\r\n".  Apparently some servers,
+	 * even on the receiving end think they need to muck with CRLFs, so using "\n", while
+	 * distasteful, is the only thing that seems to work for all environments.
+	 *
+	 * @var string
+	 */
+	protected $crlf	= "\n";
+	
+	/**
+	 * TRUE/FALSE - Yahoo does not like multipart alternative, so this is an override.  Set to FALSE for Yahoo.
+	 * 
+	 * @var boolean
+	 */
+	protected $send_multipart = TRUE;
+	
+	/**
+	 * TRUE/FALSE  Turns on/off Bcc batch feature
+	 * 
+	 * @var boolean
+	 */
+	protected $bcc_batch_mode = FALSE;
+	
+	/**
+	 * If bcc_batch_mode = TRUE, sets max number of Bccs in each batch
+	 * 
+	 * @var integer
+	 */
+	protected $bcc_batch_size = 200;
+	
+	
 	private $_safe_mode		= FALSE;
 	private	$_subject		= '';
 	private	$_body			= '';
@@ -50,7 +176,13 @@ class Email_library {
 	private	$_attach_type	= array();
 	private	$_attach_disp	= array();
 	private	$_protocols		= array('mail', 'sendmail', 'smtp');
-	private	$_base_charsets	= array('us-ascii', 'iso-2022-');	// 7-bit charsets (excluding language suffix)
+	
+	/**
+	 * 7-bit charsets (excluding language suffix)
+	 * 
+	 * @var array
+	 */
+	private	$_base_charsets	= array('us-ascii', 'iso-2022-');
 	private	$_bit_depths	= array('7bit', '8bit');
 	private	$_priorities	= array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
 
@@ -187,12 +319,17 @@ class Email_library {
 		}
 
 		switch ($this->_get_protocol()) {
-			case 'smtp'		: $this->_recipients = $to;
-			break;
-			case 'sendmail'	: $this->_recipients = implode(", ", $to);
-			break;
-			case 'mail'		: $this->_recipients = implode(", ", $to);
-			break;
+			case 'smtp': 
+			    $this->_recipients = $to;
+			    break;
+			
+			case 'sendmail': 
+			    $this->_recipients = implode(", ", $to);
+			    break;
+			
+			case 'mail': 
+			    $this->_recipients = implode(", ", $to);
+			    break;
 		}
 	}
   
@@ -239,7 +376,7 @@ class Email_library {
 			$this->validate_email($bcc);
 		}
 
-		if (($this->_get_protocol() == "smtp") OR ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
+		if (($this->_get_protocol() == "smtp") || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
 			$this->_bcc_array = $bcc;
 		} else {
 			$this->_set_header('Bcc', implode(", ", $bcc));
@@ -758,8 +895,7 @@ class Email_library {
 		$hdr = ($this->_get_protocol() == 'mail') ? $this->newline : '';
 
 		switch ($this->_get_content_type()) {
-			case 'plain' :
-
+			case 'plain':
 				$hdr .= "Content-Type: text/plain; charset=" . $this->charset . $this->newline;
 				$hdr .= "Content-Transfer-Encoding: " . $this->_get_encoding();
 
@@ -775,9 +911,9 @@ class Email_library {
 				$this->_finalbody = $hdr;
 				return;
 
-			break;
-			case 'html' :
-
+			    break;
+			
+			case 'html':
 				if ($this->send_multipart === FALSE) {
 					$hdr .= "Content-Type: text/html; charset=" . $this->charset . $this->newline;
 					$hdr .= "Content-Transfer-Encoding: quoted-printable";
@@ -817,9 +953,9 @@ class Email_library {
 				$this->_finalbody = $hdr;
 				return;
 
-			break;
-			case 'plain-attach' :
-
+			    break;
+			
+			case 'plain-attach':
 				$hdr .= "Content-Type: multipart/".$this->multipart."; boundary=\"" . $this->_atc_boundary."\"" . $this->newline . $this->newline;
 				$hdr .= $this->_get_mime_message() . $this->newline . $this->newline;
 				$hdr .= "--" . $this->_atc_boundary . $this->newline;
@@ -836,9 +972,9 @@ class Email_library {
 				$hdr .= $this->newline . $this->newline;
 				$hdr .= $this->_body . $this->newline . $this->newline;
 
-			break;
-			case 'html-attach' :
-
+			    break;
+			
+			case 'html-attach':
 				$hdr .= "Content-Type: multipart/".$this->multipart."; boundary=\"" . $this->_atc_boundary."\"" . $this->newline . $this->newline;
 				$hdr .= $this->_get_mime_message() . $this->newline . $this->newline;
 				$hdr .= "--" . $this->_atc_boundary . $this->newline;
@@ -866,7 +1002,7 @@ class Email_library {
 				$hdr .= $this->_body . $this->newline . $this->newline;
 				$hdr .= "--" . $this->_alt_boundary . "--" . $this->newline . $this->newline;
 
-			break;
+			    break;
 		}
 
 		$attachment = array();
@@ -1174,27 +1310,26 @@ class Email_library {
 		$this->_unwrap_specials();
 
 		switch ($this->_get_protocol()) {
-			case 'mail'	:
-
-					if ( ! $this->_send_with_mail()) {
-						$this->_set_error_message('email_send_failure_phpmail');
-						return FALSE;
-					}
-			break;
-			case 'sendmail'	:
-
-					if ( ! $this->_send_with_sendmail()) {
-						$this->_set_error_message('email_send_failure_sendmail');
-						return FALSE;
-					}
-			break;
-			case 'smtp'	:
-
-					if ( ! $this->_send_with_smtp()) {
-						$this->_set_error_message('email_send_failure_smtp');
-						return FALSE;
-					}
-			break;
+			case 'mail':
+				if ( ! $this->_send_with_mail()) {
+					$this->_set_error_message('email_send_failure_phpmail');
+					return FALSE;
+				}
+			    break;
+			
+			case 'sendmail':
+				if ( ! $this->_send_with_sendmail()) {
+					$this->_set_error_message('email_send_failure_sendmail');
+					return FALSE;
+				}
+			    break;
+			
+			case 'smtp':
+				if ( ! $this->_send_with_smtp()) {
+					$this->_set_error_message('email_send_failure_smtp');
+					return FALSE;
+				}
+			    break;
 
 		}
 
@@ -1323,11 +1458,7 @@ class Email_library {
 	 * @return	string
 	 */
 	private function _smtp_connect() {
-		$this->_smtp_connect = fsockopen($this->smtp_host,
-										$this->smtp_port,
-										$errno,
-										$errstr,
-										$this->smtp_timeout);
+		$this->_smtp_connect = fsockopen($this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
 
 		if( ! is_resource($this->_smtp_connect)) {
 			$this->_set_error_message('email_smtp_error', $errno." ".$errstr);
@@ -1500,10 +1631,15 @@ class Email_library {
 		$rip = (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] != '') ? $_SERVER['REMOTE_ADDR'] : FALSE;
 		$fip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != '') ? $_SERVER['HTTP_X_FORWARDED_FOR'] : FALSE;
 
-		if ($cip && $rip) 	$this->_IP = $cip;
-		elseif ($rip)		$this->_IP = $rip;
-		elseif ($cip)		$this->_IP = $cip;
-		elseif ($fip)		$this->_IP = $fip;
+		if ($cip && $rip) {
+		    $this->_IP = $cip;
+		} elseif ($rip) {
+			$this->_IP = $rip;
+		} elseif ($cip) {
+			$this->_IP = $cip;
+		} elseif ($fip) {
+			$this->_IP = $fip;
+		}
 
 		if (strstr($this->_IP, ',')) {
 			$x = explode(',', $this->_IP);
@@ -1548,24 +1684,26 @@ class Email_library {
 	 * @return	string
 	 */
 	private function _set_error_message($msg, $val = '') {
-		$error_messages['email_must_be_array'] = "The email validation method must be passed an array.";
-		$error_messages['email_invalid_address'] = "Invalid email address: %s";
-		$error_messages['email_attachment_missing'] = "Unable to locate the following email attachment: %s";
-		$error_messages['email_attachment_unreadable'] = "Unable to open this attachment: %s";
-		$error_messages['email_no_recipients'] = "You must include recipients: To, Cc, or Bcc";
-		$error_messages['email_send_failure_phpmail'] = "Unable to send email using PHP mail().  Your server might not be configured to send mail using this method.";
-		$error_messages['email_send_failure_sendmail'] = "Unable to send email using PHP Sendmail.  Your server might not be configured to send mail using this method.";
-		$error_messages['email_send_failure_smtp'] = "Unable to send email using PHP SMTP.  Your server might not be configured to send mail using this method.";
-		$error_messages['email_sent'] = "Your message has been successfully sent using the following protocol: %s";
-		$error_messages['email_no_socket'] = "Unable to open a socket to Sendmail. Please check settings.";
-		$error_messages['email_no_hostname'] = "You did not specify a SMTP hostname.";
-		$error_messages['email_smtp_error'] = "The following SMTP error was encountered: %s";
-		$error_messages['email_no_smtp_unpw'] = "Error: You must assign a SMTP username and password.";
-		$error_messages['email_failed_smtp_login'] = "Failed to send AUTH LOGIN command. Error: %s";
-		$error_messages['email_smtp_auth_un'] = "Failed to authenticate username. Error: %s";
-		$error_messages['email_smtp_auth_pw'] = "Failed to authenticate password. Error: %s";
-		$error_messages['email_smtp_data_failure'] = "Unable to send data: %s";
-		$error_messages['email_exit_status'] = "Exit status code: %s";
+		$error_messages =array(
+			'email_must_be_array' => "The email validation method must be passed an array.",
+			'email_invalid_address' => "Invalid email address: %s",
+			'email_attachment_missing' => "Unable to locate the following email attachment: %s",
+			'email_attachment_unreadable' => "Unable to open this attachment: %s",
+			'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
+			'email_send_failure_phpmail' => "Unable to send email using PHP mail().  Your server might not be configured to send mail using this method.",
+			'email_send_failure_sendmail' => "Unable to send email using PHP Sendmail.  Your server might not be configured to send mail using this method.",
+			'email_send_failure_smtp' => "Unable to send email using PHP SMTP.  Your server might not be configured to send mail using this method.",
+			'email_sent' => "Your message has been successfully sent using the following protocol: %s",
+			'email_no_socket' => "Unable to open a socket to Sendmail. Please check settings.",
+			'email_no_hostname' => "You did not specify a SMTP hostname.",
+			'email_smtp_error' => "The following SMTP error was encountered: %s",
+			'email_no_smtp_unpw' => "Error: You must assign a SMTP username and password.",
+			'email_failed_smtp_login' => "Failed to send AUTH LOGIN command. Error: %s",
+			'email_smtp_auth_un' => "Failed to authenticate username. Error: %s",
+			'email_smtp_auth_pw' => "Failed to authenticate password. Error: %s",
+			'email_smtp_data_failure'] => "Unable to send data: %s",
+			'email_exit_status' => "Exit status code: %s",
+		);
 		
 		if (array_key_exists($msg, $error_messages)) {
 			$this->_debug_msg[] = str_replace('%s', $val, $error_messages[$msg])."<br />";
