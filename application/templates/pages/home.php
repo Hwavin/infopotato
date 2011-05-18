@@ -22,7 +22,7 @@
 </div>
 
 <div id="index_left" class="index_column"> 
-<h2 class="first_heading">Facts about InfoPotato</h2>	
+<h2 class="first_heading">Quick Facts about InfoPotato</h2>	
 <ul id="yes"> 
 <li>Loose RESTful Approach</li> 
 <li>Truly Loose Coupling</li> 

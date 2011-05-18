@@ -525,7 +525,7 @@ background:#597eaa;
 width:920px;
 padding:20px;
 margin:0 auto;
-border:solid 1px #ccc;
+border:solid 2px #ddd;
 border-top:none;
 position:relative;
 background:#fff;
@@ -775,15 +775,31 @@ overflow: hidden;
 
 
 /* Client Showcase */
+.clients_row{
+clear:both;
+border-bottom:1px solid #ddd;
+margin:20px 0;
+}
+
 .client{
 float:left;
-width:212px;
-margin-left:70px;
-margin-bottom:30px;
+width:250px;
+border-left:1px dotted #ddd;
+margin:30px 0;
+padding:0 28px 0 28px;
+}
+
+.first{
+border-left:none;
+argin-left:0;
+adding:0;
 }
 
 .client img{
 border:3px solid #d9d9d9;
+idth:215px;
+height:110px;
+padding:3px;
 }
 
 .client a:hover img{

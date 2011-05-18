@@ -8,7 +8,9 @@
 </div>
 <!-- end breadcrumb -->
 
-<div class="client">
+<div class="clients_row">
+
+<div class="client first">
 <a href="<?php echo APP_URI_BASE; ?>showcase/index/ifl/">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/ifl.jpg" />
 <div class="title">Institute for Learning</div>
@@ -29,7 +31,12 @@
 </a>
 </div>
 
-<div class="client">
+<div class="clear"></div>
+</div>
+
+<div class="clients_row">
+
+<div class="client first">
 <a href="/showcase/reviewsandlocal?p=chow">
 <img src="http://sphotos.ak.fbcdn.net/hphotos-ak-snc3/hs065.snc3/13310_673663181423_220400_37759335_4115997_n.jpg" />
 <div class="title">CBS CHOW.com</div>
@@ -51,11 +58,9 @@
 </div>
 
 <div class="clear"></div>
-
-<div class="pagination">
-<?php echo $pagination;?>
 </div>
 
+<div class="clear"></div>
 
 </div> 
 <!-- end onecolumn --> 
