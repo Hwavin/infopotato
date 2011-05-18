@@ -26,7 +26,9 @@ class Output_Cache_Library {
 	 */	
 	public function __construct($config = array()) { 
 		if (count($config) > 0) {
-			$this->initialize($config);
+			if (isset($config['cache_dir'])) {
+				$this->_dir = $config['cache_dir'];
+			}
 		}
 	}
 	
