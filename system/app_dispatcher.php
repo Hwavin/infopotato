@@ -7,8 +7,12 @@
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+if ( ! is_readable(SYS_DIR.'core'.DS.'~dispatcher.php')) {
+	$content = php_strip_whitespace(dirname(__FILE__).DS.'core'.DS.'dispatcher.php');
+	file_put_contents(SYS_DIR.'core'.DS.'~dispatcher.php', $content);
+}
 
-require_once dirname(__FILE__).DS.'core'.DS.'dispatcher.php';
+require_once SYS_DIR.'core'.DS.'~dispatcher.php';
 
 /**
  * It encapsulates {@link Dispatcher} which provides the actual implementation.

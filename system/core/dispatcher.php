@@ -152,4 +152,4 @@ class Dispatcher {
 
 }
 
-// End of file: ./system/dispatcher.php
+// End of file: ./system/core/dispatcher.php

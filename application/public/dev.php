@@ -27,11 +27,11 @@ define('ENVIRONMENT', 'development');
 switch (ENVIRONMENT) {
 	case 'development':
 		error_reporting(E_ALL | E_STRICT);
-	break;
+		break;
 
 	case 'production':
 		error_reporting(0);
-	break;
+		break;
 
 	default:
 		exit('The application environment is not set correctly.');
