@@ -35,6 +35,13 @@ With more and more design and development I found myself the need of a good stru
 
 <h2>Design Evolution</h2>
 
+<div class="box_right greybox">
+<blockquote>
+<span>A great part to the information I have was acquired by looking up something and finding something else on the way.</span>
+<div>&mdash; Adams Franklin</div>
+</blockquote>
+</div>
+
 <p>
 For a long time, I thought InfoPotato should follow the MVC architectural pattern because many other web frameworks claim themselves MVC frameworks and at during that period I didn't have a clear understanding of what is MVC. But one day after lunch, I came accross a book called "Building PHP Applications with Symfony, CakePHP, and Zend Framework". In this book, the author memtioned that many so-called PHP MVC frameworks are not real MVC, and the truth is many of them are following the MVP architectural pattern. After that, I did more reading and I found my InfoPotato was more like MVP indeed. But with more research, I realized that I don't need a MVC framework for the PHP web development. Because that Model-View-Controller object relationships as they are conventionally known don't apply to the web in a meaningful way. What I really need is to look at a very simple request-response handling framework. So from that monment, I rewrote InfoPotato and got rid off the concept of either MVC or MVP. InfoPotato now, is only a simple web development framework built around HTTP and the principles of REST that handles request and response.
 </p>

@@ -6,7 +6,6 @@
  * register_shutdown_function('function_name');
  * 
  * @param string $file (required) the path of the file to be downloaded
- * @param string $name (optional) file name shown in the save window
  * @param string $mime_type (optional) MIME type of the target file
  * @return none
  * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
@@ -26,7 +25,7 @@ function download_function($file, $mime_type = '') {
 	$file_extension = pathinfo($file, PATHINFO_EXTENSION);
 
 	// File name shown in the save window
-	$save_name = strrchr($file, DIRECTORY_SEPARATOR);
+	$save_name = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
 
 	// Figure out the MIME type (if not specified) 
 	$known_mime_types = array(	

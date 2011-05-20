@@ -52,7 +52,7 @@ class Dispatcher {
 		// It may contain UTF-8 characters beyond ASCII
 		$request_uri = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 
-		// Get the target manager and its parameters
+		// Get the target manager/method/parameters
 		$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;
 
 		// Filter URI characters
@@ -137,7 +137,7 @@ class Dispatcher {
 	private static function _filter_uri($str) {
 		if ($str !== '') {
 			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
-			// compatibility as many are unaware of how characters in the permitted_uri_chars will be parsed as a regex pattern
+			// compatibility as many are unaware of how characters in the PERMITTED_URI_CHARS will be parsed as a regex pattern
 			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote(PERMITTED_URI_CHARS, '-'))."]+$|i", $str)) {
 				Global_Functions::show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
 			}

@@ -48,17 +48,21 @@ final class Contact_Manager extends Manager {
 		$contact_email = $this->fv->set_value('contact_email');
 
 		if ($result == FALSE) {
-			$errors = $this->fv->form_errors();
+			//$errors = $this->fv->form_errors();
 			
 			// Errors and submitted data to be displayed in view
 			$data = array(
 				'form_token' => $form_token, 
-				'errors' => empty($errors) ? NULL : $errors, 
-				'contact_subject' => $contact_subject,
-				'contact_message' => $contact_message,
+				//'errors' => empty($errors) ? NULL : $errors, 
 				'contact_name' => $contact_name,
 				'contact_email' => $contact_email,
-			);
+				'contact_subject' => $contact_subject,
+				'contact_message' => $contact_message,
+				'contact_name_error' => $this->fv->field_error('contact_name', '<span class="red">', '</span>'),
+				'contact_email_error' => $this->fv->field_error('contact_email', '<span class="red">', '</span>'),
+				'contact_subject_error' => $this->fv->field_error('contact_subject', '<span class="red">', '</span>'),
+				'contact_message_error' => $this->fv->field_error('contact_message', '<span class="red">', '</span>'),
+			); 
 		} else {
 			// Unset the old form token and create new form token
 			unset( $_SESSION['form_token']);

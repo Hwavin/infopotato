@@ -572,9 +572,7 @@ margin:40px 0 10px 20px;
 }
 
 #download a {
-
 padding: 15px 30px;
-
 }
 
 #download a:hover {
@@ -599,9 +597,10 @@ padding:5px 0 5px 15px;
 
 #index_left {
 float:left;
-width:599px;
+width:596px;
+height:380px;
 padding:20px 10px;
-border-right:1px solid #ddd;
+border:1px solid #ddd;
 }
 
 #index_left ul{
@@ -618,10 +617,12 @@ list-style:disc url('<?php echo STATIC_URI_BASE; ?>images/shared/no.png') !impor
 }
 
 #index_right {
-float:left;
-width:270px;
+float:right;
+width:260px;
+height:380px;
 padding:20px 10px;
 margin-left:10px;
+border:1px solid #ddd;
 }
 
 .latest_news {
@@ -820,3 +821,4 @@ margin-top:10px;
 .form_error div {
 line-height:180%;
 }
+
