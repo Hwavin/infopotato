@@ -1,12 +1,25 @@
 <?php
 /**
- * Application Dispatcher Class
+ * Set the PHP error reporting level. If you set this in php.ini, you remove this.
  *
- * @author Zhou Yuan <yuanzhou19@gmail.com>
- * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2011 Zhou Yuan
- * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ * When developing your application, it is highly recommended to enable notices
+ * and strict warnings. Enable them by using: E_ALL | E_STRICT
+ *
+ * In production environments, it is typically desirable to disable PHP's error reporting
+ * by setting the internal error_reporting flag to a value of 0.
  */
+switch (ENVIRONMENT) {
+	case 'development':
+		error_reporting(E_ALL | E_STRICT);
+	    break;
+
+	case 'production':
+		error_reporting(0);
+	    break;
+
+	default:
+		exit('The application environment is not set correctly.');
+}
 
 /**
  * Autoloading required components
@@ -35,9 +48,14 @@ function autoload_components($class_name) {
 	);
 
 	if (in_array($class_name, $runtime_list)) {
-		$file = SYS_DIR.'core'.DS.'runtime'.DS.'~'.$class_name.'.php';
-		if ( ! file_exists($file)) {
-			file_put_contents($file, php_strip_whitespace(SYS_DIR.'core'.DS.$class_name.'.php'));
+		if (SYS_RUNTIME_CACHE === TRUE) {
+			// SYS_RUNTIME_DIR must be writable
+			$file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
+			if ( ! file_exists($file)) {
+				file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
+			}
+		} else {
+			$file = SYS_CORE_DIR.$class_name.'.php';
 		}
 	} else {
 		// In case one app manager extends another app manager
@@ -46,9 +64,18 @@ function autoload_components($class_name) {
 	require_once $file;
 	return;
 } 
-
+// PHP 5 >= 5.1.2
 spl_autoload_register('autoload_components');
 
+/**
+ * Application Dispatcher Class
+ *
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ */
+ 
 /**
  * It encapsulates {@link Dispatcher} which provides the actual implementation.
  * By writing your own App_Dispatcher class, you can customize some functionalities of Dispatcher

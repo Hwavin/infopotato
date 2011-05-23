@@ -372,14 +372,14 @@ class Manager {
 		}
 		
 		if ($scope === 'SYS') {
-			$file_path = SYS_DIR.'libraries'.DS.$path.$library.'.php';
+			$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
 		} elseif ($scope === 'APP') {
 			$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
 		} else {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
 		}
 		
-		$file_path = SYS_DIR.'libraries'.DS.$path.$library.'.php';
+		$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
 
 		if ( ! file_exists($file_path)) {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
@@ -421,7 +421,7 @@ class Manager {
 		}
 
 		if ($scope === 'SYS') {
-			$file_path = SYS_DIR.'functions'.DS.$path.$func.'.php';
+			$file_path = SYS_FUNCTION_DIR.$path.$func.'.php';
 		} elseif ($scope === 'APP') {
 			$file_path = APP_FUNCTION_DIR.$path.$func.'.php';
 		} else {

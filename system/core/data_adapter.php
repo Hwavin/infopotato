@@ -348,7 +348,7 @@ class Data_Adapter {
 	public function vardump($mixed = '') {
 		// Start outup buffering
 		ob_start();
-		require_once SYS_DIR.'core'.DS.'sys_templates'.DS.'data_vardump.php';
+		require_once SYS_CORE_DIR.'sys_templates'.DS.'data_vardump.php';
 		// Stop output buffering and capture HTML
 		$html = ob_get_contents();
 		ob_end_clean();

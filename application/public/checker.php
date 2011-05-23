@@ -1,7 +1,7 @@
 <?php
-header('Content-Type: text/html; charset=utf-8');
-header('Cache-Control: s-maxage=0, max-age=0, must-revalidate');
-header('Expires: Mon, 23 Jan 1978 10:00:00 GMT');
+//header('Content-Type: text/html; charset=utf-8');
+//header('Cache-Control: s-maxage=0, max-age=0, must-revalidate');
+//header('Expires: Mon, 23 Jan 1978 10:00:00 GMT');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
 <html xmlns="http://www.w3.org/1999/xhtml"> 
@@ -91,12 +91,12 @@ border-color: #C6E5C4;
 }
 
 .passed th {
-background-image: url('assets/passed.gif');
+background-image: url('../checker/passed.gif');
 }
 
 
 .info th {
-background-image: url('assets/info.gif');
+background-image: url('../checker/info.gif');
 }
 
 
@@ -106,9 +106,8 @@ border-color: #EEEE99;
 }
 
 .warning th {
-background-image: url('assets/warning.gif');
+background-image: url('../checker/warning.gif');
 }
-
 
 .failed {
 background-color: #F4D2D2;
@@ -121,7 +120,7 @@ border-color: #CD1818;
 }
 
 .failed th {
-background-image: url('assets/failed.gif');
+background-image: url('../checker/failed.gif');
 }
 
 
@@ -136,7 +135,7 @@ display: none;
 }
 </style>
 
-<script src="assets/denied/checker.js" type="text/javascript"></script>
+<script src="../checker/denied/checker.js" type="text/javascript"></script>
 </head>
 
 
@@ -296,7 +295,6 @@ $requirements[] = array(
 	'passed' => extension_loaded('fileinfo') OR function_exists('mime_content_type'),
 	'description' => 'Fileinfo extension or function <code>mime_content_type()</code> are absent. You will not be able to determine mime type of uploaded files.',
 );
-
 
 $errors = $warnings = FALSE;
 

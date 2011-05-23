@@ -14,28 +14,6 @@ if (version_compare(PHP_VERSION, '5.2.0', '<')) {
  * Usage: development or production
  */
 define('ENVIRONMENT', 'development');
- 
-/**
- * Set the PHP error reporting level. If you set this in php.ini, you remove this.
- *
- * When developing your application, it is highly recommended to enable notices
- * and strict warnings. Enable them by using: E_ALL | E_STRICT
- *
- * In production environments, it is typically desirable to disable PHP's error reporting
- * by setting the internal error_reporting flag to a value of 0.
- */
-switch (ENVIRONMENT) {
-	case 'development':
-		error_reporting(E_ALL | E_STRICT);
-		break;
-
-	case 'production':
-		error_reporting(0);
-		break;
-
-	default:
-		exit('The application environment is not set correctly.');
-}
 
 /**
  * Define InfoPotato Version
@@ -67,8 +45,13 @@ define('DS', DIRECTORY_SEPARATOR);
 /**
  * Framework system/application directories
  */
-define('SYS_DIR', dirname(__FILE__).DS.'../../system'.DS);
-define('APP_DIR', dirname(__FILE__).DS.'../../application'.DS);
+define('SYS_DIR', dirname(dirname(dirname(__FILE__).DS)).DS.'system'.DS);
+define('SYS_CORE_DIR', SYS_DIR.'core'.DS);
+define('SYS_RUNTIME_DIR', SYS_DIR.'runtime'.DS);
+define('SYS_LIBRARY_DIR', SYS_DIR.'libraries'.DS);
+define('SYS_FUNCTION_DIR', SYS_DIR.'functions'.DS);
+
+define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
@@ -82,6 +65,10 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('DEFAULT_MANAGER', 'home');
 define('DEFAULT_MANAGER_METHOD', 'index');
 
+/**
+ * If cache the system core components to runtime files
+ */
+define('SYS_RUNTIME_CACHE', TRUE);
 
 /**
  * Default allowed URL Characters (UTF-8 encoded characters)
