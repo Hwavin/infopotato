@@ -7,7 +7,7 @@
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-class PostgreSQL_Adapter extends DB_Adapter {
+class PostgreSQL_Adapter extends Data_Adapter {
 	/**
 	 * Database host
 	 *

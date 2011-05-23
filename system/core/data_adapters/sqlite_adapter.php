@@ -9,7 +9,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-class SQLite_Adapter extends DB_adapter {
+class SQLite_Adapter extends Data_adapter {
 	/**
 	 * Database file path
 	 *

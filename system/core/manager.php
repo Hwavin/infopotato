@@ -391,7 +391,7 @@ class Manager {
 			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
 		}
 
-		// Instantiate the library object as a presenter's property 
+		// Instantiate the library object as a manager's property 
 		// An empty array is considered as a NULL variable
 		// The names of user-defined classes are case-insensitive
 		// Don't create static properties or methods for library

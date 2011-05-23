@@ -1,6 +1,6 @@
 <?php
 /**
- * MySQLi adapter
+ * MySQL adapter
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -8,46 +8,46 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-class MySQLi_Adapter extends DB_Adapter {
+class MySQL_Adapter extends Data_Adapter{
 	/**
 	 * Database host
 	 *
-	 * @var string 
+	 * @var  string  
 	 */
 	public $dbhost = '';
 	
 	/**
 	 * Database username
 	 *
-	 * @var string 
+	 * @var  string  
 	 */
 	public $dbuser = '';
 	
 	/**
 	 * Database user password
 	 *
-	 * @var string 
+	 * @var  string  
 	 */
 	public $dbpass = '';
 	
 	/**
 	 * Database to be used
 	 *
-	 * @var string 
+	 * @var  string  
 	 */
 	public $dbname = '';
 	
 	/**
 	 * Database table columns charset
 	 *
-	 * @var string 
+	 * @var  string  
 	 */
 	public $charset;
 
 	/**
 	 * Database table columns collate
 	 *
-	 * @var string 
+	 * @var  string  
 	 */
 	public $collate;
 
@@ -74,6 +74,8 @@ class MySQLi_Adapter extends DB_Adapter {
 	
 	/**
 	 * Try to connect to MySQL database server
+	 *
+	 * @access	public
 	 */
 	public function connect($dbuser = '', $dbpass = '', $dbname = '', $dbhost = 'localhost') {
 		$return_val = FALSE;
@@ -83,12 +85,12 @@ class MySQLi_Adapter extends DB_Adapter {
 			Global_Functions::show_sys_error('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');		
 		} elseif ($dbname === '') {
 			Global_Functions::show_sys_error('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
-		} elseif ( ! $this->dbh = new mysqli($dbhost, $dbuser, $dbpass, $dbname)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');		
+		} elseif ( ! $this->dbh = mysql_connect($dbhost, $dbuser, $dbpass, TRUE)) {
+			Global_Functions::show_sys_error('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
 		} else {
-			if (method_exists($this->dbh, 'set_charset')) { 
-				// Set charset, (PHP 5 >= 5.0.5)
-				$this->dbh->set_charset($this->charset);
+			if (function_exists('mysql_set_charset')) { 
+				// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
+				mysql_set_charset($this->charset, $this->dbh);
 			} else {
 				// Specify the client encoding per connection
 				$collation_query = "SET NAMES '{$this->charset}'";
@@ -97,12 +99,21 @@ class MySQLi_Adapter extends DB_Adapter {
 				}
 				$this->query($collation_query);
 			}
+			
+			if ( ! mysql_select_db($dbname, $this->dbh)) {
+				// Try to get error supplied by mysql if not use our own
+				if ( ! $err_msg = mysql_error($this->dbh)) {
+					$err_msg = 'Unexpected error while trying to select database';
+				}
+				Global_Functions::show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
+			}
+			
 			$return_val = TRUE;
 		}
 		
 		return $return_val;
 	}
-
+	
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * $query - SQL query WITHOUT any user-entered parameters. Replace parameters with "?" 
@@ -118,7 +129,7 @@ class MySQLi_Adapter extends DB_Adapter {
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh) {
-					$v = $this->dbh->real_escape_string($v); 
+					$v = mysql_real_escape_string($v, $this->dbh); 
 				} else {
 					$v = addslashes($v);
 				}
@@ -141,7 +152,6 @@ class MySQLi_Adapter extends DB_Adapter {
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
 	public function query($query) {
-		// Initialise return
 		$return_val = 0;
 
 		// Flush cached values.
@@ -157,14 +167,11 @@ class MySQLi_Adapter extends DB_Adapter {
 		if ($cache = $this->get_cache($query)) {
 			return $cache;
 		}
-		// Perform the query via std mysqli_query() function.
-		// Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
-		// queries mysqli_query() will return a result object. 
-		// For other successful queries mysqli_query() will return TRUE.
-		$result = $this->dbh->query($query);
-
+		// Perform the query via std mysql_query function.
+		$result = mysql_query($query, $this->dbh);
+		
 		// If there is an error then take note of it.
-		if ($err_msg = $this->dbh->error) {
+		if ($err_msg = mysql_error($this->dbh)) {
 			$is_insert = TRUE;
 			Global_Functions::show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
@@ -173,24 +180,24 @@ class MySQLi_Adapter extends DB_Adapter {
 		// Query was an insert, delete, update, replace
 		$is_insert = FALSE;
 		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
-			$this->rows_affected = $this->dbh->affected_rows;
+			$this->rows_affected = mysql_affected_rows();
 
 			// Take note of the last_insert_id
 			if (preg_match('/^(insert|replace)\s+/i', $query)) {
-				$this->last_insert_id = $this->dbh->insert_id;
+				$this->last_insert_id = mysql_insert_id($this->dbh);
 			}
 			// Return number fo rows affected
 			$return_val = $this->rows_affected;
 		} else {
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = $result->fetch_object()) {
+			while ($row = mysql_fetch_object($result)) {
 				// Store relults as an objects within main array
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
 			}
 
-			$result->free_result();
+			mysql_free_result($result);
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;
@@ -211,7 +218,7 @@ class MySQLi_Adapter extends DB_Adapter {
 	public function now() {
 		return 'NOW()';
 	}
-
+	
 	/**
 	 * Begin Transaction using standard sql
 	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
@@ -245,7 +252,7 @@ class MySQLi_Adapter extends DB_Adapter {
 		$this->query('ROLLBACK');
 		$this->query('SET AUTOCOMMIT=1');
 	}
-	
+
 }
 
-// End of file: ./system/core/mysqli_adapter.php
+// End of file: ./system/core/mysql_adapter.php

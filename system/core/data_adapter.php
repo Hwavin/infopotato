@@ -19,7 +19,7 @@ define('OBJECT', 'OBJECT');
 define('ARRAY_A', 'ARRAY_A');
 define('ARRAY_N', 'ARRAY_N');
 
-class DB_Adapter {
+class Data_Adapter {
 	/**
 	 * Saved result of the last query made
 	 *
@@ -358,4 +358,4 @@ class DB_Adapter {
 
 }
 
-// End of file: ./system/core/db_adapter.php
+// End of file: ./system/core/data_adapter.php

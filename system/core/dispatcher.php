@@ -7,26 +7,6 @@
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-
-/**
- * Autoloading other core components
- *
- * @param   string $class_name the class name we are trying to load
- * @return  void
- */   
-function __autoload($class_name) {
-	$file = SYS_DIR.'core'.DS.strtolower($class_name).'.php';
-	if ( ! file_exists($file)) {
-		// In case one manager extends another manager
-		$file = APP_MANAGER_DIR.strtolower($class_name).'.php';
-	}
-	require_once $file;
-} 
-
-
-/**
- * Dispatcher class
- */
 class Dispatcher {
 	/**
 	 * Constructor

@@ -78,7 +78,7 @@ final class Contact_Manager extends Manager {
 				//'smtp_pass' => 'jan2001',
 			);
 			
-			$this->load_library('email/email_library', 'email', $config);		
+			$this->load_library('SYS', 'email/email_library', 'email', $config);		
 
 			$this->email->set_newline("\r\n");
 			$this->email->from('zhy19@pitt.edu', 'InfoPotato Contact');
