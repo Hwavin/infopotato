@@ -16,26 +16,35 @@
  */   
 function autoload_components($class_name) {
 	$class_name = strtolower($class_name);
-	if (in_array($class_name, array('dispatcher', 'manager', 'data', 'data_adapter', 'global_functions', 'dump', 'utf8'))) {
-		// Create and use runtime files to speed up the parsing process for all the following requests
-		// Dispatcher and Manager class are required for each app request
+	
+	// Create and use runtime files to speed up the parsing process for all the following requests
+	// Dispatcher and Manager class are required for each app request
+	// The runtime folder must be writable
+	$runtime_list = array(
+		'dispatcher', 
+		'manager', 
+		'data', 
+		'data_adapter', 
+		'global_functions', 
+		'dump', 
+		'utf8',
+		'mysql_adapter', 
+		'mysqli_adapter', 
+		'postgresql_adapter', 
+		'sqlite_adapter'
+	);
+
+	if (in_array($class_name, $runtime_list)) {
 		$file = SYS_DIR.'core'.DS.'runtime'.DS.'~'.$class_name.'.php';
 		if ( ! file_exists($file)) {
-			// Create runtime file with stripped comments and whitespace
 			file_put_contents($file, php_strip_whitespace(SYS_DIR.'core'.DS.$class_name.'.php'));
-		}
-	} elseif (in_array($class_name, array('mysql_adapter', 'mysqli_adapter', 'postgresql_adapter', 'sqlite_adapter'))) {
-		// Find data adapters
-		$file = SYS_DIR.'core'.DS.'runtime'.DS.'~'.$class_name.'.php';
-		if ( ! file_exists($file)) {
-			// Create runtime file with stripped comments and whitespace
-			file_put_contents($file, php_strip_whitespace(SYS_DIR.'core'.DS.'data_adapters'.DS.$class_name.'.php'));
 		}
 	} else {
 		// In case one app manager extends another app manager
 		$file = APP_MANAGER_DIR.$class_name.'.php';
 	}
 	require_once $file;
+	return;
 } 
 
 spl_autoload_register('autoload_components');
