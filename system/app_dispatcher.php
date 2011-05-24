@@ -22,6 +22,27 @@ switch (ENVIRONMENT) {
 }
 
 /**
+ * Translation/internationalization function. The PHP function
+ * [strtr](http://php.net/strtr) is used for replacing parameters.
+ *
+ *    __('Welcome back, :user', array(':user' => $username));
+ *
+ * [!!] The target language is defined by [I18n::$lang].
+ * 
+ * @uses    I18n::get
+ * @param   string  text to translate
+ * @param   array   values to replace in the translated text
+ * @param   string  source language
+ * @return  string
+ */
+function __($string, array $values = NULL, $lang = 'en/us') {
+	// Get the translation for this message
+	$string = I18n::get($string, $lang);
+
+	return empty($values) ? $string : strtr($string, $values);
+}
+
+/**
  * Autoloading required components
  *
  * @param   string $class_name the class name we are trying to load
@@ -41,6 +62,7 @@ function autoload_components($class_name) {
 		'global_functions', 
 		'dump', 
 		'utf8',
+		'i18n',
 		'mysql_adapter', 
 		'mysqli_adapter', 
 		'postgresql_adapter', 

@@ -1,2 +1,0 @@
-<?php
- class Global_Functions { public static function show_sys_error($heading, $message, $template = 'sys_error') { if (ENVIRONMENT === 'development') { ob_start(); require_once SYS_CORE_DIR.'sys_templates'.DS.$template.'.php'; $buffer = ob_get_contents(); ob_end_clean(); echo $buffer; exit; } } public static function dump($var, $force_type = '', $collapsed = FALSE) { new Dump($var, $force_type, $collapsed); } } 
