@@ -26,7 +26,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <tr> 
 <td valign="top" width="25%"> 
  
-<h3>Introduction</h3> 
+<h3><?php echo __('Introduction'); ?></h3> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sever_requirements/">Server Requirements</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/installation/">Installation Instructions</a></li>
@@ -40,7 +40,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 </td> 
 <td valign="top" width="25%"> 
  
-<h3>Core Topics</h3> 
+<h3><?php echo __('Core Topics'); ?></h3> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/workflow/">Request Processing Workflow</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/global/">Global Constants and Functions</a></li> 
@@ -63,7 +63,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 </td> 
 <td valign="top" width="25%"> 
  
-<h3>Library Reference</h3> 
+<h3><?php echo __('Library Reference'); ?></h3> 
 <ul>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/output_cache/">Output Cache</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/calendar/">Calendar</a></li> 
@@ -85,7 +85,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 </td> 
 <td valign="top" width="25%"> 
 
-<h3>Function Reference</h3> 
+<h3><?php echo __('Function Reference'); ?></h3> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/captcha/">CAPTCHA</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/download/">Download</a></li> 

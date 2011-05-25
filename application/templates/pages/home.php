@@ -5,15 +5,15 @@
 
 <div class="greybox" id="intro">
 <div id="intro_text">
-<h2 class="first_heading">InfoPotato &mdash; <span class="blue">Built on the shoulders of giants</span></h2>
+<h2 class="first_heading">InfoPotato &mdash; <span class="blue"><?php echo __('Built on the shoulders of giants'); ?></span></h2>
 <p>
 <strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
 </p>
 </div>
 
 <div id="download">
-<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/" class="uibutton large special" title="Download Latest Release">
-<span id="download_text">Download</span>
+<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/" class="uibutton large special" title="<?php echo __('Download Latest Release'); ?>">
+<span id="download_text"><?php echo __('Download'); ?></span>
 <span id="download_version">InfoPotato 1.0.0</span>
 </a>
 </div>
@@ -30,14 +30,14 @@
 <li>PATH_INFO based URI Pattern</li>
 <li>Full UTF-8 Support</li>
 <li>Multiple Database Adapters</li> 
+<li>Simple I18N/L10N Support</li>
 <li>Small Learning Curve &amp; Detailed Docs</li>
 <li>Rich Standalone Libraries</li>
 <li>Host multiple apps simultaneously</li>
 </ul> 
 
 <ul id="no"> 
-<li>No Object Relational Mapping (ORM)</li> 
-<li>No built-in I18N/L10N Support</li> 
+<li>No Object Relational Mapping (ORM)</li>  
 <li>No built-in ACL/RBAC System</li>
 <li>No built-in Tamplating System</li> 
 <li>No Automatic Code Generation</li> 

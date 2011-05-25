@@ -83,11 +83,6 @@ Why brother to learn a new templating language? Just use PHP's alternative synta
 </li>
 
 <li>
-<strong>No I18N/L10N Support</strong> 
-I18N/L10N Support will break the Loose Coupling that InfoPotato designed for. So InfoPotato encourages the developer to design their own solution.
-</li>
-
-<li>
 <strong>No Integrated Javascript Library</strong> 
 Yes, InfoPotato doesn't integrate with any popular Javascript libraries. Because not every project requires Javascript. But you can always use Javascript with InfoPotato very easily.
 </li>

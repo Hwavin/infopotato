@@ -567,11 +567,12 @@ float:left;
 
 #download {
 float:right;
-width:260px;
+width:270px;
 margin:40px 0 10px 20px;
 }
 
 #download a {
+width:200px;
 padding: 15px 30px;
 }
 
@@ -640,11 +641,11 @@ font-size:.8em;
 width:960px;
 padding:10px 0;
 margin:0 auto 10px;
+line-height:180%;
 }
 
 #locale_select{
 clear:both;
-margin-bottom:5px;
 }
 
 /* contact form
