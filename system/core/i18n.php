@@ -20,19 +20,19 @@
 class I18n {
 
 	/**
-	 * target language: en/us, es/es, zh/cn, etc
+	 * Target language: en/us, es/es, zh/cn, etc
 	 * 
 	 * @var  string   
 	 */
 	public static $lang = 'en/us';
 
 	/**
-	 * cache of loaded languages
+	 * Cache of loaded languages
 	 * 
 	 * @var  array  
 	 */
 	protected static $_cache = array();
-
+	
 	/**
 	 * Returns translation of a string. If no translation exists, the original
 	 * string will be returned. No parameters are replaced.
@@ -43,11 +43,8 @@ class I18n {
 	 * @param   string   target language
 	 * @return  string
 	 */
-	public static function get($string, $lang = NULL) {
-		if ( ! $lang) {
-			// Use the global target language
-			$lang = I18n::$lang;
-		}
+	public static function get($string) {
+		$lang = I18n::$lang;
 
 		// Load the translation table for this language
 		$table = I18n::load($lang);

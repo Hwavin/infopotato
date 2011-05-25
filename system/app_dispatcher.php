@@ -22,26 +22,6 @@ switch (ENVIRONMENT) {
 }
 
 /**
- * Translation/internationalization function. The PHP function
- * [strtr](http://php.net/strtr) is used for replacing parameters.
- *
- *    __('Welcome back, :user', array(':user' => $username));
- *
- * [!!] The target language is defined by [I18n::$lang].
- * 
- * @uses    I18n::get
- * @param   string  text to translate
- * @param   array   values to replace in the translated text
- * @param   string  source language
- * @return  string
- */
-function __($string, array $values = NULL) {
-	// Get the translation for this message
-	$string = I18n::get($string, DEFAULT_I18N);
-	return empty($values) ? $string : strtr($string, $values);
-}
-
-/**
  * Autoloading required components
  *
  * @param   string $class_name the class name we are trying to load
@@ -62,6 +42,8 @@ function autoload_components($class_name) {
 		'dump', 
 		'utf8',
 		'i18n',
+		'cookie',
+		'session',
 		'mysql_adapter', 
 		'mysqli_adapter', 
 		'postgresql_adapter', 
@@ -87,6 +69,29 @@ function autoload_components($class_name) {
 } 
 // PHP 5 >= 5.1.2
 spl_autoload_register('autoload_components');
+
+I18n::$lang = Session::get('lang');
+
+/**
+ * Translation/internationalization function. The PHP function
+ * [strtr](http://php.net/strtr) is used for replacing parameters.
+ *
+ *    __('Welcome back, :user', array(':user' => $username));
+ *
+ * [!!] The target language is defined by [I18n::$lang].
+ * 
+ * @uses    I18n::get
+ * @param   string  text to translate
+ * @param   array   values to replace in the translated text
+ * @param   string  source language
+ * @return  string
+ */
+function __($string, array $values = NULL) {
+	// Get the translation for this message
+	$string = I18n::get($string);
+	return empty($values) ? $string : strtr($string, $values);
+}
+
 
 /**
  * Application Dispatcher Class

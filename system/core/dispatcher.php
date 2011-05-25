@@ -43,8 +43,8 @@ class Dispatcher {
 		}
 		// Get manager and manager method, use default if none given (case-insensitive)
 		// All manager and manager method names are lowercased and no UTF8 encoded characters allowed
-		$manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(DEFAULT_MANAGER);
-		$method_name = ! empty($uri_segments[1]) ? strtolower($uri_segments[1]) : strtolower(DEFAULT_MANAGER_METHOD);
+		$manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(APP_DEFAULT_MANAGER);
+		$method_name = ! empty($uri_segments[1]) ? strtolower($uri_segments[1]) : strtolower(APP_DEFAULT_MANAGER_METHOD);
 		
 		// The read method is prefixed with the HTTP request method (get or post)
 		$real_method = $request_method.'_'.$method_name;
@@ -117,8 +117,8 @@ class Dispatcher {
 	private static function _filter_uri($str) {
 		if ($str !== '') {
 			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
-			// compatibility as many are unaware of how characters in the PERMITTED_URI_CHARS will be parsed as a regex pattern
-			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote(PERMITTED_URI_CHARS, '-'))."]+$|i", $str)) {
+			// compatibility as many are unaware of how characters in the APP_PERMITTED_URI_CHARS will be parsed as a regex pattern
+			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote(APP_PERMITTED_URI_CHARS, '-'))."]+$|i", $str)) {
 				Global_Functions::show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
 			}
 		}

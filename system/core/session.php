@@ -15,40 +15,35 @@
  * @package    Flourish
  * @link       http://flourishlib.com/fSession
  */
-class Session_Library {
+class Session {
 
 	/**
 	 * The length for a normal session
 	 * 
 	 * @var integer 
 	 */
-	private $_normal_timespan = NULL;
+	private static $_normal_timespan = NULL;
 	
 	/**
 	 * If the session is open
 	 * 
 	 * @var boolean 
 	 */
-	private $_open = FALSE;
+	private static $_open = FALSE;
 	
 	/**
 	 * The length for a persistent session cookie - one that survives browser restarts
 	 * 
 	 * @var integer 
 	 */
-	private $_persistent_timespan = NULL;
+	private static $_persistent_timespan = NULL;
 	
 	/**
 	 * If the session ID was regenerated during this script
 	 * 
 	 * @var boolean 
 	 */
-	private $_regenerated = FALSE;
-	
-	/**
-	 * Contructor
-	 */
-	public function __construct() { }
+	private static $_regenerated = FALSE;
 	
 	/**
 	 * Adds a value to an already-existing array value, or to a new array value
@@ -58,8 +53,8 @@ class Session_Library {
 	 * @param  boolean $beginning  If the value should be added to the beginning
 	 * @return void
 	 */
-	public function add($key, $value, $beginning = FALSE) {
-		$this->open();
+	public static function add($key, $value, $beginning = FALSE) {
+		self::open();
 		$tip =& $_SESSION;
 		
 		if ($bracket_pos = strpos($key, '[')) {
@@ -78,7 +73,7 @@ class Session_Library {
 				} elseif ( ! is_array($tip[$array_key])) {
 					printf(
 						'%1$s was called for the key, %2$s, which is not an array',
-						__CLASS__ . '->add()',
+						__CLASS__ . '::add()',
 						$original_key
 					);
 				}
@@ -93,7 +88,7 @@ class Session_Library {
 		} elseif ( ! is_array($tip[$key])) {
 			printf(
 				'%1$s was called for the key, %2$s, which is not an array',
-				__CLASS__ . '->add()',
+				__CLASS__ . '::add()',
 				$key
 			);
 		}
@@ -115,8 +110,8 @@ class Session_Library {
 	 * @param  string $prefix  The prefix to clear all session values for
 	 * @return void
 	 */
-	public function clear($prefix = NULL) {
-		$this->open();
+	public static function clear($prefix = NULL) {
+		self::open();
 		
 		$session_type = $_SESSION['SESSION::type'];
 		$session_expires = $_SESSION['SESSION::expires'];
@@ -141,14 +136,14 @@ class Session_Library {
 	 * 
 	 * @return void
 	 */
-	public function close() {
-		if ( ! $this->_open) { 
+	public static function close() {
+		if ( ! self::$_open) { 
 			return; 
 		}
 		
 		session_write_close();
 		unset($_SESSION);
-		$this->_open = FALSE;
+		self::$_open = FALSE;
 	}
 	
 	
@@ -159,8 +154,8 @@ class Session_Library {
 	 * @param  mixed  $default_value  The value to return if the `$key` is not set
 	 * @return mixed  The value of the `$key` that was deleted
 	 */
-	public function delete($key, $default_value = NULL) {
-		$this->open();
+	public static function delete($key, $default_value = NULL) {
+		self::open();
 		
 		$value = $default_value;
 		
@@ -211,15 +206,15 @@ class Session_Library {
 	 * 
 	 * @return void
 	 */
-	public function destroy() {
-		$this->open();
+	public static function destroy() {
+		self::open();
 		$_SESSION = array();
 		if (isset($_COOKIE[session_name()])) {
 			$params = session_get_cookie_params();
 			setcookie(session_name(), '', time() - 43200, $params['path'], $params['domain'], $params['secure']);
 		}
 		session_destroy();
-		$this->regenerate_id();
+		self::regenerate_id();
 	}
 	
 	
@@ -238,20 +233,20 @@ class Session_Library {
 	 * 
 	 * @return void
 	 */
-	public function enable_persistence() {
-		if ($this->_persistent_timespan === NULL) {
+	public static function enable_persistence() {
+		if (self::$_persistent_timespan === NULL) {
 			printf(
 				'The method %1$s must be called with the %2$s parameter before calling %3$s',
-				__CLASS__ . '->set_length()',
+				__CLASS__ . '::set_length()',
 				'$_persistent_timespan',
-				__CLASS__ . '->enable_persistence()'
+				__CLASS__ . '::enable_persistence()'
 			);	
 		}
 		
 		$current_params = session_get_cookie_params();
 		
 		$params = array(
-			$this->_persistent_timespan,
+			self::$_persistent_timespan,
 			$current_params['path'],
 			$current_params['domain'],
 			$current_params['secure']
@@ -259,12 +254,12 @@ class Session_Library {
 		
 		call_user_func_array('session_set_cookie_params', $params);
 		
-		$this->open();
+		self::open();
 		
 		$_SESSION['SESSION::type'] = 'persistent';
 		
 		session_regenerate_id();
-		$this->_regenerated = TRUE;
+		self::$_regenerated = TRUE;
 	}
 	
 	
@@ -275,8 +270,8 @@ class Session_Library {
 	 * @param  mixed  $default_value  The default value to use if the requested key is not set
 	 * @return mixed  The data element requested
 	 */
-	public function get($key, $default_value = NULL) {
-		$this->open();
+	public static function get($key, $default_value = NULL) {
+		self::open();
 		
 		$array_dereference = NULL;
 		if ($bracket_pos = strpos($key, '[')) {
@@ -313,27 +308,40 @@ class Session_Library {
 	 * 
 	 * @return void
 	 */
-	public function ignore_subdomain() {
-		if ($this->_open || isset($_SESSION)) {
+	public static function ignore_subdomain() {
+		if (self::$_open || isset($_SESSION)) {
 			printf(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '->ignore_subdomain()',
-				__CLASS__ . '->add()',
-				__CLASS__ . '->clear()',
-				__CLASS__ . '->enable_persistence()',
-				__CLASS__ . '->get()',
-				__CLASS__ . '->open()',
-				__CLASS__ . '->set()',
+				__CLASS__ . '::ignore_subdomain()',
+				__CLASS__ . '::add()',
+				__CLASS__ . '::clear()',
+				__CLASS__ . '::enable_persistence()',
+				__CLASS__ . '::get()',
+				__CLASS__ . '::open()',
+				__CLASS__ . '::set()',
 				'session_start()'
 			);
 		}
 		
 		$current_params = session_get_cookie_params();
 		
+		if (isset($_SERVER['SERVER_NAME'])) {
+			$domain = $_SERVER['SERVER_NAME'];
+		} elseif (isset($_SERVER['HTTP_HOST'])) {
+			$domain = $_SERVER['HTTP_HOST'];
+		} else {
+			printf(
+				'The domain name could not be found in %1$s or %2$s. Please set one of these keys to use %3$s.',
+				'$_SERVER[\'SERVER_NAME\']',
+				'$_SERVER[\'HTTP_HOST\']',
+				__CLASS__ . '::ignore_subdomain()'
+			);
+		}
+		
 		$params = array(
 			$current_params['lifetime'],
 			$current_params['path'],
-			preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $_SERVER['SERVER_NAME']),
+			preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $domain),
 			$current_params['secure']
 		);
 		
@@ -352,15 +360,15 @@ class Session_Library {
 	 * @param  boolean $cookie_only_session_id  If the session id should only be allowed via cookie - this is a security issue and should only be set to `FALSE` when absolutely necessary 
 	 * @return void
 	 */
-	public function open($cookie_only_session_id = TRUE) {
-		if ($this->_open) { 
+	public static function open($cookie_only_session_id = TRUE) {
+		if (self::$_open) { 
 			return; 
 		}
 		
-		$this->_open = TRUE;
+		self::$_open = TRUE;
 		
-		if ($this->_normal_timespan === NULL) {
-			$this->_normal_timespan = ini_get('session.gc_maxlifetime');	
+		if (self::$_normal_timespan === NULL) {
+			self::$_normal_timespan = ini_get('session.gc_maxlifetime');	
 		}
 		
 		// If the session is already open, we just piggy-back without setting options
@@ -375,7 +383,7 @@ class Session_Library {
 		// If the session has existed for too long, reset it
 		if (isset($_SESSION['SESSION::expires']) && $_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME']) {
 			$_SESSION = array();
-			$this->regenerate_id();
+			self::regenerate_id();
 		}
 		
 		if ( ! isset($_SESSION['SESSION::type'])) {
@@ -383,10 +391,10 @@ class Session_Library {
 		}
 		
 		// We store the expiration time for a session to allow for both normal and persistent sessions
-		if ($_SESSION['SESSION::type'] == 'persistent' && $this->_persistent_timespan) {
-			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $this->_persistent_timespan;
+		if ($_SESSION['SESSION::type'] == 'persistent' && self::$_persistent_timespan) {
+			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$_persistent_timespan;
 		} else {
-			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $this->_normal_timespan;	
+			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$_normal_timespan;	
 		}
 	}
 	
@@ -398,10 +406,10 @@ class Session_Library {
 	 * 
 	 * @return void
 	 */
-	public function regenerate_id() {
-		if ( ! $this->_regenerated){
+	public static function regenerate_id() {
+		if ( ! self::$_regenerated){
 			session_regenerate_id();
-			$this->_regenerated = TRUE;
+			self::$_regenerated = TRUE;
 		}
 	}
 	
@@ -413,8 +421,8 @@ class Session_Library {
 	 * @param  boolean $beginning  If the value should be removed to the beginning
 	 * @return mixed  The value that was removed
 	 */
-	public function remove($key, $beginning = FALSE) {
-		$this->open();
+	public static function remove($key, $beginning = FALSE) {
+		self::open();
 		$tip =& $_SESSION;
 		
 		if ($bracket_pos = strpos($key, '[')) {
@@ -432,7 +440,7 @@ class Session_Library {
 				} elseif ( ! is_array($tip[$array_key])) {
 					printf(
 						'%1$s was called for the key, %2$s, which is not an array',
-						__CLASS__ . '->remove()',
+						__CLASS__ . '::remove()',
 						$original_key
 					);
 				}
@@ -446,7 +454,7 @@ class Session_Library {
 		} elseif ( ! is_array($tip[$key])) {
 			printf(
 				'%1$s was called for the key, %2$s, which is not an array',
-				__CLASS__ . '->remove()',
+				__CLASS__ . '::remove()',
 				$key
 			);
 		}
@@ -466,12 +474,12 @@ class Session_Library {
 	 * 
 	 * @return void
 	 */
-	public function reset() {
-		$this->_normal_timespan = NULL;
-		$this->_persistent_timespan = NULL;
-		$this->_regenerated = FALSE;
-		$this->destroy();
-		$this->close();	
+	public static function reset() {
+		self::$_normal_timespan = NULL;
+		self::$_persistent_timespan = NULL;
+		self::$_regenerated = FALSE;
+		self::$destroy();
+		self::$close();	
 	}
 	
 	
@@ -482,8 +490,8 @@ class Session_Library {
 	 * @param  mixed  $value   The value to store
 	 * @return void
 	 */
-	public function set($key, $value) {
-		$this->open();
+	public static function set($key, $value) {
+		self::open();
 		$tip =& $_SESSION;
 		
 		if ($bracket_pos = strpos($key, '[')) {
@@ -523,27 +531,27 @@ class Session_Library {
 	 * @param  string|integer $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
 	 * @return void
 	 */
-	public function set_length($normal_timespan, $persistent_timespan = NULL) {
-		if ($this->_open || isset($_SESSION)) {
+	public static function set_length($normal_timespan, $persistent_timespan = NULL) {
+		if (self::$_open || isset($_SESSION)) {
 			printf(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '->set_length()',
-				__CLASS__ . '->add()',
-				__CLASS__ . '->clear()',
-				__CLASS__ . '->enable_persistence()',
-				__CLASS__ . '->get()',
-				__CLASS__ . '->open()',
-				__CLASS__ . '->set()',
+				__CLASS__ . '::set_length()',
+				__CLASS__ . '::add()',
+				__CLASS__ . '::clear()',
+				__CLASS__ . '::enable_persistence()',
+				__CLASS__ . '::get()',
+				__CLASS__ . '::open()',
+				__CLASS__ . '::set()',
 				'session_start()'
 			);
 		}
 		
 		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
-		$this->_normal_timespan = $seconds;
+		self::$_normal_timespan = $seconds;
 		
 		if ($persistent_timespan) {
 			$seconds = ( ! is_numeric($persistent_timespan)) ? strtotime($persistent_timespan) - time() : $persistent_timespan;	
-			$this->_persistent_timespan = $seconds;
+			self::$_persistent_timespan = $seconds;
 		}
 		
 		ini_set('session.gc_maxlifetime', $seconds);
@@ -562,17 +570,17 @@ class Session_Library {
 	 * @param  string $directory  The directory to store session files in
 	 * @return void
 	 */
-	public function set_path($directory) {
-		if ($this->_open || isset($_SESSION)) {
+	public static function set_path($directory) {
+		if (self::$_open || isset($_SESSION)) {
 			printf(
 				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '->set_path()',
-				__CLASS__ . '->add()',
-				__CLASS__ . '->clear()',
-				__CLASS__ . '->enable_persistence()',
-				__CLASS__ . '->get()',
-				__CLASS__ . '->open()',
-				__CLASS__ . '->set()',
+				__CLASS__ . '::set_path()',
+				__CLASS__ . '::add()',
+				__CLASS__ . '::clear()',
+				__CLASS__ . '::enable_persistence()',
+				__CLASS__ . '::get()',
+				__CLASS__ . '::open()',
+				__CLASS__ . '::set()',
 				'session_start()'
 			);
 		}
@@ -586,4 +594,4 @@ class Session_Library {
 	
 }
 
-/* End of file: ./system/libraries/session/session_library.php */
+/* End of file: ./system/core/session.php */

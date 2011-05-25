@@ -15,14 +15,7 @@
  * @changes    1.0.0b2  Updated for new fCore API [wb, 2009-02-16]
  * @changes    1.0.0b   The initial implementation [wb, 2008-09-01]
  */
-class Cookie_Library {
-	/**
-	 * The cookie data assigned by $_COOKIE
-	 * 
-	 * @var string
-	 */
-	private $_cookie = array();
-	
+class Cookie {
 	/**
 	 * The default domain to set for cookies
 	 * 
@@ -59,15 +52,6 @@ class Cookie_Library {
 	private static $_default_secure = FALSE;
 	
 	/**
-	 * Forces use as a static class
-	 * 
-	 * @return Cookie_Library
-	 */
-	public function __construct($config = array()) { 
-		$this->_cookie = $config['cookie'];
-	}
-	
-	/**
 	 * Deletes a cookie - uses default parameters set by the other set methods of this class
 	 * 
 	 * @param  string  $name    The cookie name to delete
@@ -89,8 +73,8 @@ class Cookie_Library {
 	 * @return mixed  The value
 	 */
 	public static function get($name, $default_value = NULL) {
-		if (isset($this->_cookie[$name])) {
-			$value = UTF8::clean($this->_cookie[$name]);
+		if (isset($_COOKIE[$name])) {
+			$value = UTF8::clean($_COOKIE[$name]);
 			if (get_magic_quotes_gpc()) {
 				$value = stripslashes($value);
 			}
@@ -265,4 +249,4 @@ class Cookie_Library {
 	
 }
 
-/* End of file: ./system/libraries/cookie/cookie_library.php */
+/* End of file: ./system/core/cookie.php */

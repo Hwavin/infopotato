@@ -1,15 +1,10 @@
 <?php
 final class Contact_Manager extends Manager {
-	public function __construct() {
-		parent::__construct();
-        session_start();
-	}
-
 	public function get_index() {
-		$_SESSION['form_token'] = uniqid();
+		Session::set('form_token', uniqid());
 		
 		$data = array(
-			'form_token' => $_SESSION['form_token'], 
+			'form_token' => Session::get('form_token'), 
 		);
 		
 		$layout_data = array(
@@ -25,7 +20,7 @@ final class Contact_Manager extends Manager {
 	}
 
 	public function post_index() {
-		$form_token = isset($_SESSION['form_token']) ? $_SESSION['form_token'] : NULL;
+		$form_token = Session::get('form_token');
 
 		// Load Form Validation library and assign post data
 		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->POST_DATA));
@@ -65,8 +60,8 @@ final class Contact_Manager extends Manager {
 			); 
 		} else {
 			// Unset the old form token and create new form token
-			unset( $_SESSION['form_token']);
-			$_SESSION['form_token'] = uniqid();
+			Session::delete('form_token');
+			Session::set('form_token', uniqid());
 			
 			// Load and instantiate Email library
 			$config = array(

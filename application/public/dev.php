@@ -63,13 +63,8 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 /**
  * Default manager/method to use if none is given in the URL, lowercase
  */
-define('DEFAULT_MANAGER', 'home');
-define('DEFAULT_MANAGER_METHOD', 'index');
-
-/**
- * Set the Default Language
- */
-define('DEFAULT_I18N', 'zh/cn');
+define('APP_DEFAULT_MANAGER', 'home');
+define('APP_DEFAULT_MANAGER_METHOD', 'index');
 
 /**
  * If cache the system core components to runtime files
@@ -82,7 +77,12 @@ define('SYS_RUNTIME_CACHE', FALSE);
  * By default only these are allowed: a-z 0-9~%.:_-
  * Leave blank to allow all characters
  */
-define('PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
+define('APP_PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
+
+/**
+ * The default language for i18n
+ */
+define('DEFAULT_I18N_LANG', 'zh/cn');
 
 /**
  * User-defined constants go here
