@@ -80,11 +80,6 @@ define('SYS_RUNTIME_CACHE', FALSE);
 define('APP_PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
 
 /**
- * The default language for i18n
- */
-define('DEFAULT_I18N_LANG', 'zh/cn');
-
-/**
  * User-defined constants go here
  */
 //define('APP_CACHE_DIR', APP_DIR.'cache'.DS);

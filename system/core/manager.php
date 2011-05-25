@@ -44,25 +44,6 @@ class Manager {
 		$this->POST_DATA = $_POST;
 		// Disable access to $_POST
 		unset($_POST);
-		
-		// Check magic quotes, this feature has been DEPRECATED as of PHP 5.3.0.
-		// Magic Quotes is a process that automagically escapes incoming data to the PHP script. 
-	    // It's preferred to code with magic quotes off and to instead escape the data at runtime, as needed.
-		// Strip slashes if magic quotes is enabled so all input data is free of slashes
-		if (version_compare(PHP_VERSION, '5.3.0', '<') && get_magic_quotes_gpc()) {
-			$in = array($this->POST_DATA);
-			while (list($k, $v) = each($in)) {
-				foreach ($v as $key => $val) {
-					if ( ! is_array($val)) {
-						// Un-quotes a quoted string
-						$in[$k][$key] = stripslashes($val); 
-						continue;
-					}
-					$in[] = $in[$k][$key];
-				}
-			}
-			unset($in);
-		}
 	}
 	
 	/**
@@ -96,7 +77,7 @@ class Manager {
 	 * @param   array $template_vars (optional) template variables
 	 * @return  string rendered contents of template
 	 */    
-	protected function render_template($template, $template_vars = array()) {
+	protected function render_template($template, array $template_vars = NULL) {
 		$orig_template = strtolower($template);
 		
 		// Is the template in a sub-folder? If so, parse out the filename and path.

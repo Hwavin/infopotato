@@ -70,7 +70,8 @@ function autoload_components($class_name) {
 // PHP 5 >= 5.1.2
 spl_autoload_register('autoload_components');
 
-I18n::$lang = Session::get('lang');
+// Get and set the current locale
+I18n::$lang = Session::get('lang') ? Session::get('lang') : 'en/us';
 
 /**
  * Translation/internationalization function. The PHP function
