@@ -3,8 +3,8 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">Documentation</h1> 
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; Documentation
+<h1 class="first_heading"><?php echo __('Documentation'); ?></h1> 
+<a href="<?php echo APP_URI_BASE; ?>home"><?php echo __('Home'); ?></a> &gt; <?php echo __('Documentation'); ?>
 </div>
 <!-- end breadcrumb -->
 
@@ -12,7 +12,7 @@
 
 <img src="<?php echo STATIC_URI_BASE; ?>images/shared/new_ribbon.png" width="37" height="36" class="new_ribbon" alt="New"> 
 
-<h3>Offline Documentation</h3>
+<h3><?php echo __('Offline Documentation'); ?></h3>
 <p>
 Grab an <a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>file/resume-pdf">Offline Documentation</a> containing all topics listed below.
 </p>

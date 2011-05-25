@@ -35,10 +35,9 @@ switch (ENVIRONMENT) {
  * @param   string  source language
  * @return  string
  */
-function __($string, array $values = NULL, $lang = 'en/us') {
+function __($string, array $values = NULL) {
 	// Get the translation for this message
-	$string = I18n::get($string, $lang);
-
+	$string = I18n::get($string, DEFAULT_I18N);
 	return empty($values) ? $string : strtr($string, $values);
 }
 

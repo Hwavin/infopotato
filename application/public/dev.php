@@ -67,6 +67,11 @@ define('DEFAULT_MANAGER', 'home');
 define('DEFAULT_MANAGER_METHOD', 'index');
 
 /**
+ * Set the Default Language
+ */
+define('DEFAULT_I18N', 'zh/cn');
+
+/**
  * If cache the system core components to runtime files
  */
 define('SYS_RUNTIME_CACHE', FALSE);

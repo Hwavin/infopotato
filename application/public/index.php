@@ -53,6 +53,7 @@ define('SYS_LIBRARY_DIR', SYS_DIR.'libraries'.DS);
 define('SYS_FUNCTION_DIR', SYS_DIR.'functions'.DS);
 
 define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
+define('APP_I18N_DIR', APP_DIR.'i18n'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);

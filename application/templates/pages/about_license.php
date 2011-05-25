@@ -3,17 +3,17 @@
 
 <div id="toc"> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>about/index/facts/" title="Facts">Facts</a></li> 
-<li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="License">License</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="The Founder">The Founder</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/" title="<?php echo __('Motivation'); ?>"><?php echo __('Motivation'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/facts/" title="<?php echo __('Facts'); ?>"><?php echo __('Facts'); ?></a></li> 
+<li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="<?php echo __('License'); ?>"><?php echo __('License'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="<?php echo __('The Founder'); ?>"><?php echo __('The Founder'); ?></a></li> 
 </ul> 
 </div>
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">License</h1>
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; About
+<h1 class="first_heading"><?php echo __('License'); ?></h1>
+<a href="<?php echo APP_URI_BASE; ?>home"><?php echo __('Home'); ?></a> &gt; <?php echo __('About'); ?>
 </div>
 <!-- end breadcrumb -->
 

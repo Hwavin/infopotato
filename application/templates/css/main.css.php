@@ -642,6 +642,11 @@ padding:10px 0;
 margin:0 auto 10px;
 }
 
+#locale_select{
+clear:both;
+margin-bottom:5px;
+}
+
 /* contact form
 -------------------------------------------------------------- */
 #contact {  

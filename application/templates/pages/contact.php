@@ -3,8 +3,8 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">Contact</h1> 
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; Contact
+<h1 class="first_heading"><?php echo __('Contact'); ?></h1> 
+<a href="<?php echo APP_URI_BASE; ?>home"><?php echo __('Home'); ?></a> &gt; <?php echo __('Contact'); ?>
 </div>
 <!-- end breadcrumb -->
 
