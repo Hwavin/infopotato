@@ -34,7 +34,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/"><?php echo __('The Directory Structure'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/alternative_php/">Alternative PHP Syntax</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/style_guide/"><?php echo __('Conventions &amp; Style Guide'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/glossary/">Glossary</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/glossary/"><?php echo __('Glossary'); ?></a></li>
 </ul> 
  
 </td> 
@@ -49,10 +49,10 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/manager/"><?php echo __('Manager'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/template/"><?php echo __('Template'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/data/"><?php echo __('Data Access Object'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/">SQL Database Adapters</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/i18n/">Internationalization</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/"><?php echo __('SQL Database Adapters'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/i18n/"><?php echo __('Internationalization'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/library/"><?php echo __('Library'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/function/">Function</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/function/"><?php echo __('Function'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/runtime/"><?php echo __('System Core Runtime Cache'); ?></a></li>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dump/">Dump Variable</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8/"><?php echo __('UTF-8 Support'); ?></a></li>
@@ -77,10 +77,10 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/upload/"><?php echo __('File Upload'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/form_validation/"><?php echo __('Form Validation'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/ftp/">FTP</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/pagination/">Pagination</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/pagination/"><?php echo __('Pagination'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/password_hashing/"><?php echo __('Password Hashing'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/">User Agent</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/"><?php echo __('User Agent'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/mobile_detect/"><?php echo __('Mobile Device Detection'); ?></a></li> 
 </ul> 
 </td> 
@@ -89,7 +89,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <h3><?php echo __('Function Reference'); ?></h3> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/captcha/">CAPTCHA</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/download/">Download</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/download/"><?php echo __('Download'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/redirect/"><?php echo __('Redirection'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/minify_html/">Minify HTML</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/htmlawed/">HtmLawed</a></li>

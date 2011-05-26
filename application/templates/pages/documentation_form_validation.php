@@ -313,6 +313,7 @@ Change 'field_name' to the name of the actual field (e.g., 'email').
 You can also use any native PHP functions that permit one parameter.
 </div> 
 
+<h2>Error Messages Internationalization</h2>
  
 </div> 
 <!-- end onecolumn -->

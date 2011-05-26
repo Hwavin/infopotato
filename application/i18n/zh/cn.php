@@ -44,6 +44,7 @@ return array(
 	'Template' => '模板',
 	'Data Access Object' => '数据对象',
 	'Library' => '类库',
+	'Function' => '函数库',
 	'System Core Runtime Cache' => '系统核心缓存',
 	'UTF-8 Support' => 'UTf-8支持',
 	'Caching' => '缓存',
@@ -58,6 +59,11 @@ return array(
 	'Password Hashing' => '密码哈希',
 	'Mobile Device Detection' => '检测移动设备',
 	'Redirection' => '重定向',
+	'Glossary' => '词汇表',
+	'SQL Database Adapters' => 'SQL数据库适配器',
+	'Internationalization' => '语言国际化',
+	'Pagination' => '分页',
+	'User Agent' => '客户端',
 	
 	// Homepage
 	'Built on the shoulders of giants' => '站在巨人们的肩上',

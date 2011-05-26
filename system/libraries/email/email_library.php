@@ -219,14 +219,14 @@ class Email_library {
 	 * @return	void
 	 */
 	public function clear($clear_attachments = FALSE) {
-		$this->_subject		= '';
-		$this->_body		= '';
-		$this->_finalbody	= '';
-		$this->_header_str	= '';
+		$this->_subject = '';
+		$this->_body = '';
+		$this->_finalbody = '';
+		$this->_header_str = '';
 		$this->_replyto_flag = FALSE;
-		$this->_recipients	= array();
-		$this->_headers		= array();
-		$this->_debug_msg	= array();
+		$this->_recipients = array();
+		$this->_headers = array();
+		$this->_debug_msg = array();
 
 		$this->_set_header('User-Agent', $this->useragent);
 		$this->_set_header('Date', $this->_set_date());
@@ -524,11 +524,11 @@ class Email_library {
 	 */
 	public function set_newline($newline = "\n") {
 		if ($newline != "\n" && $newline != "\r\n" && $newline != "\r") {
-			$this->newline	= "\n";
+			$this->newline = "\n";
 			return;
 		}
 
-		$this->newline	= $newline;
+		$this->newline = $newline;
 	}
   
 
@@ -569,7 +569,7 @@ class Email_library {
 		$from = str_replace(">", "", $from);
 		$from = str_replace("<", "", $from);
 
-		return  "<".uniqid('').strstr($from, '@').">";
+		return "<".uniqid('').strstr($from, '@').">";
 	}
   
 
