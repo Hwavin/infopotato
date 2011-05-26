@@ -51,7 +51,7 @@ class Form_Validation_Library {
 				'alpha_numeric' => "%s 字段只能包含 alpha-numeric characters.",
 				'alpha_dash' => "%s 字段只可以是 alpha-numeric 字母, underscores, and dashes.",
 				'numeric' => "%s 字段必须只能是数字",
-				'is_numeric' => "The %s field must contain only numeric characters.",
+				'is_numeric' => "%s 字段必须只包含数字字符",
 				'is_integer' => "%s 字段必须是整数",
 				'matches' => "%s 字段不等于 %s 字段",
 				'decimal' => "%s 字段必须是小数",

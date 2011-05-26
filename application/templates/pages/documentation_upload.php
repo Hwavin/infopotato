@@ -69,7 +69,7 @@ Using a text editor, create a manager file called <span class="red">upload_manag
 				
 	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;upload/upload_library&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
             <span class="c1">// Begin to upload</span> 
-	    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">up</span><span class="o">-&gt;</span><span class="na">do_upload</span><span class="p">(</span><span class="s1">&#39;attachment&#39;</span><span class="p">))</span> <span class="p">{</span> 
+	    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">up</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="s1">&#39;attachment&#39;</span><span class="p">))</span> <span class="p">{</span> 
 		<span class="nv">$upload_validation</span> <span class="o">=</span> <span class="k">FALSE</span><span class="p">;</span> 
 		<span class="nv">$upload_errors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">up</span><span class="o">-&gt;</span><span class="na">display_errors</span><span class="p">();</span> 
 	    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
@@ -208,7 +208,7 @@ You should see an upload form. Try uploading an word doc file (either a doc, or 
  
 <p>The following functions are available</p> 
  
-<h2>$this->upload->do_upload()</h2> 
+<h2>$this->upload->run()</h2> 
  
 <p>Performs the upload based on the preferences you've set.  Note:  By default the upload routine expects the file to come from a form field
 called <dfn>userfile</dfn>, and the form must be a "multipart type:</p> 
