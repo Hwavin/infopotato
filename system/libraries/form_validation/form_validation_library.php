@@ -24,6 +24,8 @@ class Form_Validation_Library {
 	
 	/**
 	 * Constructor
+	 *
+	 * $config must contain ['post']
 	 */	
 	public function __construct($config = array()) { 
 		// Assign the $POST_DATA array
@@ -33,30 +35,60 @@ class Form_Validation_Library {
 		if (function_exists('mb_internal_encoding')){
 			mb_internal_encoding('UTF-8');
 		}
-		
-		$this->_error_messages = array(
-			'required' => "The %s field is required.",
-			'isset' => "The %s field must have a value.",
-			'valid_email' => "The %s field must contain a valid email address.",
-			'valid_emails' => "The %s field must contain a valid email address.",
-			'min_length' => "The %s field must be at least %s characters in length.",
-			'max_length' => "The %s field can not exceed %s characters in length.",
-			'exact_length' => "The %s field must be exactly %s characters in length.",
-			'equals' => "The %s field must equal the value designed.",
-			'form_token' => "Please do not resubmit the form data.",
-			'alpha' => "The %s field may only contain alphabetical characters.",
-			'alpha_numeric' => "The %s field may only contain alpha-numeric characters.",
-			'alpha_dash' => "The %s field may only contain alpha-numeric characters, underscores, and dashes.",
-			'numeric' => "The %s field must contain only numbers.",
-			'is_numeric' => "The %s field must contain only numeric characters.",
-			'is_integer' => "The %s field must contain an integer.",
-			'matches' => "The %s field does not match the %s field.",
-			'decimal' => "The %s field must contain a decimal number.",
-			'less_than' => "The %s field must contain a number less than %s.",
-            'greater_than' => "The %s field must contain a number greater than %s.",
-			'is_natural' => "The %s field must contain only positive numbers.",
-			'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
+
+		$lang = array(
+			'zh/cn' => array (
+				'required' => "%s 字段是必须的.",
+				'isset' => "%s 字段必须有值",
+				'valid_email' => "%s 字段必须包含有效的邮件地址",
+				'valid_emails' => "%s 字段必须包含有效的邮件地址",
+				'min_length' => "%s 字段长度不能少于 %s 个字符",
+				'max_length' => "%s 字段长度不能超过 %s 个字符",
+				'exact_length' => "%s 字段长度必须是 %s",
+				'equals' => "%s 字段必须等于预定值",
+				'form_token' => "不要重新提交表单",
+				'alpha' => "%s 字段只能包含 alphabetical 字母",
+				'alpha_numeric' => "%s 字段只能包含 alpha-numeric characters.",
+				'alpha_dash' => "%s 字段只可以是 alpha-numeric 字母, underscores, and dashes.",
+				'numeric' => "%s 字段必须只能是数字",
+				'is_numeric' => "The %s field must contain only numeric characters.",
+				'is_integer' => "%s 字段必须是整数",
+				'matches' => "%s 字段不等于 %s 字段",
+				'decimal' => "%s 字段必须是小数",
+				'less_than' => "%s 字段必须小于 %s.",
+				'greater_than' => "%s 字段必须大于 %s.",
+				'is_natural' => "%s 字段必须是正数",
+				'is_natural_no_zero' => "%s 必须是大于零的数",
+			),
+			
+			'en/us' => array(
+				'required' => "The %s field is required.",
+				'isset' => "The %s field must have a value.",
+				'valid_email' => "The %s field must contain a valid email address.",
+				'valid_emails' => "The %s field must contain a valid email address.",
+				'min_length' => "The %s field must be at least %s characters in length.",
+				'max_length' => "The %s field can not exceed %s characters in length.",
+				'exact_length' => "The %s field must be exactly %s characters in length.",
+				'equals' => "The %s field must equal the value designed.",
+				'form_token' => "Please do not resubmit the form data.",
+				'alpha' => "The %s field may only contain alphabetical characters.",
+				'alpha_numeric' => "The %s field may only contain alpha-numeric characters.",
+				'alpha_dash' => "The %s field may only contain alpha-numeric characters, underscores, and dashes.",
+				'numeric' => "The %s field must contain only numbers.",
+				'is_numeric' => "The %s field must contain only numeric characters.",
+				'is_integer' => "The %s field must contain an integer.",
+				'matches' => "The %s field does not match the %s field.",
+				'decimal' => "The %s field must contain a decimal number.",
+				'less_than' => "The %s field must contain a number less than %s.",
+				'greater_than' => "The %s field must contain a number greater than %s.",
+				'is_natural' => "The %s field must contain only positive numbers.",
+				'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
+			),	
 		);
+		
+		$this->_error_messages = (isset($config['lang']) && array_key_exists($config['lang'], $lang)) 
+			? $lang[$config['lang']] 
+			: $lang['en/us'];
 	}
 
 	/**
