@@ -828,3 +828,78 @@ margin-top:10px;
 line-height:180%;
 }
 
+
+/* index_right */
+ul.get_in_touch_list{
+margin:0;
+}
+
+ul.get_in_touch_list li{
+list-style-type:none;
+float:left;
+padding-left:16px;
+}
+
+.get_in_touch_list li.first{
+padding-left:0;
+}
+
+.get_in_touch_list li .illustration_get_in_touch .illustration{
+display:block;
+}
+
+.get_in_touch_list li p a,
+.get_in_touch_list li p a:hover{
+text-decoration:none;
+color:#444444;
+}
+.get_in_touch_list li p a:hover{
+}
+
+
+
+
+
+
+.careers_full{
+width:920px;
+margin-left:auto;
+margin-right:auto;
+clear:both;
+}
+
+.first_row .department_listing{
+border-top:none;padding-top:14px;
+}
+
+.department_listing{
+border-top:1px solid #d3dae5;
+float:left;
+margin-right:16px;
+padding:14px 0;
+width:295px;
+}
+
+.department_listing.last{
+margin-right:0;
+}
+
+.department_listing .careers_dept_img
+{width:52px;
+height:52px;
+float:left;
+margin:5px 0 0 3px;
+}
+
+
+.department_listing .department_description{
+float:left;
+margin-left:10px;
+width:225px;
+}
+
+.department_listing .department_description h3{
+font-size: 14px;
+line-height:20px;
+margin-bottom:0;
+}

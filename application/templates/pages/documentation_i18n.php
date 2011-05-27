@@ -9,7 +9,7 @@
 <!-- end breadcrumb -->
 
 <p>
-Internationalization (I18N) refers to the process of designing a software application so that it can be adapted to various languages and regions without engineering changes. For Web applications, this is of particular importance because the potential users may be from worldwide.
+The term "internationalization" refers to the process of abstracting strings and other locale-specific pieces out of your application and into a layer where they can be translated and converted based on the user's locale (i.e. language and country). For text (text will "always" print out in English), this means wrapping each with a function capable of translating the text (or "message") into the language of the user.
 </p> 
 
 <p>
@@ -47,6 +47,40 @@ For InfoPotato to translate the phrases of a template, they must be identified a
 
 <p>
 Each time the __() function is called, InfoPotato looks for a translation of its argument in the dictionary of the current language setting. If it finds a corresponding phrase, the translation is sent back and displayed in the response. So the user interface translation relies on a dictionary file.
+</p>
+
+<h2>Handling Complex Translation Needs</h2>
+
+<p>
+Translation only makes sense if the __() argument is a word, phase or a full sentence. However, as you sometimes have formatting or variables mixed with words, you could be tempted to cut sentences into several chunks, thus calling the function on senseless phrases. Fortunately, the __() function offers a replacement feature based on tokens, which will help you to have a meaningful dictionary that is easier to handle by translators. As with HTML formatting, you can leave it in the helper call as well.
+</p>
+
+<div class="syntax"><pre>Welcome to all the <span class="nt">&lt;b</span> <span class="na">class=</span><span class="s">&quot;new&quot;</span><span class="nt">&gt;</span>new<span class="nt">&lt;/b&gt;</span> users.<span class="nt">&lt;br</span> <span class="nt">/&gt;</span> 
+There are <span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$num</span><span class="p">;</span> <span class="cp">?&gt;</span> persons logged.
+</pre></div>
+
+<p>
+Bad way to enable text translation
+</p>
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Welcome to all the&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> 
+<span class="nt">&lt;b</span> <span class="na">class=</span><span class="s">&quot;new&quot;</span><span class="nt">&gt;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;new&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span><span class="nt">&lt;/b&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">)</span> <span class="cp">?&gt;</span>.<span class="nt">&lt;br</span> <span class="nt">/&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;There are&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nv">$num</span><span class="p">;</span> <span class="cp">?&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;persons logged&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> 
+</pre></div>
+
+<p>
+Good way to enable text translation
+</p>
+
+<div class="syntax"><pre><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;Welcome to all the &lt;b class=&quot;new&quot;&gt;new&lt;/b&gt; users&#39;</span><span class="p">);</span> <span class="cp">?&gt;</span> <span class="nt">&lt;br</span> <span class="nt">/&gt;</span> 
+<span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">__</span><span class="p">(</span><span class="s1">&#39;There are :num persons logged&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;:num&#39;</span> <span class="o">=&gt;</span> <span class="nv">$num</span><span class="p">));</span> <span class="cp">?&gt;</span> 
+</pre></div>
+
+<p>
+In this example, the token is <span class="red">:num</span>, but it can be anything, since the replacement function used by the translation helper is <a href="http://www.php.net/manual/en/function.strtr.php" class="external_link">strtr()</a>.
 </p>
 
 </div> 

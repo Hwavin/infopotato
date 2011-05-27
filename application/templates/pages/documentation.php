@@ -34,6 +34,7 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/"><?php echo __('The Directory Structure'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/alternative_php/">Alternative PHP Syntax</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/style_guide/"><?php echo __('Conventions &amp; Style Guide'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/testing/"><?php echo __('Testing'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/glossary/"><?php echo __('Glossary'); ?></a></li>
 </ul> 
  

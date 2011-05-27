@@ -4,7 +4,6 @@ return array(
 	'Return to frontpage' => '返回首页',
 	'About' => '关于',
 	'Download' => '下载',
-	'News' => '新闻',
 	'Documentation' => '文档',
 	'Showcase' => '展示',
 	'Tutorials' => '教程',
@@ -37,6 +36,7 @@ return array(
 	'The Environments' => '环境设置',
 	'The Directory Structure' => '目录结构',
 	'Conventions &amp; Style Guide' => '命名规范',
+	'Testing' => '测试',
 	'Request Processing Workflow' => '请求处理流程',
 	'Global Constants and Functions' => '全局常量和函数',
 	'Dispatcher' => '调度器',
@@ -68,4 +68,5 @@ return array(
 	// Homepage
 	'Built on the shoulders of giants' => '站在巨人们的肩上',
 	'Download Latest Release' => '下载最新版本',
+	'The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework' => '<span class="green">更轻量</span>，<span class="red">更高效</span>，<span class="orange">更时尚</span>的PHP5框架',
 );
