@@ -902,4 +902,5 @@ width:225px;
 font-size: 14px;
 line-height:20px;
 margin-bottom:0;
+color:#4866A9;
 }

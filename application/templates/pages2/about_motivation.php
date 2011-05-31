@@ -4,6 +4,7 @@
 <div id="toc"> 
 <ul> 
 <li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/" title="<?php echo __('Motivation'); ?>"><?php echo __('Motivation'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>about/index/facts/" title="<?php echo __('Facts'); ?>"><?php echo __('Facts'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="<?php echo __('License'); ?>"><?php echo __('License'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="<?php echo __('The Founder'); ?>"><?php echo __('The Founder'); ?></a></li> 
 </ul> 
