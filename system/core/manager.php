@@ -14,13 +14,6 @@ class Manager {
 	 * @var array   
      */
     protected $POST_DATA = array();
-
-	/**
-     * An associative array of variables passed to the current script via HTTP request Cookie header      
-	 *
-	 * @var array   
-     */
-    protected $COOKIE_DATA = array();
 	
 	/**
 	 * vars for template file assignment
