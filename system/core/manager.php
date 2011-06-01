@@ -82,7 +82,7 @@ class Manager {
 
 		ob_start();
 		if ( ! file_exists($template_file_path)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
 		} else {
 			// Bring template vars into template scope
 			// Import variables from an array into the current symbol table.
@@ -287,13 +287,13 @@ class Manager {
 		$file_path = APP_DATA_DIR.$path.$data.'.php';
 
 		if ( ! file_exists($file_path)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
 		}
 		require_once $file_path;
 
 		// Class name must be the same as the data name
 		if ( ! class_exists($data)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
 		}
 
 		// Instantiate the data object as a worker's property 
@@ -336,7 +336,7 @@ class Manager {
 		}
 		
 		if (method_exists($this, $alias)) {	
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
 		}
 		
 		// Library already loaded? silently skip
@@ -349,19 +349,19 @@ class Manager {
 		} elseif ($scope === 'APP') {
 			$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
 		} else {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
 		}
 		
 		$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
 
 		if ( ! file_exists($file_path)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
 		}
 		require_once $file_path;
 		
 		// Class name must be the same as the library name
 		if ( ! class_exists($library)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
 		}
 
 		// Instantiate the library object as a manager's property 
@@ -398,11 +398,11 @@ class Manager {
 		} elseif ($scope === 'APP') {
 			$file_path = APP_FUNCTION_DIR.$path.$func.'.php';
 		} else {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "The location of the functions folder must be specified, either 'SYS' or 'APP'", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "The location of the functions folder must be specified, either 'SYS' or 'APP'", 'sys_error');
 		}
 
 		if ( ! file_exists($file_path)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
+			show_sys_error('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
 		}
 		// The require_once() statement will check if the file has already been included, 
 		// and if so, not include (require) it again
@@ -415,7 +415,7 @@ class Manager {
 	 * Gets triggered when an inaccessible methods requested
 	 */    
 	public function __call($method, $args) {
-		Global_Functions::show_sys_error('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
+		show_sys_error('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
 	}
 
 }

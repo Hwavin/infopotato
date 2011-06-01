@@ -51,7 +51,7 @@ class Data {
 			$data_source = require_once APP_CONFIG_DIR.'data_source.php';
 			// Checks if worker file exists 
 			if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
-				Global_Functions::show_sys_error('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
+				show_sys_error('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
 			}
 			// Create instance
 			$db_obj[$connection] = new $conn[0]($data_source[$conn[0]][$conn[1]]);

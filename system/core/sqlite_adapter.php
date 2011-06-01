@@ -41,9 +41,9 @@ class SQLite_Adapter extends Data_adapter {
 		
 		// No username and a password required
 		if ($dbpath === '') {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
+			show_sys_error('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
 		} else if ( ! $this->dbh = sqlite_open($dbpath)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Can not find SQLite database file', 'sys_error');		
+			show_sys_error('An Error Was Encountered', 'Can not find SQLite database file', 'sys_error');		
 		} else {
 			$return_val = TRUE;
 		}
@@ -108,7 +108,7 @@ class SQLite_Adapter extends Data_adapter {
 		// If there is an error then take note of it.
 		if (sqlite_last_error($this->dbh)) {
 			$err_msg = sqlite_error_string(sqlite_last_error($this->dbh));
-			Global_Functions::show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
+			show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
 		}
 		

@@ -62,7 +62,7 @@ class Dispatcher {
 
 		// Checks if manager file exists 
 		if ( ! file_exists($manager_file)) { 
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
+			show_sys_error('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
 		}
 		require_once $manager_file;
 
@@ -70,7 +70,7 @@ class Dispatcher {
 		$manager_class = $manager_name.'_manager';
 		// Function class_exists() is matched in a case-insensitive manner
 		if ( ! class_exists($manager_class)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Manager class does not exist', 'sys_error');				
+			show_sys_error('An Error Was Encountered', 'Manager class does not exist', 'sys_error');				
 		}
 
 		// Instantiate the manager object
@@ -78,7 +78,7 @@ class Dispatcher {
 		
 		// Checks if the manager method exists
 		if ( ! method_exists($manager_obj, $real_method)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
+			show_sys_error('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
 		}
 
 		// The desginated manager prepares the related resources and sends response back to client
@@ -119,7 +119,7 @@ class Dispatcher {
 			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
 			// compatibility as many are unaware of how characters in the APP_PERMITTED_URI_CHARS will be parsed as a regex pattern
 			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote(APP_PERMITTED_URI_CHARS, '-'))."]+$|i", $str)) {
-				Global_Functions::show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
+				show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
 			}
 		}
 

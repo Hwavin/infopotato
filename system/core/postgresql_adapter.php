@@ -73,11 +73,11 @@ class PostgreSQL_Adapter extends Data_Adapter {
 
 		// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
 		if ($dbuser === '') {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');
+			show_sys_error('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');
 		} elseif ($dbname === '') {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Require database name to select a database', 'sys_error');
+			show_sys_error('An Error Was Encountered', 'Require database name to select a database', 'sys_error');
 		} elseif ( ! $this->dbh = pg_connect("host=$dbhost user=$dbuser password=$dbpass dbname=$dbname", TRUE)) {
-			Global_Functions::show_sys_error('An Error Was Encountered', 'Error establishing PostgreSQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');
+			show_sys_error('An Error Was Encountered', 'Error establishing PostgreSQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');
 		} else {
 			// Specify the client encoding per connection
 			$collation_query = "SET NAMES '{$this->charset}'";
@@ -149,7 +149,7 @@ class PostgreSQL_Adapter extends Data_Adapter {
 		// If there is an error then take note of it.
 		if ($err_msg = pg_last_error($this->dbh)) {
 			$is_insert = TRUE;
-			Global_Functions::show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
+			show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
 		}
 
