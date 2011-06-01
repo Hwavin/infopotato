@@ -29,11 +29,6 @@ In InfoPotato, dispatcher represents the execution context of the initial applic
 <li>hands over control to the invoked manager and manager method which will actually processes the request</li>
 </ul>
 
-<h2>What is App_Dispatcher and what does it do?</h2>
-<p>
-App_Dispatcher is a subclass of Dispatcher. It gives the developers the option to customize the dispatch process.
-</p>
-
 <p class="tipbox">
 You can think of the Dispatcher as the gatekeeper. It doesn't perform any real web or business logic, but rather delegates to Managers where the real work is done.
 </p>

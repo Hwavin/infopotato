@@ -59,6 +59,8 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dump/">Dump Variable</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8/"><?php echo __('UTF-8 Support'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/caching/"><?php echo __('Caching'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cookie/">Cookie</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/security/"><?php echo __('Security'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/ajax/"><?php echo __('Ajax Interaction'); ?></a></li> 
 </ul> 
@@ -70,7 +72,6 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <ul>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/output_cache/"><?php echo __('Output Cache'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/calendar/"><?php echo __('Calendar'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cookie/">Cookie</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cart/">Shopping Cart</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dirinfo/">Dir Info</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/feed_writer/">Feed Writer</a></li>
@@ -81,7 +82,6 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/ftp/">FTP</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/pagination/"><?php echo __('Pagination'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/password_hashing/"><?php echo __('Password Hashing'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li>  
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/"><?php echo __('User Agent'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/index/mobile_detect/"><?php echo __('Mobile Device Detection'); ?></a></li> 
 </ul> 

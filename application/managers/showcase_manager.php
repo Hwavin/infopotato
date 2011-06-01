@@ -31,7 +31,7 @@ final class Showcase_Manager extends Manager {
 		);
 		$this->response($response_data);
 		
-		//dump($this->page->get_pagination_data());
+		dump($this->page->get_pagination_data());
 	}
 }
 

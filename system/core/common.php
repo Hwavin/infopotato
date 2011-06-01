@@ -101,7 +101,7 @@ function show_sys_error($heading, $message, $template = 'sys_error') {
  * @return	void
  */
 function dump($var, $force_type = '', $collapsed = FALSE) {
-	new Dump($var, $force_type, $collapsed);
+	Dump::v($var, $force_type, $collapsed);
 }
 
 /**

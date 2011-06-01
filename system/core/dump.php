@@ -31,49 +31,49 @@
  
 class Dump {
 	
-	public $xml_CDATA;
-	public $xml_SDATA;
-	public $xml_DDATA;
-	public $xml_count = 0;
-	public $xml_attrib;
-	public $xml_name;
-	public $arr_type = array('array', 'object', 'resource', 'boolean', 'NULL');
-	public $collapsed = FALSE;
-	public $arr_history = array();
+	public static $xml_CDATA;
+	public static $xml_SDATA;
+	public static $xml_DDATA;
+	public static $xml_count = 0;
+	public static $xml_attrib;
+	public static $xml_name;
+	public static $arr_type = array('array', 'object', 'resource', 'boolean', 'NULL');
+	public static $collapsed = FALSE;
+	public static $arr_history = array();
 	
 	/**
 	 * Constructor
 	 */
-	public function __construct($var, $force_type = '', $collapsed = FALSE) {
+	public static function v($var, $force_type = '', $collapsed = FALSE) {
 		// Only include js and css scripts once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
 			self::init_JS_and_CSS();
 		}
 		// Enable collapse of tables when initiated.
-		$this->collapsed = $collapsed;
+		self::$collapsed = $collapsed;
 		
 		switch (strtolower($force_type)) {
 			case 'array':
-				$this->var_is_array($var);
+				self::var_is_array($var);
 				break;
 			
 			case 'object':
-				$this->var_is_object($var);
+				self::var_is_object($var);
 				break;
 			
 			case 'xml':
-				$this->var_is_xml_resource($var);
+				self::var_is_xml_resource($var);
 				break;
 			
 			default:
-				$this->check_type($var);
+				self::check_type($var);
 		}
 	}
 
 	// Create the main table header, can't show the variable name
-	public function make_table_header($type, $header, $colspan = 2) {
-		$str_i = ($this->collapsed) ? "style=\"font-style:italic\" " : ''; 
+	public static function make_table_header($type, $header, $colspan = 2) {
+		$str_i = (self::$collapsed) ? "style=\"font-style:italic\" " : ''; 
 		
 		echo "<table cellspacing=\"2\" cellpadding=\"3\" class=\"dump_".$type."\">
 				<tr>
@@ -82,20 +82,20 @@ class Dump {
 	}
 	
 	// Create the table row header
-	public function make_td_header($type, $header) {
-		$str_d = ($this->collapsed) ? " style=\"display:none\"" : '';
+	public static function make_td_header($type, $header) {
+		$str_d = (self::$collapsed) ? " style=\"display:none\"" : '';
 		echo "<tr".$str_d.">
 				<td valign=\"top\" onClick='dump_toggle_row(this)' class=\"dump_".$type."_key\">".$header."</td>
 				<td>";
 	}
 	
 	// Close table row
-	public function close_td_row() {
+	public static function close_td_row() {
 		return "</td></tr>\n";
 	}
 	
 	// Display error
-	public function  error($type) {
+	public static function  error($type) {
 		$error = 'Error: Variable cannot be a';
 		// This just checks if the type starts with a vowel or "x" and displays either "a" or "an"
 		if (in_array(substr($type, 0, 1), array('a', 'e', 'i', 'o', 'u', 'x'))) {
@@ -105,21 +105,21 @@ class Dump {
 	}
 
 	// Check variable type
-	public function check_type($var) {
+	public static function check_type($var) {
 		// Never use gettype() to test for a certain type, 
 		// since the returned string may be subject to change in a future version. 
 		// In addition, it is slow too, as it involves string comparison.
         // Instead, use the is_* functions.
 		if (is_resource($var)) {
-			$this->var_is_resource($var);
+			self::var_is_resource($var);
 		} elseif (is_object($var)) {
-			$this->var_is_object($var);
+			self::var_is_object($var);
 		} elseif (is_array($var)) {
-			$this->var_is_array($var);
+			self::var_is_array($var);
 		} elseif (is_null($var)) {
-			$this->var_is_null();
+			self::var_is_null();
 		} elseif (is_bool($var)) {
-			$this->var_is_boolean($var);
+			self::var_is_boolean($var);
 		} else {
 			$var = ($var == '') ? '[empty string]' : $var;
 			echo "<table cellspacing = \"0\"><tr>\n<td>".$var."</td>\n</tr>\n</table>\n";
@@ -127,130 +127,130 @@ class Dump {
 	}
 	
 	// If variable is a NULL type
-	public function var_is_null() {
+	public static function var_is_null() {
 		echo 'NULL';
 	}
 	
 	// If variable is a boolean type
-	public function var_is_boolean($var) {
+	public static function var_is_boolean($var) {
 		$var = ($var === 1) ? 'TRUE' : 'FALSE';
 		echo $var;
 	}
 			
 	// If variable is an array type
-	public function var_is_array($var) {
+	public static function var_is_array($var) {
 		$var_ser = serialize($var);
-		array_push($this->arr_history, $var_ser);
+		array_push(self::$arr_history, $var_ser);
 		
-		$this->make_table_header('array', 'array');
+		self::make_table_header('array', 'array');
 		if (is_array($var)) {
 			foreach ($var as $key => $value) {
-				$this->make_td_header('array', $key);
+				self::make_td_header('array', $key);
 				
 				// Check for recursion
 				if (is_array($value)) {
 					$var_ser = serialize($value);
-					if (in_array($var_ser, $this->arr_history, TRUE))
+					if (in_array($var_ser, self::$arr_history, TRUE))
 						$value = "*RECURSION*";
 				}
 				
-				if (in_array(gettype($value), $this->arr_type)) {
-					$this->check_type($value);
+				if (in_array(gettype($value), self::$arr_type)) {
+					self::check_type($value);
 				} else {
 					$value = (trim($value) == '') ? '[empty string]' : $value;
 					echo $value;
 				}
-				echo $this->close_td_row();
+				echo self::close_td_row();
 			}
 		} else {
-			echo '<tr><td>'.$this->error('array').$this->close_td_row();
+			echo '<tr><td>'.self::error('array').self::close_td_row();
 		}
-		array_pop($this->arr_history);
+		array_pop(self::$arr_history);
 		echo '</table>';
 	}
 	
 	// If variable is an object type
-	public function var_is_object($var) {
+	public static function var_is_object($var) {
 		$var_ser = serialize($var);
-		array_push($this->arr_history, $var_ser);
-		$this->make_table_header('object', 'object');
+		array_push(self::$arr_history, $var_ser);
+		self::make_table_header('object', 'object');
 		
 		if (is_object($var)) {
 			$arr_obj_vars = get_object_vars($var);
 			foreach ($arr_obj_vars as $key => $value) {
 
 				$value = ( ! is_object($value) && ! is_array($value) && trim($value) == '') ? '[empty string]' : $value;
-				$this->make_td_header('object', $key);
+				self::make_td_header('object', $key);
 				
 				// Check for recursion
 				if (is_object($value) || is_array($value)) {
 					$var_ser = serialize($value);
-					if (in_array($var_ser, $this->arr_history, TRUE)) {
+					if (in_array($var_ser, self::$arr_history, TRUE)) {
 						$value = (is_object($value)) ? "*RECURSION* -> $".get_class($value) : "*RECURSION*";
 
 					}
 				}
-				if (in_array(gettype($value), $this->arr_type)) {
-					$this->check_type($value);
+				if (in_array(gettype($value), self::$arr_type)) {
+					self::check_type($value);
 				} else {
 					echo $value;
 				}
-				echo $this->close_td_row();
+				echo self::close_td_row();
 			}
 			$arr_obj_methods = get_class_methods(get_class($var));
 			foreach ($arr_obj_methods as $key => $value) {
-				$this->make_td_header('object', $value);
-				echo '[method]'.$this->close_td_row();
+				self::make_td_header('object', $value);
+				echo '[method]'.self::close_td_row();
 			}
 		} else {
-			echo '<tr><td>'.$this->error('object').$this->close_td_row();
+			echo '<tr><td>'.self::error('object').self::close_td_row();
 		}
-		array_pop($this->arr_history);
+		array_pop(self::$arr_history);
 		echo '</table>';
 	}
 
 	// If variable is a resource type
 	public function var_is_resource($var) {
-		$this->make_table_header('resourceC', 'resource', 1);
+		self::make_table_header('resourceC', 'resource', 1);
 		echo "<tr>\n<td>\n";
 		switch (get_resource_type($var)) {
 			case 'gd':
-				$this->var_is_gd_resource($var);
+				self::var_is_gd_resource($var);
 				break;
 			
 			case 'xml':
-				$this->var_is_xml_resource($var);
+				self::var_is_xml_resource($var);
 				break;
 			
 			default:
-				echo get_resource_type($var).$this->close_td_row();
+				echo get_resource_type($var).self::close_td_row();
 				break;
 		}
-		echo $this->close_td_row()."</table>\n";
+		echo self::close_td_row()."</table>\n";
 	}
 	
 	// If variable is an image/gd resource type
 	public function var_is_gd_resource($var) {
-		$this->make_table_header('resource', 'gd', 2);
-		$this->make_td_header('resource', 'Width');
-		echo imagesx($var).$this->close_td_row();
-		$this->make_td_header('resource', 'Height');
-		echo imagesy($var).$this->close_td_row();
-		$this->make_td_header('resource', 'Colors');
-		echo imagecolorstotal($var).$this->close_td_row();
+		self::make_table_header('resource', 'gd', 2);
+		self::make_td_header('resource', 'Width');
+		echo imagesx($var).self::close_td_row();
+		self::make_td_header('resource', 'Height');
+		echo imagesy($var).self::close_td_row();
+		self::make_td_header('resource', 'Colors');
+		echo imagecolorstotal($var).self::close_td_row();
 		echo '</table>';
 	}
 
 	// If variable is an xml resource type
-	public function var_is_xml_resource($var) {
+	public static function var_is_xml_resource($var) {
 		$xml_parser = xml_parser_create();
 		xml_parser_set_option($xml_parser, XML_OPTION_CASE_FOLDING, 0); 
 		xml_set_element_handler($xml_parser, array(&$this, "xml_start_element"), array(&$this, "xml_end_element")); 
 		xml_set_character_data_handler($xml_parser, array(&$this, "xml_character_data"));
 		xml_set_default_handler($xml_parser, array(&$this, "xml_default_handler")); 
 		
-		$this->make_table_header('xml', 'XML Document', 2);
-		$this->make_td_header('xml', 'Root');
+		self::make_table_header('xml', 'XML Document', 2);
+		self::make_td_header('xml', 'Root');
 		
 		// Attempt to open xml file
 		$xml_file = ( ! ($fp = @fopen($var, "r"))) ? FALSE : TRUE;
@@ -258,22 +258,22 @@ class Dump {
 		// Read xml file, if xml is not a file, attempt to read it as a string
 		if ($xml_file) {
 			while ($data = str_replace("\n", '', fread($fp, 4096)))
-				$this->xml_parse($xml_parser, $data, feof($fp));
+				self::xml_parse($xml_parser, $data, feof($fp));
 		} else {
 			if ( ! is_string($var)) {
-				echo $this->error('xml').$this->close_td_row()."</table>\n";
+				echo self::error('xml').self::close_td_row()."</table>\n";
 				return;
 			}
 			$data = $var;
 			$this->xml_parse($xml_parser, $data, 1);
 		}
 		
-		echo $this->close_td_row()."</table>\n";
+		echo self::close_td_row()."</table>\n";
 		
 	}
 	
 	// Parse xml
-	public function xml_parse($xml_parser, $data, $bFinal) {
+	public static function xml_parse($xml_parser, $data, $bFinal) {
 		if ( ! xml_parse($xml_parser, $data, $bFinal)) { 
 			die(sprintf("XML error: %s at line %d\n", 
 				xml_error_string(xml_get_error_code($xml_parser)), 
@@ -282,59 +282,59 @@ class Dump {
 	}
 	
 	// xml: inititiated when a start tag is encountered
-	public function xml_start_element($parser, $name, $attribs) {
-		$this->xml_attrib[$this->xml_count] = $attribs;
-		$this->xml_name[$this->xml_count] = $name;
-		$this->xml_SDATA[$this->xml_count] = '$this->make_table_header("xml", "Element", 2);';
-		$this->xml_SDATA[$this->xml_count] .= '$this->make_td_header("xml", "Name");';
-		$this->xml_SDATA[$this->xml_count] .= 'echo "<strong>'.$this->xml_name[$this->xml_count].'</strong>".$this->close_td_row();';
-		$this->xml_SDATA[$this->xml_count] .= '$this->make_td_header("xml", "Attributes");';
+	public static function xml_start_element($parser, $name, $attribs) {
+		self::$xml_attrib[self::$xml_count] = $attribs;
+		self::$xml_name[self::$xml_count] = $name;
+		self::$xml_SDATA[self::$xml_count] = 'self::make_table_header("xml", "Element", 2);';
+		self::$xml_SDATA[self::$xml_count] .= 'self::make_td_header("xml", "Name");';
+		self::$xml_SDATA[self::$xml_count] .= 'echo "<strong>'.self::$xml_name[self::$xml_count].'</strong>".self::close_td_row();';
+		self::$xml_SDATA[self::$xml_count] .= 'self::make_td_header("xml", "Attributes");';
 		if (count($attribs)>0) {
-			$this->xml_SDATA[$this->xml_count] .= '$this->var_is_array($this->xml_attrib['.$this->xml_count.']);';
+			self::$xml_SDATA[self::$xml_count] .= 'self::var_is_array(self::$xml_attrib['.self::$xml_count.']);';
 		} else {
-			$this->xml_SDATA[$this->xml_count] .= 'echo "&nbsp;";';
+			self::$xml_SDATA[self::$xml_count] .= 'echo "&nbsp;";';
 		}
-		$this->xml_SDATA[$this->xml_count] .= 'echo $this->close_td_row();';
-		$this->xml_count++;
+		self::$xml_SDATA[self::$xml_count] .= 'echo self::close_td_row();';
+		self::$xml_count++;
 	} 
 	
 	// xml: initiated when an end tag is encountered
-	public function xml_end_element($parser, $name) {
-		for ($i = 0; $i < $this->xml_count; $i++) {
-			eval($this->xml_SDATA[$i]);
-			$this->make_td_header('xml', 'Text');
-			echo ( ! empty($this->xml_CDATA[$i])) ? $this->xml_CDATA[$i] : '&nbsp;';
-			echo $this->close_td_row();
-			$this->make_td_header('xml', 'Comment');
-			echo ( ! empty($this->xml_DDATA[$i])) ? $this->xml_DDATA[$i] : '&nbsp;';
-			echo $this->close_td_row();
-			$this->make_td_header('xml', 'Children');
-			unset($this->xml_CDATA[$i], $this->xml_DDATA[$i]);
+	public static function xml_end_element($parser, $name) {
+		for ($i = 0; $i < self::$xml_count; $i++) {
+			eval(self::$xml_SDATA[$i]);
+			self::make_td_header('xml', 'Text');
+			echo ( ! empty(self::$xml_CDATA[$i])) ? self::$xml_CDATA[$i] : '&nbsp;';
+			echo self::close_td_row();
+			self::make_td_header('xml', 'Comment');
+			echo ( ! empty(self::$xml_DDATA[$i])) ? self::$xml_DDATA[$i] : '&nbsp;';
+			echo self::close_td_row();
+			self::make_td_header('xml', 'Children');
+			unset(self::$xml_CDATA[$i], self::$xml_DDATA[$i]);
 		}
-		echo $this->close_td_row();
+		echo self::close_td_row();
 		echo '</table>';
-		$this->xml_count = 0;
+		self::$xml_count = 0;
 	} 
 	
 	//xml: initiated when text between tags is encountered
-	public function xml_character_data($parser,$data) {
-		$count = $this->xml_count - 1;
-		if ( ! empty($this->xml_CDATA[$count])) {
-			$this->xml_CDATA[$count] .= $data;
+	public static function xml_character_data($parser,$data) {
+		$count = self::$xml_count - 1;
+		if ( ! empty(self::$xml_CDATA[$count])) {
+			self::$xml_CDATA[$count] .= $data;
 		} else {
-			$this->xml_CDATA[$count] = $data;
+			self::$xml_CDATA[$count] = $data;
 		}
 	} 
 	
 	//xml: initiated when a comment or other miscellaneous texts is encountered
-	public function xml_default_handler($parser, $data) {
+	public static function xml_default_handler($parser, $data) {
 		//strip '<!--' and '-->' off comments
 		$data = str_replace(array("&lt;!--", "--&gt;"), '', htmlspecialchars($data));
-		$count = $this->xml_count - 1;
-		if ( ! empty($this->xml_DDATA[$count])) {
-			$this->xml_DDATA[$count] .= $data;
+		$count = self::$xml_count - 1;
+		if ( ! empty(self::$xml_DDATA[$count])) {
+			self::$xml_DDATA[$count] .= $data;
 		} else {
-			$this->xml_DDATA[$count] = $data;
+			self::$xml_DDATA[$count] = $data;
 		}
 	}
 
