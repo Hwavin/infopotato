@@ -23,7 +23,7 @@
 <div class="clear"></div>
 </div>
 
-<h2 class="first_heading">Quick Facts about InfoPotato</h2>	
+<h2 class="first_heading">An overview at a glance</h2>	
 
 <div class="careers_full first_row">
 
@@ -31,11 +31,19 @@
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/fast.png" class="careers_dept_img" title="Software Engineering" alt="Software Engineering" />
 <div class="department_description">
 <h3>Truly Lightweight &amp; Fast</h3>
-<div>Without ORM/ACL/RBAC/CLI/URI routing, with runtime cache, output compression, lazy loading</div>
+<div>Tiny core, runtime cache, output compression, lazy loading</div>
 </div>
 </div>
 
 <div class="department_listing">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/loose.png" class="careers_dept_img" title="Design &amp; User Experience" alt="Design &amp; User Experience" />
+<div class="department_description">
+<h3>Truly Loose Coupling</h3>
+<div>Each core component has little or no knowledge of other components</div>
+</div>
+</div>
+
+<div class="department_listing last">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/rest.png" class="careers_dept_img" title="Legal, Finance, Facilities &amp; Admin" alt="Legal, Finance, Facilities &amp; Admin" />
 <div class="department_description">
 <h3>Built Around HTTP &amp; REST</h3>
@@ -43,25 +51,10 @@
 </div>
 </div>
 
-<div class="department_listing last">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/db.png" class="careers_dept_img" title="Communications &amp; Public Policy" alt="Communications &amp; Public Policy" />
-<div class="department_description">
-<h3>Multiple Database Adapters</h3>
-<div>RDBMS (MySQl, SQLite, PostgreSQL) and NoSQL</div>
-</div>
-</div>
-
 </div>
 
 
 <div class="careers_full">
-<div class="department_listing">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/i18n.png" class="careers_dept_img" title="Product Management" alt="Product Management" />
-<div class="department_description">
-<h3>Simple I18N/L10N Support</h3>
-<div>We get to work on big things and with everyone.</div>
-</div>
-</div>
 
 <div class="department_listing">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/doc.png" class="careers_dept_img" title="IT &amp; Security" alt="IT &amp; Security" />
@@ -71,11 +64,19 @@
 </div>
 </div>
 
-<div class="department_listing last">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/lib.png" class="careers_dept_img" title="HR &amp; Recruiting" alt="HR &amp; Recruiting" />
+<div class="department_listing">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/utf8.png" class="careers_dept_img" title="Technical Operations" alt="Technical Operations" />
 <div class="department_description">
-<h3>Rich Standalone Libraries</h3>
-<div>Many standalone and reusable PHP libraries, with no pre-requisite</div>
+<h3>Full UTF-8 Support</h3>
+<div>Fixes multibyte UTF-8 characters "Dangerous" PHP functionality</div>
+</div>
+</div>
+
+<div class="department_listing last">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/i18n.png" class="careers_dept_img" title="Product Management" alt="Product Management" />
+<div class="department_description">
+<h3>Simple i18N/L10N Support</h3>
+<div>Apps can be adapted to various languages with little code changes</div>
 </div>
 </div>
 
@@ -84,26 +85,26 @@
 <div class="careers_full">
 
 <div class="department_listing">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/loose.png" class="careers_dept_img" title="Design &amp; User Experience" alt="Design &amp; User Experience" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/db.png" class="careers_dept_img" title="Communications &amp; Public Policy" alt="Communications &amp; Public Policy" />
 <div class="department_description">
-<h3>Truly Loose Coupling</h3>
-<div>We&#039;re the creative force that designs and builds.</div>
+<h3>Multiple Database Adapters</h3>
+<div>Rational databases (MySQl, SQLite, PostgreSQL) and NoSQL</div>
 </div>
 </div>
 
 <div class="department_listing">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/utf8.png" class="careers_dept_img" title="Technical Operations" alt="Technical Operations" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/lib.png" class="careers_dept_img" title="HR &amp; Recruiting" alt="HR &amp; Recruiting" />
 <div class="department_description">
-<h3>Full UTF-8 Support</h3>
-<div>We deploy some of the largest architecture on the web.</div>
+<h3>Rich Libraries/Functions</h3>
+<div>Many standalone and reusable libraries/functions are available</div>
 </div>
 </div>
 
 <div class="department_listing last">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/multi.png" class="careers_dept_img" title="Growth &amp; Internationalization" alt="Growth &amp; Internationalization" />
 <div class="department_description">
-<h3>Multiple Apps Hosting</h3>
-<div>Can host multiple apps simultaneously</div>
+<h3>One framework, Multiple Apps</h3>
+<div>One framework can host multiple apps simultaneously</div>
 </div>
 </div>
 
