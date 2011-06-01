@@ -41,10 +41,8 @@ class Dump {
 	public static $collapsed = FALSE;
 	public static $arr_history = array();
 	
-	/**
-	 * Constructor
-	 */
-	public static function v($var, $force_type = '', $collapsed = FALSE) {
+
+	public static function show($var, $force_type = '', $collapsed = FALSE) {
 		// Only include js and css scripts once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
