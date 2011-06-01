@@ -22,7 +22,7 @@ class Dispatcher {
 	 * Parse incoming request to get the desiered manager, request method, and params
 	 * Then the desginated manager prepares the related resources and sends response back to client
 	 */ 
-	public static function run() {	
+	public function run() {	
 		// Get the incoming HTTP request method (only support 'GET' and 'POST')
 		// Other methods like 'PUT' or 'DELETE' will be treated as 'GET'
 		$request_method = (isset($_SERVER['REQUEST_METHOD']) &&  $_SERVER['REQUEST_METHOD'] === 'POST') ? 'post' : 'get';

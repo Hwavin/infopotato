@@ -4,21 +4,16 @@
  * This file is responsible for initializing the framework: loading files, reading configuration data, 
  * parsing the URI into actionable information, and populating the objects that encapsulate the request. 
  */
+/**
+ * Define InfoPotato Version
+ */
+define('INFOPOTATO_VERSION', '1.0.0');
 
-if (version_compare(PHP_VERSION, '5.2.0', '<')) {
-	exit('InfoPotato requires PHP version 5.2.0 or newer');
-}
- 
 /**
  * Define the application environment
  * Usage: development or production
  */
 define('ENVIRONMENT', 'development');
-
-/**
- * Define InfoPotato Version
- */
-define('INFOPOTATO_VERSION', '1.0.0');
 
 /**
  * Set default time zone used by all date/time functions
@@ -87,11 +82,24 @@ define('APP_PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
 define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 //define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
-/**
- * Dispatch, prepare, response 
- */
-require_once SYS_DIR.'app_dispatcher.php';
-App_Dispatcher::run();
+// Components for debug, autoloading, internationalization function
+ if (SYS_RUNTIME_CACHE === TRUE) {
+	// SYS_RUNTIME_DIR must be writable
+	$file = SYS_RUNTIME_DIR.'~common.php';
+	if ( ! file_exists($file)) {
+		file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'common.php'));
+	}
+} else {
+	$file = SYS_CORE_DIR.'common.php';
+}
+require_once $file;
+
+// Get and set the current locale
+I18n::$lang = Session::get('lang') ? Session::get('lang') : 'en/us';
+
+// Dispatch the incoming request
+$app_dispatcher = new Dispatcher;
+$app_dispatcher->run();
 
 // End of file: ./dev.php 
 

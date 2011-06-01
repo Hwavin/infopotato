@@ -29,6 +29,9 @@ class Manager {
 	 * 
 	 * $_GET data is simply disallowed by InfoPotato since it utilizes URI segments rather than traditional URL query strings
 	 * 
+	 * Parent constructors are not implicitly called in derived classes
+	 * you must explicitly call parent::__construct() in derived classes
+	 *
 	 * @return	void
 	 */
 	public function __construct() {
