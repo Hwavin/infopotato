@@ -273,7 +273,7 @@ class Data_Adapter {
 		// Disk caching of queries
 		if ($this->use_disk_cache && ($this->cache_queries && ! $is_insert) || ($this->cache_inserts && $is_insert)) {
 			if ( ! is_dir($this->cache_dir)) {
-				Global_Functions::show_sys_error('A System Error Was Encountered', "Could not open cache dir: {$this->cache_dir}", 'sys_error');
+				show_sys_error('A System Error Was Encountered', "Could not open cache dir: {$this->cache_dir}", 'sys_error');
 			} else {
 				// Cache all result values
 				$result_cache = array(

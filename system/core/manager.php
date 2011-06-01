@@ -276,7 +276,7 @@ class Manager {
 		}
 
 		if (method_exists($this, $alias)) {
-			Global_Functions::show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
+			show_sys_error('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
 		}
 		
 		// Data already loaded? silently skip
