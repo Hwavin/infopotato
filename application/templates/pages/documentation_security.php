@@ -52,5 +52,25 @@ There are several countermeasures to prevent cookies from being attacked.
 <li>Validate cookie data and detect if they are altered.</li>
 </ul>
 
+<h2>Session hijacking, session stealing, session fixation</h2>
+
+<p>
+The management session is linked to several types of attacks. The attacker either disposes of his or user session ID and thus gains access to Web applications without knowing the password. Then the application can perform anything without the user knowing. Defense rests in a properly configured server and PHP.
+</p>
+
+<p>
+InfoPotato configures automatically. The programmer does not have to think about how the session properly secure and can concentrate fully on creating the application.
+</p>
+
+<h2>URL attack, control codes, invalid UTF-8</h2>
+
+<p>
+Various concepts related to the attacker's attempt to foist your web application malicious input. Consequences can be very diverse, ranging from damage to output XML (eg RSS feeds broken) through the acquisition of sensitive information from a database or passwords. Defense is consistent treatment of all inputs at the level of individual bytes. And honestly, who of you does, and that framework does it?
+</p>
+
+<p>
+InfoPotato is doing and also fully automatic. You do not set up anything, and all entries will be treated.
+</p>
+
 </div> 
 <!-- end onecolumn -->

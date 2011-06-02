@@ -123,8 +123,8 @@
 <div class="department_listing">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/secure.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
-<h3>Stable and Secure</h3>
-<div>Session, XSS, CSRF, and SQL Injection protection</div>
+<h3>Built with Security in Mind</h3>
+<div>URI attack, Session, XSS, CSRF, and SQL Injection protection</div>
 </div>
 </div>
 
