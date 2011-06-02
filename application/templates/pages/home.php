@@ -131,7 +131,7 @@
 <div class="department_listing last">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/control.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
-<h3>You Control Everything</h3>
+<h3>Everything under Your Control</h3>
 <div>You eschew complexity, favoring simple solutions</div>
 </div>
 </div>
