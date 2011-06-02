@@ -28,6 +28,14 @@
 <div class="careers_full first_row">
 
 <div class="department_listing">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/flex.png" class="careers_dept_img" title="" alt="" />
+<div class="department_description">
+<h3>Dedicated to Small Applications</h3>
+<div>No ORM, no CLI, no large-scale monolithic libraries like PEAR</div>
+</div>
+</div>
+
+<div class="department_listing">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/fast.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
 <h3>Truly Lightweight &amp; Fast</h3>
@@ -35,19 +43,11 @@
 </div>
 </div>
 
-<div class="department_listing">
+<div class="department_listing last">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/loose.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
-<h3>Loose Coupling</h3>
+<h3>Loosely Coupled Components</h3>
 <div>Each core component has little or no knowledge of other components</div>
-</div>
-</div>
-
-<div class="department_listing last">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/rest.png" class="careers_dept_img" title="" alt="" />
-<div class="department_description">
-<h3>Built around HTTP &amp; REST</h3>
-<div>Adopts the simple Request-Reponse handling model, no MVC</div>
 </div>
 </div>
 
@@ -57,10 +57,10 @@
 <div class="careers_full">
 
 <div class="department_listing">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/doc.png" class="careers_dept_img" title="" alt="" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/rest.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
-<h3>Very Detailed Documentation</h3>
-<div>Comprehensive tutorials for you to systematically learn InfoPotato</div>
+<h3>Built around HTTP &amp; REST</h3>
+<div>Adopts the simple Request-Reponse handling model, no MVC</div>
 </div>
 </div>
 
@@ -101,6 +101,18 @@
 </div>
 
 <div class="department_listing last">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/doc.png" class="careers_dept_img" title="" alt="" />
+<div class="department_description">
+<h3>Very Detailed Documentation</h3>
+<div>Comprehensive tutorials for you to systematically learn InfoPotato</div>
+</div>
+</div>
+
+</div>
+
+<div class="careers_full">
+
+<div class="department_listing">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/multi.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
 <h3>One Framework, Multiple Apps</h3>
@@ -108,31 +120,19 @@
 </div>
 </div>
 
-</div>
-
-<div class="careers_full first_row">
-
 <div class="department_listing">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/secure.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
 <h3>Stable and Secure</h3>
-<div>Session, XSS, XSRF, SQL Injection are concerned</div>
-</div>
-</div>
-
-<div class="department_listing">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/control.png" class="careers_dept_img" title="" alt="" />
-<div class="department_description">
-<h3>You Control Everything</h3>
-<div>Tiny core, runtime cache, output compression, lazy loading</div>
+<div>Session, XSS, CSRF, and SQL Injection protection</div>
 </div>
 </div>
 
 <div class="department_listing last">
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/flex.png" class="careers_dept_img" title="" alt="" />
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/control.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
-<h3>Unlimited Flexibility</h3>
-<div>Adopts the simple Request-Reponse handling model</div>
+<h3>You Control Everything</h3>
+<div>You eschew complexity, favoring simple solutions</div>
 </div>
 </div>
 
