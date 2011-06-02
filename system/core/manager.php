@@ -35,8 +35,8 @@ class Manager {
 	 * @return	void
 	 */
 	public function __construct() {
-		// $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings
-		// The POST data can only be accessed in manager
+		// The POST data can only be accessed in manager using $this->POST_DATA
+		// The $_POST data is already sanitized
 		$this->POST_DATA = $_POST;
 		// Disable access to $_POST
 		unset($_POST);
@@ -411,7 +411,7 @@ class Manager {
 		// and if so, not include (require) it again
 		require_once $file_path;
 	}
-	
+
 	/**
 	 * __call
 	 *

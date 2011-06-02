@@ -31,7 +31,7 @@
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/flex.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
 <h3>Dedicated to Small Applications</h3>
-<div>Easy installation, nearly zero configuration, no ORM/CLI/PEAR</div>
+<div>Easy installation &amp; configuration, no ORM/CLI/PEAR/Code Generators</div>
 </div>
 </div>
 
@@ -67,7 +67,7 @@
 <div class="department_listing">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/utf8.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
-<h3>Full UTF-8 Support</h3>
+<h3>Fully Compatible with UTF-8</h3>
 <div>Fixes multibyte UTF-8 characters "Dangerous" PHP functionality</div>
 </div>
 </div>

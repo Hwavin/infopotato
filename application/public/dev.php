@@ -83,18 +83,20 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 //define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 // Components for debug, autoloading, internationalization function
+// Disables register_globals and magic_quotes_gpc
+// Sanitizes POST and COOKIE variables
  if (SYS_RUNTIME_CACHE === TRUE) {
 	// SYS_RUNTIME_DIR must be writable
-	$file = SYS_RUNTIME_DIR.'~common.php';
+	$file = SYS_RUNTIME_DIR.'~init.php';
 	if ( ! file_exists($file)) {
-		file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'common.php'));
+		file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
 	}
 } else {
-	$file = SYS_CORE_DIR.'common.php';
+	$file = SYS_CORE_DIR.'init.php';
 }
 require_once $file;
 
-// Get and set the current locale
+// Get and set the current language locale
 I18n::$lang = Session::get('lang') ? Session::get('lang') : 'en/us';
 
 // Dispatch the incoming request
