@@ -3,8 +3,8 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">Session Library</h1>
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Session Library
+<h1 class="first_heading">Session</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Session
 </div>
 <!-- end breadcrumb -->
 

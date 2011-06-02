@@ -3,8 +3,8 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">Cookie Library</h1>
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Cookie Library
+<h1 class="first_heading">Cookie</h1>
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Cookie
 </div>
 <!-- end breadcrumb -->
 
@@ -18,29 +18,27 @@ The static method set() is a wrapper around the function setcookie(), with the a
 </p>
 
 <div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;cookie/cookie_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cookie&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie_data</span><span class="p">));</span> 
+<span class="c1">// Set a cookie for the current path </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">);</span> 
  
-<span class="c1">// Set a cookie for the current path</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">);</span> 
+<span class="c1">// Set a cookie to expire in 1 week </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">);</span> 
  
-<span class="c1">// Set a cookie to expire in 1 week</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">);</span> 
+<span class="c1">// Set a cookie for the whole site </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span> 
  
-<span class="c1">// Set a cookie for the whole site</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span> 
+<span class="c1">// Set a cookie for the whole site that expires when the browser is closed </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span> 
  
-<span class="c1">// Set a cookie for the whole site that expires when the browser is closed</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">);</span> 
+<span class="c1">// Set a cookie for all subdomains of example.com </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.example.com&#39;</span><span class="p">);</span> 
  
-<span class="c1">// Set a cookie for all subdomains of example.com</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.example.com&#39;</span><span class="p">);</span> 
+<span class="c1">// Ensure that the cookie is only set over a secure connection (https://) </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.example.com&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
  
-<span class="c1">// Ensure that the cookie is only set over a secure connection (https://)</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.example.com&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
- 
-<span class="c1">// Set the cookie to only be accessible to HTTP (not javascript)</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.example.com&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
-</pre></div> 
+<span class="c1">// Set the cookie to only be accessible to HTTP (not javascript) </span> 
+<span class="nx">Cookie</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="s1">&#39;+1 week&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;.example.com&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
+</pre></div>
 
 <p>
 Please note that set() follows the same functionality as setcookie() when it comes to deleting cookies and storing boolean values. Any value that is set to a cookie that is equal to FALSE will cause the cookie to be deleted. This means storing boolean values in a cookie is not recommended since a FALSE value will cause the cookie to be erased - instead use '0' and '1'. Also, setting the expiration date to a time in the past will cause the cookie to be deleted.
@@ -52,8 +50,8 @@ The static method get() replaces direct access to the $_COOKIE superglobal and a
 </p>
 
 <div class="syntax"><pre>
-<span class="c1">// Get the value &#39;default_value&#39; if no cookie of that name exists</span> 
-<span class="nv">$value</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;default_value&#39;</span><span class="p">);</span> 
+<span class="c1">// Get the value &#39;default_value&#39; if no cookie of that name exists </span> 
+<span class="nv">$value</span> <span class="o">=</span> <span class="nx">Cookie</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;my_cookie&#39;</span><span class="p">,</span> <span class="s1">&#39;default_value&#39;</span><span class="p">);</span> 
 </pre></div> 
 
 <p>
