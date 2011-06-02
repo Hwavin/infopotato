@@ -114,7 +114,7 @@ You can force an object variable to be outputted as an array type variable.
 
 <div class="syntax"><pre>
 <span class="nv">$variable</span> <span class="o">=</span> <span class="s1">&#39;This is my string&#39;</span><span class="p">;</span> 
-<span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
+<span class="nx">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
 </pre></div> 
 
 <p>
@@ -138,7 +138,7 @@ This is my string
     <span class="s1">&#39;fourth&#39;</span> 
 <span class="p">);</span> 
  
-<span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
+<span class="nx">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
 </pre></div> 
 
 <table cellspacing="2" cellpadding="3" class="dump_array grid"> 
@@ -196,7 +196,7 @@ This is my string
 <div class="syntax"><pre>
 <span class="nv">$variable</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Vegetable</span><span class="p">(</span><span class="s1">&#39;spinach&#39;</span><span class="p">);</span> 
  
-<span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
+<span class="nx">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">);</span> 
 </pre></div> 
 
 <table cellspacing="2" cellpadding="3" class="dump_object grid"> 
@@ -226,9 +226,8 @@ When an xml variable is dumped as is, it is recognized as a string. This is even
 </p>
 
 <div class="syntax"><pre>
-<span class="nv">$variable</span> <span class="o">=</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;data.xml&#39;</span><span class="p">;</span> <span class="c1">//path to xml file;;</span> 
- 
-<span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">);</span> 
+<span class="nv">$variable</span> <span class="o">=</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;data.xml&#39;</span><span class="p">;</span> <span class="c1">//path to xml file;; </span> 
+<span class="nx">dump</span><span class="p">(</span><span class="nv">$variable</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">);</span> 
 </pre></div> 
 
 <table cellspacing=2 cellpadding="3" class="dump_xml grid"> 

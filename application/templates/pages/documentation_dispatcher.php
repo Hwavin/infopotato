@@ -9,7 +9,7 @@
 <!-- end breadcrumb -->
 
 <p>
-As you may already know, the web server receives the requests and passe them to an InfoPotato application via the bootstrap script (e.g., index.php, dev.php) which is responsible for instantiating the framework by invoking App_Dispatcher, in which all requests are intercepted and dispatched to individual Managers based on the URI requested.
+As you may already know, the web server receives the requests and passe them to an InfoPotato application via the bootstrap script (e.g., index.php, dev.php) which is responsible for instantiating the framework by invoking Dispatcher, in which all requests are intercepted and dispatched to individual Managers based on the URI requested.
 </p>
 
 <p>

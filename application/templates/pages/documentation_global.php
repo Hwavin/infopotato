@@ -44,11 +44,13 @@ Global_Functions is a class which contains two static functions can be used accr
  
 <div class="syntax"><pre>
 <span class="k">if</span> <span class="p">(</span><span class="nx">condition</span><span class="p">)</span> <span class="p">{</span> 
-    <span class="nx">Global_Functions</span><span class="o">::</span><span class="na">show_sys_error</span><span class="p">(</span><span class="s1">&#39;An Error Was Encountered&#39;</span><span class="p">,</span> <span class="s1">&#39;Error message goes here&#39;</span><span class="p">,</span> <span class="s1">&#39;sys_error&#39;</span><span class="p">);</span> 
+    <span class="nx">show_sys_error</span><span class="p">(</span><span class="s1">&#39;An Error Was Encountered&#39;</span><span class="p">,</span> <span class="s1">&#39;Error message goes here&#39;</span><span class="p">,</span> <span class="s1">&#39;sys_error&#39;</span><span class="p">);</span> 
 <span class="p">}</span> 
 </pre></div> 
  
 <h3>dump(<var>$variable</var>)</h3> 
+
+<h3>__(<var>$string</var>)</h3> 
 
 </div> 
 <!-- end onecolumn -->

@@ -40,16 +40,6 @@ The Session class provides an enhanced interface to PHP's native session handlin
 There are three options for configuring the session, the set_path(), set_length() and ignore_subdomain() static methods. All must be called before any other Session methods.
 </p> 
  
- 
-<p>To initialize the Session class manually in your manager, use the <dfn>$this->load_library</dfn> function:</p> 
- 
-<div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;session/session_library&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">);</span> 
-</pre></div>
- 
-<p>Once loaded, the Sessions library object will be available using: <dfn>$this->s</dfn></p> 
- 
- 
 <h2>Session File Path</h2> 
  
 <p> 
@@ -61,8 +51,8 @@ By default, all sites on a server use the same temporary directory to store the 
 </p> 
  
 <div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set_path</span><span class="p">(</span><span class="s1">&#39;/path/to/private/writable/dir&#39;</span><span class="p">);</span> 
-</pre></div> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set_path</span><span class="p">(</span><span class="s1">&#39;/path/to/private/writable/dir&#39;</span><span class="p">);</span> 
+</pre></div>
  
 <h2>Duration</h2> 
  
@@ -75,10 +65,10 @@ Here are a few example of setting the session length:
 </p> 
  
 <div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;30 minutes&#39;</span><span class="p">);</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">);</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;1 day 2 hours&#39;</span><span class="p">);</span> 
-</pre></div>  
+<span class="nx">Session</span><span class="o">::</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;30 minutes&#39;</span><span class="p">);</span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;1 hour&#39;</span><span class="p">);</span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;1 day 2 hours&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <p class="important">There is a second, optional, parameter $persistent_timespan which is discussed in the section Keeping Users Logged In.</p> 
  
@@ -123,9 +113,9 @@ The session is automatically opened when any session method such as set(), get()
 </p> 
  
 <div class="syntax"><pre>
-<span class="c1">// If you aren&#39;t using the session until after content has been output,</span> 
-<span class="c1">// be sure to explicitly open the session before any content is echoed</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">open</span><span class="p">();</span> 
+<span class="c1">// If you aren&#39;t using the session until after content has been output, </span> 
+<span class="c1">// be sure to explicitly open the session before any content is echoed </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">open</span><span class="p">();</span> 
 </pre></div> 
  
 <h2>Closing</h2> 
@@ -144,7 +134,7 @@ There is, however, some benefit to closing the session once you are done, rather
  
 <div class="syntax"><pre>
 <span class="c1">// If you are about to execute a time-intensive block of code and no longer need the seesion, close it</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">close</span><span class="p">();</span> 
 </pre></div> 
  
 <h2>Destroying</h2> 
@@ -155,7 +145,7 @@ Finally, the destroy() method will completely erase all data from a session and 
  
 <div class="syntax"><pre>
 <span class="c1">// If a user is logging out, remove the information you have stored about them&lt;br /&gt; </span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">destroy</span><span class="p">();</span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">destroy</span><span class="p">();</span> 
 </pre></div>
  
 <h2>Keeping Users Logged In</h2> 
@@ -169,8 +159,8 @@ To implement this is Flourish, the static method $this->s->set_length() allows f
 </p> 
  
 <div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;30 minutes&#39;</span><span class="p">,</span> <span class="s1">&#39;1 week&#39;</span><span class="p">);</span> 
-</pre></div>
+<span class="nx">Session</span><span class="o">::</span><span class="na">set_length</span><span class="p">(</span><span class="s1">&#39;30 minutes&#39;</span><span class="p">,</span> <span class="s1">&#39;1 week&#39;</span><span class="p">);</span> 
+</pre></div> 
  
 <p> 
 This will not cause all users to stay logged in for a week. The session files will only be garbage collected after a week, but fSession uses a timestamp in the session superglobal to log normal sessions out after 30 minutes.
@@ -200,13 +190,13 @@ The default prefix is 'Session::'. It is recommended that under normal use the p
 <p>Here are some examples of adding data to the session:</p> 
  
 <div class="syntax"><pre>
-<span class="c1">// This is equivalent to $_SESSION[&#39;Session::current_user_id&#39;] = 5;</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;current_user_id&#39;</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;last_viewed_article&#39;</span><span class="p">,</span> <span class="m">42</span><span class="p">);</span> 
+<span class="c1">// This is equivalent to $_SESSION[&#39;Session::current_user_id&#39;] = 5; </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;current_user_id&#39;</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;last_viewed_article&#39;</span><span class="p">,</span> <span class="m">42</span><span class="p">);</span> 
  
-<span class="c1">// Using the prefix here could allow us to not worry about overwriting values</span> 
-<span class="c1">// This is equivalent to $_SESSION[&#39;forum::current_user_id&#39;] = 2;</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;current_user_id&#39;</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s1">&#39;forum::&#39;</span><span class="p">);</span> 
+<span class="c1">// Using the prefix here could allow us to not worry about overwriting values </span> 
+<span class="c1">// This is equivalent to $_SESSION[&#39;forum::current_user_id&#39;] = 2; </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;current_user_id&#39;</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="s1">&#39;forum::&#39;</span><span class="p">);</span> 
 </pre></div> 
  
 <p> 
@@ -214,8 +204,8 @@ Hand-in-hand with the set() method is get(). get() allows retrieval of session v
 </p> 
  
 <div class="syntax"><pre>
-<span class="nv">$current_user_id</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;current_user_id&#39;</span><span class="p">);</span> 
-<span class="nv">$user_groups</span>     <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user_groups&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">));</span> 
+<span class="nv">$current_user_id</span> <span class="o">=</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;current_user_id&#39;</span><span class="p">);</span> 
+<span class="nv">$user_groups</span> <span class="o">=</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user_groups&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">));</span>  
 </pre></div> 
  
 <h2>Deleting Values</h2> 
@@ -225,24 +215,24 @@ If you wish to unset a session value, simply use the delete() method. It accepts
 </p> 
  
 <div class="syntax"><pre>
-<span class="nv">$name</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span> 
-</pre></div> 
+<span class="nv">$name</span> <span class="o">=</span> <span class="nx">Session</span><span class="o">::</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>  
+</pre></div>
  
 <p>An optional second parameter allows providing a $default_value to be returned if the key specified is not set.</p> 
 
 <div class="syntax"><pre>
-<span class="nv">$name</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;No name specified&#39;</span><span class="p">);</span> 
+<span class="nv">$name</span> <span class="o">=</span> <span class="nx">Session</span><span class="o">::</span><span class="na">delete</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;No name specified&#39;</span><span class="p">);</span>   
 </pre></div> 
  
 <p>To delete all keys for a specific prefix, use the clear() method:</p> 
  
 <div class="syntax"><pre>
-<span class="c1">// Clear the default fSession:: prefix</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">clear</span><span class="p">();</span> 
+<span class="c1">// Clear the default fSession:: prefix </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">clear</span><span class="p">();</span> 
  
-<span class="c1">// Clear all keys that start with MyPrefix_</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">clear</span><span class="p">(</span><span class="s1">&#39;MyPrefix_&#39;</span><span class="p">);</span> 
-</pre></div> 
+<span class="c1">// Clear all keys that start with MyPrefix_ </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">clear</span><span class="p">(</span><span class="s1">&#39;MyPrefix_&#39;</span><span class="p">);</span>   
+</pre></div>
  
 <h2>Adding and Removing Values</h2> 
  
@@ -251,22 +241,22 @@ The static methods add() and remove() allow adding and removing values from arra
 </p> 
  
 <div class="syntax"><pre>
-<span class="c1">// Add John Smith at the end of users</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">);</span> 
+<span class="c1">// Add John Smith at the end of users </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;John Smith&#39;</span><span class="p">);</span>   
 </pre></div> 
  
 <p>The new value will be added at the end of the array unless the optional third parameter, $beginning, is set to TRUE.</p> 
  
 <div class="syntax"><pre>
-<span class="c1">// Add Jane Smith at the beginning of users</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Smith&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
+<span class="c1">// Add Jane Smith at the beginning of users </span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="s1">&#39;Jane Smith&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span>   
 </pre></div> 
  
 <p>remove() accepts one parameter, the $key to remove a value from, and returns the removed value. The value will be removed from the end of the array unless the second optional parameter, $beginning, is set to TRUE.</p> 
  
 <div class="syntax"><pre>
-<span class="nv">$last_value</span>  <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span> 
-<span class="nv">$first_value</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
+<span class="nv">$last_value</span> <span class="o">=</span> <span class="nx">Session</span><span class="o">::</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span> 
+<span class="nv">$first_value</span> <span class="o">=</span> <span class="nx">Session</span><span class="o">::</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="k">TRUE</span><span class="p">);</span> 
 </pre></div> 
  
 <h2>Array Dereferencing</h2> 
@@ -283,14 +273,14 @@ When a value stored in the session is an array, it is possible to use array dere
         <span class="s1">&#39;last_name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Smith&#39;</span> 
     <span class="p">)</span> 
 <span class="p">);</span> 
-<span class="c1">// This will echo John</span> 
-<span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[first_name]&#39;</span><span class="p">);</span> 
+<span class="c1">// This will echo John </span> 
+<span class="k">echo</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[first_name]&#39;</span><span class="p">);</span> 
 </pre></div> 
  
 <p>Array dereferencing can be any number of layers deep.</p> 
  
 <div class="syntax"><pre>
-<span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[groups][0][name]&#39;</span><span class="p">);</span> 
+<span class="k">echo</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[groups][0][name]&#39;</span><span class="p">);</span> 
 </pre></div> 
  
  
