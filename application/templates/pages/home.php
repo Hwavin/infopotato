@@ -31,7 +31,7 @@
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/flex.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
 <h3>Dedicated to Small Applications</h3>
-<div>No ORM, no CLI, no large-scale monolithic libraries like PEAR</div>
+<div>Easy installation, nearly zero configuration, no ORM/CLI/PEAR</div>
 </div>
 </div>
 
