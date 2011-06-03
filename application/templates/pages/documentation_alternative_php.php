@@ -44,5 +44,7 @@ You'll be using pure PHP in your View files when you need to mix PHP codes with 
 </pre>
 </div>
 
+<?php echo isset($pager) ? $pager : ''; ?>
+
 </div> 
 <!-- end onecolumn -->

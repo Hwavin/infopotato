@@ -88,7 +88,7 @@
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/db.png" class="careers_dept_img" title="" alt="" />
 <div class="department_description">
 <h3>Multiple Database Adapters</h3>
-<div>Rational databases (MySQl, SQLite, PostgreSQL) and NoSQL</div>
+<div>Rational databases (MySQL, SQLite, PostgreSQL) and NoSQL</div>
 </div>
 </div>
 

@@ -24,5 +24,7 @@ The directory structure of an InfoPotato application is rather flexible. Open fr
 The web root directory is the home of all public and static files like images, stylesheets, and JavaScript files. It is also where each front controller lives.
 </p>
 
+<?php echo isset($pager) ? $pager : ''; ?>
+
 </div> 
 <!-- end onecolumn -->

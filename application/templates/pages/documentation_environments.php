@@ -49,5 +49,7 @@ However, if you want to see how the application reacts in production, call the p
 http://localhost/infopotato/web/<span class="red">index.php</span>
 </div>
 
+<?php echo isset($pager) ? $pager : ''; ?>
+
 </div> 
 <!-- end onecolumn -->

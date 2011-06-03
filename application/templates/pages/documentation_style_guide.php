@@ -599,5 +599,7 @@ It's better to return early, keeping indentation and brain power needed to follo
 <span class="p">}</span> 
 </pre></div> 
 
+<?php echo isset($pager) ? $pager : ''; ?>
+
 </div> 
 <!-- end onecolumn -->

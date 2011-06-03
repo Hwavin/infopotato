@@ -59,5 +59,8 @@ If you wish to increase security by hiding the location of your InfoPotato files
 To make your installation secure from the start, you should put InfoPotato system folder out of the Web-accessible directory. Only the entry script (index.php) and static resources (like stylesheets, JavaScripts and images.) needs to be exposed to Web users. All other PHP files can be hidden from the browser, which is a good idea as far as security is concerned. 
 </p>
 
+
+<?php echo isset($pager) ? $pager : ''; ?>
+
 </div> 
 <!-- end onecolumn -->
