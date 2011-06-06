@@ -26,74 +26,72 @@ Thank you for being interested in InfoPotato. Any software application requires 
 <tr> 
 <td valign="top" width="25%"> 
  
-<h3><?php echo __('Introduction'); ?></h3> 
+<h3><a href="<?php echo APP_URI_BASE; ?>documentation/intro/"><?php echo __('Introduction'); ?></a></h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/server_requirements/"><?php echo __('Server Requirements'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/installation/"><?php echo __('Installation Instructions'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/environments/"><?php echo __('The Environments'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/structure/"><?php echo __('The Directory Structure'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/alternative_php/">Alternative PHP Syntax</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/style_guide/"><?php echo __('Conventions &amp; Style Guide'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/testing/"><?php echo __('Testing'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/glossary/"><?php echo __('Glossary'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/server_requirements/"><?php echo __('Server Requirements'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/installation/"><?php echo __('Installation Instructions'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/environments/"><?php echo __('The Environments'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/structure/"><?php echo __('The Directory Structure'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/alternative_php/">Alternative PHP Syntax</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/style_guide/"><?php echo __('Conventions &amp; Style Guide'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/testing/"><?php echo __('Testing'); ?></a></li>
 </ul> 
  
 </td> 
 <td valign="top" width="25%"> 
  
-<h3><?php echo __('Core Topics'); ?></h3> 
+<h3><a href="<?php echo APP_URI_BASE; ?>documentation/core/"><?php echo __('Core Topics'); ?></a></h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/workflow/"><?php echo __('Request Processing Workflow'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/global/"><?php echo __('Global Constants and Functions'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/uri/">URI</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dispatcher/"><?php echo __('Dispatcher'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/manager/"><?php echo __('Manager'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/template/"><?php echo __('Template'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/data/"><?php echo __('Data Access Object'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/sql_adapters/"><?php echo __('SQL Database Adapters'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/i18n/"><?php echo __('Internationalization'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/library/"><?php echo __('Library'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/function/"><?php echo __('Function'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/runtime/"><?php echo __('System Core Runtime Cache'); ?></a></li>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dump/">Dump Variable</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/utf8/"><?php echo __('UTF-8 Support'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/caching/"><?php echo __('Caching'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cookie/">Cookie</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/session/">Session</a></li>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/security/"><?php echo __('Security'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/ajax/"><?php echo __('Ajax Interaction'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/workflow/"><?php echo __('Request Processing Workflow'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/global/"><?php echo __('Global Constants and Functions'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/uri/">URI</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/dispatcher/"><?php echo __('Dispatcher'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/manager/"><?php echo __('Manager'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/template/"><?php echo __('Template'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/data/"><?php echo __('Data Access Object'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/sql_adapters/"><?php echo __('SQL Database Adapters'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/i18n/"><?php echo __('Internationalization'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/library/"><?php echo __('Library'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/function/"><?php echo __('Function'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/runtime/"><?php echo __('System Core Runtime Cache'); ?></a></li>  
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/dump/">Dump Variable</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/utf8/"><?php echo __('UTF-8 Support'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/caching/"><?php echo __('Caching'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/cookie/">Cookie</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/session/">Session</a></li>  
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/security/"><?php echo __('Security'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/ajax/"><?php echo __('Ajax Interaction'); ?></a></li> 
 </ul> 
 
 </td> 
 <td valign="top" width="25%"> 
  
-<h3><?php echo __('Library Reference'); ?></h3> 
+<h3><a href="<?php echo APP_URI_BASE; ?>documentation/library/"><?php echo __('Library Reference'); ?></a></h3> 
 <ul>  
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/output_cache/"><?php echo __('Output Cache'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/calendar/"><?php echo __('Calendar'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/cart/">Shopping Cart</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/dirinfo/">Dir Info</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/feed_writer/">Feed Writer</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/email/"><?php echo __('Email'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/encypt/"><?php echo __('Encryption'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/upload/"><?php echo __('File Upload'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/form_validation/"><?php echo __('Form Validation'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/ftp/">FTP</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/pagination/"><?php echo __('Pagination'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/password_hashing/"><?php echo __('Password Hashing'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/user_agent/"><?php echo __('User Agent'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/mobile_detect/"><?php echo __('Mobile Device Detection'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/output_cache/"><?php echo __('Output Cache'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/calendar/"><?php echo __('Calendar'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/dirinfo/">Dir Info</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/feed_writer/">Feed Writer</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/email/"><?php echo __('Email'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/encypt/"><?php echo __('Encryption'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/upload/"><?php echo __('File Upload'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/form_validation/"><?php echo __('Form Validation'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/ftp/">FTP</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/pagination/"><?php echo __('Pagination'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/password_hashing/"><?php echo __('Password Hashing'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/user_agent/"><?php echo __('User Agent'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/mobile_detect/"><?php echo __('Mobile Device Detection'); ?></a></li> 
 </ul> 
 </td> 
 <td valign="top" width="25%"> 
 
-<h3><?php echo __('Function Reference'); ?></h3> 
+<h3><a href="<?php echo APP_URI_BASE; ?>documentation/function/"><?php echo __('Function Reference'); ?></a></h3> 
 <ul> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/captcha/">CAPTCHA</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/download/"><?php echo __('Download'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/redirect/"><?php echo __('Redirection'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/minify_html/">Minify HTML</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/index/htmlawed/">HtmLawed</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/function/captcha/">CAPTCHA</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/function/download/"><?php echo __('Download'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/function/redirect/"><?php echo __('Redirection'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/function/minify_html/">Minify HTML</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/function/htmlawed/">HtmLawed</a></li>
 </ul> 
  
 </td> 

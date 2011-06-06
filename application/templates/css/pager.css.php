@@ -1,94 +1,76 @@
 /*http://kntl.org/*/
 
 .pager { 
-background:#eee repeat left top; 
+background:#eee; 
+width:908px;
 height:36px; 
 margin:20px 0; 
-padding:0 5px; 
+padding:0 5px; border:1px solid #ccc;
 }
 
-.pager a.pre { 
-display:block; 
-float:left; 
-background:#5B74A8; 
+.pager .prev, 
+.pager .next {
+display:block;
 width:80px; 
 height:22px; 
+background:#5B74A8;
 margin:4px 0 0 0; 
 padding:6px 0 0 0; 
-font-size:14px; 
 text-align:center; 
 color:#fff; 
 }
 
-.pager a.next { 
-display:block; 
+.pager .prev{  
+float:left; 
+}
+
+.pager .next{ 
 float:right; 
-background:#5B74A8; 
-width:80px; 
-height:22px;
-margin:4px 0 0 0; 
-padding:6px 0 0 0; 
-font-size:14px; 
-text-align:center; 
-color:#fff; 
 }
 
-.pager a.pre span.bullet { 
+.pager .prev span.bullet { 
 float:left; 
 margin:1px 0 0 0; 
 border:solid 7px #000; 
 border-color:#5B74A8 #fff #5B74A8 #5B74A8; 
 }
 
-.pager a.next span.bullet { 
+.pager .next span.bullet { 
 float:right; 
 margin:1px 0 0 0; 
 border:solid 7px #000; 
 border-color:#5B74A8 #5B74A8 #5B74A8 #fff; 
 }
 
-.pager a.pre:hover,
-.pager a.next:hover { 
-background:#ff0000; 
+.pager .prev:hover,
+.pager .next:hover { 
+background:#69A74E; 
 color:#fff; 
 }
 
-.pager a.pre:hover span.bullet { 
-border-color:#ff0000 #fff #ff0000 #ff0000; 
+.pager .prev:hover span.bullet { 
+border-color:#69A74E #fff #69A74E #69A74E; 
 }
 
-.pager a.next:hover span.bullet { 
-border-color:#ff0000 #ff0000 #ff0000 #fff; 
+.pager .next:hover span.bullet { 
+border-color:#69A74E #69A74E #69A74E #fff; 
 }
 
-.pager a.pre:hover,
-.pager a.next:hover { 
-background:#ff0000; 
-color:#fff; 
-}
-
-.pager a.pre:hover span.bullet { 
-border-color:#ff0000 #fff #ff0000 #ff0000; 
-}
-
-.pager a.next:hover span.bullet { 
-border-color:#ff0000 #ff0000 #ff0000 #fff; 
-}
-
-.pager ul.pagedots { 
-width:200px; 
+.pager .pagedots { 
+width:500px; 
 height:36px; 
-margin:0 auto; 
-list-style:none !important;
+margin:0 auto !important; 
+padding:0 !important; 
+list-style:none !important; 
 }
 
-.pager ul.pagedots li { 
+.pager .pagedots li { 
 float:left; 
 margin:0 !important; 
 padding:0 !important; 
 }
 
-.pager ul.pagedots li.dot a { 
+.pager .pagedots li.dot a { 
 position:relative; 
 overflow:visible; 
 display:block; 
@@ -98,14 +80,14 @@ text-align:center;
 text-decoration:none !important; 
 }
 
-.pager ul.pagedots li.dot a span.bullet { 
+.pager .pagedots li.dot a span.bullet { 
 display:block; 
 font-size:30px; 
 line-height:normal !important; 
 color:#000; 
 }
 
-.pager ul.pagedots li.dot a span.tipbullet { 
+.pager .pagedots li.dot a span.tipbullet { 
 position:absolute; 
 display:block; 
 visibility:hidden; 
@@ -116,7 +98,7 @@ border-width:5px;
 border-color:#5B74A8 #ebebeb #ebebeb #ebebeb; 
 }
 
-.pager ul.pagedots li.dot a span.tiplabel { 
+.pager .pagedots li.dot a span.tiplabel { 
 position:absolute; 
 display:block; 
 visibility:hidden; 
@@ -131,19 +113,19 @@ font-size:11px;
 line-height:normal !important; 
 }
 
-.pager ul.pagedots li.dot a:hover span.bullet { 
+.pager .pagedots li.dot a:hover span.bullet { 
 color:#69A74E; 
 }
 
-.pager ul.pagedots li.dot a:hover span.tipbullet { 
+.pager .pagedots li.dot a:hover span.tipbullet { 
 visibility:visible; 
 }
 
-.pager ul.pagedots li.dot a:hover span.tiplabel { 
+.pager .pagedots li.dot a:hover span.tiplabel { 
 visibility:visible; 
 }
 
-.pager ul.pagedots li.activedot a { 
+.pager .pagedots li.activedot a { 
 position:relative; 
 overflow:visible; 
 display:block; 
@@ -153,14 +135,14 @@ text-align:center;
 text-decoration:none !important; 
 }
 
-.pager ul.pagedots li.activedot a span.bullet { 
+.pager .pagedots li.activedot a span.bullet { 
 display:block; 
 font-size:30px; 
 line-height:normal !important; 
 color:#ff0000; 
 }
 
-.pager ul.pagedots li.activedot a span.tipbullet { 
+.pager .pagedots li.activedot a span.tipbullet { 
 position:absolute; 
 display:block; 
 left:8px; 
@@ -170,7 +152,7 @@ border-width:5px;
 border-color:#ebebeb #ebebeb #ff0000 #ebebeb; 
 }
 
-.pager ul.pagedots li.activedot a span.tiplabel { 
+.pager .pagedots li.activedot a span.tiplabel { 
 position:absolute; 
 display:block; 
 background:#ff0000; 
@@ -183,4 +165,3 @@ text-align:center;
 font-size:11px; 
 line-height:normal !important; 
 }
-

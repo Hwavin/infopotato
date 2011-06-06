@@ -59,7 +59,6 @@ return array(
 	'Password Hashing' => '密码哈希',
 	'Mobile Device Detection' => '检测移动设备',
 	'Redirection' => '重定向',
-	'Glossary' => '词汇表',
 	'SQL Database Adapters' => 'SQL数据库适配器',
 	'Internationalization' => '语言国际化',
 	'Pagination' => '分页',
