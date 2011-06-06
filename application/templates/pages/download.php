@@ -51,7 +51,7 @@ Mac
 
 </ul> 
 
-<input type="submit" class="uibutton large special" value="Download" />
+<input type="submit" class="uibutton special" value="Download" />
 
 </form> 
 
