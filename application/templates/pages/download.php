@@ -21,8 +21,42 @@ The latest stable version of InfoPotato is 1.0.0 You may safely use this version
 </p>  
 
 <div class="greybox">
-<a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/">infopotato-1.0.0.zip</a> <a href="<?php echo APP_URI_BASE; ?>get_code/index/infopotato/">infopotato-1.0.0.tar.gz</a>
+<form method="post" autocomplete="off"> 
+<strong>Read and accept the license agreement before downloading.</strong>
+<p><label><input type="checkbox" id="agree_to_license_" value="" name="agree_to_license"/> I agree to the terms of the <a href="<?php echo APP_URI_BASE; ?>about/index/license/">License Agreement</a>.</label></p> 
+  
+<strong>Choose the correct package for your environment.</strong>
+<ul id="download_list"> 
+
+<li> 
+<label> 
+<input type="radio" name="platform" value="Linux" /> 
+Linux
+</label> 
+</li> 
+
+<li> 
+<label> 
+<input type="radio" name="platform" value="Windows" /> 
+Windows
+</label> 
+</li> 
+
+<li> 
+<label> 
+<input type="radio" name="platform" value="Mac" /> 
+Mac
+</label> 
+</li> 
+
+</ul> 
+
+<input type="submit" class="uibutton large special" value="Download" />
+
+</form> 
+
 </div>
+	
 
 
 <h2>Option 2: InfoPotato on Git</h2> 

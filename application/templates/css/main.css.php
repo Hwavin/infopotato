@@ -905,3 +905,13 @@ margin-bottom:0;
 color:#4866A9;
 }
 
+
+
+#download_list {
+list-style:none !important;
+padding:0 !important;
+}
+
+#download_list li{
+margin:0 !important;
+}
