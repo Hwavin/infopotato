@@ -41,17 +41,17 @@ Required field is marked with <span class="req">*</span>.
 <input type="text" name="contact_title" id="contact_title" size="60" value="" class="contact_input" />   
 </div>
 
-<div class="form_item">
+<div class="form_item grid-4-12">
 <label for="contact_name" id="contact_name_label" class="desc">Name <span class="req">*</span> <?php if (isset($contact_name_error)) echo $contact_name_error; ?></label>  
 <input type="text" name="contact_name" id="contact_name" size="60" value="<?php if (isset($contact_name)) echo $contact_name; ?>" class="contact_input" />   
 </div>
 
-<div class="form_item">
+<div class="form_item grid-4-12">
 <label for="contact_email" id="contact_email_label" class="desc">Email <span class="req">*</span> <?php if (isset($contact_email_error)) echo $contact_email_error; ?></label>  
 <input type="text" name="contact_email" id="contact_email" size="60" value="<?php if (isset($contact_email)) echo $contact_email; ?>" class="contact_input" />   
 </div>
 
-<div class="form_item">
+<div class="form_item grid-4-12">
 <label for="contact_subject" id="contact_subject_label" class="desc">Subject <span class="req">*</span> <?php if (isset($contact_subject_error)) echo $contact_subject_error; ?></label>  
 <input type="text" name="contact_subject" id="contact_subject" size="60" value="<?php if (isset($contact_subject)) echo $contact_subject; ?>" class="contact_input" />   
 </div>

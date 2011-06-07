@@ -313,9 +313,6 @@ padding-right:14px;
 }
 
 .box {
-clear:both;
-position:relative;
-display:block;
 border:1px solid #ddd;  
 margin-bottom:30px;
 }
@@ -596,45 +593,6 @@ text-align:center;
 padding:5px 0 5px 15px;
 }
 
-#index_left {
-float:left;
-width:596px;
-height:380px;
-padding:20px 10px;
-border:1px solid #ddd;
-}
-
-#index_left ul{
-float:left;
-width:280px;
-}
-
-ul#yes  {
-list-style:disc url('<?php echo STATIC_URI_BASE; ?>images/shared/yes.png') !important;
-}
-
-ul#no  {
-list-style:disc url('<?php echo STATIC_URI_BASE; ?>images/shared/no.png') !important;
-}
-
-#index_right {
-float:right;
-width:260px;
-height:380px;
-padding:20px 10px;
-margin-left:10px;
-border:1px solid #ddd;
-}
-
-.latest_news {
-margin:10px 0 13px 0;
-}
-
-.post_date {
-color:#999;
-font-size:.8em;
-}
-	
 /* footer
 -------------------------------------------------------------- */
 #footer{
@@ -662,11 +620,6 @@ width:400px;
 .contact_textarea {
 width:620px;
 height:200px;
-}
-
-.contact_username {
-visibility:hidden;
-display:none;
 }
 
 .anti_spam {
@@ -914,4 +867,20 @@ padding:0 !important;
 
 #download_list li{
 margin:0 !important;
+}
+
+
+.doc {
+float:left;
+width:213px;
+height:210px;
+margin:10px;
+}
+
+#doc_intro {
+margin-left:0;
+}
+
+#doc_function {
+margin-right:0;
 }
