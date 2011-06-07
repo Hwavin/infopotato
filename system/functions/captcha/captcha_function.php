@@ -95,7 +95,7 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 	// -----------------------------------
 
 	$length	= strlen($word);
-	$angle	= ($length >= 6) ? rand(-($length-6), ($length-6)) : 0;
+	$angle = ($length >= 6) ? rand(-($length-6), ($length-6)) : 0;
 	$x_axis	= rand(6, (360/$length)-16);
 	$y_axis = ($angle >= 0 ) ? rand($img_height, $img_width) : rand(6, $img_height);
 
@@ -114,11 +114,11 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 	//  Assign colors
 	// -----------------------------------
 
-	$bg_color		= imagecolorallocate ($im, 255, 255, 255);
-	$border_color	= imagecolorallocate ($im, 153, 102, 102);
-	$text_color		= imagecolorallocate ($im, 204, 153, 153);
-	$grid_color		= imagecolorallocate($im, 255, 182, 182);
-	$shadow_color	= imagecolorallocate($im, 255, 240, 240);
+	$bg_color = imagecolorallocate ($im, 255, 255, 255);
+	$border_color = imagecolorallocate ($im, 153, 102, 102);
+	$text_color = imagecolorallocate ($im, 204, 153, 153);
+	$grid_color	= imagecolorallocate($im, 255, 182, 182);
+	$shadow_color = imagecolorallocate($im, 255, 240, 240);
 
 	// -----------------------------------
 	//  Create the rectangle
@@ -130,11 +130,11 @@ function captcha_function($data = '', $img_path = '', $img_url = '', $font_path 
 	//  Create the spiral pattern
 	// -----------------------------------
 
-	$theta		= 1;
-	$thetac		= 7;
-	$radius		= 16;
-	$circles	= 20;
-	$points		= 32;
+	$theta = 1;
+	$thetac = 7;
+	$radius = 16;
+	$circles = 20;
+	$points = 32;
 
 	for ($i = 0; $i < ($circles * $points) - 1; $i++) {
 		$theta = $theta + $thetac;

@@ -8,6 +8,8 @@
 </div>
 <!-- end breadcrumb -->
 
+<!-- PRINT: start -->
+
 <ul>
 <li>OS Platform: Windows or Linux</li>
 <li>HTTP server: Apache, NginX, Lighttpd, IIS, etc.</li>
@@ -28,7 +30,7 @@ Type <span class="red">http://localhost/infopotato/requirements_check/checker.ph
 <h2>Local Development/Testing</h2>
 
 <p>
-If you intend to install InfoPotato on your local computer (for testing) there are a number of Apache–MySQL–PHP packages that you can use.
+If you intend to install InfoPotato on your local computer (for testing) there are a number of Apache-MySQL-PHP packages that you can use.
 </p>
 
 <ul>
@@ -39,6 +41,9 @@ If you intend to install InfoPotato on your local computer (for testing) there a
 <li>Install Apache, MySQL, PHP separately and configure them all to work together.</li>
 </ul>
 
+<!-- PRINT: stop -->
+
+<a href="<?php echo APP_URI_BASE; ?>print">PRINT</a>
 
 <?php echo isset($pager) ? $pager : ''; ?>
 
