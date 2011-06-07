@@ -205,59 +205,59 @@ class Printer_Library {
         if ($handle = fopen($page, "rb")) {
 
             // if file opened successfully
-            $pageContent = '';
+            $page_content = '';
 
             // read all its content in a variable
             while ( ! feof($handle)) {
-                $pageContent .= fread($handle, 8192);
+                $page_content .= fread($handle, 8192);
             }
 
             // close file
             fclose($handle);
 
             // read all starting tags positions into an array
-            preg_match_all("/".quotemeta($this->start_print_tag)."/", $pageContent, $startTags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->start_print_tag)."/", $page_content, $start_tags, PREG_OFFSET_CAPTURE);
 
             // read all ending tags positions into an array
-            preg_match_all("/".quotemeta($this->stop_print_tag)."/", $pageContent, $stopTags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->stop_print_tag)."/", $page_content, $stop_tags, PREG_OFFSET_CAPTURE);
 
             // read all extra starting tags positions into an array
-            preg_match_all("/".quotemeta($this->start_extra_print_tag)."/", $pageContent, $startExtraTags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->start_extra_print_tag)."/", $page_content, $start_extra_tags, PREG_OFFSET_CAPTURE);
 
             // read all extra ending tags positions into an array
-            preg_match_all("/".quotemeta($this->stop_extra_print_tag)."/", $pageContent, $stopExtraTags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->stop_extra_print_tag)."/", $page_content, $stop_extra_tags, PREG_OFFSET_CAPTURE);
 
             // if there are as many starting tags as ending tags
-            if (count($startTags) == count($stopTags) && count($startExtraTags) == count($stopExtraTags)) {
+            if (count($start_tags) == count($stop_tags) && count($start_extra_tags) == count($stop_extra_tags)) {
                 // this is an array that groups start-end pairs
-                $tagsArray = array();
+                $tags_array = array();
 
                 // populate the array with default start/end pairs
-                for ($i = 0; $i < count($startTags[0]); $i++) {
-                    $tagsArray[] = array($startTags[0][$i][1], $stopTags[0][$i][1], strlen($this->start_print_tag));
+                for ($i = 0; $i < count($start_tags[0]); $i++) {
+                    $tags_array[] = array($start_tags[0][$i][1], $stop_tags[0][$i][1], strlen($this->start_print_tag));
                 }
                 
                 // populate the array with extra start/end pairs
-                for ($i = 0; $i < count($startExtraTags[0]); $i++) {
-                    $tagsArray[] = array($startExtraTags[0][$i][1], $stopExtraTags[0][$i][1], strlen($this->start_extra_print_tag));
+                for ($i = 0; $i < count($start_extra_tags[0]); $i++) {
+                    $tags_array[] = array($start_extra_tags[0][$i][1], $stop_extra_tags[0][$i][1], strlen($this->start_extra_print_tag));
                 }
 
                 // sorts the array so that the extra start/end pairs get in correct position (as default, they get to the end)
-                sort($tagsArray);
+                sort($tags_array);
                 
-                // at this stage the $tagsArray[] array holds all the pairs of
+                // at this stage the $tags_array[] array holds all the pairs of
                 // starting-ending positions of printable areas
 
                 // checks if there are areas that are crossing each other
                 // by comparing the values of the array
-                foreach ($tagsArray as $subjectKey=>$subjectValues) {
+                foreach ($tags_array as $subjectKey=>$subject_values) {
                     // with all the values of the array
-                    foreach ($tagsArray as $searchKey=>$searchValues) {
+                    foreach ($tags_array as $searchKey=>$search_values) {
                         // except the one that is checked
                         if ($subjectKey != $searchKey) {
                             // checks if the area crosses other areas
-                            if (($subjectValues[0] >= $searchValues[0] && $subjectValues[0] <= $searchValues[1]) ||
-                                ($subjectValues[1] >= $searchValues[0] && $subjectValues[1] <= $searchValues[1])) {
+                            if (($subject_values[0] >= $search_values[0] && $subject_values[0] <= $search_values[1]) ||
+                                ($subject_values[1] >= $search_values[0] && $subject_values[1] <= $search_values[1])) {
                                 // save the error level and stop the execution of the script
                                 return $this->errors[2];
                             }
@@ -267,45 +267,45 @@ class Printer_Library {
 
                 // If everything is ok
                 // retrieve from the page only the content that needs to be printed
-                $printContent = '';
+                $content_to_print = '';
 
-                foreach ($tagsArray as $offset) {
-                    $printContent .= substr($pageContent, $offset[0] + $offset[2], $offset[1] - $offset[0] - $offset[2]);
+                foreach ($tags_array as $offset) {
+                    $content_to_print .= substr($page_content, $offset[0] + $offset[2], $offset[1] - $offset[0] - $offset[2]);
                 }
 
                 // If links are to be converted to a readable format
                 if ($this->convert_links) {
                     // until there are links left to convert
                     /*
-					while (preg_match("/<a\s*?href=([\"|\'])(.*?)\\1>(.*?)<\/a>/i", $printContent, $matches) > 0) {
+					while (preg_match("/<a\s*?href=([\"|\'])(.*?)\\1>(.*?)<\/a>/i", $content_to_print, $matches) > 0) {
                         // convert links
-                        $printContent = preg_replace("/<a\s*?href=([\"|\'])(.*?)\\1>(.*?)<\/a>/i", "\$3 " . (trim(strip_tags($matches[3])) != "" ? "[\$1]" : ""), $printContent, 1);
+                        $content_to_print = preg_replace("/<a\s*?href=([\"|\'])(.*?)\\1>(.*?)<\/a>/i", "\$3 " . (trim(strip_tags($matches[3])) != "" ? "[\$1]" : ""), $content_to_print, 1);
                     }
 					*/
 					
-					while (preg_match("/\<a.*href\s*=\s*\'([^\']*)\'[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*\"([^\"]*)\"[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*([^\s]*)\s*[^\>]*\>(.*)\<\/a\>/i", $printContent, $matches) > 0) {
+					while (preg_match("/\<a.*href\s*=\s*\'([^\']*)\'[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*\"([^\"]*)\"[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*([^\s]*)\s*[^\>]*\>(.*)\<\/a\>/i", $content_to_print, $matches) > 0) {
                         // convert links
-                        $printContent = preg_replace("/\<a.*href\s*=\s*\'([^\']*)\'[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*\"([^\"]*)\"[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*([^\s]*)\s*[^\>]*\>(.*)\<\/a\>/i", "\$2\$4\$6 [\$1\$3\$5]", $printContent, 1);
+                        $content_to_print = preg_replace("/\<a.*href\s*=\s*\'([^\']*)\'[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*\"([^\"]*)\"[^\>]*\>(.*)\<\/a\>|\<a.*href\s*=\s*([^\s]*)\s*[^\>]*\>(.*)\<\/a\>/i", "\$2\$4\$6 [\$1\$3\$5]", $content_to_print, 1);
                     }
                 }
                 
                 // if <img> tags are to be dropped
                 if ($this->drop_images) {
                     // drop all <img> tags
-                    $printContent = preg_replace("/\<img[^\>]*?\>/", "&nbsp;", $printContent);
+                    $content_to_print = preg_replace("/\<img[^\>]*?\>/", "&nbsp;", $content_to_print);
 
                 // if <img> tags are to be converted to a readable format
                 } elseif ($this->convert_images) {
                     // until there are images left to convert
-                    while (preg_match("/\<img[^\>]*\>/", $printContent, $matches) > 0) {
+                    while (preg_match("/\<img[^\>]*\>/", $content_to_print, $matches) > 0) {
                         // if image has the alt attribute set
                         if (preg_match("/alt\s*?=\s*?\"([^\"]*)\"|alt\s*?=\s*?\'([^\']*)\'|alt\s*?=\s*?([^\s]*)\s/i", $matches[0], $altText) > 0) {
                             // replace the img tag with [image: alt content]
-                            $printContent = preg_replace("/\<img[^\>]*\>/", "[image:".$altText[1]."]", $printContent, 1);
+                            $content_to_print = preg_replace("/\<img[^\>]*\>/", "[image:".$altText[1]."]", $content_to_print, 1);
                         // if no alt attribute is set for the image
                         } else {
                             // replace the img rag with [image]
-                            $printContent = preg_replace("/\<img[^\>]*\>/", "[image]", $printContent, 1);
+                            $content_to_print = preg_replace("/\<img[^\>]*\>/", "[image]", $content_to_print, 1);
                         }
                     }
                 }
@@ -321,7 +321,7 @@ class Printer_Library {
         }
         
 		// returns content if everything went ok
-        return $printContent;
+        return $content_to_print;
     }
     
 }
