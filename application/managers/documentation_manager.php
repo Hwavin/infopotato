@@ -254,10 +254,14 @@ final class Documentation_Manager extends Manager {
 				'name' => 'Password Hashing'
 			),
 			11 => array(
+				'uri' => 'printer', 
+				'name' => 'Printer'
+			),
+			12 => array(
 				'uri' => 'user_agent', 
 				'name' => 'User Agent'
 			),
-			12 => array(
+			13 => array(
 				'uri' => 'mobile_detect', 
 				'name' => 'Mobile Device Detection'
 			),

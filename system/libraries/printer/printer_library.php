@@ -8,9 +8,6 @@
  *  that specific page. An unlimited number of areas can be set for printing allowing you a flexible way of setting up
  *  the content to be printed
  *
- *  The output is template driven, meaning that you can customize the printer friendly versions of your pages by adding
- *  custom headers, footers, copyright information or whatever extra info that you find appropriate
- *
  *  The script can be instructed to transform links to a readable format (<a href="www.somesite.com">click here</a> will
  *  become click here [www.somesite.com]) or to remove or convert <img> tags (<img src="pic.jpg" alt="picture"> will become
  *  [image: picture] or just [image] if no alt attribute is specified)
@@ -19,10 +16,6 @@
  *
  *  See the documentation for more info.
  *
- *  Read the LICENSE file, provided with the package, to find out how you can use this PHP script.
- *
- *  If you don't find this file, please write an email to noname at nivelzero dot ro and you will be sent a copy of the license file
- *
  *  For more resources visit {@link http://stefangabos.blogspot.com}
  *
  *  @name       printer
@@ -30,7 +23,6 @@
  *  @version    1.3 (last revision: April 29, 2008)
  *  @author     Stefan Gabos <ix@nivelzero.ro>
  *  @copyright  (c) 2006 - 2008 Stefan Gabos
- *  @example    example.php
  *
  */
 

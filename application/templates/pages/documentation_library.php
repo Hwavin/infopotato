@@ -21,6 +21,7 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/ftp/">FTP</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/pagination/"><?php echo __('Pagination'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/password_hashing/"><?php echo __('Password Hashing'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/printer/"><?php echo __('Printer'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/user_agent/"><?php echo __('User Agent'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/mobile_detect/"><?php echo __('Mobile Device Detection'); ?></a></li> 
 </ul> 
