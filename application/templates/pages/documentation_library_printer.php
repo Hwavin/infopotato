@@ -14,7 +14,7 @@
 
 <!-- PRINT: start -->
 <p>
-This library helps you create printer friendly versions of your pages. All you need to do is to insert some tags in your pages, tags that will tell the script what needs to be printed from that specific page. An unlimited number of areas can be set for printing allowing you a flexible way of setting up the content to be printed.
+This library helps you create printer friendly versions of your pages. All you need to do is to insert some tags in your pages, tags that will tell the script what needs to be printed from that specific page. An unlimited number of areas can be set for printing allowing you a flexible way of setting up the content to be printed. Besides, it can be instructed to transform links to a readable format or to remove img tags and replace them with a string.
 </p>
 
 <h2>Create a Print Manager</h2>

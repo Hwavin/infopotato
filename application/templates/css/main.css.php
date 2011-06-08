@@ -897,3 +897,4 @@ background:#5B74A8 url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no
 a.print:hover{
 background:#69A74E url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
+

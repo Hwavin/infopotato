@@ -69,18 +69,16 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://alloyframework.org/" class="external_link">Alloy</a></li>
 <li><a href="http://cakephp.org/" class="external_link">CakePHP</a></li> 
 <li><a href="http://codeigniter.com/" class="external_link">CodeIgniter</a></li>
-<li><a href="http://www.dingoframework.com/" class="external_link">Dingo</a></li> 
 <li><a href="http://doophp.com/" class="external_link">DooPHP</a></li> 
 <li><a href="http://justinvincent.com/ezsql" class="external_link">ezSQL</a></li>
 <li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li> 
 <li><a href="http://flourishlib.com/" class="external_link">Flourish</a></li>
+<li><a href="http://fuelphp.com/" class="external_link">Fuel</a></li> 
 </ul> 
 </td> 
 
 <td width="25%"> 
 <ul> 
-<li><a href="http://fuelphp.com/" class="external_link">Fuel</a></li> 
-<li><a href="http://gluephp.com/" class="external_link">GluePHP</a></li>
 <li><a href="http://kohanaphp.com" class="external_link">Kohana</a></li>
 <li><a href="http://konstrukt.dk/" class="external_link">Konstrukt</a></li>
 <li><a href="http://www.lightvc.org/" class="external_link">LightVC</a></li>
@@ -88,17 +86,19 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://lithify.me/" class="external_link">Lithium</a></li>
 <li><a href="http://framework.maintainable.com/mvc/1_intro.php" class="external_link">Maintainable</a></li>
 <li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li>
+<li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li> 
+<li><a href="http://obullo.com/" class="external_link">Obullo</a></li>
 </ul> 
 </td> 
 
 <td width="25%"> 
 <ul> 
-<li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li> 
-<li><a href="http://obullo.com/" class="external_link">Obullo</a></li>
 <li><a href="http://ownyx.com/" class="external_link">Ownyx</a></li> 
 <li><a href="http://www.peecfw.org/" class="external_link">PeecFW</a></li> 
 <li><a href="http://www.pluf.org/" class="external_link">Pluf</a></li> 
+<li><a href="http://ppiframework.com/" class="external_link">PPI Framework</a></li>
 <li><a href="http://www.prontoproject.com/" class="external_link">Pronto</a></li>
+<li><a href="http://www.rainframework.com/" class="external_link">Rain Framework</a></li> 
 <li><a href="http://www.recessframework.org/" class="external_link">Recess</a></li>
 <li><a href="http://www.slimframework.com/" class="external_link">Slim</a></li>
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
@@ -116,7 +116,6 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://www.tokernel.com/" class="external_link">toKernel</a></li> 
 <li><a href="http://peej.github.com/tonic/" class="external_link">Tonic</a></li> 
 <li><a href="http://www.yiiframework.com/" class="external_link">Yii Framework</a></li> 
-<li><a href="http://www.rainframework.com/" class="external_link">Rain Framework</a></li> 
 </ul> 
 </td> 
 </tr> 
