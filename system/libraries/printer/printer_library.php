@@ -46,7 +46,7 @@ class Printer_Library {
      *
      *  @var    string
      */
-    private $start_print_tag = "<!-- PRINT: start -->";
+    private $_start_print_tag = "<!-- PRINT: start -->";
 
     /**
      *  Tag used to delimit end of the area to print
@@ -58,7 +58,7 @@ class Printer_Library {
      *
      *  @var    string
      */
-    private $stop_print_tag = "<!-- PRINT: stop -->";
+    private $_stop_print_tag = "<!-- PRINT: stop -->";
     
     /**
      *  Tag used to delimit start of an area that will print
@@ -74,7 +74,7 @@ class Printer_Library {
      *
      *  @var    string
      */
-    private $start_extra_print_tag = "<!-- PRINT: start-extra";
+    private $_start_extra_print_tag = "<!-- PRINT: start-extra";
 
     /**
      *  Tag used to delimit end of an area that will print
@@ -90,14 +90,14 @@ class Printer_Library {
      *
      *  @var    string
      */
-    private $stop_extra_print_tag = "PRINT: stop-extra -->";
+    private $_stop_extra_print_tag = "PRINT: stop-extra -->";
     
     /**
      *  Weather or not to convert images to a readable format
      *
-     *  <i>Note that if {@link $drop_images} property is set to TRUE, this property is ignored!</i>
+     *  <i>Note that if {@link $_drop_images} property is set to TRUE, this property is ignored!</i>
      *
-     *  <b>Until 1.3 this property was called {@link $drop_images}. To read about the new functionality of {@link $drop_images}, click on
+     *  <b>Until 1.3 this property was called {@link $_drop_images}. To read about the new functionality of {@link $_drop_images}, click on
      *  the link</b>
      *
      *  When set to TRUE, all <img> tags will be replaced with the "[image:]" word
@@ -112,7 +112,7 @@ class Printer_Library {
      *
      *  @var    boolean
      */
-    private $convert_images = FALSE;
+    private $_convert_images = FALSE;
 
     /**
      *  Weather or not to convert links (anchors) to a readable format.
@@ -135,12 +135,12 @@ class Printer_Library {
      *
      *  @var    boolean
      */
-    private $convert_links = TRUE;
+    private $_convert_links = TRUE;
 
     /**
      *  Weather or not to remove images from the print
      *
-     *  <i>Note that if this property is set to TRUE, the {@link $convert_images} property is ignored!</i>
+     *  <i>Note that if this property is set to TRUE, the {@link $_convert_images} property is ignored!</i>
      *
      *  When set to TRUE, all <img> tags will be removed from the printer friendly version of the document
      *
@@ -148,7 +148,7 @@ class Printer_Library {
      *
      *  @var    boolean
      */
-    private $drop_images = FALSE;
+    private $_drop_images = FALSE;
 
     /**
      *  In case of an error read this property's value to find out what went wrong
@@ -163,26 +163,26 @@ class Printer_Library {
      *
      *  @var integer
      */
-    private $errors = array();
+    private $_errors = array();
     
     /**
      *  Constructor
      */
     public function __construct($config = array()) {
 		// possible error values are
-		$this->errors = array(
-			0 => 'file could not be opened',
-			1 => 'the number of starting tags do not match the number of ending tags',
-			2 => 'areas overlap each other',
-			3 => 'no referer page found'
+		$this->_errors = array(
+			0 => 'File could not be opened',
+			1 => 'The number of starting tags do not match the number of ending tags',
+			2 => 'Areas overlap each other',
+			3 => 'No referer page found'
 		);
 		
-		if (isset($config['convert_images'])) {
-			$this->convert_images = $config['convert_images'];
+		if (isset($config['_convert_images'])) {
+			$this->_convert_images = $config['_convert_images'];
 		}
 		
-		if (isset($config['convert_links'])) {
-			$this->convert_links = $config['convert_links'];
+		if (isset($config['_convert_links'])) {
+			$this->_convert_links = $config['_convert_links'];
 		}
     }
 
@@ -194,7 +194,7 @@ class Printer_Library {
 	 */
     public function render() {
         if ( ! isset($_SERVER["HTTP_REFERER"])) {
-			return $this->errors[3];
+			return $this->_errors[3];
 		}
 		
 		// print the page who called this page
@@ -216,16 +216,16 @@ class Printer_Library {
             fclose($handle);
 
             // read all starting tags positions into an array
-            preg_match_all("/".quotemeta($this->start_print_tag)."/", $page_content, $start_tags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->_start_print_tag)."/", $page_content, $start_tags, PREG_OFFSET_CAPTURE);
 
             // read all ending tags positions into an array
-            preg_match_all("/".quotemeta($this->stop_print_tag)."/", $page_content, $stop_tags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->_stop_print_tag)."/", $page_content, $stop_tags, PREG_OFFSET_CAPTURE);
 
             // read all extra starting tags positions into an array
-            preg_match_all("/".quotemeta($this->start_extra_print_tag)."/", $page_content, $start_extra_tags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->_start_extra_print_tag)."/", $page_content, $start_extra_tags, PREG_OFFSET_CAPTURE);
 
             // read all extra ending tags positions into an array
-            preg_match_all("/".quotemeta($this->stop_extra_print_tag)."/", $page_content, $stop_extra_tags, PREG_OFFSET_CAPTURE);
+            preg_match_all("/".quotemeta($this->_stop_extra_print_tag)."/", $page_content, $stop_extra_tags, PREG_OFFSET_CAPTURE);
 
             // if there are as many starting tags as ending tags
             if (count($start_tags) == count($stop_tags) && count($start_extra_tags) == count($stop_extra_tags)) {
@@ -234,12 +234,12 @@ class Printer_Library {
 
                 // populate the array with default start/end pairs
                 for ($i = 0; $i < count($start_tags[0]); $i++) {
-                    $tags_array[] = array($start_tags[0][$i][1], $stop_tags[0][$i][1], strlen($this->start_print_tag));
+                    $tags_array[] = array($start_tags[0][$i][1], $stop_tags[0][$i][1], strlen($this->_start_print_tag));
                 }
                 
                 // populate the array with extra start/end pairs
                 for ($i = 0; $i < count($start_extra_tags[0]); $i++) {
-                    $tags_array[] = array($start_extra_tags[0][$i][1], $stop_extra_tags[0][$i][1], strlen($this->start_extra_print_tag));
+                    $tags_array[] = array($start_extra_tags[0][$i][1], $stop_extra_tags[0][$i][1], strlen($this->_start_extra_print_tag));
                 }
 
                 // sorts the array so that the extra start/end pairs get in correct position (as default, they get to the end)
@@ -250,16 +250,16 @@ class Printer_Library {
 
                 // checks if there are areas that are crossing each other
                 // by comparing the values of the array
-                foreach ($tags_array as $subjectKey=>$subject_values) {
+                foreach ($tags_array as $subject_key => $subject_values) {
                     // with all the values of the array
-                    foreach ($tags_array as $searchKey=>$search_values) {
+                    foreach ($tags_array as $search_key => $search_values) {
                         // except the one that is checked
-                        if ($subjectKey != $searchKey) {
+                        if ($subject_key != $search_key) {
                             // checks if the area crosses other areas
                             if (($subject_values[0] >= $search_values[0] && $subject_values[0] <= $search_values[1]) ||
                                 ($subject_values[1] >= $search_values[0] && $subject_values[1] <= $search_values[1])) {
                                 // save the error level and stop the execution of the script
-                                return $this->errors[2];
+                                return $this->_errors[2];
                             }
                         }
                     }
@@ -274,7 +274,7 @@ class Printer_Library {
                 }
 
                 // If links are to be converted to a readable format
-                if ($this->convert_links) {
+                if ($this->_convert_links) {
                     // until there are links left to convert
                     /*
 					while (preg_match("/<a\s*?href=([\"|\'])(.*?)\\1>(.*?)<\/a>/i", $content_to_print, $matches) > 0) {
@@ -290,12 +290,12 @@ class Printer_Library {
                 }
                 
                 // if <img> tags are to be dropped
-                if ($this->drop_images) {
+                if ($this->_drop_images) {
                     // drop all <img> tags
                     $content_to_print = preg_replace("/\<img[^\>]*?\>/", "&nbsp;", $content_to_print);
 
                 // if <img> tags are to be converted to a readable format
-                } elseif ($this->convert_images) {
+                } elseif ($this->_convert_images) {
                     // until there are images left to convert
                     while (preg_match("/\<img[^\>]*\>/", $content_to_print, $matches) > 0) {
                         // if image has the alt attribute set
@@ -312,12 +312,12 @@ class Printer_Library {
             // if different number of starting and ending tags
             } else {
                 // save the error level and stop the execution of the script
-                return $this->errors[1];
+                return $this->_errors[1];
             }
         // if page could not be opened (i.e. no access rights)
         } else {
             // save the error level and stop the execution of the script
-            return $this->errors[0];
+            return $this->_errors[0];
         }
         
 		// returns content if everything went ok
