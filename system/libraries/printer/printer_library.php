@@ -1,7 +1,6 @@
 <?php
-
 /**
- *  Class that creates printer friendly version of any referrer page
+ * Printer Library
  *
  *  This script helps you create printer friendly versions of your pages.
  *  All you need to do is to insert some tags in your pages, tags that will tell the script what needs to be printed from
@@ -16,16 +15,12 @@
  *
  *  See the documentation for more info.
  *
- *  For more resources visit {@link http://stefangabos.blogspot.com}
- *
- *  @name       printer
- *  @package    print
- *  @version    1.3 (last revision: April 29, 2008)
- *  @author     Stefan Gabos <ix@nivelzero.ro>
- *  @copyright  (c) 2006 - 2008 Stefan Gabos
- *
+ * Based on {@link http://stefangabos.blogspot.com}
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-
 class Printer_Library {
 
     /**

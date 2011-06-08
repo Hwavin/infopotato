@@ -49,6 +49,10 @@ another content to print
 <span class="c">&lt;!-- PRINT: stop --&gt;</span> 
 </pre></div> 
 
+<div class="notebox">
+An unlimited number of areas to be printed can be delimited as long as they are not contained inside another defined area!
+</div>
+
 <h2>Add a Print link button</h2>
 <div class="syntax"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">print&quot;</span> <span class="na">class=</span><span class="s">&quot;print&quot;</span><span class="nt">&gt;</span>Print<span class="nt">&lt;/a&gt;</span> 
 </pre></div> 
