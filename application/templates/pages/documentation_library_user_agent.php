@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">User Agent Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; User Agent Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>The User Agent Class provides functions that help identify information about the browser, mobile device, or robot visiting your site.
 In addition you can get referrer information as well as language and supported character-set information.</p> 
  
@@ -155,7 +160,8 @@ since some browsers do not provide language info, and even among those that do, 
 <strong>Note:</strong> This function is not typically very reliable
 since some browsers do not provide character-set info, and even among those that do, it is not always accurate. 
 </p> 
- 
+<!-- PRINT: stop --> 
+
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 

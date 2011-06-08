@@ -5,23 +5,8 @@ printer.css
 
 /* XHTML elements
 -------------------------------------------------------------- */
-html {
-overflow-y:scroll;
-}
-
-/* Overriding The Default Text Selection Color with CSS3 */
-::selection { 
-background:#ffcc89; 
-color:#222; 
-}
-
-::-moz-selection { 
-background:#ffcc89; 
-color:#222; 
-}
-
 body {
-font-family:Arial, Helvetica, sans-serif;
+font-family:Helvetica, sans-serif;
 font-size:90%;
 color: #555; 
 background:#f2f2f2;
@@ -46,26 +31,6 @@ padding:15px 0 10px 0;
 h3 { 
 font-size:1.3em;  
 padding:8px 0 5px 0;
-}
-
-a:link, a:visited {
-color:#3b5998;
-text-decoration:none;
-}
-
-/* a:hover MUST come after a:link and a:visited in the CSS definition in order to be effective! */
-a:hover {
-color:#f75342;
-text-decoration:underline;
-}
-
-/* a:active MUST come after a:hover in the CSS definition in order to be effective! */
-a:active {
-color:#f75342;
-text-decoration:underline;
-/* All links bump themselves down 1px as you click them */
-position: relative;
-top: 1px;
 }
 
 p {
@@ -307,11 +272,6 @@ border: 1px solid #ddd;
 margin: auto;
 }
 
-.external_link {
-background:url('<?php echo STATIC_URI_BASE; ?>images/shared/external_link.png') no-repeat center right; 
-padding-right:14px;
-}
-
 .box {
 border:1px solid #ddd;  
 margin-bottom:30px;
@@ -449,60 +409,12 @@ tr.even td{
 background:#eceff6;
 }
 
-/* page layout / structure
--------------------------------------------------------------- */
-#container {
-width:100%;
-min-width:960px;
-}
-
-#header {
-background-color:#3b5998;
-}
-
-.inner {
-width:920px;
-padding:10px 20px;
-margin:0 auto;
-}
-
-#topnav {
-width:920px;
-float:left;
-}
-
-#topnav li{
-display:inline;
-line-height:29px;
-}
-
-#topnav li a {
-float:left;
-font-weight:700;
-font-size:15px;
-color:#fff;
-text-decoration:none;
-margin-right:15px;
-}
-
-#logo a {
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg) no-repeat 0 0;
-width:180px;
-text-indent:-9999px;
-}
-
-#logo a:hover{
-background-position:-180px 0;
-}
 
 /* content
 -------------------------------------------------------------- */
 #content {
-width:920px;
 padding:20px;
 margin:0 auto;
-border:solid 2px #ddd;
-border-top:none;
 position:relative;
 background:#fff;
 }
@@ -525,8 +437,7 @@ padding:3px 0;
 /* footer
 -------------------------------------------------------------- */
 #footer{
-width:960px;
-padding:10px 0;
-margin:0 auto 10px;
+padding:20px;
+margin:10px auto;
 line-height:180%;
 }

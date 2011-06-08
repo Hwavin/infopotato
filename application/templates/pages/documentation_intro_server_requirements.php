@@ -3,13 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Sever Requirements</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/intro/">Introduction</a> &gt; Sever Requirements
 </div>
 <!-- end breadcrumb -->
 
-<!-- PRINT: start -->
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
 
+<!-- PRINT: start -->
 <ul>
 <li>OS Platform: Windows or Linux</li>
 <li>HTTP server: Apache, NginX, Lighttpd, IIS, etc.</li>
@@ -43,7 +46,7 @@ If you intend to install InfoPotato on your local computer (for testing) there a
 
 <!-- PRINT: stop -->
 
-<a href="<?php echo APP_URI_BASE; ?>print">PRINT</a>
+
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

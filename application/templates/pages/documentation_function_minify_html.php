@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Minify HTML Function</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/function/">Function Reference</a> &gt; Minify HTML Function
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 Minification is the practice of removing unnecessary characters from code to reduce its size thereby improving load times.
 </p>
@@ -46,6 +51,7 @@ Minification is the practice of removing unnecessary characters from code to red
 <span class="p">}</span> 
 <span class="cp">?&gt;</span><span class="x"></span> 
 </pre></div> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

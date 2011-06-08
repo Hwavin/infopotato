@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Download Function</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/function/">Function Reference</a> &gt; Download Function
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 The download function will force a file to be saved to your desktop.
 </p>
@@ -29,6 +34,7 @@ Once this function is loaded, <strong>download_function($file, $mime_type = '')<
 <div class="notebox">
 You can edit the function and add more MIME types based on your actual needs.
 </div>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

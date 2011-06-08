@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Manager</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Manager
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>Managers are the heart of your application, as they determine how HTTP requests should be prepared and handled as well as the HTTP responses.</p>
 
 <h2>What is a Manager?</h2>
@@ -241,7 +246,8 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 <p class="notebox">
 By default, your data files and template files can also be stored within sub-folders if you prefer that type of organization. But Manager files is NOT ALLOWED to be organized by sub-folders.
 </p> 
- 
+<!-- PRINT: stop -->
+
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 

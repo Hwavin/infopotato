@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Data Access Object</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Data Access Object
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 Data Access Objects (DAO) provides a generic API to access data stored in different database management systems (DBMS). As a result, the underlying DBMS can be changed to a different one without requiring change of the code which uses DAO to access the data.
 </p>
@@ -193,6 +198,7 @@ If RDBMS used in your application, you can define the database connection in app
     <span class="p">}</span> 
 <span class="p">}</span> 
 </pre></div> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

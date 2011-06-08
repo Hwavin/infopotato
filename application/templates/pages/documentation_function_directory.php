@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Directory</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/function/">Function Reference</a> &gt; Directory
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 This function reads the directory path specified in the first parameter and builds an array representation of it and all its contained files.
 </p>
@@ -69,6 +74,7 @@ Each folder name will be an array index, while its contained files will be numer
     )
 )
 </pre></div>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Global Constants and Functions</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Global Constants and Functions
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>InfoPotato uses a few constants and functions for its operation that are globally defined, and are available to you at any point. These do not require loading any libraries or helpers.</p> 
  
 <h2>Global Constants</h2>
@@ -51,6 +56,7 @@ Global_Functions is a class which contains two static functions can be used accr
 <h3>dump(<var>$variable</var>)</h3> 
 
 <h3>__(<var>$string</var>)</h3> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

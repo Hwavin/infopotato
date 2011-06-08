@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Conventions &amp; Style Guide</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Conventions &amp; <a href="<?php echo APP_URI_BASE; ?>documentation/intro/">Introduction</a> &gt; Style Guide
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <div class="box_right greybox">
 <blockquote>
 <span>Happy is the man who is living by his hobby.</span>
@@ -598,6 +603,7 @@ It's better to return early, keeping indentation and brain power needed to follo
     <span class="k">return</span> <span class="nv">$calculated_value</span><span class="p">;</span> 
 <span class="p">}</span> 
 </pre></div> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Captcha Function</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/function/">Function Reference</a> &gt; Captcha Function
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 The Captcha function will assist in creating CAPTCHA images. The captcha function requires the GD image library.
 </p>
@@ -88,6 +93,7 @@ The "time" is the micro timestamp used as the image name without the file extens
 <br />
 The "word" is the word that appears in the captcha image, which if not supplied to the function, will be a random string.
 </p> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

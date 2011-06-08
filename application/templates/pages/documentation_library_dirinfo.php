@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Dir Info Library</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; Dir Info Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 DirInfo can retrieve information on files, sub-directories and files within sub-directories.
 </p> 
@@ -54,6 +59,7 @@ The class defaults to image files only, but based on the parameters you pass, in
 * mime-type</li>
 <li>Change an arbitrary filesize to a human readable format</li>
 </ul> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 	

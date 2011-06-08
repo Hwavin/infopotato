@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Function</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Internationalization
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 The term "internationalization" refers to the process of abstracting strings and other locale-specific pieces out of your application and into a layer where they can be translated and converted based on the user's locale (i.e. language and country). For text (text will "always" print out in English), this means wrapping each with a function capable of translating the text (or "message") into the language of the user.
 </p> 
@@ -82,6 +87,7 @@ Good way to enable text translation
 <p>
 In this example, the token is <span class="red">:num</span>, but it can be anything, since the replacement function used by the translation helper is <a href="http://www.php.net/manual/en/function.strtr.php" class="external_link">strtr()</a>.
 </p>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

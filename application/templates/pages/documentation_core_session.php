@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Session</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Session
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 Your application has a session for each user in which you can store small amounts of data that will be persisted between requests. The session is only available in the mamager and the template and can use one of a number of different storage mechanisms:
 </p>
@@ -282,7 +287,8 @@ When a value stored in the session is an array, it is possible to use array dere
 <div class="syntax"><pre>
 <span class="k">echo</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[groups][0][name]&#39;</span><span class="p">);</span> 
 </pre></div> 
- 
+<!-- PRINT: stop -->
+
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 

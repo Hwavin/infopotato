@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Function</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Function
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 InfoPotato allows user to load any User-defined Functions to facilate the manager's with tasks. Each function file is simply a PHP function in a particular category.
 </p> 
@@ -45,6 +50,7 @@ A function may be defined using syntax such as the following:
 <div class="notebox">
 All the user-defined functions should be named like xxx_function
 </div>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

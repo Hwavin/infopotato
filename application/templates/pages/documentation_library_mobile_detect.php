@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Mobile Device Detection</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; Mobile Device Detection
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 Mobile_Detect is a simple PHP class for easy detection of the most popular mobile devices platforms: iPhone, iPad, Android, Blackberry, Opera Mini, Palm, Windows Mobile, as well as generic ones.
 </p>
@@ -48,6 +53,7 @@ Here is how to check to see if the user is a mobile but not an iPad:
     <span class="c1">// any mobile platform that is not iPad</span> 
 <span class="p">}</span> 
 </pre></div> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

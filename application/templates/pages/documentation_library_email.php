@@ -3,13 +3,17 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Email Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; Email Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>InfoPotato's robust Email Class supports the following features:</p> 
- 
  
 <ul> 
 <li>Multiple Protocols: Mail, Sendmail, and SMTP</li> 
@@ -255,7 +259,8 @@ More text that will be
 wrapped normally.
 </pre></div>
 <p>Place the item you do not want word-wrapped between: <var>{unwrap}</var> <var>{/unwrap}</var></p> 
- 
+<!-- PRINT: stop --> 
+
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 

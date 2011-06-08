@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>In InfoPotato, libraries are standalone and reusable PHP classes to be used in managers. All of the available system libraries are located in your <span class="red">system/libraries</span> folder. You can also use your own libraries for each application by putting them in application libraries filder which can be defined in the single point of entry script. In most cases, to use one of these classes involves initializing it within a controller using the following initialization function:</p> 
 
 <p>
@@ -59,6 +64,7 @@ Following is a very simple example which tells you how to create your own librar
 <div class="notebox">
 All the user-defined libraries should be named like xxx_Library. All the perference parameters are passed through $config array within the constructer. If no parameters needed, just leave it blank.
 </div>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

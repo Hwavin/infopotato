@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Encryption Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; Encryption Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>The Encryption Class provides two-way data encryption.  It uses a scheme that either compiles
 the message using a randomly hashed bitwise XOR encoding scheme, or is encrypted using
 the Mcrypt library.  If Mcrypt is not available on your server the encoded message will
@@ -177,6 +182,7 @@ function:</p>
 </tr> 
 </tbody>
 </table> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

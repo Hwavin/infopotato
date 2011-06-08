@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">FTP Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; FTP Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>CodeIgniter's FTP Class permits files to be transfered to a remote server. Remote files can also be moved, renamed,
 and deleted.  The FTP class also includes a "mirroring" function that permits an entire local directory to be recreated remotely via FTP.</p> 
  
@@ -230,7 +235,8 @@ Permissions can be set by passed an <kbd>octal</kbd> value in the second paramet
  
 <h2>$this->ftp->close();</h2> 
 <p>Closes the connection to your server.  It's recommended that you use this when you are finished uploading.</p> 
- 
+<!-- PRINT: stop --> 
+
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 

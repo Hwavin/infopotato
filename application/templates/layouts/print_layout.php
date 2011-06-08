@@ -26,50 +26,21 @@
 
 <body>	
 
-<!-- begin container -->
-<div id="container"> 
-
-<!-- begin container -->
-<div id="header">
-
-<!-- begin header inner --> 
-<div class="inner">
-
-<!-- begin header inner topnav--> 
-<div id="topnav">
-<ul> 
-<li id="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="Return to frontpage">infopotato</a></li>
-</ul>
-
-</div>	
-<!-- end header inner topnav--> 
-<div class="clear"></div> 
-
-</div>
-<!-- end header inner -->
-
-</div>  
-<!-- end header --> 
-<div class="clear"></div> 
-
 <!-- begin content --> 
 <div id="content"> 
+<a href="javascript:print();" title="Click to print">Print</a> 
 <?php echo $content; ?>
 <div class="clear"></div>
 
 </div> 
 <!-- end content --> 
 <div class="clear"></div> 
- 
 
 <!-- begin footer --> 
 <div id="footer"> 
 Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
 </div>
 <!-- end footer -->
- 
-</div> 
-<!-- end container -->
 
 </body> 
 

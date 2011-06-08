@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Template</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Template
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 Templates serve as the presentation layer of InfoPotato. A template is a PHP script consisting of mainly elements of user interface (e.g., an HTML page fragment, an XML document, a serialized JSON array). In fact, templates can flexibly be embedded within other templates (within other templates, etc., etc.) if you need this type of hierarchy. It can contain PHP variables and statements, but it is recommended that these statements should remain relatively simple. For the spirit of separation of logic and presentation, large chunk of logic should be placed in manager instead of template.
 </p>
@@ -204,6 +209,7 @@ Layout is a special template that is used to decorate templates. It usually cont
 <p>
 As you can see, all the "outer" stuff gets thrown in the layout. When the content is rendered within a layout, it will be substituted for the variable $content, which stores the rendering result of the content template.
 </p>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

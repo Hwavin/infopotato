@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Output Cache Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; Output Cache Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>InfoPotato lets you cache your pages in order to achieve maximum performance.</p> 
  
 <p>Although InfoPotato is quite fast, the amount of dynamic information you display in your pages will correlate directly to the
@@ -60,7 +65,8 @@ and sent to the requesting user's browser.  If it has expired, it will be delete
 	<span class="p">}</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 
-</pre></div> 
+</pre></div>
+<!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

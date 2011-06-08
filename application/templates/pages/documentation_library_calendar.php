@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Calendar</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; Calendar
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>The Calendar class enables you to dynamically create calendars. Your calendars can be formatted through the use of a calendar
 template, allowing 100% control over every aspect of its design. In addition, you can pass data to your calendar cells.</p> 
  
@@ -196,7 +201,8 @@ calendar will be placed within a pair of pseudo-variables as shown here:</p>
  
 <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cal</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">();</span> 
 </pre></div> 
- 
+<!-- PRINT: stop -->
+
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 

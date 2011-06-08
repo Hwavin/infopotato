@@ -3,13 +3,18 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Caching</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Caching
 </div>
 <!-- end breadcrumb -->
 
 <a href="http://www.phpwact.org/php/caching">http://www.phpwact.org/php/caching</a>
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 Caching is the practice of trading space (RAM or disk) for extra speed. Data is processed and the result saved so that it won’t have to be reprocessed later. This works best with data that is time consuming to process but doesn’t change very often.
 </p>
@@ -118,6 +123,7 @@ As HTTP cache headers work on a page by page basis, the script handling these he
 <p>
 The advantage of using HTTP caching is to save bandwidth as well as make your pages appear faster to the user.
 </p>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

@@ -3,11 +3,16 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">The Environments</h1>	
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/intro/">Introduction</a> &gt; The Environments
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 An application can run in various environments. The different environments share the same PHP code (apart from the front controller), but can have completely different configurations. For each application, InfoPotato provides two default environments: production, and development. You’re also free to add as many custom environments as you wish.
 </p>
@@ -48,6 +53,7 @@ However, if you want to see how the application reacts in production, call the p
 <div class="syntax">
 http://localhost/infopotato/web/<span class="red">index.php</span>
 </div>
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

@@ -884,3 +884,16 @@ margin-left:0;
 #doc_function {
 margin-right:0;
 }
+
+a.print{
+float:right;
+border:1px solid #ccc;
+color:#fff;
+padding:5px 5px 5px 20px;
+margin:0 0 0 10px;
+background:#5B74A8 url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
+}
+
+a.print:hover{
+background:#69A74E url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
+}

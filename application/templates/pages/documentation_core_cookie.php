@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Cookie</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Cookie
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 The Cookie class helps to make PHP's cookie API more consistent, while adding the ability to set default parameters and create httponly cookies in older versions of PHP 5.
 </p>
@@ -78,6 +83,7 @@ The Cookie_Library class also allows defining default parameters to use for set(
 <tr><td> <tt>$httponly</tt></td><td>set_default_httponly()</td>
 </tr>
 </table> 
+<!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
 

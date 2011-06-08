@@ -3,11 +3,16 @@
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">File Upload Library</h1>
+<!-- PRINT: stop -->
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/library/">Library</a> &gt; File Upload Library
 </div>
 <!-- end breadcrumb -->
 
+<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+
+<!-- PRINT: start -->
 <p>
 InfoPotato's File Uploading Class permits files to be uploaded.  You can set various preferences, restricting the type and size of the files.
 </p> 
@@ -312,7 +317,8 @@ Here is the array prototype:</p>
 </tbody>
  
 </table> 
- 
+<!-- PRINT: stop --> 
+
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
