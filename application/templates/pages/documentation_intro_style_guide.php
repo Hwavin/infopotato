@@ -9,7 +9,7 @@
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Conventions &amp; <a href="<?php echo APP_URI_BASE; ?>documentation/intro/">Introduction</a> &gt; Style Guide
 </div>
 <!-- end breadcrumb -->
-
+http://docs.moodle.org/dev/Coding_style
 <a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
 
 <!-- PRINT: start -->
@@ -19,6 +19,26 @@
 <div>&mdash; G.Bernard Shaw</div>
 </blockquote>
 </div>
+
+<h2>Goals</h2>
+<p>
+Consistent coding style is important in any development project, and particularly when many developers are involved. A standard style helps to ensure that the code is easier to read and understand, which helps overall quality.
+</p>
+
+<p>
+Abstract goals we strive for:
+</p>
+
+<ul>
+<li>simplicity</li>
+<li>readability</li>
+<li>
+tool friendliness, such as use of method signatures, constants, and patterns that support IDE tools and auto-completion of method, class, and constant names.
+</li>
+
+<p>
+When considering the goals above, each situation requires an examination of the circumstances and balancing of various trade-offs.
+</p>
 
 <p>The following page describes the use of coding rules adhered to when developing InfoPotato.</p> 
  
@@ -65,7 +85,7 @@ Use an indent of 4 spaces, with no tabs. This helps to avoid problems with diffs
 </p>
 
 <p>
-It is recommended to keep lines at approximately 75-85 characters long for better code readability. <a href="http://paul-m-jones.com/archives/276" class="external_link">Paul M. Jones</a> has some thoughts about that limit.
+The key issue is readability. It is recommended to keep lines at approximately 75-85 characters long for better code readability. <a href="http://paul-m-jones.com/archives/276" class="external_link">Paul M. Jones</a> has some thoughts about that limit.
 </p>
 
 
@@ -459,6 +479,61 @@ Constants should always be all-uppercase, with underscores to separate words.
 
  
 <h2>Strings</h2> 
+<p>
+Since string performance is not an issue in current versions of PHP, the main criteria for strings is readability.
+</p>
+
+
+<h3>Single quotes</h3>
+<p>
+Always use single quotes when a string is literal, or contains a lot of double quotes (like HTML):
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$a</span> <span class="o">=</span> <span class="s1">&#39;Example string&#39;</span><span class="p">;</span> 
+<span class="k">echo</span> <span class="s1">&#39;&lt;span class=&quot;&#39;</span><span class="o">.</span><span class="nx">s</span><span class="p">(</span><span class="nv">$class</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;&quot;&gt;&lt;/span&gt;&#39;</span><span class="p">;</span> 
+<span class="nv">$html</span> <span class="o">=</span> <span class="s1">&#39;&lt;a href=&quot;http://something&quot; title=&quot;something&quot;&gt;Link&lt;/a&gt;&#39;</span><span class="p">;</span> 
+</pre></div> 
+
+<h3>Double quotes</h3>
+<p>
+Use double quotes when you need to include plain variables or a lot of single quotes. 
+</p>
+
+<div class="syntax"><pre>
+<span class="k">echo</span> <span class="s2">&quot;&lt;span&gt;</span><span class="si">$string</span><span class="s2">&lt;/span&gt;&quot;</span><span class="p">;</span> 
+<span class="nv">$statement</span> <span class="o">=</span> <span class="s2">&quot;You aren&#39;t serious!&quot;</span><span class="p">;</span> 
+</pre></div> 
+
+<h3>Variable substitution</h3>
+<p>
+Variable substitution can use either of these forms:
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello </span><span class="si">$name</span><span class="s2">, welcome back!&quot;</span><span class="p">;</span> 
+ 
+<span class="nv">$greeting</span> <span class="o">=</span> <span class="s2">&quot;Hello </span><span class="si">{</span><span class="nv">$name</span><span class="si">}</span><span class="s2">, welcome back!&quot;</span><span class="p">;</span> 
+</pre></div> 
+
+<h3>String concatenation</h3>
+<p>
+Strings must be concatenated using the "." operator.
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$longstring</span> <span class="o">=</span> <span class="nv">$several</span><span class="o">.</span><span class="nv">$short</span><span class="o">.</span><span class="s1">&#39;strings&#39;</span><span class="p">;</span> 
+</pre></div> 
+
+<p>
+If the lines are long, break the statement into multiple lines to improve readability. In these cases, put the "dot" at the end of each line.
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$string</span> <span class="o">=</span> <span class="s1">&#39;This is a very long and stupid string because &#39;</span><span class="o">.</span><span class="nv">$editorname</span><span class="o">.</span> 
+          <span class="s2">&quot; couldn&#39;t think of a better example at the time.&quot;</span><span class="p">;</span> 
+</pre></div> 
+
 <p>Always use single quoted strings unless you need variables parsed, and in cases where you do need variables parsed, use braces to prevent greedy token parsing.  You may also use double-quoted strings if the string contains single quotes, so you do not have to use escape characters.</p> 
 
 <strong>INCORRECT</strong>:
