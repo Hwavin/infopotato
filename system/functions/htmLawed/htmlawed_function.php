@@ -151,29 +151,35 @@ function hl_attrval($t, $p) {
 					$o = 0;
 				}
 				break; 
+			
 			case 'minlen': 
 				if($l < $v){$o = 0;}
 				break; 
+			
 			case 'maxval': 
 				if ((float)($t) > $v) {
 					$o = 0;
 				}
 				break; 
+			
 			case 'minval': 
 				if ((float)($t) < $v) {
 					$o = 0;
 				}
 				break; 
+			
 			case 'match': 
 				if ( ! preg_match($v, $t)) {
 					$o = 0;
 				}
 				break; 
+			
 			case 'nomatch': 
 				if (preg_match($v, $t)) {
 					$o = 0;
 				}
 				break; 
+			
 			case 'oneof':
 				$m = 0;
 				foreach (explode('|', $v) as $n) {
@@ -184,6 +190,7 @@ function hl_attrval($t, $p) {
 				}
 				$o = $m;
 				break; 
+			
 			case 'noneof':
 				$m = 1;
 				foreach (explode('|', $v) as $n) {
@@ -194,6 +201,7 @@ function hl_attrval($t, $p) {
 				}
 				$o = $m;
 				break; 
+			
 			default:
 				break;
 		}
@@ -276,8 +284,10 @@ function hl_bal($t, $do=1, $in='div') {
 				$ok = array_diff_assoc($ok, $cN[$p]);
 			}
 		} else {
-			$ok = $inOk; unset($cI['del'], $cI['ins']);
+			$ok = $inOk; 
+			unset($cI['del'], $cI['ins']);
 		}
+		
 		// bad tags, & ele content
 		if (isset($e) && ($do == 1 or (isset($ok['#pcdata']) && ($do == 3 or $do == 5)))) {
 			echo '&lt;', $s, $e, $a, '&gt;';
@@ -322,7 +332,9 @@ function hl_bal($t, $do=1, $in='div') {
 					$add .= "</{$d}>";
 				}
 			}
-			echo $add, '</', $e, '>'; unset($e); continue;
+			echo $add, '</', $e, '>'; 
+			unset($e); 
+			continue;
 		}
 		// open tag
 		// $cB ele needs $eB ele as child
@@ -685,6 +697,7 @@ function hl_tag($t){
 					$w = $mode = 1; $a = ltrim(substr_replace($a, '', 0, strlen($m[0])));
 				}
 				break; 
+			
 			case 1:
 				if ($a[0] == '=') { // =
 					$w = 1; $mode = 2; $a = ltrim($a, '= ');
@@ -693,6 +706,7 @@ function hl_tag($t){
 					$aA[$nm] = '';
 				}
 				break; 
+			
 			case 2: // Val
 				if(preg_match('`^"[^"]*"`', $a, $m) or preg_match("`^'[^']*'`", $a, $m) or preg_match("`^\s*[^\s\"']+`", $a, $m)){
 					$m = $m[0]; $w = 1; $mode = 0; $a = ltrim(substr_replace($a, '', 0, strlen($m)));
