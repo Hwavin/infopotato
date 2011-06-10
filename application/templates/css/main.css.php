@@ -814,18 +814,18 @@ color:#444444;
 
 
 
-.careers_full{
+.facts_full{
 width:920px;
 margin-left:auto;
 margin-right:auto;
 clear:both;
 }
 
-.first_row .department_listing{
+.first_row .fact{
 border-top:none;padding-top:14px;
 }
 
-.department_listing{
+.fact{
 border-top:1px solid #d3dae5;
 float:left;
 margin-right:16px;
@@ -833,11 +833,11 @@ padding:14px 0;
 width:295px;
 }
 
-.department_listing.last{
+.fact.last{
 margin-right:0;
 }
 
-.department_listing .careers_dept_img
+.fact .fact_img
 {width:52px;
 height:52px;
 float:left;
@@ -845,13 +845,13 @@ margin:5px 0 0 3px;
 }
 
 
-.department_listing .department_description{
+.fact .fact_desc{
 float:left;
 margin-left:10px;
 width:225px;
 }
 
-.department_listing .department_description h3{
+.fact .fact_desc h3{
 font-size: 14px;
 line-height:20px;
 margin-bottom:0;
