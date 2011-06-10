@@ -500,7 +500,7 @@ padding:0 10px;
 }
 
 .nav_item a:hover {
-background-color:#5c75aa;
+background:#6D84B4;
 padding:0 10px;
 }
 
@@ -513,7 +513,7 @@ background:#f2f2f2;
 
 #alpha_bar {
 height:10px;
-background:#597eaa;
+background:#6d84b4;
 }
 
 /* content onecolumn
@@ -887,14 +887,14 @@ margin-right:0;
 
 a.print{
 float:right;
-border:1px solid #ccc;
-color:#fff;
-padding:5px 5px 5px 20px;
+border:1px solid #d8dfea;
+color:#3B5998;
+padding:5px 5px 5px 25px;
 margin:0 0 0 10px;
-background:#5B74A8 url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
+background:#f7f7f7 url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
 
 a.print:hover{
-background:#69A74E url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
+background:#d8dfea url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
 
