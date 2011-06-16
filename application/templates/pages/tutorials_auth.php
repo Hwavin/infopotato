@@ -188,5 +188,9 @@ Now we begin to deal with authorization. Take the Administrator for example, aft
 <span class="c1">// End of file: ./application/managers/home_manager.php</span> 
 </pre></div> 
 
+<div class="notebox">
+By using a constructor to check the auth for login required managers we can achieve manager-level Authorization without hanging any other methods. 
+</div>
+
 </div> 
 <!-- end onecolumn -->

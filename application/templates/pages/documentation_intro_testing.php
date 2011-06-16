@@ -16,6 +16,10 @@
 <p>
 Whenever you write a new line of code, you also potentially add new bugs. Automated tests should have you covered and this tutorial shows you how to write unit and functional tests for your InfoPotato application.
 </p>
+
+<p>
+The idea is to create automatable tests for each bit of functionality that you are developing (at the same time you are developing it). This not only helps everyone later test that the software works, but helps the development itself, because it forces you to work in a modular way with very clearly defined structures and goals.
+</p>
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>

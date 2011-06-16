@@ -39,7 +39,7 @@ function auto_load($class_name) {
 		'data', 
 		'data_adapter', 
 		'global_functions', 
-		'dump', 
+		'dumper', 
 		'utf8',
 		'i18n',
 		'cookie',
@@ -101,7 +101,7 @@ function show_sys_error($heading, $message, $template = 'sys_error') {
  * @return	void
  */
 function dump($var, $force_type = '', $collapsed = FALSE) {
-	Dump::show($var, $force_type, $collapsed);
+	Dumper::dump($var, $force_type, $collapsed);
 }
 
 /**

@@ -9,21 +9,21 @@
 <a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Conventions &amp; <a href="<?php echo APP_URI_BASE; ?>documentation/intro/">Introduction</a> &gt; Style Guide
 </div>
 <!-- end breadcrumb -->
-http://docs.moodle.org/dev/Coding_style
+
 <a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
 
 <!-- PRINT: start -->
+<h2>Goals</h2>
+<p>
+Consistent coding style is important in any development project, and particularly when many developers are involved. A standard style helps to ensure that the code is easier to read and understand, which helps overall quality.
+</p>
+
 <div class="box_right greybox">
 <blockquote>
 <span>Happy is the man who is living by his hobby.</span>
 <div>&mdash; G.Bernard Shaw</div>
 </blockquote>
 </div>
-
-<h2>Goals</h2>
-<p>
-Consistent coding style is important in any development project, and particularly when many developers are involved. A standard style helps to ensure that the code is easier to read and understand, which helps overall quality.
-</p>
 
 <p>
 Abstract goals we strive for:

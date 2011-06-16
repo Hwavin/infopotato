@@ -8,7 +8,7 @@
  *
  * Direct Usage
  * =============
- * new Dump( $myVariable );
+ * new Dumper( $myVariable );
  *
  * 
  * if the optional "force_type" string is given, the variable supplied to the 
@@ -29,7 +29,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
  
-class Dump {
+class Dumper {
 	
 	public static $xml_CDATA;
 	public static $xml_SDATA;
@@ -42,7 +42,7 @@ class Dump {
 	public static $arr_history = array();
 	
 
-	public static function show($var, $force_type = '', $collapsed = FALSE) {
+	public static function dump($var, $force_type = '', $collapsed = FALSE) {
 		// Only include js and css scripts once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
@@ -428,4 +428,4 @@ SCRIPTS;
 
 }
 
-// End of file: ./system/core/dump.php 
+// End of file: ./system/core/dumper.php 
