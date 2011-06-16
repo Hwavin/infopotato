@@ -3,8 +3,8 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading">Authentication and Authorization</h1>	
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>tutorials/">Tutorials</a> &gt; Authentication and Authorization
+<h1 class="first_heading">Simple Authentication and Authorization</h1>	
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>tutorials/">Tutorials</a> &gt; Simple Authentication and Authorization
 </div>
 <!-- end breadcrumb -->
 
@@ -20,7 +20,7 @@ As mentioned above, authentication is about validating the identity of the user.
 
 <div class="syntax"><pre><span class="nt">&lt;h1&gt;</span>Login<span class="nt">&lt;/h1&gt;</span> 
  
-<span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">&quot;login_form&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">auth/submit_login/&quot;</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;form</span> <span class="na">name=</span><span class="s">&quot;login_form&quot;</span> <span class="na">method=</span><span class="s">&quot;post&quot;</span> <span class="na">action=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">auth/login/&quot;</span><span class="nt">&gt;</span>  
  
 <span class="cp">&lt;?php</span> <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$auth</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nv">$auth</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span> <span class="o">:</span> <span class="cp">?&gt;</span> 
 <span class="nt">&lt;h2</span> <span class="na">class=</span><span class="s">&quot;center&quot;</span><span class="nt">&gt;</span>Incorrect Username/Password Combination<span class="nt">&lt;/h2&gt;</span> 
@@ -41,61 +41,46 @@ Password: <span class="nt">&lt;input</span> <span class="na">type=</span><span c
 <span class="k">class</span> <span class="nc">Auth_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
     <span class="c1">// Define session prefix</span> 
     <span class="k">const</span> <span class="no">USER_SESSION_KEY</span> <span class="o">=</span> <span class="s1">&#39;user::&#39;</span><span class="p">;</span> 
-    <span class="k">const</span> <span class="no">ADMIN_SESSION_KEY</span> <span class="o">=</span> <span class="s1">&#39;admin::&#39;</span><span class="p">;</span> 
-	
+ 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
-	<span class="c1">// Load session class</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;session/session_library&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
-	<span class="c1">// APP_SESSION_DIR is defined in index.php</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set_path</span><span class="p">(</span><span class="nx">APP_SESSION_DIR</span><span class="p">);</span> 
+	<span class="nx">Session</span><span class="o">::</span><span class="na">set_path</span><span class="p">(</span><span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;session&#39;</span>span class="o">.</span><span class="nx">DS</span><span class="p">);</span> 
     <span class="p">}</span> 
 	
     <span class="k">protected</span> <span class="k">function</span> <span class="nf">_check_auth</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">))</span> <span class="p">{</span> 
-		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign_template_global</span><span class="p">(</span><span class="s1">&#39;user_fullname&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">));</span> 
-		<span class="k">return</span> <span class="k">TRUE</span><span class="p">;</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">))</span> <span class="p">{</span> 
+	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign_template_global</span><span class="p">(</span><span class="s1">&#39;user_fullname&#39;</span><span class="p">,</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">));</span> 
+	    <span class="k">return</span> <span class="k">TRUE</span><span class="p">;</span> 
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-		<span class="k">return</span> <span class="k">FALSE</span><span class="p">;</span> 
+	    <span class="k">return</span> <span class="k">FALSE</span><span class="p">;</span> 
 	<span class="p">}</span>	
     <span class="p">}</span> 
-	
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_check_admin_auth</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">))</span> <span class="p">{</span> 
-		<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign_template_global</span><span class="p">(</span><span class="s1">&#39;admin_fullname&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">));</span> 
-		<span class="k">return</span> <span class="k">TRUE</span><span class="p">;</span> 
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-		<span class="k">return</span> <span class="k">FALSE</span><span class="p">;</span> 
-	<span class="p">}</span>	
-    <span class="p">}</span> 
-	
+ 
     <span class="k">private</span> <span class="k">function</span> <span class="nf">_login_auth</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span> <span class="p">{</span> 
-	<span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-		<span class="s1">&#39;iteration_count_log2&#39;</span> <span class="o">=&gt;</span> <span class="m">8</span><span class="p">,</span> 
-		<span class="s1">&#39;portable_hashes&#39;</span> <span class="o">=&gt;</span> <span class="k">FALSE</span> 
+        <span class="nv">$config</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	    <span class="s1">&#39;iteration_count_log2&#39;</span> <span class="o">=&gt;</span> <span class="m">8</span><span class="p">,</span> 
+	    <span class="s1">&#39;portable_hashes&#39;</span> <span class="o">=&gt;</span> <span class="k">FALSE</span> 
 	<span class="p">);</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;password_hash/password_hash_library&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span>
-	
-	<span class="c1">// Load users data and user info from database</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;users_data&#39;</span><span class="p">,</span> <span class="s1">&#39;users&#39;</span><span class="p">);</span> 
-	<span class="nv">$user</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">users</span><span class="o">-&gt;</span><span class="na">user_exists</span><span class="p">(</span><span class="nv">$username</span><span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;password_hash/password_hash_library&#39;</span><span class="p">,</span> <span class="s1">&#39;pass&#39;</span><span class="p">,</span> <span class="nv">$config</span><span class="p">);</span> 
+ 
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$username</span> <span class="o">===</span> <span class="s1">&#39;test&#39;</span><span class="p">)</span> <span class="p">{</span> 
+	    <span class="nv">$user</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+		<span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="m">1</span><span class="p">,</span> 
+		<span class="s1">&#39;fullname&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Zhou Yuan&#39;</span><span class="p">,</span> 
+		<span class="s1">&#39;username&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> 
+		<span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;yuanzhou19@gmail.com&#39;</span><span class="p">,</span> 
+		<span class="s1">&#39;hash_pass&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;$P$BN7rmT7I1KKipgOKsefSTOUL6QtIBE1&#39;</span> 
+	    <span class="p">);</span> 
+        <span class="p">}</span> 
 		
-	<span class="k">if</span> <span class="p">(</span><span class="nv">$user</span> <span class="o">!=</span> <span class="k">NULL</span><span class="p">)</span> <span class="p">{</span> 
+	<span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$user</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nv">$user</span> <span class="o">!==</span> <span class="k">NULL</span><span class="p">)</span> <span class="p">{</span> 
 	    <span class="nv">$hash_pass</span><span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;hash_pass&#39;</span><span class="p">];</span> 
-            <span class="nv">$user_role</span> <span class="o">=</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;role&#39;</span><span class="p">];</span> 
+ 
 	    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">pass</span><span class="o">-&gt;</span><span class="na">check_password</span><span class="p">(</span><span class="nv">$password</span><span class="p">,</span> <span class="nv">$hash_pass</span><span class="p">))</span> <span class="p">{</span>	
-		<span class="k">if</span> <span class="p">(</span><span class="nv">$user_role</span> <span class="o">==</span> <span class="s1">&#39;admin&#39;</span><span class="p">)</span> <span class="p">{</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;uid&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]);</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;fullname&#39;</span><span class="p">]);</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]);</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]);</span> 
-		<span class="p">}</span> 
-		<span class="k">if</span> <span class="p">(</span><span class="nv">$user_role</span> <span class="o">==</span> <span class="s1">&#39;fellow&#39;</span> <span class="k">OR</span> <span class="nv">$user_role</span> <span class="o">==</span> <span class="s1">&#39;staff&#39;</span><span class="p">)</span> <span class="p">{</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;uid&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]);</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;fullname&#39;</span><span class="p">]);</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]);</span> 
-		    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]);</span> 
-		<span class="p">}</span> 
+		<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;uid&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]);</span> 
+		<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;fullname&#39;</span><span class="p">]);</span> 
+		<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]);</span> 
+		<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">USER_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;email&#39;</span><span class="p">,</span> <span class="nv">$user</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">]);</span> 
  
 		<span class="k">return</span> <span class="k">TRUE</span><span class="p">;</span> 
 	    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
@@ -109,57 +94,55 @@ Password: <span class="nt">&lt;input</span> <span class="na">type=</span><span c
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_login</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
 	    <span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Login&#39;</span><span class="p">,</span> 
-	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;pages/login_content_view&#39;</span><span class="p">),</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/login&#39;</span><span class="p">),</span> 
 	<span class="p">);</span> 
 		
 	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;layouts/login_layout_view&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
-	    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="k">&#39;text/html&#39;</span><span class="p">,</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/login&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+	    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span> 
 	<span class="p">);</span> 
  
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
     <span class="p">}</span> 
 	
     <span class="k">public</span> <span class="k">function</span> <span class="nf">post_login</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="nv">$username</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
-	<span class="nv">$password</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
+	<span class="nv">$username</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
+	<span class="nv">$password</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nb">trim</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">[</span><span class="s1">&#39;password&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
  
 	<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_login_auth</span><span class="p">(</span><span class="nv">$username</span><span class="p">,</span> <span class="nv">$password</span><span class="p">)</span> <span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span> 
-	    <span class="nv">$APP_URI_BASE</span> <span class="o">=</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> 
-	    <span class="nx">load_script</span><span class="p">(</span><span class="s1">&#39;redirect/redirect_script&#39;</span><span class="p">);</span> 
-	    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">ADMIN_SESSION_KEY</span><span class="o">.</span><span class="s1">&#39;fullname&#39;</span><span class="p">))</span> <span class="p">{</span> 
-		<span class="nx">redirect</span><span class="p">(</span><span class="nv">$APP_URI_BASE</span><span class="o">.</span><span class="s1">&#39;admin/&#39;</span><span class="p">);</span> 
-	    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-		<span class="nx">redirect</span><span class="p">(</span><span class="nv">$APP_URI_BASE</span><span class="o">.</span><span class="s1">&#39;home/&#39;</span><span class="p">);</span> 
-	    <span class="p">}</span> 
+	    <span class="nv">$base_uri</span> <span class="o">=</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> 
+	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_function</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;redirect/redirect_function&#39;</span><span class="p">);</span> 
+	    <span class="nx">redirect_function</span><span class="p">(</span><span class="nv">$base_uri</span><span class="o">.</span><span class="s1">&#39;home/&#39;</span><span class="p">);</span> 
 	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-	    <span class="c1">// Data to be displayed in Template</span> 
+	    <span class="c1">// Data to be displayed in view</span> 
 	    <span class="nv">$content_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
 		<span class="s1">&#39;auth&#39;</span> <span class="o">=&gt;</span> <span class="k">FALSE</span><span class="p">,</span> 
 	    <span class="p">);</span> 
 			
 	    <span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
 		<span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Login&#39;</span><span class="p">,</span> 
-		<span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;pages/login_content_view&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
+		<span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/login&#39;</span><span class="p">,</span> <span class="nv">$content_data</span><span class="p">),</span> 
 	    <span class="p">);</span> 
 			
 	    <span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-		<span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;layouts/login_layout_view&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+		<span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/login&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+		<span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span> 
 	    <span class="p">);</span> 
 	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
 	<span class="p">}</span> 
     <span class="p">}</span> 
 	
     <span class="k">public</span> <span class="k">function</span> <span class="nf">get_logout</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">destroy</span><span class="p">();</span> 
+	<span class="nx">Session</span><span class="o">::</span><span class="na">destroy</span><span class="p">();</span> 
 		
 	<span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
 	    <span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Login&#39;</span><span class="p">,</span> 
-	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;pages/login_content_view&#39;</span><span class="p">),</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/login&#39;</span><span class="p">),</span> 
 	<span class="p">);</span> 
 		
 	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
-	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_template</span><span class="p">(</span><span class="s1">&#39;layouts/login_layout_view&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/login&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+	    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span> 
 	<span class="p">);</span> 
 	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
     <span class="p">}</span> 
@@ -169,28 +152,6 @@ Password: <span class="nt">&lt;input</span> <span class="na">type=</span><span c
 <span class="cm">/* End of file: ./application/managers/auth_manager.php */</span> 
 </pre></div> 
 
-<h2>Authentication Data</h2>
-
-<div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Users_Data</span> <span class="k">extends</span> <span class="nx">Data</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="c1">// Use default database connection config</span> 
-	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">);</span> 
-    <span class="p">}</span> 
-	
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">user_exists</span><span class="p">(</span><span class="nv">$username</span><span class="p">)</span> <span class="p">{</span> 
-	<span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users WHERE username=?&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="nv">$username</span><span class="p">));</span> 
-	<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="nx">ARRAY_A</span><span class="p">);</span> 
-    <span class="p">}</span> 
- 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_info</span><span class="p">(</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span> 
-	<span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM users WHERE id=?&quot;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="nv">$id</span><span class="p">));</span> 
-	<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_row</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="nx">ARRAY_A</span><span class="p">);</span> 
-    <span class="p">}</span> 
-<span class="p">}</span> 
- 
-<span class="cm">/* End of file: ./application/data/users_data.php */</span> 
-</pre></div> 
 
 <h2>Authorization</h2>
 
@@ -199,16 +160,33 @@ Now we begin to deal with authorization. Take the Administrator for example, aft
 </p>
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Admin_manager</span> <span class="k">extends</span> <span class="nx">Auth_Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_check_admin_auth</span><span class="p">()</span> <span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span> 
-	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_index</span><span class="p">();</span> 
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">login</span><span class="p">();</span> 
+<span class="k">class</span> <span class="nc">Home_Manager</span> <span class="k">extends</span> <span class="nx">Auth_Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
+		
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_check_auth</span><span class="p">()</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span> 
+	    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get_login</span><span class="p">();</span> 
+	    <span class="k">exit</span><span class="p">;</span> 
 	<span class="p">}</span> 
     <span class="p">}</span> 
+	
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="nv">$layout_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	    <span class="s1">&#39;page_title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Home&#39;</span><span class="p">,</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;pages/home&#39;</span><span class="p">),</span> 
+	<span class="p">);</span> 
+		
+	<span class="nv">$response_data</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span> 
+	    <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render_template</span><span class="p">(</span><span class="s1">&#39;layouts/default&#39;</span><span class="p">,</span> <span class="nv">$layout_data</span><span class="p">),</span> 
+	    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text/html&#39;</span> 
+        <span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">response</span><span class="p">(</span><span class="nv">$response_data</span><span class="p">);</span> 
+    <span class="p">}</span> 
+	
 <span class="p">}</span> 
-</pre></div>
+ 
+<span class="c1">// End of file: ./application/managers/home_manager.php</span> 
+</pre></div> 
 
 </div> 
 <!-- end onecolumn -->

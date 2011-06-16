@@ -12,17 +12,6 @@
 <h1 class="first_heading">Play Video</h1>	
 
 <script type="text/javascript">
-/* 
-variables:
-jpg : Archivo de imagen (thumbtail)
-flv : Archivo multimedia de video tipo FLV
-mp3 : Archivo de audio tipo MP3
-autoplay : true : Empieza a reproducir el archivo una vez cargado el reproductor
-fullscreen: false : Ocultar opcion de FullScreen (Direfente del parametro allowFullScreen)
-backcolor : Color de la barra de reproducción. Ejemplo de color blanco: FFFFFF
-frontcolor : Color de las opciones de la barra de reproduccion. Ejemplo de color negro: 000000
-effect : false : Oculta los efectos de la barra de reproduccion
-*/
 // Don't add comma "," at the end of the last object element
 var flashvars = {
 	file: '<?php echo STATIC_URI_BASE; ?>videos/demo.flv', // Flash Video File
