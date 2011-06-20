@@ -72,7 +72,7 @@
 <?php echo $content; ?>
 <div class="clear"></div>
 <div class="hide">
-Page URI: <?php echo APP_URI_BASE.$_SERVER["REQUEST_URI"];?>
+Page URI: <?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>
 </div>
 </div> 
 <!-- end content --> 

@@ -1,5 +1,20 @@
 <?php
-final class Documentation_Manager extends Manager {
+final class Documentation_Manager extends Auth_Manager {
+	public function __construct() {
+		parent::__construct();
+		
+		$this->allowed_methods = array('get_index');
+		$requested_method = 'get_intro';
+		if ($this->_check_auth() === FALSE) {
+			if (in_array($requested_method, $this->allowed_methods)) {
+				$this->{$requested_method}();
+			} else {
+				$this->get_login();
+				exit;
+			}
+		}
+	}
+	
 	public function get_index() {
 		$layout_data = array(
 			'page_title' => 'Documentation',

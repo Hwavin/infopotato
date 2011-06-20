@@ -96,6 +96,9 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 }
 require_once $file;
 
+// Set session file folder
+Session::set_path(APP_DIR.'session'.DS);
+
 // Get and set the current language locale
 I18n::$lang = Session::get('lang') ? Session::get('lang') : 'en/us';
 
