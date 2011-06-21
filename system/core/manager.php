@@ -111,7 +111,8 @@ class Manager {
 	 *
 	 * $config['compression_level']: (int optional) Can be given as 0 for no compression up to 9 for maximum compression.
      * 
-	 *
+	 * $config['disable_cache']: (boolean optional) Sets the correct headers to instruct the client to not cache the response
+	 * 
      * @return NULL
      */   
 	protected function response($config = array()) {
