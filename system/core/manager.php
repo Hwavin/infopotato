@@ -140,8 +140,6 @@ class Manager {
 			// Trying to gzip them not only wastes CPU but can potentially increase file sizes.
 			$is_compressed = FALSE;
 			if (in_array($config['type'], $mime_types)) {
-				// The number of bytes of the response body in octets (8-bit bytes), not the number of characters
-				//$headers['Content-Length'] = (string) UTF8::len($config['content']);
 				$compression_method = self::_get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
 				$compressed = isset($config['compression_level']) 
@@ -153,9 +151,16 @@ class Manager {
 				if ($compressed !== FALSE) {
 					$headers['Vary'] = 'Accept-Encoding';
 					$headers['Content-Encoding'] = $compression_method[1];
-					//$headers['Content-Length'] = (string) UTF8::len($compressed);
 					$is_compressed = TRUE;
 				}
+			}
+			
+			// Sets the correct headers to instruct the client to not cache the response
+			if (isset($config['disable_cache']) && $config['disable_cache'] === TRUE) {
+				$headers['Expires'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+				$headers['Last-Modified'] = gmdate("D, d M Y H:i:s") . " GMT";
+				$headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
+				$headers['Pragma'] = 'no-cache';
 			}
 			
 			// Send server response headers
