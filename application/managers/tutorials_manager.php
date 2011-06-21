@@ -1,15 +1,9 @@
 <?php
 final class Tutorials_Manager extends Auth_Manager {
-	public function __construct() {
-		parent::__construct();
-		
-		if ($this->_check_auth() === FALSE) {
-			$this->get_login();
-			exit;
-		}
-	}
-	
 	public function get_index($params = array()) {
+		// Login required
+		$this->_check_auth();
+		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$layout_data = array(

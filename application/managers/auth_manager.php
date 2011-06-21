@@ -14,13 +14,11 @@ class Auth_Manager extends Manager {
 		'username' => 'zhouy',
 		'hash_pass' => '$P$BN7rmT7I1KKipgOKsefSTOUL6QtIBE1'
 	);
-		
+
 	protected function _check_auth() {
-		if (Session::get(self::SESSION_KEY.'fullname')) {
-			$this->assign_template_global('user_fullname', Session::get(self::SESSION_KEY.'fullname'));
-			return TRUE;
-		} else {
-			return FALSE;
+		if ( ! Session::get(self::SESSION_KEY.'fullname')) {
+			$this->get_login();
+			exit;
 		}	
 	}
 
@@ -76,6 +74,8 @@ class Auth_Manager extends Manager {
 			Session::set(self::SESSION_KEY.'uid', $this->user['id']);
 			Session::set(self::SESSION_KEY.'fullname', $this->user['fullname']);
 			Session::set(self::SESSION_KEY.'username', $this->user['username']);
+			
+			$this->assign_template_global('user_fullname', Session::get(self::SESSION_KEY.'fullname'));
 			
 			$this->load_function('SYS', 'redirect/redirect_function');
 			redirect_function(APP_URI_BASE.'home/');

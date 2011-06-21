@@ -1,7 +1,10 @@
 <?php
-final class Documentation_Manager extends Manager {
+final class Documentation_Manager extends Auth_Manager {
 
 	public function get_index() {
+		// Login required
+		$this->_check_auth();
+		
 		$layout_data = array(
 			'page_title' => 'Documentation',
 			'content' => $this->render_template('pages/documentation'),
@@ -16,6 +19,9 @@ final class Documentation_Manager extends Manager {
 	}
 	
 	public function get_intro($params = array()) {
+		// Login required
+		$this->_check_auth();
+		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -87,6 +93,9 @@ final class Documentation_Manager extends Manager {
 	}
 	
 	public function get_core($params = array()) {
+		// Login required
+		$this->_check_auth();
+		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -206,6 +215,9 @@ final class Documentation_Manager extends Manager {
 	}
 	
 	public function get_library($params = array()) {
+		// Login required
+		$this->_check_auth();
+		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -305,6 +317,9 @@ final class Documentation_Manager extends Manager {
 	}
 	
 	public function get_function($params = array()) {
+		// Login required
+		$this->_check_auth();
+		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
