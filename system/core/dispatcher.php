@@ -64,11 +64,13 @@ class Dispatcher {
 		if ( ! method_exists($manager_obj, $real_method)) {
 			show_sys_error('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
 		}
+		
+		// Make the requested manager method and it's parameters available to that manager object
+		$manager_obj->target_method = $real_method;
+		$manager_obj->target_method_params = $params;
 
 		// The desginated manager prepares the related resources and sends response back to client
 		$manager_obj->{$real_method}($params);
-		
-		
 	}
 
 }

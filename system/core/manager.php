@@ -9,6 +9,20 @@
  */
 class Manager {
     /**
+	 * The name of the current requested manager method
+	 *
+	 * @var  string 
+	 */
+	public $target_method = '';
+	
+	/**
+	 * Parameters of the current requested manager method
+	 *
+	 * @var  array  
+	 */
+	public $target_method_params = array();
+	
+	/**
      * Key-value array of HTTP POST parameters
 	 * 
 	 * @var array   

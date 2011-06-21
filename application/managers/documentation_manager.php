@@ -12,6 +12,7 @@ final class Documentation_Manager extends Manager {
 			'type' => 'text/html',
 		);
 		$this->response($response_data);
+		
 	}
 	
 	public function get_intro($params = array()) {
