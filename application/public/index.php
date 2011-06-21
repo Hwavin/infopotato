@@ -68,14 +68,6 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
 define('SYS_RUNTIME_CACHE', TRUE);
 
 /**
- * Default allowed URL Characters (UTF-8 encoded characters)
- *
- * By default only these are allowed: a-z 0-9~%.:_-
- * Leave blank to allow all characters
- */
-define('APP_PERMITTED_URI_CHARS', 'a-z 0-9~%.:_-');
-
-/**
  * User-defined constants go here
  */
 //define('APP_CACHE_DIR', APP_DIR.'cache'.DS);

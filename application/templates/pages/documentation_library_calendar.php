@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/calendar/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>The Calendar class enables you to dynamically create calendars. Your calendars can be formatted through the use of a calendar

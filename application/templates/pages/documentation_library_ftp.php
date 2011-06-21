@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/ftp/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>CodeIgniter's FTP Class permits files to be transfered to a remote server. Remote files can also be moved, renamed,

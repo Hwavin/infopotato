@@ -25,12 +25,6 @@ class Dispatcher {
 		// Get the target manager/method/parameters
 		$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;
 
-		// Filter URI characters
-		if (isset($uri_segments) && is_array($uri_segments)) {
-			foreach ($uri_segments as $val) {
-				$val = self::_filter_uri($val);
-			}
-		}
 		// Get manager and manager method, use default if none given (case-insensitive)
 		// All manager and manager method names are lowercased and no UTF8 encoded characters allowed
 		$manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(APP_DEFAULT_MANAGER);
@@ -75,36 +69,6 @@ class Dispatcher {
 		$manager_obj->{$real_method}($params);
 		
 		
-	}
-
-	
-	/**
-	 * Filter uri_segments for malicious characters
-	 *
-	 * This lets you specify with a regular expression which characters are permitted
-	 * within your URLs. When someone tries to submit a URL with disallowed
-	 * characters they will get a warning message.
-	 *
-	 * As a security measure you are STRONGLY encouraged to restrict URLs to
-	 * as few characters as possible.  By default only these are allowed: a-z 0-9~%.:_-
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	private static function _filter_uri($str) {
-		if ($str !== '') {
-			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
-			// compatibility as many are unaware of how characters in the APP_PERMITTED_URI_CHARS will be parsed as a regex pattern
-			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote(APP_PERMITTED_URI_CHARS, '-'))."]+$|i", $str)) {
-				show_sys_error('An Error Was Encountered', 'The URI you submitted contains disallowed characters.', 'sys_error');
-			}
-		}
-
-		// Convert programatic characters to entities
-		$bad = array('$', '(', ')', '%28', '%29');
-		$good = array('&#36;', '&#40;', '&#41;', '&#40;', '&#41;');
-
-		return str_replace($bad, $good, $str);
 	}
 
 }

@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/intro/style_guide/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <h2>Goals</h2>

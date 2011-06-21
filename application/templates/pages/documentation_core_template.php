@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/template/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>

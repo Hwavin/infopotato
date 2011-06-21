@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/encypt/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>The Encryption Class provides two-way data encryption.  It uses a scheme that either compiles

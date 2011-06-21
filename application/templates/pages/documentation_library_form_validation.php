@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/form_validation/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>InfoPotato provides a comprehensive form validation and data prepping class that helps minimize the amount of code you'll write.</p> 

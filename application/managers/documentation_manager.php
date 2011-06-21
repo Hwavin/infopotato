@@ -1,14 +1,6 @@
 <?php
-final class Documentation_Manager extends Auth_Manager {
-	public function r__construct() {
-		parent::__construct();
+final class Documentation_Manager extends Manager {
 
-		if ($this->_check_auth() === FALSE) {
-			$this->get_login();
-			exit;
-		}
-	}
-	
 	public function get_index() {
 		$layout_data = array(
 			'page_title' => 'Documentation',

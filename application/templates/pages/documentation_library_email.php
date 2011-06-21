@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/email/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>InfoPotato's robust Email Class supports the following features:</p> 

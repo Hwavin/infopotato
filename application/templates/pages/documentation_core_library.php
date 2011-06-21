@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/library/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>In InfoPotato, libraries are standalone and reusable PHP classes to be used in managers. All of the available system libraries are located in your <span class="red">system/libraries</span> folder. You can also use your own libraries for each application by putting them in application libraries filder which can be defined in the single point of entry script. In most cases, to use one of these classes involves initializing it within a controller using the following initialization function:</p> 

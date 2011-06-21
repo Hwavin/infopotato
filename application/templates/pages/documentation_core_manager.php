@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/manager/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>Managers are the heart of your application, as they determine how HTTP requests should be prepared and handled as well as the HTTP responses.</p>

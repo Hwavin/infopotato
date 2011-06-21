@@ -10,7 +10,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/global/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>InfoPotato uses a few constants and functions for its operation that are globally defined, and are available to you at any point. These do not require loading any libraries or helpers.</p> 

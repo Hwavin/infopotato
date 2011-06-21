@@ -12,7 +12,7 @@
 
 <a href="http://www.phpwact.org/php/caching">http://www.phpwact.org/php/caching</a>
 
-<a href="<?php echo APP_URI_BASE; ?>print" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/caching/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>
