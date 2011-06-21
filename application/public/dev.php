@@ -103,8 +103,7 @@ Session::set_path(APP_DIR.'session'.DS);
 I18n::$lang = Session::get('lang') ? Session::get('lang') : 'en/us';
 
 // Dispatch the incoming request
-$app_dispatcher = new Dispatcher;
-$app_dispatcher->run();
+Dispatcher::dispatch();
 
 // End of file: ./dev.php 
 

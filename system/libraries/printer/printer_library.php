@@ -180,12 +180,12 @@ class Printer_Library {
 	 * @return	string
 	 */
     public function render() {
-        if ( ! isset($_SERVER["HTTP_REFERER"])) {
+        if ( ! isset($_SERVER['HTTP_REFERER'])) {
 			return $this->_errors[3];
 		}
 		
 		// print the page who called this page
-		$page = $_SERVER["HTTP_REFERER"];
+		$page = $_SERVER['HTTP_REFERER'];
 		
         // tries to open the page
         // note that the page is opened exactly the same way as any browser would open it!

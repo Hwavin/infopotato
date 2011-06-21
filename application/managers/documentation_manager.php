@@ -1,17 +1,11 @@
 <?php
 final class Documentation_Manager extends Auth_Manager {
-	public function __construct() {
+	public function r__construct() {
 		parent::__construct();
-		
-		$this->allowed_methods = array('get_index');
-		$requested_method = 'get_intro';
+
 		if ($this->_check_auth() === FALSE) {
-			if (in_array($requested_method, $this->allowed_methods)) {
-				$this->{$requested_method}();
-			} else {
-				$this->get_login();
-				exit;
-			}
+			$this->get_login();
+			exit;
 		}
 	}
 	

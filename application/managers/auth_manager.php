@@ -4,13 +4,6 @@ class Auth_Manager extends Manager {
 	const SESSION_KEY = 'user::';
 
 	/**
-	 * Manager methods for which user validation is not required.
-	 *
-	 * @var array
-	 */
-	public $allowed_methods = array();
-	
-	/**
 	 * User data
 	 *
 	 * @var array
@@ -85,13 +78,7 @@ class Auth_Manager extends Manager {
 			Session::set(self::SESSION_KEY.'username', $this->user['username']);
 			
 			$this->load_function('SYS', 'redirect/redirect_function');
-			
-			if (isset($_SERVER['HTTP_REFERER'])) {
-				// Redirect to the referer page
-			    redirect_function($_SERVER['HTTP_REFERER']);
-			} else {
-				redirect_function(APP_URI_BASE.'home/');
-			}
+			redirect_function(APP_URI_BASE.'home/');
 		} else {
 			// Data to be displayed in view
 			$content_data = array(

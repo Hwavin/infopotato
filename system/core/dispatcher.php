@@ -9,20 +9,10 @@
  */
 class Dispatcher {
 	/**
-	 * Constructor
-	 * 
-	 * Sets instance
-	 */   
-	public function __construct() {
-		// Set instance
-		self::instance($this);
-	}
-
-	/**
 	 * Parse incoming request to get the desiered manager, request method, and params
 	 * Then the desginated manager prepares the related resources and sends response back to client
 	 */ 
-	public function run() {	
+	public static function dispatch() {	
 		// Get the incoming HTTP request method (only support 'GET' and 'POST')
 		// Other methods like 'PUT' or 'DELETE' will be treated as 'GET'
 		$request_method = (isset($_SERVER['REQUEST_METHOD']) &&  $_SERVER['REQUEST_METHOD'] === 'POST') ? 'post' : 'get';
@@ -46,7 +36,7 @@ class Dispatcher {
 		$manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(APP_DEFAULT_MANAGER);
 		$method_name = ! empty($uri_segments[1]) ? strtolower($uri_segments[1]) : strtolower(APP_DEFAULT_MANAGER_METHOD);
 		
-		// The read method is prefixed with the HTTP request method (get or post)
+		// The real method is prefixed with the HTTP request method (get or post)
 		$real_method = $request_method.'_'.$method_name;
 		
 		// Get parameters and put them into an array
@@ -83,24 +73,11 @@ class Dispatcher {
 
 		// The desginated manager prepares the related resources and sends response back to client
 		$manager_obj->{$real_method}($params);
-	}
-	
-	/**
-	 * To get/set the object instance
-	 * Making this function static makes it accessible without needing an instantiation of the class. 
-	 * It acts at the class level rather than at the instance level
-	 *
-	 * @param   object $new_instance reference to new object instance
-	 * @return  object $instance reference to object instance
-	 */    
-	public static function instance($new_instance = NULL) {
-		static $instance = NULL;
-		if (isset($new_instance) && is_object($new_instance)) {
-			$instance = $new_instance;
-		}
-		return $instance;
+		
+		
 	}
 
+	
 	/**
 	 * Filter uri_segments for malicious characters
 	 *
