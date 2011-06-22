@@ -4,7 +4,8 @@ class Auth_Manager extends Manager {
 	const SESSION_KEY = 'user::';
 
 	/**
-	 * User data
+	 * Sample user data
+	 * You can also get the user data from database
 	 *
 	 * @var array
 	 */
@@ -16,7 +17,9 @@ class Auth_Manager extends Manager {
 	);
 
 	protected function _check_auth() {
-		if ( ! Session::get(self::SESSION_KEY.'fullname')) {
+		if ( ! self::get_user_token()) {
+			// Remember the URI requested before the user was redirected to the login page
+			self::set_requested_uri('http://' . $_SERVER['SERVER_NAME'] .$_SERVER['REQUEST_URI']);
 			$this->get_login();
 			exit;
 		}	
@@ -43,7 +46,7 @@ class Auth_Manager extends Manager {
 	
 	/**
 	 * This method must be declaired as protected
-	 * so that it can be extended by the actual manager, and not accessible directly from /auth/login/
+	 * so that it's not accessible directly from /auth/login/
 	 */
 	protected function get_login() {
 		$layout_data = array(
@@ -70,15 +73,17 @@ class Auth_Manager extends Manager {
 		$password = isset($this->POST_DATA['password']) ? trim($this->POST_DATA['password']) : '';
 		
 		if ($this->_identify($username, $password) === TRUE) {
-			// Store user data in Session
+			// Store user data
 			Session::set(self::SESSION_KEY.'uid', $this->user['id']);
 			Session::set(self::SESSION_KEY.'fullname', $this->user['fullname']);
-			Session::set(self::SESSION_KEY.'username', $this->user['username']);
+			
+			// Set the user token
+			self::set_user_token($this->user['id']);
 			
 			$this->assign_template_global('user_fullname', Session::get(self::SESSION_KEY.'fullname'));
 			
 			$this->load_function('SYS', 'redirect/redirect_function');
-			redirect_function(APP_URI_BASE.'home/');
+			redirect_function(self::get_requested_uri(TRUE, APP_BASE_URI.'home/'));
 		} else {
 			// Data to be displayed in view
 			$content_data = array(
@@ -103,11 +108,62 @@ class Auth_Manager extends Manager {
 	 * Logs a user out
 	 */
 	public function get_logout() {
-		Session::clear(self::SESSION_KEY);   
+		// Clear stored user session data
+		Session::clear(self::SESSION_KEY); 
+
+        // Delete user token and requested uri
+		Session::delete(__CLASS__ . '::user_token');
+		Session::delete(__CLASS__ . '::requested_url');
 		
-		$this->get_login();
+		$this->load_function('SYS', 'redirect/redirect_function');
+		redirect_function(APP_URI_BASE.'home/');
+	}
+	
+	/**
+	 * Sets the restricted URI requested by the user
+	 * 
+	 * @param  string  $uri  The URI to save as the requested URI
+	 * @return void
+	 */
+	public static function set_requested_uri($uri) {
+		Session::set(__CLASS__ . '::requested_uri', $uri);
+	}
+	
+	/**
+	 * Returns the URI requested before the user was redirected to the login page
+	 * 
+	 * @param  boolean $clear        If the requested url should be cleared from the session after it is retrieved
+	 * @param  string  $default_uri  The default URI to return if the user was not redirected
+	 * @return string  The URI that was requested before they were redirected to the login page
+	 */
+	public static function get_requested_uri($clear, $default_uri = NULL) {
+		$requested_uri = Session::get(__CLASS__ . '::requested_uri', $default_url);
+		if ($clear) {
+			Session::delete(__CLASS__ . '::requested_uri');
+		}
+		return $requested_uri;
 	}
 
+	/**
+	 * Sets some piece of information to use to identify the current user
+	 * 
+	 * @param  mixed $token  The user's token. This could be a user id, an email address, a user object, etc.
+	 * @return void
+	 */
+	public static function set_user_token($token) {
+		Session::set(__CLASS__ . '::user_token', $token);
+		Session::regenerate_id();
+	}
+	
+	/**
+	 * Gets the value that was set as the user token, `NULL` if no token has been set
+	 * 
+	 * @return mixed  The user token that had been set, `NULL` if none
+	 */
+	public static function get_user_token() {
+		return Session::get(__CLASS__ . '::user_token', NULL);
+	}
+	
 }
 
 /* End of file: ./application/managers/auth_manager.php */

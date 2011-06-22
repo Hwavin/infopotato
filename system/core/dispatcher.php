@@ -9,6 +9,13 @@
  */
 class Dispatcher {
 	/**
+	 * Forces use as a static class
+	 * 
+	 * @return Dispatcher
+	 */
+	private function __construct() { }
+	
+	/**
 	 * Parse incoming request to get the desiered manager, request method, and params
 	 * Then the desginated manager prepares the related resources and sends response back to client
 	 */ 

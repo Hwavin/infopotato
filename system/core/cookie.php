@@ -52,6 +52,13 @@ class Cookie {
 	private static $_default_secure = FALSE;
 	
 	/**
+	 * Forces use as a static class
+	 * 
+	 * @return Cookie
+	 */
+	private function __construct() { }
+	
+	/**
 	 * Deletes a cookie - uses default parameters set by the other set methods of this class
 	 * 
 	 * @param  string  $name    The cookie name to delete

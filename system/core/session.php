@@ -46,6 +46,13 @@ class Session {
 	private static $_regenerated = FALSE;
 	
 	/**
+	 * Forces use as a static class
+	 * 
+	 * @return Session
+	 */
+	private function __construct() { }
+	
+	/**
 	 * Adds a value to an already-existing array value, or to a new array value
 	 *
 	 * @param  string  $key        The name to access the array under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names

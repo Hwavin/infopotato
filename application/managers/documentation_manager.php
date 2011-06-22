@@ -15,7 +15,6 @@ final class Documentation_Manager extends Auth_Manager {
 			'type' => 'text/html',
 		);
 		$this->response($response_data);
-		
 	}
 	
 	public function get_intro($params = array()) {

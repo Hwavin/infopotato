@@ -17,7 +17,7 @@ final class Print_Manager extends Auth_Manager {
 			'content' => $this->render_template('layouts/print_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		//$this->response($response_data);
+		$this->response($response_data);
 	}
 }
 
