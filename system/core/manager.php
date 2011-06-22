@@ -28,13 +28,6 @@ class Manager {
 	 * @var array   
      */
     protected $POST_DATA = array();
-	
-	/**
-	 * vars for template file assignment
-	 *
-	 * @var  array  
-	 */
-	protected $global_template_vars = array();
 
 	/**
 	 * Constructor
@@ -54,29 +47,7 @@ class Manager {
 		$this->POST_DATA = $_POST;
 		// Disable access to $_POST
 		unset($_POST);
-	}
-	
-	/**
-	 * Assign global template variable
-	 * the variables assigned with $this->assign_template_global are always available to every template thereafter.
-	 *
-	 * @param   mixed $key key of assignment, or value to assign
-	 * @param   mixed $value value of assignment
-	 * @return  void
-	 */    
-	protected function assign_template_global($key, $value = NULL) {
-		if ($value !== NULL) {
-			$this->global_template_vars[$key] = $value;
-		} else {
-			foreach ($key as $k => $v) {
-				if (is_int($k)) {
-					$this->global_template_vars[] = $v;
-				} else {
-					$this->global_template_vars[$k] = $v;
-				}
-			}
-		}
-	}  
+	} 
 	
 	/**
 	 * Render template and return output as string
@@ -101,10 +72,9 @@ class Manager {
 		if ( ! file_exists($template_file_path)) {
 			show_sys_error('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
 		} else {
-			// Bring template vars into template scope
-			// Import variables from an array into the current symbol table.
-			extract($this->global_template_vars);
 			if (is_array($template_vars) && (count($template_vars) > 0)) {
+				// Bring template vars into template scope
+			    // Import variables from an array into the current symbol table.
 				extract($template_vars);
 			}
 			require_once $template_file_path;
