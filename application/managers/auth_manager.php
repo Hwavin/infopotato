@@ -111,10 +111,6 @@ class Auth_Manager extends Manager {
 		// Clear stored user session data
 		Session::clear(self::SESSION_KEY); 
 
-        // Delete user token and requested uri
-		Session::delete(__CLASS__ . '::user_token');
-		Session::delete(__CLASS__ . '::requested_url');
-		
 		$this->load_function('SYS', 'redirect/redirect_function');
 		redirect_function(APP_URI_BASE.'home/');
 	}
@@ -126,7 +122,7 @@ class Auth_Manager extends Manager {
 	 * @return void
 	 */
 	public static function set_requested_uri($uri) {
-		Session::set(__CLASS__ . '::requested_uri', $uri);
+		Session::set(self::SESSION_KEY.'::requested_uri', $uri);
 	}
 	
 	/**
@@ -137,9 +133,9 @@ class Auth_Manager extends Manager {
 	 * @return string  The URI that was requested before they were redirected to the login page
 	 */
 	public static function get_requested_uri($clear, $default_uri = NULL) {
-		$requested_uri = Session::get(__CLASS__ . '::requested_uri', $default_url);
+		$requested_uri = Session::get(self::SESSION_KEY.'::requested_uri', $default_url);
 		if ($clear) {
-			Session::delete(__CLASS__ . '::requested_uri');
+			Session::delete(self::SESSION_KEY. '::requested_uri');
 		}
 		return $requested_uri;
 	}
@@ -151,7 +147,7 @@ class Auth_Manager extends Manager {
 	 * @return void
 	 */
 	public static function set_user_token($token) {
-		Session::set(__CLASS__ . '::user_token', $token);
+		Session::set(self::SESSION_KEY.'::user_token', $token);
 		Session::regenerate_id();
 	}
 	
@@ -161,7 +157,7 @@ class Auth_Manager extends Manager {
 	 * @return mixed  The user token that had been set, `NULL` if none
 	 */
 	public static function get_user_token() {
-		return Session::get(__CLASS__ . '::user_token', NULL);
+		return Session::get(self::SESSION_KEY.'::user_token', NULL);
 	}
 	
 }
