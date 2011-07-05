@@ -88,7 +88,7 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 }
 require_once $file;
 
-// Set session file folder
+// Set session directory, must be writable
 Session::set_path(APP_DIR.'session'.DS);
 
 // Get and set the current language locale

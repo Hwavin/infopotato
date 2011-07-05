@@ -1,10 +1,7 @@
 <?php
-final class Documentation_Manager extends Auth_Manager {
+final class Documentation_Manager extends Manager {
 
 	public function get_index() {
-		// Login required
-		$this->_check_auth();
-		
 		$layout_data = array(
 			'page_title' => 'Documentation',
 			'content' => $this->render_template('pages/documentation'),
@@ -18,39 +15,36 @@ final class Documentation_Manager extends Auth_Manager {
 	}
 	
 	public function get_intro($params = array()) {
-		// Login required
-		$this->_check_auth();
-		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
 
 		$pages = array(
-			0 => array(
+			array(
 				'uri' => 'server_requirements', 
 				'name' => 'Server Requirements'
 			),
-			1 => array(
+			array(
 				'uri' => 'installation', 
 				'name' => 'Installation Instruction'
 			),
-			2 => array(
+			array(
 				'uri' => 'environments', 
 				'name' => 'The Environment'
 			),
-			3 => array(
+			array(
 				'uri' => 'structure', 
 				'name' => 'The Directory Structure'
 			),
-			4 => array(
+			array(
 				'uri' => 'alternative_php', 
 				'name' => 'Alternative PHP Syntax'
 			),
-			5 => array(
+			array(
 				'uri' => 'style_guide', 
 				'name' => 'Conventions &amp; Style Guide'
 			),
-			6 => array(
+			array(
 				'uri' => 'testing', 
 				'name' => 'Testing'
 			),
@@ -92,87 +86,84 @@ final class Documentation_Manager extends Auth_Manager {
 	}
 	
 	public function get_core($params = array()) {
-		// Login required
-		$this->_check_auth();
-		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
 
 		$pages = array(
-			0 => array(
+			array(
 				'uri' => 'workflow', 
 				'name' => 'Request Processing Workflow'
 			),
-			1 => array(
+			array(
 				'uri' => 'global', 
 				'name' => 'Global Constants and Functions'
 			),
-			2 => array(
+			array(
 				'uri' => 'uri', 
 				'name' => 'URI'
 			),
-			3 => array(
+			array(
 				'uri' => 'dispatcher', 
 				'name' => 'Dispatcher'
 			),
-			4 => array(
+			array(
 				'uri' => 'manager', 
 				'name' => 'Manager'
 			),
-			5 => array(
+			array(
 				'uri' => 'template', 
 				'name' => 'Template'
 			),
-			6 => array(
+			array(
 				'uri' => 'data', 
 				'name' => 'Data Access Object'
 			),
-			7 => array(
+			array(
 				'uri' => 'sql_adapters', 
 				'name' => 'SQL Database Adapters'
 			),
-			8 => array(
+			array(
 				'uri' => 'i18n', 
 				'name' => 'Internationalization'
 			),
-			9 => array(
+			array(
 				'uri' => 'library', 
 				'name' => 'Library'
 			),
-			10 => array(
+			array(
 				'uri' => 'function', 
 				'name' => 'Function'
 			),
-			11 => array(
+			array(
 				'uri' => 'runtime', 
 				'name' => 'System Core Runtime Cache'
 			),
-			12 => array(
+			array(
 				'uri' => 'dump', 
 				'name' => 'Dump Variable'
 			),
-			13 => array(
+			array(
 				'uri' => 'utf8', 
 				'name' => 'UTF-8 Support'
 			),
-			14 => array(
+			array(
 				'uri' => 'caching', 
 				'name' => 'Caching'
 			),
-			15 => array(
+			array(
 				'uri' => 'cookie', 
 				'name' => 'Cookie'
 			),
-			16 => array(
+			array(
 				'uri' => 'session', 
 				'name' => 'Session'
 			),
-			17 => array(
+			array(
 				'uri' => 'security', 
 				'name' => 'Security'
 			),
-			18 => array(
+			array(
 				'uri' => 'ajax', 
 				'name' => 'Ajax Interaction'
 			),
@@ -214,67 +205,64 @@ final class Documentation_Manager extends Auth_Manager {
 	}
 	
 	public function get_library($params = array()) {
-		// Login required
-		$this->_check_auth();
-		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
 
 		$pages = array(
-			0 => array(
+			array(
 				'uri' => 'output_cache', 
 				'name' => 'Output Cache'
 			),
-			1 => array(
+			array(
 				'uri' => 'calendar', 
 				'name' => 'Calendar'
 			),
-			2 => array(
+			array(
 				'uri' => 'dir', 
 				'name' => 'Dir Info'
 			),
-			3 => array(
+			array(
 				'uri' => 'feed_writer', 
 				'name' => 'Feed Writer'
 			),
-			4 => array(
+			array(
 				'uri' => 'email', 
 				'name' => 'Email'
 			),
-			5 => array(
+			array(
 				'uri' => 'encypt', 
 				'name' => 'Encryption'
 			),
-			6 => array(
+			array(
 				'uri' => 'upload', 
 				'name' => 'File Upload'
 			),
-			7 => array(
+			array(
 				'uri' => 'form_validation', 
 				'name' => 'Form Validation'
 			),
-			8 => array(
+			array(
 				'uri' => 'ftp', 
 				'name' => 'FTP'
 			),
-			9 => array(
+			array(
 				'uri' => 'pagination', 
 				'name' => 'Pagination'
 			),
-			10 => array(
+			array(
 				'uri' => 'password_hashing', 
 				'name' => 'Password Hashing'
 			),
-			11 => array(
+			array(
 				'uri' => 'printer', 
 				'name' => 'Printer'
 			),
-			12 => array(
+			array(
 				'uri' => 'user_agent', 
 				'name' => 'User Agent'
 			),
-			13 => array(
+			array(
 				'uri' => 'mobile_detect', 
 				'name' => 'Mobile Device Detection'
 			),
@@ -316,31 +304,28 @@ final class Documentation_Manager extends Auth_Manager {
 	}
 	
 	public function get_function($params = array()) {
-		// Login required
-		$this->_check_auth();
-		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
 
 		$pages = array(
-			0 => array(
+			array(
 				'uri' => 'captcha', 
 				'name' => 'CAPTCHA'
 			),
-			1 => array(
+			array(
 				'uri' => 'download', 
 				'name' => 'Download'
 			),
-			2 => array(
+			array(
 				'uri' => 'redirect', 
 				'name' => 'Redirection'
 			),
-			3 => array(
+			array(
 				'uri' => 'minify_html', 
 				'name' => 'Minify HTML'
 			),
-			4 => array(
+			array(
 				'uri' => 'htmlawed', 
 				'name' => 'HtmLawed'
 			),

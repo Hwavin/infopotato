@@ -1,9 +1,6 @@
 <?php
-final class Tutorials_Manager extends Auth_Manager {
+final class Tutorials_Manager extends Manager {
 	public function get_index($params = array()) {
-		// Login required
-		$this->_check_auth();
-		
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$layout_data = array(

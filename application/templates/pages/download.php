@@ -60,7 +60,7 @@ Mac
 
 <h2>Option 2: InfoPotato on Git</h2> 
 <p> 
-The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
+InfoPotato keeps changing before it has got the ink dry on each draft. Check out the lastest code on Github. The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
 </p> 
 
 <div class="greybox">
