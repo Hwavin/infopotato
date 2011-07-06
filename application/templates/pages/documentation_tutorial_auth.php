@@ -3,10 +3,20 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
+<!-- PRINT: start -->
 <h1 class="first_heading">Authentication and Authorization</h1>	
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>tutorials/">Tutorials</a> &gt; Simple Authentication and Authorization
+<!-- PRINT: stop -->
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/tutorial/">Tutorials</a> &gt; Authentication and Authorization
 </div>
 <!-- end breadcrumb -->
+
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/tutorial/auth/'); ?>" class="print">Print</a>
+
+<!-- PRINT: start -->
+
+<p>
+Authentication and authorization are required for a Web page that should be limited to certain users. Authentication is about verifying whether someone is who they claim to be. It usually involves a username and a password, but may include any other methods of demonstrating identity, such as a smart card, fingerprints, etc. Authorization is finding out if the person, once identified (i.e. authenticated), is permitted to manipulate specific resources. This is usually determined by finding out if that person is of a particular role that has access to the resources. InfoPotato provides the developers two types of implimentation of authorization.
+</p>
 
 <div class="box_right greybox">
 <blockquote>
@@ -14,10 +24,6 @@
 <div>&mdash; Warhammer 40,000: Dawn of War</div>
 </blockquote>
 </div>
-
-<p>
-Authentication and authorization are required for a Web page that should be limited to certain users. Authentication is about verifying whether someone is who they claim to be. It usually involves a username and a password, but may include any other methods of demonstrating identity, such as a smart card, fingerprints, etc. Authorization is finding out if the person, once identified (i.e. authenticated), is permitted to manipulate specific resources. This is usually determined by finding out if that person is of a particular role that has access to the resources. InfoPotato provides the developers two types of implimentation of authorization.
-</p>
 
 <ul>
 <li><strong>Simple Authorization</strong> &mdash; Each user has to login to view any page that requires authorization</li>
@@ -787,6 +793,8 @@ You'll notice that the only difference is that each user has a 'auth_level' fiel
  
 <span class="c1">// End of file: ./application/managers/home_manager.php  </span> 
 </pre></div>
+
+<!-- PRINT: stop -->
 
 </div> 
 <!-- end onecolumn -->

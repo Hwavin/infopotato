@@ -47,7 +47,7 @@ This section begins by explaining the fundamental concepts of each core conponen
 
 <div class="box doc" id="doc_library">	
 <div class="box_title">
-<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/library/"><?php echo __('Library Reference'); ?></a></h3>
+<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/library/"><?php echo __('Libraries'); ?></a></h3>
 </div> 
 <div class="box_content">
 <p>
@@ -58,11 +58,22 @@ InfoPotato includes general-purpose utility libraries which can be called from m
 
 <div class="box doc" id="doc_function">	
 <div class="box_title">
-<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/function/"><?php echo __('Function Reference'); ?></a></h3>
+<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/function/"><?php echo __('Functions'); ?></a></h3>
 </div> 
 <div class="box_content">
 <p>
 This section describes each of the single helper functions that come with InfoPotato such as Download, Capthcha, and Redirect.
+</p>
+</div> 
+</div>
+
+<div class="box doc" id="doc_tutorial">	
+<div class="box_title">
+<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/tutorial/"><?php echo __('Tutorials'); ?></a></h3>
+</div> 
+<div class="box_content">
+<p>
+This section provides many useful tutorials to demonstrate the power and ease of InfoPotato.
 </p>
 </div> 
 </div>

@@ -873,8 +873,8 @@ margin:0 !important;
 
 .doc {
 float:left;
-width:213px;
-height:210px;
+width:166px;
+height:270px;
 margin:10px;
 }
 
@@ -882,7 +882,7 @@ margin:10px;
 margin-left:0;
 }
 
-#doc_function {
+#doc_tutorial {
 margin-right:0;
 }
 

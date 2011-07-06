@@ -1,9 +1,6 @@
 <?php
-final class Print_Manager extends Auth_Manager {
+final class Print_Manager extends Manager {
 	public function get_index($params = array()) {
-		// Login required
-		$this->_check_auth();
-		
 		$uri = count($params) > 0 ? APP_URI_BASE.base64_decode($params[0]) : '';
 
 		$this->load_library('SYS', 'printer/printer_library', 'p'); 

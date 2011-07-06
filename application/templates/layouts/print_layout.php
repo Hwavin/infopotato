@@ -34,13 +34,6 @@
 
 </div> 
 <!-- end content --> 
-<div class="clear"></div> 
-
-<!-- begin footer --> 
-<div id="footer"> 
-Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
-</div>
-<!-- end footer -->
 
 </body> 
 
