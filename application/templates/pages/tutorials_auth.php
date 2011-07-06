@@ -270,6 +270,10 @@ User authentication systems are a common part of many web applications but not r
 <span class="cm">/* End of file: ./application/managers/simple_auth_manager.php */</span> 
 </pre></div>
 
+<div class="notebox">
+Please check out the <a href="<?php echo APP_URI_BASE; ?>documentation/library/password_hashing/">Password Hashing Library</a> for information on hashing passwords.
+</div>
+
 <p>
 In this tutorial, we just hardcoded the users data in Users_Data.
 </p>
