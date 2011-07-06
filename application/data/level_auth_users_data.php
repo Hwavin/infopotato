@@ -1,5 +1,5 @@
 <?php
-class Users_Data extends Data {
+class Level_Auth_Users_Data extends Data {
     /**
      * Sample user data
      * You can also get the user data from database
@@ -7,8 +7,20 @@ class Users_Data extends Data {
      * @var array
      */
     private $_users = array(
-        array('id'=>1,'fullname'=>'Zhou (Joe) Yuan','username'=>'zhou','hash_pass'=>'$P$BN7rmT7I1KKipgOKsefSTOUL6QtIBE1'),
-        array('id'=>2,'fullname'=>'Chris Lee','username'=>'chrish','hash_pass'=>'$P$BmIS1DqDSA8qAnRdCnpxkfreuxRpRY0')
+        array(
+            'id'=>1,
+            'fullname'=>'Zhou (Joe) Yuan',
+            'username'=>'zhouy',
+            'hash_pass'=>'$P$BN7rmT7I1KKipgOKsefSTOUL6QtIBE1',
+            'auth_level'=>'admin'
+        ),
+        array(
+            'id'=>2,
+            'fullname'=>'Fran Mossberg',
+            'username'=>'franm',
+            'hash_pass'=>'$P$BC51a5TOFCeTZkh7oD/tDVAgxhYquI/',
+            'auth_level'=>'user'
+        ),
     );
 	
 
@@ -31,4 +43,4 @@ class Users_Data extends Data {
 
 }
 
-/* End of file: ./application/data/users_data.php */
+/* End of file: ./application/data/level_auth_users_data.php */

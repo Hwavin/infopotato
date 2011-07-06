@@ -515,8 +515,7 @@ class Session {
 				}
 				$tip =& $tip[$array_key];
 			}
-			$tip[end($array_keys)] = $value;
-			
+			$tip[end($array_keys)] = $value;		
 		} else {
 			$tip[$key] = $value;
 		}
