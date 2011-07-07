@@ -899,3 +899,4 @@ a.print:hover{
 background:#d8dfea url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
 
+

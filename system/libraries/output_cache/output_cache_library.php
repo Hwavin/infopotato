@@ -64,6 +64,7 @@ class Output_Cache_Library {
 		// To acquire a shared lock (reader)
 		flock($fp, LOCK_SH);  
 		// file_get_contents() is much faster than fread()
+		// $cached_data is an array contains [0] => expire time, [1] => cached content
 		$cached_data = unserialize(file_get_contents($cache_path));  
 		// To release a lock (shared or exclusive)
 		flock($fp, LOCK_UN);
@@ -85,7 +86,7 @@ class Output_Cache_Library {
 	 * Create the cache file for a certain key 
 	 * 
 	 * @param	$key string
-	 * @param	$data string
+	 * @param	$data string the data to be cached
 	 * @param	$ttl integer - time to life (seconds)
 	 * @return	boolean
 	 */
@@ -100,8 +101,8 @@ class Output_Cache_Library {
             return FALSE;    
 		}
 		// To acquire an exclusive lock (writer)
-        if (flock($fp, LOCK_EX)) {  
-            // fwrite is faster than file_put_contents() 
+        if (flock($fp, LOCK_EX)) {  	
+			// fwrite is faster than file_put_contents() 
 			fwrite($fp, serialize(array(time() + $ttl, $data)));  
             // To release a lock (shared or exclusive)
 			flock($fp, LOCK_UN);
