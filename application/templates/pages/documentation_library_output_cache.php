@@ -38,7 +38,7 @@ and sent to the requesting user's browser.  If it has expired, it will be delete
 </div> 
 
 <div class="notebox">
-The dir should end with DIRECTORY_SEPARATOR
+Permission your cache folder to be writeable by the web server. The dir should end with DIRECTORY_SEPARATOR
 </div> 
 
 <h2>Use Output Cache in Manager</h2> 
