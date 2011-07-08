@@ -1,0 +1,235 @@
+a:2:{i:0;i:1310134570;i:1;s:8844:"<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+
+<!-- Metadata -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+<meta name="distribution" content="Global" /> 
+<meta name="robots" content="index,follow" /> 
+<meta name="author" content="Zhou Yuan" /> 
+<meta name="copyright" content="Copyright (C) Zhou Yuan" /> 
+<meta name="rating" content="General" /> 
+<meta name="revisit-after" content="14 Days" /> 
+<meta name="description" content="InfoPotato" /> 
+<meta name="keywords" content="InfoPotato" /> 
+
+<title>Home | InfoPotato</title>
+
+<!-- favicon -->  
+<link rel="icon" href="http://localhost/infopotato/application/public/images/shared/favicon.ico" type="image/x-icon" /> 
+
+<link rel="image_src" href="http://ifl.lrdc.pitt.edu/ifl/images/shared/logo.png" />
+
+<!-- CSS Style --> 
+<link type="text/css" rel="stylesheet" href="http://localhost/infopotato/application/public/index.php/css/index/reset.css:main.css:fb-buttons.css" media="screen, projection, handheld" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="http://localhost/infopotato/application/public/index.php/css/index/reset.css:print.css" media="print" charset="utf-8" /> 
+
+<!-- JavaScript -->
+<script type="text/javascript" language="javascript" src="http://localhost/infopotato/application/public/index.php/js/index/sweet_titles.js"></script>
+
+</head> 
+
+<body>	
+
+<!-- begin container -->
+<div id="container"> 
+
+<!-- begin container -->
+<div id="header">
+
+<!-- begin header inner --> 
+<div class="inner">
+
+<!-- begin header inner topnav--> 
+<div id="topnav">
+<ul> 
+<li id="logo"><a href="http://localhost/infopotato/application/public/index.php/home/" title="Return to frontpage">infopotato</a></li>
+<li class="nav_item"><a href="http://localhost/infopotato/application/public/index.php/about/" title="About">About</a></li>
+<li class="nav_item"><a href="http://localhost/infopotato/application/public/index.php/download/" title="Download">Download</a></li>
+<!--
+<li class="nav_item"><a href="http://localhost/infopotato/application/public/index.php/showcase/" title="Showcase">Showcase</a></li>
+-->
+<li class="nav_item"><a href="http://localhost/infopotato/application/public/index.php/documentation/" title="Documentation">Documentation</a></li>
+<li class="nav_item"><a href="http://localhost/infopotato/application/public/index.php/contact/" title="Contact">Contact</a></li>
+</ul>
+
+</div>	
+<!-- end header inner topnav--> 
+<div class="clear"></div> 
+
+</div>
+<!-- end header inner -->
+
+</div>  
+<!-- end header --> 
+<div class="clear"></div> 
+
+<!-- begin content --> 
+<div id="content"> 
+<div id="alpha_bar"></div>
+<!-- begin onecolumn --> 
+<div id="onecolumn">
+
+<h1 class="first_heading center">
+The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
+
+<div class="greybox" id="intro">
+<div id="intro_text">
+<h2 class="first_heading">InfoPotato &mdash; <span class="blue">Built on the shoulders of giants</span></h2>
+<p>
+<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner—without loss of flexibility and expansibility.
+</p>
+</div>
+
+<div id="download">
+<a href="http://localhost/infopotato/application/public/index.php/get_code/index/infopotato/" class="uibutton large special" title="Download Latest Release">
+<span id="download_text">Download</span>
+<span id="download_version">InfoPotato 1.0.0</span>
+</a>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<h2 class="first_heading">Quick Facts about InfoPotato</h2>	
+
+<div class="facts_full first_row">
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/flex.png" class="fact_img" title="Dedicated to Small Applications" alt="Dedicated to Small Applications" />
+<div class="fact_desc">
+<h3>Dedicated to Small Applications</h3>
+<div>Easy installation &amp; configuration, no ORM/CLI/PEAR/Code Generators</div>
+</div>
+</div>
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/fast.png" class="fact_img" title="Truly Lightweight &amp; Fast" alt="Truly Lightweight &amp; Fast" />
+<div class="fact_desc">
+<h3>Truly Lightweight &amp; Fast</h3>
+<div>Tiny core, runtime cache, output compression, lazy loading</div>
+</div>
+</div>
+
+<div class="fact last">
+<img src="http://localhost/infopotato/application/public/images/content/loose.png" class="fact_img" title="Loosely Coupled Components" alt="Loosely Coupled Components" />
+<div class="fact_desc">
+<h3>Loosely Coupled Components</h3>
+<div>Each core component has little or no knowledge of other components</div>
+</div>
+</div>
+
+</div>
+
+
+<div class="facts_full">
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/rest.png" class="fact_img" title="Built around HTTP &amp; REST" alt="Built around HTTP &amp; REST" />
+<div class="fact_desc">
+<h3>Built around HTTP &amp; REST</h3>
+<div>Adopts the simple Request-Reponse handling model, no MVC</div>
+</div>
+</div>
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/utf8.png" class="fact_img" title="Fully Compatible with UTF-8" alt="Fully Compatible with UTF-8" />
+<div class="fact_desc">
+<h3>Fully Compatible with UTF-8</h3>
+<div>Fixes multibyte UTF-8 characters "Dangerous" PHP functionality</div>
+</div>
+</div>
+
+<div class="fact last">
+<img src="http://localhost/infopotato/application/public/images/content/i18n.png" class="fact_img" title="Simple i18N/L10N Support" alt="Simple i18N/L10N Support" />
+<div class="fact_desc">
+<h3>Simple i18N/L10N Support</h3>
+<div>Apps can be adapted to various languages with little code changes</div>
+</div>
+</div>
+
+</div>
+
+<div class="facts_full">
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/db.png" class="fact_img" title="Multiple Database Adapters" alt="Multiple Database Adapters" />
+<div class="fact_desc">
+<h3>Multiple Database Adapters</h3>
+<div>Rational databases (MySQL, SQLite, PostgreSQL) and NoSQL</div>
+</div>
+</div>
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/lib.png" class="fact_img" title="Rich Libraries/Functions" alt="Rich Libraries/Functions" />
+<div class="fact_desc">
+<h3>Rich Libraries/Functions</h3>
+<div>Many standalone and reusable libraries/functions are available</div>
+</div>
+</div>
+
+<div class="fact last">
+<img src="http://localhost/infopotato/application/public/images/content/doc.png" class="fact_img" title="Very Detailed Documentation" alt="Very Detailed Documentation" />
+<div class="fact_desc">
+<h3>Very Detailed Documentation</h3>
+<div>Comprehensive tutorials for you to systematically learn InfoPotato</div>
+</div>
+</div>
+
+</div>
+
+<div class="facts_full">
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/multi.png" class="fact_img" title="One Framework, Multiple Apps" alt="One Framework, Multiple Apps" />
+<div class="fact_desc">
+<h3>One Framework, Multiple Apps</h3>
+<div>One framework can host multiple apps simultaneously</div>
+</div>
+</div>
+
+<div class="fact">
+<img src="http://localhost/infopotato/application/public/images/content/secure.png" class="fact_img" title="Built with Security in Mind" alt="Built with Security in Mind" />
+<div class="fact_desc">
+<h3>Built with Security in Mind</h3>
+<div>URI attack, Session, XSS, CSRF, and SQL Injection protection</div>
+</div>
+</div>
+
+<div class="fact last">
+<img src="http://localhost/infopotato/application/public/images/content/control.png" class="fact_img" title="Everything under Your Control" alt="Everything under Your Control" />
+<div class="fact_desc">
+<h3>Everything under Your Control</h3>
+<div>You eschew complexity, favoring simple solutions</div>
+</div>
+</div>
+
+</div>
+
+<div class="clear"></div>
+
+</div>
+<!-- end onecolumn --> <div class="clear"></div>
+<div class="hide">
+Page URI: http://localhost/infopotato/application/public/index.php/home/t</div>
+</div> 
+<!-- end content --> 
+<div class="clear"></div> 
+ 
+
+<!-- begin footer --> 
+<div id="footer">
+<div id="locale_select">
+Languages <a href="http://localhost/infopotato/application/public/index.php/lang/index/en/us/">English</a> - <a href="http://localhost/infopotato/application/public/index.php/lang/index/zh/cn/">简体中文</a>
+</div>
+Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
+</div>
+<!-- end footer -->
+ 
+</div> 
+<!-- end container -->
+
+</body> 
+
+</html> 
+";}
