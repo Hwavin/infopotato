@@ -1,12 +1,22 @@
 <script type="text/javascript" src="<?php echo APP_URI_BASE; ?>js/index/ajax_request.js"></script> 
 
 <script type="text/javascript"> 
-function example() {
+function get_example() {
 	AjaxRequest.get({
-		'url':'<?php echo APP_URI_BASE; ?>ajax/index',
+		'url':'<?php echo APP_URI_BASE; ?>ajax/index/param1/param2',
 		'onSuccess':function(req) { 
 			document.getElementById('ajax_response').innerHTML = req.responseText; 
 		}
+	});
+}
+
+function post_example() {
+	AjaxRequest.post({
+		'url':'<?php echo APP_URI_BASE; ?>ajax/index',
+		'parameters':{'a':'1', 'b':'2', 'c':'3'},
+		'onSuccess':function(req) { 
+						document.getElementById('ajax_response2').innerHTML = req.responseText; 
+					}
 	});
 }
 </script>
@@ -57,10 +67,10 @@ An interesting side affect is that POST without actually posting any data behave
 GET requests should be used for simply retrieving data from the server. POST requests are optimal when sending form data, or large sets of data, to the server.
 </div>
 
-<h2>Ajax Request URI</h2>
+<h2>How to Format Ajax GET/POST Request URI</h2>
 
 <p>
-Due to the GET request URI pattern designed in InfoPotato, query string that contains data to be passed to web applications is not supported. When formatting the Ajax GET URI, you should follow this URI format:
+Due to the GET request URI pattern designed in InfoPotato, GET request with query string that contains data to be passed to web applications is not supported. When formatting the Ajax GET URI, you should follow this URI format:
 </p>
 
 <div class="syntax">
@@ -71,7 +81,7 @@ http://www.example.com/index.php/<span class="red">manager</span>/<span class="b
 Just follow the regular URI parameters format when making an Ajax POST request. Since all the data sent to the server are stored in the HTTP request body instead of appearing in the URI.
 </p>
 
-<h2>Example</h2>
+<h2>Make A Simple Ajax GET Request</h2>
 
 <p>
 To demonstrate the ease of using Ajax in InfoPotato, we will use <a href="http://www.ajaxtoolbox.com/" class="external_link">AjaxRequest Library</a> to make a simple Ajax GET request to the ajax_manager. Of course you can choose the other Ajax libraries based on your own preference.
@@ -80,9 +90,9 @@ To demonstrate the ease of using Ajax in InfoPotato, we will use <a href="http:/
 <div class="syntax"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">js/index/ajax_request.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span> 
  
 <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span> 
-<span class="kd">function</span> <span class="nx">example</span><span class="p">()</span> <span class="p">{</span> 
+<span class="kd">function</span> <span class="nx">get_example</span><span class="p">()</span> <span class="p">{</span> 
     <span class="nx">AjaxRequest</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span> 
-    <span class="s1">&#39;url&#39;</span><span class="o">:</span><span class="s1">&#39;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s1">ajax/index&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;url&#39;</span><span class="o">:</span><span class="s1">&#39;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s1">ajax/index/param1/param2&#39;</span><span class="p">,</span> 
     <span class="s1">&#39;onSuccess&#39;</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span> 
 	            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;ajax_response&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span> 
                 <span class="p">}</span> 
@@ -90,7 +100,7 @@ To demonstrate the ease of using Ajax in InfoPotato, we will use <a href="http:/
 <span class="p">}</span> 
 <span class="nt">&lt;/script&gt;</span> 
  
-<span class="nt">&lt;button</span> <span class="na">onClick=</span><span class="s">&quot;example();return false;&quot;</span><span class="nt">&gt;</span>Make an Ajax GET request<span class="nt">&lt;/button&gt;</span> 
+<span class="nt">&lt;button</span> <span class="na">onClick=</span><span class="s">&quot;get_example();return false;&quot;</span><span class="nt">&gt;</span>Make an Ajax GET request<span class="nt">&lt;/button&gt;</span> 
  
 <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ajax_response&quot;</span><span class="nt">&gt;&lt;/div&gt;</span> 
 </pre></div>
@@ -99,22 +109,51 @@ To demonstrate the ease of using Ajax in InfoPotato, we will use <a href="http:/
 When you click the button, an Ajax request is made and sent to the ajax_manager. In this example, the manager will print out "This is an Ajax GET request :)". And the the corresponding response DIV is updated without reloading the whole page.
 </p>
 
-<div class="syntax">
-<pre><span class="cp">&lt;?php</span> 
-<span class="k">class</span> <span class="nc">Ajax_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
-        <span class="k">echo</span> <span class="s1">&#39;This is an Ajax GET request :)&#39;</span><span class="p">;</span> 
-    <span class="p">}</span> 
+<div class="syntax"><pre>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">(</span><span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span> <span class="p">{</span> 
+    <span class="nv">$param1</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="m">0</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$params</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
+    <span class="nv">$param2</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$params</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
+		
+    <span class="k">echo</span> <span class="s1">&#39;This is an Ajax GET request with &#39;</span><span class="o">.</span><span class="nv">$param1</span><span class="o">.</span> <span class="s1">&#39; and &#39;</span><span class="o">.</span><span class="nv">$param2</span><span class="p">;</span> 
 <span class="p">}</span> 
- 
-<span class="c1">// End of file: ./application/managers/ajax_manager.php</span> 
 </pre></div>
 
-<button onClick="example();return false;">Make an Ajax GET request</button> 
+<!-- PRINT: stop -->
+
+<button onClick="get_example();return false;">Make an Ajax GET request</button> 
 
 <div id="ajax_response"></div> 
 
-<!-- PRINT: stop -->
+<h2>Make An Ajax POST Request</h2>
+
+<div class="syntax"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span> 
+<span class="kd">function</span> <span class="nx">post_example</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nx">AjaxRequest</span><span class="p">.</span><span class="nx">post</span><span class="p">({</span> 
+        <span class="s1">&#39;url&#39;</span><span class="o">:</span><span class="s1">&#39;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s1">ajax/index&#39;</span><span class="p">,</span> 
+	 <span class="s1">&#39;parameters&#39;</span><span class="o">:</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="o">:</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="o">:</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="o">:</span><span class="s1">&#39;3&#39;</span><span class="p">},</span> 
+	 <span class="s1">&#39;onSuccess&#39;</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span> 
+			 <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;ajax_response2&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span> 
+		     <span class="p">}</span> 
+    <span class="p">});</span> 
+<span class="p">}</span> 
+<span class="nt">&lt;/script&gt;</span> 
+ 
+<span class="nt">&lt;button</span> <span class="na">onClick=</span><span class="s">&quot;post_example();return false;&quot;</span><span class="nt">&gt;</span>Make an Ajax POST request<span class="nt">&lt;/button&gt;</span> 
+ 
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ajax_response2&quot;</span><span class="nt">&gt;&lt;/div&gt;</span> 
+</pre></div>
+
+<div class="syntax"><pre>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">post_index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">echo</span> <span class="s1">&#39;&lt;pre&gt;&#39;</span><span class="p">;</span> 
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">);</span> 
+    <span class="k">echo</span> <span class="s1">&#39;&lt;/pre&gt;&#39;</span><span class="p">;</span> 
+<span class="p">}</span>  
+</pre></div>
+
+<button onClick="post_example();return false;">Make an Ajax POST request</button>
+
+<div id="ajax_response2"></div>
 
 <?php echo isset($pager) ? $pager : ''; ?>
 
