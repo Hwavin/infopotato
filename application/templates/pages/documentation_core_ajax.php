@@ -1,100 +1,14 @@
-<script language="JavaScript">
-// Ajax
-// http://www.itnewb.com/v/Beginners-Guide-to-AJAX-Asynchronous-JavaScript-and-XML/
-function sendRequest(mode, url, args, async, callback, cArgs, respType, timeout) {
+<script type="text/javascript" src="<?php echo APP_URI_BASE; ?>js/index/ajax_request.js"></script> 
 
-	// create object
-	var httpRequest = false;
-	if ( window.XMLHttpRequest ) { // mozilla, safari, opera, chrome, ie7
-		httpRequest = new XMLHttpRequest();
-	} else if ( window.ActiveXObject ) { // ie, avant, aol explorer
-		try { httpRequest = new ActiveXObject("Msxml2.XMLHTTP") } // ie6
-		catch (e) {
-			try { httpRequest = new ActiveXObject("Microsoft.XMLHTTP") } // ie5
-			catch(e) {
-				httpRequest = false;
-			}
+<script type="text/javascript"> 
+function example() {
+	AjaxRequest.get({
+		'url':'<?php echo APP_URI_BASE; ?>ajax/index',
+		'onSuccess':function(req) { 
+			document.getElementById('ajax_response').innerHTML = req.responseText; 
 		}
-	}
-
-	// object creation fail?
-	if ( ! httpRequest ) {
-		alert("Error: unable to create httpRequest object");
-		return false;
-	}
-
-	// if GET with arguments append query string to url
-	if ( mode == 'GET' && args.length ) url += '/' + args;
-
-	// establish connection
-	httpRequest.open(mode, url, async);
-
-	// boolean timedOut; start out true
-	// the response handler sets to false on success
-	var timedOut = true;
-
-	// create a timer to check the value of timedOut in (timeout) seconds;
-	// if timedOut is true, abort the request and clean up
-	setTimeout( function() {
-
-		// timedOut true?
-		if (timedOut) {
-			httpRequest.abort(); // abort request
-			alert("Error: ajax request timed out");
-		}
-
-		// nullify httpRequest
-		httpRequest = null;
-
-	}, timeout * 1000 );
-
-	// if POST, set necessary request headers
-	if ( mode == 'POST' ) {
-		httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		httpRequest.setRequestHeader('Content-Length', args.length);
-	}
-
-	// assign callback method via anonymous function
-	httpRequest.onreadystatechange = function() {
-		try {
-			// response ready?
-			if ( httpRequest.readyState == 4 ) {
-				// request successful?
-				if ( httpRequest.status == 200 ) {
-
-					// set timedOut to false
-					timedOut = false;
-
-					// set response
-					var response = respType == 'text' ?
-						httpRequest.responseText :
-						httpRequest.responseXML;
-
-					// pass to callback method
-					cArgs != null ?
-						callback(response, cArgs) :
-						callback(response);
-				}
-			}
-		} catch(e) { alert("Error: communication exception"); }
-	};
-
-	// send request
-	httpRequest.send(args);
+	});
 }
-
-//play game
-function playGame(user_choice) {
-	//var args = 'user_choice=' + user_choice; // POST
-	var args = user_choice; // GET
-
-	sendRequest('GET', '<?php echo APP_URI_BASE; ?>ajax/index', args, true, handlePlayGame, null, 'text', 30);
-}
-
-function handlePlayGame(response) {
-	document.getElementById('ajax_response').innerHTML = '<div>' + response + '</div>';
-}
-
 </script>
 
 
@@ -122,24 +36,12 @@ An Ajax interaction is made up of three parts: a caller (a link, a button, a for
 </p>
 
 <p>
-To give the developers the full control of their applications, InfoPotato doesn't come with any JavaScript libraries to help you enrich your PHP applications with Ajax.
+To give the developers the full control of their applications, InfoPotato doesn't come with any JavaScript libraries to help you enrich your PHP applications with Ajax. So this means you can choose any Ajax libraries you prefer and just let InfoPotato manager to handle the Ajax request. Nothing new.
 </p>
 
 <div class="notebox">
 Only GET and POST requests are supported by InfoPotato.
 </div>
-
-
-
-<a href="#" name="user_rock" id="user_rock" onclick="playGame('making an ajax request');">Click Here</a>
-
-
-<!-- begin ajax_response --> 
-<div id="ajax_response"> 
- 
-</div> 
-<!-- end ajax_response -->
-
 
 <h2>Ajax GET or POST &mdash; Which to Use?</h2>
 
@@ -168,6 +70,50 @@ http://www.example.com/index.php/<span class="red">manager</span>/<span class="b
 <p>
 Just follow the regular URI parameters format when making an Ajax POST request. Since all the data sent to the server are stored in the HTTP request body instead of appearing in the URI.
 </p>
+
+<h2>Example</h2>
+
+<p>
+To demonstrate the ease of using Ajax in InfoPotato, we will use <a href="http://www.ajaxtoolbox.com/" class="external_link">AjaxRequest Library</a> to make a simple Ajax GET request to the ajax_manager. Of course you can choose the other Ajax libraries based on your own preference.
+</p>
+
+<div class="syntax"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s">js/index/ajax_request.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span> 
+ 
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span> 
+<span class="kd">function</span> <span class="nx">example</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nx">AjaxRequest</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span> 
+    <span class="s1">&#39;url&#39;</span><span class="o">:</span><span class="s1">&#39;</span><span class="cp">&lt;?php</span> <span class="k">echo</span> <span class="nx">APP_URI_BASE</span><span class="p">;</span> <span class="cp">?&gt;</span><span class="s1">ajax/index&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;onSuccess&#39;</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">)</span> <span class="p">{</span> 
+	            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;ajax_response&#39;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span> 
+                <span class="p">}</span> 
+    <span class="p">});</span> 
+<span class="p">}</span> 
+<span class="nt">&lt;/script&gt;</span> 
+ 
+<span class="nt">&lt;button</span> <span class="na">onClick=</span><span class="s">&quot;example();return false;&quot;</span><span class="nt">&gt;</span>Make an Ajax GET request<span class="nt">&lt;/button&gt;</span> 
+ 
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ajax_response&quot;</span><span class="nt">&gt;&lt;/div&gt;</span> 
+</pre></div>
+
+<p>
+When you click the button, an Ajax request is made and sent to the ajax_manager. In this example, the manager will print out "This is an Ajax GET request :)". And the the corresponding response DIV is updated without reloading the whole page.
+</p>
+
+<div class="syntax">
+<pre><span class="cp">&lt;?php</span> 
+<span class="k">class</span> <span class="nc">Ajax_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+        <span class="k">echo</span> <span class="s1">&#39;This is an Ajax GET request :)&#39;</span><span class="p">;</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+ 
+<span class="c1">// End of file: ./application/managers/ajax_manager.php</span> 
+</pre></div>
+
+<button onClick="example();return false;">Make an Ajax GET request</button> 
+
+<div id="ajax_response"></div> 
+
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>

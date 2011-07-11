@@ -1,15 +1,7 @@
 <?php
-final class Ajax_Manager extends Manager {
-	public function get_index($params = array()) {
-		$name = count($params) > 0 ? $params[0] : '';
-		
-		echo $name;
-	}
-	
-	public function post_index($params = array()) {
-		
-		Global_Functions::dump($this->POST_DATA);
-		
+class Ajax_Manager extends Manager {
+	public function get_index() {
+		echo $name.'This is an Ajax GET request :)';
 	}
 }
 

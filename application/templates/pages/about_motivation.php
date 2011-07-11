@@ -24,6 +24,11 @@
 </blockquote>
 </div>
 
+<h2>Framework = (Components + Patterns)</h2>
+<p>
+Even the definitions of frameworks vary. The definition we use most is "a framework is a reusable design of all or part of a system that is represented by a set of abstract classes and the way their instances interact." Another common definition is "a framework is the skeleton of an application that can be customized by an application developer." These are not conflicting definitions; the first describes the structure of a framework while the second describes its purpose. Nevertheless, they point out the difficulty of defining frameworks clearly.
+</p>
+
 <p>
 My first experience with PHP web application development framework can be tracked back to the year 2007 when I was in China and FleaPHP was the first framework I learned. I created several apps with it and became excited about Framework after that. Since its complex code base and poor documentation I never trully understood it. But I did learned some cool design ideas from it. Now its new name is QeePHP. This PHP framework inspired me to learn more of how to build a dynamic yweb application instead of just a simple website. During my learning, I read many books about PHP OOP, design patterns, database abstraction, and many other related PHP programming techniques.
 </p>
