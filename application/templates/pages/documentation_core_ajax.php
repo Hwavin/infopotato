@@ -120,9 +120,12 @@ When you click the button, an Ajax request is made and sent to the ajax_manager.
 
 <!-- PRINT: stop -->
 
+<div class="greenbox">
 <button onClick="get_example();return false;">Make an Ajax GET request</button> 
-
 <div id="ajax_response"></div> 
+</div> 
+
+<!-- PRINT: start -->
 
 <h2>Make An Ajax POST Request</h2>
 
@@ -151,9 +154,12 @@ When you click the button, an Ajax request is made and sent to the ajax_manager.
 <span class="p">}</span>  
 </pre></div>
 
-<button onClick="post_example();return false;">Make an Ajax POST request</button>
+<!-- PRINT: stop -->
 
+<div class="greenbox">
+<button onClick="post_example();return false;">Make an Ajax POST request</button>
 <div id="ajax_response2"></div>
+</div> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
 
