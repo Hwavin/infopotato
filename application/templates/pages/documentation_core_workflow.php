@@ -67,14 +67,14 @@ Dispatcher provides the actual incoming request analysis. It reads the request i
 <li>
 <span class="big_number">4.</span>
 <p>
-The manager is invoked and prepares the resource identified by the incoming URI. Based on the request method (POST and GET are supported), the corresponding manager method will load and instantiate the components (data objects, libraries, user-defined functions, the corresponding template files) on demand.
+The manager is invoked and prepares the resource identified by the incoming URI. Based on the request method (POST and GET are supported), the corresponding manager method will load and instantiate the components (data objects, libraries, user-defined functions, the corresponding template files) on demand. And then "push" the data to the template layer to render the output results.
 </p>
 </li> 
 
 <li>
 <span class="big_number">5.</span>
 <p>
-When the manager finishes processing the request, it sends the HTTP response info (headers + body content) back to the web server and the web server forwards it to the client.
+When the manager finishes processing the request, it sends the output result (HTTP response info, headers + body content) back to the web server and the web server forwards it to the client.
 </p></li>
 
 </ul> 

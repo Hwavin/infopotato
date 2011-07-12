@@ -244,7 +244,7 @@ will override them. See <a href="reserved_names.html">Reserved Names</a> for a f
 
 <h2>Storing Managers within Sub-folders</h2> 
 <p class="notebox">
-By default, your data files and template files can also be stored within sub-folders if you prefer that type of organization. But Manager files is NOT ALLOWED to be organized by sub-folders.
+By default, your data files and template files can also be stored within sub-folders if you prefer that type of organization. But Manager files is NOT ALLOWED to be organized by sub-folders since they are directly related to the URI path pattern.
 </p> 
 <!-- PRINT: stop -->
 

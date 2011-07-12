@@ -49,8 +49,14 @@ An Ajax interaction is made up of three parts: a caller (a link, a button, a for
 To give the developers the full control of their applications, InfoPotato doesn't come with any JavaScript libraries to help you enrich your PHP applications with Ajax. So this means you can choose any Ajax libraries you prefer and just let InfoPotato manager to handle the Ajax request. Nothing new.
 </p>
 
+<h2>Understanding Ajax Performance</h2>
+
+<p>
+Instead of requesting a replacement page as a result of a user action, a packet of data is sent to the server (usually encoded as JSON text) and the server responds with another packet (also typically JSON-encoded) containing data. A JavaScript program uses that data to update the browser’s display. The amount of data transferred is significantly reduced, and the time between the user action and the visible feedback is also significantly reduced. The amount of work that the server must do is reduced. The amount of work that the browser must do is reduced. The amount of work that the Ajax programmer must do, unfortunately, is likely to increase. That is one of the trade-offs.
+</p>
+
 <div class="notebox">
-Only GET and POST requests are supported by InfoPotato.
+Browsers tend to spend little time running JavaScript. Most of their time is spent in the DOM.
 </div>
 
 <h2>Ajax GET or POST &mdash; Which to Use?</h2>
@@ -58,6 +64,10 @@ Only GET and POST requests are supported by InfoPotato.
 <p>
 According to <a href="http://developer.yahoo.com/performance/rules.html#ajax_get" class="external_link">Yahoo's ySlow performance rule #15 - Use GET for Ajax requests</a>, the Yahoo! Mail team found that when using XMLHttpRequest, POST is implemented in the browsers as a two-step process: sending the headers first, then sending data. So it's best to use GET, which only takes one TCP packet to send (unless you have a lot of cookies). The maximum URL length in IE is 2K, so if you send more than 2K data you might not be able to use GET.
 </p>
+
+<div class="notebox">
+Only GET and POST requests are supported by InfoPotato.
+</div>
 
 <p>
 An interesting side affect is that POST without actually posting any data behaves like GET. Based on the HTTP specs, GET is meant for retrieving information, so it makes sense (semantically) to use GET when you're only requesting data, as opposed to sending data to be stored server-side.
