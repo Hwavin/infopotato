@@ -20,7 +20,7 @@ server resources, memory, and processing cycles utilized, which affect your page
 By caching your pages, since they are saved in their fully rendered state, you can achieve performance that nears that of static web pages.</p> 
  
  
-<h2>How Does Output Caching Work?</h2> 
+<h2>How Output Caching Works</h2> 
  
 <p>Output Caching can be enabled on a per-page basis, and you can set the length of time that a page should remain cached before being refreshed.
 When a page is loaded for the first time, the cache file will be written to your <dfn>user-defined cache</dfn> folder.  On subsequent page loads the cache file will be retrieved
