@@ -124,8 +124,8 @@ final class Documentation_Manager extends Manager {
 				'name' => 'SQL Database Adapters'
 			),
 			array(
-				'uri' => 'i18n', 
-				'name' => 'Internationalization'
+				'uri' => 'i18n_l10n', 
+				'name' => 'Internationalization &amp; Localization'
 			),
 			array(
 				'uri' => 'library', 

@@ -4,9 +4,9 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
-<h1 class="first_heading">Function</h1>	
+<h1 class="first_heading"><?php echo __('Internationalization &amp; Localization'); ?></h1>	
 <!-- PRINT: stop -->
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Internationalization
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; <?php echo __('Internationalization &amp; Localization'); ?>
 </div>
 <!-- end breadcrumb -->
 
@@ -85,8 +85,13 @@ Good way to enable text translation
 </pre></div>
 
 <p>
-In this example, the token is <span class="red">:num</span>, but it can be anything, since the replacement function used by the translation helper is <a href="http://www.php.net/manual/en/function.strtr.php" class="external_link">strtr()</a>.
+In this example, the token is <span class="red">:num</span>, but it can be anything, since the replacement function used by the translation helper is <a href="http://www.php.net/manual/en/function.strtr.php" class="external_link"><code>strtr()</code></a>.
 </p>
+
+<div class="notebox">
+There's one other aspect of localizing your application which is not covered by the use of the translate functions, and that is date/money formats. Don't forget to set the formats for these things you need to use <a href="http://us3.php.net/setlocale" class="external_link"><code>setlocale</code></a>.
+</div>
+
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>

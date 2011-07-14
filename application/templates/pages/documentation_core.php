@@ -18,7 +18,7 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/template/"><?php echo __('Template'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/data/"><?php echo __('Data Access Object'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/sql_adapters/"><?php echo __('SQL Database Adapters'); ?></a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/i18n/"><?php echo __('Internationalization'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/i18n_l10n/"><?php echo __('Internationalization &amp; Localization'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/library/"><?php echo __('Library'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/function/"><?php echo __('Function'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/runtime/"><?php echo __('System Core Runtime Cache'); ?></a></li>  
