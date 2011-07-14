@@ -121,6 +121,7 @@ When you click the button, an Ajax request is made and sent to the ajax_manager.
 
 <div class="syntax"><pre>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">(</span><span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">())</span> <span class="p">{</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_disable_cache</span><span class="p">();</span> 
     <span class="nv">$param1</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="m">0</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$params</span><span class="p">[</span><span class="m">0</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
     <span class="nv">$param2</span> <span class="o">=</span> <span class="nb">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="m">1</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$params</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span> 
 		
@@ -158,10 +159,23 @@ When you click the button, an Ajax request is made and sent to the ajax_manager.
 
 <div class="syntax"><pre>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">post_index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_disable_cache</span><span class="p">();</span> 
     <span class="k">echo</span> <span class="s1">&#39;&lt;pre&gt;&#39;</span><span class="p">;</span> 
     <span class="nb">print_r</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">);</span> 
     <span class="k">echo</span> <span class="s1">&#39;&lt;/pre&gt;&#39;</span><span class="p">;</span> 
-<span class="p">}</span>  
+<span class="p">}</span> 
+</pre></div>
+
+<p>
+When responding to Ajax requests, you often will want to disable browser caching by adding the following headers in your manager method.
+</p>
+
+<div class="syntax"><pre>
+<span class="k">private</span> <span class="k">function</span> <span class="nf">_disable_cache</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="nb">header</span><span class="p">(</span><span class="s1">&#39;Pragma: no-cache&#39;</span><span class="p">);</span>        
+    <span class="nb">header</span><span class="p">(</span><span class="s1">&#39;Cache-control: no-cache&#39;</span><span class="p">);</span>        
+    <span class="nb">header</span><span class="p">(</span><span class="s2">&quot;Expires: Mon, 26 Jul 1997 05:00:00 GMT&quot;</span><span class="p">);</span> 
+<span class="p">}</span> 
 </pre></div>
 
 <!-- PRINT: stop -->
