@@ -639,7 +639,7 @@ class UTF8 {
 		
 		$ord = ord($first);
 		if ($digits > 21 || $ord == 0xC0 || $ord == 0xC1 || $ord > 0xF4) {
-			show_sys_error('A System Error Was Encountered', "The code point specified {$unicode_code_point} is invalid", 'sys_error');
+			halt('A System Error Was Encountered', "The code point specified {$unicode_code_point} is invalid", 'sys_error');
 		}
 		
 		return $first . $second . $third . $fourth;
@@ -1094,7 +1094,7 @@ class UTF8 {
 		}
 		
 		if ($invalid) {
-			show_sys_error('A System Error Was Encountered', 'The UTF-8 character specified is invalid', 'sys_error');
+			halt('A System Error Was Encountered', 'The UTF-8 character specified is invalid', 'sys_error');
 		}
 		
 		$hex = strtoupper(dechex(bindec($bin)));
@@ -1114,7 +1114,7 @@ class UTF8 {
 	public static function pad($string, $pad_length, $pad_string = ' ', $pad_type = 'right') {
 		$valid_pad_types = array('right', 'left', 'both');
 		if ( ! in_array($pad_type, $valid_pad_types)) {
-			show_sys_error('A System Error Was Encountered', "The pad type specified, {$pad_type}, is not valid. Must be one of: ".implode(', ', $valid_pad_types), 'sys_error');
+			halt('A System Error Was Encountered', "The pad type specified, {$pad_type}, is not valid. Must be one of: ".implode(', ', $valid_pad_types), 'sys_error');
 		}
 		
 		// We get better performance falling back for ASCII strings

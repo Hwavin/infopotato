@@ -82,11 +82,11 @@ class MySQL_Adapter extends Data_Adapter{
 
 		// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
 		if ($dbuser === '') {
-			show_sys_error('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');		
+			halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');		
 		} elseif ($dbname === '') {
-			show_sys_error('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
+			halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
 		} elseif ( ! $this->dbh = mysql_connect($dbhost, $dbuser, $dbpass, TRUE)) {
-			show_sys_error('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
+			halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
 		} else {
 			if (function_exists('mysql_set_charset')) { 
 				// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
@@ -105,7 +105,7 @@ class MySQL_Adapter extends Data_Adapter{
 				if ( ! $err_msg = mysql_error($this->dbh)) {
 					$err_msg = 'Unexpected error while trying to select database';
 				}
-				show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
+				halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			}
 			
 			$return_val = TRUE;
@@ -173,7 +173,7 @@ class MySQL_Adapter extends Data_Adapter{
 		// If there is an error then take note of it.
 		if ($err_msg = mysql_error($this->dbh)) {
 			$is_insert = TRUE;
-			show_sys_error('An Error Was Encountered', $err_msg, 'sys_error');		
+			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
 		}
 

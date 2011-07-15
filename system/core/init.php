@@ -80,7 +80,7 @@ spl_autoload_register('auto_load');
  * @param	string	the template name
  * @return	string
  */
-function show_sys_error($heading, $message, $template = 'sys_error') {
+function halt($heading, $message, $template = 'sys_error') {
 	if (ENVIRONMENT === 'development') {
 		ob_start();
 		require_once SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';

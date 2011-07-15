@@ -197,7 +197,7 @@ class Data_Adapter {
 		} elseif ($output == ARRAY_N) {
 			return $this->last_result[$y] ? array_values(get_object_vars($this->last_result[$y])) : NULL;
 		} else {
-			show_sys_error('A System Error Was Encountered', " \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N", 'sys_error');
+			halt('A System Error Was Encountered', " \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N", 'sys_error');
 		}
 	}
 

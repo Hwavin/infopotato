@@ -53,7 +53,7 @@ class Dispatcher {
 
 		// Checks if manager file exists 
 		if ( ! file_exists($manager_file)) { 
-			show_sys_error('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
+			halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
 		}
 		require_once $manager_file;
 
@@ -61,7 +61,7 @@ class Dispatcher {
 		$manager_class = $manager_name.'_manager';
 		// Function class_exists() is matched in a case-insensitive manner
 		if ( ! class_exists($manager_class)) {
-			show_sys_error('An Error Was Encountered', 'Manager class does not exist', 'sys_error');				
+			halt('An Error Was Encountered', 'Manager class does not exist', 'sys_error');				
 		}
 
 		// Instantiate the manager object
@@ -69,7 +69,7 @@ class Dispatcher {
 		
 		// Checks if the manager method exists
 		if ( ! method_exists($manager_obj, $real_method)) {
-			show_sys_error('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
+			halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
 		}
 		
 		// Make the requested manager method and it's parameters available to that manager object
