@@ -75,6 +75,17 @@ class Dispatcher {
 		// Make the requested manager method and it's parameters available to that manager object
 		$manager_obj->target_method = $real_method;
 		$manager_obj->target_method_params = $params;
+		
+		// $_GET data is disallowed since InfoPotato utilizes URI segments 
+		// rather than traditional URI query strings
+		// The POST data can only be accessed in manager using $this->POST_DATA
+		// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
+		// Remove backslashes added by magic quotes and return the user's raw input
+		// Normalizes all newlines to LF
+		$_POST = isset($_POST) ? sanitize($_POST) : array();
+		$_COOKIE = sanitize($_COOKIE);
+		// $_SESSION requires session_start() before use, otherwise $_SESSION is undefined
+        $_SESSION = isset($_SESSION) ? sanitize($_SESSION) : array(); 
 
 		// The desginated manager prepares the related resources and sends response back to client
 		$manager_obj->{$real_method}($params);

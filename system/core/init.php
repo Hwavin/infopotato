@@ -133,16 +133,21 @@ function __($string, array $values = NULL) {
  * @return  mixed  sanitized variable
  */
 function sanitize($value) {
-	if (is_array($value) || is_object($value)) {
+	if (is_array($value)) {
 		foreach ($value as $key => $val) {
 			// Recursively clean each value
 			$value[$key] = sanitize($val);
 		}
-	} elseif (is_string($value)) {
-		if ((bool) get_magic_quotes_gpc() === TRUE) {
-			// Remove slashes added by magic quotes
+	} 
+	
+	if (is_string($value)) {	
+		// When Magic Quotes are on (it's on by default), 
+		// all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
+		// are escaped with a backslash automatically.
+		if (get_magic_quotes_gpc()) {
+			// Remove backslashes added by magic quotes and return the user's raw input
 			$value = stripslashes($value);
-		}
+		} 
 
 		if (strpos($value, "\r") !== FALSE) {
 			// Standardize newlines
@@ -153,11 +158,6 @@ function sanitize($value) {
 	return $value;
 }
 
-// Sanitize all request variables
-// $_GET data is disallowed since InfoPotato utilizes URI segments 
-// rather than traditional URI query strings
-$_POST = sanitize($_POST);
-$_COOKIE = sanitize($_COOKIE);
 
 /**
  * Reverts the effects of the `register_globals` PHP setting by unsetting

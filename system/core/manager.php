@@ -43,7 +43,7 @@ class Manager {
 	 */
 	public function __construct() {
 		// The POST data can only be accessed in manager using $this->POST_DATA
-		// The $_POST data is already sanitized
+		// The $_POST data is already sanitized by the dispatcher
 		$this->POST_DATA = $_POST;
 		// Disable access to $_POST
 		unset($_POST);
