@@ -60,7 +60,7 @@ be used (LF).</p>
 
 <h2>PHP Closing Tag</h2> 
 
-<p>The PHP closing tag on a PHP document <strong>?&gt;</strong> is optional to the PHP parser.  However, if used, any whitespace following the closing tag, whether introduced
+<p>The PHP closing tag on a PHP document <strong>?&gt;</strong> is optional to the PHP parser. For files that contain only PHP code, the closing tag ("?>") is never permitted. However, if used, any whitespace following the closing tag, whether introduced
 by the developer, user, or an FTP application, can cause unwanted output, PHP errors, or if the latter are suppressed, blank pages.  For this reason, all PHP files should
 <strong>OMIT</strong> the closing PHP tag, and instead use a comment block to mark the end of file and it's location relative to the application root.
 This allows you to still identify a file as being complete and not truncated.</p> 
@@ -78,16 +78,27 @@ This allows you to still identify a file as being complete and not truncated.</p
 </pre></div> 
 
 
-<h2>Indenting and Line Length</h2>
+<h2>Indenting</h2>
 
 <p>
 Use an indent of 4 spaces, with no tabs. This helps to avoid problems with diffs, patches, SVN history and annotations.
 </p>
 
+<h2>Maximum Line Length</h2>
+
 <p>
-The key issue is readability. It is recommended to keep lines at approximately 75-85 characters long for better code readability. <a href="http://paul-m-jones.com/archives/276" class="external_link">Paul M. Jones</a> has some thoughts about that limit.
+The key issue is readability. It is recommended to keep lines at approximately 75-85 characters long for better code readability. <a href="http://paul-m-jones.com/archives/276" class="external_link">Paul M. Jones</a> has some thoughts about that limit. Developers should strive keep each line of their code under 80 characters where possible and practical. However, longer lines are acceptable in some circumstances. The maximum length of any line of PHP code is 120 characters.
 </p>
 
+<h2>Line Termination</h2>
+
+<p>
+Line termination follows the Unix text file convention. Lines must end with a single linefeed (LF) character. Linefeed characters are represented as ordinal 10, or hexadecimal 0x0A.
+</p>
+
+<div class="notebox">
+Note: Do not use carriage returns (CR) as is the convention in Apple OS's (0x0D) or the carriage return - linefeed combination (CRLF) as is standard for the Windows OS (0x0D, 0x0A).
+</div>
 
 <h2>Control Structures</h2>
 
