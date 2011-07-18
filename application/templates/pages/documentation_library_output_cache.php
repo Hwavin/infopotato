@@ -22,10 +22,11 @@ By caching your pages, since they are saved in their fully rendered state, you c
  
 <h2>How Output Caching Works</h2> 
  
-<p>Output Caching can be enabled on a per-page basis, and you can set the length of time that a page should remain cached before being refreshed.
+<p>
+Output Caching can be enabled on a per-page basis, and you can set the length of time that a page should remain cached before being refreshed.
 When a page is loaded for the first time, the cache file will be written to your <dfn>user-defined cache</dfn> folder.  On subsequent page loads the cache file will be retrieved
-and sent to the requesting user's browser.  If it has expired, it will be deleted and refreshed before being sent to the browser.</p> 
- 
+and sent to the requesting user's browser.  If it has expired, it will be deleted and refreshed before being sent to the browser.
+</p> 
  
 <h2>Define Output Cache Folder</h2> 
  

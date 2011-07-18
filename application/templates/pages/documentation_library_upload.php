@@ -46,6 +46,10 @@ Using a text editor, create a form called <span class="red">upload_form.php</spa
 <span class="nt">&lt;/form&gt;</span> 
 </pre></div>  
  
+<div class="notebox">
+Don't forget to add enctype="multipart/form-data" in your form tag &lt;form&gt; if you want your form to upload the file.
+</div>
+ 
 <h2>The Manager</h2> 
  
 <p>
