@@ -83,7 +83,7 @@ class Dispatcher {
 		// Remove backslashes added by magic quotes and return the user's raw input
 		// Normalizes all newlines to LF
 		$_POST = isset($_POST) ? sanitize($_POST) : array();
-		$_COOKIE = sanitize($_COOKIE);
+		$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
 		// $_SESSION requires session_start() before use, otherwise $_SESSION is undefined
         $_SESSION = isset($_SESSION) ? sanitize($_SESSION) : array(); 
 
