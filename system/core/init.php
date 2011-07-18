@@ -168,7 +168,7 @@ function sanitize($value) {
  *
  * @return  void
  */
-function globals() {
+function disable_register_globals() {
 	if (isset($_REQUEST['GLOBALS']) || isset($_FILES['GLOBALS'])) {
 		// Prevent malicious GLOBALS overload attack
 		echo "Global variable overload attack detected! Request aborted.\n";
@@ -204,7 +204,7 @@ function globals() {
 // (as of PHP 4.2.0 this is the default).
 if (ini_get('register_globals')) {
 	// Reverse the effects of register_globals
-	globals();
+	disable_register_globals();
 }
 		
 		
