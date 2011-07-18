@@ -9,16 +9,16 @@
  * by setting the internal error_reporting flag to a value of 0.
  */
 switch (ENVIRONMENT) {
-	case 'development':
-		error_reporting(E_ALL | E_STRICT);
-	    break;
+    case 'development':
+        error_reporting(E_ALL | E_STRICT);
+        break;
 
-	case 'production':
-		error_reporting(0);
-	    break;
+    case 'production':
+        error_reporting(0);
+        break;
 
-	default:
-		exit('The application environment is not set correctly.');
+    default:
+        exit('The application environment is not set correctly.');
 }
 
 /**
@@ -28,43 +28,43 @@ switch (ENVIRONMENT) {
  * @return  void
  */   
 function auto_load($class_name) {
-	$class_name = strtolower($class_name);
+    $class_name = strtolower($class_name);
 	
-	// Create and use runtime files to speed up the parsing process for all the following requests
-	// Dispatcher and Manager class are required for each app request
-	// The runtime folder must be writable
-	$runtime_list = array(
-		'dispatcher', 
-		'manager', 
-		'data', 
-		'data_adapter',  
-		'dumper', 
-		'utf8',
-		'i18n',
-		'cookie',
-		'session',
-		'mysql_adapter', 
-		'mysqli_adapter', 
-		'postgresql_adapter', 
-		'sqlite_adapter'
-	);
+    // Create and use runtime files to speed up the parsing process for all the following requests
+    // Dispatcher and Manager class are required for each app request
+    // The runtime folder must be writable
+    $runtime_list = array(
+        'dispatcher', 
+        'manager', 
+        'data', 
+        'data_adapter',  
+        'dumper', 
+        'utf8',
+        'i18n',
+        'cookie',
+        'session',
+        'mysql_adapter', 
+        'mysqli_adapter', 
+        'postgresql_adapter', 
+        'sqlite_adapter'
+    );
 
-	if (in_array($class_name, $runtime_list)) {
-		if (SYS_RUNTIME_CACHE === TRUE) {
-			// SYS_RUNTIME_DIR must be writable
-			$file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
-			if ( ! file_exists($file)) {
-				file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
-			}
-		} else {
-			$file = SYS_CORE_DIR.$class_name.'.php';
-		}
-	} else {
-		// In case one app manager extends another app manager
-		$file = APP_MANAGER_DIR.$class_name.'.php';
-	}
-	require_once $file;
-	return;
+    if (in_array($class_name, $runtime_list)) {
+        if (SYS_RUNTIME_CACHE === TRUE) {
+            // SYS_RUNTIME_DIR must be writable
+            $file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
+            if ( ! file_exists($file)) {
+                file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
+            }
+        } else {
+            $file = SYS_CORE_DIR.$class_name.'.php';
+        }
+    } else {
+        // In case one app manager extends another app manager
+        $file = APP_MANAGER_DIR.$class_name.'.php';
+    }
+    require_once $file;
+    return;
 } 
 // PHP 5 >= 5.1.2
 spl_autoload_register('auto_load');
@@ -81,14 +81,14 @@ spl_autoload_register('auto_load');
  * @return	string
  */
 function halt($heading, $message, $template = 'sys_error') {
-	if (ENVIRONMENT === 'development') {
-		ob_start();
-		require_once SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
-		$buffer = ob_get_contents();
-		ob_end_clean();
-		echo $buffer;
-		exit;
-	}
+    if (ENVIRONMENT === 'development') {
+        ob_start();
+        require_once SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        echo $buffer;
+        exit;
+    }
 }
 
 /**
@@ -100,7 +100,7 @@ function halt($heading, $message, $template = 'sys_error') {
  * @return	void
  */
 function dump($var, $force_type = '', $collapsed = FALSE) {
-	Dumper::dump($var, $force_type, $collapsed);
+    Dumper::dump($var, $force_type, $collapsed);
 }
 
 /**
@@ -118,9 +118,9 @@ function dump($var, $force_type = '', $collapsed = FALSE) {
  * @return  string
  */
 function __($string, array $values = NULL) {
-	// Get the translation for this message
-	$string = I18n::get($string);
-	return empty($values) ? $string : strtr($string, $values);
+    // Get the translation for this message
+    $string = I18n::get($string);
+    return empty($values) ? $string : strtr($string, $values);
 }
 
 /**
@@ -133,10 +133,10 @@ function __($string, array $values = NULL) {
  * @return  mixed  sanitized variable
  */
 function sanitize($value) {
-	if (is_array($value)) {
-		foreach ($value as $key => $val) {
-			// Recursively clean each value
-			$value[$key] = sanitize($val);
+    if (is_array($value)) {
+        foreach ($value as $key => $val) {
+            // Recursively clean each value
+            $value[$key] = sanitize($val);
 		}
 	} 
 	

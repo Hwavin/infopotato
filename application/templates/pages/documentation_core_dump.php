@@ -101,7 +101,7 @@
 
 <!-- PRINT: start -->
 <p>
-The Dump class is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dump</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. This is a much better presentation with more visual output of a variable's contents than PHP's <span class="red">var_dump()</span> and <span class="red">print_r()</span> functions. Variable types supported are: 
+The Dumper class in InfoPotato is a modification of <a href="http://dbug.ospinto.com/" class="external_link">dBug</a> which is a PHP version of ColdFusion's cfdump based on <a href="http://dbug.ospinto.com/" class="external_link">dump</a>. You can get colored and structured tabular variable information output by using this class in Managers. The output table cells can be expanded and collapsed. This is a much better presentation with more visual output of a variable's contents than PHP's <span class="red">var_dump()</span> and <span class="red">print_r()</span> functions. Variable types supported are: 
 </p>
 
 <ul>
