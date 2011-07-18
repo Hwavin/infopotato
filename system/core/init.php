@@ -22,7 +22,7 @@ switch (ENVIRONMENT) {
 }
 
 /**
- * SPL Autoloading required components
+ * SPL Autoloading required core components
  *
  * @param   string $class_name the class name we are trying to load
  * @return  void
