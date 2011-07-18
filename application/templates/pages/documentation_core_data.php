@@ -25,6 +25,10 @@ Data Access Objects are responsible for any logic that surrounds the manipulatio
 In an InfoPotato application, the use of data layer is not required if there is no data access involved. And a data object is not allowed to be associated with other data objects. A data file can be loaded and used by different managers which need the data access that this data provides.
 </p>
 
+<div class="notebox">
+One of the ideas of InfoPotato is that it allows you to choose your own database toolkit, you're not forced to use what we think is best.
+</div>
+
 <h2>What is a Data?</h2> 
  
 <p>A data is an instance of the base Data object or other data objects' child class. Data object is used to keep data and their relevant business rules. For example, let's say you use InfoPotato to manage a blog. You might have a data class that contains functions to insert, update, and retrieve your blog post data. Here is an example of what such a data class might look like:</p> 
