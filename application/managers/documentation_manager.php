@@ -243,6 +243,10 @@ final class Documentation_Manager extends Manager {
 				'name' => 'Form Validation'
 			),
 			array(
+				'uri' => 'image', 
+				'name' => 'Image Manipulation'
+			),
+			array(
 				'uri' => 'ftp', 
 				'name' => 'FTP'
 			),

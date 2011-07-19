@@ -18,6 +18,7 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/encypt/"><?php echo __('Encryption'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/upload/"><?php echo __('File Upload'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/form_validation/"><?php echo __('Form Validation'); ?></a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/image/"><?php echo __('Image Manipulation'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/ftp/">FTP</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/pagination/"><?php echo __('Pagination'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/password_hashing/"><?php echo __('Password Hashing'); ?></a></li> 
