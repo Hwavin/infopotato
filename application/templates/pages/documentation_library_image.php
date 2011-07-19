@@ -56,7 +56,7 @@ For practical purposes there is no difference between creating a copy and creati
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">final</span> <span class="k">class</span> <span class="nc">Img_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_resize</span><span class="p">()</span> <span class="p">{</span> 
  
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;source_image&#39;</span><span class="p">]</span>	<span class="o">=</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;t.jpg&#39;</span><span class="p">;</span> 
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;create_thumb&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">;</span> 
@@ -85,7 +85,7 @@ The cropping function works nearly identically to the resizing function except i
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">final</span> <span class="k">class</span> <span class="nc">Img_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_crop</span><span class="p">()</span> <span class="p">{</span> 
  
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;image_library_to_use&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;gd2&#39;</span><span class="p">;</span> 
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;source_image&#39;</span><span class="p">]</span>	<span class="o">=</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;t.jpg&#39;</span><span class="p">;</span> 
@@ -114,7 +114,7 @@ The image rotation function requires that the angle of rotation be set via its p
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">final</span> <span class="k">class</span> <span class="nc">Img_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_rotate</span><span class="p">()</span> <span class="p">{</span> 
  
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;source_image&#39;</span><span class="p">]</span>	<span class="o">=</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;t.jpg&#39;</span><span class="p">;</span> 
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;rotation_angle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;hor&#39;</span><span class="p">;</span> 
@@ -148,7 +148,7 @@ There are two types of watermarking that you can use:
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">final</span> <span class="k">class</span> <span class="nc">Img_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_index</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_watermark</span><span class="p">()</span> <span class="p">{</span> 
  
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;source_image&#39;</span><span class="p">]</span>	<span class="o">=</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;t.jpg&#39;</span><span class="p">;</span> 
         <span class="nv">$config</span><span class="p">[</span><span class="s1">&#39;wm_text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2006 - John Doe&#39;</span><span class="p">;</span> 
