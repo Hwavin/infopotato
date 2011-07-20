@@ -9,44 +9,137 @@
  */
 class Upload_Library {
 	
+	/**
+	 * The maximum size (in kilobytes) that the file can be. Set to zero for no limit.
+	 * Note: Most PHP installations have their own limit, as specified in the php.ini file. 
+	 * Usually 2 MB (or 2048 KB) by default.
+	 * 
+	 * @var integer
+	 */
 	protected $max_size = 0;
+	
+	/**
+	 * The maximum width (in pixels) that the file can be. Set to zero for no limit.
+	 * 
+	 * @var integer
+	 */
 	protected $max_width = 0;
+	
+	/**
+	 * The maximum height (in pixels) that the file can be. Set to zero for no limit.
+	 * 
+	 * @var integer
+	 */
 	protected $max_height = 0;
+	
+	/**
+	 * The maximum length that a file name can be. Set to zero for no limit.
+	 * 
+	 * @var string
+	 */
 	protected $max_filename = 0;
-	protected $allowed_types = '';
+	
+	/**
+	 * The mime types corresponding to the types of files you allow to be uploaded. 
+	 * Usually the file extension can be used as the mime type. 
+	 * E.g. array('pdf', 'doc', 'docx')
+	 * 
+	 * @var array
+	 */
+	protected $allowed_types = array();
+	
+	/**
+	 * The maximum length that a file name can be. Set to zero for no limit.
+	 * 
+	 * @var string
+	 */
 	protected $file_temp = '';
+	
+	/**
+	 * If set InfoPotato will rename the uploaded file to this name. 
+	 * The extension provided in the file name must also be an allowed file type.
+	 * 
+	 * @var string
+	 */
 	protected $file_name = '';
 	protected $orig_name = '';
 	protected $file_type = '';
 	protected $file_size = '';
 	protected $file_ext = '';
+	
+	/**
+	 * The path to the folder where the upload should be placed. 
+	 * The folder must be writable and the path can be absolute or relative.
+	 * Make sure it has a trailing slash
+	 * 
+	 * @var string
+	 */
 	protected $upload_path	= '';
+	
+	/**
+	 * If set to true, if a file with the same name as the one you are uploading exists, 
+	 * it will be overwritten. If set to false, a number will be appended to the filename 
+	 * if another with the same name exists.
+	 * 
+	 * @var boolean
+	 */
 	protected $overwrite = FALSE;
+	
+	/**
+	 * If set to TRUE the file name will be converted to a random encrypted string. 
+	 * This can be useful if you would like the file saved with a name that 
+	 * can not be discerned by the person uploading it.
+	 * 
+	 * @var boolean
+	 */
 	protected $encrypt_name = FALSE;
-	protected $is_image = FALSE;
+
 	protected $image_width	= '';
 	protected $image_height = '';
 	protected $image_type = '';
 	protected $image_size_str = '';
-	protected $error_msg = array();
-	protected $mimes = array();
-	protected $remove_spaces = TRUE;
-	protected $temp_prefix	= 'temp_file_';
-	protected $file_name_override = '';
 	
+	/**
+	 * If set to TRUE, any spaces in the file name will be converted to underscores. This is recommended.
+	 * 
+	 * @var boolean
+	 */
+	protected $remove_spaces = TRUE;
+
+	/**
+	 * If a file_name was provided in the config, use it instead of the user input
+	 * supplied file name for all uploads until initialized again
+	 *
+	 * @var string
+	 */
+	protected $file_name_override = '';
+
+	
+	/**
+	 * All the pre defined error messages
+	 * 
+	 * @var array
+	 */
 	private $_error_messages = array();
+	
+	/**
+	 * The errors caputered to display
+	 * 
+	 * @var array
+	 */
+	private $_error_msg_to_display= array();
 	
 	/**
 	 * Constructor
 	 */
 	public function __construct($config = array()) {
 		if (count($config) > 0) {
-			$defaults = array(
+			$default_vars = array(
 				'max_size' => 0,
 				'max_width'	=> 0,
 				'max_height' => 0,
 				'max_filename' => 0,
-				'allowed_types' => '',
+				'allowed_types' => array(),
 				'file_temp' => '',
 				'file_name' => '',
 				'orig_name' => '',
@@ -56,28 +149,17 @@ class Upload_Library {
 				'upload_path' => '',
 				'overwrite' => FALSE,
 				'encrypt_name' => FALSE,
-				'is_image' => FALSE,
+
 				'image_width' => '',
 				'image_height' => '',
 				'image_type' => '',
 				'image_size_str' => '',
-				'error_msg' => array(),
-				'mimes' => array(),
 				'remove_spaces'	=> TRUE,
-				'temp_prefix' => 'temp_file_'
 			);	
 		
-		
-			foreach ($defaults as $key => $val) {
+			foreach ($default_vars as $key => $val) {
 				if (isset($config[$key])) {
-					$method = 'set_'.$key;
-					if (method_exists($this, $method)) {
-						$this->$method($config[$key]);
-					} else {
-						$this->$key = $config[$key];
-					}			
-				} else {
-					$this->$key = $val;
+					$this->$key = $config[$key];			
 				}
 			}
 			
@@ -143,7 +225,7 @@ class Upload_Library {
 	public function run($field = 'userfile') {
 		// Is $_FILES[$field] set? If not, no reason to continue.
 		if ( ! isset($_FILES[$field])) {
-			$this->set_error('upload_no_file_selected');
+			$this->_set_error('upload_no_file_selected');
 			return FALSE;
 		}
 		
@@ -159,34 +241,34 @@ class Upload_Library {
 
 			switch($error) {
 				case 1:	// UPLOAD_ERR_INI_SIZE
-					$this->set_error('upload_file_exceeds_limit');
+					$this->_set_error('upload_file_exceeds_limit');
 					break;
 				
 				case 2: // UPLOAD_ERR_FORM_SIZE
-					$this->set_error('upload_file_exceeds_form_limit');
+					$this->_set_error('upload_file_exceeds_form_limit');
 					break;
 				
 				case 3: // UPLOAD_ERR_PARTIAL
-				   $this->set_error('upload_file_partial');
+				   $this->_set_error('upload_file_partial');
 					break;
 				
 				case 4: // UPLOAD_ERR_NO_FILE
-				   $this->set_error('upload_no_file_selected');
+				   $this->_set_error('upload_no_file_selected');
 					break;
 				
 				case 6: // UPLOAD_ERR_NO_TMP_DIR
-					$this->set_error('upload_no_temp_directory');
+					$this->_set_error('upload_no_temp_directory');
 					break;
 				
 				case 7: // UPLOAD_ERR_CANT_WRITE
-					$this->set_error('upload_unable_to_write_file');
+					$this->_set_error('upload_unable_to_write_file');
 					break;
 				
 				case 8: // UPLOAD_ERR_EXTENSION
-					$this->set_error('upload_stopped_by_extension');
+					$this->_set_error('upload_stopped_by_extension');
 					break;
 				
-				default : $this->set_error('upload_no_file_selected');
+				default : $this->_set_error('upload_no_file_selected');
 					break;
 			}
 
@@ -203,7 +285,7 @@ class Upload_Library {
 		
 		// Is the file type allowed to be uploaded?
 		if ( ! $this->is_allowed_filetype()) {
-			$this->set_error('upload_invalid_filetype');
+			$this->_set_error('upload_invalid_filetype');
 			return FALSE;
 		}
 		
@@ -220,7 +302,7 @@ class Upload_Library {
 			}
 
 			if ( ! $this->is_allowed_filetype(TRUE)) {
-				$this->set_error('upload_invalid_filetype');
+				$this->_set_error('upload_invalid_filetype');
 				return FALSE;
 			}
 		}
@@ -232,14 +314,14 @@ class Upload_Library {
 		
 		// Is the file size within the allowed maximum?
 		if ( ! $this->is_allowed_filesize()) {
-			$this->set_error('upload_invalid_filesize');
+			$this->_set_error('upload_invalid_filesize');
 			return FALSE;
 		}
 
 		// Are the image dimensions within the allowed size?
 		// Note: This can fail if the server has an open_basdir restriction.
 		if ( ! $this->is_allowed_dimensions()) {
-			$this->set_error('upload_invalid_dimensions');
+			$this->_set_error('upload_invalid_dimensions');
 			return FALSE;
 		}
 
@@ -282,7 +364,7 @@ class Upload_Library {
 		 */
 		if ( ! @copy($this->file_temp, $this->upload_path.$this->file_name)) {
 			if ( ! @move_uploaded_file($this->file_temp, $this->upload_path.$this->file_name)) {
-				 $this->set_error('upload_destination_error');
+				 $this->_set_error('upload_destination_error');
 				 return FALSE;
 			}
 		}
@@ -327,18 +409,6 @@ class Upload_Library {
 	
 
 	/**
-	 * Set Upload Path
-	 *
-	 * @param	string
-	 * @return	void
-	 */	
-	public function set_upload_path($path) {
-		// Make sure it has a trailing slash
-		$this->upload_path = rtrim($path, '/').'/';
-	}
-	
-
-	/**
 	 * Set the file name
 	 *
 	 * This function takes a filename/path as input and looks for the
@@ -370,68 +440,12 @@ class Upload_Library {
 		}
 
 		if ($new_filename == '') {
-			$this->set_error('upload_bad_filename');
+			$this->_set_error('upload_bad_filename');
 			return FALSE;
 		} else {
 			return $new_filename;
 		}
 	}
-	
-
-	/**
-	 * Set Maximum File Size
-	 *
-	 * @param	integer
-	 * @return	void
-	 */	
-	public function set_max_filesize($n) {
-		$this->max_size = ((int) $n < 0) ? 0: (int) $n;
-	}
-	
-
-	/**
-	 * Set Maximum File Name Length
-	 *
-	 * @param	integer
-	 * @return	void
-	 */	
-	public function set_max_filename($n) {
-		$this->max_filename = ((int) $n < 0) ? 0: (int) $n;
-	}
-
-
-	/**
-	 * Set Maximum Image Width
-	 *
-	 * @param	integer
-	 * @return	void
-	 */	
-	public function set_max_width($n) {
-		$this->max_width = ((int) $n < 0) ? 0: (int) $n;
-	}
-	
-
-	/**
-	 * Set Maximum Image Height
-	 *
-	 * @param	integer
-	 * @return	void
-	 */	
-	public function set_max_height($n) {
-		$this->max_height = ((int) $n < 0) ? 0: (int) $n;
-	}
-	
-
-	/**
-	 * Set Allowed File Types
-	 *
-	 * @param	string
-	 * @return	void
-	 */	
-	public function set_allowed_types($types) {
-		$this->allowed_types = explode('|', $types);
-	}
-	
 
 	/**
 	 * Set Image Properties
@@ -501,7 +515,7 @@ class Upload_Library {
 		}
 		
 		if (count($this->allowed_types) == 0 || ! is_array($this->allowed_types)) {
-			$this->set_error('upload_no_file_types');
+			$this->_set_error('upload_no_file_types');
 			return FALSE;
 		}
 		
@@ -589,7 +603,7 @@ class Upload_Library {
 	 */	
 	public function validate_upload_path() {
 		if ($this->upload_path == '') {
-			$this->set_error('upload_no_filepath');
+			$this->_set_error('upload_no_filepath');
 			return FALSE;
 		}
 		
@@ -598,12 +612,12 @@ class Upload_Library {
 		}
 
 		if ( ! @is_dir($this->upload_path)) {
-			$this->set_error('upload_no_filepath');
+			$this->_set_error('upload_no_filepath');
 			return FALSE;
 		}
 
 		if ( ! is_writable($this->upload_path)) {
-			$this->set_error('upload_not_writable');
+			$this->_set_error('upload_not_writable');
 			return FALSE;
 		}
 
@@ -694,8 +708,8 @@ class Upload_Library {
 	 * @param	string
 	 * @return	void
 	 */	
-	public function set_error($msg) {
-		$this->error_msg[] = isset($this->_error_messages[$msg]) ? $this->_error_messages[$msg] : $msg;
+	private function _set_error($msg) {
+		$this->_error_msg_to_display[] = isset($this->_error_messages[$msg]) ? $this->_error_messages[$msg] : $msg;
 	}
 	
 
@@ -708,7 +722,7 @@ class Upload_Library {
 	 */	
 	public function display_errors($open = '<p>', $close = '</p>') {
 		$str = '';
-		foreach ($this->error_msg as $val) {
+		foreach ($this->_error_msg_to_display as $val) {
 			$str .= $open.$val.$close;
 		}
 	
@@ -815,13 +829,8 @@ class Upload_Library {
 			'xl'	=>	'application/excel',
 			'eml'	=>	'message/rfc822'
 		);
-		
-		if (count($this->mimes) == 0) {
-			$this->mimes = $mimes;
-			unset($mimes);
-		}
-	
-		return ( ! isset($this->mimes[$mime])) ? FALSE : $this->mimes[$mime];
+
+		return ( ! isset($mimes[$mime])) ? FALSE : $mimes[$mime];
 	}
 
 

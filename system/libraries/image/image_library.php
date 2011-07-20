@@ -314,10 +314,24 @@ class Image_Library {
 	private $full_dst_path		= '';
 	private $create_fnc			= 'imagecreatetruecolor';
 	private $copy_fnc			= 'imagecopyresampled';
-	private $error_msg			= array();
 	private $wm_use_drop_shadow	= FALSE;
 	private $wm_use_truetype	= FALSE;
-
+	
+	
+	/**
+	 * All the pre defined error messages
+	 * 
+	 * @var array
+	 */
+	private $_error_messages = array();
+	
+	/**
+	 * The errors caputered to display
+	 * 
+	 * @var array
+	 */
+	private $_error_msg_to_display= array();
+	
 	/**
 	 * Constructor
 	 *
@@ -326,13 +340,98 @@ class Image_Library {
 	 */
 	public function __construct($config = array()) {
 		if (count($config) > 0) {
-			// Convert array elements into class variables
-			foreach ($config as $key => $val) {
-				$this->$key = $val;
+			$default_vars = array(
+				'image_library_to_use' => '',
+				'library_path'	=> '',
+				'dynamic_output' => FALSE,
+				'source_image' => '',
+				'new_image' => '',
+				'width' => '',
+				'height' => '',
+				'quality' => '',
+				'create_thumb' => FALSE,
+				'thumb_marker' => '_thumb',
+				'maintain_ratio' => TRUE,
+				'master_dim' => 'auto',
+				'rotation_angle' => '',
+				'x_axis' => '',
+				'y_axis' => '',
+				'wm_text' => '',
+				'wm_type' => '',
+				'wm_x_transp' => 4,
+				'wm_y_transp' => 4,
+				'wm_overlay_path' => '',
+				'wm_font_path' => '',
+				'wm_font_size'	=> 17,
+				'wm_vrt_alignment' => 'B',
+				'wm_hor_alignment' => 'C',
+				'wm_padding' => 0,
+				'wm_hor_offset' => 0,
+				'wm_vrt_offset' => 0,
+				'wm_font_color' => '#ffffff',
+				'wm_shadow_color' => '',
+				'wm_shadow_distance' => 2,
+				'wm_opacity' => 50
+			);	
+		
+			foreach ($default_vars as $key => $val) {
+				if (isset($config[$key])) {
+					$this->$key = $config[$key];			
+				}
 			}
-		    // Check image preferences
-			$this->_init();
 		}
+		
+		$lang = array(
+			'en/us' => array(
+				'source_image_required' => "You must specify a source image in your preferences.",
+				'gd_required' => "The GD image library is required for this feature.",
+				'gd_required_for_props' => "Your server must support the GD image library in order to determine the image properties.",
+				'unsupported_imagecreate' => "Your server does not support the GD function required to process this type of image.",
+				'gif_not_supported' => "GIF images are often not supported due to licensing restrictions.  You may have to use JPG or PNG images instead.",
+				'jpg_not_supported' => "JPG images are not supported.",
+				'png_not_supported' => "PNG images are not supported.",
+				'jpg_or_png_required' => "The image resize protocol specified in your preferences only works with JPEG or PNG image types.",
+				'copy_error' => "An error was encountered while attempting to replace the file.  Please make sure your file directory is writable.",
+				'rotate_unsupported' => "Image rotation does not appear to be supported by your server.",
+				'libpath_invalid' => "The path to your image library is not correct.  Please set the correct path in your image preferences.",
+				'image_process_failed' => "Image processing failed.  Please verify that your server supports the chosen protocol and that the path to your image library is correct.",
+				'rotation_angle_required' => "An angle of rotation is required to rotate the image.",
+				'writing_failed_gif' => "GIF image.",
+				'invalid_path' => "The path to the image is not correct.",
+				'copy_failed' => "The image copy routine failed.",
+				'missing_font' => "Unable to find a font to use.",
+				'save_failed' => "Unable to save the image.  Please make sure the image and file directory are writable."
+			),
+			
+			'zh/cn' => array(
+				'source_image_required' => "必须制定图片",
+				'gd_required' => "需要GD类来实现这个功能",
+				'gd_required_for_props' => "为了决定图片属性你的服务器必须支持GD图片库",
+				'unsupported_imagecreate' => "你的服务器不支持GD类的函数来实现此功能",
+				'gif_not_supported' => "GIF images are often not supported due to licensing restrictions.  You may have to use JPG or PNG images instead.",
+				'jpg_not_supported' => "不支持JPG格式图片",
+				'png_not_supported' => "不支持PNG格式图片",
+				'jpg_or_png_required' => "The image resize protocol specified in your preferences only works with JPEG or PNG image types.",
+				'copy_error' => "An error was encountered while attempting to replace the file.  Please make sure your file directory is writable.",
+				'rotate_unsupported' => "你的服务器不支持图片旋转",
+				'libpath_invalid' => "图片库路径不正确，请检查",
+				'image_process_failed' => "图片处理失败 Please verify that your server supports the chosen protocol and that the path to your image library is correct.",
+				'rotation_angle_required' => "必须制定旋转角度来完成图片旋转",
+				'writing_failed_gif' => "GIF image.",
+				'invalid_path' => "无效的图片路径",
+				'copy_failed' => "复制图片失败",
+				'missing_font' => "找不到能用的字体",
+				'save_failed' => "无法保存图片，请确保图片和文件目录可写"
+			),
+		);
+		
+		$this->_error_messages = (isset($config['lang']) && array_key_exists($config['lang'], $lang)) 
+			? $lang[$config['lang']] 
+			: $lang['en/us'];
+		
+		
+		// Check image preferences
+		$this->_init();
 	}
 
 	
@@ -1508,6 +1607,7 @@ class Image_Library {
 	 */
 	private function gd_loaded() {
 		if ( ! extension_loaded('gd')) {
+			// Note: dl() has been removed from some SAPI's in PHP 5.3.
 			if ( ! dl('gd.so')) {
 				return FALSE;
 			}
@@ -1541,35 +1641,12 @@ class Image_Library {
 	 * @return	void
 	 */
 	private function _set_error($msg) {
-		$error_messages = array(
-		    'source_image_required' => "You must specify a source image in your preferences.",
-			'gd_required' => "The GD image library is required for this feature.",
-			'gd_required_for_props' => "Your server must support the GD image library in order to determine the image properties.",
-			'unsupported_imagecreate' => "Your server does not support the GD function required to process this type of image.",
-			'gif_not_supported' => "GIF images are often not supported due to licensing restrictions.  You may have to use JPG or PNG images instead.",
-			'jpg_not_supported' => "JPG images are not supported.",
-			'png_not_supported' => "PNG images are not supported.",
-			'jpg_or_png_required' => "The image resize protocol specified in your preferences only works with JPEG or PNG image types.",
-			'copy_error' => "An error was encountered while attempting to replace the file.  Please make sure your file directory is writable.",
-			'rotate_unsupported' => "Image rotation does not appear to be supported by your server.",
-			'libpath_invalid' => "The path to your image library is not correct.  Please set the correct path in your image preferences.",
-			'image_process_failed' => "Image processing failed.  Please verify that your server supports the chosen protocol and that the path to your image library is correct.",
-			'rotation_angle_required' => "An angle of rotation is required to rotate the image.",
-			'writing_failed_gif' => "GIF image.",
-			'invalid_path' => "The path to the image is not correct.",
-			'copy_failed' => "The image copy routine failed.",
-			'missing_font' => "Unable to find a font to use.",
-			'save_failed' => "Unable to save the image.  Please make sure the image and file directory are writable."
-		);
-		
 		if (is_array($msg)) {
 			foreach ($msg as $val) {
-				$msg = ($error_messages[$val] == FALSE) ? $val : $error_messages[$val];
-				$this->error_msg[] = $msg;
+				$this->_error_msg_to_display[] = isset($this->_error_messages[$val]) ? $this->_error_messages[$val] : $val;
 			}
 		} else {
-			$msg = ($error_messages[$msg] == FALSE) ? $msg : $error_messages[$msg];
-			$this->error_msg[] = $msg;
+			$this->_error_msg_to_display[] = isset($this->_error_messages[$msg]) ? $this->_error_messages[$msg] : $msg;
 		}
 	}
 
@@ -1582,7 +1659,7 @@ class Image_Library {
 	 */
 	public function display_errors($open = '<p>', $close = '</p>') {
 		$str = '';
-		foreach ($this->error_msg as $val) {
+		foreach ($this->_error_msg_to_display as $val) {
 			$str .= $open.$val.$close;
 		}
 
