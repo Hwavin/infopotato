@@ -567,11 +567,11 @@ class Image_Library {
 
 		// Reassign the width and height
 		if ($this->rotation_angle == 90 || $this->rotation_angle == 270) {
-			$this->width	= $this->orig_height;
-			$this->height	= $this->orig_width;
+			$this->width = $this->orig_height;
+			$this->height = $this->orig_width;
 		} else {
-			$this->width	= $this->orig_width;
-			$this->height	= $this->orig_height;
+			$this->width = $this->orig_width;
+			$this->height = $this->orig_height;
 		}
 
 
@@ -618,7 +618,7 @@ class Image_Library {
 		// Let's set up our values based on the action
 		if ($action == 'crop') {
 			//  Reassign the source width/height if cropping
-			$this->orig_width  = $this->width;
+			$this->orig_width = $this->width;
 			$this->orig_height = $this->height;
 
 			// GD 2.0 has a cropping bug so we'll test for it
@@ -646,10 +646,10 @@ class Image_Library {
 		//  if ($this->image_library_to_use == 'gd2' AND function_exists('imagecreatetruecolor') AND $v2_override == FALSE)
 		if ($this->image_library_to_use == 'gd2' && function_exists('imagecreatetruecolor')) {
 			$create	= 'imagecreatetruecolor';
-			$copy	= 'imagecopyresampled';
+			$copy = 'imagecopyresampled';
 		} else {
 			$create	= 'imagecreate';
-			$copy	= 'imagecopyresized';
+			$copy = 'imagecopyresized';
 		}
 
 		$dst_img = $create($this->width, $this->height);
@@ -700,7 +700,6 @@ class Image_Library {
 
 		if ( ! preg_match("/convert$/i", $this->library_path)) {
 			$this->library_path = rtrim($this->library_path, '/').'/';
-
 			$this->library_path .= 'convert';
 		}
 
@@ -764,18 +763,18 @@ class Image_Library {
 		//  Build the resizing command
 		switch ($this->image_type) {
 			case 1 :
-				$cmd_in		= 'giftopnm';
-				$cmd_out	= 'ppmtogif';
+				$cmd_in = 'giftopnm';
+				$cmd_out = 'ppmtogif';
 				break;
 			
 			case 2 :
-				$cmd_in		= 'jpegtopnm';
-				$cmd_out	= 'ppmtojpeg';
+				$cmd_in	= 'jpegtopnm';
+				$cmd_out = 'ppmtojpeg';
 				break;
 			
 			case 3 :
-				$cmd_in		= 'pngtopnm';
-				$cmd_out	= 'ppmtopng';
+				$cmd_in	= 'pngtopnm';
+				$cmd_out = 'ppmtopng';
 				break;
 		}
 
@@ -849,7 +848,7 @@ class Image_Library {
 		// going to have to figure out how to determine the color
 		// of the alpha channel in a future release.
 
-		$white	= imagecolorallocate($src_img, 255, 255, 255);
+		$white = imagecolorallocate($src_img, 255, 255, 255);
 
 		//  Rotate it!
 		$dst_img = imagerotate($src_img, $this->rotation_angle, $white);
@@ -888,7 +887,7 @@ class Image_Library {
 			return FALSE;
 		}
 
-		$width  = $this->orig_width;
+		$width = $this->orig_width;
 		$height = $this->orig_height;
 
 		if ($this->rotation_angle == 'hor') {
@@ -979,13 +978,13 @@ class Image_Library {
 		$this->_get_image_properties();
 
 		//  Fetch watermark image properties
-		$props			= $this->_get_image_properties($this->wm_overlay_path, TRUE);
-		$wm_img_type	= $props['image_type'];
-		$wm_width		= $props['width'];
-		$wm_height		= $props['height'];
+		$props = $this->_get_image_properties($this->wm_overlay_path, TRUE);
+		$wm_img_type = $props['image_type'];
+		$wm_width = $props['width'];
+		$wm_height = $props['height'];
 
 		//  Create two image resources
-		$wm_img  = $this->_image_create_gd($this->wm_overlay_path, $wm_img_type);
+		$wm_img = $this->_image_create_gd($this->wm_overlay_path, $wm_img_type);
 		$src_img = $this->_image_create_gd($this->full_src_path);
 
 		// Reverse the offset if necessary
@@ -1371,7 +1370,7 @@ class Image_Library {
 			return;
         }
 		
-		$new_width	= ceil($this->orig_width*$this->height/$this->orig_height);
+		$new_width = ceil($this->orig_width*$this->height/$this->orig_height);
 		$new_height	= ceil($this->width*$this->orig_height/$this->orig_width);
 
 		$ratio = (($this->orig_height/$this->orig_width) - ($this->height/$this->width));
@@ -1418,20 +1417,20 @@ class Image_Library {
 		$mime = (isset($types[$vals['2']])) ? 'image/'.$types[$vals['2']] : 'image/jpg';
 
 		if ($return == TRUE) {
-			$v['width']			= $vals['0'];
-			$v['height']		= $vals['1'];
-			$v['image_type']	= $vals['2'];
-			$v['size_str']		= $vals['3'];
-			$v['mime_type']		= $mime;
+			$v['width'] = $vals['0'];
+			$v['height'] = $vals['1'];
+			$v['image_type'] = $vals['2'];
+			$v['size_str'] = $vals['3'];
+			$v['mime_type'] = $mime;
 
 			return $v;
 		}
 
-		$this->orig_width	= $vals['0'];
-		$this->orig_height	= $vals['1'];
-		$this->image_type	= $vals['2'];
-		$this->size_str		= $vals['3'];
-		$this->mime_type	= $mime;
+		$this->orig_width = $vals['0'];
+		$this->orig_height = $vals['1'];
+		$this->image_type = $vals['2'];
+		$this->size_str = $vals['3'];
+		$this->mime_type = $mime;
 
 		return TRUE;
 	}
