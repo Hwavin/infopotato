@@ -538,7 +538,7 @@ class Upload_Library {
 			return TRUE;
 		}
 		
-		$mime = $this->mimes_types($ext);
+		$mime = $this->_mimes_types($ext);
 		
 		if (is_array($mime)) {
 			if (in_array($this->file_type, $mime, TRUE)) {
@@ -736,7 +736,7 @@ class Upload_Library {
 	 * @param	string
 	 * @return	string
 	 */	
-	public function mimes_types($mime) {
+	private function _mimes_types($mime) {
 		$mimes = array(	
 			'hqx'	=>	'application/mac-binhex40',
 			'cpt'	=>	'application/mac-compactpro',
@@ -853,7 +853,7 @@ class Upload_Library {
 		$filename = array_shift($parts);
 
 		foreach ($parts as $part) {
-			if ($this->mimes_types(strtolower($part)) === FALSE) {
+			if ($this->_mimes_types(strtolower($part)) === FALSE) {
 				$filename .= '.'.$part.'_';
 			} else {
 				$filename .= '.'.$part;
