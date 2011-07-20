@@ -246,7 +246,7 @@ class Image_Library {
 	 * 
 	 * @var integer
 	 */
-	public $wm_padding			= 0;
+	public $wm_padding = 0;
 	
 	/**
 	 * You may specify a horizontal offset (in pixels) to apply to the watermark position. 
