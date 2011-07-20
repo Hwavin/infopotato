@@ -28,41 +28,6 @@
  * @changes    1.0.0b    The initial implementation [wb, 2008-06-01]
  */
 class UTF8 {
-	// The following constants allow for nice looking callbacks to static methods
-	// e.g., $names = array_map(UTF8::upper, $names);
-	// Explaination: http://flourishlib.com/discussion/1/85
-	const ascii    = 'UTF8::ascii';
-	const chr      = 'UTF8::chr';
-	const clean    = 'UTF8::clean';
-	const cmp      = 'UTF8::cmp';
-	const explode  = 'UTF8::explode';
-	const icmp     = 'UTF8::icmp';
-	const inatcmp  = 'UTF8::inatcmp';
-	const ipos     = 'UTF8::ipos';
-	const ireplace = 'UTF8::ireplace';
-	const irpos    = 'UTF8::irpos';
-	const istr     = 'UTF8::istr';
-	const len      = 'UTF8::len';
-	const lower    = 'UTF8::lower';
-	const ltrim    = 'UTF8::ltrim';
-	const natcmp   = 'UTF8::natcmp';
-	const ord      = 'UTF8::ord';
-	const pad      = 'UTF8::pad';
-	const pos      = 'UTF8::pos';
-	const replace  = 'UTF8::replace';
-	const reset    = 'UTF8::reset';
-	const rev      = 'UTF8::rev';
-	const rpos     = 'UTF8::rpos';
-	const rtrim    = 'UTF8::rtrim';
-	const str      = 'UTF8::str';
-	const sub      = 'UTF8::sub';
-	const trim     = 'UTF8::trim';
-	const ucfirst  = 'UTF8::ucfirst';
-	const ucwords  = 'UTF8::ucwords';
-	const upper    = 'UTF8::upper';
-	const wordwrap = 'UTF8::wordwrap';
-	
-	
 	/**
 	 * Depending how things are compiled, NetBSD and Solaris don't support //IGNORE in iconv()
 	 * 

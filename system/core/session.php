@@ -78,11 +78,7 @@ class Session {
 				if ( ! isset($tip[$array_key])) {
 					$tip[$array_key] = array();
 				} elseif ( ! is_array($tip[$array_key])) {
-					printf(
-						'%1$s was called for the key, %2$s, which is not an array',
-						__CLASS__ . '::add()',
-						$original_key
-					);
+					halt('A System Error Was Encountered', "Session::add() was called for the key, {$original_key}, which is not an array", 'sys_error');
 				}
 				$tip =& $tip[$array_key];
 			}
@@ -92,12 +88,8 @@ class Session {
 		
 		if ( ! isset($tip[$key])) {
 			$tip[$key] = array();
-		} elseif ( ! is_array($tip[$key])) {
-			printf(
-				'%1$s was called for the key, %2$s, which is not an array',
-				__CLASS__ . '::add()',
-				$key
-			);
+		} elseif ( ! is_array($tip[$key])) {			
+			halt('A System Error Was Encountered', "Session::add() was called for the key, {$key}, which is not an array", 'sys_error');
 		}
 		
 		if ($beginning) {
@@ -242,12 +234,7 @@ class Session {
 	 */
 	public static function enable_persistence() {
 		if (self::$_persistent_timespan === NULL) {
-			printf(
-				'The method %1$s must be called with the %2$s parameter before calling %3$s',
-				__CLASS__ . '::set_length()',
-				'$_persistent_timespan',
-				__CLASS__ . '::enable_persistence()'
-			);	
+			halt('A System Error Was Encountered', "The method Session::set_length() must be called with the '$_persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
 		}
 		
 		$current_params = session_get_cookie_params();
@@ -317,17 +304,7 @@ class Session {
 	 */
 	public static function ignore_subdomain() {
 		if (self::$_open || isset($_SESSION)) {
-			printf(
-				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '::ignore_subdomain()',
-				__CLASS__ . '::add()',
-				__CLASS__ . '::clear()',
-				__CLASS__ . '::enable_persistence()',
-				__CLASS__ . '::get()',
-				__CLASS__ . '::open()',
-				__CLASS__ . '::set()',
-				'session_start()'
-			);
+			halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 		
 		$current_params = session_get_cookie_params();
@@ -337,12 +314,7 @@ class Session {
 		} elseif (isset($_SERVER['HTTP_HOST'])) {
 			$domain = $_SERVER['HTTP_HOST'];
 		} else {
-			printf(
-				'The domain name could not be found in %1$s or %2$s. Please set one of these keys to use %3$s.',
-				'$_SERVER[\'SERVER_NAME\']',
-				'$_SERVER[\'HTTP_HOST\']',
-				__CLASS__ . '::ignore_subdomain()'
-			);
+			halt('A System Error Was Encountered', "The domain name could not be found in '$_SERVER['SERVER_NAME']' or '$_SERVER[\'HTTP_HOST\']'. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
 		}
 		
 		$params = array(
@@ -445,11 +417,7 @@ class Session {
 				if ( ! isset($tip[$array_key])) {
 					return NULL;
 				} elseif ( ! is_array($tip[$array_key])) {
-					printf(
-						'%1$s was called for the key, %2$s, which is not an array',
-						__CLASS__ . '::remove()',
-						$original_key
-					);
+					halt('A System Error Was Encountered', "Session::remove() was called for the key, {$original_key}, which is not an array", 'sys_error');
 				}
 				$tip =& $tip[$array_key];
 			}
@@ -459,11 +427,7 @@ class Session {
 		if ( ! isset($tip[$key])) {
 			return NULL;
 		} elseif ( ! is_array($tip[$key])) {
-			printf(
-				'%1$s was called for the key, %2$s, which is not an array',
-				__CLASS__ . '::remove()',
-				$key
-			);
+			halt('A System Error Was Encountered', "Session::remove() was called for the key, {$key}, which is not an array", 'sys_error');
 		}
 		
 		if ($beginning) {
@@ -539,17 +503,7 @@ class Session {
 	 */
 	public static function set_length($normal_timespan, $persistent_timespan = NULL) {
 		if (self::$_open || isset($_SESSION)) {
-			printf(
-				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '::set_length()',
-				__CLASS__ . '::add()',
-				__CLASS__ . '::clear()',
-				__CLASS__ . '::enable_persistence()',
-				__CLASS__ . '::get()',
-				__CLASS__ . '::open()',
-				__CLASS__ . '::set()',
-				'session_start()'
-			);
+			halt('A System Error Was Encountered', "Session::set_length() must be called before any of Session::set_path(), Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 		
 		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
@@ -578,21 +532,11 @@ class Session {
 	 */
 	public static function set_path($directory) {
 		if (self::$_open || isset($_SESSION)) {
-			printf(
-				'%1$s must be called before any of %2$s, %3$s, %4$s, %5$s, %6$s, %7$s or %8$s',
-				__CLASS__ . '::set_path()',
-				__CLASS__ . '::add()',
-				__CLASS__ . '::clear()',
-				__CLASS__ . '::enable_persistence()',
-				__CLASS__ . '::get()',
-				__CLASS__ . '::open()',
-				__CLASS__ . '::set()',
-				'session_start()'
-			);
+			halt('A System Error Was Encountered', "Session::set_path() must be called before any of Session::set_path(), Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 
 		if ( ! is_writable($directory)) {
-			echo 'The directory specified is not writable';
+			halt('A System Error Was Encountered', "The directory specified is not writable", 'sys_error');
 		}
 		
 		session_save_path($directory);
