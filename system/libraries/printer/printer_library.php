@@ -150,8 +150,8 @@ class Printer_Library {
     public function __construct($config = array()) {
 		// possible error values are
 		$this->_errors = array(
-			0 => 'The number of starting tags do not match the number of ending tags',
-			1 => 'Areas overlap each other',
+			'mis_match' => 'The number of starting tags do not match the number of ending tags',
+			'overlap' => 'Areas overlap each other',
 		);
 		
 		if (isset($config['_convert_images'])) {
@@ -215,7 +215,7 @@ class Printer_Library {
 						if (($subject_values[0] >= $search_values[0] && $subject_values[0] <= $search_values[1]) ||
 							($subject_values[1] >= $search_values[0] && $subject_values[1] <= $search_values[1])) {
 							// save the error level and stop the execution of the script
-							return $this->_errors[1];
+							return $this->_errors['overlap'];
 						}
 					}
 				}
@@ -268,7 +268,7 @@ class Printer_Library {
 		// if different number of starting and ending tags
 		} else {
 			// save the error level and stop the execution of the script
-			return $this->_errors[0];
+			return $this->_errors['mis_match'];
 		}
 
         
