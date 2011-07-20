@@ -331,7 +331,7 @@ class Image_Library {
 				$this->$key = $val;
 			}
 		    // Check image preferences
-			$this->_check();
+			$this->_init();
 		}
 	}
 
@@ -339,23 +339,23 @@ class Image_Library {
 	/**
 	 * Check image preferences
 	 *
-	 * @access	public
+	 * @access	private
 	 * @param	array
 	 * @return	bool
 	 */
-	private function _check() {
+	private function _init() {
 		// Is there a source image? If not, there's no reason to continue
 		if ($this->source_image == '') {
-			$this->set_error('source_image_required');
+			$this->_set_error('source_image_required');
 			return FALSE;	
 		}
 
 		// Is getimagesize() Available?
 		// We use it to determine the image properties (width/height).
-		// Note:  We need to figure out how to determine image
+		// Note: We need to figure out how to determine image
 		// properties using ImageMagick and NetPBM
 		if ( ! function_exists('getimagesize')) {
-			$this->set_error('gd_required_for_props');
+			$this->_set_error('gd_required_for_props');
 			return FALSE;
 		}
 
@@ -376,15 +376,15 @@ class Image_Library {
 		$this->source_folder = str_replace($this->source_image, '', $full_source_path);
 
 		// Set the Image Properties
-		if ( ! $this->get_image_properties($this->source_folder.$this->source_image)) {
+		if ( ! $this->_get_image_properties($this->source_folder.$this->source_image)) {
 			return FALSE;	
 		}
 
 		// Assign the "new" image name/path
 		// If the user has set a "new_image" name it means
 		// we are making a copy of the source image. If not
-		// it means we are altering the original.  We'll
-		// set the destination filename and path accordingly.
+		// it means we are altering the original. 
+		// We'll set the destination filename and path accordingly.
 		if ($this->new_image == '') {
 			$this->dest_image = $this->source_image;
 			$this->dest_folder = $this->source_folder;
@@ -421,7 +421,7 @@ class Image_Library {
 			$this->thumb_marker = '';
 		}
 
-		$xp	= $this->explode_name($this->dest_image);
+		$xp	= $this->_explode_name($this->dest_image);
 
 		$filename = $xp['name'];
 		$file_ext = $xp['ext'];
@@ -434,7 +434,7 @@ class Image_Library {
 		// might not be in correct proportion with the source
 		// image's width/height.  We'll recalculate it here.
 		if ($this->maintain_ratio === TRUE && ($this->width != '' && $this->height != '')) {
-			$this->image_reproportion();
+			$this->_image_reproportion();
 		}
 
 		// Was a width and height specified?
@@ -508,7 +508,7 @@ class Image_Library {
 	
 	
 	/**
-	 * Image Resize
+	 * Image Resize: R
 	 *
 	 * This is a wrapper function that chooses the proper
 	 * resize function based on the protocol specified
@@ -528,7 +528,7 @@ class Image_Library {
 
 	
 	/**
-	 * Image Crop
+	 * Image Crop: C
 	 *
 	 * This is a wrapper function that chooses the proper
 	 * cropping function based on the protocol specified
@@ -548,7 +548,7 @@ class Image_Library {
 
 
 	/**
-	 * Image Rotate
+	 * Image Rotate: X
 	 *
 	 * This is a wrapper function that chooses the proper
 	 * rotation function based on the protocol specified
@@ -561,7 +561,7 @@ class Image_Library {
 		$degs = array(90, 180, 270, 'vrt', 'hor');
 
 		if ($this->rotation_angle == '' || ! in_array($this->rotation_angle, $degs)) {
-			$this->set_error('rotation_angle_required');
+			$this->_set_error('rotation_angle_required');
 			return FALSE;	
 		}
 
@@ -583,9 +583,9 @@ class Image_Library {
 		}
 
 		if ($this->rotation_angle == 'hor' || $this->rotation_angle == 'vrt') {
-			return $this->image_mirror_gd();
+			return $this->_image_mirror_gd();
 		} else {
-			return $this->image_rotate_gd();
+			return $this->_image_rotate_gd();
 		}
 	}
 
@@ -595,11 +595,10 @@ class Image_Library {
 	 *
 	 * This function will resize or crop
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	public function image_process_gd($action = 'resize') {
+	private function image_process_gd($action = 'resize') {
 		$v2_override = FALSE;
 
 		// If the target width/height match the source, AND if the new file name is not equal to the old file name
@@ -634,7 +633,7 @@ class Image_Library {
 		}
 
 		//  Create the image handle
-		if ( ! ($src_img = $this->image_create_gd())) {
+		if ( ! ($src_img = $this->_image_create_gd())) {
 			return FALSE;
 		}
 
@@ -665,10 +664,10 @@ class Image_Library {
 
 		//  Show the image
 		if ($this->dynamic_output == TRUE) {
-			$this->image_display_gd($dst_img);
+			$this->_image_display_gd($dst_img);
 		} else {
 			// Or save it
-			if ( ! $this->image_save_gd($dst_img)) {
+			if ( ! $this->_image_save_gd($dst_img)) {
 				return FALSE;
 			}
 		}
@@ -689,14 +688,13 @@ class Image_Library {
 	 *
 	 * This function will resize, crop or rotate
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	public function image_process_imagemagick($action = 'resize') {
+	private function image_process_imagemagick($action = 'resize') {
 		//  Do we have a vaild library path?
 		if ($this->library_path == '') {
-			$this->set_error('libpath_invalid');
+			$this->_set_error('libpath_invalid');
 			return FALSE;
 		}
 
@@ -738,7 +736,7 @@ class Image_Library {
 
 		//	Did it work?
 		if ($retval > 0) {
-			$this->set_error('image_process_failed');
+			$this->_set_error('image_process_failed');
 			return FALSE;
 		}
 
@@ -754,13 +752,12 @@ class Image_Library {
 	 *
 	 * This function will resize, crop or rotate
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
-	public function image_process_netpbm($action = 'resize') {
+	private function image_process_netpbm($action = 'resize') {
 		if ($this->library_path == '') {
-			$this->set_error('imglib_libpath_invalid');
+			$this->_set_error('imglib_libpath_invalid');
 			return FALSE;
 		}
 
@@ -821,7 +818,7 @@ class Image_Library {
 
 		//  Did it work?
 		if ($retval > 0) {
-			$this->set_error('image_process_failed');
+			$this->_set_error('image_process_failed');
 			return FALSE;
 		}
 
@@ -839,12 +836,11 @@ class Image_Library {
 	/**
 	 * Image Rotate Using GD
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function image_rotate_gd() {
+	private function _image_rotate_gd() {
 		//  Create the image handle
-		if ( ! ($src_img = $this->image_create_gd())) {
+		if ( ! ($src_img = $this->_image_create_gd())) {
 			return FALSE;
 		}
 
@@ -860,10 +856,10 @@ class Image_Library {
 
 		//  Save the Image
 		if ($this->dynamic_output == TRUE) {
-			$this->image_display_gd($dst_img);
+			$this->_image_display_gd($dst_img);
 		} else {
 			// Or save it
-			if ( ! $this->image_save_gd($dst_img)) {
+			if ( ! $this->_image_save_gd($dst_img)) {
 				return FALSE;
 			}
 		}
@@ -885,11 +881,10 @@ class Image_Library {
 	 *
 	 * This function will flip horizontal or vertical
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function image_mirror_gd() {
-		if ( ! $src_img = $this->image_create_gd()) {
+	private function _image_mirror_gd() {
+		if ( ! $src_img = $this->_image_create_gd()) {
 			return FALSE;
 		}
 
@@ -932,10 +927,10 @@ class Image_Library {
 
 		//  Show the image
 		if ($this->dynamic_output == TRUE) {
-			$this->image_display_gd($src_img);
+			$this->_image_display_gd($src_img);
 		} else {
 			// Or save it
-			if ( ! $this->image_save_gd($src_img)) {
+			if ( ! $this->_image_save_gd($src_img)) {
 				return FALSE;
 			}
 		}
@@ -951,7 +946,7 @@ class Image_Library {
 
 
 	/**
-	 * Image Watermark
+	 * Image Watermark: W
 	 *
 	 * This is a wrapper function that chooses the type
 	 * of watermarking based on the specified preference.
@@ -962,9 +957,9 @@ class Image_Library {
 	 */
 	public function watermark() {
 		if ($this->wm_type == 'overlay') {
-			return $this->overlay_watermark();
+			return $this->_overlay_watermark();
 		} else {
-			return $this->text_watermark();
+			return $this->_text_watermark();
 		}
 	}
 
@@ -972,27 +967,26 @@ class Image_Library {
 	/**
 	 * Watermark - Graphic Version
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function overlay_watermark() {
+	private function _overlay_watermark() {
 		if ( ! function_exists('imagecolortransparent')) {
-			$this->set_error('gd_required');
+			$this->_set_error('gd_required');
 			return FALSE;
 		}
 
 		//  Fetch source image properties
-		$this->get_image_properties();
+		$this->_get_image_properties();
 
 		//  Fetch watermark image properties
-		$props			= $this->get_image_properties($this->wm_overlay_path, TRUE);
+		$props			= $this->_get_image_properties($this->wm_overlay_path, TRUE);
 		$wm_img_type	= $props['image_type'];
 		$wm_width		= $props['width'];
 		$wm_height		= $props['height'];
 
 		//  Create two image resources
-		$wm_img  = $this->image_create_gd($this->wm_overlay_path, $wm_img_type);
-		$src_img = $this->image_create_gd($this->full_src_path);
+		$wm_img  = $this->_image_create_gd($this->wm_overlay_path, $wm_img_type);
+		$src_img = $this->_image_create_gd($this->full_src_path);
 
 		// Reverse the offset if necessary
 		// When the image is positioned at the bottom
@@ -1004,12 +998,14 @@ class Image_Library {
 		$this->wm_vrt_alignment = strtoupper(substr($this->wm_vrt_alignment, 0, 1));
 		$this->wm_hor_alignment = strtoupper(substr($this->wm_hor_alignment, 0, 1));
 
-		if ($this->wm_vrt_alignment == 'B')
+		if ($this->wm_vrt_alignment == 'B') {
 			$this->wm_vrt_offset = $this->wm_vrt_offset * -1;
-
-		if ($this->wm_hor_alignment == 'R')
+        }
+		
+		if ($this->wm_hor_alignment == 'R') {
 			$this->wm_hor_offset = $this->wm_hor_offset * -1;
-
+        }
+		
 		//  Set the base x and y axis values
 		$x_axis = $this->wm_hor_offset + $this->wm_padding;
 		$y_axis = $this->wm_vrt_offset + $this->wm_padding;
@@ -1063,9 +1059,9 @@ class Image_Library {
 
 		//  Output the image
 		if ($this->dynamic_output == TRUE) {
-			$this->image_display_gd($src_img);
+			$this->_image_display_gd($src_img);
 		} else {
-			if ( ! $this->image_save_gd($src_img)) {
+			if ( ! $this->_image_save_gd($src_img)) {
 				return FALSE;
 			}
 		}
@@ -1080,21 +1076,20 @@ class Image_Library {
 	/**
 	 * Watermark - Text Version
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function text_watermark() {
-		if ( ! ($src_img = $this->image_create_gd())) {
+	private function _text_watermark() {
+		if ( ! ($src_img = $this->_image_create_gd())) {
 			return FALSE;
 		}
 
 		if ($this->wm_use_truetype == TRUE && ! file_exists($this->wm_font_path)) {
-			$this->set_error('missing_font');
+			$this->_set_error('missing_font');
 			return FALSE;
 		}
 
 		//  Fetch source image properties
-		$this->get_image_properties();
+		$this->_get_image_properties();
 
 		// Set RGB values for text and shadow
 		$this->wm_font_color	= str_replace('#', '', $this->wm_font_color);
@@ -1121,6 +1116,7 @@ class Image_Library {
 		if ($this->wm_vrt_alignment == 'B') {
 			$this->wm_vrt_offset = $this->wm_vrt_offset * -1;
         }
+		
 		if ($this->wm_hor_alignment == 'R') {
 			$this->wm_hor_offset = $this->wm_hor_offset * -1;
         }
@@ -1201,9 +1197,9 @@ class Image_Library {
 
 		//  Output the final image
 		if ($this->dynamic_output == TRUE) {
-			$this->image_display_gd($src_img);
+			$this->_image_display_gd($src_img);
 		} else {
-			$this->image_save_gd($src_img);
+			$this->_image_save_gd($src_img);
 		}
 
 		imagedestroy($src_img);
@@ -1218,11 +1214,10 @@ class Image_Library {
 	 * This simply creates an image resource handle
 	 * based on the type of image being processed
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	resource
 	 */
-	public function image_create_gd($path = '', $image_type = '') {
+	private function _image_create_gd($path = '', $image_type = '') {
 		if ($path == '') {
 			$path = $this->full_src_path;
         }
@@ -1234,7 +1229,7 @@ class Image_Library {
 		switch ($image_type) {
 			case 1 :
 				if ( ! function_exists('imagecreatefromgif')) {
-					$this->set_error(array('unsupported_imagecreate', 'gif_not_supported'));
+					$this->_set_error(array('unsupported_imagecreate', 'gif_not_supported'));
 					return FALSE;
 				}
 
@@ -1243,7 +1238,7 @@ class Image_Library {
 			
 			case 2 :
 				if ( ! function_exists('imagecreatefromjpeg')) {
-					$this->set_error(array('unsupported_imagecreate', 'jpg_not_supported'));
+					$this->_set_error(array('unsupported_imagecreate', 'jpg_not_supported'));
 					return FALSE;
 				}
 
@@ -1252,7 +1247,7 @@ class Image_Library {
 			
 			case 3 :
 				if ( ! function_exists('imagecreatefrompng')) {
-					$this->set_error(array('unsupported_imagecreate', 'png_not_supported'));
+					$this->_set_error(array('unsupported_imagecreate', 'png_not_supported'));
 					return FALSE;
 				}
 
@@ -1261,7 +1256,7 @@ class Image_Library {
 
 		}
 
-		$this->set_error(array('unsupported_imagecreate'));
+		$this->_set_error(array('unsupported_imagecreate'));
 		return FALSE;
 	}
 
@@ -1272,50 +1267,49 @@ class Image_Library {
 	 * Takes an image resource as input and writes the file
 	 * to the specified destination
 	 *
-	 * @access	public
 	 * @param	resource
 	 * @return	bool
 	 */
-	public function image_save_gd($resource) {
+	private function _image_save_gd($resource) {
 		switch ($this->image_type) {
 			case 1 :
 				if ( ! function_exists('imagegif')) {
-					$this->set_error(array('unsupported_imagecreate', 'gif_not_supported'));
+					$this->_set_error(array('unsupported_imagecreate', 'gif_not_supported'));
 					return FALSE;
 			    }
 
 			    if ( ! @imagegif($resource, $this->full_dst_path)) {
-				    $this->set_error('save_failed');
+				    $this->_set_error('save_failed');
 				    return FALSE;
 			    }
 				break;
 			
 			case 2 :
 				if ( ! function_exists('imagejpeg')) {
-					$this->set_error(array('unsupported_imagecreate', 'jpg_not_supported'));
+					$this->_set_error(array('unsupported_imagecreate', 'jpg_not_supported'));
 					return FALSE;
 				}
 
 				if ( ! @imagejpeg($resource, $this->full_dst_path, $this->quality)) {
-					$this->set_error('save_failed');
+					$this->_set_error('save_failed');
 					return FALSE;
 				}
 				break;
 			
 			case 3 :
 				if ( ! function_exists('imagepng')) {
-					$this->set_error(array('unsupported_imagecreate', 'png_not_supported'));
+					$this->_set_error(array('unsupported_imagecreate', 'png_not_supported'));
 					return FALSE;
 				}
 
 				if ( ! @imagepng($resource, $this->full_dst_path)) {
-					$this->set_error('save_failed');
+					$this->_set_error('save_failed');
 					return FALSE;
 				}
 				break;
 			
 			default	:
-				$this->set_error(array('unsupported_imagecreate'));
+				$this->_set_error(array('unsupported_imagecreate'));
 				return FALSE;
 				break;
 		}
@@ -1327,11 +1321,10 @@ class Image_Library {
 	/**
 	 * Dynamically outputs an image
 	 *
-	 * @access	public
 	 * @param	resource
 	 * @return	void
 	 */
-	public function image_display_gd($resource) {
+	private function _image_display_gd($resource) {
 		header("Content-Disposition: filename={$this->source_image};");
 		header("Content-Type: {$this->mime_type}");
 		header('Content-Transfer-Encoding: binary');
@@ -1367,10 +1360,9 @@ class Image_Library {
 	 * This function lets us re-proportion the width/height
 	 * if users choose to maintain the aspect ratio when resizing.
 	 *
-	 * @access	public
 	 * @return	void
 	 */
-	public function image_reproportion() {
+	private function _image_reproportion() {
 		if ( ! is_numeric($this->width) || ! is_numeric($this->height) || $this->width == 0 || $this->height == 0) {
 			return;
         }
@@ -1403,11 +1395,10 @@ class Image_Library {
 	 *
 	 * A helper function that gets info about the file
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	mixed
 	 */
-	public function get_image_properties($path = '', $return = FALSE) {
+	private function _get_image_properties($path = '', $return = FALSE) {
 		// For now we require GD but we should
 		// find a way to determine this using IM or NetPBM
 
@@ -1416,7 +1407,7 @@ class Image_Library {
         }
 		
 		if ( ! file_exists($path)) {
-			$this->set_error('invalid_path');
+			$this->_set_error('invalid_path');
 			return FALSE;
 		}
 
@@ -1460,11 +1451,10 @@ class Image_Library {
 	 *					'new_height'	=> ''
 	 *				  );
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	array
 	 */
-	public function size_calculator($vals) {
+	private function size_calculator($vals) {
 		if ( ! is_array($vals)) {
 			return;
 		}
@@ -1501,11 +1491,10 @@ class Image_Library {
 	 * $array['ext']  = '.jpg';
 	 * $array['name'] = 'my.cool';
 	 *
-	 * @access	public
 	 * @param	array
 	 * @return	array
 	 */
-	public function explode_name($source_image) {
+	private function _explode_name($source_image) {
 		$ext = strrchr($source_image, '.');
 		$name = ($ext === FALSE) ? $source_image : substr($source_image, 0, -strlen($ext));
 
@@ -1516,10 +1505,9 @@ class Image_Library {
 	/**
 	 * Is GD Installed?
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function gd_loaded() {
+	private function gd_loaded() {
 		if ( ! extension_loaded('gd')) {
 			if ( ! dl('gd.so')) {
 				return FALSE;
@@ -1550,11 +1538,10 @@ class Image_Library {
 	/**
 	 * Set error message
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	void
 	 */
-	public function set_error($msg) {
+	private function _set_error($msg) {
 		$error_messages = array(
 		    'source_image_required' => "You must specify a source image in your preferences.",
 			'gd_required' => "The GD image library is required for this feature.",
