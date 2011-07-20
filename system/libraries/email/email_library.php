@@ -662,13 +662,13 @@ class Email_library {
 	public function validate_email($email) {
 		if ( ! is_array($email))
 		{
-			$this->_set_error_message('email_must_be_array');
+			$this->_set_error('email_must_be_array');
 			return FALSE;
 		}
 
 		foreach ($email as $val) {
 			if ( ! $this->valid_email($val)) {
-				$this->_set_error_message('email_invalid_address', $val);
+				$this->_set_error('email_invalid_address', $val);
 				return FALSE;
 			}
 		}
@@ -1015,7 +1015,7 @@ class Email_library {
 			$ctype = $this->_attach_type[$i];
 
 			if ( ! file_exists($filename)) {
-				$this->_set_error_message('email_attachment_missing', $filename);
+				$this->_set_error('email_attachment_missing', $filename);
 				return FALSE;
 			}
 
@@ -1029,7 +1029,7 @@ class Email_library {
 			$file = filesize($filename) +1;
 
 			if ( ! $fp = fopen($filename, FOPEN_READ)) {
-				$this->_set_error_message('email_attachment_unreadable', $filename);
+				$this->_set_error('email_attachment_unreadable', $filename);
 				return FALSE;
 			}
 
@@ -1209,7 +1209,7 @@ class Email_library {
 		if (( ! isset($this->_recipients) && ! isset($this->_headers['To']))  &&
 			( ! isset($this->_bcc_array) && ! isset($this->_headers['Bcc'])) &&
 			( ! isset($this->_headers['Cc']))) {
-			$this->_set_error_message('email_no_recipients');
+			$this->_set_error('email_no_recipients');
 			return FALSE;
 		}
 
@@ -1312,28 +1312,28 @@ class Email_library {
 		switch ($this->_get_protocol()) {
 			case 'mail':
 				if ( ! $this->_send_with_mail()) {
-					$this->_set_error_message('email_send_failure_phpmail');
+					$this->_set_error('email_send_failure_phpmail');
 					return FALSE;
 				}
 			    break;
 			
 			case 'sendmail':
 				if ( ! $this->_send_with_sendmail()) {
-					$this->_set_error_message('email_send_failure_sendmail');
+					$this->_set_error('email_send_failure_sendmail');
 					return FALSE;
 				}
 			    break;
 			
 			case 'smtp':
 				if ( ! $this->_send_with_smtp()) {
-					$this->_set_error_message('email_send_failure_smtp');
+					$this->_set_error('email_send_failure_smtp');
 					return FALSE;
 				}
 			    break;
 
 		}
 
-		$this->_set_error_message('email_sent', $this->_get_protocol());
+		$this->_set_error('email_sent', $this->_get_protocol());
 		return TRUE;
 	}
   
@@ -1385,8 +1385,8 @@ class Email_library {
 	    }
 	
 		if ($status != 0) {
-			$this->_set_error_message('email_exit_status', $status);
-			$this->_set_error_message('email_no_socket');
+			$this->_set_error('email_exit_status', $status);
+			$this->_set_error('email_no_socket');
 			return FALSE;
 		}
 
@@ -1401,7 +1401,7 @@ class Email_library {
 	 */
 	private function _send_with_smtp() {
 		if ($this->smtp_host == '') {
-			$this->_set_error_message('email_no_hostname');
+			$this->_set_error('email_no_hostname');
 			return FALSE;
 		}
 
@@ -1439,10 +1439,10 @@ class Email_library {
 
 		$reply = $this->_get_smtp_data();
 
-		$this->_set_error_message($reply);
+		$this->_set_error($reply);
 
 		if (strncmp($reply, '250', 3) != 0) {
-			$this->_set_error_message('email_smtp_error', $reply);
+			$this->_set_error('email_smtp_error', $reply);
 			return FALSE;
 		}
 
@@ -1461,11 +1461,11 @@ class Email_library {
 		$this->_smtp_connect = fsockopen($this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
 
 		if( ! is_resource($this->_smtp_connect)) {
-			$this->_set_error_message('email_smtp_error', $errno." ".$errstr);
+			$this->_set_error('email_smtp_error', $errno." ".$errstr);
 			return FALSE;
 		}
 
-		$this->_set_error_message($this->_get_smtp_data());
+		$this->_set_error($this->_get_smtp_data());
 		return $this->_send_command('hello');
 	}
   
@@ -1514,7 +1514,7 @@ class Email_library {
 		$this->_debug_msg[] = '<pre>'.$cmd.': '.$reply.'</pre>';
 
 		if (substr($reply, 0, 3) != $resp) {
-			$this->_set_error_message('email_smtp_error', $reply);
+			$this->_set_error('email_smtp_error', $reply);
 			return FALSE;
 		}
 
@@ -1537,7 +1537,7 @@ class Email_library {
 		}
 
 		if ($this->smtp_user == ''  &&  $this->smtp_pass == '') {
-			$this->_set_error_message('email_no_smtp_unpw');
+			$this->_set_error('email_no_smtp_unpw');
 			return FALSE;
 		}
 
@@ -1546,7 +1546,7 @@ class Email_library {
 		$reply = $this->_get_smtp_data();
 
 		if (strncmp($reply, '334', 3) != 0) {
-			$this->_set_error_message('email_failed_smtp_login', $reply);
+			$this->_set_error('email_failed_smtp_login', $reply);
 			return FALSE;
 		}
 
@@ -1555,7 +1555,7 @@ class Email_library {
 		$reply = $this->_get_smtp_data();
 
 		if (strncmp($reply, '334', 3) != 0) {
-			$this->_set_error_message('email_smtp_auth_un', $reply);
+			$this->_set_error('email_smtp_auth_un', $reply);
 			return FALSE;
 		}
 
@@ -1564,7 +1564,7 @@ class Email_library {
 		$reply = $this->_get_smtp_data();
 
 		if (strncmp($reply, '235', 3) != 0) {
-			$this->_set_error_message('email_smtp_auth_pw', $reply);
+			$this->_set_error('email_smtp_auth_pw', $reply);
 			return FALSE;
 		}
 
@@ -1579,7 +1579,7 @@ class Email_library {
 	 */
 	private function _send_data($data) {
 		if ( ! fwrite($this->_smtp_connect, $data . $this->newline)) {
-			$this->_set_error_message('email_smtp_data_failure', $data);
+			$this->_set_error('email_smtp_data_failure', $data);
 			return FALSE;
 		} else {
 			return TRUE;
@@ -1683,7 +1683,7 @@ class Email_library {
 	 * @param	string
 	 * @return	string
 	 */
-	private function _set_error_message($msg, $val = '') {
+	private function _set_error($msg, $val = '') {
 		$error_messages =array(
 			'email_must_be_array' => "The email validation method must be passed an array.",
 			'email_invalid_address' => "Invalid email address: %s",
