@@ -343,7 +343,7 @@ There are two types of watermarking that you can use:
 </tr> 
  
 <tr> 
-<td class="td"><strong>padding</strong></td> 
+<td class="td"><strong>wm_padding</strong></td> 
 <td class="td">None</td> 
 <td class="td">A number</td> 
 <td class="td">The amount of padding, set in pixels, that will be applied to the watermark to set it away from the edge of your images.</td> 
