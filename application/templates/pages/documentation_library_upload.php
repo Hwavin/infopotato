@@ -147,7 +147,7 @@ You should see an upload form. Try uploading an word doc file (either a doc, or 
 <td><strong>allowed_types</strong></td> 
 <td>None</td> 
 <td>None</td> 
-<td>The mime types corresponding to the types of files you allow to be uploaded.  Usually the file extension can be used as the mime type.  Separate multiple types with a pipe.</td> 
+<td>The mime types corresponding to the types of files you allow to be uploaded.  Usually the file extension can be used as the mime type.</td> 
 </tr> 
  
  

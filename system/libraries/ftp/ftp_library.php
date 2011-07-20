@@ -121,7 +121,6 @@ class FTP_Library {
 	/**
 	 * FTP Login
 	 *
-	 * @access	private
 	 * @return	bool
 	 */
 	private function _login() {
@@ -132,7 +131,6 @@ class FTP_Library {
 	/**
 	 * Validates the connection ID
 	 *
-	 * @access	private
 	 * @return	bool
 	 */
 	private function _is_conn() {
@@ -155,7 +153,6 @@ class FTP_Library {
 	 * so we do it by trying to change to a particular directory.
 	 * Internally, this parameter is only used by the "mirror" function below.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	bool
 	 * @return	bool
@@ -181,7 +178,6 @@ class FTP_Library {
 	/**
 	 * Create a directory
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -211,7 +207,6 @@ class FTP_Library {
 	/**
 	 * Upload a file to the server
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	string
@@ -257,7 +252,6 @@ class FTP_Library {
 	/**
 	 * Download a file from a remote server to the local server
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	string
@@ -293,7 +287,6 @@ class FTP_Library {
 	/**
 	 * Rename (or move) a file
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @param	bool
@@ -322,7 +315,6 @@ class FTP_Library {
 	/**
 	 * Move a file
 	 *
-	 * @access	public
 	 * @param	string
 	 * @param	string
 	 * @return	bool
@@ -335,7 +327,6 @@ class FTP_Library {
 	/**
 	 * Rename (or move) a file
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -361,7 +352,6 @@ class FTP_Library {
 	 * Delete a folder and recursively delete everything (including sub-folders)
 	 * containted within it.
 	 *
-	 * @access	public
 	 * @param	string
 	 * @return	bool
 	 */
@@ -401,7 +391,6 @@ class FTP_Library {
 	/**
 	 * Set file permissions
 	 *
-	 * @access	public
 	 * @param	string	the file path
 	 * @param	string	the permissions
 	 * @return	bool
@@ -435,7 +424,6 @@ class FTP_Library {
 	/**
 	 * FTP List files in the specified directory
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function list_files($path = '.') {
@@ -454,7 +442,6 @@ class FTP_Library {
 	 * sub-folders) and creates a mirror via FTP based on it.  Whatever the directory structure
 	 * of the original file path will be recreated on the server.
 	 *
-	 * @access	public
 	 * @param	string	path to source with trailing slash
 	 * @param	string	path to destination - include the base folder with trailing slash
 	 * @return	bool
@@ -496,7 +483,6 @@ class FTP_Library {
 	/**
 	 * Extract the file extension
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return	string
 	 */
@@ -513,7 +499,6 @@ class FTP_Library {
 	/**
 	 * Set the upload type
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return	string
 	 */
@@ -541,7 +526,6 @@ class FTP_Library {
 	/**
 	 * Close the connection
 	 *
-	 * @access	public
 	 * @param	string	path to source
 	 * @param	string	path to destination
 	 * @return	bool
@@ -558,12 +542,11 @@ class FTP_Library {
 	/**
 	 * Display error message
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return	bool
 	 */
 	private function _error($msg) {
-		echo isset($this->_error_messages[$msg]) ? $$this->_error_messages[$msg] : $msg;
+		echo isset($this->_error_messages[$msg]) ? $this->_error_messages[$msg] : $msg;
 	}
 
 }
