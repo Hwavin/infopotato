@@ -176,11 +176,7 @@ class Session {
 				if ( ! isset($tip[$array_key])) {
 					return $value;
 				} elseif ( ! is_array($tip[$array_key])) {
-					printf(
-						'%1$s was called for an element, %2$s, which is not an array',
-						__CLASS__ . '::delete()',
-						$original_key
-					);
+					halt('A System Error Was Encountered', "Session::delete() was called for an element, {$original_key}, which is not an array", 'sys_error');
 				}
 				$tip =& $tip[$array_key];
 			}
@@ -314,7 +310,7 @@ class Session {
 		} elseif (isset($_SERVER['HTTP_HOST'])) {
 			$domain = $_SERVER['HTTP_HOST'];
 		} else {
-			halt('A System Error Was Encountered', "The domain name could not be found in '$_SERVER['SERVER_NAME']' or '$_SERVER[\'HTTP_HOST\']'. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
+			halt('A System Error Was Encountered', "The domain name could not be found in ['SERVER_NAME'] or ['HTTP_HOST']. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
 		}
 		
 		$params = array(
