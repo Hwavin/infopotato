@@ -517,10 +517,10 @@ class Image_Library {
 	 * @return	bool
 	 */
 	public function resize() {
-		$protocol = 'image_process_'.$this->image_library_to_use;
+		$protocol = '_image_process_'.$this->image_library_to_use;
 
 		if (preg_match('/gd2$/i', $protocol)) {
-			$protocol = 'image_process_gd';
+			$protocol = '_image_process_gd';
 		}
 
 		return $this->$protocol('resize');
@@ -537,10 +537,10 @@ class Image_Library {
 	 * @return	bool
 	 */
 	public function crop() {
-		$protocol = 'image_process_'.$this->image_library_to_use;
+		$protocol = '_image_process_'.$this->image_library_to_use;
 
 		if (preg_match('/gd2$/i', $protocol)) {
-			$protocol = 'image_process_gd';
+			$protocol = '_image_process_gd';
 		}
 
 		return $this->$protocol('crop');
@@ -577,7 +577,7 @@ class Image_Library {
 
 		// Choose resizing function
 		if ($this->image_library_to_use == 'imagemagick' || $this->image_library_to_use == 'netpbm') {
-			$protocol = 'image_process_'.$this->image_library_to_use;
+			$protocol = '_image_process_'.$this->image_library_to_use;
 
 			return $this->$protocol('rotate');
 		}
@@ -598,7 +598,7 @@ class Image_Library {
 	 * @param	string
 	 * @return	bool
 	 */
-	private function image_process_gd($action = 'resize') {
+	private function _image_process_gd($action = 'resize') {
 		$v2_override = FALSE;
 
 		// If the target width/height match the source, AND if the new file name is not equal to the old file name
@@ -691,7 +691,7 @@ class Image_Library {
 	 * @param	string
 	 * @return	bool
 	 */
-	private function image_process_imagemagick($action = 'resize') {
+	private function _image_process_imagemagick($action = 'resize') {
 		//  Do we have a vaild library path?
 		if ($this->library_path == '') {
 			$this->_set_error('libpath_invalid');
@@ -755,7 +755,7 @@ class Image_Library {
 	 * @param	string
 	 * @return	bool
 	 */
-	private function image_process_netpbm($action = 'resize') {
+	private function _image_process_netpbm($action = 'resize') {
 		if ($this->library_path == '') {
 			$this->_set_error('imglib_libpath_invalid');
 			return FALSE;
