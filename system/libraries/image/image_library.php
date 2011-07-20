@@ -1,12 +1,12 @@
 <?php
 /**
- * Image Manipulation class
+ * Image Manipulation Library
  *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Image_lib
- * @author		ExpressionEngine Dev Team
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
  * @link		http://codeigniter.com/user_guide/libraries/image_lib.html
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Image_Library {
     /**
@@ -163,22 +163,144 @@ class Image_Library {
 	public $y_axis = '';
 
 	// Watermark Vars
-	public $wm_text			= '';			// Watermark text if graphic is not used
-	public $wm_type			= 'text';		// Type of watermarking.  Options:  text/overlay
-	public $wm_x_transp		= 4;
-	public $wm_y_transp		= 4;
-	public $wm_overlay_path	= '';			// Watermark image path
-	public $wm_font_path		= '';			// TT font
-	public $wm_font_size		= 17;			// Font size (different versions of GD will either use points or pixels)
-	public $wm_vrt_alignment	= 'B';			// Vertical alignment:   T M B
-	public $wm_hor_alignment	= 'C';			// Horizontal alignment: L R C
-	public $wm_padding			= 0;			// Padding around text
-	public $wm_hor_offset		= 0;			// Lets you push text to the right
-	public $wm_vrt_offset		= 0;			// Lets you push  text down
-	public $wm_font_color		= '#ffffff';	// Text color
-	public $wm_shadow_color	= '';			// Dropshadow color
-	public $wm_shadow_distance	= 2;			// Dropshadow distance
-	public $wm_opacity			= 50;			// Image opacity: 1 - 100  Only works with image
+	
+	/**
+	 * The text you would like shown as the watermark. 
+	 * Typically this will be a copyright notice.
+	 * 
+	 * @var string 
+	 */
+	public $wm_text = '';
+	
+	/**
+	 * Sets the type of watermarking that should be used.
+	 * Options:  text/overlay
+	 * 
+	 * @var string 
+	 */
+	public $wm_type = 'text';
+	
+	/**
+	 * If your watermark image is a PNG or GIF image, 
+	 * you may specify a color on the image to be "transparent". 
+	 * This setting (along with the next) will allow you to specify that color. 
+	 * This works by specifying the "X" and "Y" coordinate pixel (measured from the upper left) 
+	 * within the image that corresponds to a pixel representative of the color you want to be transparent.
+	 * 
+	 * @var integer
+	 */
+	public $wm_x_transp	= 4;
+	
+	/**
+	 * Along with the previous setting, this allows you to specify the coordinate 
+	 * to a pixel representative of the color you want to be transparent.
+	 * 
+	 * @var integer
+	 */
+	public $wm_y_transp = 4;
+	
+	/**
+	 * The server path to the image you wish to use as your watermark. 
+	 * Required only if you are using the overlay method.
+	 * 
+	 * @var string 
+	 */
+	public $wm_overlay_path	= '';
+	
+	/**
+	 * The server path to the True Type Font you would like to use. 
+	 * If you do not use this option, the native GD font will be used.
+	 * 
+	 * @var string 
+	 */
+	public $wm_font_path = '';
+	
+	/**
+	 * The size of the text. Note: If you are not using the True Type option above, 
+	 * the number is set using a range of 1 - 5. 
+	 * Otherwise, you can use any valid pixel size for the font you're using.
+	 * 
+	 * @var integer
+	 */
+	public $wm_font_size = 17;
+	
+	/**
+	 * Sets the vertical alignment for the watermark image.
+	 * Vertical alignment:   T M B
+	 * 
+	 * @var string 
+	 */
+	public $wm_vrt_alignment = 'B';
+	
+	/**
+	 * Sets the horizontal alignment for the watermark image.
+	 * Horizontal alignment: L R C
+	 * 
+	 * @var string 
+	 */
+	public $wm_hor_alignment = 'C';	
+	
+	/**
+	 * The amount of padding around text, set in pixels, 
+	 * that will be applied to the watermark to set it away from the edge of your images.
+	 * 
+	 * @var integer
+	 */
+	public $wm_padding			= 0;
+	
+	/**
+	 * You may specify a horizontal offset (in pixels) to apply to the watermark position. 
+	 * The offset normally moves the watermark to the right, except if you have your alignment 
+	 * set to "right" then your offset value will move the watermark toward the left of the image.
+	 * 
+	 * @var integer
+	 */
+	public $wm_hor_offset = 0;
+	
+	/**
+	 * You may specify a vertical offset (in pixels) to apply to the watermark position. 
+	 * The offset normally moves the watermark down, except if you have your alignment 
+	 * set to "bottom" then your offset value will move the watermark toward the top of the image.
+	 * 
+	 * @var integer
+	 */
+	public $wm_vrt_offset = 0;
+	
+	/**
+	 * The font color, specified in hex. 
+	 * Note, you must use the full 6 character hex value (ie, 993300), 
+	 * rather than the three character abbreviated version (ie fff).
+	 * 
+	 * @var string 
+	 */
+	public $wm_font_color = '#ffffff';
+	
+	/**
+	 * The color of the drop shadow, specified in hex. 
+	 * If you leave this blank a drop shadow will not be used. 
+	 * Note, you must use the full 6 character hex value (ie, 993300), 
+	 * rather than the three character abbreviated version (ie fff).
+	 * 
+	 * @var string 
+	 */
+	public $wm_shadow_color	= '';
+	
+	/**
+	 * The distance (in pixels) from the font that the drop shadow should appear.
+	 * 
+	 * @var integer
+	 */
+	public $wm_shadow_distance = 2;
+	
+	/**
+	 * Image opacity. You may specify the opacity (i.e. transparency) of your watermark image. 
+	 * This allows the watermark to be faint and not completely obscure the details 
+	 * from the original image behind it. A 50% opacity is typical.
+	 * Image opacity: 1 - 100  Only works with image
+	 * 
+	 * @var integer
+	 */
+	public $wm_opacity = 50;
 
 	// Private Vars
 	private $source_folder		= '';
@@ -224,7 +346,7 @@ class Image_Library {
 	private function _check() {
 		// Is there a source image? If not, there's no reason to continue
 		if ($this->source_image == '') {
-			$this->set_error('imglib_source_image_required');
+			$this->set_error('source_image_required');
 			return FALSE;	
 		}
 
@@ -233,7 +355,7 @@ class Image_Library {
 		// Note:  We need to figure out how to determine image
 		// properties using ImageMagick and NetPBM
 		if ( ! function_exists('getimagesize')) {
-			$this->set_error('imglib_gd_required_for_props');
+			$this->set_error('gd_required_for_props');
 			return FALSE;
 		}
 
@@ -439,7 +561,7 @@ class Image_Library {
 		$degs = array(90, 180, 270, 'vrt', 'hor');
 
 		if ($this->rotation_angle == '' || ! in_array($this->rotation_angle, $degs)) {
-			$this->set_error('imglib_rotation_angle_required');
+			$this->set_error('rotation_angle_required');
 			return FALSE;	
 		}
 
@@ -574,7 +696,7 @@ class Image_Library {
 	public function image_process_imagemagick($action = 'resize') {
 		//  Do we have a vaild library path?
 		if ($this->library_path == '') {
-			$this->set_error('imglib_libpath_invalid');
+			$this->set_error('libpath_invalid');
 			return FALSE;
 		}
 
@@ -616,7 +738,7 @@ class Image_Library {
 
 		//	Did it work?
 		if ($retval > 0) {
-			$this->set_error('imglib_image_process_failed');
+			$this->set_error('image_process_failed');
 			return FALSE;
 		}
 
@@ -699,7 +821,7 @@ class Image_Library {
 
 		//  Did it work?
 		if ($retval > 0) {
-			$this->set_error('imglib_image_process_failed');
+			$this->set_error('image_process_failed');
 			return FALSE;
 		}
 
@@ -855,7 +977,7 @@ class Image_Library {
 	 */
 	public function overlay_watermark() {
 		if ( ! function_exists('imagecolortransparent')) {
-			$this->set_error('imglib_gd_required');
+			$this->set_error('gd_required');
 			return FALSE;
 		}
 
@@ -967,7 +1089,7 @@ class Image_Library {
 		}
 
 		if ($this->wm_use_truetype == TRUE && ! file_exists($this->wm_font_path)) {
-			$this->set_error('imglib_missing_font');
+			$this->set_error('missing_font');
 			return FALSE;
 		}
 
@@ -1112,7 +1234,7 @@ class Image_Library {
 		switch ($image_type) {
 			case 1 :
 				if ( ! function_exists('imagecreatefromgif')) {
-					$this->set_error(array('imglib_unsupported_imagecreate', 'imglib_gif_not_supported'));
+					$this->set_error(array('unsupported_imagecreate', 'gif_not_supported'));
 					return FALSE;
 				}
 
@@ -1121,7 +1243,7 @@ class Image_Library {
 			
 			case 2 :
 				if ( ! function_exists('imagecreatefromjpeg')) {
-					$this->set_error(array('imglib_unsupported_imagecreate', 'imglib_jpg_not_supported'));
+					$this->set_error(array('unsupported_imagecreate', 'jpg_not_supported'));
 					return FALSE;
 				}
 
@@ -1130,7 +1252,7 @@ class Image_Library {
 			
 			case 3 :
 				if ( ! function_exists('imagecreatefrompng')) {
-					$this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
+					$this->set_error(array('unsupported_imagecreate', 'png_not_supported'));
 					return FALSE;
 				}
 
@@ -1139,7 +1261,7 @@ class Image_Library {
 
 		}
 
-		$this->set_error(array('imglib_unsupported_imagecreate'));
+		$this->set_error(array('unsupported_imagecreate'));
 		return FALSE;
 	}
 
@@ -1158,42 +1280,42 @@ class Image_Library {
 		switch ($this->image_type) {
 			case 1 :
 				if ( ! function_exists('imagegif')) {
-					$this->set_error(array('imglib_unsupported_imagecreate', 'imglib_gif_not_supported'));
+					$this->set_error(array('unsupported_imagecreate', 'gif_not_supported'));
 					return FALSE;
 			    }
 
 			    if ( ! @imagegif($resource, $this->full_dst_path)) {
-				    $this->set_error('imglib_save_failed');
+				    $this->set_error('save_failed');
 				    return FALSE;
 			    }
 				break;
 			
 			case 2 :
 				if ( ! function_exists('imagejpeg')) {
-					$this->set_error(array('imglib_unsupported_imagecreate', 'imglib_jpg_not_supported'));
+					$this->set_error(array('unsupported_imagecreate', 'jpg_not_supported'));
 					return FALSE;
 				}
 
 				if ( ! @imagejpeg($resource, $this->full_dst_path, $this->quality)) {
-					$this->set_error('imglib_save_failed');
+					$this->set_error('save_failed');
 					return FALSE;
 				}
 				break;
 			
 			case 3 :
 				if ( ! function_exists('imagepng')) {
-					$this->set_error(array('imglib_unsupported_imagecreate', 'imglib_png_not_supported'));
+					$this->set_error(array('unsupported_imagecreate', 'png_not_supported'));
 					return FALSE;
 				}
 
 				if ( ! @imagepng($resource, $this->full_dst_path)) {
-					$this->set_error('imglib_save_failed');
+					$this->set_error('save_failed');
 					return FALSE;
 				}
 				break;
 			
 			default	:
-				$this->set_error(array('imglib_unsupported_imagecreate'));
+				$this->set_error(array('unsupported_imagecreate'));
 				return FALSE;
 				break;
 		}
@@ -1294,7 +1416,7 @@ class Image_Library {
         }
 		
 		if ( ! file_exists($path)) {
-			$this->set_error('imglib_invalid_path');
+			$this->set_error('invalid_path');
 			return FALSE;
 		}
 
@@ -1434,24 +1556,24 @@ class Image_Library {
 	 */
 	public function set_error($msg) {
 		$error_messages = array(
-		    'imglib_source_image_required' => "You must specify a source image in your preferences.",
-			'imglib_gd_required' => "The GD image library is required for this feature.",
-			'imglib_gd_required_for_props' => "Your server must support the GD image library in order to determine the image properties.",
-			'imglib_unsupported_imagecreate' => "Your server does not support the GD function required to process this type of image.",
-			'imglib_gif_not_supported' => "GIF images are often not supported due to licensing restrictions.  You may have to use JPG or PNG images instead.",
-			'imglib_jpg_not_supported' => "JPG images are not supported.",
-			'imglib_png_not_supported' => "PNG images are not supported.",
-			'imglib_jpg_or_png_required' => "The image resize protocol specified in your preferences only works with JPEG or PNG image types.",
-			'imglib_copy_error' => "An error was encountered while attempting to replace the file.  Please make sure your file directory is writable.",
-			'imglib_rotate_unsupported' => "Image rotation does not appear to be supported by your server.",
-			'imglib_libpath_invalid' => "The path to your image library is not correct.  Please set the correct path in your image preferences.",
-			'imglib_image_process_failed' => "Image processing failed.  Please verify that your server supports the chosen protocol and that the path to your image library is correct.",
-			'imglib_rotation_angle_required' => "An angle of rotation is required to rotate the image.",
-			'imglib_writing_failed_gif' => "GIF image.",
-			'imglib_invalid_path' => "The path to the image is not correct.",
-			'imglib_copy_failed' => "The image copy routine failed.",
-			'imglib_missing_font' => "Unable to find a font to use.",
-			'imglib_save_failed' => "Unable to save the image.  Please make sure the image and file directory are writable."
+		    'source_image_required' => "You must specify a source image in your preferences.",
+			'gd_required' => "The GD image library is required for this feature.",
+			'gd_required_for_props' => "Your server must support the GD image library in order to determine the image properties.",
+			'unsupported_imagecreate' => "Your server does not support the GD function required to process this type of image.",
+			'gif_not_supported' => "GIF images are often not supported due to licensing restrictions.  You may have to use JPG or PNG images instead.",
+			'jpg_not_supported' => "JPG images are not supported.",
+			'png_not_supported' => "PNG images are not supported.",
+			'jpg_or_png_required' => "The image resize protocol specified in your preferences only works with JPEG or PNG image types.",
+			'copy_error' => "An error was encountered while attempting to replace the file.  Please make sure your file directory is writable.",
+			'rotate_unsupported' => "Image rotation does not appear to be supported by your server.",
+			'libpath_invalid' => "The path to your image library is not correct.  Please set the correct path in your image preferences.",
+			'image_process_failed' => "Image processing failed.  Please verify that your server supports the chosen protocol and that the path to your image library is correct.",
+			'rotation_angle_required' => "An angle of rotation is required to rotate the image.",
+			'writing_failed_gif' => "GIF image.",
+			'invalid_path' => "The path to the image is not correct.",
+			'copy_failed' => "The image copy routine failed.",
+			'missing_font' => "Unable to find a font to use.",
+			'save_failed' => "Unable to save the image.  Please make sure the image and file directory are writable."
 		);
 		
 		if (is_array($msg)) {
