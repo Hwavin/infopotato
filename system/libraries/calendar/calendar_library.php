@@ -8,15 +8,63 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Calendar_Library {
-
+    /**
+	 * Calendar message
+	 * 
+	 * @var string 
+	 */
 	protected $show = array();
+	
+	/**
+	 * A Unix timestamp corresponding to the current time.
+	 * 
+	 * @var string 
+	 */
 	protected $local_time;
 	
+	/**
+	 * A string containing your calendar template.
+	 * 
+	 * @var string 
+	 */
 	protected $template = '';
+	
+	/**
+	 * Sets the day of the week the calendar should start on.
+	 * 
+	 * @var string 
+	 */
 	protected $start_day = 'sunday';
+	
+	/**
+	 * Determines what version of the month name to use in the header. 
+	 * long = January, short = Jan.
+	 * 
+	 * @var string 
+	 */
 	protected $month_type = 'long';
+	
+	/**
+	 * Determines what version of the weekday names to use in the column headers. 
+	 * long = Sunday, short = Sun, abr = Su.
+	 * Availability: R, C, X, W
+	 * 
+	 * @var string 
+	 */
 	protected $day_type = 'abr';
+	
+	/**
+	 * SDetermines whether to display links allowing you to toggle to next/previous months.
+	 * 
+	 * @var boolean
+	 */
 	protected $show_next_prev = FALSE;
+	
+	/**
+	 * Sets the basepath used in the next/previous calendar links.
+	 * 
+	 * @var string 
+	 */
 	protected $next_prev_url = '';
 
 	/**
