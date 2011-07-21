@@ -219,7 +219,7 @@ Permissions can be set by passed an <kbd>octal</kbd> value in the second paramet
  
 <div class="syntax"><pre>
 <span class="c1">// Creates a folder named &quot;bar&quot;</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">mkdir</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/bar/&#39;</span><span class="p">,</span> <span class="nx">DIR_WRITE_MODE</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">mkdir</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/bar/&#39;</span><span class="p">,</span> <span class="m">0666</span><span class="p">);</span> 
 </pre></div> 
  
  
@@ -229,7 +229,7 @@ Permissions can be set by passed an <kbd>octal</kbd> value in the second paramet
  
 <div class="syntax"><pre>
 <span class="c1">// Chmod &quot;bar&quot; to 777</span> 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">chmod</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/bar/&#39;</span><span class="p">,</span> <span class="nx">DIR_WRITE_MODE</span><span class="p">);</span> 
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ftp</span><span class="o">-&gt;</span><span class="na">chmod</span><span class="p">(</span><span class="s1">&#39;/public_html/foo/bar/&#39;</span><span class="p">,</span> <span class="m">0666</span><span class="p">);</span> 
 </pre></div> 
  
  
