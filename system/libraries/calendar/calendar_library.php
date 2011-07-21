@@ -47,7 +47,6 @@ class Calendar_Library {
 	/**
 	 * Determines what version of the weekday names to use in the column headers. 
 	 * long = Sunday, short = Sun, abr = Su.
-	 * Availability: R, C, X, W
 	 * 
 	 * @var string 
 	 */
