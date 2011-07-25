@@ -1,40 +1,43 @@
-/* @group reset */
-
+/*--------------------------------------------------------------
+reset.css
+@author Zhou Yuan
+@copyright Institute for Learning 2009 - 2010
+-------------------------------------------------------------- */
 html, body, div, span, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
-small, strike, strong, sub, sup, var,
+h1, h2, h3, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+em, font, img, ins, kbd,
+small, strong, sub, sup, tt, 
+b, u, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-font-size: 100%;
-font-style: normal;
-vertical-align: baseline;
-text-decoration: none;
-background: transparent;
-margin: 0;
-padding: 0;
-border: 0;
+margin:0;
+padding:0;
+border:0;
+outline:0;
+font-size:100%;
+vertical-align:baseline;
+background:transparent;
 }
 
-body {
-color: #665950;
-font: 14px/1.7413 "Helvetica Neue", Arial, Helvetica, sans-serif; /* Baseline: 24px */
--webkit-font-smoothing: antialiased;
-background:#f2f2f2;
+ol, ul {
+list-style:none;
 }
 
-
-ul {
-list-style: none;
+blockquote {
+quotes:none;
 }
 
-img {
-display: block;
-max-width: 100%;
+:focus {
+outline:0;  
 }
 
-/* @end reset */
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+border-collapse:collapse;
+border-spacing:0;
+}
 
 
 /* ==================================================================================================================== */
@@ -166,6 +169,13 @@ img {
 
 html {
 overflow-y:scroll;
+}
+
+body {
+font-family:Arial, Helvetica, sans-serif;
+font-size:90%;
+color: #555; 
+background:#f2f2f2;
 }
 
 /* Overriding The Default Text Selection Color with CSS3 */
@@ -657,6 +667,7 @@ background:#6d84b4;
 -------------------------------------------------------------- */
 .content {
 background:#fff;
+padding-bottom:20px;
 }
 
 .content ul {
