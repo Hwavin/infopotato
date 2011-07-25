@@ -7,161 +7,39 @@ small, strike, strong, sub, sup, var,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-font-size: 100%;
-font-style: normal;
-vertical-align: baseline;
-text-decoration: none;
-background: transparent;
-margin: 0;
-padding: 0;
-border: 0;
+	font-size: 100%;
+	font-style: normal;
+	vertical-align: baseline;
+	text-decoration: none;
+	background: transparent;
+	margin: 0;
+	padding: 0;
+	border: 0;
 }
-
 body {
-color: #665950;
-font: 14px/1.7413 "Helvetica Neue", Arial, Helvetica, sans-serif; /* Baseline: 24px */
--webkit-font-smoothing: antialiased;
+	color: #665950;
+	font: 14px/1.7413 "Helvetica Neue", Arial, Helvetica, sans-serif; /* Baseline: 24px */
+	-webkit-font-smoothing: antialiased;
+	margin: 0 auto;
+	position: relative;
 }
-
 ul {
-list-style: none;
+	list-style: none;
 }
-
 img {
-display: block;
-max-width: 100%;
+	display: block;
+	max-width: 100%;
 }
 
 /* @end reset */
 
+/*--------------------------------------------------------------
+main.css
+@author Zhou Yuan
+-------------------------------------------------------------- */
 
-/* ==================================================================================================================== */
-/* ! The 1140px Grid V2 by Andy Taylor \ http://cssgrid.net \ http://www.twitter.com/andytlr \ http://www.andytlr.com   */
-/* ==================================================================================================================== */
-
-.container {
-padding-left: 20px;
-padding-right: 20px;
-}
-
-.row {
-width: 100%;
-max-width: 1140px;
-min-width: 755px;
-margin: 0 auto;
-overflow: hidden;
-}
-
-.onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol {
-margin-right: 3.8%;
-float: left;
-min-height: 1px;
-}
-
-.row .onecol {
-width: 4.85%;
-}
-
-.row .twocol {
-width: 13.45%;
-}
-
-.row .threecol {
-width: 22.05%;
-}
-
-.row .fourcol {
-width: 30.75%;
-}
-
-.row .fivecol {
-width: 39.45%;
-}
-
-.row .sixcol {
-width: 48%;
-}
-
-.row .sevencol {
-width: 56.75%;
-}
-
-.row .eightcol {
-width: 65.4%;
-}
-
-.row .ninecol {
-width: 74.05%;
-}
-
-.row .tencol {
-width: 82.7%;
-}
-
-.row .elevencol {
-width: 91.35%;
-}
-
-.row .twelvecol {
-width: 100%;
-float: left;
-}
-
-.last {
-margin-right: 0px;
-}
-
-img, object, embed {
-max-width: 100%;
-}
-
-img {
-	height: auto;
-}
-
-
-/* Smaller screens */
-
-@media only screen and (max-width: 1023px) {
-
-	body {
-	font-size: 0.8em;
-	line-height: 1.5em;
-	}
-	
-	}
-
-
-/* Mobile */
-
-@media handheld, only screen and (max-width: 767px) {
-
-	body {
-	font-size: 16px;
-	-webkit-text-size-adjust: none;
-	}
-	
-	.row, body, .container {
-	width: 100%;
-	min-width: 0;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding-left: 0px;
-	padding-right: 0px;
-	}
-	
-	.row .onecol, .row .twocol, .row .threecol, .row .fourcol, .row .fivecol, .row .sixcol, .row .sevencol, .row .eightcol, .row .ninecol, .row .tencol, .row .elevencol, .row .twelvecol {
-	width: auto;
-	float: none;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding-left: 20px;
-	padding-right: 20px;
-	}
-
-}
-
-
+/* XHTML elements
+-------------------------------------------------------------- */
 html {
 overflow-y:scroll;
 }
@@ -175,6 +53,13 @@ color:#222;
 ::-moz-selection { 
 background:#ffcc89; 
 color:#222; 
+}
+
+body {
+font-family:Arial, Helvetica, sans-serif;
+font-size:90%;
+color: #555; 
+background:#f2f2f2;
 }
 
 h1, h2, h3 {
@@ -197,6 +82,84 @@ h3 {
 font-size:1.3em;  
 padding:8px 0 5px 0;
 }
+
+
+
+
+
+/* @group headings */
+
+h1 {
+	font: bold 3.4286em/1 "Reader Bold", "Helvetica Neue", Arial, Helvetica, sans-serif; /* 48px/48px */
+	font-size-adjust: 0.53;
+	letter-spacing: -1px;
+	color: #7EA107;
+	text-shadow: 0 1px #fff;
+	text-rendering: optimizelegibility;
+	padding: 0.0833em 0 0.4167em; /* 4px 0 20px */
+}
+h2 {
+	font: bold 1.5em/1.1429 "Reader Bold", "Helvetica Neue", Arial, Helvetica, sans-serif; /* 21px/24px */
+	font-size-adjust: 0.53;
+	letter-spacing: -0.0238em;
+	color: #6D9207;
+	text-shadow: 0 1px #fff;
+	margin: 1.5238em 0  0.3810em; /* 24px 0 8px */
+	}
+h2.separate {
+	border-top: 1px dotted #CCCAC8;
+	padding-top: 1.0952em; /* 23px */
+	clear: both;
+}
+h3 {
+	color: #52463F;
+	font-size: 1.1429em; /* 16px */
+	line-height: 1.5; /* 24px */
+	margin: 1em 0 0.5em; /* 16px 0 8px */
+}
+h4 {
+	color: #52463F;
+	font-size: 1em; /* 14px */
+	line-height: 1.1429; /* 16px */
+	margin: 0 0 0.5714em 0; /* 0 0 8px 0 */
+}
+h5, h6 {
+	font-size: 1em; /* 14px */
+}
+
+/* @end headings */
+
+
+/* @group prose */
+
+p, ul, ol, dl, table, address, blockquote, fieldset, pre, form div {
+	font-size: 1em; /* 14px */
+	margin-bottom: 0.5714em; /* 8px */
+}
+blockquote {
+	background: url(img/blockquote.png) no-repeat left 4px;
+	margin: 1.1429em 0 0 -2.5714em; /* 16px 0 0 -36px */
+}
+blockquote p {
+	color: #5E8208;
+	font-size: 1.1429em;
+	line-height: 1.5;
+	margin: 0.5em 0 0.5em 2.25em; /* 8px 0 16px 36px */
+}
+blockquote p strong {
+	color: #4E7208;
+}
+blockquote + p cite:before {
+	content: "\2014 "; /* em-dash */
+}
+
+/* @end prose */
+
+
+
+
+
+
 
 a:link, a:visited {
 color:#3b5998;
@@ -329,14 +292,14 @@ font-weight: bold
 }
 
 blockquote{
-background:url(http://www.infopotato.com/images/shared/quote_left.png) no-repeat left 2px;
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/quote_left.png) no-repeat left 2px;
 font-style:italic;
 line-height:1.5em;
 padding-left:23px;
 }
 
 blockquote span{
-background:url(http://www.infopotato.com/images/shared/quote_right.png) no-repeat right 3px;
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/quote_right.png) no-repeat right 3px;
 color:#666;
 padding-right:23px;
 }
@@ -406,7 +369,7 @@ width:231px;
 height:178px;
 color:#555;
 margin-left:10px;
-background:url(http://www.infopotato.com/images/shared/note_bg.png) no-repeat center center;
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/note_bg.png) no-repeat center center;
 }
 
 .note_content {
@@ -458,7 +421,7 @@ margin: auto;
 }
 
 .external_link {
-background:url('http://www.infopotato.com/images/shared/external_link.png') no-repeat center right; 
+background:url('<?php echo STATIC_URI_BASE; ?>images/shared/external_link.png') no-repeat center right; 
 padding-right:14px;
 }
 
@@ -482,7 +445,7 @@ border-top:1px dotted #ddd;
 }
 
 .notebox {
-background:#fffecf url('http://www.infopotato.com/images/shared/note.png') no-repeat 10px center;
+background:#fffecf url('<?php echo STATIC_URI_BASE; ?>images/shared/note.png') no-repeat 10px center;
 padding:10px 10px 10px 35px;
 border:1px dotted #dda;
 line-height:180%;
@@ -602,38 +565,32 @@ background:#eceff6;
 
 /* page layout / structure
 -------------------------------------------------------------- */
+#container {
+width:100%;
+min-width:960px;
+}
 
-.header {
+#header {
 background-color:#3b5998;
-padding:10px 0;
 }
 
-.logo {
-height:30px;
+.inner {
+width:920px;
+padding:10px 20px;
+margin:0 auto;
 }
 
-.logo a {
-display:block;
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg) no-repeat 0 0;
-width:180px;
-text-indent:-9999px;
-margin-right:15px;
-}
-
-.logo a:hover{
-background-position:-180px 0;
-}
-
-.topnav {
+#topnav {
+width:920px;
 float:left;
 }
 
-.topnav li{
+#topnav li{
 display:inline;
 line-height:29px;
 }
 
-.topnav li a {
+#topnav li a {
 float:left;
 font-weight:700;
 font-size:15px;
@@ -642,6 +599,15 @@ text-decoration:none;
 margin-right:15px;
 }
 
+#logo a {
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg) no-repeat 0 0;
+width:180px;
+text-indent:-9999px;
+}
+
+#logo a:hover{
+background-position:-180px 0;
+}
 
 .nav_item a {
 padding:0 10px;
@@ -652,26 +618,39 @@ background:#6D84B4;
 padding:0 10px;
 }
 
+/* content
+-------------------------------------------------------------- */
+#content {
+padding-bottom:10px;
+background:#f2f2f2;
+}
+
 #alpha_bar {
 height:10px;
 background:#6d84b4;
 }
 
-/* content
+/* content onecolumn
 -------------------------------------------------------------- */
-.content {
+#onecolumn {
+width:920px;
+padding:20px;
+margin:0 auto;
+border:solid 2px #ddd;
+border-top:none;
+position:relative;
 background:#fff;
 }
 
-.content ul {
+#onecolumn ul {
 list-style:disc url('<?php echo STATIC_URI_BASE; ?>images/shared/green_dot.gif');
 }
 
-.content ol {
+#onecolumn ol {
 list-style-type:decimal;
 }
 
-.content li {
+#onecolumn li {
 margin-left:20px;
 padding:3px 0;
 }
@@ -730,7 +709,8 @@ padding:5px 0 5px 15px;
 
 /* footer
 -------------------------------------------------------------- */
-.footer{
+#footer{
+width:960px;
 padding:10px 0;
 margin:0 auto 10px;
 line-height:180%;
@@ -791,17 +771,17 @@ color:#333;
 }
 
 .word_doc {
-background:url(http://www.infopotato.com/images/shared/word.png) no-repeat; 
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/word.png) no-repeat; 
 padding-left:16px;
 }
 
 .pdf_doc {
-background:url(http://www.infopotato.com/images/shared/pdf.png) no-repeat; 
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/pdf.png) no-repeat; 
 padding-left:16px;
 }
 
 .text_doc {
-background:url(http://www.infopotato.com/images/shared/text.png) no-repeat; 
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/text.png) no-repeat; 
 padding-left:16px;
 }
 
@@ -948,6 +928,12 @@ color:#444444;
 
 
 
+.facts_full{
+width:920px;
+margin-left:auto;
+margin-right:auto;
+clear:both;
+}
 
 .first_row .fact{
 border-top:none;padding-top:14px;
@@ -958,15 +944,15 @@ border-top:1px solid #d3dae5;
 float:left;
 margin-right:16px;
 padding:14px 0;
-
+width:295px;
 }
 
 .fact.last{
 margin-right:0;
 }
 
-.fact .fact_img{
-width:52px;
+.fact .fact_img
+{width:52px;
 height:52px;
 float:left;
 margin:5px 0 0 3px;
@@ -976,7 +962,7 @@ margin:5px 0 0 3px;
 .fact .fact_desc{
 float:left;
 margin-left:10px;
-overflow:hidden;
+width:225px;
 }
 
 .fact .fact_desc h3{
@@ -999,7 +985,10 @@ margin:0 !important;
 
 
 .doc {
-min-height:300px;
+float:left;
+width:166px;
+height:270px;
+margin:10px;
 }
 
 #doc_intro {
@@ -1016,9 +1005,12 @@ border:1px solid #d8dfea;
 color:#3B5998;
 padding:5px 5px 5px 25px;
 margin:0 0 0 10px;
-background:#f7f7f7 url(http://www.infopotato.com/images/shared/print.gif) no-repeat 4px 7px;
+background:#f7f7f7 url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
 
 a.print:hover{
-background:#d8dfea url(http://www.infopotato.com/images/shared/print.gif) no-repeat 4px 7px;
+background:#d8dfea url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
+
+
+

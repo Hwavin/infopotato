@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -165,4 +166,5 @@ since some browsers do not provide character-set info, and even among those that
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 
-<!-- end onecolumn -->
+
+</div>

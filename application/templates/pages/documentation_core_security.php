@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -81,4 +82,5 @@ InfoPotato is doing and also fully automatic. You do not set up anything, and al
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

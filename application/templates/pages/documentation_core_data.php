@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -207,4 +208,5 @@ If RDBMS used in your application, you can define the database connection in app
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

@@ -1,5 +1,6 @@
-<!-- begin onecolumn --> 
-<div id="onecolumn" class="inner">
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -19,5 +20,6 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/testing/"><?php echo __('Testing'); ?></a></li>
 </ul> 
 
+</div> 
+
 </div>
-<!-- end onecolumn --> 

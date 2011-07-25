@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -78,5 +79,7 @@ Each folder name will be an array index, while its contained files will be numer
 
 <?php echo isset($pager) ? $pager : ''; ?>
 
+
 </div> 
-<!-- end onecolumn -->
+
+</div>

@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -214,4 +215,5 @@ As you can see, all the "outer" stuff gets thrown in the layout. When the conten
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

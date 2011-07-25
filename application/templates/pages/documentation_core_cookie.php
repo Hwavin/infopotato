@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -88,4 +89,5 @@ The Cookie_Library class also allows defining default parameters to use for set(
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

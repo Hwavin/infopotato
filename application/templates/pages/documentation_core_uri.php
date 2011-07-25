@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -281,4 +282,5 @@ If you are serving static files from a cloud storage provider like Amazon's S3 a
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

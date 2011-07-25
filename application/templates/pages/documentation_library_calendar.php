@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -206,4 +207,5 @@ calendar will be placed within a pair of pseudo-variables as shown here:</p>
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -264,4 +265,5 @@ wrapped normally.
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 
-<!-- end onecolumn -->
+
+</div>

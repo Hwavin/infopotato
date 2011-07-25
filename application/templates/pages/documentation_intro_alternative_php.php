@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -53,4 +54,5 @@ You'll be using pure PHP in your View files when you need to mix PHP codes with 
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

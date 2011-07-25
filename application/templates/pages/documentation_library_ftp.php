@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -13,7 +14,7 @@
 <a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/ftp/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
-<p>CodeIgniter's FTP Class permits files to be transfered to a remote server. Remote files can also be moved, renamed,
+<p>InfoPotato's FTP Class permits files to be transfered to a remote server. Remote files can also be moved, renamed,
 and deleted.  The FTP class also includes a "mirroring" function that permits an entire local directory to be recreated remotely via FTP.</p> 
  
 <p class="tipbox">
@@ -240,4 +241,5 @@ Permissions can be set by passed an <kbd>octal</kbd> value in the second paramet
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 
-<!-- end onecolumn -->
+
+</div>

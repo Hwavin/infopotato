@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -797,4 +798,5 @@ You'll notice that the only difference is that each user has a 'auth_level' fiel
 <!-- PRINT: stop -->
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

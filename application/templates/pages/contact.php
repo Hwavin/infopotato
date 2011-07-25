@@ -1,5 +1,6 @@
-<!-- begin onecolumn --> 
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -38,27 +39,27 @@ Required field is marked with <span class="req">*</span>.
 
 <div class="anti_spam">
 <label for="contact_title" id="contact_title_label" class="desc">Title <span class="req">*</span></label>  
-<input type="text" name="contact_title" id="contact_title" size="60" value="" class="contact_input" />   
+<input type="text" name="contact_title" id="contact_title" value="" class="contact_input" />   
 </div>
 
 <div class="form_item grid-4-12">
 <label for="contact_name" id="contact_name_label" class="desc">Name <span class="req">*</span> <?php if (isset($contact_name_error)) echo $contact_name_error; ?></label>  
-<input type="text" name="contact_name" id="contact_name" size="60" value="<?php if (isset($contact_name)) echo $contact_name; ?>" class="contact_input" />   
+<input type="text" name="contact_name" id="contact_name" value="<?php if (isset($contact_name)) echo $contact_name; ?>" class="contact_input" />   
 </div>
 
 <div class="form_item grid-4-12">
 <label for="contact_email" id="contact_email_label" class="desc">Email <span class="req">*</span> <?php if (isset($contact_email_error)) echo $contact_email_error; ?></label>  
-<input type="text" name="contact_email" id="contact_email" size="60" value="<?php if (isset($contact_email)) echo $contact_email; ?>" class="contact_input" />   
+<input type="text" name="contact_email" id="contact_email" value="<?php if (isset($contact_email)) echo $contact_email; ?>" class="contact_input" />   
 </div>
 
 <div class="form_item grid-4-12">
 <label for="contact_subject" id="contact_subject_label" class="desc">Subject <span class="req">*</span> <?php if (isset($contact_subject_error)) echo $contact_subject_error; ?></label>  
-<input type="text" name="contact_subject" id="contact_subject" size="60" value="<?php if (isset($contact_subject)) echo $contact_subject; ?>" class="contact_input" />   
+<input type="text" name="contact_subject" id="contact_subject" value="<?php if (isset($contact_subject)) echo $contact_subject; ?>" class="contact_input" />   
 </div>
 
 <div class="form_item"> 
 <label for="contact_message" id="contact_message_label" class="desc">Message <span class="req">*</span> <?php if (isset($contact_message_error)) echo $contact_message_error; ?></label>  
-<textarea name="contact_message" id="contact_message" class="contact_textarea" rows="8" cols="80"><?php if (isset($contact_message)) echo $contact_message; ?></textarea> 
+<textarea name="contact_message" id="contact_message" class="contact_textarea" rows="8"><?php if (isset($contact_message)) echo $contact_message; ?></textarea> 
 </div>
 
 <div class="form_item">
@@ -72,7 +73,8 @@ Required field is marked with <span class="req">*</span>.
 <!-- end contact form --> 
 
 </div> 
-<!-- end onecolumn --> 
+
+</div>
  
 
 

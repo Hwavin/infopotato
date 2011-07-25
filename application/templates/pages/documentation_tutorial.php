@@ -1,5 +1,6 @@
-<!-- begin onecolumn --> 
-<div id="onecolumn" class="inner">
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -18,5 +19,6 @@ To demonstrate the power and ease of InfoPotato, we'll provide the following tut
 
 
 </div> 
-<!-- end onecolumn --> 
+
+</div> 
  

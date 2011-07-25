@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn"> 
+<div class="container"> 
+
+<div class="row">
 
 <div id="toc"> 
 <ul> 
@@ -85,4 +86,5 @@ THIS DOCUMENTATION IS PROVIDED BY WILLIAM BOND "AS IS" AND ANY EXPRESS OR IMPLIE
 </p> 
 
 </div> 
-<!-- end onecolumn -->
+
+</div> 

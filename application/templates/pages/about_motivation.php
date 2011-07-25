@@ -1,5 +1,6 @@
-<!-- begin onecolumn --> 
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <div id="toc"> 
 <ul> 
@@ -16,7 +17,6 @@
 </div>
 <!-- end breadcrumb -->
 	
-
 <div class="box_right greybox">
 <blockquote>
 <span>If I have seen further it is by standing on the shoulders of giants.</span>
@@ -66,9 +66,7 @@ Besides, when it comes to frameworks, developers really need to think about <str
 InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits and incorporates many ideas and work from them. Below is a short list of those PHP frameworks from which InfoPotato drew inspiration. Some core code and libraries/functions of InfoPotato are built upon the following projects. Here's an incomplete list:
 </p>
 
-<table width="100%"> 
-<tr> 
-<td width="25%"> 
+<div class="threecol"> 
 <ul> 
 <li><a href="http://akaikiwi.sourceforge.net/" class="external_link">Akaikiwi</a></li>
 <li><a href="http://alloyframework.org/" class="external_link">Alloy</a></li>
@@ -79,11 +77,11 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://justinvincent.com/ezsql" class="external_link">ezSQL</a></li>
 <li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li> 
 <li><a href="http://flourishlib.com/" class="external_link">Flourish</a></li> 
-</ul> 
-</td> 
+</ul>
+</div> 
 
-<td width="25%"> 
-<ul> 
+<div class="threecol"> 
+<ul>   
 <li><a href="http://fuelphp.com/" class="external_link">Fuel</a></li>
 <li><a href="http://kohanaphp.com" class="external_link">Kohana</a></li>
 <li><a href="http://konstrukt.dk/" class="external_link">Konstrukt</a></li>
@@ -94,9 +92,9 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li>
 <li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li> 
 </ul> 
-</td> 
+</div> 
 
-<td width="25%"> 
+<div class="threecol"> 
 <ul> 
 <li><a href="http://obullo.com/" class="external_link">Obullo</a></li>
 <li><a href="http://ownyx.com/" class="external_link">Ownyx</a></li> 
@@ -108,9 +106,9 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://solarphp.com/" class="external_link">Solar</a></li>
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 </ul> 
-</td>
+</div> 
 
-<td width="25%"> 
+<div class="threecol last"> 
 <ul> 
 <li><a href="http://speedphp.com/" class="external_link">SpeedPHP</a></li>
 <li><a href="http://www.spoon-library.com/" class="external_link">Spoon Library</a></li>
@@ -121,10 +119,9 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://www.tokernel.com/" class="external_link">toKernel</a></li> 
 <li><a href="http://peej.github.com/tonic/" class="external_link">Tonic</a></li> 
 <li><a href="http://www.yiiframework.com/" class="external_link">Yii Framework</a></li> 
-</ul> 
-</td> 
-</tr> 
-</table> 
+</ul>
+</div> 
 	
 </div> 
-<!-- end onecolumn --> 
+
+</div> 

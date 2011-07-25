@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row"> 
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -42,4 +43,5 @@ You can think of the Dispatcher as the gatekeeper. It doesn't perform any real w
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

@@ -1,5 +1,6 @@
-<!-- begin onecolumn --> 
-<div id="onecolumn" class="inner">
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -27,5 +28,6 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/mobile_detect/"><?php echo __('Mobile Device Detection'); ?></a></li> 
 </ul> 
 
+</div> 
+
 </div>
-<!-- end onecolumn --> 

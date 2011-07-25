@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -54,5 +55,7 @@ All the user-defined functions should be named like xxx_function
 
 <?php echo isset($pager) ? $pager : ''; ?>
 
+
 </div> 
-<!-- end onecolumn -->
+
+</div>

@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row"> 
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -97,4 +98,5 @@ There's one other aspect of localizing your application which is not covered by 
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

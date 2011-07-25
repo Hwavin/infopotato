@@ -25,7 +25,8 @@ color:#222;
 body {
 /* sans-serif fonts are easier to read on the screen, serif fonts are easier to read on paper */
 font-family:Arial, Helvetica, serif;
-font-size:75%;
+font-size:12pt;
+line-height:20pt;
 color:#222; 
 }
 

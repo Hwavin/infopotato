@@ -1,8 +1,6 @@
+<div class="container"> 
 
-<div class="clear"></div>
-
-<!-- begin onecolumn --> 
-<div id="onecolumn"> 
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -64,7 +62,7 @@ InfoPotato keeps changing before it has got the ink dry on each draft. Check out
 </p> 
 
 <div class="greybox">
-<strong>Clone Command:</strong> <tt>git clone git://github.com/yuanzhou/infopotato.git</tt> 
+<strong>Clone Command:</strong> <span class="red">git clone git://github.com/yuanzhou/infopotato.git</span> 
 </div>
 
 <h2>Reporting Bugs</h2>
@@ -73,5 +71,7 @@ InfoPotato keeps changing before it has got the ink dry on each draft. Check out
 We use Lighthouse as issue tracker. Bug reports are incredibly helpful, so take time to report bugs and request features in our ticket tracker. We're always grateful for patches to infoPotato's code. Indeed, bug reports with attached patches will get fixed far quickly than those without any.
 </p>
 
+
 </div> 
-<!-- end onecolumn --> 
+
+</div>

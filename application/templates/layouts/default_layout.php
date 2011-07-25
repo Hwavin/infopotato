@@ -12,6 +12,7 @@
 <meta name="revisit-after" content="14 Days" /> 
 <meta name="description" content="InfoPotato" /> 
 <meta name="keywords" content="InfoPotato" /> 
+<meta name="viewport" content="width=device-width; initial-scale=1.0;"> 
 
 <title><?php echo $page_title; ?> | InfoPotato</title>
 
@@ -21,12 +22,15 @@
 <link rel="image_src" href="http://ifl.lrdc.pitt.edu/ifl/images/shared/logo.png" />
 
 <!-- CSS Style --> 
-<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/reset.css:main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="screen, projection, handheld" charset="utf-8" /> 
-<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/reset.css:print.css" media="print" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="all" charset="utf-8" /> 
+<link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/print.css" media="print" charset="utf-8" /> 
 
 <!-- JavaScript -->
 <script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/sweet_titles.js"></script>
 
+<!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers--> 
+<script type="text/javascript" src="<?php echo APP_URI_BASE; ?>js/index/css3-mediaqueries.js"></script>
+	
 <?php if(isset($javascripts)) : ?>
 <script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/<?php echo implode(':', $javascripts); ?>"></script>
 <?php endif; ?>
@@ -34,19 +38,14 @@
 
 <body>	
 
-<!-- begin container -->
-<div id="container"> 
+<!-- begin header -->
+<div class="container header"> 
 
-<!-- begin container -->
-<div id="header">
+<div class="row">
 
-<!-- begin header inner --> 
-<div class="inner">
-
-<!-- begin header inner topnav--> 
-<div id="topnav">
+<div class="topnav">
 <ul> 
-<li id="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="<?php echo __('Return to frontpage'); ?>">infopotato</a></li>
+<li class="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="<?php echo __('Return to frontpage'); ?>">infopotato</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="<?php echo __('About'); ?>"><?php echo __('About'); ?></a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="<?php echo __('Download'); ?>"><?php echo __('Download'); ?></a></li>
 <!--
@@ -55,42 +54,35 @@
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="<?php echo __('Documentation'); ?>"><?php echo __('Documentation'); ?></a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="<?php echo __('Contact'); ?>"><?php echo __('Contact'); ?></a></li>
 </ul>
-
 </div>	
-<!-- end header inner topnav--> 
-<div class="clear"></div> 
 
 </div>
-<!-- end header inner -->
 
 </div>  
 <!-- end header --> 
-<div class="clear"></div> 
 
-<!-- begin content --> 
-<div id="content"> 
 <div id="alpha_bar"></div>
+
+<!-- begin main content --> 
+<div class="content"> 
 <?php echo $content; ?>
 <div class="clear"></div>
 <div class="hide">
 Page URI: <?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?>
 </div>
 </div> 
-<!-- end content --> 
-<div class="clear"></div> 
- 
+<!-- end main content --> 
 
 <!-- begin footer --> 
-<div id="footer">
+<div class="container footer">
+<div class="row">
 <div id="locale_select">
 <?php echo __('Languages'); ?> <a href="<?php echo APP_URI_BASE; ?>lang/index/en/us/">English</a> - <a href="<?php echo APP_URI_BASE; ?>lang/index/zh/cn/">简体中文</a>
 </div>
 Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
 </div>
+</div>
 <!-- end footer -->
- 
-</div> 
-<!-- end container -->
 
 </body> 
 

@@ -26,14 +26,13 @@
 
 <body>	
 
-<!-- begin content --> 
-<div id="content"> 
+<div id="container"> 
+<div class="row">
 <a href="javascript:print();" title="Click to print">Print</a> 
 <?php echo $content; ?>
 <div class="clear"></div>
-
+</div>
 </div> 
-<!-- end content --> 
 
 </body> 
 

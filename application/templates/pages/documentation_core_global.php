@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -68,5 +69,7 @@ For more information, please read <a href="<?php echo APP_URI_BASE; ?>documentat
 
 <?php echo isset($pager) ? $pager : ''; ?>
 
+
 </div> 
-<!-- end onecolumn -->
+
+</div>

@@ -2,7 +2,6 @@
 
 .pager { 
 background:#eee; 
-width:908px;
 height:36px; 
 margin:20px 0; 
 padding:0 5px; border:1px solid #ccc;

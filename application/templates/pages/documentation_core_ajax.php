@@ -22,8 +22,9 @@ function post_example() {
 </script>
 
 
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -188,4 +189,5 @@ When responding to Ajax requests, you often will want to disable browser caching
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-<!-- end onecolumn -->
+
+</div>

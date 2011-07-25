@@ -1,5 +1,6 @@
-<!-- begin onecolumn -->
-<div id="onecolumn" class="inner"> 
+<div class="container"> 
+
+<div class="row">
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
@@ -64,4 +65,5 @@ The class defaults to image files only, but based on the parameters you pass, in
 <?php echo isset($pager) ? $pager : ''; ?>
 	
 </div> 
-<!-- end onecolumn -->
+
+</div>
