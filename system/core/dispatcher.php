@@ -82,10 +82,8 @@ class Dispatcher {
 		// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
 		// Remove backslashes added by magic quotes and return the user's raw input
 		// Normalizes all newlines to LF
-		$_POST = isset($_POST) ? sanitize($_POST) : array();
+	    $_POST = isset($_POST) ? sanitize($_POST) : array();
 		$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
-		// $_SESSION requires session_start() before use, otherwise $_SESSION is undefined
-        $_SESSION = isset($_SESSION) ? sanitize($_SESSION) : array(); 
 
 		// The desginated manager prepares the related resources and sends response back to client
 		$manager_obj->{$real_method}($params);
