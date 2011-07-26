@@ -82,7 +82,9 @@ class Dispatcher {
 		// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
 		// Remove backslashes added by magic quotes and return the user's raw input
 		// Normalizes all newlines to LF
-	    $_POST = isset($_POST) ? sanitize($_POST) : array();
+	    // NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
+		// $_GET, $_POST, $_COOKIE, $_REQUEST, $_FILES and $_ENV were affected
+		$_POST = isset($_POST) ? sanitize($_POST) : array();
 		$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
 
 		// The desginated manager prepares the related resources and sends response back to client
