@@ -272,16 +272,16 @@ When a value stored in the session is an array, it is possible to use array dere
 </p> 
  
 <div class="syntax"><pre>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">s</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span> 
+<span class="nx">Session</span><span class="o">::</span><span class="na">set</span><span class="p">(</span> 
     <span class="s1">&#39;user&#39;</span><span class="p">,</span> 
     <span class="k">array</span><span class="p">(</span> 
         <span class="s1">&#39;first_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;John&#39;</span><span class="p">,</span> 
         <span class="s1">&#39;last_name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;Smith&#39;</span> 
     <span class="p">)</span> 
 <span class="p">);</span> 
-<span class="c1">// This will echo John </span> 
+<span class="c1">// This will echo John  </span> 
 <span class="k">echo</span> <span class="nx">Session</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;user[first_name]&#39;</span><span class="p">);</span> 
-</pre></div> 
+</pre></div>
  
 <p>Array dereferencing can be any number of layers deep.</p> 
  
