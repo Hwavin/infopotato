@@ -9,10 +9,6 @@
 </div>
 <!-- end breadcrumb -->
 
-<a class="ribbon" href="https://github.com/yuanzhou/infopotato" target="_blank">
-<img src="<?php echo STATIC_URI_BASE; ?>images/shared/git_ribbon.png" width="149" height="149" alt="Fork me on GitHub">
-</a>	
-
 <h2>Option 1: Package Download</h2> 
 <p> 
 The latest stable version of InfoPotato is 1.0.0 You may safely use this version in your production Web applications. Continued support and bug fixes for this version will be provided

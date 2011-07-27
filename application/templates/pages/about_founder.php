@@ -22,9 +22,7 @@
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
 
 <ul class="avater_desc">
-<li><a class="word_doc" href="<?php echo APP_URI_BASE; ?>resume/index/word">Word</a></li>
 <li><a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>resume/index/pdf">PDF</a></li>
-<li><a class="text_doc" href="<?php echo APP_URI_BASE; ?>resume/index/text">Text</a></li>
 </ul>
 
 </div> 

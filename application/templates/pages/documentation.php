@@ -11,8 +11,6 @@
 
 <div class="box_right greybox">
 
-<img src="<?php echo STATIC_URI_BASE; ?>images/shared/new_ribbon.png" width="37" height="36" class="new_ribbon" alt="New"> 
-
 <h3><?php echo __('Offline Documentation'); ?></h3>
 <p>
 Grab an <a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>file/resume-pdf"><?php echo __('Offline Documentation'); ?></a> containing all topics listed below.

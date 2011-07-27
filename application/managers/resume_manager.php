@@ -17,9 +17,6 @@ final class Resume_Manager extends Manager {
 				case 'pdf' :
 					download_function($download_dir.'ZhouYuan_Resume.pdf');
 					break;	
-				case 'text' :
-					download_function($download_dir.'ZhouYuan_Resume.txt');
-					break;
 				default:
 					echo 'File not found';
 			}

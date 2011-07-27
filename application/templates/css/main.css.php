@@ -620,7 +620,6 @@ background-color:#3b5998;
 padding:10px 0;
 }
 
-
 .topnav {
 float:left;
 }
@@ -668,6 +667,7 @@ background:#6d84b4;
 .content {
 background:#fff;
 padding-bottom:20px;
+border-bottom:2px solid #ddd;
 }
 
 .content ul {
@@ -782,13 +782,6 @@ opacity: 1;
 .ribbon img { 
 display: block; 
 border: 0; 
-}
-
-.new_ribbon { 
-position: absolute; 
-top: -4px; 
-right: -4px; 
-opacity: 0.9; 
 }
 
 /* Numbered List */
