@@ -7,7 +7,7 @@
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-class Dispatcher {
+final class Dispatcher {
 	/**
 	 * Forces use as a static class
 	 * 

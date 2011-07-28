@@ -174,11 +174,11 @@ example.com/index.php/contact/_send_email/
 </div>
 
 
-<h2>Class Constructors</h2>
+<h2>Special Manager Methods</h2>
 
-
+<h3>__construct()</h3>
 <p>
-If you declare a constructor in your manager, for example to load some resources for the entire manager, you have to call the parent constructor.
+If you'd like to run some code in every method, a great place to do it is inside your controller's constructor method. Now, every time you run your controller, the __construct code will get run as well. If you declare a constructor in your manager, for example to load some resources for the entire manager, you have to call the parent constructor.
 </p>
 
 <code>parent::__construct();</code>
@@ -198,6 +198,11 @@ If you declare a constructor in your manager, for example to load some resources
 <p>Constructors are useful if you need to set some default values, or run a default process when your class is instantiated.
 Constructors can't return a value, but they can do some default work.</p>
 
+<h3>__call()</h3>
+
+<p>
+If a user calls a controller and doesn't specify a method to run, the controller will throw a 404 method by default; however, by using the __call method (a PHP magic method), you can override the 404 and display your own message or even forward the user to a default controller.
+</p>
 
 <h2>Reserved Function Names</h2>
 
