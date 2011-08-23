@@ -1,6 +1,6 @@
 <?php
 /**
- * Base Data class file.
+ * Base Data class
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -33,8 +33,8 @@ class Data {
 	/**
 	 * Create database object, only when RDBMS is used
 	 *
-	 * @param	string $connection database connection pool, s.g., 'mysql_adapter:default'
-	 * @return	a database adapter object
+	 * @param	string $connection database connection pool, s.g., 'mysql_dao:default'
+	 * @return	a specific database access object
 	 */
 	private static function _create_db_obj($connection) {
 		static $db_obj = array();

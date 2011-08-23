@@ -2,7 +2,7 @@
 class SQLite_Data extends Data {
 	public function __construct() {
 		// Use default database connection config
-		parent::__construct('sqlite_adapter:test');
+		parent::__construct('sqlite_dao:test');
 	}
 
 	public function get_user_info($id) { 

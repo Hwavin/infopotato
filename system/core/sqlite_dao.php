@@ -1,6 +1,6 @@
 <?php
 /**
- * SQLite adapter
+ * SQLite Data Access Object
  * The username/password is not supported by the sqlite/sqlite3 package
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
@@ -9,7 +9,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-class SQLite_Adapter extends Data_adapter {
+class SQLite_DAO extends Base_DAO {
 	/**
 	 * Database file path
 	 *
@@ -182,4 +182,4 @@ class SQLite_Adapter extends Data_adapter {
 
 }
 
-// End of file: ./system/core/sqlite_adapter.php
+// End of file: ./system/core/sqlite_dao.php

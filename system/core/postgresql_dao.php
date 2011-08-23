@@ -1,14 +1,13 @@
 <?php
 /**
- * MySQL adapter
+ * PostgreSQL ata Access Object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-
-class MySQL_Adapter extends Data_Adapter{
+class PostgreSQL_DAO extends Base_DAO {
 	/**
 	 * Database host
 	 *
@@ -45,13 +44,6 @@ class MySQL_Adapter extends Data_Adapter{
 	public $charset;
 
 	/**
-	 * Database table columns collate
-	 *
-	 * @var  string  
-	 */
-	public $collate;
-
-	/**
 	 * Constructor
 	 * 
 	 * Allow the user to perform a connect at the same time as initialising the this class
@@ -63,7 +55,6 @@ class MySQL_Adapter extends Data_Adapter{
 			$this->dbname = $config['name'];
 			$this->dbhost = $config['host'];
 			$this->charset = $config['charset'];
-			$this->collate = $config['collate'];
 		}
 		
 		// If there is no existing database connection then try to connect
@@ -73,7 +64,7 @@ class MySQL_Adapter extends Data_Adapter{
 	}
 	
 	/**
-	 * Try to connect to MySQL database server
+	 * Try to connect to PostgreSQL database server
 	 *
 	 * @access	public
 	 */
@@ -82,38 +73,22 @@ class MySQL_Adapter extends Data_Adapter{
 
 		// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
 		if ($dbuser === '') {
-			halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');		
+			halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');
 		} elseif ($dbname === '') {
-			halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
-		} elseif ( ! $this->dbh = mysql_connect($dbhost, $dbuser, $dbpass, TRUE)) {
-			halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
+			halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');
+		} elseif ( ! $this->dbh = pg_connect("host=$dbhost user=$dbuser password=$dbpass dbname=$dbname", TRUE)) {
+			halt('An Error Was Encountered', 'Error establishing PostgreSQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');
 		} else {
-			if (function_exists('mysql_set_charset')) { 
-				// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
-				mysql_set_charset($this->charset, $this->dbh);
-			} else {
-				// Specify the client encoding per connection
-				$collation_query = "SET NAMES '{$this->charset}'";
-				if ( ! empty($this->collate)) {
-					$collation_query .= " COLLATE '{$this->collate}'";
-				}
-				$this->query($collation_query);
-			}
-			
-			if ( ! mysql_select_db($dbname, $this->dbh)) {
-				// Try to get error supplied by mysql if not use our own
-				if ( ! $err_msg = mysql_error($this->dbh)) {
-					$err_msg = 'Unexpected error while trying to select database';
-				}
-				halt('An Error Was Encountered', $err_msg, 'sys_error');		
-			}
-			
+			// Specify the client encoding per connection
+			$collation_query = "SET NAMES '{$this->charset}'";
+			$this->query($collation_query);
+
 			$return_val = TRUE;
 		}
 		
 		return $return_val;
 	}
-	
+
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * $query - SQL query WITHOUT any user-entered parameters. Replace parameters with "?" 
@@ -129,7 +104,7 @@ class MySQL_Adapter extends Data_Adapter{
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh) {
-					$v = mysql_real_escape_string($v, $this->dbh); 
+					$v = pg_escape_string($this->dbh, $v); 
 				} else {
 					$v = addslashes($v);
 				}
@@ -152,6 +127,7 @@ class MySQL_Adapter extends Data_Adapter{
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
 	public function query($query) {
+		// Initialise return
 		$return_val = 0;
 
 		// Flush cached values.
@@ -168,10 +144,10 @@ class MySQL_Adapter extends Data_Adapter{
 			return $cache;
 		}
 		// Perform the query via std mysql_query function.
-		$result = mysql_query($query, $this->dbh);
-		
+		$result = pg_query($this->dbh, $query);
+
 		// If there is an error then take note of it.
-		if ($err_msg = mysql_error($this->dbh)) {
+		if ($err_msg = pg_last_error($this->dbh)) {
 			$is_insert = TRUE;
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
@@ -180,24 +156,24 @@ class MySQL_Adapter extends Data_Adapter{
 		// Query was an insert, delete, update, replace
 		$is_insert = FALSE;
 		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
-			$this->rows_affected = mysql_affected_rows();
+			$this->rows_affected = pg_affected_rows($result);
 
 			// Take note of the last_insert_id
 			if (preg_match('/^(insert|replace)\s+/i', $query)) {
-				$this->last_insert_id = mysql_insert_id($this->dbh);
+				$this->last_insert_id = pg_last_oid($result);
 			}
 			// Return number fo rows affected
 			$return_val = $this->rows_affected;
 		} else {
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = mysql_fetch_object($result)) {
+			while ($row = pg_fetch_object($result)) {
 				// Store relults as an objects within main array
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
 			}
 
-			mysql_free_result($result);
+			pg_free_result($result);
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;
@@ -216,19 +192,17 @@ class MySQL_Adapter extends Data_Adapter{
 	 * Returns the current date and time, e.g., 2006-04-12 13:47:46
 	 */
 	public function now() {
-		return 'NOW()';
+		return 'now()';
 	}
-	
+
 	/**
 	 * Begin Transaction using standard sql
-	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
-	 * 
+	 *
 	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
-		$this->query('SET AUTOCOMMIT=0');
-		$this->query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
+		$this->query('begin');
 	}
 	
 	/**
@@ -238,8 +212,7 @@ class MySQL_Adapter extends Data_Adapter{
 	 * @return	bool
 	 */
 	public function trans_commit() {
-		$this->query('COMMIT');
-		$this->query('SET AUTOCOMMIT=1');
+		$this->query('commit');
 	}
 	
 	/**
@@ -249,10 +222,9 @@ class MySQL_Adapter extends Data_Adapter{
 	 * @return	bool
 	 */
 	public function trans_rollback() {
-		$this->query('ROLLBACK');
-		$this->query('SET AUTOCOMMIT=1');
+		$this->query('rollback');
 	}
-
+	
 }
 
-// End of file: ./system/core/mysql_adapter.php
+// End of file: ./system/core/postgresql_dao.php

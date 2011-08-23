@@ -1,6 +1,6 @@
 <?php
 /**
- * Database Access Abstraction Object
+ * Base Database Access Abstraction Object
  *
  * The following databases are supported:
  *
@@ -19,7 +19,7 @@ define('OBJECT', 'OBJECT');
 define('ARRAY_A', 'ARRAY_A');
 define('ARRAY_N', 'ARRAY_N');
 
-abstract class Data_Adapter {
+abstract class Base_DAO {
 	/**
 	 * Saved result of the last query made
 	 *
@@ -358,4 +358,4 @@ abstract class Data_Adapter {
 
 }
 
-// End of file: ./system/core/data_adapter.php
+// End of file: ./system/core/base_dao.php

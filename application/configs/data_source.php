@@ -1,7 +1,7 @@
 <?php
 return array(
 	// MySQL
-	'mysql_adapter' => array(
+	'mysql_dao' => array(
 		'default' => array(
 			'host' => 'localhost', // The hostname of your database server.
 			'name' => 'users', // The name of the database you want to connect to
@@ -13,7 +13,7 @@ return array(
 	),
 	
 	// MySQLi
-	'mysqli_adapter' => array(
+	'mysqli_dao' => array(
 		'default' => array(
 			'host' => 'localhost', // The hostname of your database server.
 			'name' => 'users', // The name of the database you want to connect to
@@ -25,7 +25,7 @@ return array(
 	),
 	
 	// PostgreSQL
-	'postgresql_adapter' => array(
+	'postgresql_dao' => array(
 		'default' => array(
 			'host' => 'localhost', // The hostname of your database server.
 			'name' => 'users', // The name of the database you want to connect to
@@ -36,7 +36,7 @@ return array(
 	),
 	
 	// SQLite
-	'sqlite_adapter' => array(
+	'sqlite_dao' => array(
 		'test' => array(
 			'path' => APP_DIR.'test.sqlite',
 		),

@@ -1,6 +1,6 @@
 <?php
 /**
- * MySQLi adapter
+ * MySQLi Data Access Object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -8,7 +8,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-class MySQLi_Adapter extends Data_Adapter {
+class MySQLi_DAO extends Base_DAO {
 	/**
 	 * Database host
 	 *
@@ -248,4 +248,4 @@ class MySQLi_Adapter extends Data_Adapter {
 	
 }
 
-// End of file: ./system/core/mysqli_adapter.php
+// End of file: ./system/core/mysqli_dao.php

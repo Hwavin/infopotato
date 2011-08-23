@@ -37,16 +37,16 @@ function auto_load($class_name) {
         'dispatcher', 
         'manager', 
         'data', 
-        'data_adapter',  
+        'base_dao',  
         'dumper', 
         'utf8',
         'i18n',
         'cookie',
         'session',
-        'mysql_adapter', 
-        'mysqli_adapter', 
-        'postgresql_adapter', 
-        'sqlite_adapter'
+        'mysql_dao', 
+        'mysqli_dao', 
+        'postgresql_dao', 
+        'sqlite_dao'
     );
 
     if (in_array($class_name, $runtime_list)) {
