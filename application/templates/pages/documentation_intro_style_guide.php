@@ -433,7 +433,7 @@ Constants should always be all-uppercase, with underscores to separate words.
 <p>In general, parenthesis and brackets should not use any additional spaces.  The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability.</p> 
 
 
-<h2>Private Methods and Variables</h2> 
+<h2>Internal (private/protected) Methods and Variables</h2> 
 
 <p>Methods and variables that are only accessed internally by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore.</p> 
 

@@ -125,12 +125,12 @@ class Manager {
 			// Trying to gzip them not only wastes CPU but can potentially increase file sizes.
 			$is_compressed = FALSE;
 			if (in_array($config['type'], $mime_types)) {
-				$compression_method = self::__get_accepted_compression_method();
+				$compression_method = self::_get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
 				$compressed = isset($config['compression_level']) 
-							  ? self::__compress($config['content'], $compression_method, $config['compression_level']) 
-							  : self::__compress($config['content'], $compression_method);
-				
+							  ? self::_compress($config['content'], $compression_method, $config['compression_level']) 
+							  : self::_compress($config['content'], $compression_method);
+			
 				// If compressed, the header "Vary: Accept-Encoding" and "Content-Encoding" added, 
 				// and the "Content-Length" header updated.
 				if ($compressed !== FALSE) {
@@ -175,7 +175,7 @@ class Manager {
      * alias of that method to use in the Content-Encoding header (some browsers
      * call gzip "x-gzip" etc.)
      */
-    private static function __get_accepted_compression_method($allow_compress = TRUE, $allow_deflate = TRUE) {
+    private static function _get_accepted_compression_method($allow_compress = TRUE, $allow_deflate = TRUE) {
         if ( ! isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
             return array('', '');
         }
@@ -221,7 +221,7 @@ class Manager {
      * 
      * @return string the compressed content or FALSE if an error occurred.
      */
-    private static function __compress($content, $compression_method = array('', ''), $compression_level = 6) {
+    private static function _compress($content, $compression_method = array('', ''), $compression_level = 6) {
         if ($compression_method[0] === '' || ($compression_level == 0) || ! extension_loaded('zlib')) {
             return FALSE;
         }

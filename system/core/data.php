@@ -26,7 +26,7 @@ class Data {
 	 */
 	public function __construct($connection = '') {
 		if ($connection !== '') {
-			$this->db = self::__create_db_obj($connection);
+			$this->db = self::_create_db_obj($connection);
 		}
 	}
 	
@@ -36,7 +36,7 @@ class Data {
 	 * @param	string $connection database connection pool, s.g., 'mysql_dao:default'
 	 * @return	a specific database access object
 	 */
-	private static function __create_db_obj($connection) {
+	private static function _create_db_obj($connection) {
 		static $db_obj = array();
 		// Parse the connection string
 		$conn = explode(':', $connection);
