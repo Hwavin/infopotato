@@ -7,14 +7,14 @@ final class Tutorials_Manager extends Manager {
 			'page_title' => 'Tutorials',
 			'javascripts' => $name === '_video' ? array('swfobject.js') : NULL,
 			'stylesheets' => array('syntax.css'),
-			'content' => $this->render_template('pages/tutorials'.$name),
+			'content' => $this->_render_template('pages/tutorials'.$name),
 		);
 		
 		$response_data = array(
-			'content' => $this->render_template('layouts/default_layout', $layout_data),
+			'content' => $this->_render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->response($response_data);
+		$this->_response($response_data);
 	}
 }
 

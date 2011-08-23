@@ -11,7 +11,7 @@ class Ajax_Manager extends Manager {
 	public function post_index() {
 		$this->_disable_cache();
 		echo '<pre>';
-		print_r($this->POST_DATA);
+		print_r($this->_POST_DATA);
 		echo '</pre>';
 	}
 	

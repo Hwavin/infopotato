@@ -8,7 +8,7 @@ final class Resume_Manager extends Manager {
 		$file = count($params) > 0 ? strtolower($params[0]) : '';
 
 		if ($file !== '') {
-			$this->load_function('SYS', 'download/download_function');
+			$this->_load_function('SYS', 'download/download_function');
 			$download_dir = APP_DOWNLOAD_DIR;
 			switch ($file) {
 				case 'word' :
@@ -21,7 +21,7 @@ final class Resume_Manager extends Manager {
 					echo 'File not found';
 			}
 		} else {
-			$this->load_function('SYS', 'redirect/redirect_function');
+			$this->_load_function('SYS', 'redirect/redirect_function');
 			redirect_function(APP_URI_BASE.'about/founder/');
 		}
 

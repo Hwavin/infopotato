@@ -5,7 +5,7 @@ final class Lang_Manager extends Manager {
 		
 		Session::set('lang', $lang);
 		
-		$this->load_function('SYS', 'redirect/redirect_function');	
+		$this->_load_function('SYS', 'redirect/redirect_function');	
 		redirect_function($_SERVER['HTTP_REFERER']);
 	}
 }

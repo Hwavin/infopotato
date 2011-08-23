@@ -107,7 +107,7 @@
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/db.png" class="fact_img" title="Multiple Database Adapters" alt="Multiple Database Adapters" />
 <div class="fact_desc">
-<h3>Multiple Database Adapters</h3>
+<h3>Multiple Data-Access Objects</h3>
 <div>Rational databases (MySQL, SQLite, PostgreSQL) and NoSQL</div>
 </div>
 </div>

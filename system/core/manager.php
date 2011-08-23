@@ -27,7 +27,7 @@ class Manager {
 	 * 
 	 * @var array   
      */
-    protected $POST_DATA = array();
+    protected $_POST_DATA = array();
 
 	/**
 	 * Constructor
@@ -42,9 +42,9 @@ class Manager {
 	 * @return	void
 	 */
 	public function __construct() {
-		// The POST data can only be accessed in manager using $this->POST_DATA
+		// The POST data can only be accessed in manager using $this->_POST_DATA
 		// The $_POST data is already sanitized by the dispatcher
-		$this->POST_DATA = $_POST;
+		$this->_POST_DATA = $_POST;
 		// Disable access to $_POST
 		unset($_POST);
 	} 
@@ -58,7 +58,7 @@ class Manager {
 	 * @param   array $template_vars (optional) template variables
 	 * @return  string rendered contents of template
 	 */    
-	protected function render_template($template, array $template_vars = NULL) {
+	protected function _render_template($template, array $template_vars = NULL) {
 		$orig_template = strtolower($template);
 		
 		// Is the template in a sub-folder? If so, parse out the filename and path.
@@ -99,7 +99,7 @@ class Manager {
 	 * 
      * @return NULL
      */   
-	protected function response($config = array()) {
+	protected function _response($config = array()) {
 		if (isset($config['content']) && isset($config['type'])) {
 			// Response headers
 			$headers = array();
@@ -125,11 +125,11 @@ class Manager {
 			// Trying to gzip them not only wastes CPU but can potentially increase file sizes.
 			$is_compressed = FALSE;
 			if (in_array($config['type'], $mime_types)) {
-				$compression_method = self::_get_accepted_compression_method();
+				$compression_method = self::__get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
 				$compressed = isset($config['compression_level']) 
-							  ? self::_compress($config['content'], $compression_method, $config['compression_level']) 
-							  : self::_compress($config['content'], $compression_method);
+							  ? self::__compress($config['content'], $compression_method, $config['compression_level']) 
+							  : self::__compress($config['content'], $compression_method);
 				
 				// If compressed, the header "Vary: Accept-Encoding" and "Content-Encoding" added, 
 				// and the "Content-Length" header updated.
@@ -175,7 +175,7 @@ class Manager {
      * alias of that method to use in the Content-Encoding header (some browsers
      * call gzip "x-gzip" etc.)
      */
-    private static function _get_accepted_compression_method($allow_compress = TRUE, $allow_deflate = TRUE) {
+    private static function __get_accepted_compression_method($allow_compress = TRUE, $allow_deflate = TRUE) {
         if ( ! isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
             return array('', '');
         }
@@ -221,7 +221,7 @@ class Manager {
      * 
      * @return string the compressed content or FALSE if an error occurred.
      */
-    private static function _compress($content, $compression_method = array('', ''), $compression_level = 6) {
+    private static function __compress($content, $compression_method = array('', ''), $compression_level = 6) {
         if ($compression_method[0] === '' || ($compression_level == 0) || ! extension_loaded('zlib')) {
             return FALSE;
         }
@@ -250,7 +250,7 @@ class Manager {
 	 * @param   string $alias the optional property name alias
 	 * @return  boolean
 	 */    
-	protected function load_data($data, $alias = '') {
+	protected function _load_data($data, $alias = '') {
 		$data = strtolower($data);
 		
 		$orig_data = $data;
@@ -310,7 +310,7 @@ class Manager {
 	 * @param	array	$config the optional config parameters
 	 * @return	void
 	 */	   
-	protected function load_library($scope, $library, $alias = '', $config = array()) {
+	protected function _load_library($scope, $library, $alias = '', $config = array()) {
 		$library = strtolower($library);
 
 		$orig_library = $library;
@@ -375,7 +375,7 @@ class Manager {
 	 * @param   string $func the function script name
 	 * @return  void
 	 */    
-	protected function load_function($scope, $func) {
+	protected function _load_function($scope, $func) {
 		$orig_func = strtolower($func);
 		
 		// Is the script in a sub-folder? If so, parse out the filename and path.

@@ -7,14 +7,14 @@ final class Js_Manager extends Manager {
 		if ($js_files != NULL) {
 			$js_content = '';
 			foreach ($js_files as $js_file) {
-				$js_content .= $this->render_template('js/'.$js_file);
+				$js_content .= $this->_render_template('js/'.$js_file);
 			}
 			
 			$response_data = array(
 				'content' => $js_content,
 				'type' => 'text/javascript'
 			);
-			$this->response($response_data);
+			$this->_response($response_data);
 		}
 	}
 }

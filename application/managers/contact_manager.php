@@ -9,21 +9,21 @@ final class Contact_Manager extends Manager {
 		
 		$layout_data = array(
 			'page_title' => 'Contact',
-			'content' => $this->render_template('pages/contact', $data),
+			'content' => $this->_render_template('pages/contact', $data),
 		);
 		
 		$response_data = array(
-			'content' => $this->render_template('layouts/default_layout', $layout_data),
+			'content' => $this->_render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->response($response_data);
+		$this->_response($response_data);
 	}
 
 	public function post_index() {
 		$form_token = Session::get('form_token');
 
 		// Load Form Validation library and assign post data
-		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->POST_DATA, 'lang' => I18n::$lang));
+		$this->_load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->_POST_DATA, 'lang' => I18n::$lang));
 
 		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
 		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam
@@ -34,7 +34,7 @@ final class Contact_Manager extends Manager {
 		
 		$result = $this->fv->run();
 		
-		$this->load_function('SYS', 'htmlawed/htmlawed_function');
+		$this->_load_function('SYS', 'htmlawed/htmlawed_function');
 		
 		// Further process the input data with htmlawed function
 		$contact_subject = htmlawed_function($this->fv->set_value('contact_subject'), array('safe'=>1, 'deny_attribute'=>'style, on*', 'elements'=>'* -a'));
@@ -73,7 +73,7 @@ final class Contact_Manager extends Manager {
 				//'smtp_pass' => 'jan2001',
 			);
 			
-			$this->load_library('SYS', 'email/email_library', 'email', $config);		
+			$this->_load_library('SYS', 'email/email_library', 'email', $config);		
 
 			$this->email->set_newline("\r\n");
 			$this->email->from('zhy19@pitt.edu', 'InfoPotato Contact');
@@ -94,14 +94,14 @@ final class Contact_Manager extends Manager {
 
 		$layout_data = array(
 			'page_title' => 'Contact',
-			'content' => $this->render_template('pages/contact', $data),
+			'content' => $this->_render_template('pages/contact', $data),
 		);
 
 		$response_data = array(
-			'content' => $this->render_template('layouts/default_layout', $layout_data),
+			'content' => $this->_render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->response($response_data);
+		$this->_response($response_data);
 	}
 	
 }
