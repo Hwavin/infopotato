@@ -19,7 +19,7 @@ define('OBJECT', 'OBJECT');
 define('ARRAY_A', 'ARRAY_A');
 define('ARRAY_N', 'ARRAY_N');
 
-class Data_Adapter {
+abstract class Data_Adapter {
 	/**
 	 * Saved result of the last query made
 	 *

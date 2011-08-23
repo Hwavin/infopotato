@@ -8,16 +8,16 @@ final class SQLite_Manager extends Manager {
 		
 		//$this->u->add_user('dsadas', 'dadsasada');
 
-		dump(APP_DIR.'bios.xml', 'xml', TRUE);
+		//dump(APP_DIR.'bios.xml', 'xml', TRUE);
 		
 		//dump($user_info);
-		//dump($users_info, '', TRUE);
+		dump($users_info, '', TRUE);
 		//dump($this->u);
 
 
-		$this->load_library('SYS', 'snoopy/snoopy_library', 'snoopy');
-		$this->snoopy->fetchlinks("http://www.instituteforlearning.org/");
-		dump($this->snoopy->results, '', TRUE);
+		//$this->load_library('SYS', 'snoopy/snoopy_library', 'snoopy');
+		//$this->snoopy->fetchlinks("http://www.instituteforlearning.org/");
+		//dump($this->snoopy->results, '', TRUE);
 	}
 } 
 

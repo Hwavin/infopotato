@@ -70,6 +70,7 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <ul> 
 <li><a href="http://akaikiwi.sourceforge.net/" class="external_link">Akaikiwi</a></li>
 <li><a href="http://alloyframework.org/" class="external_link">Alloy</a></li>
+<li><a href="http://auraphp.github.com/" class="external_link">Aura</a></li>
 <li><a href="http://cakephp.org/" class="external_link">CakePHP</a></li> 
 <li><a href="http://codeigniter.com/" class="external_link">CodeIgniter</a></li>
 <li><a href="http://www.doitphp.com/" class="external_link">DoitPHP</a></li>
