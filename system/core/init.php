@@ -32,17 +32,16 @@ function auto_load($class_name) {
 	
     // Create and use runtime files to speed up the parsing process for all the following requests
     // Dispatcher and Manager class are required for each app request
-    // The runtime folder must be writable
     $runtime_list = array(
         'dispatcher', 
         'manager', 
-        'data', 
-        'base_dao',  
         'dumper', 
         'utf8',
         'i18n',
         'cookie',
         'session',
+		'data', 
+        'base_dao',
         'mysql_dao', 
         'mysqli_dao', 
         'postgresql_dao', 
@@ -51,8 +50,8 @@ function auto_load($class_name) {
 
     if (in_array($class_name, $runtime_list)) {
         if (SYS_RUNTIME_CACHE === TRUE) {
-            // SYS_RUNTIME_DIR must be writable
-            $file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
+            // The runtime folder SYS_RUNTIME_DIR must be writable
+			$file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
             if ( ! file_exists($file)) {
                 file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
             }
@@ -206,6 +205,5 @@ if (ini_get('register_globals')) {
 	// Reverse the effects of register_globals
 	disable_register_globals();
 }
-		
-		
+	
 // End of file: ./system/core/init.php

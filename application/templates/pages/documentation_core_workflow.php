@@ -40,7 +40,7 @@ Every request handled by an InfoPotato application goes through the same basic l
 
 <div class="content_image"> 
 <p><strong>A typical workflow of InfoPotato application</strong></p> 
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/workflow.png" width="883" height="304" alt="InfoPotato Application Workflow" /> 
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/workflow.png" alt="InfoPotato Application Workflow" /> 
 </div> 
 
 <ul class="list_numbered"> 
@@ -54,14 +54,14 @@ The end user interacts (for example, by clicking on a hyperlink or entering a We
 <li>
 <span class="big_number">2.</span>
 <p>
-The web server receives the request and passes it to an InfoPotato application via the bootstrap script (which is the page all requests are routed through, e.g., /web/index.php or /web/dev.php). The bootstrap script is responsible for instantiating the framework by invoking Dispatcher.
+The web server receives the request and passes it to an InfoPotato application via the bootstrap script (which is the page all requests are routed through, e.g., /index.php or /dev.php). The bootstrap script is responsible for initializing the framework and invoking Dispatcher.
 </p>
 </li> 
 
 <li>
 <span class="big_number">3.</span>
 <p>
-Dispatcher provides the actual incoming request analysis. It reads the request information (parses the request method, the URI segments), and determines from the URI segments which manager and manager method should be called and what parameters to pass to the manager method.
+Dispatcher provides the actual incoming request analysis. It reads the request information (parses the request method, the URI segments), and determines from the URI segments which manager and manager method should be called and what parameters to pass to that manager method.
 </p>
 </li> 
 

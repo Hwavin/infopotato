@@ -10,8 +10,6 @@
 final class Dispatcher {
 	/**
 	 * Forces use as a static class
-	 * 
-	 * @return Dispatcher
 	 */
 	private function __construct() { }
 	
