@@ -125,13 +125,36 @@ specifying any URI segments you'll see your Hello World message by default.</p>
 While using InfoPotato, you would never use $_GET, $_POST, and $_COOKIE. $_GET data is disallowed since InfoPotato utilizes URI segments rather than traditional URL query strings. Instead we take use of the $POST_DATA and $COOKIE_DATA variables which can only be accessed in managers
 </p>
 
-<h2>Interacting with Template</h2>
 
-<p>The Manager has a render_template() method that takes care of sending your final rendered data to the client automatically. In some cases, however, you might want to
+<h2>Common Manager Tasks</h2>
+
+<p>
+Though a manager can do virtually anything, most managers will perform the same basic tasks over and over again. These tasks, such as redirecting, forwarding, rendering templates and accessing core services, are very easy to manage in InfoPotato.
+</p>
+
+<h3>Redirecting</h3>
+
+<p>
+If you want to redirect the user to another page, use the redirect() method:
+</p>
+
+<h3>Forwarding</h3>
+
+<p>
+You can also easily forward to another manager internally with the forward() method. Instead of redirecting the user's browser, it makes an internal sub-request, and calls the specified manager. 
+</p>
+
+<h3>Rendering Templates</h3>
+
+<p>
+Though not a requirement, most managers will ultimately render a template that's responsible for generating the HTML (or other format) for the manager. The Manager has a render_template() method that takes care of sending your final rendered data to the client automatically. In some cases, however, you might want to
 post-process the finalized data in some way and send it to the browser yourself. InfoPotato also permits you to
-use <dfn>render_template()</dfn> to your Manager that will receive the finalized output data.</p>
+use <dfn>render_template()</dfn> to your Manager that will receive the finalized output data.
+</p>
 
-<p>Here is an example:</p>
+<p>
+Here is an example:
+</p>
 
 <div class="syntax"><pre>
 <span class="k">function</span> <span class="nf">get_entry</span><span class="p">()</span> <span class="p">{</span> 
@@ -151,6 +174,44 @@ use <dfn>render_template()</dfn> to your Manager that will receive the finalized
 <span class="p">}</span> 
 </pre></div> 
 
+
+<h3>Loading data</h3>
+
+<p>The load_data() function comes handy when you need to use a data.</p>
+
+<div class="syntax"><pre>
+<span class="k">class</span> <span class="nc">User_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
+        <span class="c1">// Load user data, this data can be used by other class methods</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;user_data&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span>);</span> 
+    <span class="p">}</span> 
+ 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_posts</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="c1">// Load post data, this data can only be used by this class method</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;post_data&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span> 
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div> 
+
+<h3>Loading Library</h3>
+
+<p>The load_library() function comes handy when you need to use a library class.</p>
+
+<div class="syntax"><pre>
+<span class="k">class</span> <span class="nc">About_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
+        <span class="c1">// Load Cache library, this library can be used by other class methods</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;cache/cache_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cache_dir&#39;</span><span class="o">=&gt;</span><span class="nx">APP_CACHE_DIR</span><span class="p">));</span> 
+    <span class="p">}</span> 
+ 
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">post_email</span><span class="p">()</span> <span class="p">{</span> 
+	<span class="c1">// Load Form Validation library, this library can only be used by this class method</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;form_validation/form_validation_library&#39;</span><span class="p">,</span> <span class="s1">&#39;fv&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">));</span>
+    <span class="p">}</span> 
+<span class="p">}</span> 
+</pre></div> 
 
 <h2>Private Functions</h2>
 
@@ -208,45 +269,8 @@ If a user calls a controller and doesn't specify a method to run, the controller
 
 <p>Since your Manager classes will extend the main application Manager you
 must be careful not to name your functions identically to the ones used by that class, otherwise your local functions
-will override them. See <a href="reserved_names.html">Reserved Names</a> for a full list.</p>
-
-<h2>Load data</h2>
-
-<p>The load_data() function comes handy when you need to use a data.</p>
-
-<div class="syntax"><pre>
-<span class="k">class</span> <span class="nc">User_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
-        <span class="c1">// Load user data, this data can be used by other class methods</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;user_data&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span>);</span> 
-    <span class="p">}</span> 
- 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_user_posts</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="c1">// Load post data, this data can only be used by this class method</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_data</span><span class="p">(</span><span class="s1">&#39;post_data&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span> 
-    <span class="p">}</span> 
-<span class="p">}</span> 
-</pre></div> 
-
-<h2>Load Library</h2>
-
-<p>The load_library() function comes handy when you need to use a library class.</p>
-
-<div class="syntax"><pre>
-<span class="k">class</span> <span class="nc">About_Manager</span> <span class="k">extends</span> <span class="nx">Manager</span> <span class="p">{</span> 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span> 
-        <span class="c1">// Load Cache library, this library can be used by other class methods</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;cache/cache_library&#39;</span><span class="p">,</span> <span class="s1">&#39;cache&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;cache_dir&#39;</span><span class="o">=&gt;</span><span class="nx">APP_CACHE_DIR</span><span class="p">));</span> 
-    <span class="p">}</span> 
- 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">post_email</span><span class="p">()</span> <span class="p">{</span> 
-	<span class="c1">// Load Form Validation library, this library can only be used by this class method</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;form_validation/form_validation_library&#39;</span><span class="p">,</span> <span class="s1">&#39;fv&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;post&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">POST_DATA</span><span class="p">));</span>
-    <span class="p">}</span> 
-<span class="p">}</span> 
-</pre></div> 
+will override them. See <a href="reserved_names.html">Reserved Names</a> for a full list.
+</p>
 
 <h2>Storing Managers within Sub-folders</h2> 
 <p class="notebox">

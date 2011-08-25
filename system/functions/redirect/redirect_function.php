@@ -29,7 +29,8 @@ function redirect_function($url, $delay = 0, $js = FALSE, $js_wrapped = TRUE, $r
             echo <<<EOT
 				<html>
 				<head>
-				<meta http-equiv="refresh" content="{$delay};URL={$url}" />
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta http-equiv="refresh" content="{$delay};url={$url}" />
 				</head>
 				</html>
 EOT;
