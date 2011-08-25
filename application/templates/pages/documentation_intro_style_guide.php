@@ -435,7 +435,7 @@ Constants should always be all-uppercase, with underscores to separate words.
 
 <h2>Internal (private/protected) Methods and Variables</h2> 
 
-<p>Methods and variables that are only accessed internally by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore.</p> 
+<p>Methods and variables that are only accessed internally (non-public members) by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore.</p> 
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">class</span> <span class="nc">Home_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
@@ -517,7 +517,7 @@ Use double quotes when you need to include plain variables or a lot of single qu
 <span class="nv">$statement</span> <span class="o">=</span> <span class="s2">&quot;You aren&#39;t serious!&quot;</span><span class="p">;</span> 
 </pre></div> 
 
-<h3>Variable substitution</h3>
+<h3>Variable substitution in strings</h3>
 <p>
 Variable substitution can use either of these forms:
 </p>

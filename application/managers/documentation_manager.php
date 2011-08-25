@@ -4,14 +4,14 @@ final class Documentation_Manager extends Manager {
 	public function get_index() {
 		$layout_data = array(
 			'page_title' => 'Documentation',
-			'content' => $this->_render_template('pages/documentation'),
+			'content' => $this->render_template('pages/documentation'),
 		);
 		
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 	}
 	
 	public function get_intro($params = array()) {
@@ -69,20 +69,20 @@ final class Documentation_Manager extends Manager {
 		//dump($pager_data);
 		
 		$content_data = array(
-			'pager' => $this->_render_template('pages/pager', $pager_data)
+			'pager' => $this->render_template('pages/pager', $pager_data)
 		);
 		
 		$layout_data = array(
 			'page_title' => 'Documentation - Introduction',
 			'stylesheets' => array('syntax.css', 'pager.css'),
-			'content' => $this->_render_template('pages/documentation_intro'.$name, $content_data),
+			'content' => $this->render_template('pages/documentation_intro'.$name, $content_data),
 		);
 		
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 	}
 	
 	public function get_core($params = array()) {
@@ -188,20 +188,20 @@ final class Documentation_Manager extends Manager {
 		//dump($pager_data);
 		
 		$content_data = array(
-			'pager' => $this->_render_template('pages/pager', $pager_data)
+			'pager' => $this->render_template('pages/pager', $pager_data)
 		);
 		
 		$layout_data = array(
 			'page_title' => 'Documentation - Introduction',
 			'stylesheets' => array('syntax.css', 'pager.css'),
-			'content' => $this->_render_template('pages/documentation_core'.$name, $content_data),
+			'content' => $this->render_template('pages/documentation_core'.$name, $content_data),
 		);
 		
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 	}
 	
 	public function get_library($params = array()) {
@@ -291,20 +291,20 @@ final class Documentation_Manager extends Manager {
 		//dump($pager_data);
 		
 		$content_data = array(
-			'pager' => $this->_render_template('pages/pager', $pager_data)
+			'pager' => $this->render_template('pages/pager', $pager_data)
 		);
 		
 		$layout_data = array(
 			'page_title' => 'Documentation - Library',
 			'stylesheets' => array('syntax.css', 'pager.css'),
-			'content' => $this->_render_template('pages/documentation_library'.$name, $content_data),
+			'content' => $this->render_template('pages/documentation_library'.$name, $content_data),
 		);
 		
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 	}
 	
 	public function get_function($params = array()) {
@@ -354,20 +354,20 @@ final class Documentation_Manager extends Manager {
 		//dump($pager_data);
 		
 		$content_data = array(
-			'pager' => $this->_render_template('pages/pager', $pager_data)
+			'pager' => $this->render_template('pages/pager', $pager_data)
 		);
 		
 		$layout_data = array(
 			'page_title' => 'Documentation - Function',
 			'stylesheets' => array('syntax.css', 'pager.css'),
-			'content' => $this->_render_template('pages/documentation_function'.$name, $content_data),
+			'content' => $this->render_template('pages/documentation_function'.$name, $content_data),
 		);
 		
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 	}
 	
 	public function get_tutorial($params = array()) {
@@ -376,14 +376,14 @@ final class Documentation_Manager extends Manager {
 		$layout_data = array(
 			'page_title' => 'Documentation - Tutorials',
 			'stylesheets' => array('syntax.css'),
-			'content' => $this->_render_template('pages/documentation_tutorial'.$name),
+			'content' => $this->render_template('pages/documentation_tutorial'.$name),
 		);
 		
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 	}
 }
 

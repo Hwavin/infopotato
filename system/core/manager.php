@@ -58,7 +58,7 @@ class Manager {
 	 * @param   array $template_vars (optional) template variables
 	 * @return  string rendered contents of template
 	 */    
-	protected function _render_template($template, array $template_vars = NULL) {
+	protected function render_template($template, array $template_vars = NULL) {
 		$orig_template = strtolower($template);
 		
 		// Is the template in a sub-folder? If so, parse out the filename and path.
@@ -99,7 +99,7 @@ class Manager {
 	 * 
      * @return NULL
      */   
-	protected function _response($config = array()) {
+	protected function response($config = array()) {
 		if (isset($config['content']) && isset($config['type'])) {
 			// Response headers
 			$headers = array();
@@ -250,7 +250,7 @@ class Manager {
 	 * @param   string $alias the optional property name alias
 	 * @return  boolean
 	 */    
-	protected function _load_data($data, $alias = '') {
+	protected function load_data($data, $alias = '') {
 		$data = strtolower($data);
 		
 		$orig_data = $data;
@@ -310,7 +310,7 @@ class Manager {
 	 * @param	array	$config the optional config parameters
 	 * @return	void
 	 */	   
-	protected function _load_library($scope, $library, $alias = '', $config = array()) {
+	protected function load_library($scope, $library, $alias = '', $config = array()) {
 		$library = strtolower($library);
 
 		$orig_library = $library;
@@ -375,7 +375,7 @@ class Manager {
 	 * @param   string $func the function script name
 	 * @return  void
 	 */    
-	protected function _load_function($scope, $func) {
+	protected function load_function($scope, $func) {
 		$orig_func = strtolower($func);
 		
 		// Is the script in a sub-folder? If so, parse out the filename and path.

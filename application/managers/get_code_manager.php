@@ -18,7 +18,7 @@ final class Get_Code_Manager extends Manager {
 			fwrite($f, $n+1);
 			
 			// Popup save file window
-			$this->_load_function('SYS', 'download/download_function');
+			$this->load_function('SYS', 'download/download_function');
 			$download_dir = APP_DOWNLOAD_DIR;
 			switch ($file) {
 				case 'infopotato' :
@@ -28,7 +28,7 @@ final class Get_Code_Manager extends Manager {
 					echo 'File not found';
 			}
 		} else {
-			$this->_load_function('SYS', 'redirect/redirect_function');
+			$this->load_function('SYS', 'redirect/redirect_function');
 			redirect_function(APP_URI_BASE.'download/');
 		}
 

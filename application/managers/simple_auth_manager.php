@@ -47,15 +47,15 @@ class Simple_Auth_Manager extends Manager {
     private function _get_login() {
         $layout_data = array(
             'page_title' => 'Login',
-            'content' => $this->_render_template('pages/login'),
+            'content' => $this->render_template('pages/login'),
         );
 		
         $response_data = array(
-            'content' => $this->_render_template('layouts/login', $layout_data),
+            'content' => $this->render_template('layouts/login', $layout_data),
             'type' => 'text/html'
         );
 
-        $this->_response($response_data);
+        $this->response($response_data);
     }
 	
     /**
@@ -96,14 +96,14 @@ class Simple_Auth_Manager extends Manager {
 			
             $layout_data = array(
                 'page_title' => 'Login',
-                'content' => $this->_render_template('pages/login', $content_data),
+                'content' => $this->render_template('pages/login', $content_data),
             );
 			
             $response_data = array(
-                'content' => $this->_render_template('layouts/login', $layout_data),
+                'content' => $this->render_template('layouts/login', $layout_data),
                 'type' => 'text/html'
             );
-            $this->_response($response_data);
+            $this->response($response_data);
         }
 		
 		
@@ -116,7 +116,7 @@ class Simple_Auth_Manager extends Manager {
         // Clear stored user session data
         Session::clear(self::SESSION_KEY); 
 
-        $this->_load_function('SYS', 'redirect/redirect_function');
+        $this->load_function('SYS', 'redirect/redirect_function');
         redirect_function(APP_URI_BASE.'home/');
     }
 	
@@ -128,7 +128,7 @@ class Simple_Auth_Manager extends Manager {
             'iteration_count_log2' => 8, 
             'portable_hashes' => FALSE
         );
-        $this->_load_library('SYS', 'password_hash/password_hash_library', 'pass', $config);
+        $this->load_library('SYS', 'password_hash/password_hash_library', 'pass', $config);
 
         // Load users data
         $this->load_data('simple_auth_users_data', 'u');

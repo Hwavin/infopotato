@@ -7,14 +7,14 @@ final class CSS_Manager extends Manager {
 		if ($css_files !== NULL) {
 			$css_content = '';
 			foreach ($css_files as $css_file) {
-				$css_content .= $this->_render_template('css/'.$css_file);
+				$css_content .= $this->render_template('css/'.$css_file);
 			}
 
 			$response_data = array(
 				'content' => $css_content,
 				'type' => 'text/css'
 			);
-			$this->_response($response_data);
+			$this->response($response_data);
 		}
 	}
 }

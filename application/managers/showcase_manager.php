@@ -21,15 +21,15 @@ final class Showcase_Manager extends Manager {
 		$layout_data = array(
 			'page_title' => 'Showcase',
 			'stylesheets' => array('pagination.css'),
-			'content' => $this->_render_template('pages/showcase'.$name, $content_data),
+			'content' => $this->render_template('pages/showcase'.$name, $content_data),
 		);
 		
 
 		$response_data = array(
-			'content' => $this->_render_template('layouts/default_layout', $layout_data),
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
 			'type' => 'text/html',
 		);
-		$this->_response($response_data);
+		$this->response($response_data);
 		
 		//dump($this->page->get_pagination_data());
 	}

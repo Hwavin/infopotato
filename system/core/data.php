@@ -13,7 +13,7 @@ class Data {
 	 * Database object instance
 	 * @var  object
 	 */
-	protected $_db;
+	protected $db;
 	
 	/**
 	 * Constructor
@@ -26,7 +26,7 @@ class Data {
 	 */
 	public function __construct($connection = '') {
 		if ($connection !== '') {
-			$this->_db = self::_create_db_obj($connection);
+			$this->db = self::_create_db_obj($connection);
 		}
 	}
 	

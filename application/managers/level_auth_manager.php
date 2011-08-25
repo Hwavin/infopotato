@@ -67,15 +67,15 @@ class Level_Auth_Manager extends Manager {
     private function _get_login() {
         $layout_data = array(
             'page_title' => 'Login',
-            'content' => $this->_render_template('pages/login'),
+            'content' => $this->render_template('pages/login'),
         );
 		
         $response_data = array(
-            'content' => $this->_render_template('layouts/login', $layout_data),
+            'content' => $this->render_template('layouts/login', $layout_data),
             'type' => 'text/html'
         );
 
-        $this->_response($response_data);
+        $this->response($response_data);
     }
 	
     /**
@@ -119,14 +119,14 @@ class Level_Auth_Manager extends Manager {
 			
             $layout_data = array(
                 'page_title' => 'Login',
-                'content' => $this->_render_template('pages/login', $content_data),
+                'content' => $this->render_template('pages/login', $content_data),
             );
 			
             $response_data = array(
-                'content' => $this->_render_template('layouts/login', $layout_data),
+                'content' => $this->render_template('layouts/login', $layout_data),
                 'type' => 'text/html'
             );
-            $this->_response($response_data);
+            $this->response($response_data);
         }
 		
 		
