@@ -26,7 +26,7 @@ class Data {
 	 */
 	public function __construct($connection = '') {
 		if ($connection !== '') {
-			$this->db = self::_create_db_obj($connection);
+			$this->_db = self::_create_db_obj($connection);
 		}
 	}
 	

@@ -54,7 +54,7 @@ The end user interacts (for example, by clicking on a hyperlink or entering a We
 <li>
 <span class="big_number">2.</span>
 <p>
-The web server receives the request and passes it to an InfoPotato application via the bootstrap script (which is the page all requests are routed through, e.g., /index.php or /dev.php). The bootstrap script is responsible for initializing the framework and invoking Dispatcher.
+The web server receives the request and passes it to an InfoPotato application via the bootstrap script (which is the page all requests are routed through, e.g., /index.php or /dev.php). The bootstrap script is responsible for initializing the framework (setting application directories, including commonly used functions, etc.) and invoking Dispatcher.
 </p>
 </li> 
 
