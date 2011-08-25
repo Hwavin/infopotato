@@ -433,9 +433,9 @@ Constants should always be all-uppercase, with underscores to separate words.
 <p>In general, parenthesis and brackets should not use any additional spaces.  The exception is that a space should always follow PHP control structures that accept arguments with parenthesis (declare, do-while, elseif, for, foreach, if, switch, while), to help distinguish them from functions and increase readability.</p> 
 
 
-<h2>Internal (private/protected) Methods and Variables</h2> 
+<h2>Internal (private) Methods and Variables</h2> 
 
-<p>Methods and variables that are only accessed internally (non-public members) by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore.</p> 
+<p>Methods and variables that are only accessed internally (private) by your class, such as utility and helper functions that your public methods use for code abstraction, should be prefixed with an underscore.</p> 
 
 <div class="syntax"><pre><span class="cp">&lt;?php</span> 
 <span class="k">class</span> <span class="nc">Home_Controller</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{</span> 
@@ -450,7 +450,7 @@ Constants should always be all-uppercase, with underscores to separate words.
         <span class="c1">// Some code here</span> 
     <span class="p">}</span> 
  
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">_get_data</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">get_data</span><span class="p">()</span> <span class="p">{</span> 
         <span class="c1">// Some code here</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 
