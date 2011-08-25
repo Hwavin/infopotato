@@ -238,28 +238,6 @@ To make the update to the URI in the templates easiler, InfoPotato provides the 
 <span class="nb">define</span><span class="p">(</span><span class="s1">&#39;APP_URI_BASE&#39;</span><span class="p">,</span> <span class="s1">&#39;http://localhost/infopotato/web/index.php/&#39;</span><span class="p">);</span> 
 </pre></div> 
 
-<h2>Hiding index.php</h2>
-
-<p>
-By default, InfoPotato urls contain index.php. To further clean our URIs, i.e., hiding the entry script index.php in the URI.
-</p>
-
-<p>
-We first need to configure the Web server so that a URL without the entry script can still be handled by the entry script. If you are using Apache web server and wanted to have clean URLs without 'index.php', you would've to enable Mod_rewrite. We can create the file /wwwroot/blog/.htaccess with the following content. Note that the same content can also be put in the Apache configuration file within the Directory element for /wwwroot/blog.
-</p>
-
-<div class="greybox">
-<pre>RewriteEngine on
- 
-# if a directory or a file exists, use it directly
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
- 
-# otherwise forward it to index.php
-RewriteRule . index.php
-</pre>
-</div>
-
 <h2>Managing Static Resources</h2>
 
 <p>

@@ -104,6 +104,10 @@ final class Documentation_Manager extends Manager {
 				'name' => 'URI'
 			),
 			array(
+				'uri' => 'bootstrap', 
+				'name' => 'Bootstrap'
+			),
+			array(
 				'uri' => 'dispatcher', 
 				'name' => 'Dispatcher'
 			),

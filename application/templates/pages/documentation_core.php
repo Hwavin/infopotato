@@ -13,7 +13,8 @@
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/workflow/"><?php echo __('Request Processing Workflow'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/global/"><?php echo __('Global Constants and Functions'); ?></a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/uri/">URI</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/uri/"><?php echo __('URI'); ?></a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/core/bootstrap/"><?php echo __('Bootstrap'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/dispatcher/"><?php echo __('Dispatcher'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/manager/"><?php echo __('Manager'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/template/"><?php echo __('Template'); ?></a></li> 
