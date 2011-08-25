@@ -562,6 +562,15 @@ If the lines are long, break the statement into multiple lines to improve readab
 <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT foo FROM bar WHERE baz = &#39;bag&#39;&quot;</span><span class="p">;</span> 
 </pre></div> 
 
+<p>
+When concatenating strings with the "." operator, it is encouraged to break the statement into multiple lines to improve readability. In these cases, each successive line should be padded with white space such that the "."; operator is aligned under the "=" operator:
+</p>
+
+<div class="syntax"><pre>
+<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT `id`, `name` FROM `people` &quot;</span> 
+     <span class="o">.</span> <span class="s2">&quot;WHERE `name` = &#39;Susan&#39; &quot;</span> 
+     <span class="o">.</span> <span class="s2">&quot;ORDER BY `name` ASC &quot;</span><span class="p">;</span> 
+</pre></div> 
 
 <h2>Array Definitions</h2>
  
