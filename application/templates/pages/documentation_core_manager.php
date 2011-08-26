@@ -135,14 +135,27 @@ Though a manager can do virtually anything, most managers will perform the same 
 <h3>Redirecting</h3>
 
 <p>
-If you want to redirect the user to another page, use the redirect() method:
+If you want to redirect the user to another page, load the <a href="<?php echo APP_URI_BASE; ?>documentation/function/redirect/"><tt>redirect_function()</tt></a>.
 </p>
 
-<h3>Forwarding</h3>
+<p class="notebox">
+Redirection is common but not as frquently used as template rendering, so it is not designed as a manager method but a function to be loaded on demaind.
+</p>
+
+<div class="notebox">
+<strong>What is the difference between redirect and forward?</strong><br />
+<p>
+Imagine you get a phone call in the office. If you say "please call sales at 123456" and hang up, this is redirect . If you say "wait a minute" and just transfer the call to them, this is forward. 
+</p>
 
 <p>
-You can also easily forward to another manager internally with the forward() method. Instead of redirecting the user's browser, it makes an internal sub-request, and calls the specified manager. 
+In other words, a redirect sends a 301/302 back to the browser with a new URI, while a forward simply "forwards" the request to a different manager method internally but keeps the URI the same so the browser doesn't know any different.
 </p>
+
+<p>
+InfoPotato doesn't provide any potions for internal forwarding.
+</p>
+</div>
 
 <h3>Rendering Templates</h3>
 

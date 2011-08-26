@@ -13,6 +13,10 @@ final class Home_Manager extends Manager {
 		$this->response($response_data);
 	}
 
+	public function get_e() {
+	    $this->load_function('SYS', 'redirect/redirect_function'); 
+		redirect_function(APP_URI_BASE.'about/'); 
+	}
 }
 
 // End of file: ./application/managers/home_manager.php

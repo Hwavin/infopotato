@@ -16,14 +16,13 @@ echo '<h1>You won\'t know what hit you!</h1>';
 /**
  * Redirect
  *
- * @param string $url the url to be redirected
+ * @param string $url the url to be redirected, must start with http://
  * @param integer $delay how many seconds to be delayed
  * @param boolean $js whether to return JavaScript code for redirection
  * @param boolean $js_wrapped whether to use <script> tag when returing JavaScript
  * @param boolean $return whether to return JavaScript code
  */
 function redirect_function($url, $delay = 0, $js = FALSE, $js_wrapped = TRUE, $return = FALSE) {
-    $delay = (int) $delay;
     if ( ! $js) {
         if (headers_sent() || $delay > 0) {
             echo <<<EOT
@@ -32,6 +31,9 @@ function redirect_function($url, $delay = 0, $js = FALSE, $js_wrapped = TRUE, $r
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<meta http-equiv="refresh" content="{$delay};url={$url}" />
 				</head>
+				<body>
+                Redirecting to <a href="{$url}">{$url}</a>.
+                </body>
 				</html>
 EOT;
             exit;
