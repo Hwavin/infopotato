@@ -192,7 +192,7 @@ color:#222;
 h1, h2, h3 {
 color:#3e3e3e;
 font-weight:700;
-line-height:1.2em;
+line-height:1.5em;
 }
 
 h1 { 

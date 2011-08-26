@@ -1,7 +1,7 @@
 <?php
 /**
- * Base Database Access Abstraction Object
- *
+ * Base Database Access Object
+ * Members must be public in order to be called in data object
  * The following databases are supported:
  *
  *  - [http://mysql.com MySQL]
@@ -19,7 +19,7 @@ define('OBJECT', 'OBJECT');
 define('ARRAY_A', 'ARRAY_A');
 define('ARRAY_N', 'ARRAY_N');
 
-abstract class Base_DAO {
+class Base_DAO {
 	/**
 	 * Saved result of the last query made
 	 *
@@ -89,18 +89,12 @@ abstract class Base_DAO {
 	 * Closing isn't usually necessary, as non-persistent open links are automatically closed at the end of the script's execution.
 	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
-	public function __construct($config = array()) {
-		
-	}
+	public function __construct($config = array()) {}
 	
 	/**
 	 * Try to connect to database server, overridden by specific DB class
-	 *
-	 * @access	public
 	 */
-	public function connect() {
-		
-	}
+	public function connect() {}
 
 	/** 
 	 * Overridden by specific DB class
@@ -114,9 +108,7 @@ abstract class Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to MySQL with escaped $login and $password. 
 	 */ 
-	public function prepare($query, $params = array()) { 
- 
-	} 
+	public function prepare($query, $params = array()) {} 
 	
 	/**
 	 * Perform MySQL query and try to detirmin result value
@@ -124,22 +116,18 @@ abstract class Base_DAO {
 	 *
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
-	public function query($query) {
-
-	}
+	public function query($query) {}
 
 	/**
 	 * Returns the current date and time, e.g., 2006-04-12 13:47:46
 	 * Overridden by specific DB class
 	 */
-	public function now() {
-
-	}
+	public function now() {}
 
 	/**
 	 * Kill cached query results.
 	 */
-	protected function flush() {
+	public function flush() {
 		$this->last_result = NULL;
 		$this->last_query = NULL;
 		$this->from_disk_cache = FALSE;
@@ -314,32 +302,23 @@ abstract class Base_DAO {
 	/**
 	 * Begin Transaction
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function trans_begin() {
-
-	}
+	public function trans_begin() {}
 	
 	/**
 	 * Commit Transaction
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function trans_commit() {
-
-	}
+	public function trans_commit() {}
 	
 	/**
 	 * Rollback Transaction
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
-	public function trans_rollback() {
-
-	}
+	public function trans_rollback() {}
 	
 	/**
 	 * Dumps the contents of any input variable to screen in a nicely

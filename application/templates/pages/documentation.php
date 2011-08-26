@@ -74,7 +74,7 @@ Congratulations! By learning about InfoPotato, you're well on your way towards b
 
 <div class="fourcol last">
 <div class="greybox">
-<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/tutorial/"><?php echo __('Tutorials'); ?></a></h3>
+<h3 class="center"><a href="<?php echo APP_URI_BASE; ?>documentation/book/"><?php echo __('Books'); ?></a></h3>
 </div>
 </div>
 

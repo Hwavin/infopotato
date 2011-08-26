@@ -11,7 +11,7 @@
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/i18n/'); ?>" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/i18n_l10n/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>

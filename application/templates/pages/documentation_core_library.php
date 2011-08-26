@@ -62,9 +62,14 @@ Following is a very simple example which tells you how to create your own librar
 <span class="p">}</span> 
 </pre></div> 
 
-<div class="notebox">
+<ul class="notebox">
+<li>
 All the user-defined libraries should be named like xxx_Library. All the perference parameters are passed through $config array within the constructer. If no parameters needed, just leave it blank.
-</div>
+</li>
+<li>
+The constructor and the actual library methods to be called by the manager must be declared as <tt>public</tt>.
+</li>
+</ul>
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>

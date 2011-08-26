@@ -153,7 +153,6 @@ class SQLite_DAO extends Base_DAO {
 	/**
 	 * Begin Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
@@ -163,7 +162,6 @@ class SQLite_DAO extends Base_DAO {
 	/**
 	 * Commit Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_commit() {
@@ -173,7 +171,6 @@ class SQLite_DAO extends Base_DAO {
 	/**
 	 * Rollback Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_rollback() {
