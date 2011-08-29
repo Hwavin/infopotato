@@ -5,9 +5,9 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
-<h1 class="first_heading">Data Access Object</h1>
+<h1 class="first_heading">Data</h1>
 <!-- PRINT: stop -->
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Data Access Object
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; Data
 </div>
 <!-- end breadcrumb -->
 
@@ -15,11 +15,7 @@
 
 <!-- PRINT: start -->
 <p>
-Data Access Objects (DAO) provides a generic API to access data stored in different database management systems (DBMS). As a result, the underlying DBMS can be changed to a different one without requiring change of the code which uses DAO to access the data.
-</p>
-
-<p>
-Data Access Objects are responsible for any logic that surrounds the manipulation of a data entity. Its typical responsibilities are to faciliate create, retrieve, update and delete (CRUD) operations. If more advanced manipulation/processing functions are required for an entity, they will also be located here. Data is <strong>optional</strong> in an InfoPotato application. For many RDBMS-based web applications, data usually represents the access to database tables, but they could also represent Non-SQL databases, like LDAP entries, XML data, or document-oriented database, like <a href="http://www.mongodb.org/" class="external_link">MongoDB</a>.
+Data is responsible for any logic that surrounds the manipulation of a data entity. Its typical responsibilities are to faciliate create, retrieve, update and delete (CRUD) operations. If more advanced manipulation/processing functions are required for an entity, they will also be located here. Data is <strong>optional</strong> in an InfoPotato application. For many RDBMS-based web applications, data usually represents the access to database tables, but they could also represent Non-SQL databases, like LDAP entries, XML data, or document-oriented database, like <a href="http://www.mongodb.org/" class="external_link">MongoDB</a>. Even the data you get from web services can be expressed as a Data. Yes, even Atom feeds!
 </p> 
 
 <p>

@@ -121,11 +121,11 @@ final class Documentation_Manager extends Manager {
 			),
 			array(
 				'uri' => 'data', 
-				'name' => 'Data Access Object'
+				'name' => 'Data'
 			),
 			array(
-				'uri' => 'sql_adapters', 
-				'name' => 'SQL Database Adapters'
+				'uri' => 'sql_dao', 
+				'name' => 'SQL Data Access Object'
 			),
 			array(
 				'uri' => 'i18n_l10n', 

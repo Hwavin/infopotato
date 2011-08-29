@@ -5,24 +5,24 @@
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
-<h1 class="first_heading">SQL Database Adapters</h1>
+<h1 class="first_heading">SQL Data Access Object</h1>
 <!-- PRINT: stop -->
-<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; SQL Database Adapters
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/core/">Core Topics</a> &gt; SQL Data Access Object
 </div>
 <!-- end breadcrumb -->
 
-<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/sql_adapters/'); ?>" class="print">Print</a>
+<a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/sql_dao/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
 <p>
-InfoPotato provides a concept of SQL database adapter for all SQL-based database manipulations. Currently, there are database adapters for MySQL, MySQLi, SQLite, and PostgreSQL. Each adapter class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.
+Data Access Objects (DAO) provides a generic API to access data stored in different database management systems (DBMS). Currently, there are database access objects for MySQL, MySQLi, SQLite, and PostgreSQL. Each DAO class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.
 </p>
 
 <h2>Overview</h2>
 <ul>
 <li>It allows you to cache query results and manipulate and extract them without causing extra server overhead</li>
 <li>It has excellent debug functions making it lightning-fast to see what’s going on in your SQL code</li>
-<li>Most DB_Adapter functions can return results as Objects (OBJECT), Associative Arrays (ARRAY_A), or Numerical Arrays (ARRAY_N)</li>
+<li>Most DAO functions can return results as Objects (OBJECT), Associative Arrays (ARRAY_A), or Numerical Arrays (ARRAY_N)</li>
 </ul>
 
 <h2>Quick Start</h2>
