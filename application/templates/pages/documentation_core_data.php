@@ -139,7 +139,7 @@ In InfoPotato, using other data objects from within a data object is <strong>NOT
 <h2>Connecting to your Database</h2> 
  
 <p>
-If RDBMS used in your application, you can define the database connection in application/configs/database.php
+If RDBMS used in your application, you can define the database connection in application/configs/data_source.php
 </p> 
  
 <div class="syntax"><pre>

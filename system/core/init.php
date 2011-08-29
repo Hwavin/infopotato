@@ -113,10 +113,9 @@ function dump($var, $force_type = '', $collapsed = FALSE) {
  * @uses    I18n::get
  * @param   string  text to translate
  * @param   array   values to replace in the translated text
- * @param   string  source language
  * @return  string
  */
-function __($string, array $values = NULL) {
+function __($string, array $values = array()) {
     // Get the translation for this message
     $string = I18n::get($string);
     return empty($values) ? $string : strtr($string, $values);

@@ -31,7 +31,7 @@ class I18n {
 	 * 
 	 * @var  array  
 	 */
-	protected static $_cache = array();
+	protected static $cache = array();
 	
 	/**
 	 * Returns translation of a string. If no translation exists, the original
@@ -57,14 +57,14 @@ class I18n {
 	 * Returns the translation table for a given language.
 	 *
 	 *     // Get all defined Spanish messages
-	 *     $messages = I18n::load('es/es');
+	 *     $messages = I18n::load('zh/cn');
 	 *
 	 * @param   string   language to load
 	 * @return  array
 	 */
 	public static function load($lang) {
-		if (isset(I18n::$_cache[$lang])) {
-			return I18n::$_cache[$lang];
+		if (isset(I18n::$cache[$lang])) {
+			return I18n::$cache[$lang];
 		}
 
 		// New translation table
@@ -90,7 +90,7 @@ class I18n {
 		}
 
 		// Cache the translation table locally
-		return I18n::$_cache[$lang] = $table;
+		return I18n::$cache[$lang] = $table;
 	}
 
 }
