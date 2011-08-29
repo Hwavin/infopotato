@@ -35,7 +35,7 @@ One of the ideas of InfoPotato is that it allows you to choose your own database
 <span class="k">class</span> <span class="nc">Users_Data</span> <span class="k">extends</span> <span class="nx">Data</span> <span class="p">{</span> 
     <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span> <span class="p">{</span> 
 	<span class="c1">// Use default database connection config</span> 
-	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">);</span> 
+	<span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="s1">&#39;mysql_dao:default&#39;</span><span class="p">);</span> 
     <span class="p">}</span> 
 	
     <span class="k">public</span> <span class="k">function</span> <span class="nf">user_exists</span><span class="p">(</span><span class="nv">$username</span><span class="p">)</span> <span class="p">{</span> 
@@ -145,7 +145,7 @@ If RDBMS used in your application, you can define the database connection in app
 <div class="syntax"><pre>
 <span class="k">return</span> <span class="k">array</span><span class="p">(</span> 
 	<span class="c1">// MySQL</span> 
-	<span class="s1">&#39;mysql_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;mysql_dao&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 		<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 			<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
 			<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
@@ -157,7 +157,7 @@ If RDBMS used in your application, you can define the database connection in app
 	<span class="p">),</span> 
 	
 	<span class="c1">// MySQLi</span> 
-	<span class="s1">&#39;mysqli_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;mysqli_dao&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 		<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 			<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
 			<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
@@ -169,7 +169,7 @@ If RDBMS used in your application, you can define the database connection in app
 	<span class="p">),</span> 
 	
 	<span class="c1">// PostgreSQL</span> 
-	<span class="s1">&#39;postgresql_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;postgresql_dao&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 		<span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 			<span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span> <span class="c1">// The hostname of your database server.</span> 
 			<span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;users&#39;</span><span class="p">,</span> <span class="c1">// The name of the database you want to connect to</span> 
@@ -180,7 +180,7 @@ If RDBMS used in your application, you can define the database connection in app
 	<span class="p">),</span> 
 	
 	<span class="c1">// SQLite</span> 
-	<span class="s1">&#39;sqlite_adapter&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
+	<span class="s1">&#39;sqlite_dao&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 		<span class="s1">&#39;test&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> 
 			<span class="s1">&#39;path&#39;</span> <span class="o">=&gt;</span> <span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">&#39;test.sqlite&#39;</span><span class="p">,</span> 
 		<span class="p">),</span> 
