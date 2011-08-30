@@ -80,6 +80,9 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 // Sanitizes POST and COOKIE variables
  if (SYS_RUNTIME_CACHE === TRUE) {
 	// SYS_RUNTIME_DIR must be writable
+	if ( ! is_writable(SYS_RUNTIME_DIR)) {
+	    exit('SYS_RUNTIME_DIR must be writable');
+	}
 	$file = SYS_RUNTIME_DIR.'~init.php';
 	if ( ! file_exists($file)) {
 		file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
