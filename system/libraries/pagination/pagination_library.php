@@ -114,6 +114,8 @@ class Pagination_Library {
 			'prev_page' => $this->current_page - 1,
 			'next_page' => $this->current_page + 1,
 			'num_pages' => $num_pages,
+			'offset_low' => ($this->current_page - 1) * $this->items_per_page,
+			'offset_high' => $this->current_page * $this->items_per_page,
 			// Create an array containing a range of elements
 			'range' => range($start_range, $end_range), 
 		);

@@ -28,7 +28,7 @@ class Form_Validation_Library {
 	 * $config must contain ['post']
 	 */	
 	public function __construct($config = array()) { 
-		// Assign the $POST_DATA array
+		// Assign the $this->_POST_DATA array
 		$this->_post = $config['post'];
 		
 		// Set the character encoding in MB.
