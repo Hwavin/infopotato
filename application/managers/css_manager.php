@@ -1,6 +1,6 @@
 <?php
 final class CSS_Manager extends Manager {
-	public function get_index($params = array()) {
+	public function get_index(array $params = NULL) {
 		// $css_files is an array created from $params[0]
 		$css_files = count($params) > 0 ? explode(':', $params[0]) : NULL;
 		

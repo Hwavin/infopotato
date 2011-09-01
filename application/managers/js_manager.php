@@ -1,6 +1,6 @@
 <?php
 final class Js_Manager extends Manager {
-	public function get_index($params = array()) {
+	public function get_index(array $params = NULL) {
 		// $js_files is an array created from $params[0]
 		$js_files = count($params) > 0 ? explode(':', $params[0]) : NULL;
 		

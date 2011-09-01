@@ -1,6 +1,6 @@
 <?php
 final class About_Manager extends Manager {
-	public function get_index($params = array()) {
+	public function get_index(array $params = NULL) {
 		$name = count($params) > 0 ? $params[0] : 'motivation';
 
 		$layout_data = array(

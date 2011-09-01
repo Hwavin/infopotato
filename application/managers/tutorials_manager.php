@@ -1,6 +1,6 @@
 <?php
 final class Tutorials_Manager extends Manager {
-	public function get_index($params = array()) {
+	public function get_index(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$layout_data = array(
