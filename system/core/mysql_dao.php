@@ -82,7 +82,7 @@ class MySQL_DAO extends Base_DAO {
 
 		// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
 		if ($dbuser === '') {
-			halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');		
+			halt('An Error Was Encountered', 'Require username to connect to a database server', 'sys_error');		
 		} elseif ($dbname === '') {
 			halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
 		} elseif ( ! $this->dbh = mysql_connect($dbhost, $dbuser, $dbpass, TRUE)) {
@@ -167,7 +167,10 @@ class MySQL_DAO extends Base_DAO {
 		if ($cache = $this->get_cache($query)) {
 			return $cache;
 		}
-		// Perform the query via std mysql_query function.
+
+		// For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset, 
+		// mysql_query() returns a resource on success, or FALSE on error.
+		// For INSERT, UPDATE, DELETE, DROP, etc, mysql_query() returns TRUE on success or FALSE on error.
 		$result = mysql_query($query, $this->dbh);
 		
 		// If there is an error then take note of it.
@@ -179,11 +182,11 @@ class MySQL_DAO extends Base_DAO {
 
 		// Query was an insert, delete, update, replace
 		$is_insert = FALSE;
-		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
-			$this->rows_affected = mysql_affected_rows();
+		if (preg_match('/^\s*(insert|delete|update|replace) /i', $query)) {
+			$this->rows_affected = mysql_affected_rows($this->dbh);
 
 			// Take note of the last_insert_id
-			if (preg_match('/^(insert|replace)\s+/i', $query)) {
+			if (preg_match('/^\s*(insert|replace) /i', $query)) {
 				$this->last_insert_id = mysql_insert_id($this->dbh);
 			}
 			// Return number fo rows affected
@@ -227,8 +230,8 @@ class MySQL_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_begin() {
-		$this->query('SET AUTOCOMMIT=0');
-		$this->query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
+		mysql_query('SET AUTOCOMMIT=0', $this->dbh);
+		mysql_query('START TRANSACTION', $this->dbh);// can also be BEGIN or BEGIN WORK
 	}
 	
 	/**
@@ -238,8 +241,8 @@ class MySQL_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_commit() {
-		$this->query('COMMIT');
-		$this->query('SET AUTOCOMMIT=1');
+		mysql_query('COMMIT', $this->dbh);
+		mysql_query('SET AUTOCOMMIT=1', $this->dbh);
 	}
 	
 	/**
@@ -249,8 +252,8 @@ class MySQL_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_rollback() {
-		$this->query('ROLLBACK');
-		$this->query('SET AUTOCOMMIT=1');
+		mysql_query('ROLLBACK', $this->dbh);
+		mysql_query('SET AUTOCOMMIT=1', $this->dbh);
 	}
 
 }

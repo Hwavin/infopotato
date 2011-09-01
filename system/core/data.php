@@ -33,7 +33,7 @@ class Data {
 	/**
 	 * Create database object, only when RDBMS is used
 	 *
-	 * @param	string $connection database connection pool, s.g., 'mysql_dao:default'
+	 * @param	string $connection database connection pool, e.g., 'mysql_dao:default'
 	 * @return	a specific database access object
 	 */
 	private static function _create_db_obj($connection) {
@@ -49,10 +49,12 @@ class Data {
 		if ( ! empty($conn)) {
 			// Load data source config
 			$data_source = require_once APP_CONFIG_DIR.'data_source.php';
+			//dump($data_source);
+
 			// Checks if data config exists 
-			if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
-				halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
-			}
+			//if (array_key_exists($conn[0], $data_source) && array_key_exists($conn[1], $data_source[$conn[0]])) { 
+				//halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
+			//}
 			// Create instance
 			$db_obj[$connection] = new $conn[0]($data_source[$conn[0]][$conn[1]]);
 			return $db_obj[$connection];

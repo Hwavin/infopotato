@@ -80,7 +80,7 @@ class MySQLi_DAO extends Base_DAO {
 
 		// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
 		if ($dbuser === '') {
-			halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');		
+			halt('An Error Was Encountered', 'Require username to connect to a database server', 'sys_error');		
 		} elseif ($dbname === '') {
 			halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
 		} elseif ( ! $this->dbh = new mysqli($dbhost, $dbuser, $dbpass, $dbname)) {
@@ -220,8 +220,8 @@ class MySQLi_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_begin() {
-		$this->query('SET AUTOCOMMIT=0');
-		$this->query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
+		$this->dbh->query('SET AUTOCOMMIT=0');
+		$this->dbh->query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
 	}
 	
 	/**
@@ -231,8 +231,8 @@ class MySQLi_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_commit() {
-		$this->query('COMMIT');
-		$this->query('SET AUTOCOMMIT=1');
+		$this->dbh->query('COMMIT');
+		$this->dbh->query('SET AUTOCOMMIT=1');
 	}
 	
 	/**
@@ -242,8 +242,8 @@ class MySQLi_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_rollback() {
-		$this->query('ROLLBACK');
-		$this->query('SET AUTOCOMMIT=1');
+		$this->dbh->query('ROLLBACK');
+		$this->dbh->query('SET AUTOCOMMIT=1');
 	}
 	
 }

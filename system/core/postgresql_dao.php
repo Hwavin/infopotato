@@ -202,7 +202,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_begin() {
-		$this->query('begin');
+		pg_query($this->dbh, 'begin');
 	}
 	
 	/**
@@ -212,7 +212,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_commit() {
-		$this->query('commit');
+		pg_query($this->dbh, 'commit');
 	}
 	
 	/**
@@ -222,7 +222,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_rollback() {
-		$this->query('rollback');
+		pg_query($this->dbh, 'rollback');
 	}
 	
 }
