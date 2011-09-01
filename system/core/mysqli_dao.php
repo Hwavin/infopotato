@@ -10,99 +10,37 @@
 
 class MySQLi_DAO extends Base_DAO {
 	/**
-	 * Database host
-	 *
-	 * @var string 
-	 */
-	public $dbhost = '';
-	
-	/**
-	 * Database username
-	 *
-	 * @var string 
-	 */
-	public $dbuser = '';
-	
-	/**
-	 * Database user password
-	 *
-	 * @var string 
-	 */
-	public $dbpass = '';
-	
-	/**
-	 * Database to be used
-	 *
-	 * @var string 
-	 */
-	public $dbname = '';
-	
-	/**
-	 * Database table columns charset
-	 *
-	 * @var string 
-	 */
-	public $charset;
-
-	/**
-	 * Database table columns collate
-	 *
-	 * @var string 
-	 */
-	public $collate;
-
-	/**
 	 * Constructor
 	 * 
 	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
-	public function __construct(array $config = array()) {
-		if (is_array($config) && count($config) > 0) {
-			$this->dbuser = $config['user'];
-			$this->dbpass = $config['pass'];
-			$this->dbname = $config['name'];
-			$this->dbhost = $config['host'];
-			$this->charset = $config['charset'];
-			$this->collate = $config['collate'];
-		}
-		
+	public function __construct(array $config = NULL) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			$this->connect($this->dbuser, $this->dbpass, $this->dbname, $this->dbhost);
-		}
-	}
-	
-	/**
-	 * Try to connect to MySQL database server
-	 */
-	public function connect($dbuser = '', $dbpass = '', $dbname = '', $dbhost = 'localhost') {
-		$return_val = FALSE;
-
-		// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
-		if ($dbuser === '') {
-			halt('An Error Was Encountered', 'Require username to connect to a database server', 'sys_error');		
-		} elseif ($dbname === '') {
-			halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
-		} elseif ( ! $this->dbh = new mysqli($dbhost, $dbuser, $dbpass, $dbname)) {
-			halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');		
-		} else {
-			if (method_exists($this->dbh, 'set_charset')) { 
-				// Set charset, (PHP 5 >= 5.0.5)
-				$this->dbh->set_charset($this->charset);
+			// Only need to check $dbuser, because somethimes pass = '' is permitted
+			if ($config['user'] === '') {
+				halt('An Error Was Encountered', 'Require username to connect to a database server', 'sys_error');		
+			} elseif ($config['name'] === '') {
+				halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
+			} elseif ( ! $this->dbh = new mysqli($config['host'], $config['user'], $config['pass'], $config['name'])) {
+				halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');		
 			} else {
-				// Specify the client encoding per connection
-				$collation_query = "SET NAMES '{$this->charset}'";
-				if ( ! empty($this->collate)) {
-					$collation_query .= " COLLATE '{$this->collate}'";
+				if (method_exists($this->dbh, 'set_charset')) { 
+					// Set charset, (PHP 5 >= 5.0.5)
+					$this->dbh->set_charset($config['charset']);
+				} else {
+					// Specify the client encoding per connection
+					$collation_query = "SET NAMES '{$config['charset']}'";
+					if ( ! empty($config['collate'])) {
+						$collation_query .= " COLLATE '{$config['collate']}'";
+					}
+					$this->query($collation_query);
 				}
-				$this->query($collation_query);
 			}
-			$return_val = TRUE;
 		}
-		
-		return $return_val;
 	}
 
+	
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * $query - SQL query WITHOUT any user-entered parameters. Replace parameters with "?" 

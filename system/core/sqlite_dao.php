@@ -11,44 +11,22 @@
 
 class SQLite_DAO extends Base_DAO {
 	/**
-	 * Database file path
-	 *
-	 * @var  string  
-	 */
-	public $dbpath = '';
-
-	/**
 	 * Constructor
 	 * 
 	 * Allow the user to perform a connect at the same time as initialising the class
 	 */
-	public function __construct(array $config = array()) {
-		if (is_array($config) && isset($config['path'])) {
-			$this->dbpath = $config['path'];
-		}
-		
+	public function __construct(array $config = NULL) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			$this->connect($this->dbpath);
+			// No username and a password required
+			if ($config['path'] === '') {
+				halt('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
+			} else if ( ! $this->dbh = sqlite_open($config['path'])) {
+				halt('An Error Was Encountered', 'Can not find SQLite database file', 'sys_error');		
+			}
 		}
 	}
 	
-	/**
-	 * Try to open database file 
-	 */
-	public function connect($dbpath = '') {
-		$return_val = FALSE;
-		
-		// No username and a password required
-		if ($dbpath === '') {
-			halt('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
-		} else if ( ! $this->dbh = sqlite_open($dbpath)) {
-			halt('An Error Was Encountered', 'Can not find SQLite database file', 'sys_error');		
-		} else {
-			$return_val = TRUE;
-		}
-		return $return_val;	
-	}
 
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
