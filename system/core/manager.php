@@ -99,7 +99,7 @@ class Manager {
 	 * 
      * @return NULL
      */   
-	protected function response($config = array()) {
+	protected function response(array $config = NULL) {
 		if (isset($config['content']) && isset($config['type'])) {
 			// Response headers
 			$headers = array();
@@ -221,7 +221,7 @@ class Manager {
      * 
      * @return string the compressed content or FALSE if an error occurred.
      */
-    private static function _compress($content, $compression_method = array('', ''), $compression_level = 6) {
+    private static function _compress($content, array $compression_method = array('', ''), $compression_level = 6) {
         if ($compression_method[0] === '' || ($compression_level == 0) || ! extension_loaded('zlib')) {
             return FALSE;
         }
@@ -310,7 +310,7 @@ class Manager {
 	 * @param	array	$config the optional config parameters
 	 * @return	void
 	 */	   
-	protected function load_library($scope, $library, $alias = '', $config = array()) {
+	protected function load_library($scope, $library, $alias = '', array $config = NULL) {
 		$library = strtolower($library);
 
 		$orig_library = $library;

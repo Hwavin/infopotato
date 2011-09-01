@@ -17,7 +17,7 @@ class Encrypt_Library {
 	 *
 	 * Simply determines whether the mcrypt library exists.
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = NULL) {
 		$this->_mcrypt_exists = ( ! function_exists('mcrypt_encrypt')) ? FALSE : TRUE;
 		// Set the encryption key
 		if (isset($config['encryption_key'])) {

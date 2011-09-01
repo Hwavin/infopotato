@@ -36,7 +36,7 @@ class FTP_Library {
 	/**
 	 * Constructor
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = NULL) {
 		$lang = array(
 			'en/us' => array(
 				'ftp_no_connection' => 'Unable to locate a valid connection ID.  Please make sure you are connected before peforming any file routines.',

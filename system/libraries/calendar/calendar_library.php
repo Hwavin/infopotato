@@ -69,7 +69,7 @@ class Calendar_Library {
 	/**
 	 * Set the calendar message and sets the default time reference
 	 */
-	public function __construct($config = array()) {		
+	public function __construct(array $config = NULL) {		
 		$this->show = array(
 			'cal_su' => 'Su',
 			'cal_mo' => 'Mo',
@@ -137,7 +137,7 @@ class Calendar_Library {
 	 * @param	array	the data to be shown in the calendar cells
 	 * @return	string
 	 */
-	public function generate($year = '', $month = '', $data = array()) {
+	public function generate($year = '', $month = '', array $data = NULL) {
 		// Set and validate the supplied month/year
 		if ($year == '') {
 			$year  = date('Y', $this->local_time);

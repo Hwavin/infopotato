@@ -132,7 +132,7 @@ class Upload_Library {
 	/**
 	 * Constructor
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			$default_vars = array(
 				'max_size' => 0,

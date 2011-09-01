@@ -27,7 +27,7 @@ class Form_Validation_Library {
 	 *
 	 * $config must contain ['post']
 	 */	
-	public function __construct($config = array()) { 
+	public function __construct(array $config = NULL) { 
 		// Assign the $this->_POST_DATA array
 		$this->_post = $config['post'];
 		

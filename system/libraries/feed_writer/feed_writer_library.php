@@ -27,7 +27,7 @@ class Feed_Writer_Library {
 	/**
 	 * Constructor
 	 */	
-	public function __construct($config = array()) { 
+	public function __construct(array $config = NULL) { 
 		if (count($config) > 0) {
 			$this->_format = $config['format'];
 		}
@@ -39,7 +39,7 @@ class Feed_Writer_Library {
 	 * @param	array('body' => array(), 'head' => array())
 	 * @return	the complete feed string
 	 */
-	public function write_feed($feed_data = array()) {
+	public function write_feed(array $feed_data = NULL) {
 		// Build feed body
 		foreach ($feed_data['body'] as $value) {
 			$this->_add_item($value);

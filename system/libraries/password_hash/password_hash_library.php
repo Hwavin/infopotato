@@ -56,7 +56,7 @@ class Password_Hash_Library {
 	 * 'iteration_count_log2'
 	 * 'portable_hashes'
 	 */
-	public function __construct($config = array()) { 
+	public function __construct(array $config = NULL) { 
 		if (is_array($config) && count($config) > 0) {
 			$this->_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 

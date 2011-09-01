@@ -24,7 +24,7 @@ class Output_Cache_Library {
 	 * @param array $config['cache_dir']
 	 *
 	 */	
-	public function __construct($config = array()) { 
+	public function __construct(array $config = NULL) { 
 		if (count($config) > 0) {
 			if (isset($config['cache_dir'])) {
 				$this->_dir = $config['cache_dir'];

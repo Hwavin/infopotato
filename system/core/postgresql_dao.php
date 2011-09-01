@@ -48,7 +48,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 * 
 	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = array()) {
 		if (is_array($config) && count($config) > 0) {
 			$this->dbuser = $config['user'];
 			$this->dbpass = $config['pass'];
@@ -100,7 +100,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to MySQL with escaped $login and $password. 
 	 */ 
-	public function prepare($query, $params = array()) { 
+	public function prepare($query, array $params = array()) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh) {

@@ -89,7 +89,7 @@ class Base_DAO {
 	 * Closing isn't usually necessary, as non-persistent open links are automatically closed at the end of the script's execution.
 	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
-	public function __construct($config = array()) {}
+	public function __construct(array $config = array()) {}
 	
 	/**
 	 * Try to connect to database server, overridden by specific DB class
@@ -108,7 +108,7 @@ class Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to MySQL with escaped $login and $password. 
 	 */ 
-	public function prepare($query, $params = array()) {} 
+	public function prepare($query, array $params = array()) {} 
 	
 	/**
 	 * Perform MySQL query and try to detirmin result value

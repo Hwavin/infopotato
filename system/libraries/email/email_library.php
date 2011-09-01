@@ -192,7 +192,7 @@ class Email_library {
 	 *
 	 * The constructor can be passed an array of config values
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			$this->clear();
 			foreach ($config as $key => $val) {

@@ -338,7 +338,7 @@ class Image_Library {
 	 * @param	string
 	 * @return	void
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			$default_vars = array(
 				'image_library_to_use' => '',

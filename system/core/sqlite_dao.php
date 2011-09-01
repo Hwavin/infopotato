@@ -20,9 +20,9 @@ class SQLite_DAO extends Base_DAO {
 	/**
 	 * Constructor
 	 * 
-	 * Allow the user to perform a connect at the same time as initialising the this class
+	 * Allow the user to perform a connect at the same time as initialising the class
 	 */
-	public function __construct($config = array()) {
+	public function __construct(array $config = array()) {
 		if (is_array($config) && isset($config['path'])) {
 			$this->dbpath = $config['path'];
 		}
@@ -61,7 +61,7 @@ class SQLite_DAO extends Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to SQLite with escaped $login and $password. 
 	 */ 
-	public function prepare($query, $params = array()) { 
+	public function prepare($query, array $params = array()) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh) {

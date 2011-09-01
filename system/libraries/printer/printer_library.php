@@ -147,7 +147,7 @@ class Printer_Library {
     /**
      *  Constructor
      */
-    public function __construct($config = array()) {
+    public function __construct(array $config = NULL) {
 		// possible error values are
 		$this->_errors = array(
 			'mis_match' => 'The number of starting tags do not match the number of ending tags',
