@@ -40,9 +40,7 @@ class MySQL_DAO extends Base_DAO {
 				}
 				
 				if ( ! mysql_select_db($config['name'], $this->dbh)) {
-					// Try to get error supplied by mysql if not use our own
-					$err_msg = mysql_error($this->dbh) ? mysql_error($this->dbh) : 'Unexpected error while trying to select database';
-					//halt('An Error Was Encountered', $err_msg, 'sys_error');		
+					halt('An Error Was Encountered', 'Can not select database', 'sys_error');		
 				}
 			}
 		}

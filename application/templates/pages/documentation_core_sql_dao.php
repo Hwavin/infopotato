@@ -25,6 +25,10 @@ Data Access Objects (DAO) provides a generic API to access data stored in differ
 <li>Most DAO functions can return results as Objects (OBJECT), Associative Arrays (ARRAY_A), or Numerical Arrays (ARRAY_N)</li>
 </ul>
 
+<div class="notebox">
+If you use MySQL as your database server, DON'T mix use MySQL_DAO and MySQLi_DAO.
+</div>
+
 <h2>Quick Start</h2>
 
 <h3>$this->db->get_row() - Get one row from the database</h3>

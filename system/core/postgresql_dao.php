@@ -17,7 +17,9 @@ class PostgreSQL_DAO extends Base_DAO {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
 			// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
-			if ($config['user'] === '') {
+			if ($config['host'] === '') {
+				halt('An Error Was Encountered', 'Require the hostname of your MySQL database server', 'sys_error');		
+			} elseif ($config['user'] === '') {
 				halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');
 			} elseif ($config['name'] === '') {
 				halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');
