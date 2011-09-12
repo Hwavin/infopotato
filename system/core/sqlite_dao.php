@@ -42,7 +42,7 @@ class SQLite_DAO extends Base_DAO {
 	public function prepare($query, array $params = array()) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
-				if ($this->dbh) {
+				if ($this->dbh  && isset($this->dbh)) {
 					$v = sqlite_escape_string($v); 
 				} else {
 					// addslashes() should NOT be used to quote your strings for SQLite queries; 

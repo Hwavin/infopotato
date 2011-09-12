@@ -50,7 +50,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	public function prepare($query, array $params = array()) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
-				if ($this->dbh) {
+				if ($this->dbh  && isset($this->dbh)) {
 					$v = pg_escape_string($this->dbh, $v); 
 				} else {
 					$v = addslashes($v);
