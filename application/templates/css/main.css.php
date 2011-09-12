@@ -174,7 +174,7 @@ overflow-y:scroll;
 body {
 font-family:Arial, Helvetica, sans-serif;
 font-size:90%;
-color: #555; 
+color: #363636;	 
 background:#f2f2f2;
 }
 
@@ -198,16 +198,21 @@ line-height:1.5em;
 h1 { 
 font-size:2.6em; 
 padding:20px 0 15px 0;
+color: #776c68;	
+letter-spacing:-0.02em;
 }
 
 h2 { 
 font-size:1.6em;
 padding:15px 0 10px 0;
+color: #776c68;	
+letter-spacing:-0.02em;
 }
 
 h3 { 
 font-size:1.3em;  
 padding:8px 0 5px 0;
+color: #776c68;
 }
 
 a:link, a:visited {
@@ -891,6 +896,26 @@ padding:0 !important;
 
 #download_list li{
 margin:0 !important;
+}
+
+#download {
+width:150px;
+background-color: #eee;
+padding:5px;
+}
+
+#download_button{
+width:150px;
+font-size:1.2em;
+min-height:38px;
+letter-spacing:0em;
+padding:5px;
+text-align:center;
+}
+
+#download_button span {
+display:block;
+font-size:0.5em;
 }
 
 a.print{

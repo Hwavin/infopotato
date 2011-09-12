@@ -1,6 +1,6 @@
 <?php
 /**
- * MySQL ata Access Object
+ * Mongo data Access Object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -8,7 +8,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-class MySQL_DAO extends Base_DAO {
+class Mongo_DAO extends Base_DAO {
 	/**
 	 * Constructor
 	 * 
@@ -24,12 +24,12 @@ class MySQL_DAO extends Base_DAO {
 				halt('An Error Was Encountered', 'Require username to connect to MySQL database server', 'sys_error');		
 			} elseif ($config['name'] === '') {
 				halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
-			} elseif ( ! $this->dbh = mysql_connect($config['host'], $config['user'], $config['pass'], TRUE)) {
-				halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
+			} elseif ( ! $this->dbh = new Mongo($config['host'], $config['user'], $config['pass'], $config['name'])) {
+				halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');		
 			} else {
-				if (function_exists('mysql_set_charset')) { 
-					// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
-					mysql_set_charset($config['charset'], $this->dbh);
+				if (method_exists($this->dbh, 'set_charset')) { 
+					// Set charset, (PHP 5 >= 5.0.5)
+					$this->dbh->set_charset($config['charset']);
 				} else {
 					// Specify the client encoding per connection
 					$collation_query = "SET NAMES '{$config['charset']}'";
@@ -37,10 +37,6 @@ class MySQL_DAO extends Base_DAO {
 						$collation_query .= " COLLATE '{$config['collate']}'";
 					}
 					$this->query($collation_query);
-				}
-				
-				if ( ! mysql_select_db($config['name'], $this->dbh)) {
-					halt('An Error Was Encountered', 'Can not select database', 'sys_error');		
 				}
 			}
 		}
@@ -61,8 +57,8 @@ class MySQL_DAO extends Base_DAO {
 	public function prepare($query, array $params = array()) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
-				if ($this->dbh  && isset($this->dbh)) {
-					$v = mysql_real_escape_string($v, $this->dbh); 
+				if ($this->dbh) {
+					$v = $this->dbh->real_escape_string($v); 
 				} else {
 					$v = addslashes($v);
 				}
@@ -85,6 +81,7 @@ class MySQL_DAO extends Base_DAO {
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
 	public function query($query) {
+		// Initialise return
 		$return_val = 0;
 
 		// Flush cached values.
@@ -100,14 +97,14 @@ class MySQL_DAO extends Base_DAO {
 		if ($cache = $this->get_cache($query)) {
 			return $cache;
 		}
+		// Perform the query via std mysqli_query() function.
+		// Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
+		// queries mysqli_query() will return a result object. 
+		// For other successful queries mysqli_query() will return TRUE.
+		$result = $this->dbh->query($query);
 
-		// For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset, 
-		// mysql_query() returns a resource on success, or FALSE on error.
-		// For INSERT, UPDATE, DELETE, DROP, etc, mysql_query() returns TRUE on success or FALSE on error.
-		$result = mysql_query($query, $this->dbh);
-		
 		// If there is an error then take note of it.
-		if ($err_msg = mysql_error($this->dbh)) {
+		if ($err_msg = $this->dbh->error) {
 			$is_insert = TRUE;
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
@@ -115,25 +112,25 @@ class MySQL_DAO extends Base_DAO {
 
 		// Query was an insert, delete, update, replace
 		$is_insert = FALSE;
-		if (preg_match('/^\s*(insert|delete|update|replace) /i', $query)) {
-			$this->rows_affected = mysql_affected_rows($this->dbh);
+		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
+			$this->rows_affected = $this->dbh->affected_rows;
 
 			// Take note of the last_insert_id
-			if (preg_match('/^\s*(insert|replace) /i', $query)) {
-				$this->last_insert_id = mysql_insert_id($this->dbh);
+			if (preg_match('/^(insert|replace)\s+/i', $query)) {
+				$this->last_insert_id = $this->dbh->insert_id;
 			}
 			// Return number fo rows affected
 			$return_val = $this->rows_affected;
 		} else {
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = mysql_fetch_object($result)) {
+			while ($row = $result->fetch_object()) {
 				// Store relults as an objects within main array
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
 			}
 
-			mysql_free_result($result);
+			$result->free_result();
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;
@@ -154,41 +151,8 @@ class MySQL_DAO extends Base_DAO {
 	public function now() {
 		return 'NOW()';
 	}
-	
-	/**
-	 * Begin Transaction using standard sql
-	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
-	 * 
-	 * @access	public
-	 * @return	bool
-	 */
-	public function trans_begin() {
-		mysql_query('SET AUTOCOMMIT=0', $this->dbh);
-		mysql_query('START TRANSACTION', $this->dbh);// can also be BEGIN or BEGIN WORK
-	}
-	
-	/**
-	 * Commit Transaction using standard sql
-	 *
-	 * @access	public
-	 * @return	bool
-	 */
-	public function trans_commit() {
-		mysql_query('COMMIT', $this->dbh);
-		mysql_query('SET AUTOCOMMIT=1', $this->dbh);
-	}
-	
-	/**
-	 * Rollback Transaction using standard sql
-	 *
-	 * @access	public
-	 * @return	bool
-	 */
-	public function trans_rollback() {
-		mysql_query('ROLLBACK', $this->dbh);
-		mysql_query('SET AUTOCOMMIT=1', $this->dbh);
-	}
 
+	
 }
 
-// End of file: ./system/core/mysql_dao.php
+// End of file: ./system/core/mongo_dao.php

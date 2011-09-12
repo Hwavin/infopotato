@@ -76,41 +76,44 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://www.doitphp.com/" class="external_link">DoitPHP</a></li>
 <li><a href="http://doophp.com/" class="external_link">DooPHP</a></li> 
 <li><a href="http://justinvincent.com/ezsql" class="external_link">ezSQL</a></li>
-<li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li> 
-<li><a href="http://flourishlib.com/" class="external_link">Flourish</a></li> 
+<li><a href="http://fatfree.sourceforge.net/" class="external_link">Fat-Free Framework</a></li> 
+<li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li>  
 </ul>
 </div> 
 
 <div class="threecol"> 
-<ul>   
+<ul> 
+<li><a href="http://flourishlib.com/" class="external_link">Flourish</a></li>  
 <li><a href="http://fuelphp.com/" class="external_link">Fuel</a></li>
 <li><a href="http://kohanaphp.com" class="external_link">Kohana</a></li>
 <li><a href="http://konstrukt.dk/" class="external_link">Konstrukt</a></li>
+<li><a href="http://laravel.com/" class="external_link">Laravel</a></li>
 <li><a href="http://www.lightvc.org/" class="external_link">LightVC</a></li>
 <li><a href="http://www.lionframework.org/" class="external_link">Lion PHP Framework</a></li>
 <li><a href="http://lithify.me/" class="external_link">Lithium</a></li>
 <li><a href="http://framework.maintainable.com/mvc/1_intro.php" class="external_link">Maintainable</a></li>
-<li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li>
-<li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li> 
+<li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li> 
 </ul> 
 </div> 
 
 <div class="threecol"> 
 <ul> 
+<li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li>
 <li><a href="http://obullo.com/" class="external_link">Obullo</a></li>
 <li><a href="http://ownyx.com/" class="external_link">Ownyx</a></li> 
 <li><a href="http://www.pluf.org/" class="external_link">Pluf</a></li> 
 <li><a href="http://www.prontoproject.com/" class="external_link">Pronto</a></li>
 <li><a href="http://www.rainframework.com/" class="external_link">Rain Framework</a></li> 
 <li><a href="http://www.recessframework.org/" class="external_link">Recess</a></li>
+<li><a href="http://silex.sensiolabs.org/" class="external_link">Silex</a></li>
 <li><a href="http://www.slimframework.com/" class="external_link">Slim</a></li>
 <li><a href="http://solarphp.com/" class="external_link">Solar</a></li>
-<li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 </ul> 
 </div> 
 
 <div class="threecol last"> 
 <ul> 
+<li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 <li><a href="http://speedphp.com/" class="external_link">SpeedPHP</a></li>
 <li><a href="http://www.spoon-library.com/" class="external_link">Spoon Library</a></li>
 <li><a href="http://symfony.com/" class="external_link">Symfony</a></li>

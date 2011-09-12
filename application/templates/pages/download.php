@@ -45,7 +45,9 @@ Mac
 
 </ul> 
 
-<input type="submit" class="uibutton special" value="Download" />
+<div id="download">
+<button id="download_button" class="uibutton special">Download<span>ver 1.0.0</span></button>
+</div>
 </form> 
 
 </div>
