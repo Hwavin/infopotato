@@ -1,6 +1,6 @@
 <?php
 /**
- * Unit test library.
+ * Unit test library v1.4.
  *
  * @package    lime
  * @author     Fabien Potencier <fabien.potencier@gmail.com>
@@ -17,11 +17,6 @@ class lime_test {
     static protected $all_results = array();
 
     public function __construct($plan = NULL, $options = array()) {
-        // for BC
-        if ( ! is_array($options)) {
-            $options = array('output' => $options);
-        }
-
         $this->options = array_merge(array(
             'force_colors'    => FALSE,
             'output'          => NULL,
@@ -48,65 +43,6 @@ class lime_test {
 
     static public function reset() {
         self::$all_results = array();
-    }
-
-    static public function to_array() {
-        return self::$all_results;
-    }
-
-    static public function to_xml($results = NULL) {
-        if (is_null($results)) {
-            $results = self::$all_results;
-        }
-
-        $dom = new DOMDocument('1.0', 'UTF-8');
-        $dom->formatOutput = TRUE;
-        $dom->appendChild($testsuites = $dom->createElement('testsuites'));
-
-        $errors = 0;
-        $failures = 0;
-        $errors = 0;
-        $skipped = 0;
-        $assertions = 0;
-
-        foreach ($results as $result) {
-            $testsuites->appendChild($testsuite = $dom->createElement('testsuite'));
-            $testsuite->setAttribute('name', basename($result['file'], '.php'));
-            $testsuite->setAttribute('file', $result['file']);
-            $testsuite->setAttribute('failures', count($result['stats']['failed']));
-            $testsuite->setAttribute('errors', count($result['stats']['errors']));
-            $testsuite->setAttribute('skipped', count($result['stats']['skipped']));
-            $testsuite->setAttribute('tests', $result['stats']['plan']);
-            $testsuite->setAttribute('assertions', $result['stats']['plan']);
-
-            $failures += count($result['stats']['failed']);
-            $errors += count($result['stats']['errors']);
-            $skipped += count($result['stats']['skipped']);
-            $assertions += $result['stats']['plan'];
-
-            foreach ($result['tests'] as $test) {
-                $testsuite->appendChild($testcase = $dom->createElement('testcase'));
-                $testcase->setAttribute('name', $test['message']);
-                $testcase->setAttribute('file', $test['file']);
-                $testcase->setAttribute('line', $test['line']);
-                $testcase->setAttribute('assertions', 1);
-                if ( ! $test['status']) {
-                    $testcase->appendChild($failure = $dom->createElement('failure'));
-                    $failure->setAttribute('type', 'lime');
-                    if (isset($test['error'])) {
-                        $failure->appendChild($dom->createTextNode($test['error']));
-                    }
-                }
-            }
-        }
-
-        $testsuites->setAttribute('failures', $failures);
-        $testsuites->setAttribute('errors', $errors);
-        $testsuites->setAttribute('tests', $assertions);
-        $testsuites->setAttribute('assertions', $assertions);
-        $testsuites->setAttribute('skipped', $skipped);
-
-        return $dom->saveXml();
     }
 
     public function __destruct() {
@@ -311,7 +247,7 @@ class lime_test {
      * @return boolean
      */
     public function is_deeply($exp1, $exp2, $message = '') {
-        if ( ! $result = $this->ok($this->test_is_deeply($exp1, $exp2), $message)) {
+        if ( ! $result = $this->ok($this->_test_is_deeply($exp1, $exp2), $message)) {
             $this->set_last_test_errors(array(sprintf("           got: %s", str_replace("\n", '', var_export($exp1, TRUE))), sprintf("      expected: %s", str_replace("\n", '', var_export($exp2, TRUE)))));
         }
 
@@ -396,7 +332,7 @@ class lime_test {
         return $result;
     }
 
-    private function test_is_deeply($var1, $var2) {
+    private function _test_is_deeply($var1, $var2) {
         if (gettype($var1) != gettype($var2)) {
             return FALSE;
         }
@@ -412,7 +348,7 @@ class lime_test {
             }
             $is_equal = TRUE;
             foreach ($var1 as $key => $value) {
-                $is_equal = $this->test_is_deeply($var1[$key], $var2[$key]);
+                $is_equal = $this->_test_is_deeply($var1[$key], $var2[$key]);
                 if ($is_equal === FALSE) {
                      break;
                 }
@@ -432,7 +368,7 @@ class lime_test {
         $this->output->info($message);
     }
 
-    public function error($message, $file = NULL, $line = NULL, array $traces = array()) {
+    public function error($message, $file = NULL, $line = NULL, $traces = array()) {
         $this->output->error($message, $file, $line, $traces);
 
   	    $this->results['stats']['errors'][] = array(
@@ -449,7 +385,7 @@ class lime_test {
         list($this->results['tests'][$this->test_nb]['file'], $this->results['tests'][$this->test_nb]['line']) = $this->find_caller(debug_backtrace());
     }
 
-    protected function set_last_test_errors(array $errors) {
+    protected function set_last_test_errors($errors = array()) {
         $this->output->diag($errors);
 
         $this->results['tests'][$this->test_nb]['error'] = implode("\n", $errors);
@@ -494,7 +430,7 @@ class lime_test {
         $this->error(get_class($exception).': '.$exception->getMessage(), $exception->getFile(), $exception->getLine(), $exception->getTrace());
 
         // exception was handled
-        return true;
+        return TRUE;
     }
 }
 
@@ -522,7 +458,7 @@ class lime_output {
         echo $this->colorizer->colorize(sprintf('> %s', $message), 'INFO_BAR')."\n";
     }
 
-    public function error($message, $file = NULL, $line = NULL, array $traces = NULL) {
+    public function error($message, $file = NULL, $line = NULL, $traces = array()) {
         if ($file !== NULL) {
             $message .= sprintf("\n(in %s on line %s)", $file, $line);
         }
@@ -657,613 +593,3 @@ lime_colorizer::style('COMMENT', array('fg' => 'yellow'));
 lime_colorizer::style('GREEN_BAR', array('fg' => 'white', 'bg' => 'green', 'bold' => TRUE));
 lime_colorizer::style('RED_BAR', array('fg' => 'white', 'bg' => 'red', 'bold' => TRUE));
 lime_colorizer::style('INFO_BAR', array('fg' => 'cyan', 'bold' => TRUE));
-
-class lime_harness extends lime_registration {
-    public $options = array();
-    public $php_cli = NULL;
-    public $stats   = array();
-    public $output  = NULL;
- 
-    public function __construct($options = array()) {
-        // for BC
-        if ( ! is_array($options)) {
-            $options = array('output' => $options);
-        }
-
-        $this->options = array_merge(array(
-            'php_cli'      => NULL,
-            'force_colors' => FALSE,
-            'output'       => NULL,
-            'verbose'      => FALSE,
-        ), $options);
-
-        $this->php_cli = $this->find_php_cli($this->options['php_cli']);
-        $this->output = $this->options['output'] ? $this->options['output'] : new lime_output($this->options['force_colors']);
-    }
-
-    protected function find_php_cli($php_cli = NULL) {
-        if (is_null($php_cli)) {
-            if (getenv('PHP_PATH')) {
-                $php_cli = getenv('PHP_PATH');
-
-                if ( ! is_executable($php_cli)) {
-                    throw new Exception('The defined PHP_PATH environment variable is not a valid PHP executable.');
-                }
-            } else {
-                $php_cli = PHP_BINDIR.DIRECTORY_SEPARATOR.'php';
-            }
-        }
-
-        if (is_executable($php_cli)) {
-            return $php_cli;
-        }
-
-        $path = getenv('PATH') ? getenv('PATH') : getenv('Path');
-        $exe_suffixes = DIRECTORY_SEPARATOR == '\\' ? (getenv('PATHEXT') ? explode(PATH_SEPARATOR, getenv('PATHEXT')) : array('.exe', '.bat', '.cmd', '.com')) : array('');
-        foreach (array('php5', 'php') as $php_cli) {
-           foreach ($exe_suffixes as $suffix) {
-                foreach (explode(PATH_SEPARATOR, $path) as $dir) {
-                    $file = $dir.DIRECTORY_SEPARATOR.$php_cli.$suffix;
-                    if (is_executable($file)) {
-                        return $file;
-                    }
-                }
-            }
-        }
-
-        throw new Exception("Unable to find PHP executable.");
-    }
-
-    public function to_array() {
-        $results = array();
-        foreach ($this->stats['files'] as $file => $stat) {
-            $results = array_merge($results, $stat['output']);
-        }
-
-        return $results;
-    }
-
-    public function to_xml() {
-        return lime_test::to_xml($this->to_array());
-    }
-
-    public function run() {
-        if ( ! count($this->files)) {
-            throw new Exception('You must register some test files before running them!');
-        }
-
-        // sort the files to be able to predict the order
-        sort($this->files);
-
-        $this->stats = array(
-            'files'        => array(),
-            'failed_files' => array(),
-            'failed_tests' => 0,
-            'total'        => 0,
-        );
-
-        foreach ($this->files as $file) {
-            $this->stats['files'][$file] = array();
-            $stats = &$this->stats['files'][$file];
-
-            $relative_file = $this->get_relative_file($file);
-
-            $test_file = tempnam(sys_get_temp_dir(), 'lime');
-            $result_file = tempnam(sys_get_temp_dir(), 'lime');
-            file_put_contents($test_file, <<<EOF
-<?php
-function lime_shutdown()
-{
-  file_put_contents('$result_file', serialize(lime_test::to_array()));
-}
-register_shutdown_function('lime_shutdown');
-include('$file');
-EOF
-            );
-
-            ob_start();
-            // see http://trac.symfony-project.org/ticket/5437 for the explanation on the weird "cd" thing
-            passthru(sprintf('cd & %s %s 2>&1', escapeshellarg($this->php_cli), escapeshellarg($test_file)), $return);
-            ob_end_clean();
-            unlink($test_file);
-
-            $output = file_get_contents($result_file);
-            $stats['output'] = $output ? unserialize($output) : '';
-            if ( ! $stats['output']) {
-                $stats['output'] = array(array('file' => $file, 'tests' => array(), 'stats' => array('plan' => 1, 'total' => 1, 'failed' => array(0), 'passed' => array(), 'skipped' => array(), 'errors' => array())));
-            }
-            unlink($result_file);
-
-            $file_stats = &$stats['output'][0]['stats'];
-
-            $delta = 0;
-            if ($return > 0) {
-                $stats['status'] = $file_stats['errors'] ? 'errors' : 'dubious';
-                $stats['status_code'] = $return;
-            } else {
-                $this->stats['total'] += $file_stats['total'];
-
-                if ( ! $file_stats['plan']) {
-                    $file_stats['plan'] = $file_stats['total'];
-                }
-
-                $delta = $file_stats['plan'] - $file_stats['total'];
-                if (0 != $delta) {
-                    $stats['status'] = $file_stats['errors'] ? 'errors' : 'dubious';
-                    $stats['status_code'] = 255;
-                } else {
-                    $stats['status'] = $file_stats['failed'] ? 'not ok' : ($file_stats['errors'] ? 'errors' : 'ok');
-                    $stats['status_code'] = 0;
-                }
-            }
-
-            $this->output->echoln(sprintf('%s%s%s', substr($relative_file, -min(67, strlen($relative_file))), str_repeat('.', 70 - min(67, strlen($relative_file))), $stats['status']));
-
-            if ('dubious' == $stats['status']) {
-                $this->output->echoln(sprintf('    Test returned status %s', $stats['status_code']));
-            }
-
-            if ('ok' != $stats['status']) {
-                $this->stats['failed_files'][] = $file;
-            }
-
-            if ($delta > 0) {
-                $this->output->echoln(sprintf('    Looks like you planned %d tests but only ran %d.', $file_stats['plan'], $file_stats['total']));
-
-                $this->stats['failed_tests'] += $delta;
-                $this->stats['total'] += $delta;
-            } else if ($delta < 0) {
-                $this->output->echoln(sprintf('    Looks like you planned %s test but ran %s extra.', $file_stats['plan'], $file_stats['total'] - $file_stats['plan']));
-            }
-
-            if (FALSE !== $file_stats && $file_stats['failed']) {
-                $this->stats['failed_tests'] += count($file_stats['failed']);
-
-                $this->output->echoln(sprintf("    Failed tests: %s", implode(', ', $file_stats['failed'])));
-            }
-
-            if (FALSE !== $file_stats && $file_stats['errors']) {
-                $this->output->echoln('    Errors:');
-
-                $error_count = count($file_stats['errors']);
-                for ($i = 0; $i < 3 && $i < $error_count; ++$i) {
-                    $this->output->echoln('    - ' . $file_stats['errors'][$i]['message'], NULL, FALSE);
-                }
-                if ($error_count > 3) {
-                    $this->output->echoln(sprintf('    ... and %s more', $error_count-3));
-                }
-            }
-        }
-
-        if (count($this->stats['failed_files'])) {
-            $format = "%-30s  %4s  %5s  %5s  %5s  %s";
-            $this->output->echoln(sprintf($format, 'Failed Test', 'Stat', 'Total', 'Fail', 'Errors', 'List of Failed'));
-            $this->output->echoln("--------------------------------------------------------------------------");
-            foreach ($this->stats['files'] as $file => $stat) {
-                if ( ! in_array($file, $this->stats['failed_files'])) {
-                    continue;
-                }
-                $relative_file = $this->get_relative_file($file);
-
-                if (isset($stat['output'][0])) {
-                    $this->output->echoln(sprintf($format, substr($relative_file, -min(30, strlen($relative_file))), $stat['status_code'], count($stat['output'][0]['stats']['failed']) + count($stat['output'][0]['stats']['passed']), count($stat['output'][0]['stats']['failed']), count($stat['output'][0]['stats']['errors']), implode(' ', $stat['output'][0]['stats']['failed'])));
-                } else {
-                    $this->output->echoln(sprintf($format, substr($relative_file, -min(30, strlen($relative_file))), $stat['status_code'], '', '', ''));
-                }
-            }
-
-            $this->output->red_bar(sprintf('Failed %d/%d test scripts, %.2f%% okay. %d/%d subtests failed, %.2f%% okay.',
-                $nb_failed_files = count($this->stats['failed_files']),
-                $nb_files = count($this->files),
-                ($nb_files - $nb_failed_files) * 100 / $nb_files,
-                $nb_failed_tests = $this->stats['failed_tests'],
-                $nb_tests = $this->stats['total'],
-                $nb_tests > 0 ? ($nb_tests - $nb_failed_tests) * 100 / $nb_tests : 0
-            ));
-
-            if ($this->options['verbose']) {
-                foreach ($this->to_array() as $testsuite) {
-                    $first = TRUE;
-                    foreach ($testsuite['stats']['failed'] as $testcase) {
-                        if ( ! isset($testsuite['tests'][$testcase]['file'])) {
-                            continue;
-                        }
-
-                        if ($first) {
-                            $this->output->echoln('');
-                            $this->output->error($this->get_relative_file($testsuite['file']).$this->extension);
-                            $first = FALSE;
-                        }
-
-                        $this->output->comment(sprintf('  at %s line %s', $this->get_relative_file($testsuite['tests'][$testcase]['file']).$this->extension, $testsuite['tests'][$testcase]['line']));
-                        $this->output->info('  '.$testsuite['tests'][$testcase]['message']);
-                        $this->output->echoln($testsuite['tests'][$testcase]['error'], NULL, FALSE);
-                    }
-                }
-            }
-        } else {
-            $this->output->green_bar(' All tests successful.');
-            $this->output->green_bar(sprintf(' Files=%d, Tests=%d', count($this->files), $this->stats['total']));
-        }
-
-        return $this->stats['failed_files'] ? FALSE : TRUE;
-    } 
-
-    public function get_failed_files() {
-        return isset($this->stats['failed_files']) ? $this->stats['failed_files'] : array();
-    }
-}
-
-class lime_coverage extends lime_registration {
-    public $files = array();
-    public $extension = '.php';
-    public $base_dir = '';
-    public $harness = NULL;
-    public $verbose = FALSE;
-    protected $coverage = array();
-
-    public function __construct($harness) {
-        $this->harness = $harness;
-
-        if ( ! function_exists('xdebug_start_code_coverage')) {
-            throw new Exception('You must install and enable xdebug before using lime coverage.');
-        }
-
-        if ( ! ini_get('xdebug.extended_info')) {
-            throw new Exception('You must set xdebug.extended_info to 1 in your php.ini to use lime coverage.');
-        }
-    }
-
-    public function run() {
-        if ( ! count($this->harness->files)) {
-            throw new Exception('You must register some test files before running coverage!');
-        }
-
-        if ( ! count($this->files)) {
-            throw new Exception('You must register some files to cover!');
-        }
-
-        $this->coverage = array();
-
-        $this->process($this->harness->files);
-
-        $this->output($this->files);
-    }
-
-    public function process($files) {
-        if ( ! is_array($files)) {
-            $files = array($files);
-        }
-
-        $tmp_file = sys_get_temp_dir().DIRECTORY_SEPARATOR.'test.php';
-        foreach ($files as $file) {
-            $tmp = <<<EOF
-<?php
-xdebug_start_code_coverage(XDEBUG_CC_UNUSED | XDEBUG_CC_DEAD_CODE);
-include('$file');
-echo '<PHP_SER>'.serialize(xdebug_get_code_coverage()).'</PHP_SER>';
-EOF;
-            file_put_contents($tmp_file, $tmp);
-            ob_start();
-            // see http://trac.symfony-project.org/ticket/5437 for the explanation on the weird "cd" thing
-            passthru(sprintf('cd & %s %s 2>&1', escapeshellarg($this->harness->php_cli), escapeshellarg($tmp_file)), $return);
-            $retval = ob_get_clean();
-
-			// test exited without success
-            if (0 != $return) {
-                // something may have gone wrong, we should warn the user so they know
-                // it's a bug in their code and not symfony's
-
-                $this->harness->output->echoln(sprintf('Warning: %s returned status %d, results may be inaccurate', $file, $return), 'ERROR');
-            }
-
-            if (false === $cov = @unserialize(substr($retval, strpos($retval, '<PHP_SER>') + 9, strpos($retval, '</PHP_SER>') - 9))) {
-                if (0 == $return) {
-                    // failed to serialize, but PHP said it should of worked.
-                    // something is seriously wrong, so abort with exception
-                    throw new Exception(sprintf('Unable to unserialize coverage for file "%s"', $file));
-                } else {
-                    // failed to serialize, but PHP warned us that this might have happened.
-                    // so we should ignore and move on
-                   continue; // continue foreach loop through $this->harness->files
-                }
-            }
-
-            foreach ($cov as $file => $lines) {
-                if ( ! isset($this->coverage[$file])) {
-                    $this->coverage[$file] = $lines;
-                    continue;
-                }
-
-                foreach ($lines as $line => $flag) {
-                    if ($flag == 1) {
-                        $this->coverage[$file][$line] = 1;
-                    }
-                }
-            }
-        }
-
-        if (file_exists($tmp_file)) {
-            unlink($tmp_file);
-        }
-    }
-
-    public function output($files) {
-        ksort($this->coverage);
-        $total_php_lines = 0;
-        $total_covered_lines = 0;
-        foreach ($files as $file) {
-            $file = realpath($file);
-            $is_covered = isset($this->coverage[$file]);
-            $cov = isset($this->coverage[$file]) ? $this->coverage[$file] : array();
-            $covered_lines = array();
-            $missing_lines = array();
-
-            foreach ($cov as $line => $flag) {
-                switch ($flag) {
-                    case 1:
-                        $covered_lines[] = $line;
-                        break;
-                    
-					case -1:
-                        $missing_lines[] = $line;
-                        break;
-                }
-            }
-
-            $total_lines = count($covered_lines) + count($missing_lines);
-            if ( ! $total_lines) {
-                // probably means that the file is not covered at all!
-                $total_lines = count($this->get_php_lines(file_get_contents($file)));
-            }
-
-            $output = $this->harness->output;
-            $percent = $total_lines ? count($covered_lines) * 100 / $total_lines : 0;
-
-            $total_php_lines += $total_lines;
-            $total_covered_lines += count($covered_lines);
-
-            $relative_file = $this->get_relative_file($file);
-            $output->echoln(sprintf("%-70s %3.0f%%", substr($relative_file, -min(70, strlen($relative_file))), $percent), $percent == 100 ? 'INFO' : ($percent > 90 ? 'PARAMETER' : ($percent < 20 ? 'ERROR' : '')));
-            if ($this->verbose && $is_covered && $percent != 100) {
-                $output->comment(sprintf("missing: %s", $this->format_range($missing_lines)));
-            }
-        }
-
-        $output->echoln(sprintf("TOTAL COVERAGE: %3.0f%%", $total_php_lines ? $total_covered_lines * 100 / $total_php_lines : 0));
-    }
-
-    public static function get_php_lines($content) {
-        if (is_readable($content)) {
-            $content = file_get_contents($content);
-        }
-
-        $tokens = token_get_all($content);
-        $php_lines = array();
-        $current_line = 1;
-        $in_class = FALSE;
-        $in_function = FALSE;
-        $in_function_declaration = FALSE;
-        $end_of_current_expr = TRUE;
-        $open_braces = 0;
-        foreach ($tokens as $token) {
-            if (is_string($token)) {
-                switch ($token) {
-                    case '=':
-                        if (FALSE === $in_class || (FALSE !== $in_function && !$in_function_declaration)) {
-                            $php_lines[$current_line] = TRUE;
-                        }
-                        break;
-          
-		            case '{':
-                        ++$open_braces;
-                        $in_function_declaration = FALSE;
-                        break;
-          
-		            case ';':
-                        $in_function_declaration = false;
-                        $end_of_current_expr = TRUE;
-                        break;
-          
-		            case '}':
-                        $end_of_current_expr = TRUE;
-                        --$open_braces;
-                        if ($open_braces == $in_class) {
-                            $in_class = FALSE;
-                        }
-                        if ($open_braces == $in_function) {
-                            $in_function = FALSE;
-                        }
-                        break;
-                }
-
-                continue;
-            }
-
-            list($id, $text) = $token;
-
-            switch ($id) {
-                case T_CURLY_OPEN:
-                case T_DOLLAR_OPEN_CURLY_BRACES:
-                    ++$open_braces;
-                    break;
-                case T_WHITESPACE:
-                case T_OPEN_TAG:
-                case T_CLOSE_TAG:
-                    $end_of_current_expr = TRUE;
-                    $current_line += count(explode("\n", $text)) - 1;
-                    break;
-                case T_COMMENT:
-                case T_DOC_COMMENT:
-                    $current_line += count(explode("\n", $text)) - 1;
-                    break;
-                case T_CLASS:
-                    $in_class = $open_braces;
-                    break;
-                case T_FUNCTION:
-                    $in_function = $open_braces;
-                    $in_function_declaration = TRUE;
-                    break;
-                case T_AND_EQUAL:
-                case T_BREAK:
-                case T_CASE:
-                case T_CATCH:
-                case T_CLONE:
-                case T_CONCAT_EQUAL:
-                case T_CONTINUE:
-                case T_DEC:
-                case T_DECLARE:
-                case T_DEFAULT:
-                case T_DIV_EQUAL:
-                case T_DO:
-                case T_ECHO:
-                case T_ELSEIF:
-                case T_EMPTY:
-                case T_ENDDECLARE:
-                case T_ENDFOR:
-                case T_ENDFOREACH:
-                case T_ENDIF:
-                case T_ENDSWITCH:
-                case T_ENDWHILE:
-                case T_EVAL:
-                case T_EXIT:
-                case T_FOR:
-                case T_FOREACH:
-                case T_GLOBAL:
-                case T_IF:
-                case T_INC:
-                case T_INCLUDE:
-                case T_INCLUDE_ONCE:
-                case T_INSTANCEOF:
-                case T_ISSET:
-                case T_IS_EQUAL:
-                case T_IS_GREATER_OR_EQUAL:
-                case T_IS_IDENTICAL:
-                case T_IS_NOT_EQUAL:
-                case T_IS_NOT_IDENTICAL:
-                case T_IS_SMALLER_OR_EQUAL:
-                case T_LIST:
-                case T_LOGICAL_AND:
-                case T_LOGICAL_OR:
-                case T_LOGICAL_XOR:
-                case T_MINUS_EQUAL:
-                case T_MOD_EQUAL:
-                case T_MUL_EQUAL:
-                case T_NEW:
-                case T_OBJECT_OPERATOR:
-                case T_OR_EQUAL:
-                case T_PLUS_EQUAL:
-                case T_PRINT:
-                case T_REQUIRE:
-                case T_REQUIRE_ONCE:
-                case T_RETURN:
-                case T_SL:
-                case T_SL_EQUAL:
-                case T_SR:
-                case T_SR_EQUAL:
-                case T_SWITCH:
-                case T_THROW:
-                case T_TRY:
-                case T_UNSET:
-                case T_UNSET_CAST:
-                case T_USE:
-                case T_WHILE:
-                case T_XOR_EQUAL:
-                    $php_lines[$current_line] = TRUE;
-                    $end_of_current_expr = FALSE;
-                    break;
-                default:
-                    if (FALSE === $end_of_current_expr) {
-                        $php_lines[$current_line] = TRUE;
-                    }
-            }
-        }
-
-        return $php_lines;
-    }
-
-    public function compute($content, $cov) {
-        $php_lines = self::get_php_lines($content);
-
-        // we remove from $cov non php lines
-        foreach (array_diff_key($cov, $php_lines) as $line => $tmp) {
-            unset($cov[$line]);
-        }
-
-        return array($cov, $php_lines);
-    }
-
-    public function format_range($lines) {
-        sort($lines);
-        $formatted = '';
-        $first = -1;
-        $last = -1;
-        foreach ($lines as $line) {
-            if ($last + 1 != $line) {
-                if ($first != -1) {
-                    $formatted .= $first == $last ? "$first " : "[$first - $last] ";
-                }
-                $first = $line;
-                $last = $line;
-            } else {
-                $last = $line;
-            }
-        }
-        if ($first != -1) {
-            $formatted .= $first == $last ? "$first " : "[$first - $last] ";
-        }
-
-        return $formatted;
-    }
-}
-
-class lime_registration {
-    public $files = array();
-    public $extension = '.php';
-    public $base_dir = '';
-
-    public function register($files_or_directories) {
-        foreach ((array) $files_or_directories as $f_or_d) {
-            if (is_file($f_or_d)) {
-                $this->files[] = realpath($f_or_d);
-            } elseif (is_dir($f_or_d)) {
-                $this->register_dir($f_or_d);
-            } else {
-                throw new Exception(sprintf('The file or directory "%s" does not exist.', $f_or_d));
-            }
-        }
-    }
-
-    public function register_glob($glob) {
-        if ($dirs = glob($glob)) {
-            foreach ($dirs as $file) {
-                $this->files[] = realpath($file);
-            }
-        }
-    }
-
-    public function register_dir($directory) {
-        if ( ! is_dir($directory)) {
-            throw new Exception(sprintf('The directory "%s" does not exist.', $directory));
-        }
-
-        $files = array();
-
-        $current_dir = opendir($directory);
-        while ($entry = readdir($current_dir)) {
-            if ($entry == '.' || $entry == '..') continue;
-
-            if (is_dir($entry)) {
-                $this->register_dir($entry);
-            } elseif (preg_match('#'.$this->extension.'$#', $entry)) {
-                $files[] = realpath($directory.DIRECTORY_SEPARATOR.$entry);
-            }
-        }
-
-        $this->files = array_merge($this->files, $files);
-    }
-
-    protected function get_relative_file($file) {
-        return str_replace(DIRECTORY_SEPARATOR, '/', str_replace(array(realpath($this->base_dir).DIRECTORY_SEPARATOR, $this->extension), '', $file));
-    }
-}

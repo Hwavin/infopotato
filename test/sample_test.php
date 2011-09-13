@@ -1,7 +1,7 @@
 <?php
 include(dirname(__FILE__).'/../system/core/lime.php');
 
-$t = new lime_test(8, new lime_output_color());
+$t = new lime_test(8);
  
 // strtolower()
 $t->diag('strtolower()');
@@ -22,5 +22,6 @@ $t->is(strtolower(''), 'foo',
 
 $t->ok(1+1==2,
     'yes, passed');
+
 
 /* End of file: ./test/functions/redirect_function_test.php */
