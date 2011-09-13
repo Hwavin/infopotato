@@ -16,7 +16,7 @@ class lime_test {
 
     static protected $all_results = array();
 
-    public function __construct($plan = NULL, array $options = NULL) {
+    public function __construct($plan = NULL, $options = array()) {
         // for BC
         if ( ! is_array($options)) {
             $options = array('output' => $options);
@@ -621,11 +621,11 @@ class lime_colorizer {
         }
     }
 
-    public static function style($name, array $options = NULL) {
+    public static function style($name, $options = array()) {
         self::$styles[$name] = $options;
     }
 
-    public function colorize($text = '', array $parameters = NULL) {
+    public function colorize($text = '', $parameters = array()) {
 
         if ( ! $this->colors_supported) {
             return $text;
@@ -664,7 +664,7 @@ class lime_harness extends lime_registration {
     public $stats   = array();
     public $output  = NULL;
  
-    public function __construct(array $options = NULL) {
+    public function __construct($options = array()) {
         // for BC
         if ( ! is_array($options)) {
             $options = array('output' => $options);
