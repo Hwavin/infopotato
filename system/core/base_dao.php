@@ -33,42 +33,7 @@ class Base_DAO {
 	 * @var  array  
 	 */
 	public $last_result = array();
-	
-	/**
-	 * Target dir for cache files
-	 *
-	 * @var  string 
-	 */
-	public $cache_dir = '';
-	
-	/**
-	 * Begin to cache database queries
-	 *
-	 * @var  boolean 
-	 */
-	public $cache_queries = FALSE;
-	
-	/**
-	 * Begin to cache database queries
-	 *
-	 * @var  boolean 
-	 */
-	public $cache_inserts = FALSE;
-	
-	/**
-	 * Whether to use disk cache
-	 *
-	 * @var  boolean  
-	 */
-	public $use_disk_cache = FALSE;
-	
-	/**
-	 * Lifespan of chached files in seconds
-	 *
-	 * @var  integer  
-	 */
-	public $cache_timeout = 3600;
-	
+
 	/**
 	 * Database connection handler
 	 *
@@ -125,7 +90,6 @@ class Base_DAO {
 	public function flush() {
 		$this->last_result = NULL;
 		$this->last_query = NULL;
-		$this->from_disk_cache = FALSE;
 	}
 
 	/**
@@ -244,53 +208,6 @@ class Base_DAO {
 				return NULL;
 			}
 		}
-	}
-
-	/**
-	 * store_cache
-	 */
-	public function store_cache($query, $is_insert) {
-		// The would be cache file for this query
-		$cache_file = $this->cache_dir.'/'.md5($query);
-
-		// Disk caching of queries
-		if ($this->use_disk_cache && ($this->cache_queries && ! $is_insert) || ($this->cache_inserts && $is_insert)) {
-			if ( ! is_dir($this->cache_dir)) {
-				halt('A System Error Was Encountered', "Could not open cache dir: {$this->cache_dir}", 'sys_error');
-			} else {
-				// Cache all result values
-				$result_cache = array(
-					'last_result' => $this->last_result,
-					'num_rows' => $this->num_rows,
-					'return_value' => $this->num_rows,
-				);
-				// Result datd is appended to the cache file
-				error_log(serialize($result_cache), 3, $cache_file);
-			}
-		}
-	}
-
-	/**
-	 * get_cache
-	 */
-	public function get_cache($query) {
-		// The would be cache file for this query
-		$cache_file = $this->cache_dir.'/'.md5($query);
-
-		// Try to get previously cached version
-		if ($this->use_disk_cache && file_exists($cache_file)) {
-			// Only use this cache file if less than 'cache_timeout' (seconds)
-			if ((time() - filemtime($cache_file)) > ($this->cache_timeout)) {
-				unlink($cache_file);
-			} else {
-				$result_cache = unserialize(file_get_contents($cache_file));
-				$this->last_result = $result_cache['last_result'];
-				$this->num_rows = $result_cache['num_rows'];
-				$this->from_disk_cache = TRUE;
-				return $result_cache['return_value'];
-			}
-		}
-
 	}
 
 	/**

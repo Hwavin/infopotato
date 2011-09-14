@@ -79,22 +79,16 @@ class PostgreSQL_DAO extends Base_DAO {
 		// Keep track of the last query for debug.
 		$this->last_query = $query;
 
-		// Use core file cache function
-		if ($cache = $this->get_cache($query)) {
-			return $cache;
-		}
 		// Perform the query via std mysql_query function.
 		$result = pg_query($this->dbh, $query);
 
 		// If there is an error then take note of it.
 		if ($err_msg = pg_last_error($this->dbh)) {
-			$is_insert = TRUE;
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
 		}
 
 		// Query was an insert, delete, update, replace
-		$is_insert = FALSE;
 		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
 			$this->rows_affected = pg_affected_rows($result);
 
@@ -121,9 +115,6 @@ class PostgreSQL_DAO extends Base_DAO {
 			// Return number of rows selected
 			$return_val = $this->num_rows;
 		}
-
-		// disk caching of queries
-		$this->store_cache($query, $is_insert);
 
 		return $return_val;
 	}

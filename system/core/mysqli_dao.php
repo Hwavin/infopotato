@@ -86,10 +86,6 @@ class MySQLi_DAO extends Base_DAO {
 		// Keep track of the last query for debug.
 		$this->last_query = $query;
 
-		// Use core file cache function
-		if ($cache = $this->get_cache($query)) {
-			return $cache;
-		}
 		// Perform the query via std mysqli_query() function.
 		// Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
 		// queries mysqli_query() will return a result object. 
@@ -98,13 +94,11 @@ class MySQLi_DAO extends Base_DAO {
 
 		// If there is an error then take note of it.
 		if ($err_msg = $this->dbh->error) {
-			$is_insert = TRUE;
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
 		}
 
 		// Query was an insert, delete, update, replace
-		$is_insert = FALSE;
 		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
 			$this->rows_affected = $this->dbh->affected_rows;
 
@@ -131,9 +125,6 @@ class MySQLi_DAO extends Base_DAO {
 			// Return number of rows selected
 			$return_val = $this->num_rows;
 		}
-
-		// disk caching of queries
-		$this->store_cache($query, $is_insert);
 
 		return $return_val;
 	}

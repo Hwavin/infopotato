@@ -87,13 +87,8 @@ class MySQL_DAO extends Base_DAO {
 		// For reg expressions
 		$query = trim($query);
 
-		// Keep track of the last query for debug.
+		// Keep track of the last query for debug
 		$this->last_query = $query;
-
-		// Use core file cache function
-		if ($cache = $this->get_cache($query)) {
-			return $cache;
-		}
 
 		// For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset, 
 		// mysql_query() returns a resource on success, or FALSE on error.
@@ -102,13 +97,11 @@ class MySQL_DAO extends Base_DAO {
 		
 		// If there is an error then take note of it.
 		if ($err_msg = mysql_error($this->dbh)) {
-			$is_insert = TRUE;
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 			return FALSE;
 		}
 
 		// Query was an insert, delete, update, replace
-		$is_insert = FALSE;
 		if (preg_match('/^\s*(insert|delete|update|replace) /i', $query)) {
 			$this->rows_affected = mysql_affected_rows($this->dbh);
 
@@ -135,9 +128,6 @@ class MySQL_DAO extends Base_DAO {
 			// Return number of rows selected
 			$return_val = $this->num_rows;
 		}
-
-		// disk caching of queries
-		$this->store_cache($query, $is_insert);
 
 		return $return_val;
 	}
