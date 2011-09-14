@@ -17,18 +17,12 @@ class MySQL_DAO extends Base_DAO {
 	public function __construct(array $config = NULL) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			// Only need to check $dbuser, because somethimes pass = '' is permitted
-			if ($config['host'] === '') {
-				halt('An Error Was Encountered', 'Require the hostname of your MySQL database server', 'sys_error');		
-			} elseif ($config['user'] === '') {
-				halt('An Error Was Encountered', 'Require username to connect to MySQL database server', 'sys_error');		
-			} elseif ($config['name'] === '') {
-				halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');		
-			} elseif ( ! $this->dbh = mysql_connect($config['host'], $config['user'], $config['pass'], TRUE)) {
+			if ( ! $this->dbh = mysql_connect($config['host'], $config['user'], $config['pass'], TRUE)) {
 				halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
 			} else {
 				if (function_exists('mysql_set_charset')) { 
 					// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
+					// This function requires MySQL 5.0.7 or later.
 					mysql_set_charset($config['charset'], $this->dbh);
 				} else {
 					// Specify the client encoding per connection
@@ -58,7 +52,7 @@ class MySQL_DAO extends Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to MySQL with escaped $login and $password. 
 	 */ 
-	public function prepare($query, array $params = array()) { 
+	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh  && isset($this->dbh)) {
@@ -80,7 +74,7 @@ class MySQL_DAO extends Base_DAO {
 	} 
 	
 	/**
-	 * Perform MySQL query and try to detirmin result value
+	 * Perform MySQL query and try to determine result value
 	 *
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */

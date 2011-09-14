@@ -39,7 +39,7 @@ class SQLite_DAO extends Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to SQLite with escaped $login and $password. 
 	 */ 
-	public function prepare($query, array $params = array()) { 
+	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh  && isset($this->dbh)) {
@@ -63,7 +63,7 @@ class SQLite_DAO extends Base_DAO {
 	} 
 	
 	/**
-	 * Perform query and try to detirmin result value
+	 * Perform query and try to determine result value
 	 *
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */

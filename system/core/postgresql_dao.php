@@ -16,14 +16,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	public function __construct(array $config = array()) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			// Only need to check $dbuser, because somethimes $dbpass = '' is permitted
-			if ($config['host'] === '') {
-				halt('An Error Was Encountered', 'Require the hostname of your MySQL database server', 'sys_error');		
-			} elseif ($config['user'] === '') {
-				halt('An Error Was Encountered', 'Require username and password to connect to a database server', 'sys_error');
-			} elseif ($config['name'] === '') {
-				halt('An Error Was Encountered', 'Require database name to select a database', 'sys_error');
-			} elseif ( ! $this->dbh = pg_connect("host=$config['host'] user=$config['user'] password=$config['pass'] dbname=$config['name']", TRUE)) {
+			if ( ! $this->dbh = pg_connect("host=$config['host'] user=$config['user'] password=$config['pass'] dbname=$config['name']", TRUE)) {
 				halt('An Error Was Encountered', 'Error establishing PostgreSQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');
 			} else {
 				// Specify the client encoding per connection
@@ -47,7 +40,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
 	 * That will result safe query to MySQL with escaped $login and $password. 
 	 */ 
-	public function prepare($query, array $params = array()) { 
+	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
 				if ($this->dbh  && isset($this->dbh)) {
@@ -69,7 +62,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	} 
 	
 	/**
-	 * Perform MySQL query and try to detirmin result value
+	 * Perform MySQL query and try to determine result value
 	 *
 	 * @return int|FALSE Number of rows affected/selected or false on error
 	 */
