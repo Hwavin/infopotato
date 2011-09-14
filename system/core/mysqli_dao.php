@@ -91,7 +91,7 @@ class MySQLi_DAO extends Base_DAO {
 		// queries mysqli_query() will return a result object. 
 		// For other successful queries mysqli_query() will return TRUE.
 		$result = $this->dbh->query($query);
-
+        //dump($result);
 		// If there is an error then take note of it.
 		if ($err_msg = $this->dbh->error) {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
@@ -99,11 +99,11 @@ class MySQLi_DAO extends Base_DAO {
 		}
 
 		// Query was an insert, delete, update, replace
-		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
+		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
 			$this->rows_affected = $this->dbh->affected_rows;
 
 			// Take note of the last_insert_id
-			if (preg_match('/^(insert|replace)\s+/i', $query)) {
+			if (preg_match("/^(insert|replace)\s+/i", $query)) {
 				$this->last_insert_id = $this->dbh->insert_id;
 			}
 			// Return number fo rows affected

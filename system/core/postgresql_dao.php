@@ -79,7 +79,7 @@ class PostgreSQL_DAO extends Base_DAO {
 		// Keep track of the last query for debug.
 		$this->last_query = $query;
 
-		// Perform the query via std mysql_query function.
+		// A query result resource on success or FALSE on failure.
 		$result = pg_query($this->dbh, $query);
 
 		// If there is an error then take note of it.
@@ -89,11 +89,11 @@ class PostgreSQL_DAO extends Base_DAO {
 		}
 
 		// Query was an insert, delete, update, replace
-		if (preg_match('/^(insert|delete|update|replace)\s+/i', $query)) {
+		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
 			$this->rows_affected = pg_affected_rows($result);
 
 			// Take note of the last_insert_id
-			if (preg_match('/^(insert|replace)\s+/i', $query)) {
+			if (preg_match("/^(insert|replace)\s+/i", $query)) {
 				$this->last_insert_id = pg_last_oid($result);
 			}
 			// Return number fo rows affected

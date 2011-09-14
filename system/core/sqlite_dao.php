@@ -106,7 +106,7 @@ class SQLite_DAO extends Base_DAO {
 			$num_rows = 0;
 			while ($row = sqlite_fetch_array($result, SQLITE_ASSOC)) {
 				// Store relults as an objects within main array
-				$obj= (object) $row; //convert to object
+				$obj = (object) $row; //convert to object
 				$this->last_result[$num_rows] = $obj;
 				$num_rows++;
 			}

@@ -2,7 +2,7 @@
 class Users_Data extends Data {
 	public function __construct() {
 		// Use default database connection config
-		parent::__construct('mysql_dao:default');
+		parent::__construct('mysqli_dao:default');
 	}
 
 	public function get_users_info() { 
