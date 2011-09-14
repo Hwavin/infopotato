@@ -17,18 +17,8 @@
 </div>
 <!-- end breadcrumb -->
 
-<div class="box_right greybox">
-<h3>My Resume</h3>
-<img src="<?php echo STATIC_URI_BASE; ?>images/content/avater.jpg" class="avater" width="100" height="100" alt="Avater" title="Zhou Yuan" />
-
-<ul class="avater_desc">
-<li><a class="pdf_doc" href="<?php echo APP_URI_BASE; ?>resume/index/pdf">PDF</a></li>
-</ul>
-
-</div> 
-
 <p> 
-Now, for something behind the scenes. My chinese name is Zhou Yuan and my english name is Joe. I work as an enthusiastic web designer &amp; developer that aims to create vibrant and detailed designs while keeping the aesthetics, web standards, security, usability, and accessibility aspects in mind. Creating this PHP MVC Framework is just my humble contribution back to the community.
+Now, for something behind the scenes. My chinese name is Zhou Yuan and my english name is Joe. I work as an enthusiastic web designer &amp; PHP developer that aims to create vibrant and detailed designs while keeping the aesthetics, web standards, security, usability, and accessibility aspects in mind. Creating this PHP Framework is just my humble contribution back to the community.
 </p> 
 
 <h2>How did I get into web development?</h2>

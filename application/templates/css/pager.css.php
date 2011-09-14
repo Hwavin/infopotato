@@ -3,7 +3,7 @@
 .pager { 
 background:#eee; 
 height:36px; 
-margin:20px 0; 
+margin:20px 0 50px 0; 
 padding:0 5px; border:1px solid #ccc;
 }
 
@@ -163,4 +163,10 @@ color:#fff;
 text-align:center; 
 font-size:11px; 
 line-height:normal !important; 
+}
+
+
+/* Disqus */
+#disqus_thread ul{
+list-style:none !important; 
 }
