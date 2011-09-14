@@ -94,7 +94,7 @@ class MySQL_DAO extends Base_DAO {
 		// mysql_query() returns a resource on success, or FALSE on error.
 		// For INSERT, UPDATE, DELETE, DROP, etc, mysql_query() returns TRUE on success or FALSE on error.
 		$result = mysql_query($query, $this->dbh);
-		
+		dump($result);
 		// If there is an error then take note of it.
 		if ($err_msg = mysql_error($this->dbh)) {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
@@ -102,11 +102,13 @@ class MySQL_DAO extends Base_DAO {
 		}
 
 		// Query was an insert, delete, update, replace
-		if (preg_match('/^\s*(insert|delete|update|replace) /i', $query)) {
+		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
+			// Use mysql_affected_rows() to find out how many rows were affected 
+			// by a DELETE, INSERT, REPLACE, or UPDATE statement
 			$this->rows_affected = mysql_affected_rows($this->dbh);
 
 			// Take note of the last_insert_id
-			if (preg_match('/^\s*(insert|replace) /i', $query)) {
+			if (preg_match("/^(insert|replace)\s+/i", $query)) {
 				$this->last_insert_id = mysql_insert_id($this->dbh);
 			}
 			// Return number fo rows affected

@@ -12,8 +12,8 @@ class Users_Data extends Data {
 		return $this->db->get_results($sql, ARRAY_A);
 	}
 	
-	public function get_user_info($id) { 
-		$sql = $this->db->prepare("SELECT * FROM users WHERE id=?", array($id));
+	public function get_user_info($username) { 
+		$sql = $this->db->prepare("SELECT * FROM users WHERE username=?", array($username));
 		//$this->db->vardump($this->db->get_row($sql, ARRAY_A));
 
 		return $this->db->get_row($sql, ARRAY_A);

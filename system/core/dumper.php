@@ -208,7 +208,7 @@ class Dumper {
 	}
 
 	// If variable is a resource type
-	public function var_is_resource($var) {
+	public static function var_is_resource($var) {
 		self::make_table_header('resourceC', 'resource', 1);
 		echo "<tr>\n<td>\n";
 		switch (get_resource_type($var)) {
@@ -228,7 +228,7 @@ class Dumper {
 	}
 	
 	// If variable is an image/gd resource type
-	public function var_is_gd_resource($var) {
+	public static function var_is_gd_resource($var) {
 		self::make_table_header('resource', 'gd', 2);
 		self::make_td_header('resource', 'Width');
 		echo imagesx($var).self::close_td_row();
