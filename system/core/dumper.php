@@ -212,6 +212,12 @@ class Dumper {
 		self::make_table_header('resourceC', 'resource', 1);
 		echo "<tr>\n<td>\n";
 		switch (get_resource_type($var)) {
+			case 'mysql result':
+			case 'pgsql result':
+				$db = current(explode(' ', get_resource_type($var)));
+				self::var_is_db_resource($var, $db);
+				break;
+			
 			case 'gd':
 				self::var_is_gd_resource($var);
 				break;
@@ -225,6 +231,51 @@ class Dumper {
 				break;
 		}
 		echo self::close_td_row()."</table>\n";
+	}
+	
+	//if variable is a database resource type
+	public static function var_is_db_resource($var, $db = 'mysql') {
+		if ($db == 'pgsql') {
+			$db = 'pg';
+		}
+		$arr_fields = array('name', 'type', 'flags');	
+		$num_rows = call_user_func($db.'_num_rows', $var);
+		$num_fields = call_user_func($db.'_num_fields', $var);
+		self::make_table_header("resource", $db." result", $num_fields + 1);
+		echo "<tr><td class=\"dump_resource_key\">&nbsp;</td>";
+		for ($i = 0; $i < $num_fields; $i++) {
+			$field_header = '';
+			for ($j = 0; $j < count($arr_fields); $j++) {
+				$db_func = $db.'_field_'.$arr_fields[$j];
+				if (function_exists($db_func)) {
+					$fheader = call_user_func($db_func, $var, $i). ' ';
+					if ($j == 0) {
+						$field_name = $fheader;
+					} else {
+						$field_header .= $fheader;
+					}
+				}
+			}
+			$field[$i] = call_user_func($db.'_fetch_field', $var, $i);
+			echo "<td class=\"dump_resource_key\" title=\"".$field_header."\">".$field_name."</td>";
+		}
+		echo '</tr>';
+		for ($i = 0; $i < $num_rows; $i++) {
+			$row = call_user_func($db.'_fetch_array', $var, constant(strtoupper($db).'_ASSOC'));
+			echo "<tr>\n";
+			echo "<td class=\"dump_resource_key\">".($i+1)."</td>"; 
+			for ($k = 0; $k < $num_fields; $k++) {
+				$tempField = $field[$k]->name;
+				$field_row = $row[($field[$k]->name)];
+				$field_row = ($field_row == '') ? "[empty string]" : $field_row;
+				echo "<td>".$field_row."</td>\n";
+			}
+			echo "</tr>\n";
+		}
+		echo '</table>';
+		if ($num_rows>0) {
+			call_user_func($db.'_data_seek', $var, 0);
+		}
 	}
 	
 	// If variable is an image/gd resource type
