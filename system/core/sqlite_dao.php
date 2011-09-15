@@ -25,10 +25,11 @@ class SQLite_DAO extends Base_DAO {
 	public function __construct(array $config = NULL) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			// No username and a password required
+			// No username and password required
 			if ($config['path'] === '') {
 				halt('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
-			} else if ( ! $this->dbh = sqlite_open($config['path'])) {
+			} 
+			if ( ! $this->dbh = sqlite_open($config['path'])) {
 				halt('An Error Was Encountered', 'Can not find SQLite database file', 'sys_error');		
 			}
 		}
@@ -49,7 +50,7 @@ class SQLite_DAO extends Base_DAO {
 	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
-				if ($this->dbh  && isset($this->dbh)) {
+				if (isset($this->dbh)) {
 					$v = sqlite_escape_string($v); 
 				} else {
 					// addslashes() should NOT be used to quote your strings for SQLite queries; 
