@@ -65,7 +65,7 @@ class SQLite_DAO extends Base_DAO {
 	/**
 	 * Perform query and try to determine result value
 	 *
-	 * @return int|FALSE Number of rows affected/selected or false on error
+	 * @return int Number of rows affected/selected
 	 */
 	public function query($query) {
 		// For reg exp
@@ -87,7 +87,6 @@ class SQLite_DAO extends Base_DAO {
 		if (sqlite_last_error($this->dbh)) {
 			$err_msg = sqlite_error_string(sqlite_last_error($this->dbh));
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
-			return FALSE;
 		}
 		
 		// Query was an insert, delete, update, replace

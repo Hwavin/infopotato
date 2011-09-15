@@ -76,7 +76,7 @@ class MySQL_DAO extends Base_DAO {
 	/**
 	 * Perform MySQL query and try to determine result value
 	 *
-	 * @return int|FALSE Number of rows affected/selected or false on error
+	 * @return int Number of rows affected/selected
 	 */
 	public function query($query) {
 		$return_val = 0;
@@ -98,7 +98,6 @@ class MySQL_DAO extends Base_DAO {
 		// If there is an error then take note of it.
 		if ($err_msg = mysql_error($this->dbh)) {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
-			return FALSE;
 		}
 
 		// Query was an insert, delete, update, replace
