@@ -91,7 +91,7 @@ class MySQLi_DAO extends Base_DAO {
 		// queries mysqli_query() will return a result object. 
 		// For other successful queries mysqli_query() will return TRUE.
 		$result = $this->dbh->query($query);
-        //dump($result);
+
 		// If there is an error then take note of it.
 		if ($err_msg = $this->dbh->error) {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		

@@ -8,10 +8,10 @@ final class SQLite_Manager extends Manager {
 		
 		//$this->u->add_user('dsadas', 'dadsasada');
 
-		//dump(APP_DIR.'bios.xml', 'xml', TRUE);
+		dump(APP_DIR.'bios.xml', 'xml');
 		
 		//dump($user_info);
-		dump($users_info, '', TRUE);
+		dump($users_info);
 		//dump($this->u);
 
 

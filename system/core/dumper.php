@@ -46,7 +46,7 @@ class Dumper {
 		// Only include js and css scripts once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
-			self::init_JS_and_CSS();
+			self::init_js_and_css();
 		}
 		// Enable collapse of tables when initiated.
 		self::$collapsed = $collapsed;
@@ -294,9 +294,9 @@ class Dumper {
 	public static function var_is_xml_resource($var) {
 		$xml_parser = xml_parser_create();
 		xml_parser_set_option($xml_parser, XML_OPTION_CASE_FOLDING, 0); 
-		xml_set_element_handler($xml_parser, array(&$this, "xml_start_element"), array(&$this, "xml_end_element")); 
-		xml_set_character_data_handler($xml_parser, array(&$this, "xml_character_data"));
-		xml_set_default_handler($xml_parser, array(&$this, "xml_default_handler")); 
+		xml_set_element_handler($xml_parser, array('Dumper', 'xml_start_element'), array('Dumper', 'xml_end_element')); 
+		xml_set_character_data_handler($xml_parser, array('Dumper', 'xml_character_data'));
+		xml_set_default_handler($xml_parser, array('Dumper', 'xml_default_handler')); 
 		
 		self::make_table_header('xml', 'XML Document', 2);
 		self::make_td_header('xml', 'Root');
@@ -314,7 +314,7 @@ class Dumper {
 				return;
 			}
 			$data = $var;
-			$this->xml_parse($xml_parser, $data, 1);
+			self::xml_parse($xml_parser, $data, 1);
 		}
 		
 		echo self::close_td_row()."</table>\n";
@@ -387,7 +387,7 @@ class Dumper {
 		}
 	}
 
-	public static function init_JS_and_CSS() {
+	public static function init_js_and_css() {
 		echo <<<SCRIPTS
 			<script language="JavaScript">
 			/* code modified from ColdFusion's cfdump code */

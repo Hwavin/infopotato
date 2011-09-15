@@ -94,7 +94,7 @@ class MySQL_DAO extends Base_DAO {
 		// mysql_query() returns a resource on success, or FALSE on error.
 		// For INSERT, UPDATE, DELETE, DROP, etc, mysql_query() returns TRUE on success or FALSE on error.
 		$result = mysql_query($query, $this->dbh);
-		dump($result);
+		
 		// If there is an error then take note of it.
 		if ($err_msg = mysql_error($this->dbh)) {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
@@ -117,7 +117,6 @@ class MySQL_DAO extends Base_DAO {
 			// Store Query Results
 			$num_rows = 0;
 			while ($row = mysql_fetch_object($result)) {
-				//dump($row);
 				// Store relults as an objects within main array
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
