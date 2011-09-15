@@ -1,6 +1,6 @@
 <?php
 /**
- * PostgreSQL ata Access Object
+ * PostgreSQL Data Access Object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -24,14 +24,12 @@ class PostgreSQL_DAO extends Base_DAO {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
 			if ( ! $this->dbh = pg_connect("host=$config['host'] user=$config['user'] password=$config['pass'] dbname=$config['name']", TRUE)) {
-				halt('An Error Was Encountered', 'Error establishing PostgreSQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');
-			} else {
-				// Specify the client encoding per connection
-				$collation_query = "SET NAMES '{$config['charset']}'";
-				$this->query($collation_query);
-
-				$return_val = TRUE;
-			}
+				halt('An Error Was Encountered', 'Could not connect: '.pg_last_error($this->dbh), 'sys_error');
+			} 
+			
+			// Specify the client encoding per connection
+			$collation_query = "SET NAMES '{$config['charset']}'";
+			$this->query($collation_query);
 		}
 	}
 	

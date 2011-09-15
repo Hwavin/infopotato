@@ -30,7 +30,7 @@ class SQLite_DAO extends Base_DAO {
 				halt('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
 			} 
 			if ( ! $this->dbh = sqlite_open($config['path'])) {
-				halt('An Error Was Encountered', 'Can not find SQLite database file', 'sys_error');		
+				halt('An Error Was Encountered', 'Could not connect: '.sqlite_error_string(sqlite_last_error($this->dbh)), 'sys_error');		
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
 /**
- * MySQL ata Access Object
+ * MySQL Data Access Object
  *
  * If you are using MySQL versions 4.1.3 or later it is strongly recommended that you use the mysqli extension instead.
  * 
@@ -27,24 +27,24 @@ class MySQL_DAO extends Base_DAO {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
 			if ( ! $this->dbh = mysql_connect($config['host'], $config['user'], $config['pass'], TRUE)) {
-				halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Database server running?', 'sys_error');		
+				halt('An Error Was Encountered', 'Could not connect: '.mysql_error($this->dbh), 'sys_error');		
+			} 
+			
+			if (function_exists('mysql_set_charset')) { 
+				// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
+				// This function requires MySQL 5.0.7 or later.
+				mysql_set_charset($config['charset'], $this->dbh);
 			} else {
-				if (function_exists('mysql_set_charset')) { 
-					// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
-					// This function requires MySQL 5.0.7 or later.
-					mysql_set_charset($config['charset'], $this->dbh);
-				} else {
-					// Specify the client encoding per connection
-					$collation_query = "SET NAMES '{$config['charset']}'";
-					if ( ! empty($config['collate'])) {
-						$collation_query .= " COLLATE '{$config['collate']}'";
-					}
-					$this->query($collation_query);
+				// Specify the client encoding per connection
+				$collation_query = "SET NAMES '{$config['charset']}'";
+				if ( ! empty($config['collate'])) {
+					$collation_query .= " COLLATE '{$config['collate']}'";
 				}
-				
-				if ( ! mysql_select_db($config['name'], $this->dbh)) {
-					halt('An Error Was Encountered', 'Can not select database', 'sys_error');		
-				}
+				$this->query($collation_query);
+			}
+			
+			if ( ! mysql_select_db($config['name'], $this->dbh)) {
+				halt('An Error Was Encountered', 'Can not select database', 'sys_error');		
 			}
 		}
 	}
