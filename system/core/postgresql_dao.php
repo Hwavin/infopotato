@@ -9,6 +9,13 @@
  */
 class PostgreSQL_DAO extends Base_DAO {
 	/**
+	 * Database connection handler
+	 *
+	 * @var  resource  
+	 */
+	public $dbh;
+	
+	/**
 	 * Constructor
 	 * 
 	 * Allow the user to perform a connect at the same time as initialising the this class

@@ -10,27 +10,38 @@
 
 class MySQLi_DAO extends Base_DAO {
 	/**
+	 * An object which represents the connection to a MySQL Server
+	 *
+	 * @var  object
+	 */
+	public $mysqli;
+	
+	/**
 	 * Constructor
 	 * 
 	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
 	public function __construct(array $config = NULL) {
 		// If there is no existing database connection then try to connect
-		if ( ! $this->dbh) {
-			if ( ! $this->dbh = new mysqli($config['host'], $config['user'], $config['pass'], $config['name'])) {
-				halt('An Error Was Encountered', 'Error establishing MySQL database connection. Correct user/password? Correct hostname? Correct database name? Database server running?', 'sys_error');		
+		if ( ! isset($this->mysqli)) {
+			$this->mysqli = new mysqli($config['host'], $config['user'], $config['pass'], $config['name']);
+
+			// Use this instead of $connect_error if you need to ensure
+			// compatibility with PHP versions prior to 5.2.9 and 5.3.0.
+			if (mysqli_connect_error()) {
+				halt('An Error Was Encountered', 'Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error(), 'sys_error');		
+			}
+
+			if (method_exists($this->mysqli, 'set_charset')) { 
+				// Set charset, (PHP 5 >= 5.0.5)
+				$this->mysqli->set_charset($config['charset']);
 			} else {
-				if (method_exists($this->dbh, 'set_charset')) { 
-					// Set charset, (PHP 5 >= 5.0.5)
-					$this->dbh->set_charset($config['charset']);
-				} else {
-					// Specify the client encoding per connection
-					$collation_query = "SET NAMES '{$config['charset']}'";
-					if ( ! empty($config['collate'])) {
-						$collation_query .= " COLLATE '{$config['collate']}'";
-					}
-					$this->query($collation_query);
+				// Specify the client encoding per connection
+				$collation_query = "SET NAMES '{$config['charset']}'";
+				if ( ! empty($config['collate'])) {
+					$collation_query .= " COLLATE '{$config['collate']}'";
 				}
+				$this->query($collation_query);
 			}
 		}
 	}
@@ -50,8 +61,8 @@ class MySQLi_DAO extends Base_DAO {
 	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $v) { 
-				if ($this->dbh  && isset($this->dbh)) {
-					$v = $this->dbh->real_escape_string($v); 
+				if (isset($this->mysqli)) {
+					$v = $this->mysqli->real_escape_string($v); 
 				} else {
 					$v = addslashes($v);
 				}
@@ -90,20 +101,20 @@ class MySQLi_DAO extends Base_DAO {
 		// Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
 		// queries mysqli_query() will return a result object. 
 		// For other successful queries mysqli_query() will return TRUE.
-		$result = $this->dbh->query($query);
+		$result = $this->mysqli->query($query);
 
 		// If there is an error then take note of it.
-		if ($err_msg = $this->dbh->error) {
+		if ($err_msg = $this->mysqli->error) {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 		}
 
 		// Query was an insert, delete, update, replace
 		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
-			$this->rows_affected = $this->dbh->affected_rows;
+			$this->rows_affected = $this->mysqli->affected_rows;
 
 			// Take note of the last_insert_id
 			if (preg_match("/^(insert|replace)\s+/i", $query)) {
-				$this->last_insert_id = $this->dbh->insert_id;
+				$this->last_insert_id = $this->mysqli->insert_id;
 			}
 			// Return number fo rows affected
 			$return_val = $this->rows_affected;
@@ -136,37 +147,34 @@ class MySQLi_DAO extends Base_DAO {
 	}
 
 	/**
-	 * Begin Transaction using standard sql
+	 * Disable autocommit to begin transaction
 	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
 	 * 
 	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
-		$this->dbh->query('SET AUTOCOMMIT=0');
-		$this->dbh->query('START TRANSACTION'); // can also be BEGIN or BEGIN WORK
+		$this->mysqli->autocommit(FALSE);
 	}
 	
 	/**
-	 * Commit Transaction using standard sql
+	 * Commit Transaction
 	 *
 	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_commit() {
-		$this->dbh->query('COMMIT');
-		$this->dbh->query('SET AUTOCOMMIT=1');
+		$this->mysqli->commit();
 	}
 	
 	/**
-	 * Rollback Transaction using standard sql
+	 * Rollback Transaction
 	 *
 	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_rollback() {
-		$this->dbh->query('ROLLBACK');
-		$this->dbh->query('SET AUTOCOMMIT=1');
+		$this->mysqli->rollback();
 	}
 	
 }

@@ -2,6 +2,8 @@
 /**
  * MySQL ata Access Object
  *
+ * If you are using MySQL versions 4.1.3 or later it is strongly recommended that you use the mysqli extension instead.
+ * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
@@ -9,6 +11,13 @@
  */
 
 class MySQL_DAO extends Base_DAO {
+	/**
+	 * Database connection handler
+	 *
+	 * @var  resource  
+	 */
+	public $dbh;
+	
 	/**
 	 * Constructor
 	 * 
