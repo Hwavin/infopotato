@@ -36,7 +36,7 @@ What makes an environment unique? In the development environment for instance, t
 </p>
 
 <p>
-But on the production environment, the cache layer should be activated and, of course, the application should display customized error messages instead of raw exceptions. So, the production environment must be optimized for performance and the user experience.
+But on the production environment, the cache layer for example, should be activated and, of course, the application should display customized error messages instead of raw exceptions. So, the production environment must be optimized for performance and the user experience.
 </p>
 
 <p>
@@ -54,6 +54,20 @@ However, if you want to see how the application reacts in production, call the p
 <div class="syntax">
 http://localhost/infopotato/web/<span class="red">index.php</span>
 </div>
+
+<h2>Staging</h2>
+<p>
+Sometimes the developers may need to have a mirror server of the real production server so that they can test everything on that server first before implementing on production. But with InfoPotato, they can achieve the same goal in a smarter way. They don't have to mirror the production server, what they need to do is to make a copy of all the app code to be placed on the production server and create another front controller script, let's say stage.php.
+</p>
+
+<div class="syntax">
+http://localhost/infopotato/web/<span class="red">stage.php</span>
+</div>
+
+<p>
+And inside stage.php, they can define the APP_DIR as the directory which they just copied from the app code. By doing this, they can test the final version of the production code before making it available to the public. And at the same time, the public can still access to the old version of that app by going to index.php entry script, which just sits right next to stage.php in the same public folder.
+</p>
+
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
