@@ -70,11 +70,10 @@ If you use MySQL as your database server, DON'T mix use MySQL_DAO and MySQLi_DAO
 <div class="syntax"><pre>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">add_record</span><span class="p">(</span><span class="nv">$uid</span><span class="p">,</span> <span class="nv">$date</span><span class="p">,</span> <span class="nv">$type</span><span class="p">)</span> <span class="p">{</span> 
     <span class="nv">$return_val</span> <span class="o">=</span> <span class="k">TRUE</span><span class="p">;</span>	
-    <span class="c1">// Database Transaction</span> 
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;SET AUTOCOMMIT=0&quot;</span><span class="p">);</span> 
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;START TRANSACTION&quot;</span><span class="p">);</span> 
+    <span class="c1">// Database Transaction </span> 
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">trans_begin</span><span class="p">();</span>  
  
-    <span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;INSERT INTO records (uid, date, type) </span> 
+    <span class="nv">$sql</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="s2">&quot;INSERT INTO records (uid, date, type)  </span> 
 <span class="s2">			       VALUES (?, ?, ?)&quot;</span><span class="p">,</span> 
 			       <span class="k">array</span><span class="p">(</span><span class="nv">$uid</span><span class="p">,</span> <span class="nv">$date</span><span class="p">,</span> <span class="nv">$type</span><span class="p">));</span> 
     <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="o">===</span> <span class="k">FALSE</span><span class="p">)</span> <span class="p">{</span> 
@@ -82,14 +81,14 @@ If you use MySQL as your database server, DON'T mix use MySQL_DAO and MySQLi_DAO
     <span class="p">}</span> 
  
     <span class="k">if</span> <span class="p">(</span><span class="nv">$return_val</span> <span class="o">==</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;COMMIT&quot;</span><span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">trans_commit</span><span class="p">();</span> 
     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> 
-	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s2">&quot;ROLLBACK&quot;</span><span class="p">);</span> 
+	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">trans_rollback</span><span class="p">();</span> 
     <span class="p">}</span> 
 		
     <span class="k">return</span> <span class="nv">$return_val</span><span class="p">;</span> 
 <span class="p">}</span> 
-</pre></div>
+</pre></div> 
 
 <h3>$this->db->prepare() - Result safe query with escaped user variables</h3>
 
