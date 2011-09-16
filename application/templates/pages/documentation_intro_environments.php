@@ -68,6 +68,10 @@ http://localhost/infopotato/web/<span class="red">stage.php</span>
 And inside stage.php, they can define the APP_DIR as the directory which they just copied from the app code. By doing this, they can test the final version of the production code before making it available to the public. And at the same time, the public can still access to the old version of that app by going to index.php entry script, which just sits right next to stage.php in the same public folder.
 </p>
 
+<p>
+Whenever the staging test is done, the developers can just migrate the app to the new production version simply by redefining the APP_DIR in the index.php.
+</p>
+
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
