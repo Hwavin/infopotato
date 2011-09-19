@@ -220,21 +220,6 @@ class Base_DAO {
 	 * @return	bool
 	 */
 	public function trans_rollback() {}
-	
-	/**
-	 * Dumps the contents of any input variable to screen in a nicely
-	 * formatted and easy to understand way - any type: Object, Var or Array
-	 */
-	public function vardump($mixed = '') {
-		// Start outup buffering
-		ob_start();
-		require_once SYS_CORE_DIR.'sys_templates'.DS.'data_vardump.php';
-		// Stop output buffering and capture HTML
-		$html = ob_get_contents();
-		ob_end_clean();
-
-		echo $html;
-	}
 
 }
 

@@ -36,7 +36,6 @@ class World_Data extends Data {
 	
 	public function example7($name, $id) { 
 		$sql = $this->db->prepare("UPDATE city SET Name=? WHERE ID=?", array($name, $id));
-		$this->db->vardump($this->db->query($sql));
 		return $this->db->query($sql);
 	}
 }
