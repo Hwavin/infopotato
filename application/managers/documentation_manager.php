@@ -14,7 +14,7 @@ final class Documentation_Manager extends Manager {
 		$this->response($response_data);
 	}
 	
-	public function get_intro($params = array()) {
+	public function get_intro(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -85,7 +85,7 @@ final class Documentation_Manager extends Manager {
 		$this->response($response_data);
 	}
 	
-	public function get_core($params = array()) {
+	public function get_core(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -208,7 +208,7 @@ final class Documentation_Manager extends Manager {
 		$this->response($response_data);
 	}
 	
-	public function get_library($params = array()) {
+	public function get_library(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -311,7 +311,7 @@ final class Documentation_Manager extends Manager {
 		$this->response($response_data);
 	}
 	
-	public function get_function($params = array()) {
+	public function get_function(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		
 		$current_name = ($name !== '') ? $params[0] : '';
@@ -374,12 +374,12 @@ final class Documentation_Manager extends Manager {
 		$this->response($response_data);
 	}
 	
-	public function get_tutorial($params = array()) {
+	public function get_tutorial(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 
 		$layout_data = array(
 			'page_title' => 'Documentation - Tutorials',
-			'stylesheets' => array('syntax.css'),
+			'stylesheets' => $name === '_form_validation' ? array('syntax.css', 'livevalidation.css') : array('syntax.css'),
 			'content' => $this->render_template('pages/documentation_tutorial'.$name),
 		);
 		

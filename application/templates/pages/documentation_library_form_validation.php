@@ -14,7 +14,7 @@
 <a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/library/form_validation/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
-<p>InfoPotato provides a comprehensive form validation and data prepping class that helps minimize the amount of code you'll write.</p> 
+<p>InfoPotato provides a comprehensive server-side form validation and data prepping class that helps minimize the amount of code you'll write.</p> 
 
 <h2>Overview</h2> 
  

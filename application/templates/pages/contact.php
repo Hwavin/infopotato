@@ -25,9 +25,9 @@
 
 <?php if (isset($sent)) : ?>
 <?php if ($sent == TRUE) : ?>
-<div class="successbox">Your message has been sent</div>
+<div class="greenbox">Your message has been sent</div>
 <?php else : ?>
-<div class="errorbox">Failed to send your email</div>
+<div class="pinkbox">Failed to send your email</div>
 <?php endif; ?>
 <?php else : ?>
 

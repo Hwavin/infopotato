@@ -15,6 +15,9 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
  
+ 
+// Must define the constants out of the class
+// Can not define them as class const 
 define('OBJECT', 'OBJECT');
 define('ARRAY_A', 'ARRAY_A');
 define('ARRAY_N', 'ARRAY_N');
@@ -59,12 +62,12 @@ class Base_DAO {
 	 * Example: 
 	 *    prepare( "SELECT secret FROM db WHERE login = ?", array($login) );  
 	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
-	 * That will result safe query to MySQL with escaped $login and $password. 
+	 * That will result safe query to RDBMS with escaped $login and $password. 
 	 */ 
 	public function prepare($query, array $params = NULL) {} 
 	
 	/**
-	 * Perform MySQL query and try to detirmin result value
+	 * Perform SQL query and try to determine result value
 	 * Overridden by specific DB class
 	 *
 	 * @return int|FALSE Number of rows affected/selected or false on error
@@ -81,12 +84,12 @@ class Base_DAO {
 	 * Kill cached query results.
 	 */
 	public function flush() {
-		$this->last_result = NULL;
+		$this->last_result = array();
 		$this->last_query = NULL;
 	}
 
 	/**
-	 * Gets one single variable from the database or previously cached results.
+	 * Gets one single variable from the database
 	 *
 	 * This function is very useful for evaluating query results within logic statements such as if or switch. 
 	 * If the query generates more than one row the first row will always be used by default.
@@ -99,7 +102,6 @@ class Base_DAO {
 	 * @return string Database query result
 	 */
 	public function get_var($query = NULL, $x = 0, $y = 0) {
-		// If there is a query then perform it if not then use cached results.
 		if ($query) {
 			$this->query($query);
 		}
@@ -112,18 +114,15 @@ class Base_DAO {
 	}
 
 	/**
-	 * Gets a single row from the database or cached results.
+	 * Gets a single row from the database
 	 * If the query returns more than one row and no row offset is supplied the first row within the results set will be returned by default.
-	 * Even so, the full results will be cached should you wish to use them with another ezSQL query.
-	 *
 	 *
 	 * @param string|null $query SQL query.
 	 * @param string $output (optional) one of ARRAY_A | ARRAY_N | OBJECT constants.  Return an associative array (column => value, ...), a numerically indexed array (0 => value, ...) or an object ( ->column = value ), respectively.
-	 * @param int $y (optional) Row to return.  Indexed from 0.
+	 * @param int $y (optional) Row to return if the query returns more than one row.  Indexed from 0.
 	 * @return mixed Database query result in format specifed by $output
 	 */
 	public function get_row($query = NULL, $output = OBJECT, $y = 0) {
-		// If there is a query then perform it if not then use cached results.
 		if ($query) {
 			$this->query($query);
 		} else {
@@ -152,7 +151,6 @@ class Base_DAO {
 	 * @return array Database query result.  Array indexed from 0 by SQL result row number.
 	 */
 	public function get_col($query = NULL, $x = 0) {
-		// If there is a query then perform it if not then use cached results..
 		if ($query) {
 			$this->query($query);
 		}
@@ -176,7 +174,6 @@ class Base_DAO {
 	 * @return mixed Database query results
 	 */
 	public function get_results($query = NULL, $output = OBJECT) {
-		// If there is a query then perform it if not then use cached results.
 		if ($query) {
 			$this->query($query);
 		} else {

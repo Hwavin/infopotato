@@ -99,7 +99,7 @@ class SQLite_DAO extends Base_DAO {
 		
 		// Query was an insert, delete, update, replace
 		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
-			$this->rows_affected = sqlite_changes($this->dbh);
+			$rows_affected = sqlite_changes($this->dbh);
 			
 			// Take note of the last_insert_id
 			if (preg_match("/^(insert|replace)\s+/i", $query)) {
@@ -107,7 +107,7 @@ class SQLite_DAO extends Base_DAO {
 			}
 			
 			// Return number fo rows affected
-			$return_val = $this->rows_affected;
+			$return_val = $rows_affected;
 		} else {
 			// Store Query Results
 			$num_rows = 0;

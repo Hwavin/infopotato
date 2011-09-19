@@ -113,14 +113,14 @@ class MySQL_DAO extends Base_DAO {
 		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
 			// Use mysql_affected_rows() to find out how many rows were affected 
 			// by a DELETE, INSERT, REPLACE, or UPDATE statement
-			$this->rows_affected = mysql_affected_rows($this->dbh);
+			$rows_affected = mysql_affected_rows($this->dbh);
 
 			// Take note of the last_insert_id
 			if (preg_match("/^(insert|replace)\s+/i", $query)) {
 				$this->last_insert_id = mysql_insert_id($this->dbh);
 			}
 			// Return number fo rows affected
-			$return_val = $this->rows_affected;
+			$return_val = $rows_affected;
 		} else {
 			// Store Query Results
 			$num_rows = 0;

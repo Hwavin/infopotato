@@ -29,7 +29,31 @@ Data Access Objects (DAO) provides a generic API to access data stored in differ
 If you use MySQL as your database server, DON'T mix use MySQL_DAO and MySQLi_DAO.
 </div>
 
-<h2>Quick Start</h2>
+<h2>Example Database</h2>
+
+<p>
+To demonstrate the useage of InfoPotato's DAO we will use <tt><a href="http://dev.mysql.com/doc/index-other.html" class="external_link">world</a></tt> example database provided by MySQL.
+</p>
+
+<p>
+There are three tables in the <tt>world</tt> database:
+</p>
+
+<ul>
+<li>
+<tt>Country</tt>: Information about countries of the world.
+</li>
+
+<li>
+<tt>City</tt>: Information about some of the cities in those countries.
+</li>
+
+<li>
+<tt>Countrylanguage</tt>: Languages spoken in each country.
+</li>
+<ul>
+
+<h2>Quick Examples</h2>
 
 <h3>$this->db->get_row() - Get one row from the database</h3>
 
