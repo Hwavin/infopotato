@@ -113,6 +113,9 @@ class MySQL_DAO extends Base_DAO {
 		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
 			// Use mysql_affected_rows() to find out how many rows were affected 
 			// by a DELETE, INSERT, REPLACE, or UPDATE statement
+			// When using UPDATE, MySQL will not update columns where the new value is the same as the old value. 
+			// This creates the possibility that mysql_affected_rows() may not actually equal the number of rows matched, 
+			// only the number of rows that were literally affected by the query.
 			$rows_affected = mysql_affected_rows($this->dbh);
 
 			// Take note of the last_insert_id
