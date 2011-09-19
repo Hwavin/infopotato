@@ -38,6 +38,18 @@ class World_Data extends Data {
 		$sql = $this->db->prepare("UPDATE city SET Name=? WHERE ID=?", array($name, $id));
 		return $this->db->query($sql);
 	}
+	
+	public function example8($name, $country_code, $district, $population) { 
+		$sql = $this->db->prepare("INSERT INTO city(ID, Name, CountryCode, District, Population) 
+		                           VALUES(?, ?, ?, ?, ?)", 
+		                           array(4080, $name, $country_code, $district, $population));
+		return $this->db->query($sql);
+	}
+	
+	public function example9() { 
+		$sql = $this->db->prepare("DELETE FROM city WHERE ID=?", array(4080));
+		return $this->db->query($sql);
+	}
 }
 
 /* End of file: ./application/data/users_data.php */

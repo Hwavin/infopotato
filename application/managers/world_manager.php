@@ -39,6 +39,16 @@ final class World_Manager extends Manager {
 		$result = $this->w->example7('Pittsburgh-haha', 1);
 		dump($result);
 	}
+	
+	public function get_example8() {
+		$result = $this->w->example8('Philadelphia','USA','Pennsylvania',1517550);
+		dump($result);
+	}
+	
+	public function get_example9() {
+		$result = $this->w->example9();
+		dump($result);
+	}
 }
 
 // End of file: ./application/managers/world_manager.php
