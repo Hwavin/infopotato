@@ -157,15 +157,17 @@ class Base_DAO {
 	 * @return array Database query result.  Array indexed from 0 by SQL result row number.
 	 */
 	public function get_col($query, $x = 0) {
+		$return_val = array();
+		
 		$this->exec_query($query);
 		
-		$new_array = array();
 		// Extract the column values
 		$cnt = count($this->query_result);
 		for ($i = 0; $i < $cnt; $i++) {
-			$new_array[$i] = $this->get_var(NULL, $x, $i);
+			$return_val[$i] = $this->get_var(NULL, $x, $i);
 		}
-		return $new_array;
+		
+		return $return_val;
 	}
 
 
