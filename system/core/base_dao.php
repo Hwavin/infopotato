@@ -88,7 +88,7 @@ class Base_DAO {
 	 * @return string Database query result
 	 */
 	public function get_var($query, $x = 0, $y = 0) {
-		$return_val = NULL;
+		$return_val = '';
 		
 		if ($query) {
 		    $this->exec_query($query);
