@@ -75,14 +75,11 @@ class PostgreSQL_DAO extends Base_DAO {
 		// Initialise return
 		$return_val = 0;
 
-		// Flush cached values.
-		$this->flush();
+		// Reset stored query result
+		$this->query_result = array();
 
 		// For reg expressions
 		$query = trim($query);
-
-		// Keep track of the last query for debug.
-		$this->last_query = $query;
 
 		// A query result resource on success or FALSE on failure.
 		$result = pg_query($this->dbh, $query);
@@ -107,7 +104,7 @@ class PostgreSQL_DAO extends Base_DAO {
 			$num_rows = 0;
 			while ($row = pg_fetch_object($result)) {
 				// Store relults as an objects within main array
-				$this->last_result[$num_rows] = $row;
+				$this->query_result[$num_rows] = $row;
 				$num_rows++;
 			}
 

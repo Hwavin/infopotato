@@ -90,14 +90,11 @@ class MySQL_DAO extends Base_DAO {
 	public function query($query) {
 		$return_val = 0;
 
-		// Flush cached values.
-		$this->flush();
+		// Reset stored query result
+		$this->query_result = array();
 
 		// For reg expressions
 		$query = trim($query);
-
-		// Keep track of the last query for debug
-		$this->last_query = $query;
 
 		// For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset, 
 		// mysql_query() returns a resource on success, or FALSE on error.
@@ -129,7 +126,7 @@ class MySQL_DAO extends Base_DAO {
 			$num_rows = 0;
 			while ($row = mysql_fetch_object($result)) {
 				// Store relults as an objects within main array
-				$this->last_result[$num_rows] = $row;
+				$this->query_result[$num_rows] = $row;
 				$num_rows++;
 			}
 

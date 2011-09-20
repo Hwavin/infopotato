@@ -82,11 +82,8 @@ class SQLite_DAO extends Base_DAO {
 		// Initialize return flag
 		$return_val = 0;
 
-		// Flush cached values..
-		$this->flush();
-
-		// Keep track of the last query for debug.
-		$this->last_query = $query;
+		// Reset stored query result
+		$this->query_result = array();
 
 		// Executes a query against a given database and returns a result handle (resource)
 		$result = sqlite_query($this->dbh, $query);
@@ -114,7 +111,7 @@ class SQLite_DAO extends Base_DAO {
 			while ($row = sqlite_fetch_array($result, SQLITE_ASSOC)) {
 				// Store relults as an objects within main array
 				$obj = (object) $row; //convert to object
-				$this->last_result[$num_rows] = $obj;
+				$this->query_result[$num_rows] = $obj;
 				$num_rows++;
 			}
 
