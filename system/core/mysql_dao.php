@@ -40,7 +40,7 @@ class MySQL_DAO extends Base_DAO {
 				if ( ! empty($config['collate'])) {
 					$collation_query .= " COLLATE '{$config['collate']}'";
 				}
-				$this->query($collation_query);
+				$this->exec_query($collation_query);
 			}
 			
 			if ( ! mysql_select_db($config['name'], $this->dbh)) {
@@ -83,11 +83,11 @@ class MySQL_DAO extends Base_DAO {
 	} 
 	
 	/**
-	 * Perform MySQL query and try to determine result value
+	 * Perform a unique query (multiple queries are not supported) and try to determine result value
 	 *
 	 * @return int Number of rows affected/selected
 	 */
-	public function query($query) {
+	public function exec_query($query) {
 		$return_val = 0;
 
 		// Reset stored query result
@@ -116,6 +116,8 @@ class MySQL_DAO extends Base_DAO {
 			$rows_affected = mysql_affected_rows($this->dbh);
 
 			// Take note of the last_insert_id
+			// REPLACE works exactly like INSERT, except that if an old row in the table has the same value 
+			// as a new row for a PRIMARY KEY or a UNIQUE index, the old row is deleted before the new row is inserted.
 			if (preg_match("/^(insert|replace)\s+/i", $query)) {
 				$this->last_insert_id = mysql_insert_id($this->dbh);
 			}

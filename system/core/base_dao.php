@@ -62,10 +62,11 @@ class Base_DAO {
 	/**
 	 * Perform SQL query and try to determine result value
 	 * Overridden by specific DB class
+	 * The query string should not end with a semicolon
 	 *
 	 * @return int Number of rows affected/selected or false on error
 	 */
-	public function query($query) {}
+	public function exec_query($query) {}
 
 	/**
 	 * Returns the current date and time, e.g., 2006-04-12 13:47:46
@@ -88,7 +89,7 @@ class Base_DAO {
 	 */
 	public function get_var($query = NULL, $x = 0, $y = 0) {
 		if ($query) {
-		    $this->query($query);
+		    $this->exec_query($query);
 		}
 		
 		// Extract var out of query results based x,y vals
@@ -109,17 +110,27 @@ class Base_DAO {
 	 * @return mixed Database query result in format specifed by $output
 	 */
 	public function get_row($query, $output = OBJECT, $y = 0) {
-		$this->query($query);
+		$return_val = NULL;
 		
-		if ($output == OBJECT) {
-			return $this->query_result[$y] ? $this->query_result[$y] : NULL;
-		} elseif ($output == ARRAY_A) {
-			return $this->query_result[$y] ? get_object_vars($this->query_result[$y]) : NULL;
-		} elseif ($output == ARRAY_N) {
-			return $this->query_result[$y] ? array_values(get_object_vars($this->query_result[$y])) : NULL;
-		} else {
-			halt('A System Error Was Encountered', " \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N", 'sys_error');
+		$this->exec_query($query);
+		
+		if ($this->query_result !== array()) {
+		    if ($y >= count($this->query_result)) {
+				halt('A System Error Was Encountered', 'The offset you specified overflows', 'sys_error');
+			}
+			
+			if ($output == OBJECT) {
+				$return_val = $this->query_result[$y];
+			} elseif ($output == ARRAY_A) {
+				$return_val = get_object_vars($this->query_result[$y]);
+			} elseif ($output == ARRAY_N) {
+				$return_val = array_values(get_object_vars($this->query_result[$y]));
+			} else {
+				halt('A System Error Was Encountered', " \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N", 'sys_error');
+			}
 		}
+		
+		return $return_val;
 	}
 
 	/**
@@ -133,7 +144,7 @@ class Base_DAO {
 	 * @return array Database query result.  Array indexed from 0 by SQL result row number.
 	 */
 	public function get_col($query, $x = 0) {
-		$this->query($query);
+		$this->exec_query($query);
 		
 		$new_array = array();
 		// Extract the column values
@@ -155,11 +166,13 @@ class Base_DAO {
 	 * @return mixed Database query results
 	 */
 	public function get_results($query, $output = OBJECT) {
-		$this->query($query);
+		$return_val = NULL;
+		
+		$this->exec_query($query);
 		
 		// Send back array of objects. Each row is an object
 		if ($output == OBJECT) {
-			return $this->query_result;
+			$return_val = $this->query_result;
 		} elseif ($output == ARRAY_A || $output == ARRAY_N) {
 			if ($this->query_result) {
 				$i = 0;
@@ -172,11 +185,11 @@ class Base_DAO {
 					}
 					$i++;
 				}
-				return $new_array;
-			} else {
-				return NULL;
+				$return_val = $new_array;
 			}
 		}
+		
+		return $return_val;
 	}
 
 	/**

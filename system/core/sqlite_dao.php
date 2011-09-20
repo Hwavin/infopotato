@@ -71,11 +71,11 @@ class SQLite_DAO extends Base_DAO {
 	} 
 	
 	/**
-	 * Perform query and try to determine result value
+	 * Perform a unique query (multiple queries are not supported) and try to determine result value
 	 *
 	 * @return int Number of rows affected/selected
 	 */
-	public function query($query) {
+	public function exec_query($query) {
 		// For reg exp
 		$query = str_replace("/[\n\r]/", '', trim($query)); 
 
@@ -99,6 +99,8 @@ class SQLite_DAO extends Base_DAO {
 			$rows_affected = sqlite_changes($this->dbh);
 			
 			// Take note of the last_insert_id
+			// REPLACE works exactly like INSERT, except that if an old row in the table has the same value 
+			// as a new row for a PRIMARY KEY or a UNIQUE index, the old row is deleted before the new row is inserted.
 			if (preg_match("/^(insert|replace)\s+/i", $query)) {
 				$this->last_insert_id = sqlite_last_insert_rowid($this->dbh);	
 			}

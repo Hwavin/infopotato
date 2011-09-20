@@ -36,7 +36,7 @@ final class World_Manager extends Manager {
 	}
 	
 	public function get_example7() {
-		$result = $this->w->example7('Pittsburgh-haha', 1);
+		$result = $this->w->example7('Pittsburgh-haha', 4080);
 		dump($result);
 	}
 	
@@ -47,6 +47,31 @@ final class World_Manager extends Manager {
 	
 	public function get_example9() {
 		$result = $this->w->example9();
+		dump($result);
+	}
+	
+	public function get_example10() {
+		$result = $this->w->example10();
+		dump($result);
+	}
+	
+	public function get_example11() {
+		$result = $this->w->example11();
+		dump($result);
+	}
+	
+	public function get_example12() {
+		$result = $this->w->example12();
+		dump($result);
+	}
+	
+	public function get_example13() {
+		$result = $this->w->example13();
+		dump($result);
+	}
+	
+	public function get_example14() {
+		$result = $this->w->example14();
 		dump($result);
 	}
 }
