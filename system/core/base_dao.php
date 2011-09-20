@@ -87,17 +87,30 @@ class Base_DAO {
 	 * @param int $y (optional) Row of value to return.  Indexed from 0.
 	 * @return string Database query result
 	 */
-	public function get_var($query = NULL, $x = 0, $y = 0) {
+	public function get_var($query, $x = 0, $y = 0) {
+		$return_val = NULL;
+		
 		if ($query) {
 		    $this->exec_query($query);
 		}
 		
-		// Extract var out of query results based x,y vals
-		if ($this->query_result[$y]) {
+		if ($this->query_result !== array()) {
+		    if ($y >= count($this->query_result)) {
+				halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
+			}
+			
+			// Returns all the values from the input array and indexes numerically the array
 			$values = array_values(get_object_vars($this->query_result[$y]));
+			if ($x >= count($values)) {
+				halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
+			}
+			
+			if ($values[$x] !== '') {
+			    $return_val = $values[$x];
+			}
 		}
-		// If there is a value return it else return NULL
-		return (isset($values[$x]) && $values[$x] !== '') ? $values[$x] : NULL;
+		
+		return $return_val;
 	}
 
 	/**
@@ -116,7 +129,7 @@ class Base_DAO {
 		
 		if ($this->query_result !== array()) {
 		    if ($y >= count($this->query_result)) {
-				halt('A System Error Was Encountered', 'The offset you specified overflows', 'sys_error');
+				halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
 			}
 			
 			if ($output == OBJECT) {
