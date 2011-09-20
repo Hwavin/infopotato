@@ -148,7 +148,8 @@ class Base_DAO {
 		
 		$new_array = array();
 		// Extract the column values
-		for ($i = 0; $i < count($this->query_result); $i++) {
+		$cnt = count($this->query_result);
+		for ($i = 0; $i < $cnt; $i++) {
 			$new_array[$i] = $this->get_var(NULL, $x, $i);
 		}
 		return $new_array;
