@@ -75,7 +75,7 @@ class Base_DAO {
 	public function now() {}
 
 	/**
-	 * Gets one single variable from the database
+	 * Gets one single data cell from the database
 	 *
 	 * This function is very useful for evaluating query results within logic statements such as if or switch. 
 	 * If the query generates more than one row the first row will always be used by default.
@@ -87,7 +87,7 @@ class Base_DAO {
 	 * @param int $y (optional) Row of value to return.  Indexed from 0.
 	 * @return string Database query result
 	 */
-	public function get_var($query, $x = 0, $y = 0) {
+	public function get_cell($query, $x = 0, $y = 0) {
 		$return_val = '';
 		
 		if ($query) {
@@ -164,7 +164,7 @@ class Base_DAO {
 		// Extract the column values
 		$cnt = count($this->query_result);
 		for ($i = 0; $i < $cnt; $i++) {
-			$return_val[$i] = $this->get_var(NULL, $x, $i);
+			$return_val[$i] = $this->get_cell(NULL, $x, $i);
 		}
 		
 		return $return_val;

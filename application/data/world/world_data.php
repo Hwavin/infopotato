@@ -26,12 +26,12 @@ class World_Data extends Data {
 	
 	public function example5() { 
 		$sql = "SELECT * FROM city";
-		return $this->db->get_var($sql, 1, 4);
+		return $this->db->get_cell($sql, 1, 4);
 	}
 	
 	public function example6($name) { 
 		$sql = $this->db->prepare("SELECT * FROM city WHERE Name=?", array($name));
-		return $this->db->get_var($sql);
+		return $this->db->get_cell($sql);
 	}
 	
 	public function example7($name, $id) { 
@@ -55,7 +55,7 @@ class World_Data extends Data {
 	
 	public function example10() { 
 		$sql = "SELECT COUNT(*) FROM city";
-		return $this->db->get_var($sql);
+		return $this->db->get_cell($sql);
 	}
 	
 	public function example11() { 
