@@ -63,7 +63,6 @@ function auto_load($class_name) {
         $file = APP_MANAGER_DIR.$class_name.'.php';
     }
     require_once $file;
-    return;
 } 
 // PHP 5 >= 5.1.2
 spl_autoload_register('auto_load');
