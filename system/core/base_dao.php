@@ -137,7 +137,7 @@ class Base_DAO {
 			} elseif ($output == FETCH_NUM) {
 				$return_val = array_values(get_object_vars($this->query_result[$y]));
 			} else {
-				halt('A System Error Was Encountered', " \$db->get_row(string query, output type, int offset) -- Output type must be one of: FETCH_OBJ, FETCH_ASSOC, FETCH_NUM", 'sys_error');
+				halt('A System Error Was Encountered', " \$db->get_row() -- Output type must be one of: FETCH_OBJ, FETCH_ASSOC, FETCH_NUM", 'sys_error');
 			}
 		}
 		
