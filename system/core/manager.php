@@ -333,37 +333,33 @@ class Manager {
 		}
 		
 		// Library already loaded? silently skip
-		if (isset($this->$alias)) {
-			return TRUE;
-		}
-		
-		if ($scope === 'SYS') {
+		if ( ! isset($this->$alias)) {
+			if ($scope === 'SYS') {
+				$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
+			} elseif ($scope === 'APP') {
+				$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
+			} else {
+				halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
+			}
+			
 			$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
-		} elseif ($scope === 'APP') {
-			$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
-		} else {
-			halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
-		}
-		
-		$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
 
-		if ( ! file_exists($file_path)) {
-			halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
-		}
-		require_once $file_path;
-		
-		// Class name must be the same as the library name
-		if ( ! class_exists($library)) {
-			halt('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
-		}
+			if ( ! file_exists($file_path)) {
+				halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
+			}
+			require_once $file_path;
+			
+			// Class name must be the same as the library name
+			if ( ! class_exists($library)) {
+				halt('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
+			}
 
-		// Instantiate the library object as a manager's property 
-		// An empty array is considered as a NULL variable
-		// The names of user-defined classes are case-insensitive
-		// Don't create static properties or methods for library
-		$this->{$alias} = new $library($config);
-		
-		return TRUE;
+			// Instantiate the library object as a manager's property 
+			// An empty array is considered as a NULL variable
+			// The names of user-defined classes are case-insensitive
+			// Don't create static properties or methods for library
+			$this->{$alias} = new $library($config);
+		}
 	}
 	
 	/**
