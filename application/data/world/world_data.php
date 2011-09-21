@@ -77,6 +77,11 @@ class World_Data extends Data {
 		$sql = "SELECT * FROM city";
 		return $this->db->get_row($sql);
 	}
+	
+	public function example15() { 
+		$sql = "SELECT * FROM city";
+		return $this->db->get_col($sql, 3);
+	}
 }
 
 /* End of file: ./application/data/users_data.php */

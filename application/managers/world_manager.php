@@ -74,6 +74,11 @@ final class World_Manager extends Manager {
 		$result = $this->w->example14();
 		dump($result);
 	}
+	
+	public function get_example15() {
+		$result = $this->w->example15();
+		dump($result);
+	}
 }
 
 // End of file: ./application/managers/world_manager.php

@@ -90,9 +90,7 @@ class Base_DAO {
 	public function get_cell($query, $x = 0, $y = 0) {
 		$return_val = '';
 		
-		if ($query) {
-		    $this->exec_query($query);
-		}
+		$this->exec_query($query);
 		
 		if ($this->query_result !== array()) {
 		    if ($y >= count($this->query_result)) {
@@ -118,7 +116,7 @@ class Base_DAO {
 	 * If the query returns more than one row and no row offset is supplied the first row within the results set will be returned by default.
 	 *
 	 * @param string $query SQL query.
-	 * @param string $output (optional) one of FETCH_ASSOC | FETCH_NUM | FETCH_OBJ constants.  Return an associative array (column => value, ...), a numerically indexed array (0 => value, ...) or an object ( ->column = value ), respectively.
+	 * @param string $output (optional) one of FETCH_ASSOC | FETCH_NUM | FETCH_OBJ constants.  
 	 * @param int $y (optional) Row to return if the query returns more than one row.  Indexed from 0.
 	 * @return mixed Database query result in format specifed by $output
 	 */
@@ -161,12 +159,23 @@ class Base_DAO {
 		
 		$this->exec_query($query);
 		
-		// Extract the column values
-		$cnt = count($this->query_result);
-		for ($i = 0; $i < $cnt; $i++) {
-			$return_val[$i] = $this->get_cell(NULL, $x, $i);
+		if ($this->query_result !== array()) {
+            // Extract the column values
+		    $cnt = count($this->query_result);
+
+			if ($x >= count(get_object_vars($this->query_result[0]))) {
+				halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
+			}
+				
+			for ($i = 0; $i < $cnt; $i++) {
+				// Returns all the values from the input array and indexes numerically the array
+				$values = array_values(get_object_vars($this->query_result[$i]));
+				if ($values[$x] !== '') {
+					$return_val[$i] = $values[$x];
+				}
+			}
 		}
-		
+
 		return $return_val;
 	}
 
