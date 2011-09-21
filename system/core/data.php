@@ -38,14 +38,15 @@ class Data {
 	 */
 	private static function _create_db_obj($connection) {
 		static $db_obj = array();
-		// Parse the connection string
-		$conn = explode(':', $connection);
-			
+		
 		if (isset($db_obj[$connection])) {
 			// Returns object from runtime cache
 			return $db_obj[$connection];
 		}
 		
+		// Parse the connection string
+		$conn = explode(':', $connection);
+
 		if ( ! empty($conn)) {
 			// Load data source config
 			$data_source = require_once APP_CONFIG_DIR.'data_source.php';
