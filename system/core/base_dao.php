@@ -182,7 +182,7 @@ class Base_DAO {
 	 * @return mixed Database query results
 	 */
 	public function get_results($query, $output = FETCH_OBJ) {
-		$return_val = NULL;
+		$return_val = array();
 		
 		$this->exec_query($query);
 		
@@ -194,14 +194,13 @@ class Base_DAO {
 				$i = 0;
 				// $row is object
 				foreach($this->query_result as $row) {
-					$new_array[$i] = get_object_vars($row);
+					$return_val[$i] = get_object_vars($row);
 
 					if ($output == FETCH_NUM) {
-						$new_array[$i] = array_values($new_array[$i]);
+						$return_val[$i] = array_values($return_val[$i]);
 					}
 					$i++;
 				}
-				$return_val = $new_array;
 			}
 		}
 		
