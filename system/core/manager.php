@@ -273,27 +273,23 @@ class Manager {
 		}
 		
 		// Data already loaded? silently skip
-		if (isset($this->$alias)) {
-			return TRUE;
+		if ( ! isset($this->$alias)) {
+			$file_path = APP_DATA_DIR.$path.$data.'.php';
+
+			if ( ! file_exists($file_path)) {
+				halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
+			}
+			require_once $file_path;
+
+			// Class name must be the same as the data name
+			if ( ! class_exists($data)) {
+				halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
+			}
+
+			// Instantiate the data object as a worker's property 
+			// The names of user-defined classes are case-insensitive
+			$this->{$alias} = new $data;
 		}
-
-		$file_path = APP_DATA_DIR.$path.$data.'.php';
-
-		if ( ! file_exists($file_path)) {
-			halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
-		}
-		require_once $file_path;
-
-		// Class name must be the same as the data name
-		if ( ! class_exists($data)) {
-			halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
-		}
-
-		// Instantiate the data object as a worker's property 
-		// The names of user-defined classes are case-insensitive
-		$this->{$alias} = new $data;
-
-		return TRUE;	
 	}
 
 	/**
