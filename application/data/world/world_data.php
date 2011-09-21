@@ -6,17 +6,17 @@ class World_Data extends Data {
 
 	public function example1() { 
 		$sql = "SELECT * FROM city";
-		return $this->db->get_results($sql, ARRAY_A);
+		return $this->db->get_results($sql, FETCH_ASSOC);
 	}
 	
 	public function example2($name) { 
 		$sql = $this->db->prepare("SELECT * FROM city WHERE Name=?", array($name));
-		return $this->db->get_row($sql, ARRAY_A);
+		return $this->db->get_row($sql, FETCH_ASSOC);
 	}
 	
 	public function example3() { 
 		$sql = "SELECT * FROM city";
-		return $this->db->get_row($sql, ARRAY_A, 2);
+		return $this->db->get_row($sql, FETCH_ASSOC, 2);
 	}
 	
 	public function example4($name) { 
