@@ -18,6 +18,15 @@
 Templates serve as the presentation layer of InfoPotato. A template is a PHP script consisting of mainly elements of user interface (e.g., an HTML page fragment, an XML document, a serialized JSON array). In fact, templates can flexibly be embedded within other templates (within other templates, etc., etc.) if you need this type of hierarchy. It can contain PHP variables and statements, but it is recommended that these statements should remain relatively simple. For the spirit of separation of logic and presentation, large chunk of logic should be placed in manager instead of template.
 </p>
 
+<p>
+If you have a closer look at this website, you will notice that much of each page looks the same. You already know that code duplication is bad, whether we are talking about HTML or PHP code, so we need to find a way to prevent these common template elements from resulting in code duplication. One way to solve the problem is to define a layout templage and render each page content as an embeded section of the layout.
+</p>
+
+<div class="content_image"> 
+<p><strong>A sample template structure: Layout + Page Content</strong></p> 
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/template.png" alt="Template" /> 
+</div> 
+
 <p>Templates are never called directly, they must be loaded by a manager. Remember that in InfoPotato, the manager acts as the traffic cop, so it is responsible for loading and rendering a particular template.</p> 
  
 <div class="notebox">

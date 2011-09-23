@@ -24,7 +24,7 @@
 </div>
 
 <p>
-Before we start, I would like to spend some time talking about ORM. Many other PHP frameworks support ORM (e.g., Doctrine), but the most obvious problem with ORM as an abstraction is that it does not adequately abstract away the implementation details. The documentation of all the major ORM libraries is rife with references to SQL concepts. Some introduce them without indicating their equivalents in SQL, while others treat the library as merely a set of procedural functions for generating SQL. InfoPotato aims to be simple and enable you to store and retrive your data in creative ways. The developers are encouraged to write raw SQL queries to work with RDBMS.
+Before we jump in head first, I would like to talk about ORM. Many other PHP frameworks support ORM (e.g., Doctrine), but the most obvious problem with ORM as an abstraction is that it does not adequately abstract away the implementation details. The documentation of all the major ORM libraries is rife with references to SQL concepts. Some introduce them without indicating their equivalents in SQL, while others treat the library as merely a set of procedural functions for generating SQL. InfoPotato aims to be simple and enable you to store and retrive your data in creative ways. The developers are encouraged to write raw SQL queries to work with RDBMS.
 </p>
 
 <h2>InfoPotato's Way</h2>
@@ -129,12 +129,12 @@ You can define multi connections for each DAO.
 <span class="p">}</span>
 </pre></div> 
   
-<h3>$this->db->get_results() - Get multiple row result set from the database</h3>
+<h3>$this->db->get_all() - Get multiple row result set from the database</h3>
 
 <div class="syntax"><pre>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">get_districts</span><span class="p">()</span> <span class="p">{</span> 
     <span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM districts&quot;</span><span class="p">;</span> 
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$districts</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_results</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="nx">FETCH_ASSOC</span><span class="p">))</span> <span class="p">{</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$districts</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">get_all</span><span class="p">(</span><span class="nv">$sql</span><span class="p">,</span> <span class="nx">FETCH_ASSOC</span><span class="p">))</span> <span class="p">{</span> 
         <span class="k">return</span> <span class="nv">$districts</span><span class="p">;</span> 
     <span class="p">}</span> 
 <span class="p">}</span> 

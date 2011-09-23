@@ -25,6 +25,11 @@ To demonstrate the power and ease of InfoPotato, we'll provide the following tut
 <h2><a href="<?php echo APP_URI_BASE; ?>documentation/tutorial/form_validation/">Client-side and server-side form validation</a></h2> 
 </div>
 
+<div class="tutorials_item"> 
+<h2><a href="<?php echo APP_URI_BASE; ?>documentation/tutorial/innodb_vs_myisam/">MySQL Engines: InnoDB vs. MyISAM&mdash;A Comparison of Pros and Cons</a></h2> 
+</div>
+
+
 </div> 
 
 </div> 
