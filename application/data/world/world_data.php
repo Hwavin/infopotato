@@ -6,7 +6,7 @@ class World_Data extends Data {
 
 	public function example1() { 
 		$sql = "SELECT * FROM city";
-		return $this->db->get_results($sql, FETCH_ASSOC);
+		return $this->db->get_all($sql, FETCH_ASSOC);
 	}
 	
 	public function example2($name) { 
@@ -60,17 +60,17 @@ class World_Data extends Data {
 	
 	public function example11() { 
 		$sql = "SHOW TABLES";
-		return $this->db->get_results($sql);
+		return $this->db->get_all($sql);
 	}
 	
 	public function example12() { 
 		$sql = "DESCRIBE City";
-		return $this->db->get_results($sql);
+		return $this->db->get_all($sql);
 	}
 	
 	public function example13() { 
 		$sql = "EXPLAIN City";
-		return $this->db->get_results($sql);
+		return $this->db->get_all($sql);
 	}
 	
 	public function example14() { 

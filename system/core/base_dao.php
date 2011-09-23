@@ -190,7 +190,7 @@ class Base_DAO {
 	 * @param string $output (optional) ane of FETCH_ASSOC | FETCH_ASSOC | FETCH_OBJ constants.  
 	 * @return mixed Database query results
 	 */
-	public function get_results($query, $output = FETCH_OBJ) {
+	public function get_all($query, $output = FETCH_OBJ) {
 		$return_val = array();
 		
 		$this->exec_query($query);
