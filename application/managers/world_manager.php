@@ -5,6 +5,15 @@ final class World_Manager extends Manager {
 		$this->load_data('world/world_data', 'w');
 	}
 	
+	public function get_index() {
+	    $this->get_example1();
+		$this->get_example2();
+		$this->get_example3();
+		$this->get_example4();
+		$this->get_example5();
+		$this->get_example6();
+	}
+	
 	public function get_example1() {
 		$result = $this->w->example1();
 		dump($result);

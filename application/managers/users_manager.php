@@ -7,8 +7,10 @@ final class Users_Manager extends Manager {
 		$users_info = $this->u->get_users_info();
 
 		dump($user_info);
-		echo '==========//////////////////////////////////////////////////===========';
+
 		dump($users_info);
+		
+		dump($this->u);
 	}
 }
 

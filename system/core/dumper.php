@@ -34,15 +34,21 @@ class Dumper {
 	public static $xml_CDATA;
 	public static $xml_SDATA;
 	public static $xml_DDATA;
-	public static $xml_count = 0;
+	public static $xml_count;
 	public static $xml_attrib;
 	public static $xml_name;
-	public static $arr_type = array('array', 'object', 'resource', 'boolean', 'NULL');
-	public static $collapsed = FALSE;
-	public static $arr_history = array();
+	public static $arr_type;
+	public static $collapsed;
+	public static $initialized;
+	public static $arr_history;
 	
-
 	public static function dump($var, $force_type = '', $collapsed = FALSE) {
+	    self::$xml_count = 0;
+	    self::$arr_type = array('array', 'object', 'resource', 'boolean', 'NULL');
+	    self::$collapsed = FALSE;
+	    self::$initialized = FALSE;
+	    self::$arr_history = array();
+		
 		// Only include js and css scripts once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
@@ -69,8 +75,53 @@ class Dumper {
 		}
 	}
 
+	// Get variable info
+	public static function get_var_info() {
+		$return_val = array();
+		
+		$trace = debug_backtrace();
+        $cnt = count($trace);
+		
+		// Possible 'included' functions
+		$include = array('include', 'include_once', 'require', 'require_once');
+		
+		// Check for any included/required files. if found, get array of the last included file (they contain the right line numbers)
+		for ($i = $cnt - 1; $i >= 0; $i--) {
+			$current = $trace[$i];
+			if (array_key_exists('function', $current) && (in_array($current['function'], $include) || (0 != strcasecmp($current['function'], 'dump')))) {
+				continue;
+            }
+			
+			$file = $current;
+			break;
+		}
+		
+		if (isset($file)) {
+			$lines = file($file['file']);
+			$code = $lines[($file['line'] - 1)];
+	
+			// Find call to dump()
+			preg_match('/\bdump\s*\(\s*(.+)\s*\);/i', $code, $matches);
+			
+			// Returned var info: var_name, file_name, line_number
+			$return_val['var_name'] = $matches[1];
+			$return_val['file_name'] = str_replace('\\', '/', $file['file']);
+		    $return_val['line_number'] = $file['line'];
+		}
+		
+		return $return_val;
+	}
+	
 	// Create the main table header, can't show the variable name
 	public static function make_table_header($type, $header, $colspan = 2) {
+		$var_info = self::get_var_info();
+		if ($var_info !== array()) {
+		    if( ! self::$initialized) {
+				$header = "{$var_info['var_name']} ($header) <span class=\"dump_file_n_line\">{$var_info['file_name']} - line {$var_info['line_number']}</span>";
+				self::$initialized = TRUE;
+			}
+		}
+
 		$str_i = (self::$collapsed) ? "style=\"font-style:italic\" " : ''; 
 		
 		echo "<table cellspacing=\"2\" cellpadding=\"3\" class=\"dump_".$type."\">
@@ -176,7 +227,6 @@ class Dumper {
 		if (is_object($var)) {
 			$arr_obj_vars = get_object_vars($var);
 			foreach ($arr_obj_vars as $key => $value) {
-
 				$value = ( ! is_object($value) && ! is_array($value) && trim($value) == '') ? '[empty string]' : $value;
 				self::make_td_header('object', $key);
 				
@@ -444,7 +494,7 @@ class Dumper {
 				.dump_resourceC_header,
 				.dump_xml_header 
 					{ font-weight:bold; color:#fff; cursor:pointer; }
-				
+				.dump_file_n_line {font-weight:normal;}
 				.dump_array_key,
 				.dump_object_key,
 				.dump_xml_key
