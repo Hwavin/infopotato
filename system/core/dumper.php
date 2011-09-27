@@ -43,41 +43,37 @@ class Dumper {
 	public static $arr_history;
 	
 	public static function dump($var, $force_type = '', $collapsed = FALSE) {
-	    self::$xml_count = 0;
+	    // Reseet the settings each time dump() is called
+		self::$xml_count = 0;
 	    self::$arr_type = array('array', 'object', 'resource', 'boolean', 'NULL');
 	    self::$collapsed = FALSE;
 	    self::$initialized = FALSE;
 	    self::$arr_history = array();
+
+		// Enable collapse of tables when initiated.
+		self::$collapsed = $collapsed;
 		
-		// Only include js and css scripts once if DUMP_INIT is TRUE
+		// Include js and css scripts only once if DUMP_INIT is TRUE
 		if ( ! defined('DUMP_INIT')) {
 			define('DUMP_INIT', TRUE);
 			self::init_js_and_css();
 		}
-		// Enable collapse of tables when initiated.
-		self::$collapsed = $collapsed;
 		
-		switch (strtolower($force_type)) {
-			case 'array':
-				self::var_is_array($var);
-				break;
-			
-			case 'object':
-				self::var_is_object($var);
-				break;
-			
-			case 'xml':
-				self::var_is_xml_resource($var);
-				break;
-			
-			default:
-				self::check_type($var);
+		if ($force_type === '') {
+		    self::check_type($var);
+		} else {
+		    // $force_type is REQUIRED for dumping an xml string or xml file
+		    if (strtolower($force_type) === 'xml') {
+		        self::var_is_xml_resource($var);
+		    } else {
+			    die('Only xml is allowed as force type');
+			}
 		}
 	}
 
 	// Get variable info
 	public static function get_var_info() {
-		$return_val = array();
+		$var_info = array();
 		
 		$trace = debug_backtrace();
         $cnt = count($trace);
@@ -104,12 +100,12 @@ class Dumper {
 			preg_match('/\bdump\s*\(\s*(.+)\s*\);/i', $code, $matches);
 			
 			// Returned var info: var_name, file_name, line_number
-			$return_val['var_name'] = $matches[1];
-			$return_val['file_name'] = str_replace('\\', '/', $file['file']);
-		    $return_val['line_number'] = $file['line'];
+			$var_info['var_name'] = $matches[1];
+			$var_info['file_name'] = str_replace('\\', '/', $file['file']);
+		    $var_info['line_number'] = $file['line'];
 		}
 		
-		return $return_val;
+		return $var_info;
 	}
 	
 	// Create the main table header, can't show the variable name
@@ -117,40 +113,30 @@ class Dumper {
 		$var_info = self::get_var_info();
 		if ($var_info !== array()) {
 		    if( ! self::$initialized) {
-				$header = "{$var_info['var_name']} ($header) <span class=\"dump_file_n_line\">{$var_info['file_name']} - line {$var_info['line_number']}</span>";
+				$header = $var_info['var_name'].' ('.$header.') <span class="dump_file_n_line">'.$var_info['file_name'].' - line '.$var_info['line_number'].'</span>';
 				self::$initialized = TRUE;
 			}
 		}
 
-		$str_i = (self::$collapsed) ? "style=\"font-style:italic\" " : ''; 
+		$str_i = (self::$collapsed) ? 'style="font-style:italic" ' : ''; 
 		
-		echo "<table cellspacing=\"2\" cellpadding=\"3\" class=\"dump_".$type."\">
-				<tr>
-					<td ".$str_i."class=\"dump_".$type."_header\" colspan=".$colspan." onClick='dump_toggle_table(this)'>".$header."</td>
-				</tr>";
+		echo '<table cellspacing="1" cellpadding="2" class="dump_'.$type.'"><tr><td '.$str_i.'class="dump_'.$type.'_header" colspan="'.$colspan.'" onClick="dump_toggle_table(this)">'.$header.'</td></tr>';
 	}
 	
 	// Create the table row header
 	public static function make_td_header($type, $header) {
-		$str_d = (self::$collapsed) ? " style=\"display:none\"" : '';
-		echo "<tr".$str_d.">
-				<td valign=\"top\" onClick='dump_toggle_row(this)' class=\"dump_".$type."_key\">".$header."</td>
-				<td>";
+		$str_d = (self::$collapsed) ? ' style="display:none"' : '';
+		echo '<tr'.$str_d.'><td valign="top" onClick="dump_toggle_row(this)" class="dump_'.$type.'_key">'.$header.'</td><td>';
 	}
 	
 	// Close table row
 	public static function close_td_row() {
-		return "</td></tr>\n";
+		echo '</td></tr>';
 	}
 	
 	// Display error
 	public static function  error($type) {
-		$error = 'Error: Variable cannot be a';
-		// This just checks if the type starts with a vowel or "x" and displays either "a" or "an"
-		if (in_array(substr($type, 0, 1), array('a', 'e', 'i', 'o', 'u', 'x'))) {
-			$error .= 'n';
-		}
-		return ($error.' '.$type.' type');
+		return 'Error: Variable cannot be '.$type.' type';
 	}
 
 	// Check variable type
@@ -168,22 +154,47 @@ class Dumper {
 		} elseif (is_null($var)) {
 			self::var_is_null();
 		} elseif (is_bool($var)) {
-			self::var_is_boolean($var);
-		} else {
-			$var = ($var == '') ? '[empty string]' : $var;
-			echo "<table cellspacing = \"0\"><tr>\n<td>".$var."</td>\n</tr>\n</table>\n";
+			self::var_is_bool($var);
+		} elseif (is_string($var)) {
+			self::var_is_string($var);
+		} elseif (is_int($var)) {
+			self::var_is_int($var);
+		} elseif (is_double($var)) {
+			self::var_is_double($var);
 		}
 	}
 	
-	// If variable is a NULL type
+	
 	public static function var_is_null() {
-		echo 'NULL';
+		self::make_table_header('object', 'NULL');
+		self::make_td_header('object', 'NULL');
+		self::close_td_row();
 	}
 	
-	// If variable is a boolean type
-	public static function var_is_boolean($var) {
-		$var = ($var === 1) ? 'TRUE' : 'FALSE';
-		echo $var;
+	public static function var_is_string($var) {
+		$var = ($var == '') ? '[empty string]' : $var;
+		self::make_table_header('object', 'string '.strlen($var));
+		self::make_td_header('object', $var);
+		self::close_td_row();
+	}
+	
+	public static function var_is_int($var) {
+		self::make_table_header('object', 'integer');
+		self::make_td_header('object', $var);
+		self::close_td_row();
+	}
+	
+	public static function var_is_double($var) {
+		self::make_table_header('object', 'double');
+		self::make_td_header('object', $var);
+		self::close_td_row();
+	}
+	
+	public static function var_is_bool($var) {
+		$var = ($var === TRUE) ? 'TRUE' : 'FALSE';
+		self::make_table_header('object', 'bool');
+		self::make_td_header('object', $var);
+		self::close_td_row();
 	}
 			
 	// If variable is an array type
@@ -209,10 +220,11 @@ class Dumper {
 					$value = (trim($value) == '') ? '[empty string]' : $value;
 					echo $value;
 				}
-				echo self::close_td_row();
+				self::close_td_row();
 			}
 		} else {
-			echo '<tr><td>'.self::error('array').self::close_td_row();
+			echo '<tr><td>'.self::error('array');
+			self::close_td_row();
 		}
 		array_pop(self::$arr_history);
 		echo '</table>';
@@ -235,7 +247,6 @@ class Dumper {
 					$var_ser = serialize($value);
 					if (in_array($var_ser, self::$arr_history, TRUE)) {
 						$value = (is_object($value)) ? "*RECURSION* -> $".get_class($value) : "*RECURSION*";
-
 					}
 				}
 				if (in_array(gettype($value), self::$arr_type)) {
@@ -243,15 +254,17 @@ class Dumper {
 				} else {
 					echo $value;
 				}
-				echo self::close_td_row();
+				self::close_td_row();
 			}
 			$arr_obj_methods = get_class_methods(get_class($var));
 			foreach ($arr_obj_methods as $key => $value) {
 				self::make_td_header('object', $value);
-				echo '[method]'.self::close_td_row();
+				echo '[method]';
+				self::close_td_row();
 			}
 		} else {
-			echo '<tr><td>'.self::error('object').self::close_td_row();
+			echo '<tr><td>'.self::error('object');
+			self::close_td_row();
 		}
 		array_pop(self::$arr_history);
 		echo '</table>';
@@ -260,7 +273,7 @@ class Dumper {
 	// If variable is a resource type
 	public static function var_is_resource($var) {
 		self::make_table_header('resourceC', 'resource', 1);
-		echo "<tr>\n<td>\n";
+		echo '<tr><td>';
 		switch (get_resource_type($var)) {
 			case 'mysql result':
 			case 'pgsql result':
@@ -275,12 +288,9 @@ class Dumper {
 			case 'xml':
 				self::var_is_xml_resource($var);
 				break;
-			
-			default:
-				echo get_resource_type($var).self::close_td_row();
-				break;
 		}
-		echo self::close_td_row()."</table>\n";
+		self::close_td_row();
+		echo '</table>';
 	}
 	
 	//if variable is a database resource type
@@ -292,7 +302,7 @@ class Dumper {
 		$num_rows = call_user_func($db.'_num_rows', $var);
 		$num_fields = call_user_func($db.'_num_fields', $var);
 		self::make_table_header("resource", $db." result", $num_fields + 1);
-		echo "<tr><td class=\"dump_resource_key\">&nbsp;</td>";
+		echo '<tr><td class="dump_resource_key">&nbsp;</td>';
 		for ($i = 0; $i < $num_fields; $i++) {
 			$field_header = '';
 			for ($j = 0; $j < count($arr_fields); $j++) {
@@ -307,23 +317,22 @@ class Dumper {
 				}
 			}
 			$field[$i] = call_user_func($db.'_fetch_field', $var, $i);
-			echo "<td class=\"dump_resource_key\" title=\"".$field_header."\">".$field_name."</td>";
+			echo '<td class="dump_resource_key" title="'.$field_header.'">'.$field_name.'</td>';
 		}
 		echo '</tr>';
 		for ($i = 0; $i < $num_rows; $i++) {
 			$row = call_user_func($db.'_fetch_array', $var, constant(strtoupper($db).'_ASSOC'));
-			echo "<tr>\n";
-			echo "<td class=\"dump_resource_key\">".($i+1)."</td>"; 
+			$out .= '<tr><td class="dump_resource_key">'.($i+1).'</td>'; 
 			for ($k = 0; $k < $num_fields; $k++) {
 				$tempField = $field[$k]->name;
 				$field_row = $row[($field[$k]->name)];
 				$field_row = ($field_row == '') ? "[empty string]" : $field_row;
-				echo "<td>".$field_row."</td>\n";
+				echo '<td>'.$field_row.'</td>';
 			}
-			echo "</tr>\n";
+			echo '</tr>';
 		}
 		echo '</table>';
-		if ($num_rows>0) {
+		if ($num_rows > 0) {
 			call_user_func($db.'_data_seek', $var, 0);
 		}
 	}
@@ -332,11 +341,11 @@ class Dumper {
 	public static function var_is_gd_resource($var) {
 		self::make_table_header('resource', 'gd', 2);
 		self::make_td_header('resource', 'Width');
-		echo imagesx($var).self::close_td_row();
+		imagesx($var).self::close_td_row();
 		self::make_td_header('resource', 'Height');
-		echo imagesy($var).self::close_td_row();
+		imagesy($var).self::close_td_row();
 		self::make_td_header('resource', 'Colors');
-		echo imagecolorstotal($var).self::close_td_row();
+		imagecolorstotal($var).self::close_td_row();
 		echo '</table>';
 	}
 
@@ -352,28 +361,31 @@ class Dumper {
 		self::make_td_header('xml', 'Root');
 		
 		// Attempt to open xml file
-		$xml_file = ( ! ($fp = @fopen($var, "r"))) ? FALSE : TRUE;
+		$xml_file = ( ! ($fp = @fopen($var, 'r'))) ? FALSE : TRUE;
 		
 		// Read xml file, if xml is not a file, attempt to read it as a string
 		if ($xml_file) {
-			while ($data = str_replace("\n", '', fread($fp, 4096)))
+			while ($data = str_replace("\n", '', fread($fp, 4096))) {
 				self::xml_parse($xml_parser, $data, feof($fp));
+			}
 		} else {
 			if ( ! is_string($var)) {
-				echo self::error('xml').self::close_td_row()."</table>\n";
+				echo self::error('xml');
+				self::close_td_row();
+				echo '</table>';
 				return;
 			}
 			$data = $var;
 			self::xml_parse($xml_parser, $data, 1);
 		}
 		
-		echo self::close_td_row()."</table>\n";
-		
+		self::close_td_row();
+		echo '</table>';
 	}
 	
 	// Parse xml
-	public static function xml_parse($xml_parser, $data, $bFinal) {
-		if ( ! xml_parse($xml_parser, $data, $bFinal)) { 
+	public static function xml_parse($xml_parser, $data, $final) {
+		if ( ! xml_parse($xml_parser, $data, $final)) { 
 			die(sprintf("XML error: %s at line %d\n", 
 				xml_error_string(xml_get_error_code($xml_parser)), 
 				xml_get_current_line_number($xml_parser)));
@@ -386,14 +398,15 @@ class Dumper {
 		self::$xml_name[self::$xml_count] = $name;
 		self::$xml_SDATA[self::$xml_count] = 'self::make_table_header("xml", "Element", 2);';
 		self::$xml_SDATA[self::$xml_count] .= 'self::make_td_header("xml", "Name");';
-		self::$xml_SDATA[self::$xml_count] .= 'echo "<strong>'.self::$xml_name[self::$xml_count].'</strong>".self::close_td_row();';
+		self::$xml_SDATA[self::$xml_count] .= 'echo "<strong>'.self::$xml_name[self::$xml_count].'</strong>";';
+		self::$xml_SDATA[self::$xml_count] .= 'self::close_td_row();';
 		self::$xml_SDATA[self::$xml_count] .= 'self::make_td_header("xml", "Attributes");';
-		if (count($attribs)>0) {
+		if (count($attribs) > 0) {
 			self::$xml_SDATA[self::$xml_count] .= 'self::var_is_array(self::$xml_attrib['.self::$xml_count.']);';
 		} else {
 			self::$xml_SDATA[self::$xml_count] .= 'echo "&nbsp;";';
 		}
-		self::$xml_SDATA[self::$xml_count] .= 'echo self::close_td_row();';
+		self::$xml_SDATA[self::$xml_count] .= 'self::close_td_row();';
 		self::$xml_count++;
 	} 
 	
@@ -402,15 +415,15 @@ class Dumper {
 		for ($i = 0; $i < self::$xml_count; $i++) {
 			eval(self::$xml_SDATA[$i]);
 			self::make_td_header('xml', 'Text');
-			echo ( ! empty(self::$xml_CDATA[$i])) ? self::$xml_CDATA[$i] : '&nbsp;';
-			echo self::close_td_row();
+			echo empty(self::$xml_CDATA[$i]) ? '&nbsp;' : self::$xml_CDATA[$i];
+			self::close_td_row();
 			self::make_td_header('xml', 'Comment');
-			echo ( ! empty(self::$xml_DDATA[$i])) ? self::$xml_DDATA[$i] : '&nbsp;';
-			echo self::close_td_row();
+			echo empty(self::$xml_DDATA[$i]) ? '&nbsp;' : self::$xml_DDATA[$i];
+			self::close_td_row();
 			self::make_td_header('xml', 'Children');
 			unset(self::$xml_CDATA[$i], self::$xml_DDATA[$i]);
 		}
-		echo self::close_td_row();
+		self::close_td_row();
 		echo '</table>';
 		self::$xml_count = 0;
 	} 
@@ -438,7 +451,8 @@ class Dumper {
 	}
 
 	public static function init_js_and_css() {
-		echo <<<SCRIPTS
+		$out =
+<<<SCRIPTS
 			<script language="JavaScript">
 			/* code modified from ColdFusion's cfdump code */
 				function dump_toggle_row(source) {
@@ -484,47 +498,122 @@ class Dumper {
 			</script>
 			
 			<style type="text/css">
-				table.dump_array,table.dump_object,table.dump_resource,table.dump_resourceC,table.dump_xml {
-					font-family:Verdana, Arial, Helvetica, sans-serif; color:#000; font-size:12px;
+				table.dump_array,
+				table.dump_object,
+				table.dump_resource,
+				table.dump_resourceC,
+				table.dump_xml {
+				font-family:Verdana, Arial, Helvetica, sans-serif; 
+				color:#000; 
+				font-size:12px;
+				margin:10px;
+				}
+				
+				table.dump_array td,
+				table.dump_object td,
+				table.dump_resource td,
+				table.dump_resourceC td,
+				table.dump_xml td {
+				font-family:Verdana, Arial, Helvetica, sans-serif; 
+				color:#000; 
 				}
 				
 				.dump_array_header,
 				.dump_object_header,
 				.dump_resource_header,
 				.dump_resourceC_header,
-				.dump_xml_header 
-					{ font-weight:bold; color:#fff; cursor:pointer; }
-				.dump_file_n_line {font-weight:normal;}
+				.dump_xml_header { 
+				font-weight:bold; 
+				color:#fff; 
+				cursor:pointer; 
+				}
+					
+				.dump_file_n_line {
+				font-weight:normal;
+				}
+				
 				.dump_array_key,
 				.dump_object_key,
-				.dump_xml_key
-					{ cursor:pointer; }
+				.dump_xml_key { 
+				cursor:pointer; 
+				}
 					
 				/* array */
-				table.dump_array { background-color:#006600; }
-				table.dump_array td { background-color:#fff; }
-				table.dump_array td.dump_array_header { background-color:#009900; }
-				table.dump_array td.dump_array_key { background-color:#CCFFCC; }
+				table.dump_array { 
+				background:#00A000; 
+				}
+				
+				table.dump_array td { 
+				background:#fff; 
+				}
+				
+				table.dump_array td.dump_array_header { 
+				background:#90FF90; 
+				}
+				
+				table.dump_array td.dump_array_key { 
+				background:#CCFFCC; 
+				}
 				
 				/* object */
-				table.dump_object { background-color:#0000CC; }
-				table.dump_object td { background-color:#fff; }
-				table.dump_object td.dump_object_header { background-color:#4444CC; }
-				table.dump_object td.dump_object_key { background-color:#CCDDFF; }
+				table.dump_object { 
+				background:#4040FF; 
+				}
+				
+				table.dump_object td { 
+				background:#fff; 
+				}
+				
+				table.dump_object td.dump_object_header { 
+				background:#C0C0FF; 
+				}
+				
+				table.dump_object td.dump_object_key { 
+				background:#CCDDFF; 
+				}
 				
 				/* resource */
-				table.dump_resource, table.dump_resourceC { background-color:#884488; }
-				table.dump_resource td, table.dump_resourceC td { background-color:#fff; }
-				table.dump_resource td.dump_resource_header, table.dump_resourceC td.dump_resourceC_header { background-color:#AA66AA; }
-				table.dump_resource td.dump_resource_key, table.dump_resourceC td.dump_resourceC_key { background-color:#FFDDFF; }
+				table.dump_resource, 
+				table.dump_resourceC { 
+				background:#884488; 
+				}
+				
+				table.dump_resource td, 
+				table.dump_resourceC td { 
+				background:#fff; 
+				}
+				
+				table.dump_resource td.dump_resource_header, 
+				table.dump_resourceC td.dump_resourceC_header { 
+				background:#AA66AA; 
+				}
+				
+				table.dump_resource td.dump_resource_key, 
+				table.dump_resourceC td.dump_resourceC_key { 
+				background:#FFDDFF; 
+				}
 				
 				/* xml */
-				table.dump_xml { background-color:#888; }
-				table.dump_xml td { background-color:#fff; }
-				table.dump_xml td.dump_xml_header { background-color:#aaa; }
-				table.dump_xml td.dump_xml_key { background-color:#ddd; }
+				table.dump_xml { 
+				background:#888; 
+				}
+				
+				table.dump_xml td { 
+				background:#fff; 
+				}
+				
+				table.dump_xml td.dump_xml_header { 
+				background-color:#aaa; 
+				}
+				
+				table.dump_xml td.dump_xml_key { 
+				background-color:#ddd; 
+				}
 			</style>
 SCRIPTS;
+        $out = str_replace("\n", ' ', $out);
+		$out = str_replace("\r", ' ', $out);
+		echo $out;
 	}
 
 }

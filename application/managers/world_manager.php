@@ -12,11 +12,12 @@ final class World_Manager extends Manager {
 		$this->get_example4();
 		$this->get_example5();
 		$this->get_example6();
+		$this->get_example16();
 	}
 	
 	public function get_example1() {
-		$result = $this->w->example1();
-		dump($result);
+		$aresult = $this->w->example1();
+		dump($aresult);
 	}
 	
 	public function get_example2() {
@@ -87,6 +88,26 @@ final class World_Manager extends Manager {
 	public function get_example15() {
 		$result = $this->w->example15();
 		dump($result);
+	}
+	
+	public function get_example16() {
+		$result = TRUE;
+		dump($result);
+		
+		$result2 = NULL;
+		dump($result2);
+		
+		$result3 = 'dsadsadsadsad';
+		dump($result3);
+		
+		$result4 = '';
+		dump($result4);
+		
+		$result5 = 324;
+		dump($result5);
+		
+		$result6 = 324.554;
+		dump($result6);
 	}
 }
 

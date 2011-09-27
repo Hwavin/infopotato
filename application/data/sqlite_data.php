@@ -7,15 +7,15 @@ class SQLite_Data extends Data {
 
 	public function get_user_info($id) { 
 		$sql = $this->db->prepare("SELECT * FROM t1 WHERE id=?", array($id));
-		//$this->db->vardump($this->db->get_row($sql, ARRAY_A));
+		//$this->db->vardump($this->db->get_row($sql, FETCH_ASSOC));
 
-		return $this->db->get_row($sql, ARRAY_A);
+		return $this->db->get_row($sql, FETCH_ASSOC);
 	}
 	
 	public function get_users_info() { 
 		$sql = $this->db->prepare("SELECT * FROM t1");
-		//$this->db->vardump($this->db->get_results($sql, ARRAY_A));
-		return $this->db->get_results($sql, ARRAY_A);
+		//$this->db->vardump($this->db->get_results($sql, FETCH_ASSOC));
+		return $this->db->get_all($sql, FETCH_ASSOC);
 	}
 	
 	public function add_user($short, $long) {
