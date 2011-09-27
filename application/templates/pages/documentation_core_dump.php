@@ -43,45 +43,117 @@
 			</script>
 			
 			<style type="text/css">
-				table.dump_array,table.dump_object,table.dump_resource,table.dump_resourceC,table.dump_xml {
-					font-family:Verdana, Arial, Helvetica, sans-serif; color:#000; font-size:12px;
+				table.dump_array,
+				table.dump_object,
+				table.dump_resource,
+				table.dump_resourceC,
+				table.dump_xml {
+				font-family:Verdana, Arial, Helvetica, sans-serif; 
+				color:#000; 
+				font-size:12px;
+				margin:10px;
+				}
+				
+				table.dump_array td,
+				table.dump_object td,
+				table.dump_resource td,
+				table.dump_resourceC td,
+				table.dump_xml td {
+				font-family:Verdana, Arial, Helvetica, sans-serif; 
+				color:#000; 
 				}
 				
 				.dump_array_header,
 				.dump_object_header,
 				.dump_resource_header,
 				.dump_resourceC_header,
-				.dump_xml_header 
-					{ font-weight:bold; color:#fff; cursor:pointer; }
+				.dump_xml_header { 
+				font-weight:bold; 
+				color:#fff; 
+				cursor:pointer; 
+				}
+					
+				.dump_file_n_line {
+				font-weight:normal;
+				}
 				
 				.dump_array_key,
 				.dump_object_key,
-				.dump_xml_key 
-					{ cursor:pointer; }
+				.dump_xml_key { 
+				cursor:pointer; 
+				}
 					
 				/* array */
-				table.dump_array { background-color:#006600; }
-				table.dump_array td { background-color:#fff; }
-				table.dump_array td.dump_array_header { background-color:#009900; }
-				table.dump_array td.dump_array_key { background-color:#CCFFCC; }
+				table.dump_array { 
+				background:#00A000; 
+				}
+				
+				table.dump_array td { 
+				background:#fff; 
+				}
+				
+				table.dump_array td.dump_array_header { 
+				background:#90FF90; 
+				}
+				
+				table.dump_array td.dump_array_key { 
+				background:#CCFFCC; 
+				}
 				
 				/* object */
-				table.dump_object { background-color:#0000CC; }
-				table.dump_object td { background-color:#fff; }
-				table.dump_object td.dump_object_header { background-color:#4444CC; }
-				table.dump_object td.dump_object_key { background-color:#CCDDFF; }
+				table.dump_object { 
+				background:#4040FF; 
+				}
+				
+				table.dump_object td { 
+				background:#fff; 
+				}
+				
+				table.dump_object td.dump_object_header { 
+				background:#C0C0FF; 
+				}
+				
+				table.dump_object td.dump_object_key { 
+				background:#CCDDFF; 
+				}
 				
 				/* resource */
-				table.dump_resource, table.dump_resourceC { background-color:#884488; }
-				table.dump_resource td, table.dump_resourceC td { background-color:#fff; }
-				table.dump_resource td.dump_resource_header, table.dump_resourceC td.dump_resourceC_header { background-color:#AA66AA; }
-				table.dump_resource td.dump_resource_key, table.dump_resourceC td.dump_resourceC_key { background-color:#FFDDFF; }
+				table.dump_resource, 
+				table.dump_resourceC { 
+				background:#884488; 
+				}
+				
+				table.dump_resource td, 
+				table.dump_resourceC td { 
+				background:#fff; 
+				}
+				
+				table.dump_resource td.dump_resource_header, 
+				table.dump_resourceC td.dump_resourceC_header { 
+				background:#AA66AA; 
+				}
+				
+				table.dump_resource td.dump_resource_key, 
+				table.dump_resourceC td.dump_resourceC_key { 
+				background:#FFDDFF; 
+				}
 				
 				/* xml */
-				table.dump_xml { background-color:#888; }
-				table.dump_xml td { background-color:#fff; }
-				table.dump_xml td.dump_xml_header { background-color:#aaa; }
-				table.dump_xml td.dump_xml_hey { background-color:#ddd; }
+				table.dump_xml { 
+				background:#888; 
+				}
+				
+				table.dump_xml td { 
+				background:#fff; 
+				}
+				
+				table.dump_xml td.dump_xml_header { 
+				background-color:#aaa; 
+				}
+				
+				table.dump_xml td.dump_xml_key { 
+				background-color:#ddd; 
+				}
 			</style>
 
 

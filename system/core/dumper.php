@@ -173,7 +173,7 @@ class Dumper {
 	
 	public static function var_is_string($var) {
 		$var = ($var == '') ? '[empty string]' : $var;
-		self::make_table_header('object', 'string '.strlen($var));
+		self::make_table_header('object', 'string ['.strlen($var).']');
 		self::make_td_header('object', $var);
 		self::close_td_row();
 	}
