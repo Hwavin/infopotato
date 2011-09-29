@@ -90,11 +90,10 @@ class Manager {
 		
 		$template_file_path = APP_TEMPLATE_DIR.$template.'.php';
 
-		
 		if ( ! file_exists($template_file_path)) {
 			halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
 		} else {
-			if (count($template_vars > 0)) {
+			if (count($template_vars) > 0) {
 				// Import the template variables to local namespace
 				// If there is a collision, don't overwrite the existing variable.
 				extract($template_vars, EXTR_SKIP);
