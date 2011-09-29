@@ -7,21 +7,7 @@
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-class Manager {
-    /**
-	 * The name of the current requested manager method
-	 *
-	 * @var  string 
-	 */
-	public $target_method = '';
-	
-	/**
-	 * Parameters of the current requested manager method
-	 *
-	 * @var  array  
-	 */
-	public $target_method_params = array();
-	
+class Manager {	
 	/**
      * Key-value array of HTTP POST parameters
 	 * 

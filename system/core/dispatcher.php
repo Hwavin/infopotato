@@ -70,10 +70,6 @@ final class Dispatcher {
 			halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');				
 		}
 		
-		// Make the requested manager method and it's parameters available to that manager object
-		$manager_obj->target_method = $real_method;
-		$manager_obj->target_method_params = $params;
-		
 		// $_GET data is disallowed since InfoPotato utilizes URI segments 
 		// rather than traditional URI query strings
 		// The POST data can only be accessed in manager using $this->POST_DATA
