@@ -30,6 +30,13 @@ class Manager {
     protected $_POST_DATA = array();
 
 	/**
+     * Array of global template variables
+	 * 
+	 * @var array   
+     */
+	protected static $global_template_vars = array();
+
+	/**
 	 * Constructor
 	 *
 	 * Get the post, put, cookie values and automagically escapes them
@@ -48,6 +55,21 @@ class Manager {
 		// Disable access to $_POST
 		unset($_POST);
 	} 
+	
+	/**
+	 * Assign global template variable
+	 * Variables assigned with $this->assign_template_global() are always available to every template thereafter.
+	 *
+	 * @param   mixed $key key of assignment, or value to assign
+	 * @param   mixed $value value of assignment
+	 * @return  void
+	 */    
+	protected function assign_template_global($key, $value = NULL) {
+		if ($value == NULL) {
+			halt('A System Error Was Encountered', "Please specify the value of your global variable '${$key}'", 'sys_error');
+		}	
+		self::$global_template_vars[$key] = $value;
+	}  
 	
 	/**
 	 * Render template and return output as string
@@ -72,6 +94,9 @@ class Manager {
 		if ( ! file_exists($template_file_path)) {
 			halt('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
 		} else {
+			// Bring global template vars into template scope
+			extract(self::$global_template_vars);
+			
 			if (is_array($template_vars) && (count($template_vars) > 0)) {
 				// Bring template vars into template scope
 			    // Import variables from an array into the current symbol table.
