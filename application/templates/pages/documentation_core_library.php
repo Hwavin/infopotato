@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -81,5 +79,3 @@ The constructor and the actual library methods to be called by the manager must 
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

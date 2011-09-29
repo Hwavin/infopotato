@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -265,5 +263,3 @@ wrapped normally.
 <?php echo isset($pager) ? $pager : ''; ?>
  
 </div> 
-
-</div>

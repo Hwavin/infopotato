@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -73,4 +71,3 @@ The comparison is pretty straightforward. InnoDB is more suitable for data criti
 
 </div> 
 
-</div>

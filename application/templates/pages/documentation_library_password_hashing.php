@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -59,4 +57,3 @@ Let's try to create the same password hashing, just for kicks. The script succee
 
 </div> 
 
-</div>

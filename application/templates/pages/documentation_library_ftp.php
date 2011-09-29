@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -239,7 +237,5 @@ Permissions can be set by passed an <kbd>octal</kbd> value in the second paramet
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
- 
-</div> 
 
 </div>

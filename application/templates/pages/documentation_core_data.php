@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -208,5 +206,3 @@ You can define multi connections for each DAO.
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

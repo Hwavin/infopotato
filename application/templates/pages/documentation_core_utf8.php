@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -245,5 +243,3 @@ UFT8::len() is used in worker.php to caculate the content length of the response
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

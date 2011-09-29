@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -294,4 +292,3 @@ When a value stored in the session is an array, it is possible to use array dere
 
 </div> 
 
-</div>

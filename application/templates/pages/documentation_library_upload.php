@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -328,4 +326,3 @@ Here is the array prototype:</p>
 
 </div> 
 
-</div>

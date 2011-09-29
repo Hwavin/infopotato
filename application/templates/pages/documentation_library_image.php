@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -516,4 +514,3 @@ There are two types of watermarking that you can use:
 
 </div> 
 
-</div>

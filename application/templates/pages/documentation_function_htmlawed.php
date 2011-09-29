@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -35,4 +33,3 @@ It ensures that HTML tags are balanced and properly nested tags, neutralizes cod
 
 </div> 
 
-</div>

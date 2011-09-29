@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -47,10 +45,7 @@ If you intend to install InfoPotato on your local computer (for testing) there a
 
 <!-- PRINT: stop -->
 
-
-
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
 
-</div>

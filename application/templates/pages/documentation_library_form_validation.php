@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -326,4 +324,3 @@ You can also use any native PHP functions that permit one parameter.
 
 </div> 
 
-</div>

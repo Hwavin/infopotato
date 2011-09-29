@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -799,4 +797,3 @@ You'll notice that the only difference is that each user has a 'auth_level' fiel
 
 </div> 
 
-</div>

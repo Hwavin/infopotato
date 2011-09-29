@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -34,5 +32,3 @@ The web root directory is the home of all public and static files like images, s
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

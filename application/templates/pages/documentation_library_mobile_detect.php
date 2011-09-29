@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -60,4 +58,3 @@ Here is how to check to see if the user is a mobile but not an iPad:
 
 </div> 
 
-</div>

@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -23,10 +21,6 @@ Congratulations! By learning about InfoPotato, you're well on your way towards b
 
 </div>
 
-</div>
-
-
-<div class="container"> 
 
 <div class="row">
 
@@ -53,10 +47,6 @@ Congratulations! By learning about InfoPotato, you're well on your way towards b
 
 </div>
 
-</div>
-
-
-<div class="container"> 
 
 <div class="row">
 
@@ -80,19 +70,15 @@ Congratulations! By learning about InfoPotato, you're well on your way towards b
 
 </div>
 
-</div>
 
-
-<div class="container"> 
 
 <div class="row">
 
 <h2>Acknowledgements</h2>
 
 <p>
-A huge special thanks goes to my girlfriend. She helped me proofread all the documentation.
+A huge special thanks goes to my fiance. She helped me proofread all the documentation.
 </p>
 
 </div>
 
-</div>

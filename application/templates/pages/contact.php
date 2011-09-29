@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -74,7 +72,6 @@ Required field is marked with <span class="req">*</span>.
 
 </div> 
 
-</div>
  
 
 

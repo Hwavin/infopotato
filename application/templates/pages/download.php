@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -74,5 +72,3 @@ We're always grateful for patches to infoPotato's code.
 </div>
 
 </div> 
-
-</div>

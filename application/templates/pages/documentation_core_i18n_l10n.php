@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row"> 
 
 <!-- begin breadcrumb -->
@@ -98,5 +96,3 @@ There's one other aspect of localizing your application which is not covered by 
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

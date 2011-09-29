@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -118,4 +116,3 @@ text-decoration:none;
 
 </div> 
 
-</div>

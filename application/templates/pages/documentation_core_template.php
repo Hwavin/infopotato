@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -225,4 +223,3 @@ As you can see, all the "outer" stuff gets thrown in the layout. When the conten
 
 </div> 
 
-</div>

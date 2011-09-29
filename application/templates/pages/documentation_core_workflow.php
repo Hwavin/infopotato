@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -85,4 +83,3 @@ When the manager finishes processing the request, it sends the output result (HT
 
 </div> 
 
-</div>

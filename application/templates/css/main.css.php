@@ -40,22 +40,30 @@ border-spacing:0;
 }
 
 
-/* ==================================================================================================================== */
-/* ! The 1140px Grid V2 by Andy Taylor \ http://cssgrid.net \ http://www.twitter.com/andytlr \ http://www.andytlr.com   */
-/* ==================================================================================================================== */
+
+html {
+overflow-y:scroll;
+}
+
+body {
+font-family:Arial, Helvetica, sans-serif;
+font-size:90%;
+color: #363636;	 
+background:#f2f2f2;
+}
 
 .container {
-padding-left: 20px;
-padding-right: 20px;
+padding:0 20px;
 }
 
 .row {
 width: 100%;
-max-width: 1140px;
+max-width: 960px;
 min-width: 755px;
 margin: 0 auto;
 overflow: hidden;
 }
+
 
 .onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol {
 margin-right: 3.8%;
@@ -124,59 +132,6 @@ img {
 	height: auto;
 }
 
-
-/* Smaller screens */
-
-@media only screen and (max-width: 1023px) {
-
-	body {
-	font-size: 0.8em;
-	line-height: 1.5em;
-	}
-	
-	}
-
-
-/* Mobile */
-
-@media handheld, only screen and (max-width: 767px) {
-
-	body {
-	font-size: 16px;
-	-webkit-text-size-adjust: none;
-	}
-	
-	.row, body, .container {
-	width: 100%;
-	min-width: 0;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding-left: 0px;
-	padding-right: 0px;
-	}
-	
-	.row .onecol, .row .twocol, .row .threecol, .row .fourcol, .row .fivecol, .row .sixcol, .row .sevencol, .row .eightcol, .row .ninecol, .row .tencol, .row .elevencol, .row .twelvecol {
-	width: auto;
-	float: none;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding-left: 20px;
-	padding-right: 20px;
-	}
-
-}
-
-
-html {
-overflow-y:scroll;
-}
-
-body {
-font-family:Arial, Helvetica, sans-serif;
-font-size:90%;
-color: #363636;	 
-background:#f2f2f2;
-}
 
 /* Overriding The Default Text Selection Color with CSS3 */
 ::selection { 
@@ -621,8 +576,9 @@ background:#eceff6;
 -------------------------------------------------------------- */
 
 .header {
-background-color:#3b5998;
+background:#3b5998;
 padding:10px 0;
+border-bottom:10px solid #6d84b4;
 }
 
 .topnav {
@@ -660,11 +616,6 @@ padding:0 10px;
 .nav_item a:hover {
 background:#6D84B4;
 padding:0 10px;
-}
-
-#alpha_bar {
-height:10px;
-background:#6d84b4;
 }
 
 /* content

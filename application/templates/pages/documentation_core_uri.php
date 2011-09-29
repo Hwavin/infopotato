@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -260,5 +258,3 @@ If you are serving static files from a cloud storage provider like Amazon's S3 a
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

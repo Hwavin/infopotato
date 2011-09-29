@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -167,4 +165,3 @@ since some browsers do not provide character-set info, and even among those that
  
 </div> 
 
-</div>

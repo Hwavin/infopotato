@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -14,11 +12,15 @@
 <a href="<?php echo APP_URI_BASE; ?>print/index/<?php echo base64_encode('documentation/core/manager/'); ?>" class="print">Print</a>
 
 <!-- PRINT: start -->
-<p>Managers are the heart of your application, as they determine how HTTP requests should be prepared and handled as well as the HTTP responses.</p>
+<p>
+Managers are the heart of your application, as they determine how HTTP requests should be prepared and handled as well as the HTTP responses. In other words, managers exectue the application's domain logic.
+</p>
 
 <h2>What is a Manager?</h2>
 
-<p>A Manager is an instance of the base Manager object or a subclass of another manager. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested method which usually brings in the needed datas and produces the output in the proper format (whether that's a PHP+HTML/HTML page, XML document, or JSON response). An method, at its simplest form, is just a Manager class method prefixed with the corresponding HTTP request method (InfoPotato only supports GET and POST). In a word, the manager contains whatever arbitrary logic your application needs to create that response.</p>
+<p>
+A Manager is an instance of the base Manager object or a subclass of another manager. A Manager is used to manage the logic for a part of your application. A Manager is simply a class file that is named in a way that can be associated with a URI. When a Manager runs, it performs the requested method which usually brings in the needed datas and produces the output in the proper format (whether that's a PHP+HTML/HTML page, XML document, or JSON response). An method, at its simplest form, is just a Manager class method prefixed with the corresponding HTTP request method (InfoPotato only supports GET and POST). In a word, the manager contains whatever arbitrary logic your application needs to create that response.
+</p>
 
 <p>
 Typically, a Manager is responsible for a few things:
@@ -294,5 +296,3 @@ By default, your data files and template files can also be stored within sub-fol
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

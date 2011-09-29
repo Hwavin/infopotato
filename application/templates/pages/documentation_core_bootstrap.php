@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -81,5 +79,3 @@ RewriteRule . index.php
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

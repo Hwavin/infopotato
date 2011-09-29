@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -129,5 +127,3 @@ The advantage of using HTTP caching is to save bandwidth as well as make your pa
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>

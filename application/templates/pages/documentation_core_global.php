@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -71,5 +69,3 @@ For more information, please read <a href="<?php echo APP_URI_BASE; ?>documentat
 
 
 </div> 
-
-</div>

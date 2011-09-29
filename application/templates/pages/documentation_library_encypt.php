@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -189,4 +187,3 @@ function:</p>
 
 </div> 
 
-</div>

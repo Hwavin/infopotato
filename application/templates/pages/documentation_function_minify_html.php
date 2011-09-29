@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -58,4 +56,3 @@ Minification is the practice of removing unnecessary characters from code to red
 
 </div> 
 
-</div>

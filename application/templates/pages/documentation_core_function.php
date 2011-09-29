@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -57,5 +55,3 @@ All the user-defined functions should be named like xxx_function
 
 
 </div> 
-
-</div>

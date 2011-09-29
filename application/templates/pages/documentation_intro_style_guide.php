@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -705,4 +703,3 @@ It's better to return early, keeping indentation and brain power needed to follo
 
 </div> 
 
-</div>

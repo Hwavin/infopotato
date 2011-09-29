@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -24,4 +22,3 @@ Speed is a big deal, and it's also a major reason that developers pick InfoPotat
 
 </div> 
 
-</div>

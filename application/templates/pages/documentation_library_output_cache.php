@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -123,4 +121,3 @@ By doing this, only the content part of the page will be cached and the layout w
 
 </div> 
 
-</div>

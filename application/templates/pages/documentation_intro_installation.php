@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -70,4 +68,3 @@ To make your installation secure from the start, you should put InfoPotato syste
 
 </div> 
 
-</div>

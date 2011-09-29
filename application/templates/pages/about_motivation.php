@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <div id="toc"> 
@@ -126,6 +124,4 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 </ul>
 </div> 
 	
-</div> 
-
 </div> 

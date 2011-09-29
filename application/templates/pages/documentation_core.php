@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -34,5 +32,3 @@
 </ul>
 
 </div> 
-
-</div>

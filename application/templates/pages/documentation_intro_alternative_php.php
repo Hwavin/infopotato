@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -55,4 +53,3 @@ You'll be using pure PHP in your View files when you need to mix PHP codes with 
 
 </div> 
 
-</div>

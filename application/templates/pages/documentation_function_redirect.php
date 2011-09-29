@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -52,4 +50,3 @@ You can edit the function and add more MIME types based on your actual needs.
 
 </div> 
 
-</div>

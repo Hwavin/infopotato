@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -83,4 +81,3 @@ InfoPotato is doing and also fully automatic. You do not set up anything, and al
 
 </div> 
 
-</div>

@@ -156,9 +156,6 @@
 				}
 			</style>
 
-
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -409,4 +406,3 @@ on second line </td></tr>
 
 </div> 
 
-</div>

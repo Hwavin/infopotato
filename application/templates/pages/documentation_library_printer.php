@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -64,4 +62,3 @@ An unlimited number of areas to be printed can be delimited as long as they are 
 
 </div> 
 
-</div>

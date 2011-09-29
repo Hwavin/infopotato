@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -46,4 +44,3 @@ You can also control if you want to enable the core runtime cache on the applica
 
 </div> 
 
-</div>

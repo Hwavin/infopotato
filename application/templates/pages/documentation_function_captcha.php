@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -100,4 +98,3 @@ The "word" is the word that appears in the captcha image, which if not supplied 
 
 </div> 
 
-</div>

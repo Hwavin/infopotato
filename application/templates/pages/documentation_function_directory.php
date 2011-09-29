@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -82,4 +80,3 @@ Each folder name will be an array index, while its contained files will be numer
 
 </div> 
 
-</div>

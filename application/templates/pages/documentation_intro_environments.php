@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <!-- begin breadcrumb -->
@@ -78,4 +76,3 @@ Whenever the staging test is done, the developers can just migrate the app to th
 
 </div> 
 
-</div>

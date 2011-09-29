@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 
 <div id="toc"> 
@@ -60,4 +58,3 @@ I hope to do something that I can continually develop my skills, whatever the in
 
 </div> 
 
-</div>

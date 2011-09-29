@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -203,4 +201,3 @@ In situations where no result is required to be iterated over, such as an UPDATE
 
 </div> 
 
-</div>

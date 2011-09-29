@@ -1,5 +1,3 @@
-<div class="container"> 
-
 <div class="row">
 	
 <!-- begin breadcrumb -->
@@ -89,5 +87,3 @@ The Cookie_Library class also allows defining default parameters to use for set(
 <?php echo isset($pager) ? $pager : ''; ?>
 
 </div> 
-
-</div>
