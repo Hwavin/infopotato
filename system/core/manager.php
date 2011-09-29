@@ -100,7 +100,7 @@ class Manager {
 			}
 			
 			// Import the global template variables to local namespace
-			if (self::$template_global_vars) {
+			if (count(self::$template_global_vars) > 0) {
 				extract(self::$template_global_vars, EXTR_SKIP);
 			}
 			
