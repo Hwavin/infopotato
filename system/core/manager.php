@@ -90,7 +90,7 @@ class Manager {
 		
 		$template_file_path = APP_TEMPLATE_DIR.$template.'.php';
 
-		ob_start();
+		
 		if ( ! file_exists($template_file_path)) {
 			halt('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
 		} else {
@@ -105,11 +105,13 @@ class Manager {
 				extract(self::$template_global_vars, EXTR_SKIP);
 			}
 			
+			ob_start();
 			require_once $template_file_path;
+			$content = ob_get_contents();
+		    ob_end_clean();
+			
+			return $content;
 		}	
-		$content = ob_get_contents();
-		ob_end_clean();
-		return $content;
 	}
 	
 	/**
