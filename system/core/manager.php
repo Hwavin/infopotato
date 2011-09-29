@@ -104,6 +104,7 @@ class Manager {
 				extract(self::$template_global_vars, EXTR_SKIP);
 			}
 			
+			// Capture the rendered output
 			ob_start();
 			require_once $template_file_path;
 			$content = ob_get_contents();
