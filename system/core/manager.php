@@ -34,7 +34,7 @@ class Manager {
 	 * 
 	 * @var array   
      */
-	protected static $global_template_vars = array();
+	protected static $template_global_vars = array();
 
 	/**
 	 * Constructor
@@ -68,7 +68,7 @@ class Manager {
 		if ($value == NULL) {
 			halt('A System Error Was Encountered', "Please specify the value of your global variable '${$key}'", 'sys_error');
 		}	
-		self::$global_template_vars[$key] = $value;
+		self::$template_global_vars[$key] = $value;
 	}  
 	
 	/**
@@ -94,14 +94,17 @@ class Manager {
 		if ( ! file_exists($template_file_path)) {
 			halt('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
 		} else {
-			// Bring global template vars into template scope
-			extract(self::$global_template_vars);
-			
-			if (is_array($template_vars) && (count($template_vars) > 0)) {
-				// Bring template vars into template scope
-			    // Import variables from an array into the current symbol table.
-				extract($template_vars);
+			if (count($template_vars > 0)) {
+				// Import the template variables to local namespace
+				// If there is a collision, don't overwrite the existing variable.
+				extract($template_vars, EXTR_SKIP);
 			}
+			
+			// Import the global template variables to local namespace
+			if (self::$template_global_vars) {
+				extract(self::$template_global_vars, EXTR_SKIP);
+			}
+			
 			require_once $template_file_path;
 		}	
 		$content = ob_get_contents();
