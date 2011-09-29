@@ -92,7 +92,7 @@ class Manager {
 
 		
 		if ( ! file_exists($template_file_path)) {
-			halt('A System Error Was Encountered', "Unknown template file name '{$orig_template}'", 'sys_error');
+			halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
 		} else {
 			if (count($template_vars > 0)) {
 				// Import the template variables to local namespace
