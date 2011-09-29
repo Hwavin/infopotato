@@ -16,7 +16,7 @@
 <li>OS Platform: Windows or Linux</li>
 <li>HTTP server: Apache, NginX, Lighttpd, IIS, etc.</li>
 <li>PHP version: 5.2.0 or newer.</li>
-<li>(Optional) Database: Current supported databases are MySQL (4.1+), MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.</li>
+<li>(Optional) Database: Current supported databases are MySQL (4.1+), MySQLi, Postgres, and SQLite.</li>
 </ul>
 
 <h2>Requirements Checker</h2>

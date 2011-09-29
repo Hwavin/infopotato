@@ -64,7 +64,7 @@ function auto_load($class_name) {
     }
     require_once $file;
 } 
-// PHP 5 >= 5.1.2
+
 spl_autoload_register('auto_load');
 
 /**
@@ -155,53 +155,5 @@ function sanitize($value) {
 	return $value;
 }
 
-
-/**
- * Reverts the effects of the `register_globals` PHP setting by unsetting
- * all global varibles except for the default super globals (GPCS, etc),
- * which is a [potential security hole.][ref-wikibooks]
- *
- * [ref-wikibooks]: http://en.wikibooks.org/wiki/PHP_Programming/Register_Globals
- *
- * @return  void
- */
-function disable_register_globals() {
-	if (isset($_REQUEST['GLOBALS']) || isset($_FILES['GLOBALS'])) {
-		// Prevent malicious GLOBALS overload attack
-		echo "Global variable overload attack detected! Request aborted.\n";
-
-		// Exit with an error status
-		exit(1);
-	}
-
-	// Get the variable names of all globals
-	$global_variables = array_keys($GLOBALS);
-
-	// Remove the standard global variables from the list
-	$global_variables = array_diff($global_variables, array(
-		'_COOKIE',
-		'_ENV',
-		'_GET',
-		'_FILES',
-		'_POST',
-		'_REQUEST',
-		'_SERVER',
-		'_SESSION',
-		'GLOBALS',
-	));
-
-	foreach ($global_variables as $name) {
-		// Unset the global variable, effectively disabling register_globals
-		unset($GLOBALS[$name]);
-	}
-}
-
-// This feature is a great security risk
-// you should ensure that register_globals is Off for all scripts 
-// (as of PHP 4.2.0 this is the default).
-if (ini_get('register_globals')) {
-	// Reverse the effects of register_globals
-	disable_register_globals();
-}
 	
 // End of file: ./system/core/init.php
