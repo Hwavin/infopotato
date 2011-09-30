@@ -6,6 +6,19 @@
 
 <div id="intro" class="greybox">
 
+<!-- Place this tag where you want the +1 button to render -->
+<div id="share">
+<span>spread the love</span>
+<!-- Google +1, twitter, facebook like button begin -->
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+<!-- Place this tag where you want the +1 button to render -->
+<g:plusone size="tall"  href="http://www.infopotato.com"></g:plusone>
+<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.infopotato.com"  data-text="PHP5 framework" data-count="vertical"  data-via="bugherd">Tweet</a>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.infopotato.com&amp;send=false&amp;layout=box_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=lucida+grande&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:62px;" allowTransparency="true"></iframe>
+</div>
+<!-- Google +1, twitter, facebook like button end -->
+
 <h2 class="first_heading">InfoPotato &mdash; <span class="blue"><?php echo __('Built on the shoulders of giants'); ?></span></h2>
 <p>
 <strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner(be as fast as possible)—without loss of flexibility and expansibility.
@@ -125,7 +138,7 @@
 </div>
 
 
-<div class="row">
+<div class="row last_row">
 
 <div class="fourcol">
 <div class="fact">

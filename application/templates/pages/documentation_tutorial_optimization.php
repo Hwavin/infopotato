@@ -24,7 +24,7 @@ Performance of Web applications is affected by many factors. Database access, fi
 <h2>Enabling APC Extension</h2>
 
 <p>
-Enabling the <a href="http://www.php.net/manual/en/book.apc.php" class="external_link">PHP APC extension</a> is perhaps the easiest way to improve the overall performance of an application. The extension caches and optimizes PHP intermediate code and avoids the time spent in parsing PHP scripts for every incoming request.
+Enabling the <a href="http://www.php.net/manual/en/book.apc.php" class="external_link">PHP APC extension</a> is perhaps the easiest way to improve the overall performance of an application. The extension caches and optimizes PHP intermediate code and avoids the time spent in parsing PHP scripts for every incoming request. There is an informative and easy to follow tutorial to help you better <a href="http://techportal.ibuildings.com/2010/10/07/understanding-apc/" class="external_link">Understanding APC</a>.
 </p>
 
 <h2>Enabling System Runtime Cache</h2>

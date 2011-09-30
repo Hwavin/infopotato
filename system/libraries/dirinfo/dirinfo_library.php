@@ -708,7 +708,9 @@ class DirInfo_Library {
 		if ( ! self::valid_pathtofile($pathtofile)) {
 			return FALSE;
 		}
-
+        // http://us.php.net/manual/en/function.mime-content-type.php
+		// This function has been deprecated as the PECL extension 
+		// Fileinfo provides the same functionality (and more) in a much cleaner way.
 		if (function_exists('mime_content_type')) {
 			return mime_content_type($pathtofile);
 		} else {

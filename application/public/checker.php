@@ -274,7 +274,7 @@ $requirements[] = array(
 $requirements[] = array(
 	'title' => 'Multibyte String function overloading',
 	'required' => TRUE,
-	'passed' => ! extension_loaded('mbstring') OR ! (mb_get_info('func_overload') & 2),
+	'passed' => ! extension_loaded('mbstring') || ! (mb_get_info('func_overload') & 2),
 	'message' => 'Disabled',
 	'errorMessage' => 'Enabled',
 	'description' => 'Multibyte String function overloading is enabled. InfoPotato requires this to be disabled. If it is enabled, some string function may not work properly.',
@@ -292,7 +292,7 @@ $requirements[] = array(
 $requirements[] = array(
 	'title' => 'Fileinfo extension or mime_content_type()',
 	'required' => FALSE,
-	'passed' => extension_loaded('fileinfo') OR function_exists('mime_content_type'),
+	'passed' => extension_loaded('fileinfo'),
 	'description' => 'Fileinfo extension or function <code>mime_content_type()</code> are absent. You will not be able to determine mime type of uploaded files.',
 );
 
@@ -317,7 +317,7 @@ foreach ($requirements as $id => $requirement) {
  */
 function ini_flag($var) {
 	$status = strtolower(ini_get($var));
-	return $status === 'on' OR $status === 'true' OR $status === 'yes' OR (int) $status;
+	return $status === 'on' || $status === 'true' || $status === 'yes' || (int) $status;
 }
 ?>
 

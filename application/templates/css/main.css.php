@@ -129,7 +129,7 @@ max-width: 100%;
 }
 
 img {
-	height: auto;
+height: auto;
 }
 
 
@@ -709,21 +709,6 @@ color:#fff;
 font:11px/12px verdana,arial,serif;
 }
 
-.word_doc {
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/word.png) no-repeat; 
-padding-left:16px;
-}
-
-.pdf_doc {
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/pdf.png) no-repeat; 
-padding-left:16px;
-}
-
-.text_doc {
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/text.png) no-repeat; 
-padding-left:16px;
-}
-
 .ribbon { 
 position: absolute; 
 top: -1px; 
@@ -814,11 +799,28 @@ margin-top:10px;
 line-height:180%;
 }
 
+/* google +1, twitter, fb like button */
+#share {
+width:163px;
+float:right;
+padding:10px 0px;
+margin:20px 0 0 10px;
+}
 
+#share span {
+display:block;
+font:400 1.3em/1.2 'Covered By Your Grace', cursive;
+background: url(<?php echo STATIC_URI_BASE; ?>images/shared/heart.png) left 3px no-repeat;
+padding:0 0 10px 20px;
+}
 
 .fact{
 border-bottom:1px solid #d3dae5;
 padding:14px 0;
+}
+
+.last_row .fact{
+border-bottom:none;
 }
 
 .fact_img{
@@ -881,3 +883,16 @@ background:#f7f7f7 url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no
 a.print:hover{
 background:#d8dfea url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no-repeat 4px 7px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
