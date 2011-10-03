@@ -579,6 +579,9 @@ background:#eceff6;
 background:#3b5998;
 padding:10px 0;
 border-bottom:10px solid #6d84b4;
+position:fixed;
+width:100%;
+z-index:100;
 }
 
 .topnav {
@@ -622,8 +625,9 @@ padding:0 10px;
 -------------------------------------------------------------- */
 .content {
 background:#fff;
-padding-bottom:20px;
 border-bottom:2px solid #ddd;
+padding-top:70px;
+padding-bottom:20px;
 }
 
 .content ul {

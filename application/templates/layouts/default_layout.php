@@ -19,7 +19,7 @@
 <!-- favicon -->  
 <link rel="icon" href="<?php echo STATIC_URI_BASE; ?>images/shared/favicon.ico" type="image/x-icon" /> 
 
-<link rel="image_src" href="http://ifl.lrdc.pitt.edu/ifl/images/shared/logo.png" />
+<link rel="image_src" href="<?php echo STATIC_URI_BASE; ?>images/shared/fb_like_logo.jpg" />
 
 <!-- CSS Style --> 
 <link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/main.css:fb-buttons.css<?php if(isset($stylesheets)) { echo ':'.implode(':', $stylesheets);  } ?>" media="all" charset="utf-8" /> 
@@ -27,9 +27,6 @@
 
 <!-- JavaScript -->
 <script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/sweet_titles.js"></script>
-
-<!--css3-mediaqueries-js - http://code.google.com/p/css3-mediaqueries-js/ - Enables media queries in some unsupported browsers--> 
-<script type="text/javascript" src="<?php echo APP_URI_BASE; ?>js/index/css3-mediaqueries.js"></script>
 	
 <?php if(isset($javascripts)) : ?>
 <script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/<?php echo implode(':', $javascripts); ?>"></script>

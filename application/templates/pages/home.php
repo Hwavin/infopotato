@@ -13,7 +13,7 @@
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 <!-- Place this tag where you want the +1 button to render -->
 <g:plusone size="tall"  href="http://www.infopotato.com"></g:plusone>
-<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.infopotato.com"  data-text="PHP5 framework" data-count="vertical"  data-via="bugherd">Tweet</a>
+<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://www.infopotato.com"  data-text="PHP5 framework" data-count="vertical"  data-via="yuanzhou19">Tweet</a>
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 <iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.infopotato.com&amp;send=false&amp;layout=box_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=lucida+grande&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:62px;" allowTransparency="true"></iframe>
 </div>
