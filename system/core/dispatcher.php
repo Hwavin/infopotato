@@ -46,22 +46,15 @@ final class Dispatcher {
 			$params[] = $uri_segments[$i];
 		}
 
-		// Manager file
-		$manager_file = APP_MANAGER_DIR.$manager_name.'_manager.php';
-
-		// Checks if manager file exists 
-		if ( ! file_exists($manager_file)) { 
+		// Checks if manager file exists, for debug
+		if ( ! file_exists(APP_MANAGER_DIR.$manager_name.'_manager.php')) { 
 			halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
 		}
-		require_once $manager_file;
 
 		// The name of user-defined manager class (case-insensitive)
+		// If the file containg the class was already included, the class defenition would already be loaded 
+		// No need to check if the class exists
 		$manager_class = $manager_name.'_manager';
-		// Function class_exists() is matched in a case-insensitive manner
-		if ( ! class_exists($manager_class)) {
-			halt('An Error Was Encountered', 'Manager class does not exist', 'sys_error');				
-		}
-
 		// Instantiate the manager object
 		$manager_obj = new $manager_class;
 		

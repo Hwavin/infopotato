@@ -59,10 +59,11 @@ function auto_load($class_name) {
             $file = SYS_CORE_DIR.$class_name.'.php';
         }
     } else {
-        // In case one app manager extends another app manager
+        // Autoload app manager files
         $file = APP_MANAGER_DIR.$class_name.'.php';
     }
-    // Using require_once() in the __autoload() function is redundant.  
+	
+	// Using require_once() in the __autoload() function is redundant.  
 	// __autoload() is only called when php can't find your class definition.  
 	// If your file containg your class was already included, the class defenition would already be loaded 
 	// and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
