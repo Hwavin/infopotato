@@ -120,6 +120,31 @@ Minification is the practice of removing unnecessary characters from code to red
 InfoPotato provides a <a href="<?php echo APP_URI_BASE; ?>documentation//function/minify_html/">function to minify HTML content</a>.
 </p>
 
+<h2>Tips to Speed Up Your PHP Code</h2>
+
+<p>
+It&#8217;s time to break out of those lazy habits and start coding with performance in mind.  Practice these PHP performance tips and watch your code go from sluggish to speedy in no time.
+</p>
+
+<ul>
+<li><strong>Use echo instead of print().</strong> As a language construct rather than a function, echo has a slight performance advantage over print().</li>
+<li><strong>Echo with commas, not periods.</strong> I&#8217;m a repeat offender of this one.  If you use periods, PHP has to concatenate the string before it outputs.  If you use commas, it just outputs them in order with no extra processing.</li>
+<li><strong>Avoid function tests in loop conditionals.</strong> If you&#8217;re looping through an array, for example, count() it beforehand, store the value in a variable, and use that for your test.  This way, you avoid needlessly firing the test function with every loop iteration.</li>
+<li><strong>Use include() and require() instead of include_once() and require_once().</strong> There&#8217;s a lot of work involved in checking to see if a file has already been included.  Sometimes it&#8217;s necessary, but you should default to include() and require() in most situations.</li>
+<li><strong>Use full file paths on include/require statements.</strong> Normalizing a relative file path can be expensive; giving PHP the absolute path (or even &#8220;./file.inc&#8221;) avoids the extra step.</li>
+<li><strong>Favor built-in functions over custom functions.</strong> Since PHP has to take the extra step of interpreting your custom functions, built-in functions have a performance advantage.  More importantly, there are a lot of useful built-in functions that you may never learn about if you always default to writing your own.</li>
+<li><strong>Avoid needlessly copying variables.</strong> If the variable is quite large, this could result in a lot of extra processing.  Use the copy you already whenever possible, even if it doesn&#8217;t look pretty (e.g., $_POST['somevariable']).</li>
+<li><strong>Pass unchanged variables to a function by reference rather than value.</strong> This goes hand-in-hand with the point about needlessly copying variables.  Much of the time, your functions only need to use the values from their parameters without changing them.  In such cases, you can safely pass those parameters by reference (e.g., function(&amp;$parameter) rather than function($parameter)) and avoid having to make memory-intensive copies.</li>
+<li><strong>Debug with error_reporting(E_ALL).</strong> Every warning is a performance improvement waiting to happen, but only if you can see it.  Cleaning up warnings and errors beforehand can also keep you from using @ error suppression, which is expensive.  Just don&#8217;t forget to turn off error reporting when you&#8217;re done; warnings and errors are expensive as well.</li>
+<li><strong>Ditch double quotes for single quotes.</strong> There&#8217;s some disagreement, but the common wisdom is that PHP has to do extra processing on a string in double quotes to see if it contains any variables.  Concatenation with single quotes is marginally faster.</li>
+</ul>
+
+<h2>Code Profiling</h2>
+
+<p>
+Xdebug's built-in profiler allows you to find bottlenecks in your script and visualize those with an external tool such as KCacheGrind or WinCacheGrind. There is also a web based front-end called <a href="http://code.google.com/p/webgrind/" class="external_link">Webgrind</a>.
+</p>
+
 <!-- PRINT: stop -->
 
 </div> 

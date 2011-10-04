@@ -31,7 +31,7 @@ function auto_load($class_name) {
     $class_name = strtolower($class_name);
 	
     // Create and use runtime files to speed up the parsing process for all the following requests
-    // Dispatcher and Manager class are required for each app request
+    // Dispatcher and Manager class are required for all app request
     $runtime_list = array(
         'dispatcher', 
         'manager', 
@@ -62,7 +62,11 @@ function auto_load($class_name) {
         // In case one app manager extends another app manager
         $file = APP_MANAGER_DIR.$class_name.'.php';
     }
-    require_once $file;
+    // Using require_once() in the __autoload() function is redundant.  
+	// __autoload() is only called when php can't find your class definition.  
+	// If your file containg your class was already included, the class defenition would already be loaded 
+	// and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
+	require $file;
 } 
 
 spl_autoload_register('auto_load');
