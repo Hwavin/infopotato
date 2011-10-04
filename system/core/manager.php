@@ -72,7 +72,6 @@ class Manager {
 		// Is the template in a sub-folder? If so, parse out the filename and path.
 		if (strpos($template, '/')) {
 			// str_replace is faster than preg_replace, but strtr is faster than str_replace by a factor of 4
-			//$template = str_replace('/', DS, pathinfo($orig_template, PATHINFO_DIRNAME)).DS.substr(strrchr($orig_template, '/'), 1);
 			$template = strtr(pathinfo($orig_template, PATHINFO_DIRNAME), '/', DS).DS.substr(strrchr($orig_template, '/'), 1);
 		}
 		
@@ -134,15 +133,17 @@ class Manager {
 				'text/csv',
 			);
 			
+			$exists = in_array($config['type'], $mime_types);
+			
 			// Explicitly specify the charset parameter (utf-8) of the text document
 			// The value of charset should be case insensitive - browsers shouldn't care.
-			$headers['Content-Type'] = in_array($config['type'], $mime_types) ? $config['type'].'; charset=utf-8' : $config['type'];
+			$headers['Content-Type'] = $exists ? $config['type'].'; charset=utf-8' : $config['type'];
 
 			// By default, compress all text based files
 			// Note: Image and PDF files should not be gzipped because they are already compressed. 
 			// Trying to gzip them not only wastes CPU but can potentially increase file sizes.
 			$is_compressed = FALSE;
-			if (in_array($config['type'], $mime_types)) {
+			if ($exists) {
 				$compression_method = self::_get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
 				$compressed = isset($config['compression_level']) 
@@ -277,7 +278,6 @@ class Manager {
 		if (strpos($data, '/') === FALSE) {
 			$path = '';
 		} else {
-			//$path = str_replace('/', DS, pathinfo($data, PATHINFO_DIRNAME)).DS;
 			$path = strtr(pathinfo($data, PATHINFO_DIRNAME), '/', DS).DS;
 			$data = substr(strrchr($data, '/'), 1);		
 		}
@@ -334,7 +334,6 @@ class Manager {
 		if (strpos($library, '/') === FALSE) {
 			$path = '';
 		} else {
-			//$path = str_replace('/', DS, pathinfo($library, PATHINFO_DIRNAME)).DS;
 			$path = strtr(pathinfo($library, PATHINFO_DIRNAME), '/', DS).DS;
 			$library = substr(strrchr($library, '/'), 1);	
 		}
@@ -394,7 +393,6 @@ class Manager {
 		if (strpos($func, '/') === FALSE) {
 			$path = '';
 		} else {
-			//$path = str_replace('/', DS, pathinfo($func, PATHINFO_DIRNAME)).DS;
 			$path = strtr(pathinfo($func, PATHINFO_DIRNAME), '/', DS).DS;
 			$func = substr(strrchr($func, '/'), 1);	
 		}

@@ -893,7 +893,15 @@ background:#d8dfea url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no
 
 
 
-
+.line_num { 
+float: left; 
+width:25px;
+color:#ccc; 
+text-align: right; 
+margin-right:10px; 
+padding-right:5px; 
+border-right: 1px solid #ccc;
+}
 
 
 

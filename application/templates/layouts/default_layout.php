@@ -45,9 +45,7 @@
 <li class="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="<?php echo __('Return to frontpage'); ?>">infopotato</a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="<?php echo __('About'); ?>"><?php echo __('About'); ?></a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="<?php echo __('Download'); ?>"><?php echo __('Download'); ?></a></li>
-<!--
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>showcase/" title="<?php echo __('Showcase'); ?>"><?php echo __('Showcase'); ?></a></li>
--->
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>code/" title="<?php echo __('Code'); ?>"><?php echo __('Code'); ?></a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="<?php echo __('Documentation'); ?>"><?php echo __('Documentation'); ?></a></li>
 <li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="<?php echo __('Contact'); ?>"><?php echo __('Contact'); ?></a></li>
 </ul>
