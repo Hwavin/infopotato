@@ -55,7 +55,6 @@ final class Dispatcher {
 		// If the file containg the class was already included, the class defenition would already be loaded 
 		// No need to check if the class exists
 		$manager_class = $manager_name.'_manager';
-		// Instantiate the manager object
 		$manager_obj = new $manager_class;
 		
 		// Checks if the manager method exists

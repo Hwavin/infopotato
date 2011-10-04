@@ -71,7 +71,9 @@ class Manager {
 		
 		// Is the template in a sub-folder? If so, parse out the filename and path.
 		if (strpos($template, '/')) {
-			$template = str_replace('/', DS, pathinfo($orig_template, PATHINFO_DIRNAME)).DS.substr(strrchr($orig_template, '/'), 1);
+			// str_replace is faster than preg_replace, but strtr is faster than str_replace by a factor of 4
+			//$template = str_replace('/', DS, pathinfo($orig_template, PATHINFO_DIRNAME)).DS.substr(strrchr($orig_template, '/'), 1);
+			$template = strtr(pathinfo($orig_template, PATHINFO_DIRNAME), '/', DS).DS.substr(strrchr($orig_template, '/'), 1);
 		}
 		
 		$template_file_path = APP_TEMPLATE_DIR.$template.'.php';
@@ -275,7 +277,8 @@ class Manager {
 		if (strpos($data, '/') === FALSE) {
 			$path = '';
 		} else {
-			$path = str_replace('/', DS, pathinfo($data, PATHINFO_DIRNAME)).DS;
+			//$path = str_replace('/', DS, pathinfo($data, PATHINFO_DIRNAME)).DS;
+			$path = strtr(pathinfo($data, PATHINFO_DIRNAME), '/', DS).DS;
 			$data = substr(strrchr($data, '/'), 1);		
 		}
 
@@ -331,7 +334,8 @@ class Manager {
 		if (strpos($library, '/') === FALSE) {
 			$path = '';
 		} else {
-			$path = str_replace('/', DS, pathinfo($library, PATHINFO_DIRNAME)).DS;
+			//$path = str_replace('/', DS, pathinfo($library, PATHINFO_DIRNAME)).DS;
+			$path = strtr(pathinfo($library, PATHINFO_DIRNAME), '/', DS).DS;
 			$library = substr(strrchr($library, '/'), 1);	
 		}
 		
@@ -390,7 +394,8 @@ class Manager {
 		if (strpos($func, '/') === FALSE) {
 			$path = '';
 		} else {
-			$path = str_replace('/', DS, pathinfo($func, PATHINFO_DIRNAME)).DS;
+			//$path = str_replace('/', DS, pathinfo($func, PATHINFO_DIRNAME)).DS;
+			$path = strtr(pathinfo($func, PATHINFO_DIRNAME), '/', DS).DS;
 			$func = substr(strrchr($func, '/'), 1);	
 		}
 
