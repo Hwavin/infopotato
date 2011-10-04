@@ -85,7 +85,7 @@ spl_autoload_register('auto_load');
 function halt($heading, $message, $template = 'sys_error') {
     if (ENVIRONMENT === 'development') {
         ob_start();
-        require_once SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
+        require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
         $buffer = ob_get_contents();
         ob_end_clean();
         echo $buffer;
