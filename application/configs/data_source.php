@@ -3,7 +3,8 @@ return array(
 	// MySQL
 	'mysql_dao' => array(
 		'default' => array(
-			'host' => 'localhost', // The hostname of your database server. It can also include a port number. e.g. "hostname:port"
+			'host' => 'localhost', // The hostname of your database server. 
+			'port' => '3306', // Port number, string
 			'name' => 'users', // The name of the database you want to connect to
 			'user' => 'root', // The username used to connect to the database
 			'pass' => '', // The password used to connect to the database
@@ -13,6 +14,7 @@ return array(
 		
 		'world' => array(
 			'host' => 'localhost',
+			'port' => '3306', // Port number, string
 			'name' => 'world', 
 			'user' => 'root',
 			'pass' => '',

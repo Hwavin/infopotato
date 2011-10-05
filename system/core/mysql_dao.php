@@ -26,7 +26,7 @@ class MySQL_DAO extends Base_DAO {
 	public function __construct(array $config = NULL) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			if ( ! $this->dbh = mysql_connect($config['host'], $config['user'], $config['pass'], TRUE)) {
+			if ( ! $this->dbh = mysql_connect($config['host'].':'.$config['port'], $config['user'], $config['pass'], TRUE)) {
 				halt('An Error Was Encountered', 'Could not connect: '.mysql_error($this->dbh), 'sys_error');		
 			} 
 			

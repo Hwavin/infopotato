@@ -1,7 +1,7 @@
 <?php
 class World_Data extends Data {
 	public function __construct() {
-		parent::__construct('mysqli_dao:world');
+		parent::__construct('mysql_dao:world');
 	}
 
 	public function example1() { 
