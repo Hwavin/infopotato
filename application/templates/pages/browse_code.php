@@ -7,13 +7,23 @@
 </div>
 <!-- end breadcrumb -->
 
-<code style="overflow-x: auto; white-space: nowrap">
+<p>
+
+</p>
+
+<div class="highlighted_code">
+<div class="meta">
+<?php echo $filename; ?>
+</div>
+
+<code>
 <?php foreach ($highlighted_code as $num => $string): $num++; ?>
 <span class="line_num"><?php echo $num ?></span>
 <?php echo $string; ?>
-<br>
+<br />
 <?php endforeach; ?>
 </code>
+</div>
 
 </div> 
 

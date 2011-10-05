@@ -7,11 +7,16 @@
 </div>
 <!-- end breadcrumb -->
 
+<p> 
+InfoPotato keeps changing before it has got the ink dry on each draft. The code shown below are the lastest version of InfoPotato. The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
+</p> 
+
+
 <table class="grid" width="100%">
 <tr>
 <td>
 
-<h2 class="center">core</h2>
+<h2>core</h2>
 
 <ul>
 <li><a href="<?php echo APP_URI_BASE; ?>code/core/dispatcher/">dispatcher.php</a></li>
@@ -48,7 +53,7 @@
 
 <td>
 
-<h2 class="center">libraries</h2>
+<h2>libraries</h2>
 
 <ul>
 <li><a href="<?php echo APP_URI_BASE; ?>code/library/calendar/">calendar_library.php</a></li>
@@ -90,7 +95,7 @@
 
 <td>
 
-<h2 class="center">functions</h2>
+<h2>functions</h2>
 
 <ul>
 <li><a href="<?php echo APP_URI_BASE; ?>code/function/captcha/">captcha_function.php</a></li>
@@ -111,7 +116,15 @@
 </table>
 
 
+<h2>Issue Tracker</h2>
 
+<p>
+We're always grateful for patches to infoPotato's code. 
+</p>
+
+<div class="greybox">
+<a href="https://github.com/yuanzhou/infopotato/issues" class="external_link">https://github.com/yuanzhou/infopotato/issues</a>
+</div>
 
 
 

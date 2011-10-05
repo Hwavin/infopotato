@@ -23,7 +23,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	public function __construct(array $config = array()) {
 		// If there is no existing database connection then try to connect
 		if ( ! $this->dbh) {
-			if ( ! $this->dbh = pg_connect("host=$config['host'] user=$config['user'] password=$config['pass'] dbname=$config['name']", TRUE)) {
+			if ( ! $this->dbh = pg_connect("host=$config['host'] port=$config['port'] user=$config['user'] password=$config['pass'] dbname=$config['name']", TRUE)) {
 				halt('An Error Was Encountered', 'Could not connect: '.pg_last_error($this->dbh), 'sys_error');
 			} 
 			

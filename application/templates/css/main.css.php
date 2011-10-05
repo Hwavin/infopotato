@@ -892,19 +892,24 @@ background:#d8dfea url(<?php echo STATIC_URI_BASE; ?>images/shared/print.gif) no
 
 
 
+.highlighted_code {
+overflow-x: auto; 
+white-space: nowrap;
+border: 1px solid #ccc;
+}
 
 .line_num { 
 float: left; 
+background:#eee;
 width:25px;
-color:#ccc; 
+color: #363636;	
 text-align: right; 
 margin-right:10px; 
 padding-right:5px; 
 border-right: 1px solid #ccc;
 }
 
-
-
-
-
-
+.highlighted_code .meta {
+background:#ddd;
+padding:10px;
+}

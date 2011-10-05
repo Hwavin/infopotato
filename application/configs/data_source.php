@@ -3,7 +3,7 @@ return array(
 	// MySQL
 	'mysql_dao' => array(
 		'default' => array(
-			'host' => 'localhost', // The hostname of your database server.
+			'host' => 'localhost', // The hostname of your database server. It can also include a port number. e.g. "hostname:port"
 			'name' => 'users', // The name of the database you want to connect to
 			'user' => 'root', // The username used to connect to the database
 			'pass' => '', // The password used to connect to the database
@@ -12,44 +12,47 @@ return array(
 		),
 		
 		'world' => array(
-			'host' => 'localhost', // The hostname of your database server.
-			'name' => 'world', // The name of the database you want to connect to
-			'user' => 'root', // The username used to connect to the database
-			'pass' => '', // The password used to connect to the database
-			'charset' => 'utf8', // The character collation used in communicating with the database
-			'collate' => 'utf8_general_ci', //  The Database Collate type. Don't change this if in doubt.
+			'host' => 'localhost',
+			'name' => 'world', 
+			'user' => 'root',
+			'pass' => '',
+			'charset' => 'utf8',
+			'collate' => 'utf8_general_ci',
 		),
 	),
 	
 	// MySQLi
 	'mysqli_dao' => array(
 		'default' => array(
-			'host' => 'localhost', // The hostname of your database server.
-			'name' => 'users', // The name of the database you want to connect to
-			'user' => 'root', // The username used to connect to the database
-			'pass' => '', // The password used to connect to the database
-			'charset' => 'utf8', // The character collation used in communicating with the database
-			'collate' => 'utf8_general_ci', //  The Database Collate type. Don't change this if in doubt.
+			'host' => 'localhost',
+			'port' => 3306, // Port number, integer
+			'name' => 'users',
+			'user' => 'root',
+			'pass' => '',
+			'charset' => 'utf8',
+			'collate' => 'utf8_general_ci', 
 		),
 		
 		'world' => array(
-			'host' => 'localhost', // The hostname of your database server.
-			'name' => 'world', // The name of the database you want to connect to
-			'user' => 'root', // The username used to connect to the database
-			'pass' => '', // The password used to connect to the database
-			'charset' => 'utf8', // The character collation used in communicating with the database
-			'collate' => 'utf8_general_ci', //  The Database Collate type. Don't change this if in doubt.
+			'host' => 'localhost',
+			'port' => 3306, // Port number, integer
+			'name' => 'world',
+			'user' => 'root',
+			'pass' => '', 
+			'charset' => 'utf8', 
+			'collate' => 'utf8_general_ci', 
 		),
 	),
 	
 	// PostgreSQL
 	'postgresql_dao' => array(
 		'default' => array(
-			'host' => 'localhost', // The hostname of your database server.
-			'name' => 'users', // The name of the database you want to connect to
-			'user' => 'root', // The username used to connect to the database
-			'pass' => '', // The password used to connect to the database
-			'charset' => 'UTF8', // The character collation used in communicating with the database
+			'host' => 'localhost',
+			'port' => 5432, // Port number, integer
+			'name' => 'users',
+			'user' => 'root',
+			'pass' => '',
+			'charset' => 'UTF8',
 		),
 	),
 	
