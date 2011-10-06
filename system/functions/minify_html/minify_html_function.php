@@ -6,7 +6,7 @@
  *
  * @param string $html HTML content to be minified
  * 
- * @return minified HTML content
+ * @return string minified HTML content
  */
 function minify_html_function($html) {
 	if ( ! strstr($html, '<html') || ! strstr($html, '</html>')) {
@@ -32,7 +32,8 @@ function minify_html_function($html) {
 	$html = str_replace('<BR>', '<br />', $html); // XHTML valid br tags must be done
 	$html = trim(preg_replace(array('/((?<!\?>)\n)[\s]+/m', '/\>\s+\</'), array('\1', '><'), $html));
 
-	$html = preg_replace('/<!--[^<[if>](.|\s)*?-->/', '', $html);   // Remove html comments...
+	// Printer library relys on comment
+	//$html = preg_replace('/<!--[^<[if>](.|\s)*?-->/', '', $html);   // Remove html comments...
 
 	$html = preg_replace($search, $replace, $html);
 

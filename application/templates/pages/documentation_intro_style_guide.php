@@ -200,6 +200,10 @@ Functions should be called with no spaces between the function name, the opening
 As displayed above, there should be one space on either side of an equals sign used to assign the return value of a function to a variable.
 </p>
 
+<p>
+Parameters with a default value, should be placed last in function definition. Try to make your functions return something, at least true or false&mdash;so it can be determined whether the function call was successful.
+</p>
+
 
 <h2>Class Definitions</h2>
 

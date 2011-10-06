@@ -2,6 +2,9 @@
 /**
  * Manager class file.
  *
+ * The encoding part is based on Minify's HTTP_Encoder class
+ * @link https://github.com/mrclay/minify/blob/master/min/lib/HTTP/Encoder.php
+ * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
@@ -146,7 +149,7 @@ class Manager {
 			if ($exists) {
 				$compression_method = self::_get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
-				$compressed = isset($config['compression_level']) 
+				$compressed = isset($config['compression_level']) && $config['compression_level'] > 6 && $config['compression_level'] <= 9
 							  ? self::_compress($config['content'], $compression_method, $config['compression_level']) 
 							  : self::_compress($config['content'], $compression_method);
 			
@@ -180,29 +183,26 @@ class Manager {
 	/**
      * Determine the client's best encoding method from the HTTP Accept-Encoding header.
      * 
-	 * By default, encoding is only offered to IE7+
+	 * For IE, encoding is only offered to IE7+
 	 *
-     * A syntax-aware scan is done of the Accept-Encoding, so the method must
-     * be non 0. The methods are favored in order of gzip (a lossless compressed-data format), deflate, then 
-     * compress. Deflate is always smallest and generally faster, but is 
+     * A syntax-aware scan is done of the Accept-Encoding, so the method must be non 0.
+     * The methods are favored in order of gzip (lossless compressed-data format), deflate, then compress.
+     * Deflate is always smallest and generally faster, but is 
      * rarely sent by servers, so client support could be buggier.
-     * 
-     * @param boolean $allow_compress allow the older compress encoding
-     * @param boolean $allow_deflate allow the more recent deflate encoding
      * 
      * @return array two values, 1st is the actual encoding method, 2nd is the
      * alias of that method to use in the Content-Encoding header (some browsers
      * call gzip "x-gzip" etc.)
      */
-    private static function _get_accepted_compression_method($allow_compress = TRUE, $allow_deflate = TRUE) {
-        if ( ! isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
+    private static function _get_accepted_compression_method() {
+        // Contents of the Accept-Encoding: header from the current request, if there is one. Example: 'gzip'
+		if ( ! isset($_SERVER['HTTP_ACCEPT_ENCODING'])) {
             return array('', '');
         }
+		
         $ae = $_SERVER['HTTP_ACCEPT_ENCODING'];
-        // gzip checks (quick)
-        if (strpos($ae, 'gzip,') === 0 // most browsers
-			// opera 
-			|| strpos($ae, 'deflate, gzip,') === 0) { 
+        // gzip checks (quick), most browsers and opera
+        if (strpos($ae, 'gzip,') === 0 || strpos($ae, 'deflate, gzip,') === 0) { 
             return array('gzip', 'gzip');
         }
 		
@@ -210,23 +210,18 @@ class Manager {
         if (preg_match('@(?:^|,)\\s*((?:x-)?gzip)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)) {
             return array('gzip', $m[1]);
         }
-		
-        if ($allow_deflate) {
-            // deflate checks    
-            $ae_rev = strrev($ae);
-            if (strpos($ae_rev, 'etalfed ,') === 0 // ie, webkit
-                || strpos($ae_rev, 'etalfed,') === 0 // gecko
-                || strpos($ae, 'deflate,') === 0 // opera
-                // slow parsing
-                || preg_match('@(?:^|,)\\s*deflate\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae)) {
-                return array('deflate', 'deflate');
-            }
-        }
-		
-        if ($allow_compress && preg_match('@(?:^|,)\\s*((?:x-)?compress)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)) {
-            return array('compress', $m[1]);
-        }
-        return array('', '');
+
+        // deflate checks    
+        $ae_rev = strrev($ae);
+		$a = strpos($ae_rev, 'etalfed ,'); // ie, webkit
+		$b = strpos($ae_rev, 'etalfed,'); // gecko
+		$c = strpos($ae, 'deflate,'); // opera
+		$d = preg_match('@(?:^|,)\\s*deflate\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae); // slow parsing
+		if ($a === 0 || $b === 0 || $c === 0 || $d) {
+			return array('deflate', 'deflate');
+		}
+
+        return (preg_match('@(?:^|,)\\s*((?:x-)?compress)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)) ? array('compress', $m[1]) : array('', '');
     }
 	
 	/**
@@ -241,7 +236,7 @@ class Manager {
      * @return string the compressed content or FALSE if an error occurred.
      */
     private static function _compress($content, array $compression_method = array('', ''), $compression_level = 6) {
-        if ($compression_method[0] === '' || ($compression_level == 0) || ! extension_loaded('zlib')) {
+        if ($compression_method[0] === '' || ! extension_loaded('zlib')) {
             return FALSE;
         }
 		
@@ -252,12 +247,9 @@ class Manager {
         } else {
             $compressed = gzcompress($content, $compression_level);
         }
-		
-        if ($compressed === FALSE) {
-            return FALSE;
-        }
 
-        return $compressed;
+		// Returns the compressed string or FALSE if an error occurred.
+        return ($compressed === FALSE) ? FALSE : $compressed;
     }
 
 	/**
