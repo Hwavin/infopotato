@@ -149,7 +149,7 @@ class Manager {
 			if ($exists) {
 				$compression_method = self::_get_accepted_compression_method();
 				// Return the compressed content or FALSE if an error occurred or the content was uncompressed
-				$compressed = isset($config['compression_level']) && $config['compression_level'] > 6 && $config['compression_level'] <= 9
+				$compressed = isset($config['compression_level'])
 							  ? self::_compress($config['content'], $compression_method, $config['compression_level']) 
 							  : self::_compress($config['content'], $compression_method);
 			
@@ -221,7 +221,9 @@ class Manager {
 			return array('deflate', 'deflate');
 		}
 
-        return (preg_match('@(?:^|,)\\s*((?:x-)?compress)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)) ? array('compress', $m[1]) : array('', '');
+        return preg_match('@(?:^|,)\\s*((?:x-)?compress)\\s*(?:$|,|;\\s*q=(?:0\\.|1))@', $ae, $m)
+		       ? array('compress', $m[1]) 
+			   : array('', '');
     }
 	
 	/**
