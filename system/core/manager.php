@@ -2,9 +2,6 @@
 /**
  * Manager class file.
  *
- * The encoding part is based on Minify's HTTP_Encoder class
- * @link https://github.com/mrclay/minify/blob/master/min/lib/HTTP/Encoder.php
- * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
@@ -109,12 +106,12 @@ class Manager {
      * 
      * @param array $config options
      * 
-     * $config['content']: (string required) content to be compressed
+     * $config['content']: (string required) content to output
      * 
      * $config['type']: (string required)  specify the character encoding of the text document, like html, css, plain text
 	 *
-	 * $config['compression_level']: (int optional) Can be given as 0 for no compression up to 9 for maximum compression.
-     * 
+	 * $config['extra_headers']: (array optional)  any extra headers to response
+	 *
 	 * $config['disable_cache']: (boolean optional) Sets the correct headers to instruct the client to not cache the response
 	 * 
      * @return NULL
@@ -150,6 +147,9 @@ class Manager {
 			}
 			
 			// Send server response headers
+			if (isset($config['extra_headers']) && is_array($config['extra_headers'])) {
+			    $headers = array_merge($headers, $config['extra_headers']);
+			}
 			foreach ($headers as $name => $val) {
 				header($name.': '.$val);
 			}

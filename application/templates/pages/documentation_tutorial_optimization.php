@@ -139,6 +139,12 @@ It&#8217;s time to break out of those lazy habits and start coding with performa
 <li><strong>Ditch double quotes for single quotes.</strong> There&#8217;s some disagreement, but the common wisdom is that PHP has to do extra processing on a string in double quotes to see if it contains any variables.  Concatenation with single quotes is marginally faster.</li>
 </ul>
 
+<h2>Enabling HTTP GZIP Compression</h2>
+
+<p>
+Compression is a simple, effective way to save bandwidth and speed up your application. There are two ways to compress output. One of them is apache's mod_gzip module and the other is php's output buffering, and the two methods are redundant to one another. Between the two, mod_gzip is generally easier to set up and more comprehensive&mdash;as it's part of Apache, mod_gzip can compress content (like static HTML, Javascript, and CSS) which isn't served through PHP. Here is a good article which <a href="http://betterexplained.com/articles/how-to-optimize-your-site-with-gzip-compression/" class="external_link">explains more about GZIP compression</a>.
+</p>
+
 <h2>Code Profiling</h2>
 
 <p>
