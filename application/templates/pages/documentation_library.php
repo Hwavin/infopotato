@@ -12,7 +12,6 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/output_cache/"><?php echo __('Output Cache'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/calendar/"><?php echo __('Calendar'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/dirinfo/">Dir Info</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/feed_writer/">Feed Writer</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/email/"><?php echo __('Email'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/encypt/"><?php echo __('Encryption'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/upload/"><?php echo __('File Upload'); ?></a></li> 

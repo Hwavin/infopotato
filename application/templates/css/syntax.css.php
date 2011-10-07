@@ -8,6 +8,8 @@ border:1px solid #ddd;
 border-left:3px solid #ddd;
 padding:10px;
 margin:1.5em 0;
+overflow-x: auto; 
+white-space: nowrap;
 }
 
 .syntax .c { color: #408080; font-style: italic } /* Comment */

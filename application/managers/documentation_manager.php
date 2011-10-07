@@ -223,12 +223,8 @@ final class Documentation_Manager extends Manager {
 				'name' => 'Calendar'
 			),
 			array(
-				'uri' => 'dir', 
+				'uri' => 'dirinfo', 
 				'name' => 'Dir Info'
-			),
-			array(
-				'uri' => 'feed_writer', 
-				'name' => 'Feed Writer'
 			),
 			array(
 				'uri' => 'email', 

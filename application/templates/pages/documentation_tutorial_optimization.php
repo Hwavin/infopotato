@@ -117,7 +117,7 @@ Minification is the practice of removing unnecessary characters from code to red
 </p>
 
 <p>
-InfoPotato provides a <a href="<?php echo APP_URI_BASE; ?>documentation//function/minify_html/">function to minify HTML content</a>.
+InfoPotato provides a <a href="<?php echo APP_URI_BASE; ?>documentation/function/minify_html/">function to minify HTML content</a>.
 </p>
 
 <h2>Tips to Speed Up Your PHP Code</h2>
@@ -143,6 +143,10 @@ It&#8217;s time to break out of those lazy habits and start coding with performa
 
 <p>
 Compression is a simple, effective way to save bandwidth and speed up your application. There are two ways to compress output. One of them is apache's mod_gzip module and the other is php's output buffering, and the two methods are redundant to one another. Between the two, mod_gzip is generally easier to set up and more comprehensive&mdash;as it's part of Apache, mod_gzip can compress content (like static HTML, Javascript, and CSS) which isn't served through PHP. Here is a good article which <a href="http://betterexplained.com/articles/how-to-optimize-your-site-with-gzip-compression/" class="external_link">explains more about GZIP compression</a>.
+</p>
+
+<p>
+If your hosting server doesn't support GZIP, you can use <a href="<?php echo APP_URI_BASE; ?>library/gzip_compress/">InfoPotato's gzip compress library</a>.
 </p>
 
 <h2>Code Profiling</h2>
