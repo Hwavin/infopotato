@@ -17,6 +17,13 @@
 Speed is a big deal, and it's also a major reason that developers pick InfoPotato. It has a light footprint that consistently places it at the top of the PHP framework benchmarks. But keeping an application fast goes far beyond selecting a quick framework.
 </p>
 
+<div class="box_right greybox">
+<blockquote>
+<span>Continuous Improvement is better than delayed perfection.</span>
+<div>&mdash; Mark Twain</div>
+</blockquote>
+</div>
+
 <p>
 Performance of Web applications is affected by many factors. Database access, file system operations, network bandwidth are all potential affecting factors. InfoPotato has tried in every aspect to reduce the performance impact caused by the framework. But still, there are many places in the user application that can be improved to boost performance.
 </p>
