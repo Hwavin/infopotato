@@ -14,6 +14,19 @@ final class Documentation_Manager extends Manager {
 		$this->response($response_data);
 	}
 	
+	public function get_start() {
+		$layout_data = array(
+			'page_title' => 'Documentation - Getting Started',
+			'content' => $this->render_template('pages/documentation_start'),
+		);
+		
+		$response_data = array(
+			'content' => $this->render_template('layouts/default_layout', $layout_data),
+			'type' => 'text/html',
+		);
+		$this->response($response_data);
+	}
+	
 	public function get_intro(array $params = NULL) {
 		$name = count($params) > 0 ? '_'.$params[0] : '';
 		

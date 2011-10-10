@@ -19,9 +19,10 @@
 </div>
 <!-- Google +1, twitter, facebook like button end -->
 
-<h2 class="first_heading">InfoPotato &mdash; <span class="blue"><?php echo __('Built on the shoulders of giants'); ?></span></h2>
+
+<h2 class="blue">Using InfoPotato Without Becoming A Hostage To It</h2>
 <p>
-<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It incorporates many ideas and work from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner(be as fast as possible)—without loss of flexibility and expansibility.
+<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It is built on the shoulders of giants by incorporating many good ideas and best practice from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner without loss of flexibility and expansibility.
 </p>
 
 </div>
