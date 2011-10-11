@@ -120,7 +120,7 @@ class Manager {
 		if (isset($config['content']) && isset($config['type'])) {
 			// Response headers
 			$headers = array();
-
+			
 			// MIME types that need utf-8 charset encoding
 			$mime_types = array(
 				'text/html', 
