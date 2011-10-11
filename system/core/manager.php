@@ -313,15 +313,6 @@ class Manager {
 		require_once $file_path;
 	}
 
-	/**
-	 * __call
-	 *
-	 * Gets triggered when an inaccessible methods requested
-	 */    
-	public function __call($method, $args) {
-		halt('A System Error Was Encountered', "Unknown class method '{$method}'", 'sys_error');
-	}
-
 }
 
 // End of file: ./system/core/manager.php 
