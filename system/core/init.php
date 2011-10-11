@@ -84,6 +84,7 @@ spl_autoload_register('auto_load');
  * @param	string	the heading
  * @param	string	the message
  * @param	string	the template name
+ * @param	int	the HTTP response status code
  * @return	string
  */
 function halt($heading, $message, $template = 'sys_error', $status_code = 404) {
