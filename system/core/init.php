@@ -59,10 +59,13 @@ function auto_load($class_name) {
             $file = SYS_CORE_DIR.$class_name.'.php';
         }
     } else {
-        // Autoload app manager files
         $file = APP_MANAGER_DIR.$class_name.'.php';
+		// Checks if app manager file exists, for debug
+	    if ( ! file_exists($file)) { 
+		    halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
+	    }
     }
-	
+
 	// Using require_once() in the __autoload() function is redundant.  
 	// __autoload() is only called when php can't find your class definition.  
 	// If your file containg your class was already included, the class defenition would already be loaded 

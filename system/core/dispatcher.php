@@ -46,11 +46,6 @@ final class Dispatcher {
 			$params[] = $uri_segments[$i];
 		}
 
-		// Checks if manager file exists, for debug
-		if ( ! file_exists(APP_MANAGER_DIR.$manager_name.'_manager.php')) { 
-			halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
-		}
-
 		// The name of user-defined manager class (case-insensitive)
 		// If the file containg the class was already included, the class defenition would already be loaded 
 		// No need to check if the class exists

@@ -70,6 +70,46 @@ Once you've mastered a framework, they help you get more done in less time. They
 InfoPotato is a very lightweight, well designed & well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It is built on the shoulders of giants by incorporating many good ideas and best practice from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner without loss of flexibility and expansibility.
 </p>
 
+
+
+<div class="row">
+
+<h2 class="first_heading">Quick Facts about InfoPotato</h2>
+
+<div class="fourcol">
+<div class="fact">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/flex.png" class="fact_img" title="Dedicated to Small Applications" alt="Dedicated to Small Applications" />
+<div class="fact_desc">
+<h3>Dedicated to Small Applications</h3>
+<div>Easy installation &amp; configuration, no ORM/CLI/PEAR/Code Generators</div>
+</div>
+</div>
+</div>
+
+<div class="fourcol">
+<div class="fact">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/fast.png" class="fact_img" title="Truly Lightweight &amp; Fast" alt="Truly Lightweight &amp; Fast" />
+<div class="fact_desc">
+<h3>Truly Lightweight &amp; Ultra-fast</h3>
+<div>Tiny core, runtime cache, output compression, lazy loading</div>
+</div>
+</div>
+</div>
+
+<div class="fourcol last">
+<div class="fact">
+<img src="<?php echo STATIC_URI_BASE; ?>images/content/loose.png" class="fact_img" title="Loosely Coupled Components" alt="Loosely Coupled Components" />
+<div class="fact_desc">
+<h3>Loosely Coupled Components</h3>
+<div>Each core component has little or no knowledge of other components</div>
+</div>
+</div>
+</div>
+
+</div>
+
+
+
 <div class="row">
 
 <div class="fourcol">
@@ -175,4 +215,4 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 
 </div>
 
-</div> 
+</div>

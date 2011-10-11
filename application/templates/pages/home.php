@@ -22,7 +22,7 @@
 
 <h2 class="blue">Using InfoPotato Without Becoming A Hostage To It</h2>
 <p>
-<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework built around HTTP and the principles of REST for the development of small web applications. It is built on the shoulders of giants by incorporating many good ideas and best practice from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner without loss of flexibility and expansibility.
+<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework loosely built around HTTP and the principles of REST for the development of small web applications. It is built on the shoulders of giants by incorporating many good ideas and best practice from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner without loss of flexibility and expansibility.
 </p>
 
 </div>
@@ -48,7 +48,7 @@
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/fast.png" class="fact_img" title="Truly Lightweight &amp; Fast" alt="Truly Lightweight &amp; Fast" />
 <div class="fact_desc">
-<h3>Truly Lightweight &amp; Fast</h3>
+<h3>Truly Lightweight &amp; Ultra-fast</h3>
 <div>Tiny core, runtime cache, output compression, lazy loading</div>
 </div>
 </div>
