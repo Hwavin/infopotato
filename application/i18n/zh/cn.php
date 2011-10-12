@@ -65,8 +65,8 @@ return array(
 	'User Agent' => '客户端',
 	
 	// Homepage
-	'Using InfoPotato Without Becoming A Hostage To It' => 'InfoPotato 让你不做框架的人质'
-    'The &lt;span class=&quot;green&quot;&gt;Lighter&lt;/span&gt;, &lt;span class=&quot;red&quot;&gt;Faster&lt;/span&gt; and &lt;span class=&quot;orange&quot;&gt;Sleeker&lt;/span&gt; PHP5 Framework' => '<span class="green">更轻量</span>、<span class="red">更高效</span>、<span class="orange">更时尚</span>的PHP5框架',
+	'Using InfoPotato Without Becoming A Hostage To It' => 'InfoPotato 让你不做框架的人质',
+    'The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework' => '<span class="green">更轻量</span>、<span class="red">更高效</span>、<span class="orange">更时尚</span>的PHP5框架',
 	'Quick Facts about InfoPotato' => '关于InfoPotato的事实真相',
-	'&lt;strong&gt;InfoPotato&lt;/strong&gt; is a very lightweight, well designed &amp; well documented PHP5 framework loosely built around HTTP and the principles of REST for the development of small web applications. It is built on the shoulders of giants by incorporating many good ideas and best practice from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner without loss of flexibility and expansibility.' => '&lt;strong&gt;InfoPotato&lt;/strong&gt; 是非常轻便、 设计得很好、 很好有案可稽的 PHP5 框架松散围绕 HTTP 和发展小型 web 应用程序的其余部分的原则。它通过采用很多好的想法和其他知名的 php 开发框架和工具包的最佳实践构建在巨人的肩膀上。InfoPotato 的主要目标是使您能够操作的灵活性和可扩展性的结构化和快速方式而不会丢失。',
+	'<strong>InfoPotato</strong> is a very lightweight, well designed &amp; well documented PHP5 framework loosely built around HTTP and the principles of REST for the development of small web applications. It is built on the shoulders of giants by incorporating many good ideas and best practice from other well-known PHP frameworks and toolkits. The primary goal of InfoPotato is to enable you to work in a structured and rapid manner without loss of flexibility and expansibility.' => '<strong>InfoPotato</strong> 是非常轻便、 设计得很好、 很好有案可稽的 PHP5 框架松散围绕 HTTP 和发展小型 web 应用程序的其余部分的原则。它通过采用很多好的想法和其他知名的 php 开发框架和工具包的最佳实践构建在巨人的肩膀上。InfoPotato 的主要目标是使您能够操作的灵活性和可扩展性的结构化和快速方式而不会丢失。',
 );
