@@ -17,6 +17,10 @@ The term "internationalization" refers to the process of abstracting strings and
 </p> 
 
 <p>
+For an InfoPotato application, we differentiate its target language from source language. The target language is the language (locale) of the users that the application is targeted at, while the source language refers to the language (locale) that the application source files are written in. Internationalization occurs only when the two languages are different.
+</p>
+
+<p>
 If you ever developed an international application, you know that dealing with every aspect of text translation, local standards, and localized content can be a nightmare.
 </p>
 
@@ -89,6 +93,10 @@ In this example, the token is <span class="red">:num</span>, but it can be anyth
 
 <div class="notebox">
 There's one other aspect of localizing your application which is not covered by the use of the translate functions, and that is date/money formats. Don't forget to set the formats for these things you need to use <a href="http://us3.php.net/setlocale" class="external_link"><code>setlocale</code></a>.
+</div>
+
+<div class="notebox">
+While translating existing text to other languages may seem easy, it is more difficult to maintain the parallel versions of texts throughout the life of the product. For instance, if a message displayed to the user is modified, all of the translated versions must be changed. This in turn results in a somewhat longer development cycle.
 </div>
 
 <!-- PRINT: stop -->

@@ -69,7 +69,7 @@ Page URI: <?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?
 <!-- begin footer --> 
 <div class="container footer">
 <div class="row">
-<div id="locale_select" class="hide">
+<div id="locale_select">
 <?php echo __('Languages'); ?> <a href="<?php echo APP_URI_BASE; ?>lang/index/en/us/">English</a> - <a href="<?php echo APP_URI_BASE; ?>lang/index/zh/cn/">简体中文</a>
 </div>
 Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
