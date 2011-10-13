@@ -152,31 +152,10 @@ class Cookie {
 			$expires = strtotime($expires);	
 		}
 		
-		// Adds support for httponly cookies to PHP 5.0 and 5.1
-		if (strlen($value) && $httponly && ! version_compare(PHP_VERSION, '5.2.0', '>=')) {
-			$header_string = urlencode($name) . '=' . urlencode($value);
-			if ($expires) {
-				$header_string .= '; expires=' . gmdate('D, d-M-Y H:i:s T', $expires); 		
-			} 
-			
-			if ($path) {
-				$header_string .= '; path=' . $path;	
-			}
-			
-			if ($domain) {
-				$header_string .= '; domain=' . $domain;	
-			}
-			
-			if ($secure) {
-				$header_string .= '; secure';	
-			}
-			
-			$header_string .= '; httponly';
-			header('Set-Cookie: ' . $header_string, FALSE);
-			return;
-			
-		// Only pases the httponly parameter if we are on 5.2 since it causes error notices otherwise
-		} elseif (strlen($value) && $httponly) {
+		// httponly added in PHP 5.2.0.
+		// When TRUE the cookie will be made accessible only through the HTTP protocol. 
+		// This means that the cookie won't be accessible by scripting languages, such as JavaScript.
+		if (strlen($value) && $httponly) {
 			setcookie($name, $value, $expires, $path, $domain, $secure, TRUE);
 			return; 		
 		}
