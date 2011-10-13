@@ -37,41 +37,20 @@ class FTP_Library {
 	 * Constructor
 	 */
 	public function __construct(array $config = NULL) {
-		$lang = array(
-			'en/us' => array(
-				'ftp_no_connection' => 'Unable to locate a valid connection ID.  Please make sure you are connected before peforming any file routines.',
-				'ftp_unable_to_connect' => 'Unable to connect to your FTP server using the supplied hostname.',
-				'ftp_unable_to_login' => 'Unable to login to your FTP server.  Please check your username and password.',
-				'ftp_unable_to_makdir' => 'Unable to create the directory you have specified.',
-				'ftp_unable_to_changedir' => 'Unable to change directories.',
-				'ftp_unable_to_chmod' => 'Unable to set file permissions.  Please check your path.  Note: This feature is only available in PHP 5 or higher.',
-				'ftp_unable_to_upload' => 'Unable to upload the specified file.  Please check your path.',
-				'ftp_unable_to_download' => 'Unable to download the specified file.  Please check your path.',
-				'ftp_no_source_file' => 'Unable to locate the source file.  Please check your path.',
-				'ftp_unable_to_rename' => 'Unable to rename the file.',
-				'ftp_unable_to_delete' => 'Unable to delete the file.',
-				'ftp_unable_to_move' => 'Unable to move the file.  Please make sure the destination directory exists.',
-			),
-			
-			'zh/cn' => array(
-				'ftp_no_connection' => '无法定位有效的链接ID,在执行任何文件操作前请确保已经链接',
-				'ftp_unable_to_connect' => '无法用指定的主机名链接到FTP服务器',
-				'ftp_unable_to_login' => '无法登陆到FTP服务器，请检查用户名和密码',
-				'ftp_unable_to_makdir' => '无法创建指定目录',
-				'ftp_unable_to_changedir' => '无法更改目录',
-				'ftp_unable_to_chmod' => '无法设置文件权限，请检查路径',
-				'ftp_unable_to_upload' => '无法上传指定文件，请检查路径',
-				'ftp_unable_to_download' => '无法下载指定文件，请检查路径',
-				'ftp_no_source_file' => '无法定位源文件，请检查路径',
-				'ftp_unable_to_rename' => '无法重命名文件',
-				'ftp_unable_to_delete' => '无法删除文件',
-				'ftp_unable_to_move' => '无法移动文件，请确保目标文件夹存在',
-			),
+		$this->_error_messages = array(
+			'ftp_no_connection' => 'Unable to locate a valid connection ID.  Please make sure you are connected before peforming any file routines.',
+			'ftp_unable_to_connect' => 'Unable to connect to your FTP server using the supplied hostname.',
+			'ftp_unable_to_login' => 'Unable to login to your FTP server.  Please check your username and password.',
+			'ftp_unable_to_makdir' => 'Unable to create the directory you have specified.',
+			'ftp_unable_to_changedir' => 'Unable to change directories.',
+			'ftp_unable_to_chmod' => 'Unable to set file permissions.  Please check your path.  Note: This feature is only available in PHP 5 or higher.',
+			'ftp_unable_to_upload' => 'Unable to upload the specified file.  Please check your path.',
+			'ftp_unable_to_download' => 'Unable to download the specified file.  Please check your path.',
+			'ftp_no_source_file' => 'Unable to locate the source file.  Please check your path.',
+			'ftp_unable_to_rename' => 'Unable to rename the file.',
+			'ftp_unable_to_delete' => 'Unable to delete the file.',
+			'ftp_unable_to_move' => 'Unable to move the file.  Please make sure the destination directory exists.',
 		);
-		
-		$this->_error_messages = (isset($config['lang']) && array_key_exists($config['lang'], $lang)) 
-			? $lang[$config['lang']] 
-			: $lang['en/us'];
 		
 		if (isset($config['hostname'])) {
 			$this->hostname = $config['hostname'];

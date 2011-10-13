@@ -168,49 +168,25 @@ class Upload_Library {
 			$this->file_name_override = $this->file_name;
 		}
 		
-		$lang = array(
-			'en/us' => array(
-				'upload_userfile_not_set' => 'Unable to find a post variable called userfile.',
-				'upload_file_exceeds_limit' => 'The uploaded file exceeds the maximum allowed size in your PHP configuration file.',
-				'upload_file_exceeds_form_limit' => 'The uploaded file exceeds the maximum size allowed by the submission form.',
-				'upload_file_partial' => 'The file was only partially uploaded.',
-				'upload_no_temp_directory' => 'The temporary folder is missing.',
-				'upload_unable_to_write_file' => 'The file could not be written to disk.',
-				'upload_stopped_by_extension' => 'The file upload was stopped by extension.',
-				'upload_no_file_selected' => 'You did not select a file to upload.',
-				'upload_invalid_filetype' => 'The filetype you are attempting to upload is not allowed.',
-				'upload_invalid_filesize' => 'The file you are attempting to upload is larger than the permitted size.',
-				'upload_invalid_dimensions' => 'The image you are attempting to upload exceedes the maximum height or width.',
-				'upload_destination_error' => 'A problem was encountered while attempting to move the uploaded file to the final destination.',
-				'upload_no_filepath' => 'The upload path does not appear to be valid.',
-				'upload_no_file_types' => 'You have not specified any allowed file types.',
-				'upload_bad_filename' => 'The file name you submitted already exists on the server.',
-				'upload_not_writable' => 'The upload destination folder does not appear to be writable.',
-			),
-			
-			'zh/cn' => array(
-				'upload_userfile_not_set' => '未发现名叫userfile的POST变量',
-				'upload_file_exceeds_limit' => '上传文件的大小超出PHP的配置',
-				'upload_file_exceeds_form_limit' => '上传文件的大小超出表单的上传限制',
-				'upload_file_partial' => '只上传了文件的一部分',
-				'upload_no_temp_directory' => '临时文件夹消失',
-				'upload_unable_to_write_file' => '无法将文件写入硬盘',
-				'upload_stopped_by_extension' => '文件上传被扩展名中止',
-				'upload_no_file_selected' => '没有文件被选择上传',
-				'upload_invalid_filetype' => '未经允许的文件类型',
-				'upload_invalid_filesize' => '上传文件的大小超出允许大小',
-				'upload_invalid_dimensions' => '上传的图像超出了允许的宽或者高',
-				'upload_destination_error' => '移动上传文件到目标文件时出错',
-				'upload_no_filepath' => '无效的上传路径',
-				'upload_no_file_types' => '未指定允许的文件类型',
-				'upload_bad_filename' => '文件名在服务器上已存在',
-				'upload_not_writable' => '目标上传文件夹不可写',
-			),
+
+		$this->_error_messages = array(
+			'upload_userfile_not_set' => 'Unable to find a post variable called userfile.',
+			'upload_file_exceeds_limit' => 'The uploaded file exceeds the maximum allowed size in your PHP configuration file.',
+			'upload_file_exceeds_form_limit' => 'The uploaded file exceeds the maximum size allowed by the submission form.',
+			'upload_file_partial' => 'The file was only partially uploaded.',
+			'upload_no_temp_directory' => 'The temporary folder is missing.',
+			'upload_unable_to_write_file' => 'The file could not be written to disk.',
+			'upload_stopped_by_extension' => 'The file upload was stopped by extension.',
+			'upload_no_file_selected' => 'You did not select a file to upload.',
+			'upload_invalid_filetype' => 'The filetype you are attempting to upload is not allowed.',
+			'upload_invalid_filesize' => 'The file you are attempting to upload is larger than the permitted size.',
+			'upload_invalid_dimensions' => 'The image you are attempting to upload exceedes the maximum height or width.',
+			'upload_destination_error' => 'A problem was encountered while attempting to move the uploaded file to the final destination.',
+			'upload_no_filepath' => 'The upload path does not appear to be valid.',
+			'upload_no_file_types' => 'You have not specified any allowed file types.',
+			'upload_bad_filename' => 'The file name you submitted already exists on the server.',
+			'upload_not_writable' => 'The upload destination folder does not appear to be writable.',
 		);
-		
-		$this->_error_messages = (isset($config['lang']) && array_key_exists($config['lang'], $lang)) 
-			? $lang[$config['lang']] 
-			: $lang['en/us'];
 	}
 
 
