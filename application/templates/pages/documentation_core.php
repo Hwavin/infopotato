@@ -2,12 +2,12 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading"><?php echo __('Core Topics'); ?></h1> 
-<a href="<?php echo APP_URI_BASE; ?>home"><?php echo __('Home'); ?></a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/"><?php echo __('Documentation'); ?></a> &gt; Core Topics
+<h1 class="first_heading">Core Topics</h1> 
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Core Topics
 </div>
 <!-- end breadcrumb -->
 
-<h2><?php echo __('Core Topics'); ?></h2> 
+<h2>Core Topics</h2> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/workflow/"><?php echo __('Request Processing Workflow'); ?></a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/global/"><?php echo __('Global Constants and Functions'); ?></a></li> 

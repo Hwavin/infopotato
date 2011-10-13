@@ -2,8 +2,8 @@
 
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
-<h1 class="first_heading"><?php echo __('Getting Started'); ?></h1> 
-<a href="<?php echo APP_URI_BASE; ?>home"><?php echo __('Home'); ?></a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/"><?php echo __('Documentation'); ?></a> &gt; Getting Started
+<h1 class="first_heading">Getting Started</h1> 
+<a href="<?php echo APP_URI_BASE; ?>home">Home</a> &gt; <a href="<?php echo APP_URI_BASE; ?>documentation/">Documentation</a> &gt; Getting Started
 </div>
 <!-- end breadcrumb -->
 

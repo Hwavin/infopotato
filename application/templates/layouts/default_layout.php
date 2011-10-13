@@ -42,12 +42,12 @@
 
 <div class="topnav">
 <ul> 
-<li class="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="<?php echo __('Return to frontpage'); ?>">infopotato</a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="<?php echo __('About'); ?>"><?php echo __('About'); ?></a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="<?php echo __('Download'); ?>"><?php echo __('Download'); ?></a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>code/" title="<?php echo __('Code'); ?>"><?php echo __('Code'); ?></a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="<?php echo __('Documentation'); ?>"><?php echo __('Documentation'); ?></a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="<?php echo __('Contact'); ?>"><?php echo __('Contact'); ?></a></li>
+<li class="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="Return to frontpage">infopotato</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="Download">Download</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>code/" title="Code">Code</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
+<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
 </ul>
 </div>	
 
@@ -69,9 +69,6 @@ Page URI: <?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?
 <!-- begin footer --> 
 <div class="container footer">
 <div class="row">
-<div id="locale_select">
-<?php echo __('Languages'); ?> <a href="<?php echo APP_URI_BASE; ?>lang/index/en/us/">English</a> - <a href="<?php echo APP_URI_BASE; ?>lang/index/zh/cn/">简体中文</a>
-</div>
 Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
 </div>
 </div>
