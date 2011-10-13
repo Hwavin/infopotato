@@ -23,7 +23,7 @@ final class Contact_Manager extends Manager {
 		$form_token = Session::get('form_token');
 
 		// Load Form Validation library and assign post data
-		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->_POST_DATA, 'lang' => I18n::$lang));
+		$this->load_library('SYS', 'form_validation/form_validation_library', 'fv', array('post' => $this->_POST_DATA));
 
 		$this->fv->set_rules('form_token', 'Form Token', 'form_token['.$form_token.']');
 		$this->fv->set_rules('contact_title', 'Title', 'trim|max_length[0]'); // Anti-spam

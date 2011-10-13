@@ -38,6 +38,10 @@ final class Documentation_Manager extends Manager {
 				'name' => 'Server Requirements'
 			),
 			array(
+				'uri' => 'version_numbering', 
+				'name' => 'Version numbering'
+			),
+			array(
 				'uri' => 'installation', 
 				'name' => 'Installation Instruction'
 			),

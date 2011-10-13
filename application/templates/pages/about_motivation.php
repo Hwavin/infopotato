@@ -50,7 +50,7 @@ Like most web frameworks, InfoPotato is designed to ease the development of web 
 </p> 
 
 <p>
-The InfoPotato philosophy includes several guiding principles:
+The founding principles of the InfoPotato Project were aimed at an audience that was looking for a simple yet powerful PHP framework to build a small or midium web application. The InfoPotato philosophy includes several guiding principles:
 </p>
 
 <ul>

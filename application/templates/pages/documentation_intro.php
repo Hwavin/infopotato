@@ -10,6 +10,7 @@
 <h2>Introduction</h2> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/server_requirements/">Server Requirements</a></li> 
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/version_numbering/">Version numbering</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/installation/">Installation Instructions</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/environments/">The Environments</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/structure/">The Directory Structure</a></li>
