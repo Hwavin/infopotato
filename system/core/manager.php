@@ -121,15 +121,14 @@ class Manager {
 			// Response headers
 			$headers = array();
 			
-			// MIME types that need utf-8 charset encoding
+			// Common MIME types that need utf-8 charset encoding
 			$mime_types = array(
 				'text/html', 
 				'text/plain', 
-				'application/xml', 
 				'text/css', 
 				'text/javascript', 
+				'application/xml', 
 				'application/json',
-				'text/csv',
 			);
 
 			// Explicitly specify the charset parameter (utf-8) of the text document
