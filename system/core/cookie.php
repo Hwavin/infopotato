@@ -160,6 +160,7 @@ class Cookie {
 			return; 		
 		}
 		// Defines a cookie to be sent along with the rest of the HTTP headers
+		// Like other headers, cookies must be sent before any output from your script
 		setcookie($name, $value, $expires, $path, $domain, $secure);
 	}
 	
