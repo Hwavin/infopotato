@@ -16,13 +16,6 @@ class Manager {
     protected $_POST_DATA = array();
 
 	/**
-     * Array of global template variables
-	 * 
-	 * @var array   
-     */
-	protected static $template_global_vars = array();
-
-	/**
 	 * Constructor
 	 *
 	 * Get the post, put, cookie values and automagically escapes them
@@ -41,22 +34,7 @@ class Manager {
 		// Disable access to $_POST
 		unset($_POST);
 	} 
-	
-	/**
-	 * Assign global template variable
-	 * Variables assigned with $this->assign_template_global() are always available to every template thereafter.
-	 *
-	 * @param   mixed $key key of assignment, or value to assign
-	 * @param   mixed $value value of assignment
-	 * @return  void
-	 */    
-	protected function assign_template_global($key, $value = NULL) {
-		if ($value == NULL) {
-			halt('A System Error Was Encountered', "Please specify the value of your global variable '${$key}'", 'sys_error');
-		}	
-		self::$template_global_vars[$key] = $value;
-	}  
-	
+
 	/**
 	 * Render template and return output as string
 	 *
@@ -85,12 +63,7 @@ class Manager {
 				// If there is a collision, don't overwrite the existing variable.
 				extract($template_vars, EXTR_SKIP);
 			}
-			
-			// Import the global template variables to local namespace
-			if (count(self::$template_global_vars) > 0) {
-				extract(self::$template_global_vars, EXTR_SKIP);
-			}
-			
+
 			// Capture the rendered output
 			ob_start();
 			require_once $template_file_path;
