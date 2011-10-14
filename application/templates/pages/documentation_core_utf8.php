@@ -112,111 +112,111 @@ The table below contains a list of the built-in PHP string functions with the eq
 
 <tbody>
 <tr>
-<td><a class="external_link" href="http://php.net/chr"><span><tt>chr()</tt></span></a></td><td>chr()</td><td> Accepts U+hex or decimal Unicode code point instead of ASCII decimal value</td>
+<td><a class="external_link" href="http://php.net/chr"><span><tt class="php_function">chr()</tt></span></a></td><td>chr()</td><td> Accepts U+hex or decimal Unicode code point instead of ASCII decimal value</td>
 </tr>
 
 <tr>
-<td><a class="external_link" href="http://php.net/explode"><span><tt>explode()</tt></span></a></td><td>explode()</td><td> Parameter order is switched to <tt>$string</tt>, <tt>$delimeter</tt> - also accepts <tt>NULL</tt> delimeter to explode into characters</td>
+<td><a class="external_link" href="http://php.net/explode"><span><tt class="php_function">explode()</tt></span></a></td><td>explode()</td><td> Parameter order is switched to <tt>$string</tt>, <tt>$delimeter</tt> - also accepts <tt>NULL</tt> delimeter to explode into characters</td>
 </tr>
 
 <tr>
-<td><a class="external_link" href="http://php.net/trim"><span><tt>ltrim()</tt></span></a></td><td>ltrim()</td><td></td>
+<td><a class="external_link" href="http://php.net/trim"><span><tt class="php_function">ltrim()</tt></span></a></td><td>ltrim()</td><td></td>
 </tr>
 
 <tr>
-<td><a class="external_link" href="http://php.net/ord"><span><tt>ord()</tt></span></a></td><td>ord()</td><td>Returns U+hex Unicode code point instead of ASCII decimal value</td>
+<td><a class="external_link" href="http://php.net/ord"><span><tt class="php_function">ord()</tt></span></a></td><td>ord()</td><td>Returns U+hex Unicode code point instead of ASCII decimal value</td>
 </tr>
 
-<tr><td> <a class="external_link" href="http://php.net/rtrim"><span><tt>rtrim()</tt></span></a></td><td>rtrim()</td><td></td>
+<tr><td> <a class="external_link" href="http://php.net/rtrim"><span><tt class="php_function">rtrim()</tt></span></a></td><td>rtrim()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/str_ireplace"><span><tt>str_ireplace()</tt></span></a></td><td>ireplace()</td><td>  
+<td> <a class="external_link" href="http://php.net/str_ireplace"><span><tt class="php_function">str_ireplace()</tt></span></a></td><td>ireplace()</td><td>  
 </td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/str_pad"><span><tt>str_pad()</tt></span></a></td><td>pad()</td><td></td>
+<td> <a class="external_link" href="http://php.net/str_pad"><span><tt class="php_function">str_pad()</tt></span></a></td><td>pad()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/str_replace"><span><tt>str_replace()</tt></span></a></td><td>replace()</td><td></td>
+<td> <a class="external_link" href="http://php.net/str_replace"><span><tt class="php_function">str_replace()</tt></span></a></td><td>replace()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strcasecmp"><span><tt>strcasecmp()</tt></span></a></td><td>icmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
+<td> <a class="external_link" href="http://php.net/strcasecmp"><span><tt class="php_function">strcasecmp()</tt></span></a></td><td>icmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strcmp"><span><tt>strcmp()</tt></span></a></td><td>cmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
+<td> <a class="external_link" href="http://php.net/strcmp"><span><tt class="php_function">strcmp()</tt></span></a></td><td>cmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/stripos"><span><tt>stripos()</tt></span></a></td><td>ipos()</td><td></td>
+<td> <a class="external_link" href="http://php.net/stripos"><span><tt class="php_function">stripos()</tt></span></a></td><td>ipos()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/stristr"><span><tt>stristr()</tt></span></a></td><td>istr()</td><td></td>
+<td> <a class="external_link" href="http://php.net/stristr"><span><tt class="php_function">stristr()</tt></span></a></td><td>istr()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strlen"><span><tt>strlen()</tt></span></a></td><td>len()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strlen"><span><tt class="php_function">strlen()</tt></span></a></td><td>len()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strnatcasecmp"><span><tt>strnatcasecmp()</tt></span></a></td><td>inatcmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
+<td> <a class="external_link" href="http://php.net/strnatcasecmp"><span><tt class="php_function">strnatcasecmp()</tt></span></a></td><td>inatcmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strnatcmp"><span><tt>strnatcmp()</tt></span></a></td><td>natcmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
+<td> <a class="external_link" href="http://php.net/strnatcmp"><span><tt class="php_function">strnatcmp()</tt></span></a></td><td>natcmp()</td><td> Letters that are ASCII letters with diacritics are sorted right after the base ASCII letter</td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strpos"><span><tt>strpos()</tt></span></a></td><td>pos()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strpos"><span><tt class="php_function">strpos()</tt></span></a></td><td>pos()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strrev"><span><tt>strrev()</tt></span></a></td><td>rev()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strrev"><span><tt class="php_function">strrev()</tt></span></a></td><td>rev()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strripos"><span><tt>strripos()</tt></span></a></td><td>irpos()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strripos"><span><tt class="php_function">strripos()</tt></span></a></td><td>irpos()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strrpos"><span><tt>strrpos()</tt></span></a></td><td>rpos()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strrpos"><span><tt class="php_function">strrpos()</tt></span></a></td><td>rpos()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strstr"><span><tt>strstr()</tt></span></a></td><td>str()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strstr"><span><tt class="php_function">strstr()</tt></span></a></td><td>str()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strtolower"><span><tt>strtolower()</tt></span></a></td><td>lower()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strtolower"><span><tt class="php_function">strtolower()</tt></span></a></td><td>lower()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/strtoupper"><span><tt>strtoupper()</tt></span></a></td><td>upper()</td><td></td>
+<td> <a class="external_link" href="http://php.net/strtoupper"><span><tt class="php_function">strtoupper()</tt></span></a></td><td>upper()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/substr"><span><tt>substr()</tt></span></a></td><td>sub()</td><td></td>
+<td> <a class="external_link" href="http://php.net/substr"><span><tt class="php_function">substr()</tt></span></a></td><td>sub()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/trim"><span><tt>trim()</tt></span></a></td><td>trim()</td><td></td>
+<td> <a class="external_link" href="http://php.net/trim"><span><tt class="php_function">trim()</tt></span></a></td><td>trim()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/ucfirst"><span><tt>ucfirst()</tt></span></a></td><td>ucfirst()</td><td></td>
+<td> <a class="external_link" href="http://php.net/ucfirst"><span><tt class="php_function">ucfirst()</tt></span></a></td><td>ucfirst()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/ucwords"><span><tt>ucwords()</tt></span></a></td><td>ucwords()</td><td></td>
+<td> <a class="external_link" href="http://php.net/ucwords"><span><tt class="php_function">ucwords()</tt></span></a></td><td>ucwords()</td><td></td>
 </tr>
 
 <tr>
-<td> <a class="external_link" href="http://php.net/wordwrap"><span><tt>wordwrap()</tt></span></a></td><td>wordwrap()</td><td></td>
+<td> <a class="external_link" href="http://php.net/wordwrap"><span><tt class="php_function">wordwrap()</tt></span></a></td><td>wordwrap()</td><td></td>
 </tr>
 </tbody>
 

@@ -430,6 +430,11 @@ border: 1px solid #ddd;
 margin: auto;
 }
 
+.php_function {
+background:url('<?php echo STATIC_URI_BASE; ?>images/shared/php_function.gif') no-repeat center left; 
+padding-left:16px;
+}
+
 .external_link {
 background:url('<?php echo STATIC_URI_BASE; ?>images/shared/external_link.png') no-repeat center right; 
 padding-right:14px;
