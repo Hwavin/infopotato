@@ -69,12 +69,6 @@ class Base_DAO {
 	public function exec_query($query) {}
 
 	/**
-	 * Returns the current date and time, e.g., 2006-04-12 13:47:46
-	 * Overridden by specific DB class
-	 */
-	public function now() {}
-
-	/**
 	 * Gets one single data cell from the database
 	 *
 	 * This function is very useful for evaluating query results within logic statements such as if or switch. 

@@ -142,13 +142,6 @@ class MySQLi_DAO extends Base_DAO {
 	}
 
 	/**
-	 * Returns the current date and time, e.g., 2006-04-12 13:47:46
-	 */
-	public function now() {
-		return 'NOW()';
-	}
-
-	/**
 	 * Disable autocommit to begin transaction
 	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
 	 * 

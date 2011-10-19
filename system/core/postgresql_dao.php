@@ -123,13 +123,6 @@ class PostgreSQL_DAO extends Base_DAO {
 	}
 
 	/**
-	 * Returns the current date and time, e.g., 2006-04-12 13:47:46
-	 */
-	public function now() {
-		return 'now()';
-	}
-
-	/**
 	 * Begin Transaction using standard sql
 	 *
 	 * @access	public
