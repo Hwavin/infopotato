@@ -43,6 +43,9 @@ class Password_Hash_Library {
 			}
 			$this->_iteration_count_log2 = $config['iteration_count_log2'];
 
+			// Set $config['portable_hashes'] = FALSE to use stronger but system-specific hashes, 
+			// with a possible fallback to the weaker portable hashes.
+			// If set to TRUE, then force the use of weaker portable hashes.
 			$this->_portable_hashes = $config['portable_hashes'];
 
 			$this->_random_state = microtime();
@@ -113,7 +116,7 @@ class Password_Hash_Library {
 			$output = '*1';
 		}
 		$id = substr($setting, 0, 3);
-		// We use "$P$", phpBB3 uses "$H$" for the same thing
+		// We use '$P$', phpBB3 uses '$H$' for the same thing
 		if ($id != '$P$' && $id != '$H$') {
 			return $output;
 		}
