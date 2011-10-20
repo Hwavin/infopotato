@@ -26,11 +26,11 @@ final class Dispatcher {
 		// The URI string in $_SERVER['PATH_INFO'] has already been decoded, like urldecode()
 		// It may contain UTF-8 characters beyond ASCII
 		// htmlspecialchars() to protect XSS attacks in URI
-		$request_uri = isset($_SERVER['PATH_INFO']) ? htmlspecialchars(trim($_SERVER['PATH_INFO'], '/')) : '';
+		$request_uri = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
 
 		// Get the target manager/method/parameters
 		$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;
-
+		
 		// Get manager and manager method, use default if none given (case-insensitive)
 		// All manager and manager method names are lowercased and no UTF8 encoded characters allowed
 		$manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(APP_DEFAULT_MANAGER);
