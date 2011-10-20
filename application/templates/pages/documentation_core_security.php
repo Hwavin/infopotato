@@ -29,6 +29,10 @@ Cross-site scripting (also known as XSS) occurs when a web application gathers m
 One of the most important measures to prevent XSS attacks is to check user input before displaying them. One can do HTML-encoding with the user input to achieve this goal. However, in some situations, HTML-encoding may not be preferable because it disables all HTML tags.
 </p>
 
+<div class="notebox">
+<a href="http://ha.ckers.org/xss.html" class="external_link">XSS (Cross Site Scripting) Cheat Sheet (Esp: for filter evasion)</a>
+</div>
+
 <h2>Cross-site Request Forgery Prevention</h2>
 
 <p>

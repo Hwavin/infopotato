@@ -23,9 +23,10 @@ final class Dispatcher {
 		$request_method = (isset($_SERVER['REQUEST_METHOD']) &&  $_SERVER['REQUEST_METHOD'] === 'POST') ? 'post' : 'get';
 		
 		// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default manager runs
-		// The URI string has already been decoded, like urldecode()
+		// The URI string in $_SERVER['PATH_INFO'] has already been decoded, like urldecode()
 		// It may contain UTF-8 characters beyond ASCII
-		$request_uri = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
+		// htmlspecialchars() to protect XSS attacks in URI
+		$request_uri = isset($_SERVER['PATH_INFO']) ? htmlspecialchars(trim($_SERVER['PATH_INFO'], '/')) : '';
 
 		// Get the target manager/method/parameters
 		$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : NULL;

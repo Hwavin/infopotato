@@ -532,7 +532,7 @@ class Session {
 		}
 
 		if ( ! is_writable($directory)) {
-			//halt('A System Error Was Encountered', "The directory specified is not writable", 'sys_error');
+			halt('A System Error Was Encountered', 'The directory specified is not writable', 'sys_error');
 		}
 		
 		session_save_path($directory);

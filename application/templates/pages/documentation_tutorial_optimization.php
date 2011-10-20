@@ -34,6 +34,12 @@ Performance of Web applications is affected by many factors. Database access, fi
 Enabling the <a href="http://www.php.net/manual/en/book.apc.php" class="external_link">PHP APC extension</a> is perhaps the easiest way to improve the overall performance of an application. The extension caches and optimizes PHP intermediate code and avoids the time spent in parsing PHP scripts for every incoming request. There is an informative and easy to follow tutorial to help you better <a href="http://techportal.ibuildings.com/2010/10/07/understanding-apc/" class="external_link">Understanding APC</a>.
 </p>
 
+<h2>Using Varnish Cache</h2>
+
+<p>
+<a href="https://www.varnish-cache.org/" class="external_link">Varnish</a> is an HTTP accelerator designed for content-heavy dynamic web sites. In contrast to other HTTP accelerators, such as Squid, which began life as a client-side cache, or Apache and nginx, which are primarily origin servers, Varnish was designed from the ground up as an HTTP accelerator. Varnish is focused exclusively on HTTP, unlike other proxy servers that often support FTP, SMTP and other network protocols.
+</p>
+
 <h2>Enabling System Runtime Cache</h2>
 
 <p>
