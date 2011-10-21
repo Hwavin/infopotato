@@ -110,8 +110,8 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 
 <div id="body">
 <br />
-<div class="comment">htmLawed_README.txt, 3 July 2010<br />
-htmLawed 1.1.9.4, 3 July 2010<br />
+<div class="comment">htmLawed_README.txt, 21 August 2011<br />
+htmLawed 1.1.9.5, 6 July 2011<br />
 Copyright Santosh Patnaik<br />
 LGPL v3 license<br />
 A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed</a>&#160;</div>
@@ -543,7 +543,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; <em>Rule</em>: <span class="term">input=title(), value(maxval=8/default=6)</span><br />
 &#160; <em>Output</em>: <span class="term">&lt;input title="WIDTH" value="6" /&gt;&lt;input title="length" value="5" /&gt;</span><br />
 <br />
-&#160; <em>Rule</em>: <span class="term">input=title(nomatch=$w.d$i), value(match=$em$/default=6em)</span><br />
+&#160; <em>Rule</em>: <span class="term">input=title(nomatch=%w.d%i), value(match=%em%/default=6em)</span><br />
 &#160; <em>Output</em>: <span class="term">&lt;input value="10em" /&gt;&lt;input title="length" value="6em" /&gt;</span><br />
 <br />
 &#160; <em>Rule</em>: <span class="term">input=title(oneof=height|depth/default=depth), value(noneof=5|6)</span><br />
@@ -1582,6 +1582,11 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 
 <code class="code">&#160; &#160; &#160; }</code>
 <br />
+<br />
+
+<code class="code">&#160; &#160; &#160; static $empty_elements = array(&#39;area&#39;=&gt;1, &#39;br&#39;=&gt;1, &#39;col&#39;=&gt;1, &#39;embed&#39;=&gt;1, &#39;hr&#39;=&gt;1, &#39;img&#39;=&gt;1, &#39;input&#39;=&gt;1, &#39;isindex&#39;=&gt;1, &#39;param&#39;=&gt;1);</code>
+<br />
+<br />
 
 <code class="code">&#160; &#160; &#160; return "&lt;{$element}{$string}". (isset($in_array($element, $empty_elements) ? &#39; /&#39; &#58; &#39;&#39;). &#39;&gt;&#39;. $new_element;</code>
 <br />
@@ -1701,6 +1706,8 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the <span class="term">htmLawed.php</span>&#160;file may be updated independently if the secondary files are revised.)<br />
 <br />
 &#160; <em>Version number - Release date. Notes</em><br />
+<br />
+&#160; 1.1.9.5 - 6 July 2011. Minor correction of a rule for nesting of <span class="term">li</span>&#160;within <span class="term">dir</span>.<br />
 <br />
 &#160; 1.1.9.4 - 3 July 2010. Parameter <span class="term">schemes</span>&#160;now accepts <span class="term">!</span>&#160;so any URL, even a local one, can be <em>denied</em>. An issue in which a second URL value in <span class="term">style</span>&#160;properties was not checked was fixed.<br />
 <br />
@@ -2080,7 +2087,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 </div>
 </div>
 <br />
-<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 04 Jul, 2010 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
+<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 21 Aug, 2011 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
 </div><!-- ended div body -->
 </div><!-- ended div top -->
 </body>

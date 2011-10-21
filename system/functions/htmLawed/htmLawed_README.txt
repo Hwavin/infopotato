@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 3 July 2010
-htmLawed 1.1.9.4, 3 July 2010
+htmLawed_README.txt, 21 August 2011
+htmLawed 1.1.9.5, 6 July 2011
 Copyright Santosh Patnaik
 LGPL v3 license
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -471,7 +471,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   `Rule`: 'input=title(), value(maxval=8/default=6)'
   `Output`: '<input title="WIDTH" value="6" /><input title="length" value="5" />'
 
-  `Rule`: 'input=title(nomatch=$w.d$i), value(match=$em$/default=6em)'
+  `Rule`: 'input=title(nomatch=%w.d%i), value(match=%em%/default=6em)'
   `Output`: '<input value="10em" /><input title="length" value="6em" />'
 
   `Rule`: 'input=title(oneof=height|depth/default=depth), value(noneof=5|6)'
@@ -1204,6 +1204,9 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
       foreach($attribute_array as $k=>$v){
         $string .= " {$k}=\"{$v}\"";
       }
+      
+      static $empty_elements = array('area'=>1, 'br'=>1, 'col'=>1, 'embed'=>1, 'hr'=>1, 'img'=>1, 'input'=>1, 'isindex'=>1, 'param'=>1);
+
       return "<{$element}{$string}". (isset($in_array($element, $empty_elements) ? ' /' : ''). '>'. $new_element;
     }
 
@@ -1301,6 +1304,8 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   (The release date for the downloadable package of files containing documentation, demo script, test-cases, etc., besides the 'htmLawed.php' file may be updated independently if the secondary files are revised.)
 
   `Version number - Release date. Notes`
+  
+  1.1.9.5 - 6 July 2011. Minor correction of a rule for nesting of 'li' within 'dir'.
   
   1.1.9.4 - 3 July 2010. Parameter 'schemes' now accepts '!' so any URL, even a local one, can be `denied`. An issue in which a second URL value in 'style' properties was not checked was fixed.
   
