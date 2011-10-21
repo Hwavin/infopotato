@@ -230,7 +230,7 @@ class Session {
 	 */
 	public static function enable_persistence() {
 		if (self::$_persistent_timespan === NULL) {
-			halt('A System Error Was Encountered', "The method Session::set_length() must be called with the '$_persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
+			halt('A System Error Was Encountered', "The method Session::init() must be called with the '$_persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
 		}
 		
 		$current_params = session_get_cookie_params();
@@ -483,30 +483,40 @@ class Session {
 			$tip[$key] = $value;
 		}
 	}
-	
-	
+
 	/**
-	 * Sets the minimum length of a session - PHP might not clean up the session data right away once this timespan has elapsed
+	 * Sets the path to store session files in and 
+	 * Sets the minimum length of a session
+	 * (PHP might not clean up the session data right away once this timespan has elapsed)
 	 * 
-	 * Please be sure to set a custom session path via ::set_path() to ensure another
-	 * site on the server does not garbage collect the session files from this site!
+	 * You should always be called with a non-standard directory to ensure that 
+	 * another site on the server doesn't garbage collect the session files for this site.
+	 * 
+	 * Standard session directories usually include `/tmp` and `/var/tmp`. 
 	 * 
 	 * Both of the timespan can accept either a integer timespan in seconds,
-	 * or an english description of a timespan (e.g. `'30 minutes'`, `'1 hour'`,
-	 * `'1 day 2 hours'`).
+	 * or an english description of a timespan (e.g. `'30 minutes'`, `'1 hour'`, `'1 day 2 hours'`).
 	 * 
 	 * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
-	 * across browser restarts, the static method ::enable_persistence() must be called when they log in. 
-	 *
+	 * across browser restarts, the static method ::enable_persistence() must be called when they log in.
+	 * 
+	 * @param  string $directory  The directory to store session files in
 	 * @param  string|integer $normal_timespan      The normal, session-based cookie, length for the session
 	 * @param  string|integer $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
 	 * @return void
 	 */
-	public static function set_length($normal_timespan, $persistent_timespan = NULL) {
+	public static function init($directory, $normal_timespan, $persistent_timespan = NULL) {
 		if (self::$_open || isset($_SESSION)) {
-			halt('A System Error Was Encountered', "Session::set_length() must be called before any of Session::set_path(), Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
+			halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
+		}
+
+		if ( ! is_writable($directory)) {
+			halt('A System Error Was Encountered', 'The session file directory specified is not writable', 'sys_error');
 		}
 		
+		// Set the path of the current directory used to save session data.
+		session_save_path($directory);
+
 		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
 		self::$_normal_timespan = $seconds;
 		
@@ -516,31 +526,6 @@ class Session {
 		}
 		
 		ini_set('session.gc_maxlifetime', $seconds);
-	}
-	
-	
-	/**
-	 * Sets the path to store session files in
-	 * 
-	 * This method should always be called with a non-standard directory
-	 * whenever ::set_length() is called to ensure that another site on the
-	 * server does not garbage collect the session files for this site.
-	 * 
-	 * Standard session directories usually include `/tmp` and `/var/tmp`. 
-	 * 
-	 * @param  string $directory  The directory to store session files in
-	 * @return void
-	 */
-	public static function set_path($directory) {
-		if (self::$_open || isset($_SESSION)) {
-			halt('A System Error Was Encountered', "Session::set_path() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
-		}
-
-		if ( ! is_writable($directory)) {
-			halt('A System Error Was Encountered', 'The directory specified is not writable', 'sys_error');
-		}
-		
-		session_save_path($directory);
 		
 		// Marks the cookie as accessible only through the HTTP protocol. 
 		// This means that the cookie won't be accessible by scripting languages, such as JavaScript. 

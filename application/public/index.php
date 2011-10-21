@@ -73,7 +73,7 @@ define('SYS_RUNTIME_CACHE', TRUE);
 //define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
 //define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
 define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
-//define('APP_SESSION_DIR', APP_DIR.'session'.DS);
+define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 // Components for debug, autoloading, internationalization function
 // Disables register_globals and magic_quotes_gpc
@@ -93,10 +93,8 @@ define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 require_once $file;
 
 // Set session directory, must be writable
-Session::set_path(APP_DIR.'session'.DS);
-
-// Get and set the current locale
-I18n::$lang = Session::get('lang') ? Session::get('lang') : 'en/us';
+// Set session normal length as 30 mins
+Session::init(APP_SESSION_DIR, '30 minutes');
 
 // Dispatch the incoming request
 Dispatcher::dispatch();

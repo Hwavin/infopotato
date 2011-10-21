@@ -8,7 +8,7 @@ The <span class="green">Lighter</span>, <span class="red">Faster</span> and <spa
 
 <!-- Place this tag where you want the +1 button to render -->
 <div id="share">
-<span><?php echo __('spread the love'); ?></span>
+<span>Spread the love</span>
 <!-- Google +1, twitter, facebook like button begin -->
 <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
 <!-- Place this tag where you want the +1 button to render -->
@@ -145,8 +145,8 @@ The <span class="green">Lighter</span>, <span class="red">Faster</span> and <spa
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/multi.png" class="fact_img" title="One Framework, Multiple Apps" alt="One Framework, Multiple Apps" />
 <div class="fact_desc">
-<h3><?php echo __('One Framework, Multiple Apps'); ?></h3>
-<div><?php echo __('One framework can host multiple apps simultaneously'); ?></div>
+<h3>One Framework, Multiple Apps</h3>
+<div>One framework can host multiple apps simultaneously</div>
 </div>
 </div>
 </div>
@@ -155,8 +155,8 @@ The <span class="green">Lighter</span>, <span class="red">Faster</span> and <spa
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/secure.png" class="fact_img" title="Built with Security in Mind" alt="Built with Security in Mind" />
 <div class="fact_desc">
-<h3><?php echo __('Built with Security in Mind'); ?></h3>
-<div><?php echo __('URI attack, Session, XSS, CSRF, and SQL Injection protection'); ?></div>
+<h3>Built with Security in Mind</h3>
+<div>URI attack, Session, XSS, CSRF, and SQL Injection protection</div>
 </div>
 </div>
 </div>
@@ -165,8 +165,8 @@ The <span class="green">Lighter</span>, <span class="red">Faster</span> and <spa
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/control.png" class="fact_img" title="Everything under Your Control" alt="Everything under Your Control" />
 <div class="fact_desc">
-<h3><?php echo __('Everything under Your Control'); ?></h3>
-<div><?php echo __('You eschew complexity, favoring simple solutions'); ?></div>
+<h3>Everything under Your Control</h3>
+<div>You eschew complexity, favoring simple solutions</div>
 </div>
 </div>
 </div>
