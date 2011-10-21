@@ -167,6 +167,16 @@ $requirements[] = array(
 	'description' => 'Your PHP version is too old. InfoPotato requires at least PHP 5.2.0 or higher.',
 );
 
+// You have to form a URI with path
+// The URL http://www.example.com/php/path_info.php/some/stuff?foo=bar, 
+// then $_SERVER['PATH_INFO'] would contain /some/stuff.
+$requirements[] = array(
+	'title' => 'PATH_INFO',
+	'required' => TRUE,
+	'passed' => isset($_SERVER['PATH_INFO']),
+	'description' => 'Your server does not support PATH_INFO.',
+);
+
 $requirements[] = array(
 	'title' => 'Memory limit',
 	'message' => ini_get('memory_limit'),
