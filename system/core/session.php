@@ -292,6 +292,9 @@ class Session {
 	
 	/**
 	 * Sets the session to run on the main domain, not just the specific subdomain currently being accessed
+	 * By default PHP will only allow access to the $_SESSION superglobal values by pages on the same subdomain, 
+	 * such that www.example.com could access the session, but example.com could not. 
+	 * Calling ignore_subdomain() removes that restriction and allows access to any subdomain.
 	 * 
 	 * This method should be called after any calls to
 	 * [http://php.net/session_set_cookie_params `session_set_cookie_params()`].
@@ -485,14 +488,16 @@ class Session {
 	/**
 	 * Sets the minimum length of a session - PHP might not clean up the session data right away once this timespan has elapsed
 	 * 
-	 * Please be sure to set a custom session path via ::set_path() to ensure
-	 * another site on the server does not garbage collect the session files
-	 * from this site!
+	 * Please be sure to set a custom session path via ::set_path() to ensure another
+	 * site on the server does not garbage collect the session files from this site!
 	 * 
 	 * Both of the timespan can accept either a integer timespan in seconds,
 	 * or an english description of a timespan (e.g. `'30 minutes'`, `'1 hour'`,
 	 * `'1 day 2 hours'`).
 	 * 
+	 * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
+	 * across browser restarts, the static method ::enable_persistence() must be called when they log in. 
+	 *
 	 * @param  string|integer $normal_timespan      The normal, session-based cookie, length for the session
 	 * @param  string|integer $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
 	 * @return void
@@ -528,7 +533,7 @@ class Session {
 	 */
 	public static function set_path($directory) {
 		if (self::$_open || isset($_SESSION)) {
-			halt('A System Error Was Encountered', "Session::set_path() must be called before any of Session::set_path(), Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
+			halt('A System Error Was Encountered', "Session::set_path() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 
 		if ( ! is_writable($directory)) {
@@ -536,6 +541,12 @@ class Session {
 		}
 		
 		session_save_path($directory);
+		
+		// Marks the cookie as accessible only through the HTTP protocol. 
+		// This means that the cookie won't be accessible by scripting languages, such as JavaScript. 
+		// This setting can effectively help to reduce identity theft through XSS attacks 
+		// (although it is not supported by all browsers).
+		ini_set('session.cookie_httponly', 1);
 	}
 	
 }
