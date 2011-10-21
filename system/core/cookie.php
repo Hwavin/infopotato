@@ -32,10 +32,11 @@ class Cookie {
 	
 	/**
 	 * If cookies should default to being http-only
+	 * Set the HTTPOnly flag on your session cookie and any custom cookies to prevent XSS
 	 * 
 	 * @var boolean
 	 */
-	private static $_default_httponly = FALSE;
+	private static $_default_httponly = TRUE;
 	
 	/**
 	 * The default path to set for cookies
