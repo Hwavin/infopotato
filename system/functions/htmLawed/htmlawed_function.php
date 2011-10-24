@@ -39,7 +39,7 @@ function htmlawed_function($t, $C = 1, $S = array()) {
                 if ($v[0] == '+') {
 				    $e[substr($v, 1)] = 1;
 				}
-                if ($v[0] == '-' && isset($e[($v = substr($v, 1))]) && !in_array('+'. $v, $m)) {
+                if ($v[0] == '-' && isset($e[($v = substr($v, 1))]) && ! in_array('+'. $v, $m)) {
 				    unset($e[$v]);
 				}
             }
