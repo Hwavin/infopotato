@@ -10,7 +10,7 @@
  * @param	string	the input text to be processed
  * @param	array	instructs htmLawed on how to tackle certain tasks, when not specified, or not set as an array (e.g., $config = 1), default actions
  * @param	string	the $S argument can be used to disallow an otherwise legal attribute for an element, or to restrict the attribute's values
- * @return  the processed string
+ * @return  string  the output of htmLawed is a text string containing the processed input. 
  */
 function htmlawed_function($t, $C = 1, $S = array()) {
     $C = is_array($C) ? $C : array();
@@ -141,6 +141,9 @@ function htmlawed_function($t, $C = 1, $S = array()) {
     return $t;
 }
 
+/**
+ * Checking attribute values against $S
+ */
 function hl_attrval($t, $p) {
     // check attr val against $S
     $o = 1; 
@@ -215,6 +218,9 @@ function hl_attrval($t, $p) {
     return ($o ? $t : (isset($p['default']) ? $p['default'] : 0));
 }
 
+/**
+ * Tag balancing
+ */
 function hl_bal($t, $do = 1, $in = 'div') {
     // balance tags
     // by content
@@ -473,6 +479,9 @@ function hl_bal($t, $do = 1, $in = 'div') {
     return $o;
 }
 
+/**
+ * Handling CDATA sections and HTML comments
+ */
 function hl_cmtcd($t) {
     // comment/CDATA sec handler
     $t = $t[0];
@@ -492,6 +501,9 @@ function hl_cmtcd($t) {
     return str_replace(array('&', '<', '>'), array("\x03", "\x04", "\x05"), ($n == 'comment' ? "\x01\x02\x04!--$t--\x05\x02\x01" : "\x01\x01\x04$t\x05\x01\x01"));
 }
 
+/**
+ * Entity handling
+ */
 function hl_ent($t){
     // entitity handler
     global $C;
@@ -507,6 +519,9 @@ function hl_ent($t){
     return ($C['and_mark'] ? "\x06" : '&'). '#'. (((ctype_digit($t) && $C['hexdec_entity'] < 2) or ! $C['hexdec_entity']) ? $n : 'x'. dechex($n)). ';';
 }
 
+/**
+ * Checking a URL scheme/protocol
+ */
 function hl_prot($p, $c = NULL) {
     // check URL scheme
     global $C;
@@ -551,6 +566,9 @@ function hl_prot($p, $c = NULL) {
     return "{$b}{$p}{$a}";
 }
 
+/**
+ * Checking syntax/well-formedness of regular expression patterns if such expressions are user-supplied through $C
+ */
 function hl_regex($p){
     // ?regex
     if (empty($p)) {
@@ -578,6 +596,9 @@ function hl_regex($p){
     return $r;
 }
 
+/**
+ * Converting user-supplied $spec value to one used by htmLawed internally
+ */
 function hl_spec($t){
     // final $spec
     $s = array();
@@ -636,6 +657,9 @@ function hl_spec($t){
     return $s;
 }
 
+/**
+ * Handling tags
+ */
 function hl_tag($t) {
     // tag/attribute handler
     global $C;
@@ -907,6 +931,9 @@ function hl_tag($t) {
 	}
 }
 
+/**
+ * Transforming tags
+ */
 function hl_tag2(&$e, &$a, $t = 1) {
     // transform tag
     if ($e == 'center') {
