@@ -58,13 +58,20 @@ function htmlawed_function($t, $C = 1, $S = array()) {
     $x = (isset($C['schemes'][2]) && strpos($C['schemes'], ':')) ? strtolower($C['schemes']) : 'href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, telnet; *:file, http, https';
     $C['schemes'] = array();
     foreach (explode(';', str_replace(array(' ', "\t", "\r", "\n"), '', $x)) as $v) {
-        $x = $x2 = null; list($x, $x2) = explode(':', $v, 2);
-        if($x2){$C['schemes'][$x] = array_flip(explode(',', $x2));}
+        $x = $x2 = null; 
+		list($x, $x2) = explode(':', $v, 2);
+        if ($x2) {
+		    $C['schemes'][$x] = array_flip(explode(',', $x2));
+		}
     }
-    if ( ! isset($C['schemes']['*'])){$C['schemes']['*'] = array('file'=>1, 'http'=>1, 'https'=>1,);}
-    if ( ! empty($C['safe']) && empty($C['schemes']['style'])){$C['schemes']['style'] = array('!'=>1);}
+    if ( ! isset($C['schemes']['*'])) {
+	    $C['schemes']['*'] = array('file'=>1, 'http'=>1, 'https'=>1,);
+	}
+    if ( ! empty($C['safe']) && empty($C['schemes']['style'])) {
+	    $C['schemes']['style'] = array('!'=>1);
+	}
     $C['abs_url'] = isset($C['abs_url']) ? $C['abs_url'] : 0;
-    if( ! isset($C['base_url']) or !preg_match('`^[a-zA-Z\d.+\-]+://[^/]+/(.+?/)?$`', $C['base_url'])) {
+    if ( ! isset($C['base_url']) or !preg_match('`^[a-zA-Z\d.+\-]+://[^/]+/(.+?/)?$`', $C['base_url'])) {
         $C['base_url'] = $C['abs_url'] = 0;
     }
     // config rest
@@ -140,32 +147,70 @@ function hl_attrval($t, $p) {
     $o = 1; $l = strlen($t);
     foreach ($p as $k => $v) {
         switch ($k) {
-            case 'maxlen':if($l > $v){$o = 0;}
-            break; 
-			case 'minlen': if($l < $v){$o = 0;}
-            break; 
-			case 'maxval': if((float)($t) > $v){$o = 0;}
-            break; 
-			case 'minval': if((float)($t) < $v){$o = 0;}
-            break; 
-			case 'match': if(!preg_match($v, $t)){$o = 0;}
-            break; 
-			case 'nomatch': if(preg_match($v, $t)){$o = 0;}
-            break; 
+            case 'maxlen':
+			    if ($l > $v) {
+				    $o = 0;
+				}
+                break; 
+			
+			case 'minlen': 
+			    if ($l < $v) {
+				    $o = 0;
+				}
+                break; 
+			
+			case 'maxval': 
+			    if ((float)($t) > $v) {
+				    $o = 0;
+				}
+                break; 
+			
+			case 'minval': 
+			    if ((float)($t) < $v) {
+				    $o = 0;
+				}
+                break; 
+			
+			case 'match': 
+			    if ( ! preg_match($v, $t)) {
+				    $o = 0;
+				}
+                break; 
+			
+			case 'nomatch': 
+			    if (preg_match($v, $t)) {
+				    $o = 0;
+				}
+                break; 
+			
 			case 'oneof':
-            $m = 0;
-            foreach(explode('|', $v) as $n){if($t == $n){$m = 1; break;}}
-            $o = $m;
-            break; 
+                $m = 0;
+                foreach (explode('|', $v) as $n) {
+				    if ($t == $n) {
+					    $m = 1; 
+						break;
+					}
+				}
+                $o = $m;
+                break; 
+			
 			case 'noneof':
-            $m = 1;
-            foreach(explode('|', $v) as $n){if($t == $n){$m = 0; break;}}
-            $o = $m;
-            break; 
+                $m = 1;
+                foreach (explode('|', $v) as $n) {
+				    if ($t == $n) {
+					    $m = 0; 
+						break;
+					}
+				}
+                $o = $m;
+                break; 
+			
 			default:
-            break;
+                break;
         }
-        if ( ! $o) {break;}
+        if ( ! $o) {
+		    break;
+		}
     }
     return ($o ? $t : (isset($p['default']) ? $p['default'] : 0));
 }
@@ -285,8 +330,9 @@ function hl_bal($t, $do = 1, $in = 'div') {
 			} // Last open
             $add = ''; // Nesting - close open tags that need to be
             for ($j = -1, $cj = count($q); ++$j < $cj;) {  
-                if (($d = array_pop($q)) == $e){break;}
-                else {
+                if (($d = array_pop($q)) == $e) {
+				    break;
+				} else {
 				    $add .= "</{$d}>";
 				}
             }
@@ -304,101 +350,115 @@ function hl_bal($t, $do = 1, $in = 'div') {
 			--$i; 
 			continue;
         }
-    if ((($ql && isset($cB[$p])) or (isset($cB[$in]) && !$ql)) && !isset($eB[$e]) && !isset($ok[$e])) {
-        array_splice($t, $i, 0, 'div>'); 
-		unset($e, $x); 
-		++$ci; 
-		--$i; 
-		continue;
-    }
-    // if no open ele, $in = parent; mostly immediate parent-child relation should hold
-    if ( ! $ql or !isset($eN[$e]) or ! array_intersect($q, $cN2)) {
-        if ( ! isset($ok[$e])) {
-            if ($ql && isset($cT[$p])) {
-		        echo '</', array_pop($q), '>'; 
-			    unset($e, $x); 
-			    --$i;
-		    }
-            continue;
+        if ((($ql && isset($cB[$p])) or (isset($cB[$in]) && !$ql)) && !isset($eB[$e]) && !isset($ok[$e])) {
+            array_splice($t, $i, 0, 'div>'); 
+		    unset($e, $x); 
+		    ++$ci; 
+		    --$i; 
+		    continue;
         }
-        if( ! isset($cE[$e])) {
+        // if no open ele, $in = parent; mostly immediate parent-child relation should hold
+        if ( ! $ql or !isset($eN[$e]) or ! array_intersect($q, $cN2)) {
+            if ( ! isset($ok[$e])) {
+                if ($ql && isset($cT[$p])) {
+		            echo '</', array_pop($q), '>'; 
+			        unset($e, $x); 
+			        --$i;
+		        }
+                continue;
+            }
+            if( ! isset($cE[$e])) {
+	            $q[] = $e;
+	        }
+            echo '<', $e, $a, '>'; 
+	        unset($e); 
+	        continue;
+        }
+        // specific parent-child
+        if (isset($cS[$p][$e])) {
+            if ( ! isset($cE[$e])) {
+		        $q[] = $e;
+		    }
+            echo '<', $e, $a, '>'; 
+		    unset($e); 
+		    continue;
+        }
+        // nesting
+        $add = '';
+        $q2 = array();
+        for ($k = -1, $kc = count($q); ++$k < $kc;) {
+            $d = $q[$k];
+            $ok2 = array();
+            if (isset($cS[$d])) {
+		        $q2[] = $d; 
+			    continue;
+		    }
+            $ok2 = isset($cI[$d]) ? $eI : $eF;
+            if (isset($cO[$d])) {
+		        $ok2 = $ok2 + $cO[$d];
+		    }
+            if (isset($cN[$d])) {
+		        $ok2 = array_diff_assoc($ok2, $cN[$d]);
+		    }
+            if ( ! isset($ok2[$e])) {
+                if ( ! $k && ! isset($inOk[$e])) {
+			        continue 2;
+			    }
+                $add = "</{$d}>";
+                for (;++$k<$kc;) {
+			        $add = "</{$q[$k]}>{$add}";
+			    }
+                break;
+            } else {
+		        $q2[] = $d;
+		    }
+        }
+        $q = $q2;
+        if ( ! isset($cE[$e])) {
 	        $q[] = $e;
 	    }
-        echo '<', $e, $a, '>'; 
+        echo $add, '<', $e, $a, '>'; 
 	    unset($e); 
 	    continue;
-    }
-    // specific parent-child
-    if (isset($cS[$p][$e])) {
-        if ( ! isset($cE[$e])) {
-		    $q[] = $e;
-		}
-        echo '<', $e, $a, '>'; 
-		unset($e); 
-		continue;
-    }
-    // nesting
-    $add = '';
-    $q2 = array();
-    for ($k = -1, $kc = count($q); ++$k < $kc;) {
-        $d = $q[$k];
-        $ok2 = array();
-        if (isset($cS[$d])) {
-		    $q2[] = $d; 
-			continue;
-		}
-        $ok2 = isset($cI[$d]) ? $eI : $eF;
-        if (isset($cO[$d])) {
-		    $ok2 = $ok2 + $cO[$d];
-		}
-        if (isset($cN[$d])) {
-		    $ok2 = array_diff_assoc($ok2, $cN[$d]);
-		}
-        if ( ! isset($ok2[$e])) {
-            if ( ! $k && ! isset($inOk[$e])) {
-			    continue 2;
-			}
-            $add = "</{$d}>";
-            for (;++$k<$kc;) {
-			    $add = "</{$q[$k]}>{$add}";
-			}
-            break;
-        } else {
-		    $q2[] = $d;
-		}
-    }
-    $q = $q2;
-    if ( ! isset($cE[$e])) {
-	    $q[] = $e;
-	}
-    echo $add, '<', $e, $a, '>'; 
-	unset($e); 
-	continue;
     }
 
     // end
     if ($ql = count($q)) {
         $p = array_pop($q);
         $q[] = $p;
-        if(isset($cS[$p])){$ok = $cS[$p];}
-        elseif(isset($cI[$p])){$ok = $eI; $cI['del'] = 1; $cI['ins'] = 1;}
-        elseif(isset($cF[$p])){$ok = $eF; unset($cI['del'], $cI['ins']);}
-        elseif(isset($cB[$p])){$ok = $eB; unset($cI['del'], $cI['ins']);}
-        if(isset($cO[$p])){$ok = $ok + $cO[$p];}
-        if(isset($cN[$p])){$ok = array_diff_assoc($ok, $cN[$p]);}
-    }else {
-	    $ok = $inOk; unset($cI['del'], $cI['ins']);
+        if (isset($cS[$p])) {
+		    $ok = $cS[$p];
+		} elseif (isset($cI[$p])) {
+		    $ok = $eI; 
+			$cI['del'] = 1; 
+			$cI['ins'] = 1;
+		} elseif (isset($cF[$p])) {
+		    $ok = $eF; 
+			unset($cI['del'], $cI['ins']);
+		} elseif (isset($cB[$p])) {
+		    $ok = $eB; 
+			unset($cI['del'], $cI['ins']);
+		}
+        if (isset($cO[$p])) {
+		    $ok = $ok + $cO[$p];
+		}
+        if (isset($cN[$p])) {
+		    $ok = array_diff_assoc($ok, $cN[$p]);
+		}
+    } else {
+	    $ok = $inOk; 
+		unset($cI['del'], $cI['ins']);
 	}
     if (isset($e) && ($do == 1 or (isset($ok['#pcdata']) && ($do == 3 or $do == 5)))) {
         echo '&lt;', $s, $e, $a, '&gt;';
     }
     if (isset($x[0])) {
-        if (strlen(trim($x)) && (($ql && isset($cB[$p])) or (isset($cB[$in]) && !$ql))) {
+        if (strlen(trim($x)) && (($ql && isset($cB[$p])) or (isset($cB[$in]) && ! $ql))) {
             echo '<div>', $x, '</div>';
         } elseif ($do < 3 or isset($ok['#pcdata'])) {
 		    echo $x;
 		} elseif (strpos($x, "\x02\x04")) {
-            foreach (preg_split('`(\x01\x02[^\x01\x02]+\x02\x01)`', $x, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY) as $v){
+            foreach (preg_split('`(\x01\x02[^\x01\x02]+\x02\x01)`', $x, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY) as $v) {
                 echo (substr($v, 0, 2) == "\x01\x02" ? $v : ($do > 4 ? preg_replace('`\S`', '', $v) : ''));
             }
         } elseif ($do > 4) {
@@ -447,11 +507,16 @@ function hl_ent($t){
     return ($C['and_mark'] ? "\x06" : '&'). '#'. (((ctype_digit($t) && $C['hexdec_entity'] < 2) or !$C['hexdec_entity']) ? $n : 'x'. dechex($n)). ';';
 }
 
-function hl_prot($p, $c=null) {
+function hl_prot($p, $c = null) {
     // check URL scheme
     global $C;
     $b = $a = '';
-    if($c == null){$c = 'style'; $b = $p[1]; $a = $p[3]; $p = trim($p[2]);}
+    if ($c == null) {
+	    $c = 'style'; 
+		$b = $p[1]; 
+		$a = $p[3]; 
+		$p = trim($p[2]);
+	}
     $c = isset($C['schemes'][$c]) ? $C['schemes'][$c] : $C['schemes']['*'];
     static $d = 'denied:';
     if (isset($c['!']) && substr($p, 0, 7) != $d) {
@@ -460,28 +525,28 @@ function hl_prot($p, $c=null) {
     if (isset($c['*']) or ! strcspn($p, '#?;') or (substr($p, 0, 7) == $d)) {
 	    return "{$b}{$p}{$a}";
 	} // All ok, frag, query, param
-    if (preg_match('`^([a-z\d\-+.&#; ]+?)(:|&#(58|x3a);|%3a|\\\\0{0,4}3a).`i', $p, $m) && !isset($c[strtolower($m[1])])){ // Denied prot
+    if (preg_match('`^([a-z\d\-+.&#; ]+?)(:|&#(58|x3a);|%3a|\\\\0{0,4}3a).`i', $p, $m) && ! isset($c[strtolower($m[1])])){ // Denied prot
         return "{$b}{$d}{$p}{$a}";
     }
-    if ($C['abs_url']){
-    if ($C['abs_url'] == -1 && strpos($p, $C['base_url']) === 0){ // Make url rel
-        $p = substr($p, strlen($C['base_url']));
-    } elseif (empty($m[1])) { // Make URL abs
-		if (substr($p, 0, 2) == '//') {
-		    $p = substr($C['base_url'], 0, strpos($C['base_url'], ':')+1). $p;
-		} elseif ($p[0] == '/') {
-		    $p = preg_replace('`(^.+?://[^/]+)(.*)`', '$1', $C['base_url']). $p;
-		} elseif (strcspn($p, './')) {
-		    $p = $C['base_url']. $p;
-		} else {
-			preg_match('`^([a-zA-Z\d\-+.]+://[^/]+)(.*)`', $C['base_url'], $m);
-			$p = preg_replace('`(?<=/)\./`', '', $m[2]. $p);
-			while (preg_match('`(?<=/)([^/]{3,}|[^/.]+?|\.[^/.]|[^/.]\.)/\.\./`', $p)) {
-				$p = preg_replace('`(?<=/)([^/]{3,}|[^/.]+?|\.[^/.]|[^/.]\.)/\.\./`', '', $p);
-			}
-			$p = $m[1]. $p;
-		}
-    }
+    if ($C['abs_url']) {
+        if ($C['abs_url'] == -1 && strpos($p, $C['base_url']) === 0){ // Make url rel
+            $p = substr($p, strlen($C['base_url']));
+        } elseif (empty($m[1])) { // Make URL abs
+		    if (substr($p, 0, 2) == '//') {
+		        $p = substr($C['base_url'], 0, strpos($C['base_url'], ':')+1). $p;
+		    } elseif ($p[0] == '/') {
+		        $p = preg_replace('`(^.+?://[^/]+)(.*)`', '$1', $C['base_url']). $p;
+	    	} elseif (strcspn($p, './')) {
+		        $p = $C['base_url']. $p;
+		    } else {
+			    preg_match('`^([a-zA-Z\d\-+.]+://[^/]+)(.*)`', $C['base_url'], $m);
+			    $p = preg_replace('`(?<=/)\./`', '', $m[2]. $p);
+			    while (preg_match('`(?<=/)([^/]{3,}|[^/.]+?|\.[^/.]|[^/.]\.)/\.\./`', $p)) {
+				    $p = preg_replace('`(?<=/)([^/]{3,}|[^/.]+?|\.[^/.]|[^/.]\.)/\.\./`', '', $p);
+			    }
+			    $p = $m[1]. $p;
+		    }
+        }
     }
     return "{$b}{$p}{$a}";
 }
@@ -519,25 +584,53 @@ function hl_spec($t){
     $t = str_replace(array("\t", "\r", "\n", ' '), '', preg_replace('/"(?>(`.|[^"])*)"/sme', 'substr(str_replace(array(";", "|", "~", " ", ",", "/", "(", ")", \'`"\'), array("\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08", "\""), "$0"), 1, -1)', trim($t))); 
     for($i = count(($t = explode(';', $t))); --$i>=0;){
     $w = $t[$i];
-    if (empty($w) or ($e = strpos($w, '=')) === false or !strlen(($a =  substr($w, $e+1)))){continue;}
+    if (empty($w) or ($e = strpos($w, '=')) === false or !strlen(($a =  substr($w, $e+1)))) {
+	    continue;
+	}
     $y = $n = array();
-    foreach(explode(',', $a) as $v){
-    if ( ! preg_match('`^([a-z:\-\*]+)(?:\((.*?)\))?`i', $v, $m)){continue;}
-    if (($x = strtolower($m[1])) == '-*'){$n['*'] = 1; continue;}
-    if ($x[0] == '-'){$n[substr($x, 1)] = 1; continue;}
-    if ( ! isset($m[2])){$y[$x] = 1; continue;}
-    foreach(explode('/', $m[2]) as $m){
-    if(empty($m) or ($p = strpos($m, '=')) == 0 or $p < 5){$y[$x] = 1; continue;}
-    $y[$x][strtolower(substr($m, 0, $p))] = str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08"), array(";", "|", "~", " ", ",", "/", "(", ")"), substr($m, $p+1));
+    foreach (explode(',', $a) as $v) {
+        if ( ! preg_match('`^([a-z:\-\*]+)(?:\((.*?)\))?`i', $v, $m)) {
+		    continue;
+		}
+        if (($x = strtolower($m[1])) == '-*') {
+		    $n['*'] = 1; 
+			continue;
+		}
+        if ($x[0] == '-') {
+		    $n[substr($x, 1)] = 1; 
+		    continue;
+		}
+        if ( ! isset($m[2])) {
+		    $y[$x] = 1; 
+			continue;
+		}
+        foreach (explode('/', $m[2]) as $m) {
+            if (empty($m) or ($p = strpos($m, '=')) == 0 or $p < 5) {
+			    $y[$x] = 1; 
+				continue;
+			}
+            $y[$x][strtolower(substr($m, 0, $p))] = str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08"), array(";", "|", "~", " ", ",", "/", "(", ")"), substr($m, $p+1));
+        }
+        if (isset($y[$x]['match']) && ! hl_regex($y[$x]['match'])) {
+	        unset($y[$x]['match']);
+	    }
+        if (isset($y[$x]['nomatch']) && ! hl_regex($y[$x]['nomatch'])) {
+	        unset($y[$x]['nomatch']);
+	    }
     }
-    if (isset($y[$x]['match']) && !hl_regex($y[$x]['match'])){unset($y[$x]['match']);}
-    if (isset($y[$x]['nomatch']) && !hl_regex($y[$x]['nomatch'])){unset($y[$x]['nomatch']);}
-    }
-    if ( ! count($y) && !count($n)){continue;}
-    foreach(explode(',', substr($w, 0, $e)) as $v){
-    if ( ! strlen(($v = strtolower($v)))){continue;}
-    if (count($y)){$s[$v] = $y;}
-    if (count($n)){$s[$v]['n'] = $n;}
+    if ( ! count($y) && !count($n)) {
+	    continue;
+	}
+    foreach (explode(',', substr($w, 0, $e)) as $v) {
+        if ( ! strlen(($v = strtolower($v)))) {
+		    continue;
+		}
+        if (count($y)) {
+		    $s[$v] = $y;
+		}
+        if (count($n)) {
+		    $s[$v]['n'] = $n;
+		}
     }
     }
     return $s;
@@ -548,20 +641,26 @@ function hl_tag($t) {
     global $C;
     $t = $t[0];
     // invalid < >
-    if($t == '< '){return '&lt; ';}
-    if($t == '>'){return '&gt;';}
-    if(!preg_match('`^<(/?)([a-zA-Z][a-zA-Z1-6]*)([^>]*?)\s?>$`m', $t, $m)){
-    return str_replace(array('<', '>'), array('&lt;', '&gt;'), $t);
-    }elseif(!isset($C['elements'][($e = strtolower($m[2]))])){
-    return (($C['keep_bad']%2) ? str_replace(array('<', '>'), array('&lt;', '&gt;'), $t) : '');
+    if ($t == '< ') { 
+	    return '&lt; ';
+	}
+    if ($t == '>') {
+	    return '&gt;';
+	}
+    if ( ! preg_match('`^<(/?)([a-zA-Z][a-zA-Z1-6]*)([^>]*?)\s?>$`m', $t, $m)) {
+        return str_replace(array('<', '>'), array('&lt;', '&gt;'), $t);
+    } elseif ( ! isset($C['elements'][($e = strtolower($m[2]))])) {
+        return (($C['keep_bad']%2) ? str_replace(array('<', '>'), array('&lt;', '&gt;'), $t) : '');
     }
     // attr string
     $a = str_replace(array("\n", "\r", "\t"), ' ', trim($m[3]));
     // tag transform
     static $eD = array('applet'=>1, 'center'=>1, 'dir'=>1, 'embed'=>1, 'font'=>1, 'isindex'=>1, 'menu'=>1, 's'=>1, 'strike'=>1, 'u'=>1); // Deprecated
-    if($C['make_tag_strict'] && isset($eD[$e])){
+    if ($C['make_tag_strict'] && isset($eD[$e])) {
         $trt = hl_tag2($e, $a, $C['make_tag_strict']);
-        if(!$e){return (($C['keep_bad']%2) ? str_replace(array('<', '>'), array('&lt;', '&gt;'), $t) : '');}
+        if ( ! $e) {
+		    return (($C['keep_bad']%2) ? str_replace(array('<', '>'), array('&lt;', '&gt;'), $t) : '');
+		}
     }
     // close tag
     static $eE = array('area'=>1, 'br'=>1, 'col'=>1, 'embed'=>1, 'hr'=>1, 'img'=>1, 'input'=>1, 'isindex'=>1, 'param'=>1); // Empty ele
@@ -583,7 +682,7 @@ function hl_tag($t) {
     }
 
     $depTr = 0;
-    if($C['no_deprecated_attr']){
+    if ($C['no_deprecated_attr']) {
         // dep attr:applicable ele
         static $aND = array('align'=>array('caption'=>1, 'div'=>1, 'h1'=>1, 'h2'=>1, 'h3'=>1, 'h4'=>1, 'h5'=>1, 'h6'=>1, 'hr'=>1, 'img'=>1, 'input'=>1, 'legend'=>1, 'object'=>1, 'p'=>1, 'table'=>1), 'bgcolor'=>array('table'=>1, 'td'=>1, 'th'=>1, 'tr'=>1), 'border'=>array('img'=>1, 'object'=>1), 'bordercolor'=>array('table'=>1, 'td'=>1, 'tr'=>1), 'clear'=>array('br'=>1), 'compact'=>array('dl'=>1, 'ol'=>1, 'ul'=>1), 'height'=>array('td'=>1, 'th'=>1), 'hspace'=>array('img'=>1, 'object'=>1), 'language'=>array('script'=>1), 'name'=>array('a'=>1, 'form'=>1, 'iframe'=>1, 'img'=>1, 'map'=>1), 'noshade'=>array('hr'=>1), 'nowrap'=>array('td'=>1, 'th'=>1), 'size'=>array('hr'=>1), 'start'=>array('ol'=>1), 'type'=>array('li'=>1, 'ol'=>1, 'ul'=>1), 'value'=>array('li'=>1), 'vspace'=>array('img'=>1, 'object'=>1), 'width'=>array('hr'=>1, 'pre'=>1, 'td'=>1, 'th'=>1));
         static $eAD = array('a'=>1, 'br'=>1, 'caption'=>1, 'div'=>1, 'dl'=>1, 'form'=>1, 'h1'=>1, 'h2'=>1, 'h3'=>1, 'h4'=>1, 'h5'=>1, 'h6'=>1, 'hr'=>1, 'iframe'=>1, 'img'=>1, 'input'=>1, 'legend'=>1, 'li'=>1, 'map'=>1, 'object'=>1, 'ol'=>1, 'p'=>1, 'pre'=>1, 'script'=>1, 'table'=>1, 'td'=>1, 'th'=>1, 'tr'=>1, 'ul'=>1);
@@ -591,88 +690,95 @@ function hl_tag($t) {
     }
 
     // attr name-vals
-    if(strpos($a, "\x01") !== false){$a = preg_replace('`\x01[^\x01]*\x01`', '', $a);} // No comment/CDATA sec
+    if (strpos($a, "\x01") !== false) {
+	    $a = preg_replace('`\x01[^\x01]*\x01`', '', $a);
+	} // No comment/CDATA sec
     $mode = 0; $a = trim($a, ' /'); $aA = array();
-    while(strlen($a)){
-    $w = 0;
-    switch($mode){
-        case 0: // Name
-        if (preg_match('`^[a-zA-Z][\-a-zA-Z:]+`', $a, $m)) {
-            $nm = strtolower($m[0]);
-            $w = $mode = 1; $a = ltrim(substr_replace($a, '', 0, strlen($m[0])));
-        }
-        break; 
+    while (strlen($a)) {
+        $w = 0;
+        switch($mode){
+            case 0: // Name
+            if (preg_match('`^[a-zA-Z][\-a-zA-Z:]+`', $a, $m)) {
+                $nm = strtolower($m[0]);
+                $w = $mode = 1; $a = ltrim(substr_replace($a, '', 0, strlen($m[0])));
+            }
+            break; 
 		
-		case 1:
-        if ($a[0] == '=') { // =
-            $w = 1; $mode = 2; $a = ltrim($a, '= ');
-        } else { // No val
-            $w = 1; $mode = 0; $a = ltrim($a);
-            $aA[$nm] = '';
-        }
-        break; 
+		    case 1:
+            if ($a[0] == '=') { // =
+                $w = 1; $mode = 2; $a = ltrim($a, '= ');
+            } else { // No val
+                $w = 1; $mode = 0; $a = ltrim($a);
+                $aA[$nm] = '';
+            }
+            break; 
 		
-		case 2: // Val
-        if (preg_match('`^"[^"]*"`', $a, $m) or preg_match("`^'[^']*'`", $a, $m) or preg_match("`^\s*[^\s\"']+`", $a, $m)) {
-            $m = $m[0]; $w = 1; $mode = 0; $a = ltrim(substr_replace($a, '', 0, strlen($m)));
-            $aA[$nm] = trim(($m[0] == '"' or $m[0] == '\'') ? substr($m, 1, -1) : $m);
+		    case 2: // Val
+            if (preg_match('`^"[^"]*"`', $a, $m) or preg_match("`^'[^']*'`", $a, $m) or preg_match("`^\s*[^\s\"']+`", $a, $m)) {
+                $m = $m[0]; $w = 1; $mode = 0; $a = ltrim(substr_replace($a, '', 0, strlen($m)));
+                $aA[$nm] = trim(($m[0] == '"' or $m[0] == '\'') ? substr($m, 1, -1) : $m);
+            }
+            break;
         }
-        break;
+        if ($w == 0) { // Parse errs, deal with space, " & '
+            $a = preg_replace('`^(?:"[^"]*("|$)|\'[^\']*(\'|$)|\S)*\s*`', '', $a);
+            $mode = 0;
+        }
     }
-    if ($w == 0) { // Parse errs, deal with space, " & '
-        $a = preg_replace('`^(?:"[^"]*("|$)|\'[^\']*(\'|$)|\S)*\s*`', '', $a);
-        $mode = 0;
-    }
-    }
-    if($mode == 1){$aA[$nm] = '';}
+    if ($mode == 1) {
+	    $aA[$nm] = '';
+	}
 
     // clean attrs
     global $S;
     $rl = isset($S[$e]) ? $S[$e] : array();
     $a = array(); $nfr = 0;
-    foreach($aA as $k=>$v) {
-		if(((isset($C['deny_attribute']['*']) ? isset($C['deny_attribute'][$k]) : !isset($C['deny_attribute'][$k])) or isset($rl[$k])) && ((!isset($rl['n'][$k]) && !isset($rl['n']['*'])) or isset($rl[$k])) && (isset($aN[$k][$e]) or (isset($aNU[$k]) && !isset($aNU[$k][$e])))){
-		if(isset($aNE[$k])){$v = $k;}
-		elseif(!empty($lcase) && (($e != 'button' or $e != 'input') or $k == 'type')){ // Rather loose but ?not cause issues
-		$v = (isset($aNL[($v2 = strtolower($v))])) ? $v2 : $v;
-		}
-		if($k == 'style' && !$C['style_pass']){
-		if(false !== strpos($v, '&#')){
-		static $sC = array('&#x20;'=>' ', '&#32;'=>' ', '&#x45;'=>'e', '&#69;'=>'e', '&#x65;'=>'e', '&#101;'=>'e', '&#x58;'=>'x', '&#88;'=>'x', '&#x78;'=>'x', '&#120;'=>'x', '&#x50;'=>'p', '&#80;'=>'p', '&#x70;'=>'p', '&#112;'=>'p', '&#x53;'=>'s', '&#83;'=>'s', '&#x73;'=>'s', '&#115;'=>'s', '&#x49;'=>'i', '&#73;'=>'i', '&#x69;'=>'i', '&#105;'=>'i', '&#x4f;'=>'o', '&#79;'=>'o', '&#x6f;'=>'o', '&#111;'=>'o', '&#x4e;'=>'n', '&#78;'=>'n', '&#x6e;'=>'n', '&#110;'=>'n', '&#x55;'=>'u', '&#85;'=>'u', '&#x75;'=>'u', '&#117;'=>'u', '&#x52;'=>'r', '&#82;'=>'r', '&#x72;'=>'r', '&#114;'=>'r', '&#x4c;'=>'l', '&#76;'=>'l', '&#x6c;'=>'l', '&#108;'=>'l', '&#x28;'=>'(', '&#40;'=>'(', '&#x29;'=>')', '&#41;'=>')', '&#x20;'=>':', '&#32;'=>':', '&#x22;'=>'"', '&#34;'=>'"', '&#x27;'=>"'", '&#39;'=>"'", '&#x2f;'=>'/', '&#47;'=>'/', '&#x2a;'=>'*', '&#42;'=>'*', '&#x5c;'=>'\\', '&#92;'=>'\\');
-		$v = strtr($v, $sC);
-		}
-		$v = preg_replace_callback('`(url(?:\()(?: )*(?:\'|"|&(?:quot|apos);)?)(.+?)((?:\'|"|&(?:quot|apos);)?(?: )*(?:\)))`iS', 'hl_prot', $v);
-		$v = !$C['css_expression'] ? preg_replace('`expression`i', ' ', preg_replace('`\\\\\S|(/|(%2f))(\*|(%2a))`i', ' ', $v)) : $v;
-		}elseif(isset($aNP[$k]) or strpos($k, 'src') !== false or $k[0] == 'o'){
-		$v = str_replace("\xad", ' ', (strpos($v, '&') !== false ? str_replace(array('&#xad;', '&#173;', '&shy;'), ' ', $v) : $v));
-		$v = hl_prot($v, $k);
-		if ($k == 'href') { // X-spam
-			if ($C['anti_mail_spam'] && strpos($v, 'mailto:') === 0) {
-				$v = str_replace('@', htmlspecialchars($C['anti_mail_spam']), $v);
-			} elseif ($C['anti_link_spam']) {
-				$r1 = $C['anti_link_spam'][1];
-				if ( ! empty($r1) && preg_match($r1, $v)) {
-				    continue;
-				}
-				$r0 = $C['anti_link_spam'][0];
-				if ( ! empty($r0) && preg_match($r0, $v)) {
-					if (isset($a['rel'])) {
-					    if (!preg_match('`\bnofollow\b`i', $a['rel'])) {
-						    $a['rel'] .= ' nofollow';
-						}
-					} elseif (isset($aA['rel'])) {
-						if ( ! preg_match('`\bnofollow\b`i', $aA['rel'])) {
-							$nfr = 1;
-						}
-					} else {
-					    $a['rel'] = 'nofollow';
-					}
-				}
-			}
-		}
-		}
-		if(isset($rl[$k]) && is_array($rl[$k]) && ($v = hl_attrval($v, $rl[$k])) === 0){continue;}
-		$a[$k] = str_replace('"', '&quot;', $v);
+    foreach ($aA as $k=>$v) {
+		if (((isset($C['deny_attribute']['*']) ? isset($C['deny_attribute'][$k]) : ! isset($C['deny_attribute'][$k])) or isset($rl[$k])) && (( ! isset($rl['n'][$k]) && !isset($rl['n']['*'])) or isset($rl[$k])) && (isset($aN[$k][$e]) or (isset($aNU[$k]) && !isset($aNU[$k][$e])))) {
+		    if (isset($aNE[$k])) {
+		        $v = $k;
+		    } elseif( ! empty($lcase) && (($e != 'button' or $e != 'input') or $k == 'type')){ // Rather loose but ?not cause issues
+		        $v = (isset($aNL[($v2 = strtolower($v))])) ? $v2 : $v;
+		    }
+		    if ($k == 'style' && !$C['style_pass']) {
+		        if (false !== strpos($v, '&#')) {
+		            static $sC = array('&#x20;'=>' ', '&#32;'=>' ', '&#x45;'=>'e', '&#69;'=>'e', '&#x65;'=>'e', '&#101;'=>'e', '&#x58;'=>'x', '&#88;'=>'x', '&#x78;'=>'x', '&#120;'=>'x', '&#x50;'=>'p', '&#80;'=>'p', '&#x70;'=>'p', '&#112;'=>'p', '&#x53;'=>'s', '&#83;'=>'s', '&#x73;'=>'s', '&#115;'=>'s', '&#x49;'=>'i', '&#73;'=>'i', '&#x69;'=>'i', '&#105;'=>'i', '&#x4f;'=>'o', '&#79;'=>'o', '&#x6f;'=>'o', '&#111;'=>'o', '&#x4e;'=>'n', '&#78;'=>'n', '&#x6e;'=>'n', '&#110;'=>'n', '&#x55;'=>'u', '&#85;'=>'u', '&#x75;'=>'u', '&#117;'=>'u', '&#x52;'=>'r', '&#82;'=>'r', '&#x72;'=>'r', '&#114;'=>'r', '&#x4c;'=>'l', '&#76;'=>'l', '&#x6c;'=>'l', '&#108;'=>'l', '&#x28;'=>'(', '&#40;'=>'(', '&#x29;'=>')', '&#41;'=>')', '&#x20;'=>':', '&#32;'=>':', '&#x22;'=>'"', '&#34;'=>'"', '&#x27;'=>"'", '&#39;'=>"'", '&#x2f;'=>'/', '&#47;'=>'/', '&#x2a;'=>'*', '&#42;'=>'*', '&#x5c;'=>'\\', '&#92;'=>'\\');
+		            $v = strtr($v, $sC);
+		        }
+		        $v = preg_replace_callback('`(url(?:\()(?: )*(?:\'|"|&(?:quot|apos);)?)(.+?)((?:\'|"|&(?:quot|apos);)?(?: )*(?:\)))`iS', 'hl_prot', $v);
+		        $v = ! $C['css_expression'] ? preg_replace('`expression`i', ' ', preg_replace('`\\\\\S|(/|(%2f))(\*|(%2a))`i', ' ', $v)) : $v;
+		    } elseif (isset($aNP[$k]) or strpos($k, 'src') !== false or $k[0] == 'o') {
+		        $v = str_replace("\xad", ' ', (strpos($v, '&') !== false ? str_replace(array('&#xad;', '&#173;', '&shy;'), ' ', $v) : $v));
+		        $v = hl_prot($v, $k);
+		        if ($k == 'href') { // X-spam
+			        if ($C['anti_mail_spam'] && strpos($v, 'mailto:') === 0) {
+				        $v = str_replace('@', htmlspecialchars($C['anti_mail_spam']), $v);
+			        } elseif ($C['anti_link_spam']) {
+				        $r1 = $C['anti_link_spam'][1];
+				        if ( ! empty($r1) && preg_match($r1, $v)) {
+				            continue;
+				        }
+				        $r0 = $C['anti_link_spam'][0];
+				        if ( ! empty($r0) && preg_match($r0, $v)) {
+					        if (isset($a['rel'])) {
+					            if ( ! preg_match('`\bnofollow\b`i', $a['rel'])) {
+						            $a['rel'] .= ' nofollow';
+						        }
+					        } elseif (isset($aA['rel'])) {
+						        if ( ! preg_match('`\bnofollow\b`i', $aA['rel'])) {
+							        $nfr = 1;
+						        }
+					        } else {
+					            $a['rel'] = 'nofollow';
+					        }
+				        }
+			        }
+		        }
+		    }
+		     if (isset($rl[$k]) && is_array($rl[$k]) && ($v = hl_attrval($v, $rl[$k])) === 0) {
+		        continue;
+		    }
+		    $a[$k] = str_replace('"', '&quot;', $v);
 		}
     }
     if ($nfr) {
@@ -690,73 +796,96 @@ function hl_tag($t) {
     }
 
     // depr attrs
-    if($depTr){
-    $c = array();
-    foreach($a as $k=>$v){
-    if($k == 'style' or !isset($aND[$k][$e])){continue;}
-    if($k == 'align'){
-    unset($a['align']);
-    if($e == 'img' && ($v == 'left' or $v == 'right')){$c[] = 'float: '. $v;}
-    elseif(($e == 'div' or $e == 'table') && $v == 'center'){$c[] = 'margin: auto';}
-    else{$c[] = 'text-align: '. $v;}
-    }elseif($k == 'bgcolor'){
-    unset($a['bgcolor']);
-    $c[] = 'background-color: '. $v;
-    }elseif($k == 'border'){
-    unset($a['border']); $c[] = "border: {$v}px";
-    }elseif($k == 'bordercolor'){
-    unset($a['bordercolor']); $c[] = 'border-color: '. $v;
-    }elseif($k == 'clear'){
-    unset($a['clear']); $c[] = 'clear: '. ($v != 'all' ? $v : 'both');
-    }elseif($k == 'compact'){
-    unset($a['compact']); $c[] = 'font-size: 85%';
-    }elseif($k == 'height' or $k == 'width'){
-    unset($a[$k]); $c[] = $k. ': '. ($v[0] != '*' ? $v. (ctype_digit($v) ? 'px' : '') : 'auto');
-    }elseif($k == 'hspace'){
-    unset($a['hspace']); $c[] = "margin-left: {$v}px; margin-right: {$v}px";
-    }elseif($k == 'language' && !isset($a['type'])){
-    unset($a['language']);
-    $a['type'] = 'text/'. strtolower($v);
-    }elseif($k == 'name'){
-    if($C['no_deprecated_attr'] == 2 or ($e != 'a' && $e != 'map')){unset($a['name']);}
-    if(!isset($a['id']) && preg_match('`[a-zA-Z][a-zA-Z\d.:_\-]*`', $v)){$a['id'] = $v;}
-    }elseif($k == 'noshade'){
-    unset($a['noshade']); $c[] = 'border-style: none; border: 0; background-color: gray; color: gray';
-    }elseif($k == 'nowrap'){
-    unset($a['nowrap']); $c[] = 'white-space: nowrap';
-    }elseif($k == 'size'){
-    unset($a['size']); $c[] = 'size: '. $v. 'px';
-    }elseif($k == 'start' or $k == 'value'){
-    unset($a[$k]);
-    }elseif($k == 'type'){
-    unset($a['type']);
-    static $ol_type = array('i'=>'lower-roman', 'I'=>'upper-roman', 'a'=>'lower-latin', 'A'=>'upper-latin', '1'=>'decimal');
-    $c[] = 'list-style-type: '. (isset($ol_type[$v]) ? $ol_type[$v] : 'decimal');
-    }elseif($k == 'vspace'){
-    unset($a['vspace']); $c[] = "margin-top: {$v}px; margin-bottom: {$v}px";
-    }
-    }
-    if(count($c)){
-    $c = implode('; ', $c);
-    $a['style'] = isset($a['style']) ? rtrim($a['style'], ' ;'). '; '. $c. ';': $c. ';';
-    }
+    if ($depTr) {
+        $c = array();
+        foreach ($a as $k => $v) {
+            if ($k == 'style' or !isset($aND[$k][$e])) {
+		        continue;
+		    }
+            if ($k == 'align') {
+                unset($a['align']);
+                if ($e == 'img' && ($v == 'left' or $v == 'right')) {
+			        $c[] = 'float: '. $v;
+			    } elseif (($e == 'div' or $e == 'table') && $v == 'center') {
+		            $c[] = 'margin: auto';
+			    } else {
+		            $c[] = 'text-align: '. $v;
+			    }
+            } elseif ($k == 'bgcolor') {
+                unset($a['bgcolor']);
+                $c[] = 'background-color: '. $v;
+            } elseif ($k == 'border') {
+                unset($a['border']); 
+			    $c[] = "border: {$v}px";
+            } elseif ($k == 'bordercolor') {
+                unset($a['bordercolor']); 
+			    $c[] = 'border-color: '. $v;
+            } elseif ($k == 'clear') {
+                unset($a['clear']); 
+			    $c[] = 'clear: '. ($v != 'all' ? $v : 'both');
+            } elseif ($k == 'compact') {
+                unset($a['compact']); 
+			    $c[] = 'font-size: 85%';
+            } elseif ($k == 'height' or $k == 'width') {
+                unset($a[$k]); 
+			    $c[] = $k. ': '. ($v[0] != '*' ? $v. (ctype_digit($v) ? 'px' : '') : 'auto');
+            } elseif ($k == 'hspace') {
+                unset($a['hspace']); 
+			    $c[] = "margin-left: {$v}px; margin-right: {$v}px";
+            } elseif ($k == 'language' && !isset($a['type'])) {
+                unset($a['language']);
+               $a['type'] = 'text/'. strtolower($v);
+            } elseif ($k == 'name') {
+                if ($C['no_deprecated_attr'] == 2 or ($e != 'a' && $e != 'map')) {
+			        unset($a['name']);
+			    }
+                if( ! isset($a['id']) && preg_match('`[a-zA-Z][a-zA-Z\d.:_\-]*`', $v)) {
+			        $a['id'] = $v;
+			    }
+            } elseif ($k == 'noshade') {
+                unset($a['noshade']); 
+			    $c[] = 'border-style: none; border: 0; background-color: gray; color: gray';
+            } elseif ($k == 'nowrap') {
+                unset($a['nowrap']); $c[] = 'white-space: nowrap';
+            } elseif ($k == 'size') {
+                unset($a['size']); 
+			    $c[] = 'size: '. $v. 'px';
+            } elseif ($k == 'start' or $k == 'value') {
+                unset($a[$k]);
+            } elseif ($k == 'type') {
+                unset($a['type']);
+                static $ol_type = array('i'=>'lower-roman', 'I'=>'upper-roman', 'a'=>'lower-latin', 'A'=>'upper-latin', '1'=>'decimal');
+                $c[] = 'list-style-type: '. (isset($ol_type[$v]) ? $ol_type[$v] : 'decimal');
+            } elseif ($k == 'vspace') {
+                unset($a['vspace']); $c[] = "margin-top: {$v}px; margin-bottom: {$v}px";
+            }
+        }
+        if (count($c)) {
+            $c = implode('; ', $c);
+            $a['style'] = isset($a['style']) ? rtrim($a['style'], ' ;'). '; '. $c. ';': $c. ';';
+        }
     }
     // unique ID
-    if($C['unique_ids'] && isset($a['id'])){
-    if(!preg_match('`^[A-Za-z][A-Za-z0-9_\-.:]*$`', ($id = $a['id'])) or (isset($GLOBALS['hl_Ids'][$id]) && $C['unique_ids'] == 1)){unset($a['id']);
-    }else{
-    while(isset($GLOBALS['hl_Ids'][$id])){$id = $C['unique_ids']. $id;}
-    $GLOBALS['hl_Ids'][($a['id'] = $id)] = 1;
-    }
+    if ($C['unique_ids'] && isset($a['id'])) {
+        if ( ! preg_match('`^[A-Za-z][A-Za-z0-9_\-.:]*$`', ($id = $a['id'])) or (isset($GLOBALS['hl_Ids'][$id]) && $C['unique_ids'] == 1)) {
+		    unset($a['id']);
+        }else {
+            while (isset($GLOBALS['hl_Ids'][$id])) {
+			    $id = $C['unique_ids']. $id;
+			}
+            $GLOBALS['hl_Ids'][($a['id'] = $id)] = 1;
+        }
     }
     // xml:lang
-    if($C['xml:lang'] && isset($a['lang'])){
-    $a['xml:lang'] = isset($a['xml:lang']) ? $a['xml:lang'] : $a['lang'];
-    if($C['xml:lang'] == 2){unset($a['lang']);}
+    if ($C['xml:lang'] && isset($a['lang'])) {
+        $a['xml:lang'] = isset($a['xml:lang']) ? $a['xml:lang'] : $a['lang'];
+        if ($C['xml:lang'] == 2) {
+	        unset($a['lang']);
+	    }
     }
     // for transformed tag
-    if(!empty($trt)){
-    $a['style'] = isset($a['style']) ? rtrim($a['style'], ' ;'). '; '. $trt : $trt;
+    if ( ! empty($trt)){
+        $a['style'] = isset($a['style']) ? rtrim($a['style'], ' ;'). '; '. $trt : $trt;
     }
     // return with empty ele /
     if(empty($C['hook_tag'])){
@@ -769,25 +898,41 @@ function hl_tag($t) {
 
 function hl_tag2(&$e, &$a, $t=1) {
     // transform tag
-    if($e == 'center'){$e = 'div'; return 'text-align: center;';}
-    if($e == 'dir' or $e == 'menu'){$e = 'ul'; return '';}
-    if($e == 's' or $e == 'strike'){$e = 'span'; return 'text-decoration: line-through;';}
-    if($e == 'u'){$e = 'span'; return 'text-decoration: underline;';}
+    if ($e == 'center') {
+	    $e = 'div'; 
+		return 'text-align: center;';
+	}
+    if ($e == 'dir' or $e == 'menu') {
+	    $e = 'ul'; 
+		return '';
+	}
+    if ($e == 's' or $e == 'strike') {
+	    $e = 'span'; 
+		return 'text-decoration: line-through;';
+	}
+    if ($e == 'u') {
+	    $e = 'span'; 
+		return 'text-decoration: underline;';
+	}
     static $fs = array('0'=>'xx-small', '1'=>'xx-small', '2'=>'small', '3'=>'medium', '4'=>'large', '5'=>'x-large', '6'=>'xx-large', '7'=>'300%', '-1'=>'smaller', '-2'=>'60%', '+1'=>'larger', '+2'=>'150%', '+3'=>'200%', '+4'=>'300%');
-    if($e == 'font'){
-    $a2 = '';
-    if(preg_match('`face\s*=\s*(\'|")([^=]+?)\\1`i', $a, $m) or preg_match('`face\s*=\s*([^"])(\S+)`i', $a, $m)){
-        $a2 .= ' font-family: '. str_replace('"', '\'', trim($m[2])). ';';
+    if ($e == 'font') {
+        $a2 = '';
+        if (preg_match('`face\s*=\s*(\'|")([^=]+?)\\1`i', $a, $m) or preg_match('`face\s*=\s*([^"])(\S+)`i', $a, $m)) {
+            $a2 .= ' font-family: '. str_replace('"', '\'', trim($m[2])). ';';
+        }
+        if (preg_match('`color\s*=\s*(\'|")?(.+?)(\\1|\s|$)`i', $a, $m)) {
+            $a2 .= ' color: '. trim($m[2]). ';';
+        }
+        if (preg_match('`size\s*=\s*(\'|")?(.+?)(\\1|\s|$)`i', $a, $m) && isset($fs[($m = trim($m[2]))])) {
+            $a2 .= ' font-size: '. $fs[$m]. ';';
+        }
+        $e = 'span'; 
+		return ltrim($a2);
     }
-    if(preg_match('`color\s*=\s*(\'|")?(.+?)(\\1|\s|$)`i', $a, $m)){
-        $a2 .= ' color: '. trim($m[2]). ';';
-    }
-    if(preg_match('`size\s*=\s*(\'|")?(.+?)(\\1|\s|$)`i', $a, $m) && isset($fs[($m = trim($m[2]))])){
-        $a2 .= ' font-size: '. $fs[$m]. ';';
-    }
-    $e = 'span'; return ltrim($a2);
-    }
-    if($t == 2) {$e = 0; return 0;}
+    if ($t == 2) {
+	    $e = 0; 
+		return 0;
+	}
     return '';
 }
 
