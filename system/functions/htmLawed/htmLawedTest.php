@@ -79,7 +79,7 @@ $do = (!empty($_POST[$_sid]) && isset($_POST['text'][0]) && !isset($_POST['text'
 $limit_exceeded = isset($_POST['text'][$_limit]) ? 1 : 0;
 $pre_mem = memory_get_usage();
 $validation = (!empty($_POST[$_sid]) and isset($_POST['w3c_validate'][0])) ? 1 : 0;
-include './htmLawed.php';
+include './htmlawed_function.php';
 
 function format($t){
  $t = "\n". str_replace(array("\t", "\r\n", "\r", '&', '<', '>', "\n"), array('    ', "\n", "\n", '&amp;', '&lt;', '&gt;', "<span class=\"newline\">&#172;</span><br />\n"), $t);

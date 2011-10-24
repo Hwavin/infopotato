@@ -131,7 +131,6 @@ function htmlawed_function($t, $C = 1, $S = array()) {
     $t = preg_replace_callback('`<(?:(?:\s|$)|(?:[^>]*(?:>|$)))|>`m', 'hl_tag', $t);
     $t = $C['balance'] ? hl_bal($t, $C['keep_bad'], $C['parent']) : $t;
     $t = (($C['cdata'] or $C['comment']) && strpos($t, "\x01") !== FALSE) ? str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05"), array('', '', '&', '<', '>'), $t) : $t;
-    $t = $C['tidy'] ? hl_tidy($t, $C['tidy'], $C['parent']) : $t;
     unset($C, $e);
     if (isset($reC)) {
 	    $GLOBALS['C'] = $reC;
@@ -699,33 +698,34 @@ function hl_tag($t) {
         $w = 0;
         switch($mode){
             case 0: // Name
-            if (preg_match('`^[a-zA-Z][\-a-zA-Z:]+`', $a, $m)) {
-                $nm = strtolower($m[0]);
-                $w = $mode = 1; 
-				$a = ltrim(substr_replace($a, '', 0, strlen($m[0])));
-            }
-            break; 
+                if (preg_match('`^[a-zA-Z][\-a-zA-Z:]+`', $a, $m)) {
+                    $nm = strtolower($m[0]);
+                    $w = $mode = 1; 
+				    $a = ltrim(substr_replace($a, '', 0, strlen($m[0])));
+                }
+                break; 
 		
 		    case 1:
-            if ($a[0] == '=') { // =
-                $w = 1; $mode = 2; 
-				$a = ltrim($a, '= ');
-            } else { // No val
-                $w = 1; $mode = 0; 
-				$a = ltrim($a);
-                $aA[$nm] = '';
-            }
-            break; 
+                if ($a[0] == '=') { // =
+                    $w = 1; $mode = 2; 
+				    $a = ltrim($a, '= ');
+                } else { // No val
+                    $w = 1; 
+					$mode = 0; 
+				    $a = ltrim($a);
+                    $aA[$nm] = '';
+                }
+                break; 
 		
 		    case 2: // Val
-            if (preg_match('`^"[^"]*"`', $a, $m) or preg_match("`^'[^']*'`", $a, $m) or preg_match("`^\s*[^\s\"']+`", $a, $m)) {
-                $m = $m[0]; 
-				$w = 1; 
-				$mode = 0; 
-				$a = ltrim(substr_replace($a, '', 0, strlen($m)));
-                $aA[$nm] = trim(($m[0] == '"' or $m[0] == '\'') ? substr($m, 1, -1) : $m);
-            }
-            break;
+                if (preg_match('`^"[^"]*"`', $a, $m) or preg_match("`^'[^']*'`", $a, $m) or preg_match("`^\s*[^\s\"']+`", $a, $m)) {
+                    $m = $m[0]; 
+				    $w = 1; 
+				    $mode = 0; 
+				    $a = ltrim(substr_replace($a, '', 0, strlen($m)));
+                    $aA[$nm] = trim(($m[0] == '"' or $m[0] == '\'') ? substr($m, 1, -1) : $m);
+                }
+                break;
         }
         if ($w == 0) { // Parse errs, deal with space, " & '
             $a = preg_replace('`^(?:"[^"]*("|$)|\'[^\']*(\'|$)|\S)*\s*`', '', $a);
@@ -945,66 +945,4 @@ function hl_tag2(&$e, &$a, $t = 1) {
 		return 0;
 	}
     return '';
-}
-
-function hl_tidy($t, $w, $p) {
-    // Tidy/compact HTM
-    if (strpos(' pre,script,textarea', "$p,")) { 
-	    return $t;
-	}
-    $t = str_replace(' </', '</', preg_replace(array('`(<\w[^>]*(?<!/)>)\s+`', '`\s+`', '`(<\w[^>]*(?<!/)>) `'), array(' $1', ' ', '$1'), preg_replace_callback(array('`(<(!\[CDATA\[))(.+?)(\]\]>)`sm', '`(<(!--))(.+?)(-->)`sm', '`(<(pre|script|textarea).*?>)(.+?)(</\2>)`sm'), create_function('$m', 'return $m[1]. str_replace(array("<", ">", "\n", "\r", "\t", " "), array("\x01", "\x02", "\x03", "\x04", "\x05", "\x07"), $m[3]). $m[4];'), $t)));
-    if (($w = strtolower($w)) == -1) {
-        return str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05", "\x07"), array('<', '>', "\n", "\r", "\t", ' '), $t);
-    }
-    $s = strpos(" $w", 't') ? "\t" : ' ';
-    $s = preg_match('`\d`', $w, $m) ? str_repeat($s, $m[0]) : str_repeat($s, ($s == "\t" ? 1 : 2));
-    $n = preg_match('`[ts]([1-9])`', $w, $m) ? $m[1] : 0;
-    $a = array('br'=>1);
-    $b = array('button'=>1, 'input'=>1, 'option'=>1);
-    $c = array('caption'=>1, 'dd'=>1, 'dt'=>1, 'h1'=>1, 'h2'=>1, 'h3'=>1, 'h4'=>1, 'h5'=>1, 'h6'=>1, 'isindex'=>1, 'label'=>1, 'legend'=>1, 'li'=>1, 'object'=>1, 'p'=>1, 'pre'=>1, 'td'=>1, 'textarea'=>1, 'th'=>1);
-    $d = array('address'=>1, 'blockquote'=>1, 'center'=>1, 'colgroup'=>1, 'dir'=>1, 'div'=>1, 'dl'=>1, 'fieldset'=>1, 'form'=>1, 'hr'=>1, 'iframe'=>1, 'map'=>1, 'menu'=>1, 'noscript'=>1, 'ol'=>1, 'optgroup'=>1, 'rbc'=>1, 'rtc'=>1, 'ruby'=>1, 'script'=>1, 'select'=>1, 'table'=>1, 'tfoot'=>1, 'thead'=>1, 'tr'=>1, 'ul'=>1);
-    ob_start();
-    if (isset($d[$p])) {
-	    echo str_repeat($s, ++$n);
-	}
-    $t = explode('<', $t);
-    echo ltrim(array_shift($t));
-    for ($i = -1, $j = count($t); ++$i < $j;) {
-        $r = ''; 
-		list($e, $r) = explode('>', $t[$i]);
-        $x = $e[0] == '/' ? 0 : (substr($e, -1) == '/' ? 1 : ($e[0] != '!' ? 2 : -1));
-        $y = ! $x ? ltrim($e, '/') : ($x > 0 ? substr($e, 0, strcspn($e, ' ')) : 0);
-        $e = "<$e>"; 
-        if (isset($d[$y])) {
-            if ( ! $x) {
-			    echo "\n", str_repeat($s, --$n), "$e\n", str_repeat($s, $n);
-			} else {
-			    echo "\n", str_repeat($s, $n), "$e\n", str_repeat($s, ($x != 1 ? ++$n : $n));
-			}
-            echo ltrim($r); 
-			continue;
-        }
-        $f = "\n". str_repeat($s, $n);
-        if (isset($c[$y])) {
-            if( ! $x) {
-		        echo $e, $f, ltrim($r);
-			} else {
-			    echo $f, $e, $r;
-			}
-        } elseif (isset($b[$y])) {
-		    echo $f, $e, $r;
-        } elseif (isset($a[$y])) {
-		    echo $e, $f, ltrim($r);
-        } elseif ( ! $y) {
-		    echo $f, $e, $f, ltrim($r);
-        } else {
-		    echo $e, $r;
-		}
-    }
-    $t = preg_replace('`[\n]\s*?[\n]+`', "\n", ob_get_contents());
-    ob_end_clean();
-    if (($l = strpos(" $w", 'r') ? (strpos(" $w", 'n') ? "\r\n" : "\r") : 0)) {
-        $t = str_replace("\n", $l, $t);
-    }
-    return str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05", "\x07"), array('<', '>', "\n", "\r", "\t", ' '), $t);
 }
