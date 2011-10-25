@@ -12,8 +12,7 @@
  * @param	string	the $S argument can be used to disallow an otherwise legal attribute for an element, or to restrict the attribute's values
  * @return  string  the output of htmLawed is a text string containing the processed input. 
  */
-function htmlawed_function($t, $C = 1, $S = array()) {
-    $C = is_array($C) ? $C : array();
+function htmlawed_function($t, array $C = NULL, $S = NULL) {
     if ( ! empty($C['valid_xhtml'])) {
         $C['elements'] = empty($C['elements']) ? '*-center-dir-font-isindex-menu-s-strike-u' : $C['elements'];
         $C['make_tag_strict'] = isset($C['make_tag_strict']) ? $C['make_tag_strict'] : 2;
@@ -639,7 +638,7 @@ function hl_spec($t){
 	            unset($y[$x]['nomatch']);
 	        }
         }
-        if ( ! count($y) && !count($n)) {
+        if ( ! count($y) && ! count($n)) {
 	        continue;
 	    }
         foreach (explode(',', substr($w, 0, $e)) as $v) {
@@ -765,14 +764,14 @@ function hl_tag($t) {
     $rl = isset($S[$e]) ? $S[$e] : array();
     $a = array(); 
 	$nfr = 0;
-    foreach ($aA as $k=>$v) {
+    foreach ($aA as $k => $v) {
 		if (((isset($C['deny_attribute']['*']) ? isset($C['deny_attribute'][$k]) : ! isset($C['deny_attribute'][$k])) or isset($rl[$k])) && (( ! isset($rl['n'][$k]) && !isset($rl['n']['*'])) or isset($rl[$k])) && (isset($aN[$k][$e]) or (isset($aNU[$k]) && !isset($aNU[$k][$e])))) {
 		    if (isset($aNE[$k])) {
 		        $v = $k;
 		    } elseif( ! empty($lcase) && (($e != 'button' or $e != 'input') or $k == 'type')) { // Rather loose but ?not cause issues
 		        $v = (isset($aNL[($v2 = strtolower($v))])) ? $v2 : $v;
 		    }
-		    if ($k == 'style' && !$C['style_pass']) {
+		    if ($k == 'style' && ! $C['style_pass']) {
 		        if (FALSE !== strpos($v, '&#')) {
 		            static $sC = array('&#x20;'=>' ', '&#32;'=>' ', '&#x45;'=>'e', '&#69;'=>'e', '&#x65;'=>'e', '&#101;'=>'e', '&#x58;'=>'x', '&#88;'=>'x', '&#x78;'=>'x', '&#120;'=>'x', '&#x50;'=>'p', '&#80;'=>'p', '&#x70;'=>'p', '&#112;'=>'p', '&#x53;'=>'s', '&#83;'=>'s', '&#x73;'=>'s', '&#115;'=>'s', '&#x49;'=>'i', '&#73;'=>'i', '&#x69;'=>'i', '&#105;'=>'i', '&#x4f;'=>'o', '&#79;'=>'o', '&#x6f;'=>'o', '&#111;'=>'o', '&#x4e;'=>'n', '&#78;'=>'n', '&#x6e;'=>'n', '&#110;'=>'n', '&#x55;'=>'u', '&#85;'=>'u', '&#x75;'=>'u', '&#117;'=>'u', '&#x52;'=>'r', '&#82;'=>'r', '&#x72;'=>'r', '&#114;'=>'r', '&#x4c;'=>'l', '&#76;'=>'l', '&#x6c;'=>'l', '&#108;'=>'l', '&#x28;'=>'(', '&#40;'=>'(', '&#x29;'=>')', '&#41;'=>')', '&#x20;'=>':', '&#32;'=>':', '&#x22;'=>'"', '&#34;'=>'"', '&#x27;'=>"'", '&#39;'=>"'", '&#x2f;'=>'/', '&#47;'=>'/', '&#x2a;'=>'*', '&#42;'=>'*', '&#x5c;'=>'\\', '&#92;'=>'\\');
 		            $v = strtr($v, $sC);
