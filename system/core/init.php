@@ -196,7 +196,7 @@ unset($_GET);
 // One key aspect of Web application security is referring to variables with precision
 // one should not use $_REQUEST as it is less exact, and therefore less secure, 
 // than explicitly referring to $_GET, $_POST, or $_COOKIE. 
-unset($_GET, $_REQUEST);
+unset($_REQUEST);
 
 // The POST data can only be accessed in manager using $this->_POST_DATA
 // $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
