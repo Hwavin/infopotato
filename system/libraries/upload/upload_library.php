@@ -1,6 +1,6 @@
 <?php
 /**
- * File Uploading Library
+ * Form-based File Uploading Library
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -437,13 +437,13 @@ class Upload_Library {
 		}
 
 		if (function_exists('getimagesize')) {
-			if (FALSE !== ($D = @getimagesize($path))) {	
+			if (FALSE !== ($dimension = @getimagesize($path))) {	
 				$types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
 
-				$this->image_width = $D['0'];
-				$this->image_height = $D['1'];
-				$this->image_type = ( ! isset($types[$D['2']])) ? 'unknown' : $types[$D['2']];
-				$this->image_size_str = $D['3'];  // string containing height and width
+				$this->image_width = $dimension['0'];
+				$this->image_height = $dimension['1'];
+				$this->image_type = ( ! isset($types[$dimension['2']])) ? 'unknown' : $types[$dimension['2']];
+				$this->image_size_str = $dimension['3'];  // string containing height and width
 			}
 		}
 	}

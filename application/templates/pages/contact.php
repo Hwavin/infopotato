@@ -10,7 +10,7 @@
 
 
 <!-- begin contact form --> 
-<form method="post" action="<?php echo APP_URI_BASE; ?>contact/">  
+<form method="post" action="<?php echo APP_URI_BASE; ?>contact/" enctype="multipart/form-data">  
 
 <div id="contact_form">
 <!--

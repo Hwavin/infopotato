@@ -102,6 +102,9 @@ final class Contact_Manager extends Manager {
 			'type' => 'text/html',
 		);
 		$this->response($response_data);
+		
+		dump($this->_POST_DATA);
+		dump($_FILES);
 	}
 	
 }
