@@ -191,18 +191,20 @@ function sanitize($value) {
 
 // $_GET data is disallowed since InfoPotato utilizes URI segments 
 // rather than traditional URI query strings
-// The POST data can only be accessed in manager using $this->POST_DATA
-// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
-// Remove backslashes added by magic quotes and return the user's raw input
-// Normalizes all newlines to LF
-// NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
-// $_GET, $_POST, $_COOKIE, $_REQUEST, $_FILES and $_ENV were affected
-$_POST = isset($_POST) ? sanitize($_POST) : array();
-$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
+unset($_GET);
 
 // One key aspect of Web application security is referring to variables with precision
 // one should not use $_REQUEST as it is less exact, and therefore less secure, 
 // than explicitly referring to $_GET, $_POST, or $_COOKIE. 
-unset($_REQUEST);
+unset($_GET, $_REQUEST);
+
+// The POST data can only be accessed in manager using $this->_POST_DATA
+// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
+// Remove backslashes added by magic quotes and return the user's raw input
+// Normalizes all newlines to LF
+// NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
+// $_POST, $_COOKIE, $_FILES and $_ENV were affected
+$_POST = isset($_POST) ? sanitize($_POST) : array();
+$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
 	
 // End of file: ./system/core/init.php
