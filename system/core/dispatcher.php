@@ -67,6 +67,11 @@ final class Dispatcher {
 		// $_GET, $_POST, $_COOKIE, $_REQUEST, $_FILES and $_ENV were affected
 		$_POST = isset($_POST) ? sanitize($_POST) : array();
 		$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
+		
+		// One key aspect of Web application security is referring to variables with precision
+		// one should not use $_REQUEST as it is less exact, and therefore less secure, 
+		// than explicitly referring to $_GET, $_POST, or $_COOKIE. 
+		unset($_REQUEST);
 
 		// The desginated manager prepares the related resources and sends response back to client
 		$manager_obj->{$real_method}($params);
