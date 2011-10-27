@@ -193,9 +193,12 @@ function sanitize($value) {
 // rather than traditional URI query strings
 unset($_GET);
 
+// Because ENV is not as commonly used as the others, ENV is not recommended on productions servers
+unset($_ENV);
+
 // One key aspect of Web application security is referring to variables with precision
 // one should not use $_REQUEST as it is less exact, and therefore less secure, 
-// than explicitly referring to $_GET, $_POST, or $_COOKIE. 
+// than explicitly referring to $_GET, $_POST and $_COOKIE
 unset($_REQUEST);
 
 // The POST data can only be accessed in manager using $this->_POST_DATA

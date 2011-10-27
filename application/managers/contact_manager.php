@@ -105,6 +105,8 @@ final class Contact_Manager extends Manager {
 		
 		dump($this->_POST_DATA);
 		dump($_FILES);
+		dump(getenv("REMOTE_ADDR"));
+		dump($_ENV);
 	}
 	
 }
