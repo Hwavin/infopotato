@@ -283,10 +283,6 @@ final class Documentation_Manager extends Manager {
 				'uri' => 'user_agent', 
 				'name' => 'User Agent'
 			),
-			array(
-				'uri' => 'mobile_detect', 
-				'name' => 'Mobile Device Detection'
-			),
 		);
 		
 		for ($i = 0; $i < count($pages); $i++) {

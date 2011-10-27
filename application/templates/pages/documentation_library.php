@@ -22,7 +22,6 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/password_hashing/">Password Hashing</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/printer/">Printer</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/user_agent/">User Agent</a></li> 
-<li><a href="<?php echo APP_URI_BASE; ?>documentation/library/mobile_detect/">Mobile Device Detection</a></li> 
 </ul> 
 
 </div> 

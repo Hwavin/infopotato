@@ -147,10 +147,14 @@ The best case is of course when the line does not need to be split. When the if 
     <span class="c1">// ....</span> 
 <span class="p">}</span> 
 </pre></div>
- 
-<p class="notebox">
+
+<div class="notebox">
+When using logical operators in expression, you should keep in mind: "||" has a greater precedence than "or", "&&" has a greater precedence than "and", you should never mix &&s and ||s with ANDs and ORs without paretheses.
+</div>
+
+<div class="notebox">
 Control statements should have one space between the control keyword and opening parenthesis, to distinguish them from function calls. You are strongly encouraged to always use curly braces even in situations where they are technically optional. Having them increases readability and decreases the likelihood of logic errors being introduced when new lines are added.
-</p>
+</div>
  
 <p>For switch statements:</p>
 

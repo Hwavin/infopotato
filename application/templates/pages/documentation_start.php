@@ -152,7 +152,7 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/db.png" class="fact_img" title="Multiple Database Adapters" alt="Multiple Database Adapters" />
 <div class="fact_desc">
 <h3>Multiple Data-Access Objects</h3>
-<div>Rational databases (MySQL, SQLite, PostgreSQL) and NoSQL</div>
+<div>Same API to talk to MySQL/MySQLi, SQLite, and PostgreSQL</div>
 </div>
 </div>
 </div>

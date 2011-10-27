@@ -30,10 +30,12 @@ class Manager {
 	public function __construct() {
 		// The POST data can only be accessed in manager using $this->_POST_DATA
 		// The $_POST data is already sanitized by the dispatcher
-		// Must use parent::__construct() to enable $this->_POST_DATA within the child constructor
 		$this->_POST_DATA = $_POST;
-		// Disable access to $_POST
-		unset($_POST);
+		// Disable access to $_POST, $_REQUEST
+		// One key aspect of Web application security is referring to variables with precision
+		// one should not use $_REQUEST as it is less exact, and therefore less secure, 
+		// than explicitly referring to $_GET, $_POST, or $_COOKIE. 
+		unset($_POST, $_REQUEST);
 	} 
 
 	/**

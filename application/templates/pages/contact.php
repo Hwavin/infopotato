@@ -33,7 +33,7 @@
 Required field is marked with <span class="req">*</span>. 
 </p>
 
-<input type="hidden" name="form_token" value="<?php if (isset($form_token)) echo $form_token; ?>" />
+<input type="hidden" name="form_token" value="<?php if (isset($form_token)) echo $form_token; ?>" enctype="multipart/form-data" />
 
 <div class="anti_spam">
 <label for="contact_title" id="contact_title_label" class="desc">Title <span class="req">*</span></label>  
@@ -59,7 +59,7 @@ Required field is marked with <span class="req">*</span>.
 <label for="contact_message" id="contact_message_label" class="desc">Message <span class="req">*</span> <?php if (isset($contact_message_error)) echo $contact_message_error; ?></label>  
 <textarea name="contact_message" id="contact_message" class="contact_textarea" rows="8"><?php if (isset($contact_message)) echo $contact_message; ?></textarea> 
 </div>
-
+<input name="uploadedfile" type="file" />
 <div class="form_item">
 <input type="submit" name="submit_btn" class="uibutton large confirm" id="submit_btn" value="Send" />  
 </div>
