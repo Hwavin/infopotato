@@ -576,14 +576,13 @@ background:#eceff6;
 
 /* page layout / structure
 -------------------------------------------------------------- */
-
 .header {
 background:#3b5998;
-padding:10px 0;
-border-bottom:10px solid #6d84b4;
 position:fixed;
 width:100%;
 z-index:100;
+border-bottom:10px solid #6d84b4;
+padding:10px;
 }
 
 .topnav {
@@ -604,15 +603,6 @@ text-decoration:none;
 margin-right:15px;
 }
 
-.logo a {
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg) no-repeat 0 0;
-width:180px;
-text-indent:-9999px;
-}
-
-.logo a:hover{
-background-position:-180px 0;
-}
 
 .nav_item a {
 padding:0 10px;
@@ -623,13 +613,23 @@ background:#6D84B4;
 padding:0 10px;
 }
 
+
+.logo a {
+background:url(<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg) no-repeat 0 0;
+width:180px;
+text-indent:-9999px;
+}
+
+.logo a:hover{
+background-position:-180px 0;
+}
+
 /* content
 -------------------------------------------------------------- */
 .content {
 background:#fff;
 border-bottom:2px solid #ddd;
-padding-top:70px;
-padding-bottom:20px;
+padding:70px 10px 20px 10px;
 }
 
 .content ul {
@@ -664,7 +664,7 @@ margin-top:10px;
 /* footer
 -------------------------------------------------------------- */
 .footer{
-padding:10px 0;
+padding:10px;
 margin:0;
 line-height:180%;
 background:#f2f2f2;
