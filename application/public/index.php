@@ -97,7 +97,7 @@ require_once $file;
 Session::init(APP_SESSION_DIR, '30 minutes');
 
 // Dispatch the incoming request
-Dispatcher::dispatch();
+dispatch();
 
 // End of file: ./index.php 
 
