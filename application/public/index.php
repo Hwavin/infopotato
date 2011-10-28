@@ -75,9 +75,7 @@ define('SYS_RUNTIME_CACHE', TRUE);
 define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
-// Components for debug, autoloading, internationalization function
-// Disables register_globals and magic_quotes_gpc
-// Sanitizes POST and COOKIE variables
+// Components for init, debug, autoloading, internationalization function
  if (SYS_RUNTIME_CACHE === TRUE) {
 	// SYS_RUNTIME_DIR must be writable
 	if ( ! is_writable(SYS_RUNTIME_DIR)) {

@@ -74,9 +74,7 @@ define('SYS_RUNTIME_CACHE', FALSE);
 define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
-// Components for debug, autoloading, internationalization function
-// Disables register_globals and magic_quotes_gpc
-// Sanitizes POST and COOKIE variables
+// Components for init, debug, autoloading, internationalization function
  if (SYS_RUNTIME_CACHE === TRUE) {
 	// SYS_RUNTIME_DIR must be writable
 	if ( ! is_writable(SYS_RUNTIME_DIR)) {
@@ -84,6 +82,7 @@ define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 	}
 	$file = SYS_RUNTIME_DIR.'~init.php';
 	if ( ! file_exists($file)) {
+	    // Return source with stripped comments and whitespace
 		file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
 	}
 } else {

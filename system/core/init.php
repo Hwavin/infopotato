@@ -81,7 +81,8 @@ function auto_load($class_name) {
             // The runtime folder SYS_RUNTIME_DIR must be writable
 			$file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
             if ( ! file_exists($file)) {
-                file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
+                // Return source with stripped comments and whitespace
+				file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
             }
         } else {
             $file = SYS_CORE_DIR.$class_name.'.php';
