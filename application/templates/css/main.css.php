@@ -39,8 +39,6 @@ border-collapse:collapse;
 border-spacing:0;
 }
 
-
-
 html {
 overflow-y:scroll;
 }
@@ -49,7 +47,6 @@ body {
 font-family:Arial, Helvetica, sans-serif;
 font-size:90%;
 color: #363636;	 
-background:#f2f2f2;
 }
 
 .container {
@@ -63,7 +60,6 @@ min-width: 755px;
 margin: 0 auto;
 overflow: hidden;
 }
-
 
 .onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol {
 margin-right: 3.8%;
@@ -669,12 +665,9 @@ margin-top:10px;
 -------------------------------------------------------------- */
 .footer{
 padding:10px 0;
-margin:0 auto 10px;
+margin:0;
 line-height:180%;
-}
-
-#locale_select{
-clear:both;
+background:#f2f2f2;
 }
 
 /* contact form
