@@ -1,20 +1,49 @@
 <?php
+// Register given function as __autoload() implementation
+spl_autoload_register('auto_load');
+
+// $_GET data is disallowed 
+// InfoPotato utilizes URI segments rather than traditional URI query strings
+unset($_GET);
+
+// One key aspect of Web application security is referring to variables with precision
+// one should not use $_REQUEST as it is less exact, and therefore less secure, 
+// than explicitly referring to $_GET, $_POST and $_COOKIE
+unset($_REQUEST);
+
+// The POST data can only be accessed in manager using $this->_POST_DATA
+// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
+// Remove backslashes added by magic quotes and return the user's raw input
+// Normalizes all newlines to LF
+// NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
+// $_POST, $_COOKIE, $_FILES and $_ENV were affected
+$_POST = isset($_POST) ? sanitize($_POST) : array();
+$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
+	
 /**
- * Set the PHP error reporting level. If you set this in php.ini, you remove this.
+ * Sets the error_reporting directive at runtime
  *
  * When developing your application, it is highly recommended to enable notices
  * and strict warnings. Enable them by using: E_ALL | E_STRICT
  *
  * In production environments, it is typically desirable to disable PHP's error reporting
  * by setting the internal error_reporting flag to a value of 0.
+ *
+ * As E_STRICT is not included within E_ALL you have to explicitly enable this kind of error level.
+ * Most of E_STRICT errors are evaluated at the compile time thus such errors are not reported
+ * in the file where error_reporting is enhanced to include E_STRICT errors (and vice versa).
  */
 switch (ENVIRONMENT) {
     case 'development':
-        error_reporting(E_ALL | E_STRICT);
+        // Show all errors, warnings and notices including coding standards
+		// Note: E_STRICT became part of E_ALL in PHP 5.4.0
+		// Same as error_reporting(E_ALL | E_STRICT);
+        ini_set('error_reporting', E_ALL | E_STRICT);
         break;
 
     case 'production':
-        error_reporting(0);
+	    // Same as error_reporting(0);
+		ini_set('error_reporting', 0);
         break;
 
     default:
@@ -71,8 +100,6 @@ function auto_load($class_name) {
 	// and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
 	require $file;
 } 
-
-spl_autoload_register('auto_load');
 
 /**
  * Display system error
@@ -138,9 +165,9 @@ function dump($var, $force_type = '', $collapsed = FALSE) {
  * Translation/internationalization function. The PHP function
  * [strtr](http://php.net/strtr) is used for replacing parameters.
  *
- *    __('Welcome back, :user', array(':user' => $username));
+ * __('Welcome back, :user', array(':user' => $username));
  *
- * [!!] The target language is defined by [I18n::$lang].
+ * The target language is defined by [I18n::$lang].
  * 
  * @uses    I18n::get
  * @param   string  text to translate
@@ -156,8 +183,8 @@ function __($string, array $values = array()) {
 /**
  * Recursively sanitizes an input variable:
  *
- * - Strips slashes if magic quotes are enabled
- * - Normalizes all newlines to LF
+ * Strips slashes if magic quotes are enabled
+ * Normalizes all newlines to LF
  *
  * @param   mixed  any variable
  * @return  mixed  sanitized variable
@@ -187,24 +214,6 @@ function sanitize($value) {
 
 	return $value;
 }
-
-// $_GET data is disallowed since InfoPotato utilizes URI segments 
-// rather than traditional URI query strings
-unset($_GET);
-
-// One key aspect of Web application security is referring to variables with precision
-// one should not use $_REQUEST as it is less exact, and therefore less secure, 
-// than explicitly referring to $_GET, $_POST and $_COOKIE
-unset($_REQUEST);
-
-// The POST data can only be accessed in manager using $this->_POST_DATA
-// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
-// Remove backslashes added by magic quotes and return the user's raw input
-// Normalizes all newlines to LF
-// NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
-// $_POST, $_COOKIE, $_FILES and $_ENV were affected
-$_POST = isset($_POST) ? sanitize($_POST) : array();
-$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
 
 
 /**
@@ -254,5 +263,5 @@ function dispatch() {
 	// The desginated manager prepares the related resources and sends response back to client
 	$manager_obj->{$real_method}($params);
 }
-	
+
 // End of file: ./system/core/init.php

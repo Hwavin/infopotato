@@ -19,7 +19,6 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 <h2>core</h2>
 
 <ul>
-<li><a href="<?php echo APP_URI_BASE; ?>code/core/dispatcher/">dispatcher.php</a></li>
 
 <li><a href="<?php echo APP_URI_BASE; ?>code/core/manager/">manager.php</a></li>
 
