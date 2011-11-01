@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -85,5 +83,3 @@ The Cookie_Library class also allows defining default parameters to use for set(
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 

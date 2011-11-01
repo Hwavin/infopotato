@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -61,5 +59,3 @@ The class defaults to image files only, but based on the parameters you pass, in
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div>

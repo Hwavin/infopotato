@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -184,6 +182,3 @@ function:</p>
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

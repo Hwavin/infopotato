@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Getting Started</h1> 
@@ -211,8 +209,6 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>You eschew complexity, favoring simple solutions</div>
 </div>
 </div>
-</div>
-
 </div>
 
 </div>

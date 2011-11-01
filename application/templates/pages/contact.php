@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Contact</h1> 
@@ -10,7 +8,7 @@
 
 
 <!-- begin contact form --> 
-<form method="post" action="<?php echo APP_URI_BASE; ?>contact/" enctype="multipart/form-data">  
+<form method="post" action="<?php echo APP_URI_BASE; ?>contact/">  
 
 <div id="contact_form">
 <!--
@@ -59,7 +57,7 @@ Required field is marked with <span class="req">*</span>.
 <label for="contact_message" id="contact_message_label" class="desc">Message <span class="req">*</span> <?php if (isset($contact_message_error)) echo $contact_message_error; ?></label>  
 <textarea name="contact_message" id="contact_message" class="contact_textarea" rows="8"><?php if (isset($contact_message)) echo $contact_message; ?></textarea> 
 </div>
-<input name="uploadedfile" type="file" />
+
 <div class="form_item">
 <input type="submit" name="submit_btn" class="uibutton large confirm" id="submit_btn" value="Send" />  
 </div>
@@ -69,10 +67,3 @@ Required field is marked with <span class="req">*</span>.
 <?php endif; ?>
 </div> 
 <!-- end contact form --> 
-
-</div> 
-
- 
-
-
- 

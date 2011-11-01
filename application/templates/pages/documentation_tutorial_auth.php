@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -794,6 +792,4 @@ You'll notice that the only difference is that each user has a 'auth_level' fiel
 </pre></div>
 
 <!-- PRINT: stop -->
-
-</div> 
 

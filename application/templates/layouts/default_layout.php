@@ -12,7 +12,6 @@
 <meta name="revisit-after" content="14 Days" /> 
 <meta name="description" content="InfoPotato" /> 
 <meta name="keywords" content="InfoPotato" /> 
-<meta name="viewport" content="width=device-width; initial-scale=1.0;"> 
 
 <title><?php echo $page_title; ?> | InfoPotato</title>
 
@@ -36,28 +35,31 @@
 <body>	
 
 <!-- begin header -->
-<div class="container header"> 
-
-<div class="row">
+<div class="header"> 
 
 <div class="topnav">
+
+<div class="logo">
+<a href="<?php echo APP_URI_BASE; ?>home/" title="Return to frontpage"><img src="<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg" alt="InfoPotato" /></a>
+</div>
+
 <ul> 
-<li class="logo"><a href="<?php echo APP_URI_BASE; ?>home/" title="Return to frontpage">infopotato</a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>download/" title="Download">Download</a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>code/" title="Code">Code</a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
-<li class="nav_item"><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>download/" title="Download">Download</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>code/" title="Code">Code</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
+<li><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
 </ul>
+
 </div>	
 
-</div>
+<div class="clear"></div>
 
 </div>  
 <!-- end header --> 
 
 <!-- begin main content --> 
-<div class="container content"> 
+<div class="content"> 
 <?php echo $content; ?>
 <div class="clear"></div>
 <div class="hide">
@@ -67,8 +69,8 @@ Page URI: <?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?
 <!-- end main content --> 
 
 <!-- begin footer --> 
-<div class="container footer">
-<div class="row">
+<div class="footer">
+<div class="copyright">
 Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
 </div>
 </div>

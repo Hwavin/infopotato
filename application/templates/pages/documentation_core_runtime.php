@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -41,6 +39,3 @@ You can also control if you want to enable the core runtime cache on the applica
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Code</h1> 
@@ -14,7 +12,7 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 
 <table class="grid" width="100%">
 <tr>
-<td>
+<td width="33%">
 
 <h2>core</h2>
 
@@ -50,7 +48,7 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 </ul>
 </td>
 
-<td>
+<td width="34%">
 
 <h2>libraries</h2>
 
@@ -123,9 +121,5 @@ We're always grateful for patches to infoPotato's code.
 
 <div class="greybox">
 <a href="https://github.com/yuanzhou/infopotato/issues" class="external_link">https://github.com/yuanzhou/infopotato/issues</a>
-</div>
-
-
-
 </div>
 

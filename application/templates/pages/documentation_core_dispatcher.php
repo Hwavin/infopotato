@@ -1,5 +1,3 @@
-<div class="row"> 
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -39,5 +37,3 @@ You can think of the Dispatcher as the gatekeeper. It doesn't perform any real w
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 

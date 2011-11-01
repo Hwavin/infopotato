@@ -2,18 +2,11 @@
 /**
  * Provides a consistent cookie API, HTTPOnly compatibility with older PHP versions and default parameters
  * 
- * @copyright  Copyright (c) 2008-2009 Will Bond, others
- * @author     Will Bond [wb] <will@flourishlib.com>
- * @author     Nick Trew [nt]
- * @license    http://flourishlib.com/license
- * 
- * @package    Flourish
- * @link       http://flourishlib.com/fCookie
- * 
- * @version    1.0.0b3
- * @changes    1.0.0b3  Added the ::delete() method [nt+wb, 2009-09-30]
- * @changes    1.0.0b2  Updated for new fCore API [wb, 2009-02-16]
- * @changes    1.0.0b   The initial implementation [wb, 2008-09-01]
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ * @link    based on   http://flourishlib.com/fCookie
  */
 class Cookie {
 	/**

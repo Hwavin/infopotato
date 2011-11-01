@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -169,6 +167,3 @@ Xdebug's built-in profiler allows you to find bottlenecks in your script and vis
 </p>
 
 <!-- PRINT: stop -->
-
-</div> 
-

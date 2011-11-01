@@ -21,8 +21,6 @@ function post_example() {
 }
 </script>
 
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -184,5 +182,3 @@ When responding to Ajax requests, you often will want to disable browser caching
 </div> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 

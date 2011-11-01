@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -68,6 +66,3 @@ The comparison is pretty straightforward. InnoDB is more suitable for data criti
 
 
 <!-- PRINT: stop -->
-
-</div> 
-

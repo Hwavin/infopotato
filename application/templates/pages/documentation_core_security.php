@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -111,6 +109,3 @@ InfoPotato is doing and also fully automatic. You do not set up anything, and al
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

@@ -1,7 +1,5 @@
 /*--------------------------------------------------------------
-reset.css
-@author Zhou Yuan
-@copyright Institute for Learning 2009 - 2010
+reset
 -------------------------------------------------------------- */
 html, body, div, span, object, iframe,
 h1, h2, h3, p, blockquote, pre,
@@ -39,6 +37,9 @@ border-collapse:collapse;
 border-spacing:0;
 }
 
+/*--------------------------------------------------------------
+main
+-------------------------------------------------------------- */
 html {
 overflow-y:scroll;
 }
@@ -47,77 +48,11 @@ body {
 font-family:Arial, Helvetica, sans-serif;
 font-size:90%;
 color: #363636;	 
+background:#f2f2f2;
 }
 
 .container {
 padding:0 20px;
-}
-
-.row {
-width: 100%;
-max-width: 960px;
-min-width: 755px;
-margin: 0 auto;
-overflow: hidden;
-}
-
-.onecol, .twocol, .threecol, .fourcol, .fivecol, .sixcol, .sevencol, .eightcol, .ninecol, .tencol, .elevencol {
-margin-right: 3.8%;
-float: left;
-min-height: 1px;
-}
-
-.row .onecol {
-width: 4.85%;
-}
-
-.row .twocol {
-width: 13.45%;
-}
-
-.row .threecol {
-width: 22.05%;
-}
-
-.row .fourcol {
-width: 30.75%;
-}
-
-.row .fivecol {
-width: 39.45%;
-}
-
-.row .sixcol {
-width: 48%;
-}
-
-.row .sevencol {
-width: 56.75%;
-}
-
-.row .eightcol {
-width: 65.4%;
-}
-
-.row .ninecol {
-width: 74.05%;
-}
-
-.row .tencol {
-width: 82.7%;
-}
-
-.row .elevencol {
-width: 91.35%;
-}
-
-.row .twelvecol {
-width: 100%;
-float: left;
-}
-
-.last {
-margin-right: 0px;
 }
 
 img, object, embed {
@@ -578,58 +513,55 @@ background:#eceff6;
 -------------------------------------------------------------- */
 .header {
 background:#3b5998;
-position:fixed;
 width:100%;
-z-index:100;
 border-bottom:10px solid #6d84b4;
-padding:10px;
+padding:10px 0;
 }
 
 .topnav {
-float:left;
+width:920px;
+margin:0 auto;
+padding:5px 20px;
 }
 
-.topnav li{
-display:inline;
+.logo{
+float:left;
+width:146px;
+margin-right:100px;
+}
+
+.topnav ul {
+text-align:center;
+}
+
+.topnav ul li{
+display:inline-block;
+float:left;
 line-height:29px;
 }
 
-.topnav li a {
-float:left;
+.topnav ul li a {
 font-weight:700;
 font-size:15px;
 color:#fff;
 text-decoration:none;
 margin-right:15px;
+padding:10px;
 }
 
-
-.nav_item a {
-padding:0 10px;
-}
-
-.nav_item a:hover {
+.topnav ul li a:hover {
 background:#6D84B4;
-padding:0 10px;
-}
-
-
-.logo a {
-background:url(<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg) no-repeat 0 0;
-width:180px;
-text-indent:-9999px;
-}
-
-.logo a:hover{
-background-position:-180px 0;
 }
 
 /* content
 -------------------------------------------------------------- */
 .content {
+width:920px;
 background:#fff;
-border-bottom:2px solid #ddd;
-padding:70px 10px 20px 10px;
+padding:20px;
+margin:0 auto;
+border:1px solid #d9d9d9;
+border-top:0;
 }
 
 .content ul {
@@ -664,10 +596,14 @@ margin-top:10px;
 /* footer
 -------------------------------------------------------------- */
 .footer{
-padding:10px;
-margin:0;
+width:100%;
+}
+
+.footer .copyright{
+width:960px;
+padding:10px 0 40px;
+margin:0 auto;
 line-height:180%;
-background:#f2f2f2;
 }
 
 /* contact form
@@ -818,12 +754,7 @@ padding:0 0 10px 20px;
 }
 
 .fact{
-border-bottom:1px solid #d3dae5;
-padding:14px 0;
-}
-
-.last_row .fact{
-border-bottom:none;
+padding:10px 0;
 }
 
 .fact_img{

@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -65,6 +63,3 @@ To make your installation secure from the start, you should put InfoPotato syste
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

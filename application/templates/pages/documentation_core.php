@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Core Topics</h1> 
@@ -30,5 +28,3 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/security/"><?php echo __('Security'); ?></a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/core/ajax/"><?php echo __('Ajax Interaction'); ?></a></li> 
 </ul>
-
-</div> 

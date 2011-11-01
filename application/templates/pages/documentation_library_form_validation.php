@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -321,6 +319,3 @@ You can also use any native PHP functions that permit one parameter.
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

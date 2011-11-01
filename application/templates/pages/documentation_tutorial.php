@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Tutorials</h1> 
@@ -26,5 +24,3 @@ To demonstrate the power and ease of InfoPotato, we'll provide the following tut
 <div class="tutorials_item"> 
 <h2><a href="<?php echo APP_URI_BASE; ?>documentation/tutorial/innodb_vs_myisam/">MySQL Engines: InnoDB vs. MyISAM&mdash;A Comparison of Pros and Cons</a></h2> 
 </div>
-
-</div> 

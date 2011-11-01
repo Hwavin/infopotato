@@ -1,5 +1,3 @@
-<div class="row">
-
 <div id="toc"> 
 <ul> 
 <li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li>
@@ -71,7 +69,9 @@ REST is the best pattern for web applications&mdash;organizing your application 
 InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits and incorporates many ideas and work from them. Below is a short list of those PHP frameworks from which InfoPotato drew inspiration. Some core code and libraries/functions of InfoPotato are built upon the following projects. Here's an incomplete list:
 </p>
 
-<div class="threecol"> 
+<table width="100%">
+<tr>
+<td> 
 <ul> 
 <li><a href="http://akaikiwi.sourceforge.net/" class="external_link">Akaikiwi</a></li>
 <li><a href="http://alloyframework.org/" class="external_link">Alloy</a></li>
@@ -84,9 +84,9 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://fatfree.sourceforge.net/" class="external_link">Fat-Free Framework</a></li> 
 <li><a href="http://qeephp.com/" class="external_link">FleaPHP/QeePHP</a></li>  
 </ul>
-</div> 
+</td> 
 
-<div class="threecol"> 
+<td> 
 <ul> 
 <li><a href="http://flourishlib.com/" class="external_link">Flourish</a></li>  
 <li><a href="http://fuelphp.com/" class="external_link">Fuel</a></li>
@@ -99,9 +99,9 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://framework.maintainable.com/mvc/1_intro.php" class="external_link">Maintainable</a></li>
 <li><a href="http://nanomvc.com/" class="external_link">NanoMVC</a></li> 
 </ul> 
-</div> 
+</td>
 
-<div class="threecol"> 
+<td> 
 <ul> 
 <li><a href="http://nette.org/en/" class="external_link">Nette Framework</a></li>
 <li><a href="http://obullo.com/" class="external_link">Obullo</a></li>
@@ -114,9 +114,9 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://www.slimframework.com/" class="external_link">Slim</a></li>
 <li><a href="http://solarphp.com/" class="external_link">Solar</a></li>
 </ul> 
-</div> 
+</td>
 
-<div class="threecol last"> 
+<td> 
 <ul> 
 <li><a href="http://spawnframework.com/" class="external_link">Spawn Framework</a></li>
 <li><a href="http://speedphp.com/" class="external_link">SpeedPHP</a></li>
@@ -129,6 +129,6 @@ InfoPotato is influenced by many other PHP/Ruby/Java/Python frameworks/toolkits 
 <li><a href="http://peej.github.com/tonic/" class="external_link">Tonic</a></li> 
 <li><a href="http://www.yiiframework.com/" class="external_link">Yii Framework</a></li> 
 </ul>
-</div> 
-	
-</div> 
+</td> 
+</tr>
+</table>

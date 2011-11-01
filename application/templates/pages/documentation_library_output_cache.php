@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -118,6 +116,3 @@ By doing this, only the content part of the page will be cached and the layout w
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

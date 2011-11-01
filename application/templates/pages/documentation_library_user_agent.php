@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -162,6 +160,3 @@ since some browsers do not provide character-set info, and even among those that
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
- 
-</div> 
-

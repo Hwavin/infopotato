@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Functions</h1> 
@@ -15,5 +13,3 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/function/minify_html/">Minify HTML</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/function/htmlawed/">HtmLawed</a></li>
 </ul> 
-
-</div> 

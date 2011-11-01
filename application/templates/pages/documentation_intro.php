@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Introduction</h1> 
@@ -18,5 +16,3 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/style_guide/">Conventions &amp; Style Guide</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/intro/testing/">Testing</a></li>
 </ul> 
-
-</div> 

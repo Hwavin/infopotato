@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Libraries</h1> 
@@ -23,5 +21,3 @@
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/printer/">Printer</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/library/user_agent/">User Agent</a></li> 
 </ul> 
-
-</div> 

@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Code</h1> 
@@ -24,10 +22,5 @@
 <?php endforeach; ?>
 </code>
 </div>
-
-</div> 
-
- 
-
 
  

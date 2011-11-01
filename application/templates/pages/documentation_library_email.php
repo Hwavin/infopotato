@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -261,5 +259,3 @@ wrapped normally.
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
- 
-</div> 

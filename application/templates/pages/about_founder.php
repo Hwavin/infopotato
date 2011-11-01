@@ -1,5 +1,3 @@
-<div class="row">
-
 <div id="toc"> 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li> 
@@ -54,7 +52,3 @@ Since the end of February 2009 I've been working as a web system programmer at <
 <p>
 I hope to do something that I can continually develop my skills, whatever the industry. I never want to be stuck in a dead-end job with no prospects. I plan to build a professional IT team and create something exciting with core competence. I want to be constantly innovating and creating new things... <strong>I believe in my work. That's the dreams and I insist on them</strong>!
 </p>  
-
-
-</div> 
-

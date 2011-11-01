@@ -1,19 +1,17 @@
 <?php
 /**
  * Wraps the session control functions and the `$_SESSION` superglobal for a more consistent and safer API
- * 
+ *
  * A `Cannot send session cache limiter` warning will be triggered if ::open(),
  * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output has
  * been sent to the browser. To prevent such a warning, explicitly call ::open()
  * before generating any output.
- * 
- * @copyright  Copyright (c) 2007-2010 Will Bond, others
- * @author     Will Bond [wb] <will@flourishlib.com>
- * @author     Alex Leeds [al] <alex@kingleeds.com>
- * @license    http://flourishlib.com/license
- * 
- * @package    Flourish
- * @link       http://flourishlib.com/fSession
+ *
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ * @link   based on    http://flourishlib.com/fSession
  */
 class Session {
 

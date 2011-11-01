@@ -1,7 +1,5 @@
 <script type="text/javascript" src="<?php echo APP_URI_BASE; ?>js/index/livevalidation.js"></script>
 
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -125,6 +123,3 @@ You can try to disable JavaScript in your browser and try out the server-side va
 </div>
 
 <!-- PRINT: stop -->
-
-</div> 
-

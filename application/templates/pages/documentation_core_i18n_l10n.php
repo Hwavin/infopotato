@@ -1,5 +1,3 @@
-<div class="row"> 
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -124,5 +122,3 @@ While translating existing text to other languages may seem easy, it is more dif
 <!-- PRINT: stop -->
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 

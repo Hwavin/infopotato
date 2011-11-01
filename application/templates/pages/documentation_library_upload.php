@@ -1,5 +1,3 @@
-<div class="row">
-	
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <!-- PRINT: start -->
@@ -323,6 +321,3 @@ Here is the array prototype:</p>
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
-
-</div> 
-

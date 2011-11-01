@@ -1,5 +1,3 @@
-<div class="row">
-
 <!-- begin breadcrumb -->
 <div id="breadcrumb">
 <h1 class="first_heading">Download</h1>
@@ -70,5 +68,3 @@ We're always grateful for patches to infoPotato's code.
 <div class="greybox">
 <a href="https://github.com/yuanzhou/infopotato/issues" class="external_link">https://github.com/yuanzhou/infopotato/issues</a>
 </div>
-
-</div> 
