@@ -122,7 +122,7 @@ You should see an upload form. Try uploading an word doc file (either a doc, or 
  
 <p>The following preferences are available.  The default value indicates what will be used if you do not specify that preference.</p> 
 
-<table class="grid"> 
+<table cellspacing="0" width="100%" class="grid">  
 <thead>
 <tr> 
 <th>Preference</th> 
@@ -268,7 +268,7 @@ Here is the array prototype:</p>
   
 <p>Here is an explanation of the above array items.</p> 
  
-<table class="grid"> 
+<table cellspacing="0" width="100%" class="grid"> 
 <thead>
 <tr><th>Item</th><th>Description</th></tr> 
 </thead>

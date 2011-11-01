@@ -69,12 +69,13 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 </p>
 
 
-
-<div class="row">
-
 <h2 class="first_heading">Quick Facts about InfoPotato</h2>
 
-<div class="fourcol">
+<table width="100%">
+
+<tr>
+
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/flex.png" class="fact_img" title="Dedicated to Small Applications" alt="Dedicated to Small Applications" />
 <div class="fact_desc">
@@ -82,9 +83,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Easy installation &amp; configuration, no ORM/CLI/PEAR/Code Generators</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/fast.png" class="fact_img" title="Truly Lightweight &amp; Fast" alt="Truly Lightweight &amp; Fast" />
 <div class="fact_desc">
@@ -92,9 +93,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Tiny core, runtime cache, output compression, lazy loading</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol last">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/loose.png" class="fact_img" title="Loosely Coupled Components" alt="Loosely Coupled Components" />
 <div class="fact_desc">
@@ -102,15 +103,13 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Each core component has little or no knowledge of other components</div>
 </div>
 </div>
-</div>
+</td>
 
-</div>
+</tr>
 
+<tr>
 
-
-<div class="row">
-
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/rest.png" class="fact_img" title="Built around HTTP &amp; REST" alt="Built around HTTP &amp; REST" />
 <div class="fact_desc">
@@ -118,9 +117,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Adopts the simple Request-Reponse handling model, no MVC</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/utf8.png" class="fact_img" title="Fully Compatible with UTF-8" alt="Fully Compatible with UTF-8" />
 <div class="fact_desc">
@@ -128,9 +127,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Fixes multibyte UTF-8 characters "Dangerous" PHP functionality</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol last">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/i18n.png" class="fact_img" title="Simple i18N/L10N Support" alt="Simple i18N/L10N Support" />
 <div class="fact_desc">
@@ -138,14 +137,13 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Apps can be adapted to various languages with little code changes</div>
 </div>
 </div>
-</div>
+</td>
 
-</div>
+</tr>
 
+<tr>
 
-<div class="row">
-
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/db.png" class="fact_img" title="Multiple Database Adapters" alt="Multiple Database Adapters" />
 <div class="fact_desc">
@@ -153,10 +151,10 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Same API to talk to MySQL/MySQLi, SQLite, and PostgreSQL</div>
 </div>
 </div>
-</div>
+</td>
 
 
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/lib.png" class="fact_img" title="Rich Libraries/Functions" alt="Rich Libraries/Functions" />
 <div class="fact_desc">
@@ -164,9 +162,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Many standalone and reusable libraries/functions are available</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol last">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/doc.png" class="fact_img" title="Very Detailed Documentation" alt="Very Detailed Documentation" />
 <div class="fact_desc">
@@ -174,14 +172,13 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>Comprehensive tutorials for you to systematically learn InfoPotato</div>
 </div>
 </div>
-</div>
+</td>
 
-</div>
+</tr>
 
+<tr>
 
-<div class="row last_row">
-
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/multi.png" class="fact_img" title="One Framework, Multiple Apps" alt="One Framework, Multiple Apps" />
 <div class="fact_desc">
@@ -189,9 +186,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>One framework can host multiple apps simultaneously</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/secure.png" class="fact_img" title="Built with Security in Mind" alt="Built with Security in Mind" />
 <div class="fact_desc">
@@ -199,9 +196,9 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>URI attack, Session, XSS, CSRF, and SQL Injection protection</div>
 </div>
 </div>
-</div>
+</td>
 
-<div class="fourcol last">
+<td>
 <div class="fact">
 <img src="<?php echo STATIC_URI_BASE; ?>images/content/control.png" class="fact_img" title="Everything under Your Control" alt="Everything under Your Control" />
 <div class="fact_desc">
@@ -209,6 +206,8 @@ InfoPotato is a very lightweight, well designed & well documented PHP5 framework
 <div>You eschew complexity, favoring simple solutions</div>
 </div>
 </div>
-</div>
+</td>
 
-</div>
+</tr>
+
+</table>

@@ -1,5 +1,8 @@
 /*--------------------------------------------------------------
-reset
+Reset
+Props to Eric Meyer (meyerweb.com) for his CSS reset file. 
+We're using an adapted version here that cuts out some of the 
+reset HTML elements we will never need here (i.e., dfn, samp, etc).
 -------------------------------------------------------------- */
 html, body, div, span, object, iframe,
 h1, h2, h3, p, blockquote, pre,
@@ -17,6 +20,10 @@ outline:0;
 font-size:100%;
 vertical-align:baseline;
 background:transparent;
+}
+
+html {
+overflow-y:scroll;
 }
 
 ol, ul {
@@ -37,32 +44,35 @@ border-collapse:collapse;
 border-spacing:0;
 }
 
+sub, sup {
+font-size: 75%;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+}
+
+sup {
+top: -0.5em;
+}
+
+sub {
+bottom: -0.25em;
+}
+
 /*--------------------------------------------------------------
 main
 -------------------------------------------------------------- */
-html {
-overflow-y:scroll;
-}
-
 body {
 font-family:Arial, Helvetica, sans-serif;
 font-size:90%;
-color: #363636;	 
+line-height:18px;
+color:#404040;
 background:#f2f2f2;
 }
 
 .container {
 padding:0 20px;
 }
-
-img, object, embed {
-max-width: 100%;
-}
-
-img {
-height: auto;
-}
-
 
 /* Overriding The Default Text Selection Color with CSS3 */
 ::selection { 
@@ -764,9 +774,9 @@ float:left;
 margin:5px 10px 0 3px;
 }
 
-
 .fact_desc{
 overflow: hidden;
+font-size:0.9em;
 }
 
 .fact_desc h3{
@@ -843,3 +853,4 @@ border-right: 1px solid #ccc;
 background:#ddd;
 padding:10px;
 }
+

@@ -7,25 +7,11 @@
  * PHP string function. For more information about UTF-8, please visit
  * http://flourishlib.com/docs/UTF-8.
  * 
- * @copyright  Copyright (c) 2008-2010 Will Bond
- * @author     Will Bond [wb] <will@flourishlib.com>
- * @license    http://flourishlib.com/license
- * 
- * @package    Flourish
- * @link       http://flourishlib.com/fUTF8
- * 
- * @version    1.0.0b11
- * @changes    1.0.0b11  Updated the class to not using phpinfo() to determine the iconv implementation [wb, 2010-11-04]
- * @changes    1.0.0b10  Fixed a bug with capitalizing a lowercase i resulting in a dotted upper-case I [wb, 2010-11-01]
- * @changes    1.0.0b9   Updated class to use fCore::startErrorCapture() instead of `error_reporting()` [wb, 2010-08-09]
- * @changes    1.0.0b8   Removed `e` flag from preg_replace() calls [wb, 2010-06-08]
- * @changes    1.0.0b7   Added the methods ::trim(), ::rtrim() and ::ltrim() [wb, 2010-05-11]
- * @changes    1.0.0b6   Fixed ::clean() to work with PHP installs that use an iconv library that doesn't support //IGNORE [wb, 2010-03-02]
- * @changes    1.0.0b5   Changed ::ucwords() to also uppercase words right after various punctuation [wb, 2009-09-18]
- * @changes    1.0.0b4   Changed replacement values in preg_replace() calls to be properly escaped [wb, 2009-06-11]
- * @changes    1.0.0b3   Fixed a parameter name in ::rpos() from `$search` to `$needle` [wb, 2009-02-06]
- * @changes    1.0.0b2   Fixed a bug in ::explode() with newlines and zero-length delimiters [wb, 2009-02-05]
- * @changes    1.0.0b    The initial implementation [wb, 2008-06-01]
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ * @link    based on   http://flourishlib.com/fUTF8
  */
 class UTF8 {
 	/**
@@ -1349,7 +1335,7 @@ class UTF8 {
 		
 		// We get better performance falling back for ASCII strings
 		if ( ! self::detect($string)) {
-			if ($lenth === NULL) {
+			if ($length === NULL) {
 				if ($start >= 0) {
 					$length = strlen($string)-$start;
 				} else {

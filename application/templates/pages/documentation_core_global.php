@@ -18,7 +18,7 @@
 The following global constants are defined in the bootstrap (index.php or dev.php) script.
 </p>
 
-<table class="grid">
+<table cellspacing="0" width="100%" class="grid"> 
 <tr><td>ENVIRONMENT</td><td>Define the application environment (development/production)</td></tr>
 <tr><td>INFOPOTATO_VERSION</td><td>Define InfoPotato Version</td></tr>
 <tr><td>STATIC_URI_BASE</td><td>Used for static requests to access static assets (images) access, sometimes CDN is used</td></tr>

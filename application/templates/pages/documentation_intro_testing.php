@@ -54,7 +54,7 @@ Testing works by calling a method or a function with a set of predefined inputs 
 To ease the comparison, the lime_test object provides several methods:
 </p> 
  
-<table cellspacing="0" class="grid"> 
+<table cellspacing="0" width="100%" class="grid"> 
 <thead> 
 <tr> 
   <th>Method</th> 
@@ -100,7 +100,7 @@ To ease the comparison, the lime_test object provides several methods:
 The lime_test object also provides other convenient testing methods:
 </p>
 
-<table cellspacing="0" class="grid"> 
+<table cellspacing="0" width="100%" class="grid"> 
 <thead> 
 <tr> 
   <th>Method</th> 

@@ -1,10 +1,11 @@
 <?php
 /**
- * Unit test library v1.4.
+ * Unit test library v1.4. based on  Lime
  *
- * @package    lime
- * @author     Fabien Potencier <fabien.potencier@gmail.com>
- * @version    SVN: $Id: lime.php 29529 2010-05-19 13:41:48Z fabien $
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence 
  */
 class lime_test {
     const EPSILON = 0.0000000001;
