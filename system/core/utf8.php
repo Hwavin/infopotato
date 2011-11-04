@@ -652,16 +652,16 @@ class UTF8 {
 	/**
 	 * Converts an offset in characters to an offset in bytes to that we can use the built-in functions for some operations
 	 * 
-	 * @param  string  $string  The string to base the offset on
+	 * @param  string  $str  The string to base the offset on
 	 * @param  integer $offset  The character offset to conver to bytes
 	 * @return integer  The converted offset
 	 */
-	private static function _convert_offset_to_bytes($string, $offset) {
+	private static function _convert_offset_to_bytes($str, $offset) {
 		if ($offset == 0) {
 			return 0;
 		}
 		
-		$len = strlen($string);
+		$len = strlen($str);
 		
 		$byte_offset     = 0;
 		$measured_offset = 0;
@@ -669,13 +669,13 @@ class UTF8 {
 		
 		// Negative offsets require us to reverse some stuff
 		if ($offset < 0) {
-			$string    = strrev($string);
-			$sign      = -1;
-			$offset    = abs($offset);
+			$str    = strrev($str);
+			$sign   = -1;
+			$offset = abs($offset);
 		}
 			
-		for ($i=0; $i < $len && $measured_offset < $offset; $i++) {
-			$char = $string[$i];
+		for ($i = 0; $i < $len && $measured_offset < $offset; $i++) {
+			$char = $str[$i];
 			++$byte_offset;
 			if (ord($char) < 0x80) {
 				++$measured_offset;
@@ -698,11 +698,11 @@ class UTF8 {
 	/**
 	 * Detects if a UTF-8 string contains any non-ASCII characters
 	 * 
-	 * @param  string $string  The string to check
+	 * @param  string $str  The string to check
 	 * @return boolean  If the string contains any non-ASCII characters
 	 */
-	private static function detect($string) {
-		return (boolean) preg_match('#[^\x00-\x7F]#', $string);
+	private static function detect($str) {
+		return (boolean) preg_match('#[^\x00-\x7F]#', $str);
 	}
 	
 	
@@ -712,18 +712,18 @@ class UTF8 {
 	 * If no delimiter is provided, the string will be exploded with each
 	 * characters being an element in the array.
 	 * 
-	 * @param  string  $string     The string to explode
+	 * @param  string  $str     The string to explode
 	 * @param  string  $delimiter  The string to explode on. If `NULL` or `''` this method will return one character per array index.
 	 * @return array  The exploded string
 	 */
-	public static function explode($string, $delimiter = NULL) {
+	public static function explode($str, $delimiter = NULL) {
 		// If a delimiter was passed, we just do an explode
 		if ($delimiter || ( ! $delimiter && is_numeric($delimiter))) {
-			return explode($delimiter, $string);
+			return explode($delimiter, $str);
 		}
 		
 		// If no delimiter was passed, we explode the characters into an array
-		preg_match_all('#.|^\z#us', $string, $matches);
+		preg_match_all('#.|^\z#us', $str, $matches);
 		return $matches[0];
 	}
 	
@@ -805,12 +805,12 @@ class UTF8 {
 	 * `$search` is an array and `$replace` is a string, all `$search` values
 	 * will be replaced with the string specified.
 	 * 
-	 * @param  string $string   The string to perform the replacements on
+	 * @param  string $str   The string to perform the replacements on
 	 * @param  mixed  $search   The string (or array of strings) to search for - see method description for details
 	 * @param  mixed  $replace  The string (or array of strings) to replace with - see method description for details
 	 * @return string  The input string with the specified replacements
 	 */
-	public static function ireplace($string, $search, $replace) {
+	public static function ireplace($str, $search, $replace) {
 		if (is_array($search)) {
 			foreach ($search as &$needle) {
 				$needle = '#' . preg_quote($needle, '#') . '#ui';
@@ -821,7 +821,7 @@ class UTF8 {
 		return preg_replace(
 			$search,
 			strtr($replace, array('\\' => '\\\\', '$' => '\\$')),
-			$string
+			$str
 		);
 	}
 	
@@ -896,32 +896,32 @@ class UTF8 {
 	/**
 	 * Determines the length (in actual characters) of a string
 	 * 
-	 * @param  string $string  The string to measure
+	 * @param  string $str  The string to measure
 	 * @return integer  The number of characters/bytes in the string
 	 */
-	public static function len($string) {
+	public static function len($str) {
 		if (self::$_mbstring_available === NULL) {
 			self::_check_mb_string();
 		}
 		
 		if (self::$_mbstring_available) {
-			return mb_strlen($string, 'UTF-8');
+			return mb_strlen($str, 'UTF-8');
 		}
 		
-		return strlen(utf8_decode($string));
+		return strlen(utf8_decode($str));
 	}
 	
 	
 	/**
 	 * Converts all uppercase characters to lowercase
 	 * 
-	 * @param  string $string  The string to convert
+	 * @param  string $str  The string to convert
 	 * @return string  The input string with all uppercase characters in lowercase
 	 */
-	public static function lower($string) {
+	public static function lower($str) {
 		// We get better performance falling back for ASCII strings
-		if ( ! self::detect($string)) {
-			return strtolower($string);
+		if ( ! self::detect($str)) {
+			return strtolower($str);
 		}
 		
 		if (self::$_mbstring_available === NULL) {
@@ -931,29 +931,29 @@ class UTF8 {
 		if (self::$_mbstring_available) {
 			$string = mb_strtolower($string, 'utf-8');
 			// For some reason mb_strtolower misses some character
-			return strtr($string, self::$_mb_upper_to_lower_fix);
+			return strtr($str, self::$_mb_upper_to_lower_fix);
 		}
 		
-		return strtr($string, self::$_upper_to_lower);
+		return strtr($str, self::$_upper_to_lower);
 	}
 	
 	
 	/**
 	 * Trims whitespace, or any specified characters, from the beginning of a string
 	 * 
-	 * @param  string $string    The string to trim
+	 * @param  string $str    The string to trim
 	 * @param  string $charlist  The characters to trim
 	 * @return string  The trimmed string
 	 */
-	public static function ltrim($string, $charlist = NULL) {
+	public static function ltrim($str, $charlist = NULL) {
 		if (strlen($charlist) === 0) {
-			return ltrim($string);
+			return ltrim($str);
 		}
 		
 		$search = preg_quote($charlist, '#');
 		$search = str_replace('-', '\-', $search);
 		$search = str_replace('\.\.', '-', $search);
-		return preg_replace('#^[' . $search . ']+#Du', '', $string);
+		return preg_replace('#^[' . $search . ']+#Du', '', $str);
 	}
 	
 	
@@ -1056,36 +1056,36 @@ class UTF8 {
 	/**
 	 * Pads a string to the number of characters specified
 	 * 
-	 * @param  string  $string      The string to pad
+	 * @param  string  $str      The string to pad
 	 * @param  integer $pad_length  The character length to pad the string to
 	 * @param  string  $pad_string  The string to pad the source string with
 	 * @param  string  $pad_type    The type of padding to do: `'left'`, `'right'`, `'both'`
 	 * @return string  The input string padded to the specified character width
 	 */
-	public static function pad($string, $pad_length, $pad_string = ' ', $pad_type = 'right') {
+	public static function pad($str, $pad_length, $pad_string = ' ', $pad_type = 'right') {
 		$valid_pad_types = array('right', 'left', 'both');
 		if ( ! in_array($pad_type, $valid_pad_types)) {
 			halt('A System Error Was Encountered', "The pad type specified, {$pad_type}, is not valid. Must be one of: ".implode(', ', $valid_pad_types), 'sys_error');
 		}
 		
 		// We get better performance falling back for ASCII strings
-		if ( ! self::detect($string) && ! self::detect($pad_string)) {
+		if ( ! self::detect($str) && ! self::detect($pad_string)) {
 			static $type_map = array(
 				'left'  => STR_PAD_LEFT,
 				'right' => STR_PAD_RIGHT,
 				'both'  => STR_PAD_BOTH
 			);
-			return str_pad($string, $pad_length, $pad_string, $type_map[$pad_type]);
+			return str_pad($str, $pad_length, $pad_string, $type_map[$pad_type]);
 		}
 		
 		
-		$string_length     = self::len($string);
+		$string_length     = self::len($str);
 		$pad_string_length = self::len($pad_string);
 		
 		$pad_to_length     = $pad_length - $string_length;
 		
 		if ($pad_to_length < 1) {
-			return $string;
+			return $str;
 		}
 		
 		$padded = 0;
@@ -1115,7 +1115,7 @@ class UTF8 {
 			$padded += $pad_string_length;
 		}
 		
-		return $left_pad_string . $string . $right_pad_string;
+		return $left_pad_string . $str . $right_pad_string;
 	}
 	
 	
@@ -1156,13 +1156,13 @@ class UTF8 {
 	 * `$search` is an array and `$replace` is a string, all `$search` values
 	 * will be replaced with the string specified.
 	 * 
-	 * @param  string $string   The string to perform the replacements on
+	 * @param  string $str   The string to perform the replacements on
 	 * @param  mixed  $search   The string (or array of strings) to search for - see method description for details
 	 * @param  mixed  $replace  The string (or array of strings) to replace with - see method description for details
 	 * @return string  The input string with the specified replacements
 	 */
-	public static function replace($string, $search, $replace) {
-		return str_replace($search, $replace, $string);
+	public static function replace($str, $search, $replace) {
+		return str_replace($search, $replace, $str);
 	}
 	
 	
@@ -1181,12 +1181,12 @@ class UTF8 {
 	/**
 	 * Reverses a string
 	 * 
-	 * @param  string $string   The string to reverse
+	 * @param  string $str   The string to reverse
 	 * @return string  The reversed string
 	 */
-	public static function rev($string) {
+	public static function rev($str) {
 		$output = '';
-		$len = strlen($string);
+		$len = strlen($str);
 		
 		static $char_lens = array(
 			0xF0 => 4,
@@ -1197,24 +1197,24 @@ class UTF8 {
 		
 		$mb_char = '';
 		for ($i = 0; $i < $len; $i++) {
-			$char = $string[$i];
+			$char = $str[$i];
 			if (ord($char) < 128) {
 				$output = $char . $output;
 			} else {
 				switch (ord($char) & 0xF0) {
 					case 0xF0:
-						$output = $string[$i] . $string[$i+1] . $string[$i+2] . $string[$i+3] . $output;
+						$output = $str[$i] . $str[$i+1] . $str[$i+2] . $str[$i+3] . $output;
 						$i += 3;
 						break;
 						
 					case 0xE0:
-						$output = $string[$i] . $string[$i+1] . $string[$i+2] . $output;
+						$output = $str[$i] . $str[$i+1] . $str[$i+2] . $output;
 						$i += 2;
 						break;
 						
 					case 0xD0:
 					case 0xC0:
-						$output = $string[$i] . $string[$i+1] . $output;
+						$output = $str[$i] . $str[$i+1] . $output;
 						$i += 1;
 						break;
 				}
@@ -1256,19 +1256,19 @@ class UTF8 {
 	/**
 	 * Trims whitespace, or any specified characters, from the end of a string
 	 * 
-	 * @param  string $string    The string to trim
+	 * @param  string $str    The string to trim
 	 * @param  string $charlist  The characters to trim
 	 * @return string  The trimmed string
 	 */
-	public static function rtrim($string, $charlist = NULL) {
+	public static function rtrim($str, $charlist = NULL) {
 		if (strlen($charlist) === 0) {
-			return rtrim($string);
+			return rtrim($str);
 		}
 		
 		$search = preg_quote($charlist, '#');
 		$search = str_replace('-', '\-', $search);
 		$search = str_replace('\.\.', '-', $search);
-		return preg_replace('#[' . $search . ']+$#Du', '', $string);
+		return preg_replace('#[' . $search . ']+$#Du', '', $str);
 	}
 	
 	
@@ -1308,18 +1308,18 @@ class UTF8 {
 	/**
 	 * Extracts part of a string
 	 * 
-	 * @param  string  $string  The string to extract from
+	 * @param  string  $str  The string to extract from
 	 * @param  integer $start   The zero-based starting index to extract from. Negative values will start the extraction that many characters from the end of the string.
 	 * @param  integer $length  The length of the string to extract. If an empty value is provided, the remainder of the string will be returned.
 	 * @return mixed  The extracted subtring or `FALSE` if the start is out of bounds
 	 */
-	public static function sub($string, $start, $length = NULL) {
+	public static function sub($str, $start, $length = NULL) {
 		if (self::$_mbstring_available === NULL) {
 			self::_check_mb_string();
 		}
 		
 		if (self::$_mbstring_available) {
-			$str_len = mb_strlen($string, 'UTF-8');
+			$str_len = mb_strlen($str, 'UTF-8');
 			if (abs($start) > $str_len) {
 				return FALSE;
 			}
@@ -1330,24 +1330,24 @@ class UTF8 {
 					$length = abs($start);
 				}
 			}
-			return mb_substr($string, $start, $length, 'UTF-8');
+			return mb_substr($str, $start, $length, 'UTF-8');
 		}
 		
 		// We get better performance falling back for ASCII strings
-		if ( ! self::detect($string)) {
+		if ( ! self::detect($str)) {
 			if ($length === NULL) {
 				if ($start >= 0) {
-					$length = strlen($string)-$start;
+					$length = strlen($str)-$start;
 				} else {
 					$length = abs($start);
 				}
 			}
-			return substr($string, $start, $length);
+			return substr($str, $start, $length);
 		}
 		
 		
 		// This is the slowest version
-		$str_len = strlen(utf8_decode($string));
+		$str_len = strlen(utf8_decode($str));
 		
 		if (abs($start) > $str_len) {
 			return FALSE;
@@ -1360,45 +1360,45 @@ class UTF8 {
 		}
 		
 		// Substrings to the end of the string are pretty simple
-		$start = self::_convert_offset_to_bytes($string, $start);
-		$string = substr($string, $start);
+		$start = self::_convert_offset_to_bytes($str, $start);
+		$str = substr($str, $start);
 		
 		if ($length === NULL) {
-			return $string;
+			return $str;
 		}
 		
-		$length = self::_convert_offset_to_bytes($string, $length);
-		return substr($string, 0, $length);
+		$length = self::_convert_offset_to_bytes($str, $length);
+		return substr($str, 0, $length);
 	}
 	
 	
 	/**
 	 * Trims whitespace, or any specified characters, from the beginning and end of a string
 	 * 
-	 * @param  string $string    The string to trim
+	 * @param  string $str    The string to trim
 	 * @param  string $charlist  The characters to trim, .. indicates a range
 	 * @return string  The trimmed string
 	 */
-	public static function trim($string, $charlist = NULL) {
+	public static function trim($str, $charlist = NULL) {
 		if (strlen($charlist) === 0) {
-			return trim($string);
+			return trim($str);
 		}
 		
 		$search = preg_quote($charlist, '#');
 		$search = str_replace('-', '\-', $search);
 		$search = str_replace('\.\.', '-', $search);
-		return preg_replace('#^[' . $search . ']+|[' . $search . ']+$#Du', '', $string);
+		return preg_replace('#^[' . $search . ']+|[' . $search . ']+$#Du', '', $str);
 	}
 	
 	
 	/**
 	 * Converts the first character of the string to uppercase.
 	 * 
-	 * @param  string $string  The string to process
+	 * @param  string $str  The string to process
 	 * @return string  The processed string
 	 */
-	public static function ucfirst($string) {
-		return self::upper(self::sub($string, 0, 1)) . self::sub($string, 1);
+	public static function ucfirst($str) {
+		return self::upper(self::sub($str, 0, 1)) . self::sub($str, 1);
 	}
 	
 	
@@ -1434,13 +1434,13 @@ class UTF8 {
 	/**
 	 * Converts all lowercase characters to uppercase
 	 * 
-	 * @param  string $string  The string to convert
+	 * @param  string $str  The string to convert
 	 * @return string  The input string with all lowercase characters in uppercase
 	 */
-	public static function upper($string) {
+	public static function upper($str) {
 		// We get better performance falling back for ASCII strings
-		if ( ! self::detect($string)) {
-			return strtoupper($string);
+		if ( ! self::detect($str)) {
+			return strtoupper($str);
 		}
 		
 		if (self::$_mbstring_available === NULL) {
@@ -1448,31 +1448,31 @@ class UTF8 {
 		}
 		
 		if (self::$_mbstring_available) {
-			$string = mb_strtoupper($string, 'utf-8');
+			$str = mb_strtoupper($str, 'utf-8');
 			// For some reason mb_strtoupper misses some character
-			return strtr($string, self::$_mb_lower_to_upper_fix);
+			return strtr($str, self::$_mb_lower_to_upper_fix);
 		}
 		
-		return strtr($string, self::$_lower_to_upper);
+		return strtr($str, self::$_lower_to_upper);
 	}
 	
 	
 	/**
 	 * Wraps a string to a specific character width
 	 * 
-	 * @param  string  $string  The string to wrap
+	 * @param  string  $str  The string to wrap
 	 * @param  integer $width	The character width to wrap to
 	 * @param  string  $break   The string to insert as a break
 	 * @param  boolean $cut     If words longer than the character width should be split to fit
 	 * @return string  The input string with all lowercase characters in uppercase
 	 */
-	public static function wordwrap($string, $width = 75, $break = "\n", $cut = FALSE) {
+	public static function wordwrap($str, $width = 75, $break = "\n", $cut = FALSE) {
 		// We get better performance falling back for ASCII strings
-		if ( ! self::detect($string)) {
-			return wordwrap($string, $width, $break, $cut);
+		if ( ! self::detect($str)) {
+			return wordwrap($str, $width, $break, $cut);
 		}
 		
-		$words = preg_split('#(?<=\s|[\x{2000}-\x{200A}])#ue', $string);
+		$words = preg_split('#(?<=\s|[\x{2000}-\x{200A}])#ue', $str);
 		
 		$output = '';
 		
