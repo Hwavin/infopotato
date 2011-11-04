@@ -175,10 +175,10 @@ function dump($var, $force_type = '', $collapsed = FALSE) {
  * @param   array   values to replace in the translated text
  * @return  string
  */
-function __($string, array $values = array()) {
+function __($str, array $values = array()) {
     // Get the translation for this message
-    $string = I18n::get($string);
-    return empty($values) ? $string : strtr($string, $values);
+    $str = I18n::get($str);
+    return empty($values) ? $str : strtr($str, $values);
 }
 
 /**
