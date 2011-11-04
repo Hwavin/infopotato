@@ -498,22 +498,22 @@ class Session {
 	 * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
 	 * across browser restarts, the static method ::enable_persistence() must be called when they log in.
 	 * 
-	 * @param  string $directory  The directory to store session files in
+	 * @param  string $dir  The directory to store session files in
 	 * @param  string|integer $normal_timespan      The normal, session-based cookie, length for the session
 	 * @param  string|integer $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
 	 * @return void
 	 */
-	public static function init($directory, $normal_timespan, $persistent_timespan = NULL) {
+	public static function init($dir, $normal_timespan, $persistent_timespan = NULL) {
 		if (self::$_open || isset($_SESSION)) {
 			halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 
-		if ( ! is_writable($directory)) {
+		if ( ! is_writable($dir)) {
 			halt('A System Error Was Encountered', 'The session file directory specified is not writable', 'sys_error');
 		}
 		
 		// Set the path of the current directory used to save session data.
-		session_save_path($directory);
+		session_save_path($dir);
 
 		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
 		self::$_normal_timespan = $seconds;
