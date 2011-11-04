@@ -525,16 +525,16 @@ class UTF8 {
 	 * 
 	 * @internal
 	 * 
-	 * @param  string $string  The string to convert
+	 * @param  string $str  The string to convert
 	 * @return string  The input string in pure ASCII
 	 */
-	public static function ascii($string) {
-		if ( ! self::detect($string)) {
-			return $string;
+	public static function ascii($str) {
+		if ( ! self::detect($str)) {
+			return $str;
 		}
 		
-		$string = strtr($string, self::$_utf8_to_ascii);
-		return preg_replace('#[^\x00-\x7F]#', '', $string);
+		$str = strtr($str, self::$_utf8_to_ascii);
+		return preg_replace('#[^\x00-\x7F]#', '', $str);
 	}
 	
 	

@@ -6,9 +6,8 @@
 <!-- end breadcrumb -->
 
 <p> 
-InfoPotato keeps changing before it has got the ink dry on each draft. The code shown below are the lastest version of InfoPotato. The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
-</p> 
-
+InfoPotato keeps changing before it has got the ink dry on each draft. The code shown below are the stable version of InfoPotato. Continued support and bug fixes for this version will be provided. You may safely use this version in your production Web applications. The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
+</p>  
 
 <table class="grid" width="100%">
 <tr>
@@ -113,6 +112,15 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 </table>
 
 
+<h2>InfoPotato on Git</h2> 
+<p> 
+InfoPotato keeps changing before it has got the ink dry on each draft. Check out the lastest code on Github. The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
+</p> 
+
+<div class="greybox">
+<strong>Clone Command:</strong> <span class="red">git clone git://github.com/yuanzhou/infopotato.git</span> 
+</div>
+
 <h2>Issue Tracker</h2>
 
 <p>
@@ -122,4 +130,3 @@ We're always grateful for patches to infoPotato's code.
 <div class="greybox">
 <a href="https://github.com/yuanzhou/infopotato/issues" class="external_link">https://github.com/yuanzhou/infopotato/issues</a>
 </div>
-

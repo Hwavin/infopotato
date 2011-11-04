@@ -45,7 +45,6 @@
 
 <ul> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>download/" title="Download">Download</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>code/" title="Code">Code</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
