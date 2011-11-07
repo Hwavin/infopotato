@@ -265,13 +265,11 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _set_robot() {
-		if (is_array($this->robots) && count($this->robots) > 0) {		
-			foreach ($this->robots as $key => $val) {
-				if (preg_match("|".preg_quote($key)."|i", $this->agent)) {
-					$this->is_robot = TRUE;
-					$this->robot = $val;
-					return TRUE;
-				}
+		foreach ($this->robots as $key => $val) {
+			if (preg_match("|".preg_quote($key)."|i", $this->agent)) {
+				$this->is_robot = TRUE;
+				$this->robot = $val;
+				return TRUE;
 			}
 		}
 		return FALSE;
@@ -284,13 +282,11 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _set_mobile() {
-		if (is_array($this->mobiles) && count($this->mobiles) > 0) {		
-			foreach ($this->mobiles as $key => $val) {
-				if (strpos(strtolower($this->agent), $key) !== FALSE) {
-					$this->is_mobile = TRUE;
-					$this->mobile = $val;
-					return TRUE;
-				}
+		foreach ($this->mobiles as $key => $val) {
+			if (strpos(strtolower($this->agent), $key) !== FALSE) {
+				$this->is_mobile = TRUE;
+				$this->mobile = $val;
+				return TRUE;
 			}
 		}	
 		return FALSE;
