@@ -9,25 +9,112 @@
  */
 class User_Agent_Library {
 
+    /**
+	 * Contents of the User-Agent: header from the current request, if there is one.
+	 * A typical example is: Mozilla/4.5 [en] (X11; U; Linux 2.2.9 i586).
+	 * 
+	 * @var string
+	 */
 	public $agent = NULL;
 	
+	/**
+	 * If the current request id from a browser
+	 * 
+	 * @var boolean
+	 */
 	public $is_browser = FALSE;
+	
+	/**
+	 * If the current request id from a robot
+	 * 
+	 * @var boolean
+	 */
 	public $is_robot = FALSE;
+	
+	/**
+	 * If the current request id from a mobile device
+	 * 
+	 * @var boolean
+	 */
 	public $is_mobile = FALSE;
 
+	/**
+	 * The accepted languages
+	 * 
+	 * @var array
+	 */
 	public $languages = array();
+	
+	/**
+	 * The accepted Character Sets
+	 * 
+	 * @var array
+	 */
 	public $charsets = array();
 	
+	/**
+	 * User agent platform information
+	 * 
+	 * @var array
+	 */
 	public $platforms = array();
+	
+	/**
+	 * User agent browsers definitions
+	 * 
+	 * @var array
+	 */
 	public $browsers = array();
+	
+	/**
+	 * User agent mobile definitions
+	 * 
+	 * @var array
+	 */
 	public $mobiles	= array();
+	
+	/**
+	 * User agent robots definitions
+	 * 
+	 * @var integer 
+	 */
 	public $robots = array();
 	
+	/**
+	 * Platform info
+	 * 
+	 * @var string
+	 */
 	public $platform = '';
+	
+	/**
+	 * Browser name
+	 * 
+	 * @var string
+	 */
 	public $browser	= '';
+	
+	/**
+	 * Browser version
+	 * 
+	 * @var string
+	 */
 	public $version	= '';
+	
+	/**
+	 * Mobile name
+	 * 
+	 * @var string 
+	 */
 	public $mobile = '';
+	
+	/**
+	 * Robot name
+	 * 
+	 * @var string
+	 */
 	public $robot = '';
+	
 	
 	/**
 	 * Constructor
@@ -214,6 +301,7 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _compile_data() {
+		// Set platform info
 		$this->_set_platform();
 	
 		foreach (array('_set_browser', '_set_robot', '_set_mobile') as $function) {
@@ -222,7 +310,6 @@ class User_Agent_Library {
 			}
 		}	
 	}
-	
 
 	/**
 	 * Set the Platform
@@ -238,8 +325,7 @@ class User_Agent_Library {
 		}
 		$this->platform = 'Unknown Platform';
 	}
-
-
+	
 	/**
 	 * Set the Browser
 	 *
