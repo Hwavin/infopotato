@@ -246,15 +246,13 @@ class User_Agent_Library {
 	 * @return	bool
 	 */		
 	private function _set_browser() {
-		if (is_array($this->browsers) && count($this->browsers) > 0) {
-			foreach ($this->browsers as $key => $val) {		
-				if (preg_match("|".preg_quote($key).".*?([0-9\.]+)|i", $this->agent, $match)) {
-					$this->is_browser = TRUE;
-					$this->version = $match[1];
-					$this->browser = $val;
-					$this->_set_mobile();
-					return TRUE;
-				}
+		foreach ($this->browsers as $key => $val) {		
+			if (preg_match("|".preg_quote($key).".*?([0-9\.]+)|i", $this->agent, $match)) {
+				$this->is_browser = TRUE;
+				$this->version = $match[1];
+				$this->browser = $val;
+				$this->_set_mobile();
+				return TRUE;
 			}
 		}
 		return FALSE;
