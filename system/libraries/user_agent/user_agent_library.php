@@ -230,12 +230,10 @@ class User_Agent_Library {
 	 * @return	mixed
 	 */		
 	private function _set_platform() {
-		if (is_array($this->platforms) && count($this->platforms) > 0) {
-			foreach ($this->platforms as $key => $val) {
-				if (preg_match("|".preg_quote($key)."|i", $this->agent)) {
-					$this->platform = $val;
-					return TRUE;
-				}
+		foreach ($this->platforms as $key => $val) {
+			if (preg_match("|".preg_quote($key)."|i", $this->agent)) {
+				$this->platform = $val;
+				return TRUE;
 			}
 		}
 		$this->platform = 'Unknown Platform';

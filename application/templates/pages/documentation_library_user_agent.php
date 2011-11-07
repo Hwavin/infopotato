@@ -15,148 +15,64 @@ In addition you can get referrer information as well as language and supported c
  
 <h2>Initializing the Class</h2> 
  
-<p>Like most other classes in CodeIgniter, the User Agent class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p> 
+<p>Like most other libraries, the User Agent class is initialized in your controller using the <dfn>$this->load->library</dfn> function:</p> 
  
-<code>$this->load->library('user_agent');</code> 
-<p>Once loaded, the object will be available using: <dfn>$this->agent</dfn></p> 
- 
-<h2>User Agent Definitions</h2> 
- 
-<p>The user agent name definitions are located in a config file located at: <dfn>application/config/user_agents.php</dfn>.  You may add items to the
-various user agent arrays if needed.</p> 
- 
+<div class="syntax"><pre>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load_library</span><span class="p">(</span><span class="s1">&#39;SYS&#39;</span><span class="p">,</span> <span class="s1">&#39;user_agent/user_agent_library&#39;</span><span class="p">,</span> <span class="s1">&#39;ua&#39;</span><span class="p">);</span> 
+</pre></div>
+
+<p>Once loaded, the object will be available using: <dfn>$this->ua</dfn></p> 
+
 <h2>Example</h2> 
  
 <p>When the User Agent class is initialized it will attempt to determine whether the user agent browsing your site is
 a web browser, a mobile device, or a robot.  It will also gather the platform information if it is available.</p> 
  
- 
-<code> 
-$this->load->library('user_agent');<br /> 
-<br /> 
-if ($this->agent->is_browser())<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$agent  = $this->agent->browser().' '.$this->agent->version();<br /> 
-}<br /> 
-elseif ($this->agent->is_robot())<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$agent = $this->agent->robot();<br /> 
-}<br /> 
-elseif ($this->agent->is_mobile())<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$agent = $this->agent->mobile();<br /> 
-}<br /> 
-else<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$agent = 'Unidentified User Agent';<br /> 
-}<br /> 
-<br /> 
-echo $agent;<br /> 
-<br /> 
-echo $this->agent->platform(); // Platform info (Windows, Linux, Mac, etc.)
-</code> 
- 
+<div class="syntax"><pre>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">is_browser</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nv">$agent</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">browser</span><span class="p">()</span><span class="o">.</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">version</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">is_robot</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nv">$agent</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">robot</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">is_mobile</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nv">$agent</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ua</span><span class="o">-&gt;</span><span class="na">mobile</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nv">$agent</span> <span class="o">=</span> <span class="s1">&#39;Unidentified User Agent&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
  
 <h1>Function Reference</h1> 
  
-<h2>$this->agent->is_browser()</h2> 
-<p>Returns TRUE/FALSE (boolean) if the user agent is a known web browser.</p> 
- 
-<code> if ($this->agent->is_browser('Safari'))<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;echo 'You are using Safari.';<br /> 
-}<br /> 
-else if ($this->agent->is_browser())<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;echo 'You are using a browser.';<br /> 
-}</code> 
- 
-<p class="notebox"><strong>Note:</strong>&nbsp; The string "Safari" in this example is an array key in the list of browser definitions.
-You can find this list in <dfn>application/config/user_agents.php</dfn> if you want to add new browsers or change the stings.</p> 
- 
-<h2>$this->agent->is_mobile()</h2> 
-<p>Returns TRUE/FALSE (boolean) if the user agent is a known mobile device.</p> 
- 
-<code> if ($this->agent->is_mobile('iphone'))<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view('iphone/home');<br /> 
-}<br /> 
-else if ($this->agent->is_mobile())<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view('mobile/home');<br /> 
-}<br/> 
-else<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;$this->load->view('web/home');<br /> 
-}</code> 
- 
-<h2>$this->agent->is_robot()</h2> 
-<p>Returns TRUE/FALSE (boolean) if the user agent is a known robot.</p> 
- 
-<p class="notebox"><strong>Note:</strong>&nbsp; The user agent library only contains the most common robot
-definitions.  It is not a complete list of bots. There are hundreds of them so searching for each one would not be
-very efficient. If you find that some bots that commonly visit your site are missing from the list you can add them to your
-<dfn>application/config/user_agents.php</dfn> file.</p> 
- 
-<h2>$this->agent->is_referral()</h2> 
-<p>Returns TRUE/FALSE (boolean) if the user agent was referred from another site.</p> 
- 
- 
-<h2>$this->agent->browser()</h2> 
-<p>Returns a string containing the name of the web browser viewing your site.</p> 
- 
-<h2>$this->agent->version()</h2> 
-<p>Returns a string containing the version number of the web browser viewing your site.</p> 
- 
-<h2>$this->agent->mobile()</h2> 
-<p>Returns a string containing the name of the mobile device viewing your site.</p> 
- 
-<h2>$this->agent->robot()</h2> 
-<p>Returns a string containing the name of the robot viewing your site.</p> 
- 
-<h2>$this->agent->platform()</h2> 
-<p>Returns a string containing the platform viewing your site (Linux, Windows, OS X, etc.).</p> 
- 
-<h2>$this->agent->referrer()</h2> 
-<p>The referrer, if the user agent was referred from another site. Typically you'll test for this as follows:</p> 
- 
-<code> if ($this->agent->is_referral())<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;echo $this->agent->referrer();<br /> 
-}</code> 
- 
- 
-<h2>$this->agent->agent_string()</h2> 
-<p>Returns a string containing the full user agent string.  Typically it will be something like this:</p> 
- 
-<code>Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.0.4) Gecko/20060613 Camino/1.0.2</code> 
- 
- 
-<h2>$this->agent->accept_lang()</h2> 
-<p>Lets you determine if the user agent accepts a particular language. Example:</p> 
- 
-<code>if ($this->agent->accept_lang('en'))<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;echo 'You accept English!';<br /> 
-}</code> 
- 
-<p class="notebox"><strong>Note:</strong> This function is not typically very reliable
-since some browsers do not provide language info, and even among those that do, it is not always accurate. </p> 
- 
- 
- 
-<h2>$this->agent->accept_charset()</h2> 
-<p>Lets you determine if the user agent accepts a particular character set. Example:</p> 
- 
-<code>if ($this->agent->accept_charset('utf-8'))<br /> 
-{<br /> 
-&nbsp;&nbsp;&nbsp;&nbsp;echo 'You browser supports UTF-8!';<br /> 
-}</code> 
- 
+<table width="100%" class="grid">
+<thead>
+<tr><th>Method</th><th>Description</th></tr>
+</thead>
+
+<tbody>
+<tr><td>is_browser()</td><td>Returns TRUE/FALSE (boolean) if the user agent is a known web browser.</td></tr>
+<tr><td>is_mobile()</td><td>Returns TRUE/FALSE (boolean) if the user agent is a known mobile device.</td></tr>
+<tr><td>is_robot()</td><td>Returns TRUE/FALSE (boolean) if the user agent is a known robot.</td></tr>
+<tr><td>is_referral()</td><td>Returns TRUE/FALSE (boolean) if the user agent was referred from another site.</td></tr>
+<tr><td>browser()</td><td>Returns a string containing the name of the web browser viewing your site.</td></tr>
+<tr><td>version()</td><td>Returns a string containing the version number of the web browser viewing your site.</td></tr>
+<tr><td>mobile()</td><td>Returns a string containing the name of the mobile device viewing your site.</td></tr>
+<tr><td>robot()</td><td>Returns a string containing the name of the robot viewing your site.</td></tr>
+<tr><td>platform()</td><td>Returns a string containing the platform viewing your site (Linux, Windows, OS X, etc.).</td></tr>
+<tr><td>referrer()</td><td>The referrer, if the user agent was referred from another site.</td></tr>
+<tr><td>agent_string()</td><td>Returns a string containing the full user agent string.</td></tr>
+<tr><td>accept_lang()</td><td>Lets you determine if the user agent accepts a particular language. 
+<p class="notebox">
+<strong>Note:</strong> This function is not typically very reliable
+since some browsers do not provide language info, and even among those that do, it is not always accurate. 
+</p> </td></tr>
+<tr><td>accept_charset()</td><td>Lets you determine if the user agent accepts a particular character set. 
 <p class="notebox">
 <strong>Note:</strong> This function is not typically very reliable
 since some browsers do not provide character-set info, and even among those that do, it is not always accurate. 
-</p> 
+</p></td></tr>
+</tbody>
+</table> 
+
+ 
 <!-- PRINT: stop --> 
 
 <?php echo isset($pager) ? $pager : ''; ?>
