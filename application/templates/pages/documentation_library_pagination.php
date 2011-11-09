@@ -43,7 +43,7 @@ You can also get an array which contains all the pagination data by calling the 
 </p>
 
 <div class="syntax"><pre>
-<span class="nx">Global_Functions</span><span class="o">::</span><span class="na">dump</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">get_pagination_data</span><span class="p">());</span> 
+<span class="na">dump</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">page</span><span class="o">-&gt;</span><span class="na">get_pagination_data</span><span class="p">());</span> 
 </pre></div>  
 
 <h2>Sample Template and Output</h2>

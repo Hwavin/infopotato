@@ -111,19 +111,19 @@ class Pagination_Library {
 			'items_per_page' => $this->items_per_page,
 			'mid_range' => $this->mid_range,
 			'current_page' => $this->current_page,
+			'current_page_class' => $this->current_page_class,
 			'prev_page' => $this->current_page - 1,
 			'next_page' => $this->current_page + 1,
 			'num_pages' => $num_pages,
 			'offset_low' => ($this->current_page - 1) * $this->items_per_page,
 			'offset_high' => $this->current_page * $this->items_per_page,
-			// Create an array containing a range of elements
-			'range' => range($start_range, $end_range), 
+			'range' => range($start_range, $end_range), // Create an array containing a range of elements
 		);
 		
 		// Create the pagination link
 		$output = '';
-		if ($this->_pagination_data['current_page'] !== 1) {
-			$output = '<a href="'.$this->base_uri.$this->_pagination_data['prev_page'].'">&laquo; Prev</a> ';
+		if ($this->_pagination_data['current_page'] > 1) {
+			$output = '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['prev_page'].'">&laquo; Prev</a> ';
 		}
 		
 		for ($i = 1; $i <= $this->_pagination_data['num_pages']; $i++) {
@@ -133,9 +133,9 @@ class Pagination_Library {
 			
 			if ($i == 1 || $i == $this->_pagination_data['num_pages'] || in_array($i, $this->_pagination_data['range'])) {
 				if ($i === $this->_pagination_data['current_page']) {
-					$output .= '<span class="'.$this->current_page_class.'">'.$i.'</span>'; 
+					$output .= '<span class="'.$this->_pagination_data['current_page_class'].'">'.$i.'</span>'; 
 				} else {
-					$output .= '<a href="'.$this->base_uri.$i.'">'.$i.'</a>'; 
+					$output .= '<a href="'.$this->_pagination_data['base_uri'].$i.'">'.$i.'</a>'; 
 				}
 			}
 			
@@ -145,7 +145,7 @@ class Pagination_Library {
 		}
 		
 		if ($this->_pagination_data['current_page'] != $this->_pagination_data['num_pages']) {
-			$output .= '<a href="'.$this->base_uri.$this->_pagination_data['next_page'].'">Next &raquo;</a>'; 
+			$output .= '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['next_page'].'">Next &raquo;</a>'; 
 		}
 		
 		return $output;
