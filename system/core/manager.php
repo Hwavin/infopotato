@@ -230,8 +230,6 @@ class Manager {
 			} else {
 				halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error', 500);
 			}
-			
-			$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
 
 			if ( ! file_exists($file_path)) {
 				halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error', 500);
