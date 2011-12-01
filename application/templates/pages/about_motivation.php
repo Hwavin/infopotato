@@ -21,7 +21,7 @@
 </div>
 
 <p>
-My first experience with PHP web application development framework can be tracked back to the year 2007 when I was in China and FleaPHP was the first framework I learned. I created several apps with it and became excited about Framework after that. Since its complex code base and poor documentation I never trully understood it. But I did learned some cool design ideas from it. Now its new name is QeePHP. This PHP framework inspired me to learn more of how to build a dynamic yweb application instead of just a simple website. During my learning, I read many books about PHP OOP, design patterns, database abstraction, and many other related PHP programming techniques.
+My first experience with PHP web application development framework can be tracked back to the year 2007 when I was in China and FleaPHP was the first framework I learned. I created several apps with it and became excited about Framework after that. Since its complex code base and poor documentation I never trully understood it. But I did learned some cool design ideas from it. Now its new name is QeePHP. This PHP framework inspired me to learn more of how to build a dynamic web application instead of just a simple website. During my learning, I read many books about PHP OOP, design patterns, database abstraction, and many other related PHP programming techniques.
 </p>
 
 <p>
@@ -56,10 +56,10 @@ The founding principles of the InfoPotato Project were aimed at an audience that
 DRY&mdash;"Don't Repeat Yourself"&mdash;suggests that writing the same code over and over again is a bad thing.
 </li>
 <li>
-Convention Over Configuration&mdash;means that Rails makes assumptions about what you want to do and how you're going to d o it, rather than requiring you to specify every little thing through endless configuration files.
+Convention Over Configuration&mdash;means that Rails makes assumptions about what you want to do and how you're going to do it, rather than requiring you to specify every little thing through endless configuration files.
 </li>
 <li>
-REST is the best pattern for web applications&mdash;organizing your application around resources and standard HTTP verbs i s the fastest way to go.
+REST is the best pattern for web applications&mdash;organizing your application around resources and standard HTTP verbs is the fastest way to go.
 </li>
 </ul>
 

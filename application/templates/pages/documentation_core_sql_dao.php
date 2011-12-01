@@ -26,7 +26,7 @@ Before we jump in head first, I would like to talk about ORM. Many other PHP fra
 <h2>InfoPotato's Way</h2>
 
 <p>
-Data Access Objects (DAO) provides a generic API to access data stored in different database management systems (DBMS). Currently, there are database access objects for MySQL, MySQLi, SQLite, and PostgreSQL. Each DAO class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.
+The decision I made was to not use any type of ORM, SQL generation tool, or ActiveRecord style library. That means all of my SQL is hand written (including INSERT's and UPDATE's) and executed through InfoPotato's Data Access Objects (DAO). DAO provides a generic API to access data stored in different database management systems (DBMS). Currently, there are database access objects for MySQL, MySQLi, SQLite, and PostgreSQL. Each DAO class is loosely based on the <a href="http://justinvincent.com/ezsql" class="external_link" title="http://justinvincent.com/ezsql">ezSQL</a> class written and maintained by <a href="http://www.jvmultimedia.com" class="external_link" title="http://www.jvmultimedia.com">Justin Vincent</a>. Wordpress's database access is also built on top of ezSQL.
 </p>
 
 <h2>Overview</h2>
