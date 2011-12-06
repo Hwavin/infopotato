@@ -123,7 +123,7 @@ class Pagination_Library {
 			
 			
 		    if ($this->_pagination_data['current_page'] > 1) {
-			    $output = '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['prev_page'].'">&laquo; Prev</a> ';
+			    $output = '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['prev_page'].'">&laquo;</a> ';
 		    }
 		
 		    for ($i = 1; $i <= $this->_pagination_data['num_pages']; $i++) {
@@ -145,7 +145,7 @@ class Pagination_Library {
 		    }
 		
 		    if ($this->_pagination_data['current_page'] != $this->_pagination_data['num_pages']) {
-			    $output .= '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['next_page'].'">Next &raquo;</a>'; 
+			    $output .= '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['next_page'].'">&raquo;</a>'; 
 		    }
 		} 
 		
