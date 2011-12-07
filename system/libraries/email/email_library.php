@@ -1535,13 +1535,12 @@ class Email_Library {
 	 * @return	string
 	 */
 	protected function _smtp_connect() {
-		$ssl = NULL;
-		if ($this->smtp_crypto == 'ssl')
-			$ssl = 'ssl://';
+		$ssl = ($this->smtp_crypto == 'ssl') ? 'ssl://' : NULL;
+
 		$this->_smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
 
 		if ( ! is_resource($this->_smtp_connect)) {
-			$this->_set_error_message('email_smtp_error', $errno." ".$errstr);
+			$this->_set_error_message('email_smtp_error', $errno.' '.$errstr);
 			return FALSE;
 		}
 
@@ -1568,47 +1567,36 @@ class Email_Library {
 	protected function _send_command($cmd, $data = '') {
 		switch ($cmd) {
 			case 'hello' :
-
-				if ($this->_smtp_auth || $this->_get_encoding() == '8bit')
+				if ($this->_smtp_auth || $this->_get_encoding() == '8bit') {
 					$this->_send_data('EHLO '.$this->_get_hostname());
-				else
+				} else {
 					$this->_send_data('HELO '.$this->_get_hostname());
-
-					$resp = 250;
+                }
+				$resp = 250;
 			    break;
 			
 			case 'starttls'	:
-
 				$this->_send_data('STARTTLS');
-
 				$resp = 220;
 			    break;
 			
 			case 'from' :
-
 				$this->_send_data('MAIL FROM:<'.$data.'>');
-
 				$resp = 250;
 			    break;
 			
 			case 'to'	:
-
 				$this->_send_data('RCPT TO:<'.$data.'>');
-
 				$resp = 250;
 			    break;
 			
 			case 'data'	:
-
 				$this->_send_data('DATA');
-
 				$resp = 354;
 			    break;
 			
 			case 'quit'	:
-
 				$this->_send_data('QUIT');
-
 				$resp = 221;
 			    break;
 		}
@@ -1641,7 +1629,7 @@ class Email_Library {
 			return TRUE;
 		}
 
-		if ($this->smtp_user == "" && $this->smtp_pass == "") {
+		if ($this->smtp_user == '' && $this->smtp_pass == '') {
 			$this->_set_error_message('email_no_smtp_unpw');
 			return FALSE;
 		}
