@@ -217,8 +217,6 @@ class Email_Library {
 
 			$this->_smtp_auth = ($this->smtp_user == '' && $this->smtp_pass == '') ? FALSE : TRUE;
 			$this->_safe_mode = ((boolean)@ini_get("safe_mode") === FALSE) ? FALSE : TRUE;
-
-			return $this;
 		} else {
 			$this->_smtp_auth = ($this->smtp_user == '' && $this->smtp_pass == '') ? FALSE : TRUE;
 			$this->_safe_mode = ((boolean)@ini_get("safe_mode") === FALSE) ? FALSE : TRUE;
@@ -1796,7 +1794,7 @@ class Email_Library {
 	 * @return	string
 	 */
 	protected function _set_error_message($msg, $val = '') {
-		$error_messages =array(
+		$error_messages = array(
 			'email_must_be_array' => "The email validation method must be passed an array.",
 			'email_invalid_address' => "Invalid email address: %s",
 			'email_attachment_missing' => "Unable to locate the following email attachment: %s",
@@ -1814,14 +1812,10 @@ class Email_Library {
 			'email_smtp_auth_un' => "Failed to authenticate username. Error: %s",
 			'email_smtp_auth_pw' => "Failed to authenticate password. Error: %s",
 			'email_smtp_data_failure' => "Unable to send data: %s",
-			'email_exit_status' => "Exit status code: %s",
+			'email_exit_status' => "Exit status code: %s"
 		);
 
-		if (array_key_exists($msg, $error_messages)) {
-			$this->_debug_msg[] = str_replace('%s', $val, $error_messages[$msg])."<br />";
-		} else {
-			$this->_debug_msg[] = str_replace('%s', $val, $msg)."<br />";
-		}
+		$this->_debug_msg[] = str_replace('%s', $val, $error_messages[$msg])."<br />";
 	}
 
 

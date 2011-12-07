@@ -65,20 +65,20 @@ final class Contact_Manager extends Manager {
 			
 			// Load and instantiate Email library
 			$config = array(
-				'protocol' => 'sendmail',
-				//'protocol' => 'smtp',
-				//'smtp_host' => 'ssl://smtp.pitt.edu',
-				//'smtp_port' => 465,
-				//'smtp_user' => 'ifl',
-				//'smtp_pass' => 'jan2001',
+				//'protocol' => 'sendmail',
+				'protocol' => 'smtp',
+				'smtp_host' => 'ssl://smtp.pitt.edu',
+				'smtp_port' => 465,
+				'smtp_user' => 'ifl',
+				'smtp_pass' => 'jan2001',
 			);
 			
 			$this->load_library('SYS', 'email/email_library', 'email', $config);		
 
-			$this->email->set_newline("\r\n");
+			//$this->email->set_newline("\r\n");
 			$this->email->from('zhy19@pitt.edu', 'InfoPotato Contact');
 			$this->email->reply_to($contact_email, $contact_name);
-			//$this->email->to('zhy19@pitt.edu'); 
+			$this->email->to('zhy19@pitt.edu'); 
 			//$this->email->cc('another@another-example.com'); 
 			$this->email->bcc('yuanzhou19@gmail.com'); 
 
