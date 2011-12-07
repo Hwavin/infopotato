@@ -89,7 +89,7 @@ final class Contact_Manager extends Manager {
 			$data = array(
 				'sent' => $this->email->send(), 
 			);	
-			//echo $this->email->print_debugger();
+			echo $this->email->print_debugger();
 		}
 
 		$layout_data = array(

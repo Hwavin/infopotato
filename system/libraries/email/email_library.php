@@ -4,7 +4,7 @@
  *
  * Permits email to be sent using Mail, Sendmail, or SMTP.
  */
-class Email_library {
+class Email_Library {
 
 	/**
 	 * User Agent
