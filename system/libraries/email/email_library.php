@@ -231,10 +231,10 @@ class Email_Library {
 	 * @return	void
 	 */
 	public function clear($clear_attachments = FALSE) {
-		$this->_subject		= "";
-		$this->_body		= "";
-		$this->_finalbody	= "";
-		$this->_header_str	= "";
+		$this->_subject		= '';
+		$this->_body		= '';
+		$this->_finalbody	= '';
+		$this->_header_str	= '';
 		$this->_replyto_flag = FALSE;
 		$this->_recipients	= array();
 		$this->_cc_array	= array();
@@ -342,12 +342,12 @@ class Email_Library {
 		}
 
 		switch ($this->_get_protocol()) {
-			case 'smtp'		:
+			case 'smtp' :
 				$this->_recipients = $to;
 			    break;
 			
 			case 'sendmail'	:
-			case 'mail'		:
+			case 'mail'	:
 				$this->_recipients = implode(", ", $to);
 			    break;
 		}
@@ -373,7 +373,7 @@ class Email_Library {
 
 		$this->_set_header('Cc', implode(", ", $cc));
 
-		if ($this->_get_protocol() == "smtp") {
+		if ($this->_get_protocol() == 'smtp') {
 			$this->_cc_array = $cc;
 		}
 
@@ -402,7 +402,7 @@ class Email_Library {
 			$this->validate_email($bcc);
 		}
 
-		if (($this->_get_protocol() == "smtp") || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
+		if (($this->_get_protocol() == 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
 			$this->_bcc_array = $bcc;
 		} else {
 			$this->_set_header('Bcc', implode(", ", $bcc));
@@ -1385,7 +1385,6 @@ class Email_Library {
 
 		switch ($this->_get_protocol()) {
 			case 'mail'	:
-
 				if ( ! $this->_send_with_mail()) {
 					$this->_set_error_message('email_send_failure_phpmail');
 					return FALSE;
@@ -1393,7 +1392,6 @@ class Email_Library {
 			    break;
 			
 			case 'sendmail'	:
-
 				if ( ! $this->_send_with_sendmail()) {
 					$this->_set_error_message('email_send_failure_sendmail');
 					return FALSE;
@@ -1401,7 +1399,6 @@ class Email_Library {
 			    break;
 			
 			case 'smtp'	:
-
 				if ( ! $this->_send_with_smtp()) {
 					$this->_set_error_message('email_send_failure_smtp');
 					return FALSE;
@@ -1549,7 +1546,13 @@ class Email_Library {
 		if ($this->smtp_crypto == 'tls') {
 			$this->_send_command('hello');
 			$this->_send_command('starttls');
-			stream_socket_enable_crypto($this->_smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+			
+			$crypto = stream_socket_enable_crypto($this->_smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+		
+		    if ($crypto !== TRUE) {
+				$this->_set_error_message('email_smtp_error', $this->_get_smtp_data());
+				return FALSE;
+			}
 		}
 
 		return $this->_send_command('hello');
