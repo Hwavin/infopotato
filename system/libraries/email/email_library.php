@@ -164,7 +164,7 @@ class Email_library {
 	private	$_header_str	= '';
 	private	$_smtp_connect	= '';
 	private	$_encoding		= '8bit';
-	private $_IP			= FALSE;
+	private $_ip			= FALSE;
 	private	$_smtp_auth		= FALSE;
 	private $_replyto_flag	= FALSE;
 	private	$_debug_msg		= array();
@@ -1623,8 +1623,8 @@ class Email_library {
 	 * @return	string
 	 */
 	private function _get_ip() {
-		if ($this->_IP !== FALSE) {
-			return $this->_IP;
+		if ($this->_ip !== FALSE) {
+			return $this->_ip;
 		}
 
 		$cip = (isset($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP'] != '') ? $_SERVER['HTTP_CLIENT_IP'] : FALSE;
@@ -1632,29 +1632,29 @@ class Email_library {
 		$fip = (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != '') ? $_SERVER['HTTP_X_FORWARDED_FOR'] : FALSE;
 
 		if ($cip && $rip) {
-		    $this->_IP = $cip;
+		    $this->_ip = $cip;
 		} elseif ($rip) {
-			$this->_IP = $rip;
+			$this->_ip = $rip;
 		} elseif ($cip) {
-			$this->_IP = $cip;
+			$this->_ip = $cip;
 		} elseif ($fip) {
-			$this->_IP = $fip;
+			$this->_ip = $fip;
 		}
 
-		if (strstr($this->_IP, ',')) {
-			$x = explode(',', $this->_IP);
-			$this->_IP = end($x);
+		if (strstr($this->_ip, ',')) {
+			$x = explode(',', $this->_ip);
+			$this->_ip = end($x);
 		}
 
-		if ( ! preg_match( "/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $this->_IP)) {
-			$this->_IP = '0.0.0.0';
+		if ( ! preg_match( "/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $this->_ip)) {
+			$this->_ip = '0.0.0.0';
 		}
 
 		unset($cip);
 		unset($rip);
 		unset($fip);
 
-		return $this->_IP;
+		return $this->_ip;
 	}
   
 
