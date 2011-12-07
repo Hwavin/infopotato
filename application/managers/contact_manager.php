@@ -81,15 +81,17 @@ final class Contact_Manager extends Manager {
 			$this->email->to('zhy19@pitt.edu'); 
 			//$this->email->cc('another@another-example.com'); 
 			$this->email->bcc('yuanzhou19@gmail.com'); 
-
 			$this->email->subject('[InfoPotato Contact Form] '.$contact_subject);
 			$this->email->message($contact_message);	
-
+            
+			$sent = $this->email->send();
+			$this->email->print_debugger();
+			
 			// Data to be displayed in view
 			$data = array(
-				'sent' => $this->email->send(), 
+				'sent' => $sent, 
 			);	
-			echo $this->email->print_debugger();
+			
 		}
 
 		$layout_data = array(
