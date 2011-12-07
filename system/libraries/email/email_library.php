@@ -436,12 +436,10 @@ class Email_Library {
 	public function message($body) {
 		$this->_body = rtrim(str_replace("\r", "", $body));
 
-		/* strip slashes only if magic quotes is ON
-		   if we do it with magic quotes OFF, it strips real, user-inputted chars.
-
-		   NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
-			 it will probably not exist in future versions at all.
-		*/
+		// strip slashes only if magic quotes is ON
+		// if we do it with magic quotes OFF, it strips real, user-inputted chars.
+		// NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
+		// it will probably not exist in future versions at all.
 		if ( ! is_php('5.4') && get_magic_quotes_gpc()) {
 			$this->_body = stripslashes($this->_body);
 		}
@@ -974,7 +972,6 @@ class Email_Library {
 
 		switch ($this->_get_content_type()) {
 			case 'plain' :
-
 				$hdr .= "Content-Type: text/plain; charset=" . $this->charset . $this->newline;
 				$hdr .= "Content-Transfer-Encoding: " . $this->_get_encoding();
 
@@ -990,7 +987,6 @@ class Email_Library {
 			    break;
 			
 			case 'html' :
-
 				if ($this->send_multipart === FALSE) {
 					$hdr .= "Content-Type: text/html; charset=" . $this->charset . $this->newline;
 					$hdr .= "Content-Transfer-Encoding: quoted-printable";
@@ -1027,7 +1023,6 @@ class Email_Library {
 			    break;
 			
 			case 'plain-attach' :
-
 				$hdr .= "Content-Type: multipart/".$this->multipart."; boundary=\"" . $this->_atc_boundary."\"" . $this->newline . $this->newline;
 
 				if ($this->_get_protocol() == 'mail') {
@@ -1045,7 +1040,6 @@ class Email_Library {
 			    break;
 			
 			case 'html-attach' :
-
 				$hdr .= "Content-Type: multipart/".$this->multipart."; boundary=\"" . $this->_atc_boundary."\"" . $this->newline . $this->newline;
 
 				if ($this->_get_protocol() == 'mail') {
