@@ -1800,7 +1800,11 @@ class Email_Library {
 			'email_exit_status' => "Exit status code: %s"
 		);
 
-		$this->_debug_msg[] = str_replace('%s', $val, $error_messages[$msg])."<br />";
+		if (array_key_exists($msg, $error_messages)) {
+			$this->_debug_msg[] = str_replace('%s', $val, $error_messages[$msg])."<br />";
+		} else {
+			$this->_debug_msg[] = str_replace('%s', $val, $msg)."<br />";
+		}
 	}
 
 
