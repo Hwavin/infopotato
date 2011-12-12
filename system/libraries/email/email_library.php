@@ -440,7 +440,7 @@ class Email_Library {
 		// if we do it with magic quotes OFF, it strips real, user-inputted chars.
 		// NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
 		// it will probably not exist in future versions at all.
-		if (version_compare(PHP_VERSION, '5.4') === -1 && get_magic_quotes_gpc()) {
+		if (version_compare(PHP_VERSION, '5.4', '<') && get_magic_quotes_gpc()) {
 			$this->_body = stripslashes($this->_body);
 		}
 

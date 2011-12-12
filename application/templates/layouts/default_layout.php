@@ -12,6 +12,10 @@
 <meta name="revisit-after" content="14 Days" /> 
 <meta name="description" content="InfoPotato" /> 
 <meta name="keywords" content="InfoPotato" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon" href="http://6.mshcdn.com/wp-content/themes/v7/img/apple-touch-icon.png" />
 
 <title><?php echo $page_title; ?> | InfoPotato</title>
 
@@ -30,6 +34,35 @@
 <?php if(isset($javascripts)) : ?>
 <script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/<?php echo implode(':', $javascripts); ?>"></script>
 <?php endif; ?>
+
+<script type="application/x-javascript"> 
+ 
+addEventListener("load", function() 
+{ 
+setTimeout(updateLayout, 0); 
+}, false); 
+
+var currentWidth = 0; 
+
+function updateLayout() 
+{ 
+if (window.innerWidth != currentWidth) 
+{ 
+currentWidth = window.innerWidth; 
+
+var orient = currentWidth == 320 ? "profile" : "landscape"; 
+document.body.setAttribute("orient", orient); 
+setTimeout(function() 
+{ 
+window.scrollTo(0, 1); 
+}, 100); 
+} 
+} 
+
+setInterval(updateLayout, 100); 
+
+</script>
+
 </head> 
 
 <body>	
@@ -43,11 +76,11 @@
 <a href="<?php echo APP_URI_BASE; ?>home/" title="Return to frontpage"><img src="<?php echo STATIC_URI_BASE; ?>images/shared/logo.jpg" alt="InfoPotato" /></a>
 </div>
 
-<ul> 
+<ul class="nav"> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/" title="About">About</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>code/" title="Code">Code</a></li>
 <li><a href="<?php echo APP_URI_BASE; ?>documentation/" title="Documentation">Documentation</a></li>
-<li><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
+<li id="nav_contact"><a href="<?php echo APP_URI_BASE; ?>contact/" title="Contact">Contact</a></li>
 </ul>
 
 </div>	

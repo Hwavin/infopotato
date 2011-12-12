@@ -65,12 +65,7 @@ final class Contact_Manager extends Manager {
 			
 			// Load and instantiate Email library
 			$config = array(
-				//'protocol' => 'sendmail',
-				'protocol' => 'smtp',
-				'smtp_host' => 'ssl://smtp.pitt.edu',
-				'smtp_port' => 465,
-				'smtp_user' => 'ifl',
-				'smtp_pass' => 'jan2001',
+				'protocol' => 'sendmail',
 			);
 			
 			$this->load_library('SYS', 'email/email_library', 'email', $config);		

@@ -9,13 +9,10 @@
 InfoPotato keeps changing before it has got the ink dry on each draft. The code shown below are the stable version of InfoPotato. Continued support and bug fixes for this version will be provided. You may safely use this version in your production Web applications. The official InfoPotato repository is hosted on <a class="external_link" href="https://github.com/yuanzhou/infopotato">GitHub</a>.
 </p>  
 
-<table class="grid" width="100%">
-<tr>
-<td width="33%">
 
-<h2>core</h2>
+<h2>Core</h2>
 
-<ul>
+<ul class="code_file">
 
 <li><a href="<?php echo APP_URI_BASE; ?>code/core/manager/">manager.php</a></li>
 
@@ -45,13 +42,11 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 
 <li><a href="<?php echo APP_URI_BASE; ?>code/core/i18n/">i18n.php</a></li>
 </ul>
-</td>
 
-<td width="34%">
 
-<h2>libraries</h2>
+<h2>Libraries</h2>
 
-<ul>
+<ul class="code_file">
 <li><a href="<?php echo APP_URI_BASE; ?>code/library/calendar/">calendar_library.php</a></li>
 
 <li><a href="<?php echo APP_URI_BASE; ?>code/library/cart/">cart_library.php</a></li>
@@ -87,13 +82,11 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 <li><a href="<?php echo APP_URI_BASE; ?>code/library/user_agent/">user_agent_library.php</a></li>
 
 </ul>
-</td>
 
-<td>
 
-<h2>functions</h2>
+<h2>Functions</h2>
 
-<ul>
+<ul class="code_file">
 <li><a href="<?php echo APP_URI_BASE; ?>code/function/captcha/">captcha_function.php</a></li>
 
 <li><a href="<?php echo APP_URI_BASE; ?>code/function/download/">download_function.php</a></li>
@@ -106,10 +99,6 @@ InfoPotato keeps changing before it has got the ink dry on each draft. The code 
 
 <li><a href="<?php echo APP_URI_BASE; ?>code/function/htmlawed/">htmlawed_function.php</a></li>
 </ul>
-</td>
-</tr>
-
-</table>
 
 
 <h2>InfoPotato on Git</h2> 
