@@ -63,13 +63,9 @@ class MySQL_DAO extends Base_DAO {
 	 */ 
 	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
-			foreach ($params as $v) { 
-				if (isset($this->dbh)) {
-					$v = mysql_real_escape_string($v, $this->dbh); 
-				} else {
-					$v = addslashes($v);
-				}
-			} 	
+			foreach ($params as $k => $v) { 
+				$params[$k] = isset($this->dbh) ? mysql_real_escape_string($v, $this->dbh) : addslashes($v); 
+			}	
 			// in case someone mistakenly already singlequoted it
 			$query = str_replace("'?'", '?', $query); 
 			// in case someone mistakenly already doublequoted it

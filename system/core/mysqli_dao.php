@@ -60,12 +60,8 @@ class MySQLi_DAO extends Base_DAO {
 	 */ 
 	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
-			foreach ($params as $v) { 
-				if (isset($this->mysqli)) {
-					$v = $this->mysqli->real_escape_string($v); 
-				} else {
-					$v = addslashes($v);
-				}
+			foreach ($params as $k => $v) { 
+				$params[$k] = isset($this->mysqli) ? $this->mysqli->real_escape_string($v) : addslashes($v); 
 			} 	
 			// in case someone mistakenly already singlequoted it
 			$query = str_replace("'?'", '?', $query); 
