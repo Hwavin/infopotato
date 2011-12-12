@@ -52,27 +52,21 @@ class MySQL_DAO extends Base_DAO {
 	
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
-	 * $query - SQL query WITHOUT any user-entered parameters. Replace parameters with "?" 
-	 *     e.g. $query = "SELECT date from history WHERE login = ?" 
-	 * $params - array of parameters 
-	 * 
-	 * Example: 
-	 *    prepare( "SELECT secret FROM db WHERE login = ?", array($login) );  
-	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
-	 * That will result safe query to MySQL with escaped $login and $password. 
+	 * The following directives can be used in the query format string:
+	 * %d (decimal number)
+	 * %s (string)
+	 *
+	 * Both %d and %s are to be left unquoted in the query string and they need an argument passed for them.
 	 */ 
 	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
 			foreach ($params as $k => $v) { 
-				$params[$k] = isset($this->dbh) ? mysql_real_escape_string($v, $this->dbh) : addslashes($v); 
+				// Only quote and escape string
+				if (is_string($v)) {
+				    $params[$k] = isset($this->dbh) ? "'".mysql_real_escape_string($v, $this->dbh)."'" : "'".addslashes($v)."'"; 
+				}
 			}	
-			// in case someone mistakenly already singlequoted it
-			$query = str_replace("'?'", '?', $query); 
-			// in case someone mistakenly already doublequoted it
-			$query = str_replace('"?"', '?', $query); 
-			// quote the strings and replacing ? -> %s
-			$query = str_replace('?', "'%s'", $query); 
-			// vsprintf - replacing all %s to parameters 
+			// vsprintf - replacing all %d and %s to parameters 
 			$query = vsprintf($query, $params);    
 		} 
 		return $query; 
