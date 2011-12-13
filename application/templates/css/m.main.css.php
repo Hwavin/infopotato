@@ -945,6 +945,8 @@ display:none;
 overflow-x: auto; 
 white-space: nowrap;
 border: 1px solid #ccc;
+
+font-family:Menlo,'Courier New',Courier,monospace;
 }
 
 .line_num { 
