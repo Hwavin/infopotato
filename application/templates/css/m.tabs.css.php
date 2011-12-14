@@ -43,9 +43,9 @@ margin:0;
 .tabs li a {
 display: block;
 background: #ebf1f6;
-width: 116px;
+width:94px;
 text-align: center;
-padding: 12px 0px 10px 0px;
+padding: 12px 0 10px;
 color: #7b97b0;
 font-size: 14px;
 border-left: 1px solid #c9d5df;
