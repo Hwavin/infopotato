@@ -15,18 +15,10 @@
 Authentication and authorization are required for a Web page that should be limited to certain users. Authentication is about verifying whether someone is who they claim to be. It usually involves a username and a password, but may include any other methods of demonstrating identity, such as a smart card, fingerprints, etc. Authorization is finding out if the person, once identified (i.e. authenticated), is permitted to manipulate specific resources. This is usually determined by finding out if that person is of a particular role that has access to the resources. InfoPotato provides the developers two types of implimentation of authorization.
 </p>
 
-<div class="box_right greybox">
-<blockquote>
-<span>Knowledge is power, guard it well.</span>
-<div>&mdash; Warhammer 40,000: Dawn of War</div>
-</blockquote>
-</div>
-
 <ul>
 <li><strong>Simple Authorization</strong> &mdash; Each user has to login to view any page that requires authorization</li>
 <li><strong>Authorization Levels</strong> &mdash; Each user is assigned a single authorization level and can view any page that requires that level or a level below.</li>
 </ul>
-
 
 <h2>Login Form Template</h2>
 

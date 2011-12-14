@@ -14,12 +14,23 @@
 </div>
 <!-- end breadcrumb -->
 	
-<div class="box_right greybox">
-<blockquote>
-<span>If I have seen further it is by standing on the shoulders of giants.</span>
-<div>&mdash; Isaac Newton</div>
-</blockquote>
+<div class="quote_item">
+<blockquote class="quote">
+<div class="quote_content">
+<span class="curly_quote_open"></span>
+<span class="quote_text">If I have seen further it is by standing on the shoulders of giants.</span>
+<span class="curly_quote_close"></span>
 </div>
+
+<span class="arrow"></span>
+</blockquote>
+
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/isaac_newton.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Isaac Newton<span>
+</div>
+</div>
+
 
 <p>
 My first experience with PHP web application development framework can be tracked back to the year 2007 when I was in China and FleaPHP was the first framework I learned. I created several apps with it and became excited about Framework after that. Since its complex code base and poor documentation I never trully understood it. But I did learned some cool design ideas from it. Now its new name is QeePHP. This PHP framework inspired me to learn more of how to build a dynamic web application instead of just a simple website. During my learning, I read many books about PHP OOP, design patterns, database abstraction, and many other related PHP programming techniques.
@@ -30,13 +41,6 @@ With more and more design and development I found myself the need of a good stru
 </p>
 
 <h2>Design Evolution</h2>
-
-<div class="box_right greybox">
-<blockquote>
-<span>A great part to the information I have was acquired by looking up something and finding something else on the way.</span>
-<div>&mdash; Adams Franklin</div>
-</blockquote>
-</div>
 
 <p>
 For a long time, I thought InfoPotato should follow the MVC architectural pattern because many other web frameworks claim themselves MVC frameworks and at during that period I didn't have a clear understanding of what is MVC. But one day after lunch, I came accross a book called "Building PHP Applications with Symfony, CakePHP, and Zend Framework". In this book, the author memtioned that many so-called PHP MVC frameworks are not real MVC, and the truth is many of them are following the MVP architectural pattern. After that, I did more reading and I found my InfoPotato was more like MVP indeed. But with more research, I realized that I don't need a MVC framework for the PHP web development. Because that Model-View-Controller object relationships as they are conventionally known don't apply to the web in a meaningful way. What I really need is to look at a very simple request-response handling framework. So from that monment, I rewrote InfoPotato and got rid off the concept of either MVC or MVP. InfoPotato now, is only a simple web development framework built around HTTP and the principles of REST that handles request and response.

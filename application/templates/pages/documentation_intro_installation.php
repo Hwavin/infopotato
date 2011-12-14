@@ -14,13 +14,23 @@
 Installation of InfoPotato mainly involves the following steps:
 </p> 
 
-<div class="box_right greybox">
-<blockquote>
-<span>Activity is the only road to knowledge.</span>
-<div>&mdash; George Bernard Shaw</div>
-</blockquote>
+
+<div class="quote_item">
+<blockquote class="quote">
+<div class="quote_content">
+<span class="curly_quote_open"></span>
+<span class="quote_text">Activity is the only road to knowledge.</span>
+<span class="curly_quote_close"></span>
 </div>
 
+<span class="arrow"></span>
+</blockquote>
+
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/george_bernard_shaw.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">George Bernard Shaw<span>
+</div>
+</div>
 
 <ul class="list_numbered"> 
 <li>

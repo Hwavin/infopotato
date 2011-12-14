@@ -1041,4 +1041,90 @@ padding:10px 0;
 display:none;
 }
 
+.quote_item{
+margin-bottom:20px;
+}
 
+blockquote.quote{
+padding:10px;
+color:#333;
+margin:20px 0 15px 0;
+
+
+position: relative;
+font-family: chaparral-pro-1, chaparral-pro-2, Georgia, Times, serif;
+line-height: 24px;
+border: 1px solid #798eae;
+background: -moz-linear-gradient(#e2ecf9, #d8e5f7);
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e2ecf9), to(#d8e5f7));
+background: -webkit-linear-gradient(#e2ecf9, #d8e5f7);
+background: -o-linear-gradient(#e2ecf9, #d8e5f7);
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-box-shadow: inset rgba(255, 255, 255, 0.9) 0 1px 0, rgba(0, 38, 97, 0.4) 0 1px 3px;
+-webkit-box-shadow: inset rgba(255, 255, 255, 0.9) 0 1px 0, rgba(0, 38, 97, 0.4) 0 1px 3px;
+box-shadow: inset rgba(255, 255, 255, 0.9) 0 1px 0, rgba(0, 38, 97, 0.4) 0 1px 3px;
+}
+
+.quote_content{
+padding:10px 10px 10px 21px;
+position:relative;
+}
+
+.curly_quote_open{
+background:url("<?php echo STATIC_URI_BASE; ?>images/shared/quote_open.png") no-repeat scroll 0 0 transparent;
+display:inline-block;
+height:13px;
+left:0;
+position:absolute;
+top:14px;
+width:14px;
+}
+
+.quote_text{
+
+}
+
+.curly_quote_close{
+background:url("<?php echo STATIC_URI_BASE; ?>images/shared/quote_close.png") no-repeat scroll 0 0 transparent;
+display:inline-block;
+height:13px;
+position:relative;
+width:14px;
+margin-left:3px;
+}
+
+.arrow {
+display: block;
+width: 12px;
+height: 8px;
+background: url("<?php echo STATIC_URI_BASE; ?>images/shared/arrow.png") no-repeat;
+position: absolute;
+bottom:-8px;
+left:35px;
+}
+
+.quote_author{
+display:inline-block;
+margin-left:23px;
+}
+
+.quote_author_photo {
+float:left;
+margin-right:10px;
+}
+
+.round_corner_img{
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-box-shadow: white 0 1px 0;
+-webkit-box-shadow: white 0 1px 0;
+box-shadow: white 0 1px 0;
+}
+
+.quote_author_name{
+display:inline-block;
+padding-top:12px;
+}

@@ -12,11 +12,22 @@
 <!-- PRINT: start -->
 <h2>Why No ORM In InfoPotato?</h2>
 
-<div class="box_right greybox">
-<blockquote>
-<span>Any intelligent fool can make things bigger, more complex, and more violent.</span>
-<div>&mdash; Albert Einstein</div>
+
+<div class="quote_item">
+<blockquote class="quote">
+<div class="quote_content">
+<span class="curly_quote_open"></span>
+<span class="quote_text">Any intelligent fool can make things bigger, more complex, and more violent.</span>
+<span class="curly_quote_close"></span>
+</div>
+
+<span class="arrow"></span>
 </blockquote>
+
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/albert_einstein.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Albert Einstein<span>
+</div>
 </div>
 
 <p>

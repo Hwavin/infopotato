@@ -22,7 +22,7 @@ The InfoPotato logo and <a href="http://infopotato.com" class="external_link">ht
 
 <h2>Source Code License</h2> 
 
-<div class="box_right greybox"> 
+<div class="greybox"> 
 <strong>Info about the MIT License:</strong> 
 <ul><li><a class="external_link" href="http://en.wikipedia.org/wiki/MIT_License"><span class="icon">Wikipedia</span></a> 
 </li><li><a class="external_link" href="http://www.fsf.org/licensing/licenses/index_html#Expat"><span class="icon">FSF.org</span></a> 
@@ -49,13 +49,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 <h2>Documentation License</h2> 
 
-<div class="box_right greybox"> 
+<div class="greybox"> 
 <p> 
-The license for InfoPotato documentation is based on the FreeBSD Documentation License with modifications to address the format in which the InfoPotato documentation is presented.
-</p> 
-
-<p> 
-Info about the FreeBSD Documentation License:
+The license for InfoPotato documentation is based on the FreeBSD Documentation License with modifications to address the format in which the InfoPotato documentation is presented. Info about the FreeBSD Documentation License:
 </p> 
 
 <ul>

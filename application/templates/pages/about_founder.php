@@ -18,16 +18,27 @@ Now, for something behind the scenes. My chinese name is Zhou Yuan and my englis
 </p> 
 
 <h2>How did I get into web development?</h2>
+
+<div class="quote_item">
+<blockquote class="quote">
+<div class="quote_content">
+<span class="curly_quote_open"></span>
+<span class="quote_text">The good life is one inspired by love and guided by knowledge.</span>
+<span class="curly_quote_close"></span>
+</div>
+
+<span class="arrow"></span>
+</blockquote>
+
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/bertrand_russell.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Bertrand Russell<span>
+</div>
+</div>
+
 <p> 
 Back to my junior year at University of Sciecne and Technology Beijing, I began to deal with web design and development. My first project was an online discussion forum for mathetics fans proposed by my sister's boyfriend. During that period I spent a lot of time to learn <a href="http://en.wikipedia.org/wiki/Crossday_Discuz!_Board" class="external_link" title="External link">Discuz!</a> (A great open source PHP Forum in China). To get a comprehensive understanding of PHP I took the professional training program and examination created by Zend PHPChina, and I gained the Zend PHPChian Certification. After that I wrote several chinese version websites for my university and friends.
 </p>
-
-<div class="box_right greybox">
-<blockquote>
-<span>The good life is one inspired by love and guided by knowledge.</span>
-<div>&mdash; Bertrand Russell</div>
-</blockquote>
-</div>
 
 <p> 
 In 2007, I worked as a webmail developer at BBDTEK Technology Co., Ltd. with two seasoned programmers from Founder Technology Group. My major responsibilities were analyzing two open-source browser-based multilingual IMAP client written in PHP and AJAX (<a href="http://squirrelmail.org/" class="external_link">SquirrelMail</a> &amp; <a href="http://roundcube.net/" class="external_link">RoundCube</a>). I also did configuration and modification of the Postfix SMTP server in Linux (CentOS and Federa). Through webmail development, I had largely increased my knowledge and skills in advanced object-oriented programming, Mail Transfer Protocol, methods of authentication, and data encryption.
@@ -37,11 +48,22 @@ In 2007, I worked as a webmail developer at BBDTEK Technology Co., Ltd. with two
 To pursue the Master degree, I left BBDTEK and came to USA in 2008. At the beginning of my new chapter in Pittsburgh, I found a part-time job in Petersen Events Center where I was the web designer and I created four websites with PHP+XHTML+JS+XML+CSS+MySQL/SQLServer2005 for Intramurals and Recreation program. I had a wonderful experience there, and the websites I designed helped the faculty and staff a lot.
 </p> 
 
-<div class="box_right greybox">
-<blockquote>
-<span>When work is a pleasure , life is joy ! When work is duty , life is slavery.</span>
-<div>&mdash; Maxim Gorky</div>
+
+<div class="quote_item">
+<blockquote class="quote">
+<div class="quote_content">
+<span class="curly_quote_open"></span>
+<span class="quote_text">When work is a pleasure , life is joy! When work is duty , life is slavery.</span>
+<span class="curly_quote_close"></span>
+</div>
+
+<span class="arrow"></span>
 </blockquote>
+
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/maxim_gorky.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Maxim Gorky<span>
+</div>
 </div>
 
 <p> 

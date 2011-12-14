@@ -15,11 +15,21 @@
 Speed is a big deal, and it's also a major reason that developers pick InfoPotato. It has a light footprint that consistently places it at the top of the PHP framework benchmarks. But keeping an application fast goes far beyond selecting a quick framework.
 </p>
 
-<div class="box_right greybox">
-<blockquote>
-<span>Continuous Improvement is better than delayed perfection.</span>
-<div>&mdash; Mark Twain</div>
+<div class="quote_item">
+<blockquote class="quote">
+<div class="quote_content">
+<span class="curly_quote_open"></span>
+<span class="quote_text">Continuous Improvement is better than delayed perfection.</span>
+<span class="curly_quote_close"></span>
+</div>
+
+<span class="arrow"></span>
 </blockquote>
+
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/mark_twain.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Mark Twain<span>
+</div>
 </div>
 
 <p>
