@@ -449,10 +449,7 @@ padding: initial;
 
 blockquote{
 background:url(<?php echo STATIC_URI_BASE; ?>images/shared/quote_left.png) no-repeat left 2px;
-font-style:italic;
 padding-left:23px;
-font-family: "felt-tip-roman-1","felt-tip-roman-2", Chalkboard, "Comic Sans MS", sans-serif;
-font-size:16px;
 }
 
 blockquote span{

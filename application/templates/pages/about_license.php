@@ -1,9 +1,9 @@
-<div id="toc"> 
-<ul> 
+<div class="tabs">
+<ul class="selected">
 <li><a href="<?php echo APP_URI_BASE; ?>about/" title="Motivation">Motivation</a></li>
-<li class="current_tab"><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="License">License</a></li> 
+<li class="selected"><a href="<?php echo APP_URI_BASE; ?>about/index/license/" title="License">License</a></li> 
 <li><a href="<?php echo APP_URI_BASE; ?>about/index/founder/" title="The Founder">The Founder</a></li> 
-</ul> 
+</ul>
 </div>
 	
 <!-- begin breadcrumb -->
