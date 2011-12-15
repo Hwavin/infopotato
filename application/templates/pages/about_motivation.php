@@ -15,20 +15,19 @@
 <!-- end breadcrumb -->
 	
 <div class="quote_item">
-<blockquote class="quote">
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/isaac_newton.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Isaac Newton<span>
+</div>
+
+<blockquote>
 <div class="quote_content">
 <span class="curly_quote_open"></span>
 <span class="quote_text">If I have seen further it is by standing on the shoulders of giants.</span>
 <span class="curly_quote_close"></span>
 </div>
-
-<span class="arrow"></span>
 </blockquote>
 
-<div class="quote_author">
-<img src="<?php echo STATIC_URI_BASE; ?>images/authors/isaac_newton.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
-<span class="quote_author_name">Isaac Newton<span>
-</div>
 </div>
 
 

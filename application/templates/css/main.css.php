@@ -1075,8 +1075,8 @@ float:left;
 background:#f7f7f7;  
 border:1px solid #ddd;  
 color:#333; 
-width:130px;
-margin:0 10px;
+width:284px;
+margin:10px;
 -webkit-border-radius: 4px;
 -moz-border-radius: 4px;
 -o-border-radius: 4px;
@@ -1091,7 +1091,7 @@ display: block;
 text-align: center;
 text-decoration: none;
 padding:10px 0;
-font-size:14px;
+font-size:20px;
 font-weight:700;
 }
 
@@ -1099,6 +1099,21 @@ font-weight:700;
 margin-left:10px;
 float:right;
 width:220px;
+display: block;
+padding:10px;
+color:#333;
+position: relative;
+border: 1px solid #798eae;
+background: -moz-linear-gradient(#e2ecf9, #d8e5f7);
+background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e2ecf9), to(#d8e5f7));
+background: -webkit-linear-gradient(#e2ecf9, #d8e5f7);
+background: -o-linear-gradient(#e2ecf9, #d8e5f7);
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+-moz-box-shadow: inset rgba(255, 255, 255, 0.9) 0 1px 0, rgba(0, 38, 97, 0.4) 0 1px 3px;
+-webkit-box-shadow: inset rgba(255, 255, 255, 0.9) 0 1px 0, rgba(0, 38, 97, 0.4) 0 1px 3px;
+box-shadow: inset rgba(255, 255, 255, 0.9) 0 1px 0, rgba(0, 38, 97, 0.4) 0 1px 3px;
 }
 
 blockquote.quote{
@@ -1136,10 +1151,6 @@ top:14px;
 width:14px;
 }
 
-.quote_text{
-
-}
-
 .curly_quote_close{
 background:url("<?php echo STATIC_URI_BASE; ?>images/shared/quote_close.png") no-repeat scroll 0 0 transparent;
 display:inline-block;
@@ -1149,36 +1160,15 @@ width:14px;
 margin-left:3px;
 }
 
-.arrow {
-display: block;
-width: 12px;
-height: 8px;
-background: url("<?php echo STATIC_URI_BASE; ?>images/shared/arrow.png") no-repeat;
-position: absolute;
-bottom:-8px;
-left:35px;
-}
-
-.quote_author{
-display:inline-block;
-margin-left:23px;
-}
-
-.quote_author_photo {
-float:left;
-margin-right:10px;
-}
-
-.round_corner_img{
--moz-border-radius: 4px;
--webkit-border-radius: 4px;
-border-radius: 4px;
--moz-box-shadow: white 0 1px 0;
--webkit-box-shadow: white 0 1px 0;
-box-shadow: white 0 1px 0;
+.quote_author {
+border-bottom:1px solid #c4cde0;
+padding-bottom:10px;
 }
 
 .quote_author_name{
-display:inline-block;
-padding-top:12px;
+font-weight:700;
+}
+
+.quote_text{
+line-height:160%;
 }

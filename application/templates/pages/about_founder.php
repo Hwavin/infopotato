@@ -20,20 +20,18 @@ Now, for something behind the scenes. My chinese name is Zhou Yuan and my englis
 <h2>How did I get into web development?</h2>
 
 <div class="quote_item">
-<blockquote class="quote">
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/bertrand_russell.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Bertrand Russell<span>
+</div>
+
+<blockquote>
 <div class="quote_content">
 <span class="curly_quote_open"></span>
 <span class="quote_text">The good life is one inspired by love and guided by knowledge.</span>
 <span class="curly_quote_close"></span>
 </div>
-
-<span class="arrow"></span>
 </blockquote>
-
-<div class="quote_author">
-<img src="<?php echo STATIC_URI_BASE; ?>images/authors/bertrand_russell.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
-<span class="quote_author_name">Bertrand Russell<span>
-</div>
 </div>
 
 <p> 
@@ -50,20 +48,18 @@ To pursue the Master degree, I left BBDTEK and came to USA in 2008. At the begin
 
 
 <div class="quote_item">
-<blockquote class="quote">
+<div class="quote_author">
+<img src="<?php echo STATIC_URI_BASE; ?>images/authors/maxim_gorky.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
+<span class="quote_author_name">Maxim Gorky<span>
+</div>
+
+<blockquote>
 <div class="quote_content">
 <span class="curly_quote_open"></span>
 <span class="quote_text">When work is a pleasure , life is joy! When work is duty , life is slavery.</span>
 <span class="curly_quote_close"></span>
 </div>
-
-<span class="arrow"></span>
 </blockquote>
-
-<div class="quote_author">
-<img src="<?php echo STATIC_URI_BASE; ?>images/authors/maxim_gorky.jpg" class="quote_author_photo round_corner_img" width="40" height="40" />
-<span class="quote_author_name">Maxim Gorky<span>
-</div>
 </div>
 
 <p> 

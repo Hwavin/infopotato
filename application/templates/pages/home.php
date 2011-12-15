@@ -1,6 +1,4 @@
-<h1 class="center">
-The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework
-</h1>
+<h1 class="center">The <span class="green">Lighter</span>, <span class="red">Faster</span> and <span class="orange">Sleeker</span> PHP5 Framework</h1>
 
 <div id="intro" class="greybox">
 <h2 class="blue">Using InfoPotato Without Becoming A Hostage To It</h2>
