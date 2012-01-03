@@ -29,7 +29,7 @@
 <link type="text/css" rel="stylesheet" href="<?php echo APP_URI_BASE; ?>css/index/print.css" media="print" charset="utf-8" /> 
 
 <!-- JavaScript -->
-<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/sweet_titles.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/sweet_titles.js:back_to_top.js"></script>
 	
 <?php if(isset($javascripts)) : ?>
 <script type="text/javascript" language="javascript" src="<?php echo APP_URI_BASE; ?>js/index/<?php echo implode(':', $javascripts); ?>"></script>
@@ -101,12 +101,15 @@ Page URI: <?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];?
 <!-- end main content --> 
 
 <!-- begin footer --> 
-<div class="footer">
+<div class="footer" id="footer">
 <div class="copyright">
 Powered by InfoPotato PHP5 Framework &copy; Zhou Yuan 2009-2011
 </div>
 </div>
 <!-- end footer -->
+
+<div id="back_to_top" onclick="window.scrollTo('0','0')" title="Click to go to the top of the page"></div>
+<script type="text/javascript">_attachEvent(window, 'scroll', function(){showTopLink();});</script>
 
 </body> 
 
