@@ -5,8 +5,8 @@ return array(
 		'default' => array(
 			'host' => 'localhost', // The hostname of your database server. 
 			'port' => '3306', // Port number, string
-			'name' => 'users', // The name of the database you want to connect to
-			'user' => 'root', // The username used to connect to the database
+			'name' => '', // The name of the database you want to connect to
+			'user' => '', // The username used to connect to the database
 			'pass' => '', // The password used to connect to the database
 			'charset' => 'utf8', // The character collation used in communicating with the database
 			'collate' => 'utf8_general_ci', //  The Database Collate type. Don't change this if in doubt.
@@ -15,8 +15,8 @@ return array(
 		'world' => array(
 			'host' => 'localhost',
 			'port' => '3306', // Port number, string
-			'name' => 'world', 
-			'user' => 'root',
+			'name' => '', 
+			'user' => '',
 			'pass' => '',
 			'charset' => 'utf8',
 			'collate' => 'utf8_general_ci',
@@ -28,8 +28,8 @@ return array(
 		'default' => array(
 			'host' => 'localhost',
 			'port' => 3306, // Port number, integer
-			'name' => 'users',
-			'user' => 'root',
+			'name' => '',
+			'user' => '',
 			'pass' => '',
 			'charset' => 'utf8',
 			'collate' => 'utf8_general_ci', 
@@ -38,8 +38,8 @@ return array(
 		'world' => array(
 			'host' => 'localhost',
 			'port' => 3306, // Port number, integer
-			'name' => 'world',
-			'user' => 'root',
+			'name' => '',
+			'user' => '',
 			'pass' => '', 
 			'charset' => 'utf8', 
 			'collate' => 'utf8_general_ci', 
@@ -51,8 +51,8 @@ return array(
 		'default' => array(
 			'host' => 'localhost',
 			'port' => 5432, // Port number, integer
-			'name' => 'users',
-			'user' => 'root',
+			'name' => '',
+			'user' => '',
 			'pass' => '',
 			'charset' => 'UTF8',
 		),
