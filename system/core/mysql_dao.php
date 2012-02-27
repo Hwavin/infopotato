@@ -96,7 +96,7 @@ class MySQL_DAO extends Base_DAO {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 		}
 
-		// Query was an insert, delete, drop, update, replace
+		// Query was an insert, delete, drop, update, replace, alter
 		// mysql_query() returns TRUE on success or FALSE on error
 		if (preg_match("/^(insert|delete|drop|update|replace|alter)\s+/i", $query)) {
 			// Use mysql_affected_rows() to find out how many rows were affected 
@@ -114,7 +114,7 @@ class MySQL_DAO extends Base_DAO {
 			}
 			// Return number fo rows affected
 			$return_val = $rows_affected;
-		} else {
+		} elseif (preg_match("/^(select|describe|desc|show|explain)\s+/i", $query)) {
 			// Store Query Results
 			$num_rows = 0;
 			// $result must be a resource type
@@ -131,6 +131,9 @@ class MySQL_DAO extends Base_DAO {
 
 			// Return number of rows selected
 			$return_val = $this->num_rows;
+		} elseif (preg_match("/^create\s+/i", $query)) {
+		    // Table creation returns TRUE on success, or FALSE on error.
+			$return_val = $result;
 		}
 
 		return $return_val;

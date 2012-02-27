@@ -88,8 +88,8 @@ class SQLite_DAO extends Base_DAO {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 		}
 		
-		// Query was an insert, delete, drop, update, replace
-		if (preg_match("/^(insert|delete|drop|update|replace)\s+/i", $query)) {
+		// Query was an insert, delete, drop, update, replace, alter
+		if (preg_match("/^(insert|delete|drop|update|replace|alter)\s+/i", $query)) {
 			$rows_affected = sqlite_changes($this->dbh);
 			
 			// Take note of the last_insert_id
@@ -101,7 +101,7 @@ class SQLite_DAO extends Base_DAO {
 			
 			// Return number fo rows affected
 			$return_val = $rows_affected;
-		} else {
+		} elseif (preg_match("/^(select|describe|desc|show|explain)\s+/i", $query)) {
 			// Store Query Results
 			$num_rows = 0;
 			while ($row = sqlite_fetch_array($result, SQLITE_ASSOC)) {
@@ -116,6 +116,9 @@ class SQLite_DAO extends Base_DAO {
 			
 			// Return number of rows selected
 			$return_val = $this->num_rows;
+		} elseif (preg_match("/^create\s+/i", $query)) {
+		    // Table creation returns TRUE on success, or FALSE on error.
+			$return_val = $result;
 		}
 
 		return $return_val;
