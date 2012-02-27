@@ -79,8 +79,8 @@ class PostgreSQL_DAO extends Base_DAO {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 		}
 
-		// Query was an insert, delete, update, replace
-		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
+		// Query was an insert, delete, drop, update, replace
+		if (preg_match("/^(insert|delete|drop|update|replace)\s+/i", $query)) {
 			$rows_affected = pg_affected_rows($result);
 
 			// Take note of the last_insert_id

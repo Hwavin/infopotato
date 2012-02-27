@@ -96,8 +96,9 @@ class MySQL_DAO extends Base_DAO {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 		}
 
-		// Query was an insert, delete, update, replace
-		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
+		// Query was an insert, delete, drop, update, replace
+		// mysql_query() returns TRUE on success or FALSE on error
+		if (preg_match("/^(insert|delete|drop|update|replace|alter)\s+/i", $query)) {
 			// Use mysql_affected_rows() to find out how many rows were affected 
 			// by a DELETE, INSERT, REPLACE, or UPDATE statement
 			// When using UPDATE, MySQL will not update columns where the new value is the same as the old value. 
@@ -116,6 +117,7 @@ class MySQL_DAO extends Base_DAO {
 		} else {
 			// Store Query Results
 			$num_rows = 0;
+			// $result must be a resource type
 			while ($row = mysql_fetch_object($result)) {
 				// Store relults as an objects within main array
 				$this->query_result[$num_rows] = $row;

@@ -95,8 +95,8 @@ class MySQLi_DAO extends Base_DAO {
 			halt('An Error Was Encountered', $err_msg, 'sys_error');		
 		}
 
-		// Query was an insert, delete, update, replace
-		if (preg_match("/^(insert|delete|update|replace)\s+/i", $query)) {
+		// Query was an insert, delete, drop, update, replace
+		if (preg_match("/^(insert|delete|drop|supdate|replace)\s+/i", $query)) {
 			// When using UPDATE, MySQL will not update columns where the new value is the same as the old value. 
 			// This creates the possibility that $affected_rows may not actually equal the number of rows matched, 
 			// only the number of rows that were literally affected by the query.
