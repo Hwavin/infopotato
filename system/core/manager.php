@@ -60,16 +60,22 @@ class Manager {
 		} else {
 			if (count($template_vars) > 0) {
 				// Import the template variables to local namespace
-				// If there is a collision, don't overwrite the existing variable.
-				extract($template_vars, EXTR_SKIP);
+				// If there is a collision, overwrite the existing variable
+				// Needs to think carefully wheather to use EXTR_OVERWRITE or EXTR_SKIP
+				extract($template_vars, EXTR_OVERWRITE);
 			}
 
 			// Capture the rendered output
 			ob_start();
-			require_once $template_file_path;
+			// NOTE: don't use require_once here.
+			// require_once will cause problem if the same sub template/element 
+			// needs to be rendered more than once in the same scope, because require_once 
+			// will not include the sub template/element file again if it has already been included
+			// so only the first call can be rendered as a result of the use of require_once
+			require $template_file_path;
 			$content = ob_get_contents();
 		    ob_end_clean();
-			
+
 			return $content;
 		}	
 	}
