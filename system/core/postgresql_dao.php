@@ -32,8 +32,20 @@ class PostgreSQL_DAO extends Base_DAO {
 			$this->exec_query($collation_query);
 		}
 	}
-	
 
+	/** 
+	 * Escapes special characters in a string for use in an SQL statement, 
+	 * taking into account the current charset of the connection
+	 */ 
+	public function escape_string($string) { 
+		// Only quote and escape string
+		// is_string() will take '' will as string
+		if (is_string($string)) {
+			$string = isset($this->dbh) ? "'".pg_escape_string($this->dbh, $v)."'" : "'".addslashes($v)."'";
+		}
+		return $string; 
+	}
+	
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * The following directives can be used in the query format string:

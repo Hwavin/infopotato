@@ -49,6 +49,18 @@ class MySQL_DAO extends Base_DAO {
 		}
 	}
 
+	/** 
+	 * Escapes special characters in a string for use in an SQL statement, 
+	 * taking into account the current charset of the connection
+	 */ 
+	public function escape_string($string) { 
+		// Only quote and escape string
+		// is_string() will take '' will as string
+		if (is_string($string)) {
+			$string = isset($this->dbh) ? "'".mysql_real_escape_string($string, $this->dbh)."'" : "'".addslashes($string)."'"; 
+		}
+		return $string; 
+	}
 	
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
@@ -60,12 +72,16 @@ class MySQL_DAO extends Base_DAO {
 	 */ 
 	public function prepare($query, array $params = NULL) { 
 		if (count($params) > 0) { 			
+            // All variables in $params must be set before being passed to this function
+			// if any variables are not set (will be NULL) will cause error in SQL
 			foreach ($params as $k => $v) { 
 				// Only quote and escape string
+				// is_string() will take '' will as string
 				if (is_string($v)) {
 				    $params[$k] = isset($this->dbh) ? "'".mysql_real_escape_string($v, $this->dbh)."'" : "'".addslashes($v)."'"; 
 				}
 			}	
+
 			// vsprintf - replacing all %d and %s to parameters 
 			$query = vsprintf($query, $params);    
 		} 
@@ -98,7 +114,7 @@ class MySQL_DAO extends Base_DAO {
 
 		// Query was an insert, delete, drop, update, replace, alter
 		// mysql_query() returns TRUE on success or FALSE on error
-		if (preg_match("/^(insert|delete|drop|update|replace|alter)\s+/i", $query)) {
+		if (preg_match("/^(insert|delete|truncate|drop|update|replace|alter)\s+/i", $query)) {
 			// Use mysql_affected_rows() to find out how many rows were affected 
 			// by a DELETE, INSERT, REPLACE, or UPDATE statement
 			// When using UPDATE, MySQL will not update columns where the new value is the same as the old value. 

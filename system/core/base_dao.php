@@ -46,6 +46,12 @@ class Base_DAO {
 	public function __construct(array $config = NULL) {}
 	
 	/** 
+	 * Escapes special characters in a string for use in an SQL statement, 
+	 * taking into account the current charset of the connection
+	 */ 
+	public function escape_string($string) {}
+	
+	/** 
 	 * Overridden by specific DB class
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * $query - SQL query WITHOUT any user-entered parameters. Replace parameters with "?" 
