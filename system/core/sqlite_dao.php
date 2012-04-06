@@ -39,11 +39,11 @@ class SQLite_DAO extends Base_DAO {
 	 * Escapes special characters in a string for use in an SQL statement, 
 	 * taking into account the current charset of the connection
 	 */ 
-	public function escape_string($string) { 
+	public function escape($string) { 
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = "'".sqlite_escape_string($v)."'"; 
+			$string = "'".sqlite_escape_string($string)."'"; 
 		}
 		return $string; 
 	}

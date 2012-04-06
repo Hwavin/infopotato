@@ -37,11 +37,11 @@ class PostgreSQL_DAO extends Base_DAO {
 	 * Escapes special characters in a string for use in an SQL statement, 
 	 * taking into account the current charset of the connection
 	 */ 
-	public function escape_string($string) { 
+	public function escape($string) { 
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = isset($this->dbh) ? "'".pg_escape_string($this->dbh, $v)."'" : "'".addslashes($v)."'";
+			$string = isset($this->dbh) ? "'".pg_escape_string($this->dbh, $string)."'" : "'".addslashes($string)."'";
 		}
 		return $string; 
 	}

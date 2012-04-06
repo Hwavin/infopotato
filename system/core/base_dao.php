@@ -49,7 +49,7 @@ class Base_DAO {
 	 * Escapes special characters in a string for use in an SQL statement, 
 	 * taking into account the current charset of the connection
 	 */ 
-	public function escape_string($string) {}
+	public function escape($string) {}
 	
 	/** 
 	 * Overridden by specific DB class

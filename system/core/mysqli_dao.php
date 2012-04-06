@@ -50,11 +50,11 @@ class MySQLi_DAO extends Base_DAO {
 	 * Escapes special characters in a string for use in an SQL statement, 
 	 * taking into account the current charset of the connection
 	 */ 
-	public function escape_string($string) { 
+	public function escape($string) { 
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = isset($this->mysqli) ? "'".$this->mysqli->real_escape_string($v)."'" : "'".addslashes($v)."'"; 
+			$string = isset($this->mysqli) ? "'".$this->mysqli->real_escape_string($string)."'" : "'".addslashes($string)."'"; 
 		}
 		return $string; 
 	}
