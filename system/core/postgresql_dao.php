@@ -41,7 +41,7 @@ class PostgreSQL_DAO extends Base_DAO {
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = isset($this->dbh) ? "'".pg_escape_string($this->dbh, $string)."'" : "'".addslashes($string)."'";
+			$string = isset($this->dbh) ? pg_escape_string($this->dbh, $string) : addslashes($string);
 		}
 		return $string; 
 	}

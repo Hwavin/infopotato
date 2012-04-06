@@ -43,7 +43,7 @@ class SQLite_DAO extends Base_DAO {
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = "'".sqlite_escape_string($string)."'"; 
+			$string = sqlite_escape_string($string); 
 		}
 		return $string; 
 	}

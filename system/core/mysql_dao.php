@@ -57,7 +57,7 @@ class MySQL_DAO extends Base_DAO {
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = isset($this->dbh) ? "'".mysql_real_escape_string($string, $this->dbh)."'" : "'".addslashes($string)."'"; 
+			$string = isset($this->dbh) ? mysql_real_escape_string($string, $this->dbh) : addslashes($string); 
 		}
 		return $string; 
 	}

@@ -54,7 +54,7 @@ class MySQLi_DAO extends Base_DAO {
 		// Only quote and escape string
 		// is_string() will take '' will as string
 		if (is_string($string)) {
-			$string = isset($this->mysqli) ? "'".$this->mysqli->real_escape_string($string)."'" : "'".addslashes($string)."'"; 
+			$string = isset($this->mysqli) ? $this->mysqli->real_escape_string($string) : addslashes($string); 
 		}
 		return $string; 
 	}
