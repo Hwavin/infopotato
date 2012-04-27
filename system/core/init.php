@@ -91,7 +91,7 @@ function auto_load($class_name) {
         $file = APP_MANAGER_DIR.$class_name.'.php';
 		// Checks if app manager file exists, for debug
 	    if ( ! file_exists($file)) { 
-		    halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error', 404);
+		    halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
 	    }
     }
 
@@ -114,32 +114,7 @@ function auto_load($class_name) {
  * @param	int	the HTTP response status code
  * @return	string
  */
-function halt($heading, $message, $template = 'sys_error', $status_code = 404) {
-	if (isset($status_code)) {
-	    // HTTP status codes and messages
-	    $stati = array(
-		    400 => 'Bad Request',
-		    401 => 'Authorization Required',
-		    403 => 'Forbidden',
-			404 => 'Not Found',
-		    500 => 'Internal Server Error',
-	    );
-		
-		if (isset($stati[$status_code])) {
-		    $status_text = $stati[$status_code];
-	    }
-
-	    $server_protocol = (isset($_SERVER['SERVER_PROTOCOL'])) ? $_SERVER['SERVER_PROTOCOL'] : FALSE;
-
-	    if (substr(php_sapi_name(), 0, 3) == 'cgi') {
-		    header("Status: {$status_code} {$status_text}", TRUE);
-	    } elseif ($server_protocol == 'HTTP/1.1' || $server_protocol == 'HTTP/1.0') {
-		    header($server_protocol." {$status_code} {$status_text}", TRUE, $status_code);
-	    } else {
-		    header("HTTP/1.1 {$status_code} {$status_text}", TRUE, $status_code);
-	    }
-	}
-	
+function halt($heading, $message, $template = 'sys_error') {
 	if (ENVIRONMENT === 'development') {
         ob_start();
         require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
