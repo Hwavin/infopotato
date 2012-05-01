@@ -14,6 +14,13 @@ class Manager {
 	 * @var array   
      */
     protected $_POST_DATA = array();
+	
+	/**
+     * Key-value array of uploaded files info
+	 * 
+	 * @var array   
+     */
+    protected $_FILES_DATA = array();
 
 	/**
 	 * Constructor
@@ -29,10 +36,13 @@ class Manager {
 	 */
 	public function __construct() {
 		// The POST data can only be accessed in manager using $this->_POST_DATA
-		// The $_POST data is already sanitized by the dispatcher
+		// The uploaded files data can only be accessed in manager using $this->_FILES_DATA
+		// The $_POST and $_FILES are already sanitized by the dispatcher
 		$this->_POST_DATA = $_POST;
-		// Disable access to $_POST
+		$this->_FILES_DATA = $_FILES;
+		// Disable direct access to $_POST and $_FILES
 		unset($_POST);
+		unset($_FILES);
 	} 
 
 	/**

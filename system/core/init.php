@@ -17,6 +17,7 @@ unset($_REQUEST);
 // Normalizes all newlines to LF
 // NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
 // $_POST, $_COOKIE, $_FILES and $_ENV were affected
+// $FILES will only be set when the form is enctype="multipart/form-data" and action="post"
 $_POST = isset($_POST) ? sanitize($_POST) : array();
 $_FILES = isset($_FILES) ? sanitize($_FILES) : array();
 $_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
