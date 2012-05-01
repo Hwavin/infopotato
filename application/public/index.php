@@ -9,7 +9,7 @@
  * Define the application environment
  * Usage: development or production
  */
-define('ENVIRONMENT', 'production');
+define('ENVIRONMENT', 'development');
 
 /**
  * Set default time zone used by all date/time functions
@@ -61,7 +61,7 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
 /**
  * If cache the system core components to runtime files
  */
-define('SYS_RUNTIME_CACHE', TRUE);
+define('SYS_RUNTIME_CACHE', FALSE);
 
 /**
  * User-defined constants go here

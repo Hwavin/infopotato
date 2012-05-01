@@ -13,35 +13,14 @@ class Manager {
 	 * 
 	 * @var array   
      */
-    protected $_POST_DATA = array();
+    public $_POST_DATA = array();
 	
 	/**
      * Key-value array of uploaded files info
 	 * 
 	 * @var array   
      */
-    protected $_FILES_DATA = array();
-
-	/**
-	 * Constructor
-	 *
-	 * $_GET data is simply disallowed by InfoPotato since it utilizes URI segments rather than traditional URL query strings
-	 * 
-	 * Parent constructors are not implicitly called in derived manager classes
-	 * Must explicitly call parent::__construct() in derived managers to use $this->_POST_DATA and $this->_FILES_DATA
-	 *
-	 * @return	void
-	 */
-	public function __construct() {
-		// The POST data can only be accessed in manager using $this->_POST_DATA
-		// The uploaded files data can only be accessed in manager using $this->_FILES_DATA
-		// The $_POST and $_FILES are already sanitized by the dispatcher
-		$this->_POST_DATA = $_POST;
-		$this->_FILES_DATA = $_FILES;
-		// Disable direct access to $_POST and $_FILES
-		unset($_POST);
-		unset($_FILES);
-	} 
+    public $_FILES_DATA = array();
 
 	/**
 	 * Render template and return output as string
