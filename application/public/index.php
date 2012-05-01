@@ -4,10 +4,6 @@
  * This file is responsible for initializing the framework: loading files, reading configuration data, 
  * parsing the URI into actionable information, and populating the objects that encapsulate the request. 
  */
-/**
- * Define InfoPotato Version
- */
-define('INFOPOTATO_VERSION', '1.0.0');
 
 /**
  * Define the application environment

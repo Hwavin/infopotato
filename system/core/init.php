@@ -12,7 +12,8 @@ unset($_GET);
 unset($_REQUEST);
 
 // The POST data can only be accessed in manager using $this->_POST_DATA
-// $_COOKIE can be used by InfoPotato's Cookie class or your own Cookie process
+// The uploaded files data can only be accessed in manager using $this->_FILES_DATA
+// $_COOKIE can be used directly by InfoPotato's Cookie class or your own Cookie process 
 // Remove backslashes added by magic quotes and return the user's raw input
 // Normalizes all newlines to LF
 // NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
