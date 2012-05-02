@@ -172,16 +172,19 @@ function sanitize($value) {
 	} 
 	
 	if (is_string($value)) {	
-		// When Magic Quotes are on (it's on by default), 
-		// all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
-		// are escaped with a backslash automatically.
+		// Magic Quotes has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0.
 		// NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
 		// it will probably not exist in future versions at all.
-		if (get_magic_quotes_gpc()) {
-			// Remove backslashes added by magic quotes and return the user's raw input
-			$value = stripslashes($value);
-		} 
-
+		if (version_compare(PHP_VERSION, '5.4.0') == -1) {
+			// When Magic Quotes are on (it's on by default), 
+			// all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
+			// are escaped with a backslash automatically. This is identical to what addslashes() does.
+			if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
+				// Remove backslashes added by magic quotes and return the user's raw input
+				$value = stripslashes($value);
+			}
+		}
+		
 		if (strpos($value, "\r") !== FALSE) {
 			// Standardize newlines
 			$value = str_replace(array("\r\n", "\r"), "\n", $value);
