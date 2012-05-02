@@ -35,8 +35,14 @@ switch (ENVIRONMENT) {
     case 'development':
         // Show all errors, warnings and notices including coding standards
 		// Note: E_STRICT became part of E_ALL in PHP 5.4.0
-		// Same as error_reporting(E_ALL | E_STRICT);
-        ini_set('error_reporting', E_ALL | E_STRICT);
+		if (version_compare(PHP_VERSION, '5.4.0') == -1) {
+			// Same as error_reporting(E_ALL | E_STRICT);
+			ini_set('error_reporting', E_ALL | E_STRICT);
+		} else  {
+			ini_set('error_reporting', E_ALL);
+		}
+		
+		
         break;
 
     case 'production':
