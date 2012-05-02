@@ -172,9 +172,8 @@ function sanitize($value) {
 	} 
 	
 	if (is_string($value)) {	
-		// Magic Quotes has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0.
-		// NOTE: In PHP 5.4 get_magic_quotes_gpc() will always return 0 and
-		// it will probably not exist in future versions at all.
+		// NOTE: Magic Quotes has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0. 
+		// And it will probably not exist in future versions at all.
 		if (version_compare(PHP_VERSION, '5.4.0') == -1) {
 			// When Magic Quotes are on (it's on by default), 
 			// all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
