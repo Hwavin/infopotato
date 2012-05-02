@@ -234,15 +234,19 @@ function dispatch() {
 	$manager_obj = new $manager_class;
 
 	// The POST data can only be accessed in manager using $this->_POST_DATA
-	$manager_obj->_POST_DATA = isset($_POST) ? sanitize($_POST) : array();
-	// Disable direct access to $_POST
-	unset($_POST);
+	if (isset($_POST)) {
+		$manager_obj->_POST_DATA = sanitize($_POST);
+		// Disable direct access to $_POST
+		unset($_POST);
+	}
 
 	// The uploaded files data can only be accessed in manager using $this->_FILES_DATA
     // $FILES will only be set when the form is enctype="multipart/form-data" and action="post"
-	$manager_obj->_FILES_DATA = isset($_FILES) ? sanitize($_FILES) : array();
-	// Disable direct access to $_FILES
-	unset($_FILES);
+	if (isset(($_FILES)) {
+		$manager_obj->_FILES_DATA = sanitize(($_FILES);
+		// Disable direct access to $_FILES
+		unset(($_FILES);
+	}
 	
 	// Checks if the manager method exists
 	if ( ! method_exists($manager_obj, $real_method)) {
