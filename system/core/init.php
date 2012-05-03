@@ -1,4 +1,13 @@
 <?php
+/**
+ * Initial settings and global functions
+ *
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ */
+
 // Register given function as __autoload() implementation
 spl_autoload_register('auto_load');
 
@@ -41,12 +50,11 @@ switch (ENVIRONMENT) {
 		} else  {
 			ini_set('error_reporting', E_ALL);
 		}
-		
-		
         break;
 
     case 'production':
-	    // Same as error_reporting(0);
+	    // Turn off all error reporting
+		// Same as error_reporting(0);
 		ini_set('error_reporting', 0);
         break;
 
@@ -248,10 +256,10 @@ function dispatch() {
 
 	// The uploaded files data can only be accessed in manager using $this->_FILES_DATA
     // $FILES will only be set when the form is enctype="multipart/form-data" and action="post"
-	if (isset(($_FILES)) {
-		$manager_obj->_FILES_DATA = sanitize(($_FILES);
+	if (isset($_FILES)) {
+		$manager_obj->_FILES_DATA = sanitize($_FILES);
 		// Disable direct access to $_FILES
-		unset(($_FILES);
+		unset($_FILES);
 	}
 	
 	// Checks if the manager method exists
