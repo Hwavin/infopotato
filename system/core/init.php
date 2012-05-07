@@ -150,6 +150,8 @@ function dump($var, $force_type = '', $collapsed = FALSE) {
 }
 
 /**
+ * Returns a translated string if one is found; Otherwise, the submitted message.
+ * 
  * Translation/internationalization function. The PHP function
  * [strtr](http://php.net/strtr) is used for replacing parameters.
  *
