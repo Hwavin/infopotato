@@ -140,6 +140,9 @@ function halt($heading, $message, $template = 'sys_error') {
         if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
 			$uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
 			$output = file_get_contents($uri);
+			// To avoid soft 404, we need to send the 404 HTTP header status code 
+			// before outputing the custom 404 content
+			header('HTTP/1.1 404 Not Found');
 			echo $output;
 		}
         exit;
