@@ -59,6 +59,12 @@ define('APP_DEFAULT_MANAGER', 'home');
 define('APP_DEFAULT_MANAGER_METHOD', 'index');
 
 /**
+ * Error 404 manager/method to use
+ */
+define('APP_404_MANAGER', 'error');
+define('APP_404_MANAGER_METHOD', '404');
+
+/**
  * If cache the system core components to runtime files
  */
 define('SYS_RUNTIME_CACHE', FALSE);

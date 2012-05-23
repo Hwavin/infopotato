@@ -135,6 +135,13 @@ function halt($heading, $message, $template = 'sys_error') {
         echo $buffer;
         exit;
     }
+	// Display app specific 404 error message
+	if (ENVIRONMENT === 'production') {
+        $uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
+		$output = file_get_contents($uri);
+        echo $output;
+        exit;
+    }
 }
 
 /**
