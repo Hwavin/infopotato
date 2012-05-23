@@ -137,9 +137,11 @@ function halt($heading, $message, $template = 'sys_error') {
     }
 	// Display app specific 404 error message
 	if (ENVIRONMENT === 'production') {
-        $uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
-		$output = file_get_contents($uri);
-        echo $output;
+        if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
+			$uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
+			$output = file_get_contents($uri);
+			echo $output;
+		}
         exit;
     }
 }
