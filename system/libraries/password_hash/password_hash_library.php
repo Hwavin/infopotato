@@ -210,7 +210,9 @@ class Password_Hash_Library {
 	/**
 	 * Generate the hashed password
 	 *
-	 * @return	string
+	 * @param	string  The password limit should be set to 72 characters to prevent certain DoS attacks. 
+	 *
+	 * @return	string  The hash can never be less than 20 characters, so if it is then something went wrong during the encryption process.
 	 */
 	public function hash_password($password) {
 		$random = '';
