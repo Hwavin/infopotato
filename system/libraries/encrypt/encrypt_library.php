@@ -29,20 +29,12 @@ class Encrypt_Library {
 	/**
 	 * Fetch the encryption key
 	 *
-	 * Returns it as MD5 in order to have an exact-length 128 bit key.
-	 * Mcrypt is sensitive to keys that are not the correct length
-	 *
-	 * @param	string
 	 * @return	string
 	 */
-	public function get_key($key = '') {
-		if ($key == '') {
-			if ($this->_encryption_key != '') {
-				return $this->_encryption_key;
-			}
+	public function get_key() {
+		if ($this->_encryption_key != '') {
+			return $this->_encryption_key;
 		}
-
-		return md5($key);
 	}
 
 	
@@ -61,8 +53,8 @@ class Encrypt_Library {
 	 * @param	string	the key
 	 * @return	string
 	 */
-	public function encode($string, $key = '') {
-		$key = $this->get_key($key);
+	public function encode($string) {
+		$key = $this->get_key();
 		$enc = $this->_xor_encode($string, $key);
 		
 		if ($this->_mcrypt_exists === TRUE){
@@ -75,14 +67,13 @@ class Encrypt_Library {
 	/**
 	 * Decode
 	 *
-	 * Reverses the above process
+	 * Decrypts an encoded string
 	 *
-	 * @param	string
 	 * @param	string
 	 * @return	string
 	 */
-	public function decode($string, $key = '') {
-		$key = $this->get_key($key);
+	public function decode($string) {
+		$key = $this->get_key();
 		
 		if (preg_match('/[^a-zA-Z0-9\/\+=]/', $string)) {
 			return FALSE;
