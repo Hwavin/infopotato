@@ -31,8 +31,8 @@ class Password_Hash_Library {
 	/**
 	 * Constructor
 	 *
-	 * @param integer $config['iteration_count_log2'] 
-	 * @param boolean $config['portable_hashes'] 
+	 * @param integer $config['iteration_count_log2'] -- specifies the "base-2 logarithm of the iteration count used for password stretching"
+	 * @param boolean $config['portable_hashes'] -- specifies the use of portable hashes
 	 * 
 	 * If all your servers are running PHP 5.3 and above, 
 	 * it's recommended to turn off portable mode and let PHPass use bcrypt instead.
