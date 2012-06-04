@@ -1,69 +1,24 @@
 <?php
 /*
--- Option 1
+Redirection with delay
 ----------------------------------------------
 sleep(10);//seconds to wait..
 header("Location:http://www.domain.com");
-
--- Option 2
-----------------------------------------------
-//  refresh / redirect to an external web page
-//  ------------------------------------------
-header( 'refresh: 0; url=http://www.example.net' );
-echo '<h1>You won\'t know what hit you!</h1>';
 */
 
 /**
  * Redirect
+ * 
+ * The optional $http_response_code allows you to send a specific HTTP Response Code
+ * this could be used for example to create 301 redirects for search engine purposes
+ * The default Response Code is 302 Found - a common way of performing a redirection
  *
  * @param string $url the url to be redirected, must start with http://
- * @param integer $delay how many seconds to be delayed
- * @param boolean $js whether to return JavaScript code for redirection
- * @param boolean $js_wrapped whether to use <script> tag when returing JavaScript
- * @param boolean $return whether to return JavaScript code
+ * @param integer $http_response_code send a specific HTTP Response Code 
  */
-function redirect_function($url, $delay = 0, $js = FALSE, $js_wrapped = TRUE, $return = FALSE) {
-    if ( ! $js) {
-        if (headers_sent() || $delay > 0) {
-            echo <<<EOT
-				<html>
-				<head>
-				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta http-equiv="refresh" content="{$delay};url={$url}" />
-				</head>
-				<body>
-                Redirecting to <a href="{$url}">{$url}</a>.
-                </body>
-				</html>
-EOT;
-            exit;
-        } else {
-            header("Location: {$url}");
-            exit;
-        }
-    }
-
-    $out = '';
-    if ($js_wrapped) {
-        $out .= '<script language="JavaScript" type="text/javascript">';
-    }
-	
-    if ($delay > 0) {
-        $out .= "window.setTimeout(function () { document.location='{$url}'; }, {$delay});";
-    } else {
-        $out .= "document.location='{$url}';";
-    }
-	
-    if ($js_wrapped) {
-        $out .= '</script>';
-    }
-
-    if ($return) {
-        return $out;
-    }
-
-    echo $out;
-    exit;
+function redirect_function($uri = '', $http_response_code = 302) {
+	header("Location: ".$uri, TRUE, $http_response_code);
+	exit;
 }
 
 /* End of file: ./system/functions/redirect/redirect_function.php */

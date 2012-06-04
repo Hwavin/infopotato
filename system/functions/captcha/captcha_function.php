@@ -7,7 +7,6 @@
  * @param	string	path to create the image in
  * @param	string	URL to the CAPTCHA image folder
  * @param	string	server path to font
- * @link		http://codeigniter.com/user_guide/helpers/xml_helper.html
  * @return	string
  */
 function captcha_function($data = '', $img_path = '', $img_url = '', $font_path = '') {
