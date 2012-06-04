@@ -31,8 +31,11 @@ class Password_Hash_Library {
 	/**
 	 * Constructor
 	 *
-	 * 'iteration_count_log2'
-	 * 'portable_hashes'
+	 * @param integer $config['iteration_count_log2'] 
+	 * @param boolean $config['portable_hashes'] 
+	 * 
+	 * If all your servers are running PHP 5.3 and above, 
+	 * it's recommended to turn off portable mode and let PHPass use bcrypt instead.
 	 */
 	public function __construct(array $config = NULL) { 
 		if (count($config) > 0) {
