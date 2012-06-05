@@ -53,6 +53,7 @@ class Manager {
 			}
 
 			// Capture the rendered output
+			// Turn on output buffering
 			ob_start();
 			// NOTE: don't use require_once here.
 			// require_once will cause problem if the same sub template/element 
@@ -60,8 +61,10 @@ class Manager {
 			// will not include the sub template/element file again if it has already been included
 			// so only the first call can be rendered as a result of the use of require_once
 			require $template_file_path;
+			// Gets the contents of the output buffer
 			$content = ob_get_contents();
-		    ob_end_clean();
+			// Clean (erase) the output buffer and turn off output buffering
+			ob_end_clean();
 
 			return $content;
 		}	
