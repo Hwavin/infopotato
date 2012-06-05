@@ -8,13 +8,10 @@ header("Location:http://www.domain.com");
 
 /**
  * Redirect
- * 
- * The optional $http_response_code allows you to send a specific HTTP Response Code
  *
- * @param string $url the url to be redirected, must start with http://
- * @param integer $http_response_code send a specific HTTP Response Code 
+ * @param string $uri the uri to be redirected, must start with http://
  */
-function redirect_function($uri = '', $http_response_code = 301) {
+function redirect_function($uri) {
 	// The headers below ensure that the page is giving out headers that will not be cached
 	
 	// Date in the past
