@@ -367,7 +367,7 @@ class Session {
 		}
 		
 		// We store the expiration time for a session to allow for both normal and persistent sessions
-		if ($_SESSION['SESSION::type'] == 'persistent' && self::$_persistent_timespan) {
+		if ($_SESSION['SESSION::type'] === 'persistent' && self::$_persistent_timespan) {
 			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$_persistent_timespan;
 		} else {
 			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$_normal_timespan;	
@@ -492,14 +492,14 @@ class Session {
 	 * 
 	 * Standard session directories usually include `/tmp` and `/var/tmp`. 
 	 * 
-	 * Both of the timespan can accept either a integer timespan in seconds,
+	 * Both of the $normal_timespan and $persistent_timespan can accept either a integer timespan in seconds,
 	 * or an english description of a timespan (e.g. `'30 minutes'`, `'1 hour'`, `'1 day 2 hours'`).
 	 * 
 	 * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
 	 * across browser restarts, the static method ::enable_persistence() must be called when they log in.
 	 * 
 	 * @param  string $dir  The directory to store session files in
-	 * @param  string|integer $normal_timespan      The normal, session-based cookie, length for the session
+	 * @param  string|integer $normal_timespan      The normal (minimum), session-based cookie, length for the session
 	 * @param  string|integer $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
 	 * @return void
 	 */
