@@ -44,7 +44,7 @@ switch (ENVIRONMENT) {
     case 'development':
         // Show all errors, warnings and notices including coding standards
 		// Note: E_STRICT became part of E_ALL in PHP 5.4.0
-		if (version_compare(PHP_VERSION, '5.4.0') == -1) {
+		if (version_compare(PHP_VERSION, '5.4.0') === -1) {
 			// Same as error_reporting(E_ALL | E_STRICT);
 			ini_set('error_reporting', E_ALL | E_STRICT);
 		} else  {
@@ -202,7 +202,7 @@ function sanitize($value) {
 	if (is_string($value)) {	
 		// NOTE: Magic Quotes has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0. 
 		// And it will probably not exist in future versions at all.
-		if (version_compare(PHP_VERSION, '5.4.0') == -1) {
+		if (version_compare(PHP_VERSION, '5.4.0') === -1) {
 			// When Magic Quotes are on (it's on by default), 
 			// all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
 			// are escaped with a backslash automatically. This is identical to what addslashes() does.

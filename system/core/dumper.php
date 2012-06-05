@@ -217,7 +217,7 @@ class Dumper {
 				if (in_array(gettype($value), self::$arr_type)) {
 					self::check_type($value);
 				} else {
-					$value = (trim($value) == '') ? '[empty string]' : $value;
+					$value = (trim($value) === '') ? '[empty string]' : $value;
 					echo $value;
 				}
 				self::close_td_row();
@@ -239,7 +239,7 @@ class Dumper {
 		if (is_object($var)) {
 			$arr_obj_vars = get_object_vars($var);
 			foreach ($arr_obj_vars as $key => $value) {
-				$value = ( ! is_object($value) && ! is_array($value) && trim($value) == '') ? '[empty string]' : $value;
+				$value = ( ! is_object($value) && ! is_array($value) && trim($value) === '') ? '[empty string]' : $value;
 				self::make_td_header('object', $key);
 				
 				// Check for recursion
