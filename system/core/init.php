@@ -63,7 +63,7 @@ switch (ENVIRONMENT) {
 }
 
 /**
- * SPL Autoloading required core components
+ * SPL Autoloading required systen core components or app managers
  *
  * @param   string $class_name the class name we are trying to load
  * @return  void
@@ -72,7 +72,7 @@ function auto_load($class_name) {
     $class_name = strtolower($class_name);
 	
     // Create and use runtime files to speed up the parsing process for all the following requests
-    // Dispatcher and Manager class are required for all app request
+    // Init (loaded in entry point script) and Manager class are required for all app request
     $runtime_list = array(
         'manager', 
         'dumper', 
@@ -89,22 +89,41 @@ function auto_load($class_name) {
     );
 
     if (in_array($class_name, $runtime_list)) {
-        if (SYS_RUNTIME_CACHE === TRUE) {
-            // The runtime folder SYS_RUNTIME_DIR must be writable
-			$file = SYS_RUNTIME_DIR.'~'.$class_name.'.php';
+        $source_file = SYS_CORE_DIR.$class_name.'.php';
+		
+		// Checks if core component file exists
+	    if ( ! file_exists($source_file)) { 
+		    halt('An Error Was Encountered', "Missing core component file {$class_name}", 'sys_error');
+	    }
+		
+		if (RUNTIME_CACHE === TRUE) {
+            // The runtime folder must be writable
+			$file = SYS_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
             if ( ! file_exists($file)) {
                 // Return source with stripped comments and whitespace
-				file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.$class_name.'.php'));
+				file_put_contents($file, php_strip_whitespace($source_file));
             }
         } else {
-            $file = SYS_CORE_DIR.$class_name.'.php';
+            $file = $source_file;
         }
     } else {
-        $file = APP_MANAGER_DIR.$class_name.'.php';
-		// Checks if app manager file exists, for debug
-	    if ( ! file_exists($file)) { 
-		    halt('An Error Was Encountered', 'Manager file does not exist', 'sys_error');
+        $source_file = APP_MANAGER_DIR.$class_name.'.php';
+		
+		// Checks if app manager file exists
+	    if ( ! file_exists($source_file)) { 
+		    halt('An Error Was Encountered', "Manager file {$class_name} does not exist", 'sys_error');
 	    }
+		
+		if (RUNTIME_CACHE === TRUE) {
+            // The runtime folder must be writable
+			$file = APP_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
+            if ( ! file_exists($file)) {
+                // Return source with stripped comments and whitespace
+				file_put_contents($file, php_strip_whitespace($source_file));
+            }
+        } else {
+            $file = $source_file;
+        }
     }
 
 	// Using require_once() in the __autoload() function is redundant.  

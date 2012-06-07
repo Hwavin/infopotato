@@ -163,12 +163,28 @@ class Manager {
 		
 		// Data already loaded? silently skip
 		if ( ! isset($this->$alias)) {
-			$file_path = APP_DATA_DIR.$path.$data.'.php';
+			$source_file = APP_DATA_DIR.$path.$data.'.php';
 
-			if ( ! file_exists($file_path)) {
+			if ( ! file_exists($source_file)) {
 				halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
 			}
-			require_once $file_path;
+			
+			// Load stripped source when system runtime cache turned-on
+			// Otherwise load the origional source
+			if (RUNTIME_CACHE === TRUE) {
+				// Replace all directory separators with underscore
+				$temp_cache_name = str_replace(DS, '_', $path.$data);
+				// The runtime folder must be writable
+				$file = APP_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
+				if ( ! file_exists($file)) {
+					// Return source with stripped comments and whitespace
+					file_put_contents($file, php_strip_whitespace($source_file));
+				}
+			} else {
+				$file = $source_file;
+			}
+
+			require_once $file;
 
 			// Class name must be the same as the data name
 			if ( ! class_exists($data)) {
@@ -220,17 +236,39 @@ class Manager {
 		// Library already loaded? silently skip
 		if ( ! isset($this->$alias)) {
 			if ($scope === 'SYS') {
-				$file_path = SYS_LIBRARY_DIR.$path.$library.'.php';
+				$source_file = SYS_LIBRARY_DIR.$path.$library.'.php';
 			} elseif ($scope === 'APP') {
-				$file_path = APP_LIBRARY_DIR.$path.$library.'.php';
+				$source_file = APP_LIBRARY_DIR.$path.$library.'.php';
 			} else {
 				halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
 			}
 
-			if ( ! file_exists($file_path)) {
+			if ( ! file_exists($source_file)) {
 				halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
 			}
-			require_once $file_path;
+			
+			// Load stripped source when system runtime cache turned-on
+			// Otherwise load the origional source
+			if (RUNTIME_CACHE === TRUE) {
+				// Replace all directory separators with underscore
+				$temp_cache_name = str_replace(DS, '_', $path.$library);
+			
+				// The runtime cache folder must be writable
+				if ($scope === 'SYS') {
+					$file = SYS_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
+				} elseif ($scope === 'APP') {
+					$file = APP_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
+				}
+				
+				if ( ! file_exists($file)) {
+					// Return source with stripped comments and whitespace
+					file_put_contents($file, php_strip_whitespace($source_file));
+				}
+			} else {
+				$file = $source_file;
+			}
+
+			require_once $file;
 			
 			// Class name must be the same as the library name
 			if ( ! class_exists($library)) {
@@ -266,19 +304,41 @@ class Manager {
 		}
 
 		if ($scope === 'SYS') {
-			$file_path = SYS_FUNCTION_DIR.$path.$func.'.php';
+			$source_file = SYS_FUNCTION_DIR.$path.$func.'.php';
 		} elseif ($scope === 'APP') {
-			$file_path = APP_FUNCTION_DIR.$path.$func.'.php';
+			$source_file = APP_FUNCTION_DIR.$path.$func.'.php';
 		} else {
 			halt('A System Error Was Encountered', "The location of the functions folder must be specified, either 'SYS' or 'APP'", 'sys_error');
 		}
 
-		if ( ! file_exists($file_path)) {
+		if ( ! file_exists($source_file)) {
 			halt('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');		
 		}
+		
+		// Load stripped source when system runtime cache turned-on
+		// Otherwise load the origional source
+		if (RUNTIME_CACHE === TRUE) {
+			// Replace all directory separators with underscore
+			$temp_cache_name = str_replace(DS, '_', $path.$func);
+			
+			// The runtime cache folder must be writable
+			if ($scope === 'SYS') {
+				$file = SYS_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
+			} elseif ($scope === 'APP') {
+				$file = APP_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
+			}
+			
+			if ( ! file_exists($file)) {
+				// Return source with stripped comments and whitespace
+				file_put_contents($file, php_strip_whitespace($source_file));
+			}
+		} else {
+			$file = $source_file;
+		}
+
 		// The require_once() statement will check if the file has already been included, 
 		// and if so, not include (require) it again
-		require_once $file_path;
+		require_once $file;
 	}
 
 }
