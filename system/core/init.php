@@ -250,11 +250,21 @@ function dispatch() {
 	// Other methods like 'PUT' or 'DELETE' will be treated as 'GET'
 	$request_method = (isset($_SERVER['REQUEST_METHOD']) &&  $_SERVER['REQUEST_METHOD'] === 'POST') ? 'post' : 'get';
 	
-	// Get URI string based on PATH_INFO, if server doesn't support PATH_INFO, only the default manager runs
+	// Get URI string based on PATH_INFO
 	// The URI string in $_SERVER['PATH_INFO'] has already been decoded, like urldecode()
 	// It may contain UTF-8 characters beyond ASCII
-	$request_uri = isset($_SERVER['PATH_INFO']) ? trim($_SERVER['PATH_INFO'], '/') : '';
-
+	if (isset($_SERVER['PATH_INFO'])) {
+	    $request_uri = trim($_SERVER['PATH_INFO'], '/');
+	} elseif (isset($_SERVER['ORIG_PATH_INFO'])) {
+	    // Check for $_SERVER['ORIG_PATH_INFO'] when $_SERVER['PATH_INFO'] is absent
+		// When we use Apache mod_rewrite to hide index.php, the $_SERVER['PATH_INFO'] may be missing 
+		// but ORIG_PATH_INFO may be there with the information PATH_INFO was supposed to have
+		$request_uri = trim($_SERVER['ORIG_PATH_INFO'], '/');
+	} else {
+	    // When server doesn't support PATH_INFO nor ORIG_PATH_INFO, only the default manager runs
+		$request_uri = '';
+	}
+	
 	// Get the target manager/method/parameters
 	$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : array();
 	
