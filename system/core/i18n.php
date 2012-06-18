@@ -20,11 +20,11 @@
 class I18n {
 
 	/**
-	 * Target language: en/us, es/es, zh/cn, etc
+	 * Target language: en_us, es_es, zh_cn, etc
 	 * 
 	 * @var  string   
 	 */
-	public static $lang = 'en/us';
+	public static $lang = 'en_us';
 
 	/**
 	 * Cache of loaded languages
@@ -57,7 +57,7 @@ class I18n {
 	 * Returns the translation table for a given language.
 	 *
 	 *     // Get all defined Spanish messages
-	 *     $messages = I18n::load('zh/cn');
+	 *     $messages = I18n::load('zh_cn');
 	 *
 	 * @param   string   language to load
 	 * @return  array
@@ -70,15 +70,7 @@ class I18n {
 		// New translation table
 		$table = array();
 
-		// Is the lang in a sub-folder? If so, parse out the filename and path.
-		if (strpos($lang, '/') === FALSE) {
-			$path = '';
-		} else {
-			$path = str_replace('/', DS, pathinfo($lang, PATHINFO_DIRNAME)).DS;
-			$lang = substr(strrchr($lang, '/'), 1);	
-		}
-		
-		$file = APP_I18N_DIR.$path.$lang.'.php';
+		$file = APP_I18N_DIR.$lang.'.php';
 		if (file_exists($file)) {
 			$t = array();
 			// Merge the language strings into the sub table
