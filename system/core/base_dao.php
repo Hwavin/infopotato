@@ -54,14 +54,13 @@ class Base_DAO {
 	/** 
 	 * Overridden by specific DB class
 	 * USAGE: prepare( string $query [, array $params ] ) 
-	 * $query - SQL query WITHOUT any user-entered parameters. Replace parameters with "?" 
-	 *     e.g. $query = "SELECT date from history WHERE login = ?" 
+	 * The following directives can be used in the query format string:
+	 * %d (decimal integer)
+	 * %s (string)
+	 * %f (float)
 	 * $params - array of parameters 
 	 * 
-	 * Example: 
-	 *    prepare( "SELECT secret FROM db WHERE login = ?", array($login) );  
-	 *    prepare( "SELECT secret FROM db WHERE login = ? AND password = ?", array($login, $password) );  
-	 * That will result safe query to RDBMS with escaped $login and $password. 
+	 * @return string the prepared SQL query
 	 */ 
 	public function prepare($query, array $params = NULL) {} 
 	

@@ -22,7 +22,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	 */
 	public function __construct(array $config = array()) {
 		// If there is no existing database connection then try to connect
-		if ( ! $this->dbh) {
+		if ( ! is_resource($this->dbh)) {
 			if ( ! $this->dbh = pg_connect("host=$config['host'] port=$config['port'] user=$config['user'] password=$config['pass'] dbname=$config['name']", TRUE)) {
 				halt('An Error Was Encountered', 'Could not connect: '.pg_last_error($this->dbh), 'sys_error');
 			} 
@@ -38,10 +38,10 @@ class PostgreSQL_DAO extends Base_DAO {
 	 * taking into account the current charset of the connection
 	 */ 
 	public function escape($string) { 
-		// Only quote and escape string
-		// is_string() will take '' will as string
+		// Only escape string
+		// is_string() will take '' as string
 		if (is_string($string)) {
-			$string = isset($this->dbh) ? pg_escape_string($this->dbh, $string) : addslashes($string);
+			$string = pg_escape_string($this->dbh, $string);
 		}
 		return $string; 
 	}
@@ -49,21 +49,71 @@ class PostgreSQL_DAO extends Base_DAO {
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * The following directives can be used in the query format string:
-	 * %d (decimal number)
+	 * %d (decimal integer)
 	 * %s (string)
-	 *
-	 * Both %d and %s are to be left unquoted in the query string and they need an argument passed for them.
+	 * %f (float)
+	 * 
+	 * @return string the prepared SQL query
 	 */ 
 	public function prepare($query, array $params = NULL) { 
+		// All variables in $params must be set before being passed to this function
+		// if any variables are not set (will be NULL) will cause error in SQL
 		if (count($params) > 0) { 			
-			foreach ($params as $k => $v) { 
-				// Only quote and escape string
-				if (is_string($v)) {
-				    $params[$k] = isset($this->dbh) ? "'".pg_escape_string($this->dbh, $v)."'" : "'".addslashes($v)."'";
-                }					
-			} 	
-			// vsprintf - replacing all %d and %s to parameters 
-			$query = vsprintf($query, $params);    
+			$pos_list = array();
+			$pos_adj = 0;
+
+			$bind_types = array('%s', '%d', '%f');
+
+			foreach ($bind_types as $type) {
+				$last_pos = 0;
+				while (($pos = strpos($query, $type, $last_pos)) !== FALSE) {
+					$last_pos = $pos + 1;
+					if (isset($pos_list[$pos]) && strlen($pos_list[$pos]) > strlen($type)) {
+						continue;
+					}
+					$pos_list[$pos] = $type;
+				}
+			}
+			
+			// By default $pos_list is ordered by the position of %s, %d, %f in the query
+			// We need to reorder $pos_list so that it will be ordered by the key (position) from small to big
+			ksort($pos_list);
+
+			foreach ($pos_list as $pos => $type) {
+				$type_length = strlen($type);
+
+				$arg = array_shift($params);
+
+				if ($type === '%s') {
+					// Only single quote and escape string
+				    // is_string() will take '' as string
+					if (is_string($arg)) {
+						$arg = "'".$this->escape($arg)."'";
+					} else {
+						halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
+					}
+				} elseif ($type === '%d') {
+					if (is_int($arg)) {
+						// Format the variable into a valid integer
+						intval($arg);
+					} else {
+						halt('An Error Was Encountered', 'The binding value for %d must be an integer', 'sys_error');
+					}
+				} elseif ($type === '%f') {
+					if (is_float($arg)) {
+						// Format the variable into a valid float
+						floatval($arg);
+					} else {
+						halt('An Error Was Encountered', 'The binding value for %f must be a float', 'sys_error');
+					}
+				} else {
+					halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
+				}
+
+				$query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
+				// Adjust the start offset for next replace
+				$pos_adj += strlen($arg) - ($type_length);
+			}
 		} 
 		return $query; 
 	} 
