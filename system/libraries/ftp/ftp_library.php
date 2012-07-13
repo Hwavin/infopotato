@@ -79,19 +79,19 @@ class FTP_Library {
 		}
 		
 		if (($this->conn_id = @ftp_connect($this->hostname, $this->port)) === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_connect');
 			}
 		}
 		
 		if ( ! $this->_login()) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_login');
 			}
 		}
 		
 		// Set passive mode if needed
-		if ($this->passive == TRUE) {
+		if ($this->passive === TRUE) {
 			ftp_pasv($this->conn_id, TRUE);
 		}
 	}
@@ -114,7 +114,7 @@ class FTP_Library {
 	 */
 	private function _is_conn() {
 		if ( ! is_resource($this->conn_id)) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_no_connection');
 			}
 			return FALSE;
@@ -137,14 +137,14 @@ class FTP_Library {
 	 * @return	bool
 	 */
 	public function changedir($path = '', $supress_debug = FALSE) {
-		if ($path == '' || ! $this->_is_conn()) {
+		if ($path === '' || ! $this->_is_conn()) {
 			return FALSE;
 		}
 
 		$result = @ftp_chdir($this->conn_id, $path);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE && $supress_debug == FALSE) {
+			if ($this->debug === TRUE && $supress_debug === FALSE) {
 				$this->_error('ftp_unable_to_changedir');
 			}
 			return FALSE;
@@ -161,14 +161,14 @@ class FTP_Library {
 	 * @return	bool
 	 */
 	public function mkdir($path = '', $permissions = NULL) {
-		if ($path == '' || ! $this->_is_conn()) {
+		if ($path === '' || ! $this->_is_conn()) {
 			return FALSE;
 		}
 
 		$result = @ftp_mkdir($this->conn_id, $path);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_makdir');
 			}
 			return FALSE;
@@ -208,12 +208,12 @@ class FTP_Library {
 			$mode = $this->_settype($ext);
 		}
 
-		$mode = ($mode == 'ascii') ? FTP_ASCII : FTP_BINARY;
+		$mode = ($mode === 'ascii') ? FTP_ASCII : FTP_BINARY;
 
 		$result = @ftp_put($this->conn_id, $rempath, $locpath, $mode);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_upload');
 			}
 			return FALSE;
@@ -248,12 +248,12 @@ class FTP_Library {
 			$mode = $this->_settype($ext);
 		}
 
-		$mode = ($mode == 'ascii') ? FTP_ASCII : FTP_BINARY;
+		$mode = ($mode === 'ascii') ? FTP_ASCII : FTP_BINARY;
 
 		$result = @ftp_get($this->conn_id, $locpath, $rempath, $mode);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_download');
 			}
 			return FALSE;
@@ -279,8 +279,8 @@ class FTP_Library {
 		$result = @ftp_rename($this->conn_id, $old_file, $new_file);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
-				$msg = ($move == FALSE) ? 'ftp_unable_to_rename' : 'ftp_unable_to_move';
+			if ($this->debug === TRUE) {
+				$msg = ($move === FALSE) ? 'ftp_unable_to_rename' : 'ftp_unable_to_move';
 
 				$this->_error($msg);
 			}
@@ -317,7 +317,7 @@ class FTP_Library {
 		$result = @ftp_delete($this->conn_id, $filepath);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_delete');
 			}
 			return FALSE;
@@ -357,7 +357,7 @@ class FTP_Library {
 		$result = @ftp_rmdir($this->conn_id, $filepath);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_delete');
 			}
 			return FALSE;
@@ -381,7 +381,7 @@ class FTP_Library {
 
 		// Permissions can only be set when running PHP 5
 		if ( ! function_exists('ftp_chmod')) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_chmod');
 			}
 			return FALSE;
@@ -390,7 +390,7 @@ class FTP_Library {
 		$result = @ftp_chmod($this->conn_id, $perm, $path);
 
 		if ($result === FALSE) {
-			if ($this->debug == TRUE) {
+			if ($this->debug === TRUE) {
 				$this->_error('ftp_unable_to_chmod');
 			}
 			return FALSE;
