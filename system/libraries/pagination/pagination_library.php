@@ -127,11 +127,11 @@ class Pagination_Library {
 		    }
 		
 		    for ($i = 1; $i <= $this->_pagination_data['num_pages']; $i++) {
-			    if ($this->_pagination_data['range'][0] > 2 && $i == $this->_pagination_data['range'][0]) {
+			    if ($this->_pagination_data['range'][0] > 2 && $i === $this->_pagination_data['range'][0]) {
 				    $output .= '...';
 			    }
 			
-			    if ($i == 1 || $i == $this->_pagination_data['num_pages'] || in_array($i, $this->_pagination_data['range'])) {
+			    if ($i == 1 || $i === $this->_pagination_data['num_pages'] || in_array($i, $this->_pagination_data['range'])) {
 				    if ($i === $this->_pagination_data['current_page']) {
 					    $output .= '<span class="'.$this->_pagination_data['current_page_class'].'">'.$i.'</span>'; 
 				    } else {
@@ -139,12 +139,12 @@ class Pagination_Library {
 				    }
 			    }
 			
-			    if ($this->_pagination_data['range'][$this->_pagination_data['mid_range']-1] < $this->_pagination_data['num_pages']-1 && $i == $this->_pagination_data['range'][$this->_pagination_data['mid_range']-1]) {
+			    if ($this->_pagination_data['range'][$this->_pagination_data['mid_range']-1] < $this->_pagination_data['num_pages']-1 && $i === $this->_pagination_data['range'][$this->_pagination_data['mid_range']-1]) {
 				    $output .= '...';
 			    }
 		    }
 		
-		    if ($this->_pagination_data['current_page'] != $this->_pagination_data['num_pages']) {
+		    if ($this->_pagination_data['current_page'] !== $this->_pagination_data['num_pages']) {
 			    $output .= '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['next_page'].'">&raquo;</a>'; 
 		    }
 		} 
