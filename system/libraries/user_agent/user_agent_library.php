@@ -388,13 +388,13 @@ class User_Agent_Library {
 	 * @return	void
 	 */			
 	private function _set_languages() {
-		if ((count($this->languages) == 0) && isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && $_SERVER['HTTP_ACCEPT_LANGUAGE'] != '') {
+		if ((count($this->languages) === 0) && isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && $_SERVER['HTTP_ACCEPT_LANGUAGE'] !== '') {
 			$languages = preg_replace('/(;q=[0-9\.]+)/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_LANGUAGE'])));
 			
 			$this->languages = explode(',', $languages);
 		}
 		
-		if (count($this->languages) == 0) {
+		if (count($this->languages) === 0) {
 			$this->languages = array('Undefined');
 		}	
 	}
@@ -406,7 +406,7 @@ class User_Agent_Library {
 	 * @return	void
 	 */			
 	private function _set_charsets() {	
-		if ((count($this->charsets) == 0) && isset($_SERVER['HTTP_ACCEPT_CHARSET']) && $_SERVER['HTTP_ACCEPT_CHARSET'] != '') {
+		if ((count($this->charsets) === 0) && isset($_SERVER['HTTP_ACCEPT_CHARSET']) && $_SERVER['HTTP_ACCEPT_CHARSET'] !== '') {
 			$charsets = preg_replace('/(;q=.+)/i', '', strtolower(trim($_SERVER['HTTP_ACCEPT_CHARSET'])));
 			
 			$this->charsets = explode(',', $charsets);
@@ -564,7 +564,7 @@ class User_Agent_Library {
 	 * @return	array
 	 */			
 	public function languages() {
-		if (count($this->languages) == 0) {
+		if (count($this->languages) === 0) {
 			$this->_set_languages();
 		}
 	
@@ -578,7 +578,7 @@ class User_Agent_Library {
 	 * @return	array
 	 */			
 	public function charsets() {
-		if (count($this->charsets) == 0) {
+		if (count($this->charsets) === 0) {
 			$this->_set_charsets();
 		}
 	
