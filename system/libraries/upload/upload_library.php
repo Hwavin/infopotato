@@ -8,6 +8,12 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Upload_Library {
+	/**
+	 * Key-value array of HTTP FILES parameters to be validated
+	 * 
+	 * @var array
+	 */
+	private $_files = array();	
 	
 	/**
 	 * The maximum size (in kilobytes) that the file can be. Set to zero for no limit.
@@ -134,6 +140,9 @@ class Upload_Library {
 	 */
 	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
+			// Assign the $this->_FILES_DATA array
+		    $this->_files = $config['files'];
+			
 			$default_vars = array(
 				'max_size' => 0,
 				'max_width'	=> 0,
@@ -199,8 +208,8 @@ class Upload_Library {
 	 * @return	bool
 	 */	
 	public function run($field = 'userfile') {
-		// Is $_FILES[$field] set? If not, no reason to continue.
-		if ( ! isset($_FILES[$field])) {
+		// Is $this->_files[$field] set? If not, no reason to continue.
+		if ( ! isset($this->_files[$field])) {
 			$this->_set_error('upload_no_file_selected');
 			return FALSE;
 		}
@@ -212,8 +221,8 @@ class Upload_Library {
 		}
 
 		// Was the file able to be uploaded? If not, determine the reason why.
-		if ( ! is_uploaded_file($_FILES[$field]['tmp_name'])) {
-			$error = ( ! isset($_FILES[$field]['error'])) ? 4 : $_FILES[$field]['error'];
+		if ( ! is_uploaded_file($this->_files[$field]['tmp_name'])) {
+			$error = ( ! isset($this->_files[$field]['error'])) ? 4 : $this->_files[$field]['error'];
 
 			switch($error) {
 				case 1:	// UPLOAD_ERR_INI_SIZE
@@ -252,11 +261,11 @@ class Upload_Library {
 		}
 
 		// Set the uploaded data as class variables
-		$this->file_temp = $_FILES[$field]['tmp_name'];
-		$this->file_size = $_FILES[$field]['size'];			
-		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $_FILES[$field]['type']);
+		$this->file_temp = $this->_files[$field]['tmp_name'];
+		$this->file_size = $this->_files[$field]['size'];			
+		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->_files[$field]['type']);
 		$this->file_type = strtolower(trim(stripslashes($this->file_type), '"'));
-		$this->file_name = $this->_prep_filename($_FILES[$field]['name']);
+		$this->file_name = $this->_prep_filename($this->_files[$field]['name']);
 		$this->file_ext	 = $this->get_extension($this->file_name);
 		
 		// Is the file type allowed to be uploaded?
@@ -266,7 +275,7 @@ class Upload_Library {
 		}
 		
 		// if we're overriding, let's now make sure the new name and type is allowed
-		if ($this->file_name_override != '') {
+		if ($this->file_name_override !== '') {
 			$this->file_name = $this->_prep_filename($this->file_name_override);
 
 			// If no extension was provided in the file_name config item, use the uploaded one
@@ -274,7 +283,7 @@ class Upload_Library {
 				$this->file_name .= $this->file_ext;
 			} else {
 				// An extension was provided, lets have it!
-				$this->file_ext	 = $this->get_extension($this->file_name_override);
+				$this->file_ext = $this->get_extension($this->file_name_override);
 			}
 
 			if ( ! $this->is_allowed_filetype(TRUE)) {
@@ -310,7 +319,7 @@ class Upload_Library {
 		}
 
 		// Remove white spaces in the name
-		if ($this->remove_spaces == TRUE) {
+		if ($this->remove_spaces === TRUE) {
 			$this->file_name = preg_replace("/\s+/", "_", $this->file_name);
 		}
 
@@ -322,7 +331,7 @@ class Upload_Library {
 		 */
 		$this->orig_name = $this->file_name;
 
-		if ($this->overwrite == FALSE) {
+		if ($this->overwrite === FALSE) {
 			$this->file_name = $this->set_filename($this->upload_path, $this->file_name);
 			
 			if ($this->file_name === FALSE) {
@@ -396,7 +405,7 @@ class Upload_Library {
 	 * @return	string
 	 */	
 	public function set_filename($path, $filename) {
-		if ($this->encrypt_name == TRUE) {		
+		if ($this->encrypt_name === TRUE) {		
 			mt_srand();
 			$filename = md5(uniqid(mt_rand())).$this->file_ext;	
 		}
@@ -415,7 +424,7 @@ class Upload_Library {
 			}
 		}
 
-		if ($new_filename == '') {
+		if ($new_filename === '') {
 			$this->_set_error('upload_bad_filename');
 			return FALSE;
 		} else {
@@ -486,11 +495,11 @@ class Upload_Library {
 	 * @return	bool
 	 */	
 	public function is_allowed_filetype($ignore_mime = FALSE) {
-		if ($this->allowed_types == '*') {
+		if ($this->allowed_types === '*') {
 			return TRUE;
 		}
 		
-		if (count($this->allowed_types) == 0 || ! is_array($this->allowed_types)) {
+		if (count($this->allowed_types) === 0 || ! is_array($this->allowed_types)) {
 			$this->_set_error('upload_no_file_types');
 			return FALSE;
 		}
@@ -520,7 +529,7 @@ class Upload_Library {
 			if (in_array($this->file_type, $mime, TRUE)) {
 				return TRUE;
 			}
-		} elseif ($mime == $this->file_type) {
+		} elseif ($mime === $this->file_type) {
 			return TRUE;
 		}
 
@@ -534,7 +543,7 @@ class Upload_Library {
 	 * @return	bool
 	 */	
 	public function is_allowed_filesize() {
-		if ($this->max_size != 0  &&  $this->file_size > $this->max_size) {
+		if ($this->max_size !== 0  &&  $this->file_size > $this->max_size) {
 			return FALSE;
 		} else {
 			return TRUE;
@@ -553,13 +562,13 @@ class Upload_Library {
 		}
 
 		if (function_exists('getimagesize')) {
-			$D = @getimagesize($this->file_temp);
+			$dimensions = @getimagesize($this->file_temp);
 
-			if ($this->max_width > 0 && $D['0'] > $this->max_width) {
+			if ($this->max_width > 0 && $dimensions['0'] > $this->max_width) {
 				return FALSE;
 			}
 
-			if ($this->max_height > 0 && $D['1'] > $this->max_height) {
+			if ($this->max_height > 0 && $dimensions['1'] > $this->max_height) {
 				return FALSE;
 			}
 
@@ -578,7 +587,7 @@ class Upload_Library {
 	 * @return	bool
 	 */	
 	public function validate_upload_path() {
-		if ($this->upload_path == '') {
+		if ($this->upload_path === '') {
 			$this->_set_error('upload_no_filepath');
 			return FALSE;
 		}
@@ -771,8 +780,8 @@ class Upload_Library {
 			'rpm'	=>	'audio/x-pn-realaudio-plugin',
 			'ra'	=>	'audio/x-realaudio',
 			'rv'	=>	'video/vnd.rn-realvideo',
-			'wav'	=>	'audio/x-wav',
-			'bmp'	=>	'image/bmp',
+			'wav'	=>	array('audio/x-wav', 'audio/wave', 'audio/wav'),
+			'bmp'	=>	array('image/bmp', 'image/x-windows-bmp'),
 			'gif'	=>	'image/gif',
 			'jpeg'	=>	array('image/jpeg', 'image/pjpeg'),
 			'jpg'	=>	array('image/jpeg', 'image/pjpeg'),
@@ -799,11 +808,12 @@ class Upload_Library {
 			'avi'	=>	'video/x-msvideo',
 			'movie'	=>	'video/x-sgi-movie',
 			'doc'	=>	'application/msword',
-			'docx'	=>	'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			'xlsx'	=>	'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'docx'	=>	array('application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip'),
+			'xlsx'	=>	array('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/zip'),
 			'word'	=>	array('application/msword', 'application/octet-stream'),
 			'xl'	=>	'application/excel',
-			'eml'	=>	'message/rfc822'
+			'eml'	=>	'message/rfc822',
+			'json'  => array('application/json', 'text/json')
 		);
 
 		return ( ! isset($mimes[$mime])) ? FALSE : $mimes[$mime];
@@ -838,7 +848,7 @@ class Upload_Library {
 
 		// file name override, since the exact name is provided, no need to
 		// run it through a $this->mimes check.
-		if ($this->file_name != '') {
+		if ($this->file_name !== '') {
 			$filename = $this->file_name;
 		}
 
