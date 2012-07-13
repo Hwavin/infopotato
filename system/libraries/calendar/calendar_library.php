@@ -139,23 +139,23 @@ class Calendar_Library {
 	 */
 	public function generate($year = '', $month = '', array $data = NULL) {
 		// Set and validate the supplied month/year
-		if ($year == '') {
+		if ($year === '') {
 			$year  = date('Y', $this->local_time);
 		}	
 		
-		if ($month == '') {
+		if ($month === '') {
 			$month = date('m', $this->local_time);
 		}	
 		
- 		if (strlen($year) == 1) {
+ 		if (strlen($year) === 1) {
 			$year = '200'.$year;
 		}
 		
- 		if (strlen($year) == 2) {
+ 		if (strlen($year) === 2) {
 			$year = '20'.$year;
         }
 		
- 		if (strlen($month) == 1) {
+ 		if (strlen($month) === 1) {
 			$month = '0'.$month;
 		}
 		
@@ -186,7 +186,7 @@ class Calendar_Library {
 		$cur_month	= date("m", $this->local_time);
 		$cur_day	= date("j", $this->local_time);
 		
-		$is_current_month = ($cur_year == $year && $cur_month == $month) ? TRUE : FALSE;
+		$is_current_month = ($cur_year === $year && $cur_month === $month) ? TRUE : FALSE;
 	
 		// Generate the template data array
 		$this->parse_template();
@@ -200,7 +200,7 @@ class Calendar_Library {
 		$out .= "\n";
 		
 		// "previous" month link
-		if ($this->show_next_prev == TRUE) {
+		if ($this->show_next_prev === TRUE) {
 			// Add a trailing slash to the  URL if needed
 			$this->next_prev_url = preg_replace("/(.+?)\/*$/", "\\1/",  $this->next_prev_url);
 		
@@ -210,7 +210,7 @@ class Calendar_Library {
 		}
 
 		// Heading containing the month/year
-		$colspan = ($this->show_next_prev == TRUE) ? 5 : 7;
+		$colspan = ($this->show_next_prev === TRUE) ? 5 : 7;
 		
 		$this->temp['heading_title_cell'] = str_replace('{colspan}', $colspan, $this->temp['heading_title_cell']);
 		$this->temp['heading_title_cell'] = str_replace('{heading}', $this->get_month_name($month)."&nbsp;".$year, $this->temp['heading_title_cell']);
@@ -219,7 +219,7 @@ class Calendar_Library {
 		$out .= "\n";
 
 		// "next" month link
-		if ($this->show_next_prev == TRUE) {		
+		if ($this->show_next_prev === TRUE) {		
 			$adjusted_date = $this->adjust_date($month + 1, $year);
 			$out .= str_replace('{next_url}', $this->next_prev_url.$adjusted_date['year'].'/'.$adjusted_date['month'], $this->temp['heading_next_cell']);
 		}
@@ -250,16 +250,16 @@ class Calendar_Library {
 			$out .= "\n";
 
 			for ($i = 0; $i < 7; $i++) {
-				$out .= ($is_current_month == TRUE && $day == $cur_day) ? $this->temp['cal_cell_start_today'] : $this->temp['cal_cell_start'];
+				$out .= ($is_current_month === TRUE && $day === $cur_day) ? $this->temp['cal_cell_start_today'] : $this->temp['cal_cell_start'];
 			
 				if ($day > 0 && $day <= $total_days) { 					
 					if (isset($data[$day])) {	
 						// Cells with content
-						$temp = ($is_current_month == TRUE && $day == $cur_day) ? $this->temp['cal_cell_content_today'] : $this->temp['cal_cell_content'];
+						$temp = ($is_current_month === TRUE && $day === $cur_day) ? $this->temp['cal_cell_content_today'] : $this->temp['cal_cell_content'];
 						$out .= str_replace('{day}', $day, str_replace('{content}', $data[$day], $temp));
 					} else {
 						// Cells with no content
-						$temp = ($is_current_month == TRUE && $day == $cur_day) ? $this->temp['cal_cell_no_content_today'] : $this->temp['cal_cell_no_content'];
+						$temp = ($is_current_month === TRUE && $day === $cur_day) ? $this->temp['cal_cell_no_content_today'] : $this->temp['cal_cell_no_content'];
 						$out .= str_replace('{day}', $day, $temp);
 					}
 				} else {
@@ -267,7 +267,7 @@ class Calendar_Library {
 					$out .= $this->temp['cal_cell_blank'];
 				}
 				
-				$out .= ($is_current_month == TRUE && $day == $cur_day) ? $this->temp['cal_cell_end_today'] : $this->temp['cal_cell_end'];					  	
+				$out .= ($is_current_month === TRUE && $day === $cur_day) ? $this->temp['cal_cell_end_today'] : $this->temp['cal_cell_end'];					  	
 				$day++;
 			}
 			
@@ -292,7 +292,7 @@ class Calendar_Library {
 	 * @return	string
 	 */
 	public function get_month_name($month) {
-		if ($this->month_type == 'short') {
+		if ($this->month_type === 'short') {
 			$month_names = array('01' => 'cal_jan', '02' => 'cal_feb', '03' => 'cal_mar', '04' => 'cal_apr', '05' => 'cal_may', '06' => 'cal_jun', '07' => 'cal_jul', '08' => 'cal_aug', '09' => 'cal_sep', '10' => 'cal_oct', '11' => 'cal_nov', '12' => 'cal_dec');
 		} else {
 			$month_names = array('01' => 'cal_january', '02' => 'cal_february', '03' => 'cal_march', '04' => 'cal_april', '05' => 'cal_mayl', '06' => 'cal_june', '07' => 'cal_july', '08' => 'cal_august', '09' => 'cal_september', '10' => 'cal_october', '11' => 'cal_november', '12' => 'cal_december');
@@ -317,13 +317,13 @@ class Calendar_Library {
 	 * @return	array
 	 */
 	public function get_day_names($day_type = '') {
-		if ($day_type != '') {
+		if ($day_type !== '') {
 			$this->day_type = $day_type;
 	    }
 		
-		if ($this->day_type == 'long') {
+		if ($this->day_type === 'long') {
 			$day_names = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
-		} elseif ($this->day_type == 'short') {
+		} elseif ($this->day_type === 'short') {
 			$day_names = array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat');
 		} else {
 			$day_names = array('su', 'mo', 'tu', 'we', 'th', 'fr', 'sa');
@@ -439,7 +439,7 @@ class Calendar_Library {
  	public function parse_template() {
 		$this->temp = $this->default_template();
  	
- 		if ($this->template == '') {
+ 		if ($this->template === '') {
  			return;
  		}
  		
