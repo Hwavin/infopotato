@@ -32,7 +32,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	public function get_key() {
-		if ($this->_encryption_key != '') {
+		if ($this->_encryption_key !== '') {
 			return $this->_encryption_key;
 		}
 	}
@@ -279,7 +279,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _get_cipher() {
-		if ($this->_mcrypt_cipher == '') {
+		if ($this->_mcrypt_cipher === '') {
 			$this->_mcrypt_cipher = MCRYPT_RIJNDAEL_256;
 		}
 
@@ -293,7 +293,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _get_mode() {
-		if ($this->_mcrypt_mode == '') {
+		if ($this->_mcrypt_mode === '') {
 			$this->_mcrypt_mode = MCRYPT_MODE_ECB;
 		}
 		
@@ -308,7 +308,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	public function set_hash($type = 'sha1') {
-		$this->_hash_type = ($type != 'sha1' && $type != 'md5') ? 'sha1' : $type;
+		$this->_hash_type = ($type !== 'sha1' && $type !== 'md5') ? 'sha1' : $type;
 	}
 
 
@@ -319,7 +319,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */	
 	public function hash($str) {
-		return ($this->_hash_type == 'sha1') ? sha1($str) : md5($str);
+		return ($this->_hash_type === 'sha1') ? sha1($str) : md5($str);
 	}
 
 }
