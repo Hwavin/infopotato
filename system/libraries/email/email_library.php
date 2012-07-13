@@ -191,8 +191,8 @@ class Email_Library {
 	 */
 	private	$_base_charsets	= array('us-ascii', 'iso-2022-');
 
-	private $_bit_depths	= array('7bit', '8bit');
-	private	$_priorities	= array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
+	private $_bit_depths = array('7bit', '8bit');
+	private	$_priorities = array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
 
 
 	/**
@@ -215,10 +215,10 @@ class Email_Library {
 			}
 			$this->clear();
 
-			$this->_smtp_auth = ($this->smtp_user == '' && $this->smtp_pass == '') ? FALSE : TRUE;
+			$this->_smtp_auth = ($this->smtp_user === '' && $this->smtp_pass === '') ? FALSE : TRUE;
 			$this->_safe_mode = ((boolean)@ini_get("safe_mode") === FALSE) ? FALSE : TRUE;
 		} else {
-			$this->_smtp_auth = ($this->smtp_user == '' && $this->smtp_pass == '') ? FALSE : TRUE;
+			$this->_smtp_auth = ($this->smtp_user === '' && $this->smtp_pass === '') ? FALSE : TRUE;
 			$this->_safe_mode = ((boolean)@ini_get("safe_mode") === FALSE) ? FALSE : TRUE;
 		}
 	}
@@ -307,7 +307,7 @@ class Email_Library {
 			$this->validate_email($this->_str_to_array($replyto));
 		}
 
-		if ($name == '') {
+		if ($name === '') {
 			$name = $replyto;
 		}
 
@@ -337,7 +337,7 @@ class Email_Library {
 			$this->validate_email($to);
 		}
 
-		if ($this->_get_protocol() != 'mail') {
+		if ($this->_get_protocol() !== 'mail') {
 			$this->_set_header('To', implode(", ", $to));
 		}
 
@@ -373,7 +373,7 @@ class Email_Library {
 
 		$this->_set_header('Cc', implode(", ", $cc));
 
-		if ($this->_get_protocol() == 'smtp') {
+		if ($this->_get_protocol() === 'smtp') {
 			$this->_cc_array = $cc;
 		}
 
@@ -390,7 +390,7 @@ class Email_Library {
 	 * @return	void
 	 */
 	public function bcc($bcc, $limit = '') {
-		if ($limit != '' && is_numeric($limit)) {
+		if ($limit !== '' && is_numeric($limit)) {
 			$this->bcc_batch_mode = TRUE;
 			$this->bcc_batch_size = $limit;
 		}
@@ -402,7 +402,7 @@ class Email_Library {
 			$this->validate_email($bcc);
 		}
 
-		if (($this->_get_protocol() == 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
+		if (($this->_get_protocol() === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
 			$this->_bcc_array = $bcc;
 		} else {
 			$this->_set_header('Bcc', implode(", ", $bcc));
@@ -517,7 +517,7 @@ class Email_Library {
 	 * @return	void
 	 */
 	public function set_mailtype($type = 'text') {
-		$this->mailtype = ($type == 'html') ? 'html' : 'text';
+		$this->mailtype = ($type === 'html') ? 'html' : 'text';
 		return $this;
 	}
 
@@ -579,7 +579,7 @@ class Email_Library {
 	 * @return	void
 	 */
 	public function set_newline($newline = "\n") {
-		if ($newline != "\n" && $newline != "\r\n" && $newline != "\r") {
+		if ($newline !== "\n" && $newline !== "\r\n" && $newline !== "\r") {
 			$this->newline	= "\n";
 			return;
 		}
@@ -598,7 +598,7 @@ class Email_Library {
 	 * @return	void
 	 */
 	public function set_crlf($crlf = "\n") {
-		if ($crlf != "\n" && $crlf != "\r\n" && $crlf != "\r") {
+		if ($crlf !== "\n" && $crlf !== "\r\n" && $crlf !== "\r") {
 			$this->crlf	= "\n";
 			return;
 		}
@@ -682,11 +682,11 @@ class Email_Library {
 	 * @return	string
 	 */
 	protected function _get_content_type() {
-		if ($this->mailtype == 'html' &&  count($this->_attach_name) == 0) {
+		if ($this->mailtype === 'html' &&  count($this->_attach_name) == 0) {
 			return 'html';
-		} elseif ($this->mailtype == 'html' &&  count($this->_attach_name)  > 0) {
+		} elseif ($this->mailtype === 'html' &&  count($this->_attach_name)  > 0) {
 			return 'html-attach';
-		} elseif ($this->mailtype == 'text' &&  count($this->_attach_name)  > 0) {
+		} elseif ($this->mailtype === 'text' &&  count($this->_attach_name)  > 0) {
 			return 'plain-attach';
 		} else {
 			return 'plain';
@@ -702,7 +702,7 @@ class Email_Library {
 	 */
 	protected function _set_date() {
 		$timezone = date("Z");
-		$operator = (strncmp($timezone, '-', 1) == 0) ? '-' : '+';
+		$operator = (strncmp($timezone, '-', 1) === 0) ? '-' : '+';
 		$timezone = abs($timezone);
 		$timezone = floor($timezone/3600) * 100 + ($timezone % 3600 ) / 60;
 
@@ -799,7 +799,7 @@ class Email_Library {
 	 * @return	string
 	 */
 	protected function _get_alt_message() {
-		if ($this->alt_message != "") {
+		if ($this->alt_message !== "") {
 			return $this->word_wrap($this->alt_message, '76');
 		}
 
@@ -837,8 +837,8 @@ class Email_Library {
 	 */
 	public function word_wrap($str, $charlim = '') {
 		// Se the character limit
-		if ($charlim == '') {
-			$charlim = ($this->wrapchars == "") ? "76" : $this->wrapchars;
+		if ($charlim === '') {
+			$charlim = ($this->wrapchars === "") ? "76" : $this->wrapchars;
 		}
 
 		// Reduce multiple spaces
@@ -888,7 +888,7 @@ class Email_Library {
 
 			// If $temp contains data it means we had to split up an over-length
 			// word into smaller chunks so we'll add it back to our current line
-			if ($temp != '') {
+			if ($temp !== '') {
 				$output .= $temp.$this->newline.$line;
 			} else {
 				$output .= $line;
@@ -931,7 +931,7 @@ class Email_Library {
 	 * @return	void
 	 */
 	protected function _write_headers() {
-		if ($this->protocol == 'mail') {
+		if ($this->protocol === 'mail') {
 			$this->_subject = $this->_headers['Subject'];
 			unset($this->_headers['Subject']);
 		}
@@ -947,7 +947,7 @@ class Email_Library {
 			}
 		}
 
-		if ($this->_get_protocol() == 'mail') {
+		if ($this->_get_protocol() === 'mail') {
 			$this->_header_str = rtrim($this->_header_str);
 		}
 	}
@@ -960,14 +960,14 @@ class Email_Library {
 	 * @return	void
 	 */
 	protected function _build_message() {
-		if ($this->wordwrap === TRUE  &&  $this->mailtype != 'html') {
+		if ($this->wordwrap === TRUE  &&  $this->mailtype !== 'html') {
 			$this->_body = $this->word_wrap($this->_body);
 		}
 
 		$this->_set_boundaries();
 		$this->_write_headers();
 
-		$hdr = ($this->_get_protocol() == 'mail') ? $this->newline : '';
+		$hdr = ($this->_get_protocol() === 'mail') ? $this->newline : '';
 		$body = '';
 
 		switch ($this->_get_content_type()) {
@@ -975,7 +975,7 @@ class Email_Library {
 				$hdr .= "Content-Type: text/plain; charset=" . $this->charset . $this->newline;
 				$hdr .= "Content-Transfer-Encoding: " . $this->_get_encoding();
 
-				if ($this->_get_protocol() == 'mail') {
+				if ($this->_get_protocol() === 'mail') {
 					$this->_header_str .= $hdr;
 					$this->_finalbody = $this->_body;
 				} else {
@@ -1007,14 +1007,14 @@ class Email_Library {
 				$this->_finalbody = $body . $this->_prep_quoted_printable($this->_body) . $this->newline . $this->newline;
 
 
-				if ($this->_get_protocol() == 'mail') {
+				if ($this->_get_protocol() === 'mail') {
 					$this->_header_str .= $hdr;
 				} else {
 					$this->_finalbody = $hdr . $this->_finalbody;
 				}
 
 
-				if ($this->send_multipart !== FALSE) {
+				if ($this->send_multipart !=== FALSE) {
 					$this->_finalbody .= "--" . $this->_alt_boundary . "--";
 				}
 
@@ -1025,7 +1025,7 @@ class Email_Library {
 			case 'plain-attach' :
 				$hdr .= "Content-Type: multipart/".$this->multipart."; boundary=\"" . $this->_atc_boundary."\"" . $this->newline . $this->newline;
 
-				if ($this->_get_protocol() == 'mail') {
+				if ($this->_get_protocol() === 'mail') {
 					$this->_header_str .= $hdr;
 				}
 
@@ -1042,7 +1042,7 @@ class Email_Library {
 			case 'html-attach' :
 				$hdr .= "Content-Type: multipart/".$this->multipart."; boundary=\"" . $this->_atc_boundary."\"" . $this->newline . $this->newline;
 
-				if ($this->_get_protocol() == 'mail') {
+				if ($this->_get_protocol() === 'mail') {
 					$this->_header_str .= $hdr;
 				}
 
@@ -1100,7 +1100,7 @@ class Email_Library {
 		$body .= implode($this->newline, $attachment).$this->newline."--".$this->_atc_boundary."--";
 
 
-		if ($this->_get_protocol() == 'mail') {
+		if ($this->_get_protocol() === 'mail') {
 			$this->_finalbody = $body;
 		} else {
 			$this->_finalbody = $hdr . $body;
@@ -1125,7 +1125,7 @@ class Email_Library {
 		// Set the character limit
 		// Don't allow over 76, as that will make servers and MUAs barf
 		// all over quoted-printable data
-		if ($charlim == '' || $charlim > '76') {
+		if ($charlim === '' || $charlim > '76') {
 			$charlim = '76';
 		}
 
@@ -1163,12 +1163,12 @@ class Email_Library {
 				$ascii = ord($char);
 
 				// Convert spaces and tabs but only if it's the end of the line
-				if ($i == ($length - 1)) {
-					$char = ($ascii == '32' || $ascii == '9') ? $escape.sprintf('%02s', dechex($ascii)) : $char;
+				if ($i === ($length - 1)) {
+					$char = ($ascii === '32' || $ascii === '9') ? $escape.sprintf('%02s', dechex($ascii)) : $char;
 				}
 
 				// encode = signs
-				if ($ascii == '61') {
+				if ($ascii === '61') {
 					$char = $escape.strtoupper(sprintf('%02s', dechex($ascii)));  // =3D
 				}
 
@@ -1266,7 +1266,7 @@ class Email_Library {
 	 * @return	bool
 	 */
 	public function send() {
-		if ($this->_replyto_flag == FALSE) {
+		if ($this->_replyto_flag === FALSE) {
 			$this->reply_to($this->_headers['From']);
 		}
 
@@ -1312,13 +1312,13 @@ class Email_Library {
 				$set .= ", ".$this->_bcc_array[$i];
 			}
 
-			if ($i == $float) {
+			if ($i === $float) {
 				$chunk[] = substr($set, 1);
 				$float = $float + $this->bcc_batch_size;
 				$set = "";
 			}
 
-			if ($i == count($this->_bcc_array)-1) {
+			if ($i === count($this->_bcc_array)-1) {
 				$chunk[] = substr($set, 1);
 			}
 		}
@@ -1412,7 +1412,7 @@ class Email_Library {
 	 * @return	bool
 	 */
 	protected function _send_with_mail() {
-		if ($this->_safe_mode == TRUE) {
+		if ($this->_safe_mode === TRUE) {
 			if ( ! mail($this->_recipients, $this->_subject, $this->_finalbody, $this->_header_str)) {
 				return FALSE;
 			} else {
@@ -1450,7 +1450,7 @@ class Email_Library {
 
 		$status = pclose($fp);
 
-		if ($status != 0) {
+		if ($status !== 0) {
 			$this->_set_error_message('email_exit_status', $status);
 			$this->_set_error_message('email_no_socket');
 			return FALSE;
@@ -1467,7 +1467,7 @@ class Email_Library {
 	 * @return	bool
 	 */
 	protected function _send_with_smtp() {
-		if ($this->smtp_host == '') {
+		if ($this->smtp_host === '') {
 			$this->_set_error_message('email_no_hostname');
 			return FALSE;
 		}
@@ -1483,7 +1483,7 @@ class Email_Library {
 
 		if (count($this->_cc_array) > 0) {
 			foreach ($this->_cc_array as $val) {
-				if ($val != "") {
+				if ($val !== "") {
 					$this->_send_command('to', $val);
 				}
 			}
@@ -1491,7 +1491,7 @@ class Email_Library {
 
 		if (count($this->_bcc_array) > 0) {
 			foreach ($this->_bcc_array as $val) {
-				if ($val != "") {
+				if ($val !== "") {
 					$this->_send_command('to', $val);
 				}
 			}
@@ -1508,7 +1508,7 @@ class Email_Library {
 
 		$this->_set_error_message($reply);
 
-		if (strncmp($reply, '250', 3) != 0) {
+		if (strncmp($reply, '250', 3) !== 0) {
 			$this->_set_error_message('email_smtp_error', $reply);
 			return FALSE;
 		}
@@ -1526,7 +1526,7 @@ class Email_Library {
 	 * @return	string
 	 */
 	protected function _smtp_connect() {
-		$ssl = ($this->smtp_crypto == 'ssl') ? 'ssl://' : NULL;
+		$ssl = ($this->smtp_crypto === 'ssl') ? 'ssl://' : NULL;
 
 		$this->_smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
 
@@ -1537,7 +1537,7 @@ class Email_Library {
 
 		$this->_set_error_message($this->_get_smtp_data());
 
-		if ($this->smtp_crypto == 'tls') {
+		if ($this->smtp_crypto === 'tls') {
 			$this->_send_command('hello');
 			$this->_send_command('starttls');
 			
@@ -1564,7 +1564,7 @@ class Email_Library {
 	protected function _send_command($cmd, $data = '') {
 		switch ($cmd) {
 			case 'hello' :
-				if ($this->_smtp_auth || $this->_get_encoding() == '8bit') {
+				if ($this->_smtp_auth || $this->_get_encoding() === '8bit') {
 					$this->_send_data('EHLO '.$this->_get_hostname());
 				} else {
 					$this->_send_data('HELO '.$this->_get_hostname());
@@ -1602,12 +1602,12 @@ class Email_Library {
 
 		$this->_debug_msg[] = "<pre>".$cmd.": ".$reply."</pre>";
 
-		if (substr($reply, 0, 3) != $resp) {
+		if (substr($reply, 0, 3) !== $resp) {
 			$this->_set_error_message('email_smtp_error', $reply);
 			return FALSE;
 		}
 
-		if ($cmd == 'quit') {
+		if ($cmd === 'quit') {
 			fclose($this->_smtp_connect);
 		}
 
@@ -1626,7 +1626,7 @@ class Email_Library {
 			return TRUE;
 		}
 
-		if ($this->smtp_user == '' && $this->smtp_pass == '') {
+		if ($this->smtp_user === '' && $this->smtp_pass === '') {
 			$this->_set_error_message('email_no_smtp_unpw');
 			return FALSE;
 		}
@@ -1635,7 +1635,7 @@ class Email_Library {
 
 		$reply = $this->_get_smtp_data();
 
-		if (strncmp($reply, '334', 3) != 0) {
+		if (strncmp($reply, '334', 3) !== 0) {
 			$this->_set_error_message('email_failed_smtp_login', $reply);
 			return FALSE;
 		}
@@ -1644,7 +1644,7 @@ class Email_Library {
 
 		$reply = $this->_get_smtp_data();
 
-		if (strncmp($reply, '334', 3) != 0) {
+		if (strncmp($reply, '334', 3) !== 0) {
 			$this->_set_error_message('email_smtp_auth_un', $reply);
 			return FALSE;
 		}
@@ -1653,7 +1653,7 @@ class Email_Library {
 
 		$reply = $this->_get_smtp_data();
 
-		if (strncmp($reply, '235', 3) != 0) {
+		if (strncmp($reply, '235', 3) !== 0) {
 			$this->_set_error_message('email_smtp_auth_pw', $reply);
 			return FALSE;
 		}
@@ -1689,7 +1689,7 @@ class Email_Library {
 		while ($str = fgets($this->_smtp_connect, 512)) {
 			$data .= $str;
 
-			if (substr($str, 3, 1) == " ") {
+			if (substr($str, 3, 1) === " ") {
 				break;
 			}
 		}
