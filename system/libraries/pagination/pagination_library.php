@@ -131,7 +131,7 @@ class Pagination_Library {
 				    $output .= '...';
 			    }
 			
-			    if ($i == 1 || $i === $this->_pagination_data['num_pages'] || in_array($i, $this->_pagination_data['range'])) {
+			    if ($i === 1 || $i === $this->_pagination_data['num_pages'] || in_array($i, $this->_pagination_data['range'])) {
 				    if ($i === $this->_pagination_data['current_page']) {
 					    $output .= '<span class="'.$this->_pagination_data['current_page_class'].'">'.$i.'</span>'; 
 				    } else {
