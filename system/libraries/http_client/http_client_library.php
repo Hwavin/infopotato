@@ -59,7 +59,7 @@ class HTTP_Client_Library {
 	 *
 	 * @var  string  
 	 */
-	public $agent =	'Snoopy v1.2.4';
+	public $agent =	'InfoPotato HTTP Client';
 	
 	/**
 	 * referer info to pass
