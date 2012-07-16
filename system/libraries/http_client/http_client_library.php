@@ -1,35 +1,13 @@
 <?php
-
-/*************************************************
-
-Snoopy - the PHP net client
-Author: Monte Ohrt <monte@ispi.net>
-Copyright (c): 1999-2008 New Digital Group, all rights reserved
-Version: 1.2.4
-
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
+/**
+ * PHP HTTP client
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-You may contact the author of Snoopy by e-mail at:
-monte@ohrt.com
-
-The latest version of Snoopy can be obtained from:
-http://snoopy.sourceforge.net/
-
-*************************************************/
-
-class Snoopy_Library {
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://snoopy.sourceforge.net/
+ * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
+ */
+class HTTP_Client_Library {
 	/**** Public variables ****/
 	
 	/* user definable vars */
@@ -54,7 +32,6 @@ class Snoopy_Library {
 	 * @var  string  
 	 */
 	public $proxy_host = ''; 
-	
 	
 	/**
 	 * proxy port to use 
@@ -1229,7 +1206,7 @@ class Snoopy_Library {
 			$headers[] = "Content-length: ".strlen($body);
 		}
 		
-		if ( ! empty($this->user) || !empty($this->pass)) {
+		if ( ! empty($this->user) || ! empty($this->pass)) {
 			$headers[] = "Authorization: BASIC ".base64_encode($this->user.":".$this->pass);
 		}
 		
@@ -1425,7 +1402,7 @@ class Snoopy_Library {
 		settype($formfiles, "array");
 		$postdata = '';
 
-		if (count($formvars) == 0 && count($formfiles) == 0) {
+		if (count($formvars) === 0 && count($formfiles) === 0) {
 			return;
 		}
 		
@@ -1443,7 +1420,7 @@ class Snoopy_Library {
 				break;
 
 			case "multipart/form-data":
-				$this->_mime_boundary = "Snoopy".md5(uniqid(microtime()));
+				$this->_mime_boundary = "InfoPotato".md5(uniqid(microtime()));
 				
 				reset($formvars);
 				while (list($key,$val) = each($formvars)) {
@@ -1486,4 +1463,4 @@ class Snoopy_Library {
 	}
 }
 
-// End of file: ./system/libraries/snoopy/snoopy_library.php 
+// End of file: ./system/libraries/http_client/http_client_library.php 
