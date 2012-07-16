@@ -607,7 +607,7 @@ class Image_Library {
 			$this->$val = '';
 		}
 
-		// special consideration for master_dim
+		// Special consideration for master_dim
 		$this->master_dim = 'auto';
 	}
 	
@@ -748,7 +748,7 @@ class Image_Library {
 		//  it appears that this is no longer the issue that it was in 2004, so we've removed it, retaining it in the comment
 		//  below should that ever prove inaccurate.
 		//
-		//  if ($this->image_library_to_use == 'gd2' AND function_exists('imagecreatetruecolor') AND $v2_override == FALSE)
+		//  if ($this->image_library_to_use === 'gd2' AND function_exists('imagecreatetruecolor') AND $v2_override === FALSE)
 		if ($this->image_library_to_use === 'gd2' && function_exists('imagecreatetruecolor')) {
 			$create	= 'imagecreatetruecolor';
 			$copy = 'imagecopyresampled';
@@ -1322,7 +1322,7 @@ class Image_Library {
 	 * @return	resource
 	 */
 	private function _image_create_gd($path = '', $image_type = '') {
-		if ($path == '') {
+		if ($path === '') {
 			$path = $this->full_src_path;
         }
 		
@@ -1467,11 +1467,11 @@ class Image_Library {
 	 * @return	void
 	 */
 	private function _image_reproportion() {
-		if ( ! is_numeric($this->width) || ! is_numeric($this->height) || $this->width == 0 || $this->height == 0) {
+		if ( ! is_numeric($this->width) || ! is_numeric($this->height) || $this->width === 0 || $this->height === 0) {
 			return;
         }
 		
-		if ( ! is_numeric($this->orig_width) || ! is_numeric($this->orig_height) || $this->orig_width == 0 || $this->orig_height == 0) {
+		if ( ! is_numeric($this->orig_width) || ! is_numeric($this->orig_height) || $this->orig_width === 0 || $this->orig_height === 0) {
 			return;
         }
 		
@@ -1566,7 +1566,7 @@ class Image_Library {
 		$allowed = array('new_width', 'new_height', 'width', 'height');
 
 		foreach ($allowed as $item) {
-			if ( ! isset($vals[$item]) || $vals[$item] == '') {
+			if ( ! isset($vals[$item]) || $vals[$item] === '') {
 				$vals[$item] = 0;
 			}
 		}
