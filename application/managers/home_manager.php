@@ -1,27 +1,12 @@
 <?php
 class Home_Manager extends Manager {
-    public function __construct() {
-        //parent::__construct();
-	}
-	
 	public function get_index() {
-		$response_data = array(
-			'content' => $this->render_template('pages/home'),
-			'type' => 'text/html',
-		);
-		$this->response($response_data);
+		$this->load_library('SYS', 'http_client/http_client_library', 'hc');
+		$vars = array();
+		$this->hc->submit('http://www.infopotato.com/contact', $vars);
+		print_r($this->hc->results);
 	}
-	
-	public function post_index() {
-		dump($_GET);
-		dump($_POST);
-		dump($_FILES);
-		
 
-		dump($this->_POST_DATA);
-		dump($this->_FILES_DATA);
-	}
-	
 }
 
 // End of file: ./application/managers/home_manager.php

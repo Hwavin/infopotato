@@ -76,6 +76,7 @@ function auto_load($class_name) {
     $runtime_list = array(
         'manager', 
         'dumper', 
+		'logger', 
         'utf8',
         'i18n',
         'cookie',
@@ -136,8 +137,8 @@ function auto_load($class_name) {
 /**
  * Display system error
  *
- * This function takes an error message as input
- * and displays it using the specified template.
+ * This function takes an error message as input,
+ * log it to the defined file path and displays it using the specified template.
  * 
  * @param	string	the heading
  * @param	string	the message
@@ -146,17 +147,28 @@ function auto_load($class_name) {
  * @return	string
  */
 function halt($heading, $message, $template = 'sys_error') {
+	// Log the system-related messages
+	// We can also log library-specific messages to other corresponding folders
+	$log = Logger::instance(APP_LOG_DIR.'sys'.DS);
+	
 	if (ENVIRONMENT === 'development') {
-        ob_start();
+        // Log in case some errors can't be manually captured
+		$log->log_debug($message);
+		
+		ob_start();
         require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
         $buffer = ob_get_contents();
         ob_end_clean();
         echo $buffer;
         exit;
     }
-	// Display app specific 404 error message
+	
 	if (ENVIRONMENT === 'production') {
-        if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
+		// Log to caputre all errors since they won't be displayed in production environment
+		$log->log_debug($message);
+		
+		// Display app specific 404 error page
+		if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
 			$uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
 			$output = file_get_contents($uri);
 			// To avoid soft 404, we need to send the 404 HTTP header status code 

@@ -17,7 +17,7 @@ class HTTP_Client_Library {
 	 *
 	 * @var  string  
 	 */
-	public $host = 'www.php.net'; 
+	public $host = ''; 
 	
 	/**
 	 * port we are connecting to
