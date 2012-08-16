@@ -165,35 +165,35 @@ class Logger {
 		    self::$_severity_threshold = self::$_severity_levels['DEBUG'];
 		}
 		
-		$log_dir = rtrim($log_dir, '\\/');
+		// Log only when severity level is over the pre-defined severity threshold
+		if ($severity <= self::$_severity_threshold) {
+		    $log_dir = rtrim($log_dir, '\\/');
 
-		// Log file path and name, e.g. log_2012-08-16.txt
-		self::$_log_file_path = $log_dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
+			// Log file path and name, e.g. log_2012-08-16.txt
+			self::$_log_file_path = $log_dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
 
-		// Create the log file first
-        if ( ! file_exists($log_dir)) {
-            mkdir($log_dir, self::$_default_permissions, TRUE);
-        }
+			// Create the log file first
+			if ( ! file_exists($log_dir)) {
+				mkdir($log_dir, self::$_default_permissions, TRUE);
+			}
 
-        if (file_exists(self::$_log_file_path) && ! is_writable(self::$_log_file_path)) {
-            self::$_log_status = self::STATUS_OPEN_FAILED;
-            // Output error message and terminate the current script
-			// Don't use halt() or any log functions in this class to avoid dead loop 
-			exit(self::$_messages['write_fail']);
-        }
+			if (file_exists(self::$_log_file_path) && ! is_writable(self::$_log_file_path)) {
+				self::$_log_status = self::STATUS_OPEN_FAILED;
+				// Output error message and terminate the current script
+				// Don't use halt() or any log functions in this class to avoid dead loop 
+				exit(self::$_messages['write_fail']);
+			}
 
-        if ((self::$_file_handle = fopen(self::$_log_file_path, 'a'))) {
-            self::$_log_status = self::STATUS_LOG_OPEN;
-        } else {
-            self::$_log_status = self::STATUS_OPEN_FAILED;
-			// Output error message and terminate the current script
-			// Don't use halt() or any log functions in this class to avoid dead loop 
-			exit(self::$_messages['open_fail']);
-        }
-		
-		// Only log when severity level is over the pre-defined severity threshold
-		if (self::$_severity_threshold >= $severity) {
-		    // Formatted time
+			if ((self::$_file_handle = fopen(self::$_log_file_path, 'a'))) {
+				self::$_log_status = self::STATUS_LOG_OPEN;
+			} else {
+				self::$_log_status = self::STATUS_OPEN_FAILED;
+				// Output error message and terminate the current script
+				// Don't use halt() or any log functions in this class to avoid dead loop 
+				exit(self::$_messages['open_fail']);
+			}
+
+			// Formatted time
 			$time = date(self::$_date_format);
 
 			switch ($severity) {
@@ -226,13 +226,13 @@ class Logger {
 					// Don't use halt() or any log functions in this class to avoid dead loop 
 					exit(self::$_messages['write_fail']);
 				}
+				
+				// Closes the open file pointer
+				if (self::$_file_handle) {
+					fclose(self::$_file_handle);
+				}
 			}
 		}
-
-		// Closes the open file pointer
-		if (self::$_file_handle) {
-            fclose(self::$_file_handle);
-        }
     }
 
 }
