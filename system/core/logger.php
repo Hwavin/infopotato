@@ -113,7 +113,7 @@ class Logger {
      * @return void
      */
     public static function log_error($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$_severity_levels['ERROR'], $args);
+        self::_log($log_dir, $line, self::$_severity_levels['ERROR'], $args);
     }
 	
     /**
@@ -126,7 +126,7 @@ class Logger {
      * @return void
      */
     public static function log_warn($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$_severity_levels['WARN'], $args);
+        self::_log($log_dir, $line, self::$_severity_levels['WARN'], $args);
     }
 
     /**
@@ -138,7 +138,7 @@ class Logger {
      * @return void
      */
     public static function log_info($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$_severity_levels['INFO'], $args);
+        self::_log($log_dir, $line, self::$_severity_levels['INFO'], $args);
     }
 
 	/**
@@ -149,7 +149,7 @@ class Logger {
      * @return void
      */
     public static function log_debug($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$_severity_levels['DEBUG'], $args);
+        self::_log($log_dir, $line, self::$_severity_levels['DEBUG'], $args);
     }
 	
     /**
@@ -159,7 +159,7 @@ class Logger {
      * @param string  $line     Text to add to the log
      * @param integer $severity Severity level of log message (use constants)
      */
-    public static function log($log_dir, $line, $severity, $args = self::NO_ARGUMENTS) {
+    private static function _log($log_dir, $line, $severity, $args = self::NO_ARGUMENTS) {
 		// Set the default severity threshold in case set_severity_threshold() is not called in bootstrap 
 		if ( ! isset(self::$_severity_threshold)) {
 		    self::$_severity_threshold = self::$_severity_levels['DEBUG'];
