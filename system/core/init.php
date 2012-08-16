@@ -147,13 +147,9 @@ function auto_load($class_name) {
  * @return	string
  */
 function halt($heading, $message, $template = 'sys_error') {
-	// Log the system-related messages
-	// We can also log library-specific messages to other corresponding folders
-	$log = Logger::instance(APP_LOG_DIR.'sys'.DS);
-	
 	if (ENVIRONMENT === 'development') {
         // Log in case some errors can't be manually captured
-		$log->log_debug($message);
+		Logger::log_debug(APP_LOG_DIR, $message);
 		
 		ob_start();
         require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
@@ -165,7 +161,7 @@ function halt($heading, $message, $template = 'sys_error') {
 	
 	if (ENVIRONMENT === 'production') {
 		// Log to caputre all errors since they won't be displayed in production environment
-		$log->log_debug($message);
+		Logger::log_debug(APP_LOG_DIR, $message);
 		
 		// Display app specific 404 error page
 		if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
