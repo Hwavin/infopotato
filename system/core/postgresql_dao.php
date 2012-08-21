@@ -23,10 +23,10 @@ class PostgreSQL_DAO extends Base_DAO {
 	public function __construct(array $config = array()) {
 		// If there is no existing database connection then try to connect
 		if ( ! is_resource($this->dbh)) {
-			if ( ! $this->dbh = pg_connect("host=$config['host'] port=$config['port'] user=$config['user'] password=$config['pass'] dbname=$config['name']")) {
+			if ( ! $this->dbh = pg_connect($config['dsn'])) {
 				halt('An Error Was Encountered', 'Could not connect: '.pg_last_error($this->dbh), 'sys_error');
 			} 
-			
+
 			// Specify the client encoding per connection
 			$collation_query = "SET NAMES '{$config['charset']}'";
 			$this->exec_query($collation_query);
