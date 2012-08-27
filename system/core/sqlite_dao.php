@@ -1,53 +1,49 @@
 <?php
 /**
- * SQLite Data Access Object
- * The username/password is not supported by the sqlite/sqlite3 package
+ * SQLite(PDO) Data Access Object
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2011 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-
 class SQLite_DAO extends Base_DAO {
 	/**
 	 * Database connection handler
 	 *
-	 * @var  resource  
+	 * @var  object
 	 */
 	public $dbh;
 	
 	/**
 	 * Constructor
 	 * 
-	 * Allow the user to perform a connect at the same time as initialising the class
+	 * Allow the user to perform a connect at the same time as initialising the this class
 	 */
-	public function __construct(array $config = NULL) {
+	public function __construct(array $config = array()) {
 		// If there is no existing database connection then try to connect
-		if ( ! is_resource($this->dbh)) {
-			// No username and password required
-			if ($config['path'] === '') {
-				halt('An Error Was Encountered', 'Require $dbpath to open an SQLite database', 'sys_error');		
-			} 
-			if ( ! $this->dbh = sqlite_open($config['path'])) {
-				halt('An Error Was Encountered', 'Could not connect: '.sqlite_error_string(sqlite_last_error($this->dbh)), 'sys_error');		
+		if ( ! is_object($this->dbh)) {
+			try {
+			    $this->dbh = new PDO($config['dsn']);
+			} catch (PDOException $e) {
+			    halt('An Error Was Encountered', 'Connection failed: '.$e->getMessage(), 'sys_error');
 			}
 		}
 	}
-	
+
 	/** 
 	 * Escapes special characters in a string for use in an SQL statement, 
 	 * taking into account the current charset of the connection
 	 */ 
 	public function escape($string) { 
-		// Only escape string
+		// The input string should be un-quoted
 		// is_string() will take '' as string
 		if (is_string($string)) {
-			$string = sqlite_escape_string($string); 
+			$string = addslashes($string);
 		}
 		return $string; 
 	}
-
+	
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * The following directives can be used in the query format string:
@@ -90,7 +86,7 @@ class SQLite_DAO extends Base_DAO {
 					// Only single quote and escape string
 				    // is_string() will take '' as string
 					if (is_string($arg)) {
-						$arg = "'".$this->escape($arg)."'"; 
+						$arg = "'".$this->escape($arg)."'";
 					} else {
 						halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
 					}
@@ -126,87 +122,88 @@ class SQLite_DAO extends Base_DAO {
 	 * @return int Number of rows affected/selected
 	 */
 	public function exec_query($query) {
-		// For reg exp
-		$query = str_replace("/[\n\r]/", '', trim($query)); 
-
-		// Initialize return flag
+		// Initialise return
 		$return_val = 0;
 
 		// Reset stored query result
 		$this->query_result = array();
 
-		// Executes a query against a given database and returns a result handle (resource)
-		$result = sqlite_query($this->dbh, $query);
+		// For reg expressions
+		$query = trim($query);
 
-		// If there is an error then take note of it.
-		if (sqlite_last_error($this->dbh)) {
-			$err_msg = sqlite_error_string(sqlite_last_error($this->dbh));
-			halt('An Error Was Encountered', $err_msg, 'sys_error');		
-		}
-		
 		// Query was an insert, delete, drop, update, replace, alter
-		if (preg_match("/^(insert|delete|drop|update|replace|alter)\s+/i", $query)) {
-			$rows_affected = sqlite_changes($this->dbh);
-			
+		if (preg_match("/^(insert|delete|drop|create|update|replace|alter)\s+/i", $query)) {
+			// Execute the target query and return the number of affected rows
+			// that were modified or deleted by the SQL statement you issued. 
+			// If no rows were affected, returns 0.
+			$rows_affected = $this->dbh->exec($query);
+
 			// Take note of the last_insert_id
 			// REPLACE works exactly like INSERT, except that if an old row in the table has the same value 
 			// as a new row for a PRIMARY KEY or a UNIQUE index, the old row is deleted before the new row is inserted.
 			if (preg_match("/^(insert|replace)\s+/i", $query)) {
-				$this->last_insert_id = sqlite_last_insert_rowid($this->dbh);	
+				$this->last_insert_id = $this->dbh->lastInsertId();	
 			}
-			
 			// Return number fo rows affected
 			$return_val = $rows_affected;
 		} elseif (preg_match("/^(select|describe|desc|show|explain)\s+/i", $query)) {
+			// Executes an SQL statement, returns a PDOStatement object, or FALSE on failure.
+			$statement = $this->dbh->query($query);
+ 
+            if ($statement === FALSE) {
+				$err = $this->dbh->errorInfo();
+				halt('An Error Was Encountered', $err[0].' - '.$err[1].' - '.$err[2], 'sys_error');
+			}
+			
 			// Store Query Results
 			$num_rows = 0;
-			while ($row = sqlite_fetch_array($result, SQLITE_ASSOC)) {
+			while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
 				// Store relults as an objects within main array
-				$obj = (object) $row; //convert to object
-				$this->query_result[$num_rows] = $obj;
+				// Convert to object
+				$this->query_result[$num_rows] = (object) $row;
 				$num_rows++;
 			}
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;
-			
+
 			// Return number of rows selected
 			$return_val = $this->num_rows;
-		} elseif (preg_match("/^create\s+/i", $query)) {
-		    // Table creation returns TRUE on success, or FALSE on error.
-			$return_val = $result;
 		}
 
 		return $return_val;
 	}
-	
+
 	/**
 	 * Begin Transaction using standard sql
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
-		sqlite_query($this->dbh, 'BEGIN TRANSACTION');
+		$this->dbh->beginTransaction();
 	}
 	
 	/**
 	 * Commit Transaction using standard sql
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_commit() {
-		sqlite_query($this->dbh, 'COMMIT');
+		$this->dbh->commit();
 	}
 	
 	/**
 	 * Rollback Transaction using standard sql
 	 *
+	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_rollback() {
-		sqlite_query($this->dbh, 'ROLLBACK');
+		$this->dbh->rollBack();
 	}
-
+	
 }
 
 // End of file: ./system/core/sqlite_dao.php

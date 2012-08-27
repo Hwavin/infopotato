@@ -86,7 +86,7 @@ function auto_load($class_name) {
         'mysql_dao', 
         'mysqli_dao', 
         'postgresql_dao', 
-        'sqlite_dao'
+        'sqlite_dao',
     );
 
     if (in_array($class_name, $runtime_list)) {
