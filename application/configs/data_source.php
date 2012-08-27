@@ -11,16 +11,6 @@ return array(
 			'charset' => 'utf8', // The character collation used in communicating with the database
 			'collate' => 'utf8_general_ci', //  The Database Collate type. Don't change this if in doubt.
 		),
-		
-		'world' => array(
-			'host' => 'localhost',
-			'port' => '3306', // Port number, string
-			'name' => '', 
-			'user' => '',
-			'pass' => '',
-			'charset' => 'utf8',
-			'collate' => 'utf8_general_ci',
-		),
 	),
 	
 	// MySQLi
@@ -34,34 +24,20 @@ return array(
 			'charset' => 'utf8',
 			'collate' => 'utf8_general_ci', 
 		),
-		
-		'world' => array(
-			'host' => 'localhost',
-			'port' => 3306, // Port number, integer
-			'name' => '',
-			'user' => '',
-			'pass' => '', 
-			'charset' => 'utf8', 
-			'collate' => 'utf8_general_ci', 
-		),
 	),
 	
 	// PostgreSQL
 	'postgresql_dao' => array(
 		'default' => array(
-			'host' => 'localhost',
-			'port' => 5432, // Port number, integer
-			'name' => '',
-			'user' => '',
-			'pass' => '',
+			'dsn' => 'host=localhost port=5432 user= password= dbname=',
 			'charset' => 'UTF8',
 		),
 	),
-	
-	// SQLite
+
+	// SQLite - PDO
 	'sqlite_dao' => array(
-		'test' => array(
-			'path' => APP_DIR.'test.sqlite',
+		'default' => array(
+			'dsn' => 'sqlite:'.APP_DIR.'app.db',
 		),
 	),
 );
