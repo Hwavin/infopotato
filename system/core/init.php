@@ -71,9 +71,10 @@ switch (ENVIRONMENT) {
 function auto_load($class_name) {
     $class_name = strtolower($class_name);
 	
-    // Create and use runtime files to speed up the parsing process for all the following requests
-    // Init (loaded in entry point script) and Manager class are required for all app request
-    $runtime_list = array(
+    // Create and use core files to speed up the parsing process for all the following requests.
+    // Init (loaded in entry point script) and Manager class ('manager', in the list below) are required for all app requests.
+	// All core conponents must be listed is this array
+    $core = array(
         'manager', 
         'dumper', 
 		'logger', 
@@ -89,7 +90,7 @@ function auto_load($class_name) {
         'sqlite_dao',
     );
 
-    if (in_array($class_name, $runtime_list)) {
+    if (in_array($class_name, $core)) {
         $source_file = SYS_CORE_DIR.$class_name.'.php';
 		
 		// Checks if core component file exists
@@ -108,7 +109,8 @@ function auto_load($class_name) {
             $file = $source_file;
         }
     } else {
-        $source_file = APP_MANAGER_DIR.$class_name.'.php';
+        // In some cases, an app manager could be a subclass of another app manager
+		$source_file = APP_MANAGER_DIR.$class_name.'.php';
 		
 		// Checks if app manager file exists
 	    if ( ! file_exists($source_file)) { 
