@@ -1014,7 +1014,7 @@ class Email_Library {
 				}
 
 
-				if ($this->send_multipart !=== FALSE) {
+				if ($this->send_multipart !== FALSE) {
 					$this->_finalbody .= "--" . $this->_alt_boundary . "--";
 				}
 
