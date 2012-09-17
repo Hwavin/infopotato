@@ -555,7 +555,7 @@ class UTF8 {
 	 * @return string  The UTF-8 character
 	 */
 	public static function chr($unicode_code_point) {
-		if (is_string($unicode_code_point) && substr($unicode_code_point, 0, 2) == 'U+') {
+		if (is_string($unicode_code_point) && substr($unicode_code_point, 0, 2) === 'U+') {
 			$unicode_code_point = substr($unicode_code_point, 2);
 			$unicode_code_point = hexdec($unicode_code_point);
 		}
@@ -589,7 +589,7 @@ class UTF8 {
 		}
 		
 		$ord = ord($first);
-		if ($digits > 21 || $ord == 0xC0 || $ord == 0xC1 || $ord > 0xF4) {
+		if ($digits > 21 || $ord === 0xC0 || $ord === 0xC1 || $ord > 0xF4) {
 			halt('A System Error Was Encountered', "The code point specified {$unicode_code_point} is invalid", 'sys_error');
 		}
 		
@@ -606,7 +606,7 @@ class UTF8 {
 	public static function clean($value) {
 		if ( ! is_array($value)) {
 			if (self::$_can_ignore_invalid === NULL) {
-				self::$_can_ignore_invalid = strtolower(ICONV_IMPL) != 'unknown';	
+				self::$_can_ignore_invalid = strtolower(ICONV_IMPL) !== 'unknown';	
 			}
 			// The iconv PHP extension provides functionality to convert text stored in another encoding to UTF-8 using a simple function call
 			return iconv('UTF-8', 'UTF-8' . (self::$_can_ignore_invalid ? '//IGNORE' : ''), (string) $value);
@@ -657,7 +657,7 @@ class UTF8 {
 	 * @return integer  The converted offset
 	 */
 	private static function _convert_offset_to_bytes($str, $offset) {
-		if ($offset == 0) {
+		if ($offset === 0) {
 			return 0;
 		}
 		
@@ -868,7 +868,7 @@ class UTF8 {
 	 */
 	public static function istr($haystack, $needle, $before_needle = FALSE) {
 		// We get better performance falling back for ASCII strings
-		if ($before_needle == FALSE && ! self::detect($haystack)) {
+		if ($before_needle === FALSE && ! self::detect($haystack)) {
 			return stristr($haystack, $needle);
 		}
 		
