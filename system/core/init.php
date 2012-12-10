@@ -274,7 +274,7 @@ function dispatch() {
 	    // When server doesn't support PATH_INFO nor ORIG_PATH_INFO, only the default manager runs
 		$request_uri = '';
 	}
-	
+
 	// Get the target manager/method/parameters
 	$uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : array();
 	

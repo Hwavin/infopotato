@@ -10,14 +10,16 @@
 class Manager {	
 	/**
      * Key-value array of HTTP POST parameters
-	 * 
+	 * It's value is assigned in dispatch(), that's why it's marked as public
+	 *
 	 * @var array   
      */
     public $_POST_DATA = array();
 	
 	/**
      * Key-value array of uploaded files info
-	 * 
+	 * It's value is assigned in dispatch(), that's why it's marked as public
+	 *
 	 * @var array   
      */
     public $_FILES_DATA = array();
