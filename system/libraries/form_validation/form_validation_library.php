@@ -4,7 +4,7 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2012 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Form_Validation_Library {
@@ -271,7 +271,7 @@ class Form_Validation_Library {
 
 
 	/**
-	 * Re-populate the _POST array with our finalized and processed data
+	 * Re-populate the $this->_post data array with our finalized and processed data
 	 *
 	 * @return	null
 	 */		
