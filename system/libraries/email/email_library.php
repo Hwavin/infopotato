@@ -1,8 +1,12 @@
 <?php
 /**
- * Email Class
- *
+ * Email Library
  * Permits email to be sent using Mail, Sendmail, or SMTP.
+ * 
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Email_Library {
 

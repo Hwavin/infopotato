@@ -1,12 +1,11 @@
 <?php
 /**
- * FTP Class
+ * FTP Library
  *
- * @package		CodeIgniter
- * @subpackage	Libraries
- * @category	Libraries
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/libraries/ftp.html
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://snoopy.sourceforge.net/
+ * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class FTP_Library {
 

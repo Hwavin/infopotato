@@ -18,7 +18,7 @@
  * Based on {@link http://stefangabos.blogspot.com}
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2011 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2012 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Printer_Library {
