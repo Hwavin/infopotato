@@ -78,32 +78,25 @@ class PHP_UTF8 {
 	}
 
 	/**
-	 * Tools for conversion between UTF-8 and unicode
-	 * The Original Code is Mozilla Communicator client code.
-	 * The Initial Developer of the Original Code is Netscape Communications Corporation.
-	 * Portions created by the Initial Developer are Copyright (C) 1998
-	 * the Initial Developer. All Rights Reserved.
-	 * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
-	 * Slight modifications to fit with phputf8 library by Harry Fuecks (hfuecks gmail com)
-	 *
-	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
-	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
-	 * @see http://hsivonen.iki.fi/php-utf8/
-	 * @package php-utf8
-	 * @subpackage utils
-	 */
-
-	/**
 	 * Takes an UTF-8 string and returns an array of ints representing the Unicode characters.
 	 * Astral planes are supported ie. the ints in the output can be > 0xFFFF.
 	 * Occurrances of the BOM are ignored. Surrogates are not allowed.
 	 * Returns false if the input string isn't a valid UTF-8 octet sequence and raises a PHP error at level E_USER_WARNING
 	 * Note: this function has been modified slightly in this library to trigger errors on encountering bad bytes
 	 *
+	 * Tools for conversion between UTF-8 and unicode
+	 * The Original Code is Mozilla Communicator client code.
+	 * The Initial Developer of the Original Code is Netscape Communications Corporation.
+	 * Portions created by the Initial Developer are Copyright (C) 1998
+	 * the Initial Developer. All Rights Reserved.
+	 * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
+	 *
 	 * @author <hsivonen@iki.fi>
 	 * @param string $str UTF-8 encoded string
 	 * @return mixed array of unicode code points or FALSE if UTF-8 invalid
 	 * @see utf8_from_unicode
+	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
+	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 	 * @see http://hsivonen.iki.fi/php-utf8/
 	 */
 	private static function _to_unicode($str) {
@@ -220,8 +213,18 @@ class PHP_UTF8 {
 	 * Returns false if the input array contains ints that represent surrogates or are outside the Unicode range and raises a PHP error at level E_USER_WARNING
 	 * Note: this function has been modified slightly in this library to use output buffering to concatenate the UTF-8 string (faster) as well as reference the array by it's keys
 	 *
+     *
+	 * Tools for conversion between UTF-8 and unicode
+	 * The Original Code is Mozilla Communicator client code.
+	 * The Initial Developer of the Original Code is Netscape Communications Corporation.
+	 * Portions created by the Initial Developer are Copyright (C) 1998
+	 * the Initial Developer. All Rights Reserved.
+	 * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
+	 *
 	 * @see utf8_to_unicode
 	 * @see http://hsivonen.iki.fi/php-utf8/
+	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
+	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 	 * @param array $arr  Array of unicode code points representing a string
 	 * @return mixed UTF-8 string or FALSE if array contains invalid code points
 	 * @author <hsivonen@iki.fi>
@@ -262,28 +265,18 @@ class PHP_UTF8 {
 	}
 
 
-	/* Function: len
-
-	   Unicode aware replacement for *strlen*.
-
-	   Returns the number of characters in the string (not the number of bytes),
-	   replacing multibyte characters with a single byte equivalent utf8_decode
-	   converts characters that are not in ISO-8859-1 to '?', which, for the purpose
-	   of counting, is alright. It's much faster than iconv_strlen.
-
-	   Author:
-		  <chernyshevsky at hotmail dot com>
-
-	   Parameters:
-		  str - A UTF-8 string.
-
-	   Returns:
-		  The length (integer) of a string.
-
-	   See also:
-		  <strlen at http://php.net/manual/en/function.strlen.php>
-		  <strlen at http://php.net/manual/en/function.utf8-decode.php>
-	*/
+	/**
+	 * Unicode aware replacement for *strlen*.
+	 *
+	 * Returns the number of characters in the string (not the number of bytes),
+	 * replacing multibyte characters with a single byte equivalent utf8_decode
+	 * converts characters that are not in ISO-8859-1 to '?', which, for the purpose
+	 * of counting, is alright. It's much faster than iconv_strlen.
+	 *
+	 * @see http://www.php.net/strlen
+	 * @param string $str A UTF-8 string
+	 * @return mixed integer length of a string
+	 */
 	public static function mirror_strlen($str) {
 		// Checks to see if the [http://php.net/mbstring mbstring] extension is available
 		self::_check_mbstring();
@@ -829,23 +822,15 @@ class PHP_UTF8 {
 		}
 	}
 		
-		
-	/**
-	 * UTF-8 aware replacements for the trim functions.
-	 *
-	 * Use these only if you are supplying the charlist optional arg and it contains
-	 * UTF-8 characters. Otherwise trim will work normally on a UTF-8 string.
-	 *
-	 * @package php-utf8
-	 * @subpackage functions
-	 */
 
 	/**
 	 * UTF-8 aware replacement for ltrim().
 	 *
+	 * Use these only if you are supplying the charlist optional arg and it contains
+	 * UTF-8 characters. Otherwise trim will work normally on a UTF-8 string.
+	 *
 	 * @author Andreas Gohr <andi@splitbrain.org>
 	 * @see http://www.php.net/ltrim
-	 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 	 * @param string $str
 	 * @param string $charlist
 	 * @return string
@@ -864,9 +849,11 @@ class PHP_UTF8 {
 	/**
 	 * UTF-8 aware replacement for rtrim().
 	 *
+	 * Use these only if you are supplying the charlist optional arg and it contains
+	 * UTF-8 characters. Otherwise trim will work normally on a UTF-8 string.
+	 *
 	 * @author Andreas Gohr <andi@splitbrain.org>
 	 * @see http://www.php.net/rtrim
-	 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 	 * @param string $str
 	 * @param string $charlist
 	 * @return string
@@ -885,9 +872,11 @@ class PHP_UTF8 {
 	/**
 	 * UTF-8 aware replacement for trim().
 	 *
+	 * Use these only if you are supplying the charlist optional arg and it contains
+	 * UTF-8 characters. Otherwise trim will work normally on a UTF-8 string.
+	 *
 	 * @author Andreas Gohr <andi@splitbrain.org>
 	 * @see http://www.php.net/trim
-	 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
 	 * @param string $str
 	 * @param boolean $charlist
 	 * @return string
@@ -1268,26 +1257,19 @@ class PHP_UTF8 {
 		}
 	}
 
-	
+
 	/**
+	 * Tests a string as to whether it's valid UTF-8 and supported by the Unicode standard
+	 *
 	 * Tools for validing a UTF-8 string is well formed.
 	 * The Original Code is Mozilla Communicator client code.
 	 * The Initial Developer of the Original Code is Netscape Communications Corporation.
 	 * Portions created by the Initial Developer are Copyright (C) 1998 the Initial Developer. All Rights Reserved.
 	 * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
-	 * Slight modifications to fit with phputf8 library by Harry Fuecks (hfuecks gmail com)
-	 *
-	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
-	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
-	 * @see http://hsivonen.iki.fi/php-utf8/
-	 * @package php-utf8
-	 * @subpackage utils
-	 */
-
-	/**
-	 * Tests a string as to whether it's valid UTF-8 and supported by the Unicode standard
 	 *
 	 * @author <hsivonen@iki.fi>
+	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
+	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 	 * @see http://hsivonen.iki.fi/php-utf8/
 	 * @see utf8_compliant
 	 * @param string $str UTF-8 encoded string
