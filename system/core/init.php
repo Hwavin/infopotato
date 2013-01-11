@@ -79,6 +79,7 @@ function auto_load($class_name) {
         'dumper', 
 		'logger', 
         'utf8',
+		'php_utf8',
         'i18n',
         'cookie',
         'session',
