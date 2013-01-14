@@ -4,7 +4,7 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Form_Validation_Library {
@@ -612,7 +612,7 @@ class Form_Validation_Library {
 			return (mb_strlen($str) < $val) ? FALSE : TRUE;		
 		}
 	
-		return (strlen($str) < $val) ? FALSE : TRUE;
+		return (strlen(utf8_decode($str)) < $val) ? FALSE : TRUE;
 	}
 	
 
@@ -632,7 +632,7 @@ class Form_Validation_Library {
 			return (mb_strlen($str) > $val) ? FALSE : TRUE;		
 		}
 	
-		return (strlen($str) > $val) ? FALSE : TRUE;
+		return (strlen(utf8_decode($str)) > $val) ? FALSE : TRUE;
 	}
 	
 
@@ -652,7 +652,7 @@ class Form_Validation_Library {
 			return (mb_strlen($str) != $val) ? FALSE : TRUE;		
 		}
 	
-		return (strlen($str) != $val) ? FALSE : TRUE;
+		return (strlen(utf8_decode($str)) != $val) ? FALSE : TRUE;
 	}
 	
 	/**
@@ -680,6 +680,9 @@ class Form_Validation_Library {
 	/**
 	 * Valid Email
 	 *
+	 * The local-part of the email address may use any of these ASCII characters RFC 5322 Section 3.2.3, 
+	 * RFC 6531 permits Unicode beyond the ASCII range, UTF8 charcters can be used but 
+	 * many of the current generation of email servers and clients won't work with that
 	 * @param	string
 	 * @return	bool
 	 */	
