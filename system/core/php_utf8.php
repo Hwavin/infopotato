@@ -81,7 +81,7 @@ class PHP_UTF8 {
 	 * Takes an UTF-8 string and returns an array of ints representing the Unicode characters.
 	 * Astral planes are supported ie. the ints in the output can be > 0xFFFF.
 	 * Occurrances of the BOM are ignored. Surrogates are not allowed.
-	 * Returns false if the input string isn't a valid UTF-8 octet sequence and raises a PHP error at level E_USER_WARNING
+	 * Returns false if the input string isn't a valid UTF-8 octet sequence and stops running with displaying error msg
 	 * Note: this function has been modified slightly in this library to trigger errors on encountering bad bytes
 	 *
 	 * Tools for conversion between UTF-8 and unicode
@@ -210,7 +210,7 @@ class PHP_UTF8 {
 	 * Takes an array of ints representing the Unicode characters and returns a UTF-8 string.
 	 * Astral planes are supported ie. the ints in the input can be > 0xFFFF.
 	 * Occurrances of the BOM are ignored. Surrogates are not allowed.
-	 * Returns false if the input array contains ints that represent surrogates or are outside the Unicode range and raises a PHP error at level E_USER_WARNING
+	 * Returns false if the input array contains ints that represent surrogates or are outside the Unicode range and stops running with displaying error msg
 	 * Note: this function has been modified slightly in this library to use output buffering to concatenate the UTF-8 string (faster) as well as reference the array by it's keys
 	 *
      *
@@ -760,40 +760,84 @@ class PHP_UTF8 {
 		}
 	}
 	
-	/**
-	 * UTF-8 aware alternative to wordwrap.
-	 *
+
+    /**
+     * UTF-8 aware alternative to wordwrap.
+     *
 	 * Wraps a string to a given number of characters
-	 *
-	 * @see http://www.php.net/manual/en/function.wordwrap.php
-	 * @param string $str the input string
-	 * @param int $width the column width
-	 * @param string $break the line is broken using the optional break parameter
-	 * @return string the given string wrapped at the specified column
-	 * @package php-utf8
-	 * @subpackage functions
-	 */
-	public static function mirror_wordwrap($str, $width = 75, $break = "\n") {
-		$lines = array();
+	 * 
+	 * @see https://github.com/zendframework/zf2/blob/master/library/Zend/Text/MultiByte.php
+     * @param  string  $string
+     * @param  integer $width
+     * @param  string  $break
+     * @param  boolean $cut
+     * @param  string  $charset
+     * @return string
+     */
+	public static function mirror_wordwrap($str, $width = 75, $break = "\n", $cut = FALSE, $charset = 'utf-8') {
+        $string_width = iconv_strlen($str, $charset);
+        $break_width = iconv_strlen($break, $charset);
 
-		while ( ! empty($str)) {
-			// We got a line with a break in it somewhere before the end
-			if (preg_match('%^(.{1,'.$width.'})(?:\s|$)%', $str, $matches)) {
-				// Add this line to the output
-				$lines[] = $matches[1];
+        if (strlen($str) === 0) {
+            return '';
+        }
 
-				// Trim it off the input ready for the next go
-				$str = substr($str, strlen($matches[0]));
-			} else { // Just take the next $width characters
-				$lines[] = substr($str, 0, $width);
+        if ($break_width === NULL) {
+           halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
+        }
 
-				// Trim it off the input ready for the next go
-				$str = substr($str, $width);
-			}
-		}
+        if ($width === 0 && $cut) {
+            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Cannot force cut when width is zero', 'sys_error');
+        }
 
-		return implode($break, $lines);
-	}
+        $result = '';
+        $last_start = $last_space = 0;
+
+        for ($current = 0; $current < $string_width; $current++) {
+            $char = iconv_substr($str, $current, 1, $charset);
+
+            $possibleBreak = $char;
+            if ($break_width !== 1) {
+                $possibleBreak = iconv_substr($str, $current, $break_width, $charset);
+            }
+
+            if ($possibleBreak === $break) {
+                $result .= iconv_substr($str, $last_start, $current - $last_start + $break_width, $charset);
+                $current += $break_width - 1;
+                $last_start = $last_space = $current + 1;
+                continue;
+            }
+
+            if ($char === ' ') {
+                if ($current - $last_start >= $width) {
+                    $result .= iconv_substr($str, $last_start, $current - $last_start, $charset) . $break;
+                    $last_start = $current + 1;
+                }
+
+                $last_space = $current;
+                continue;
+            }
+
+            if ($current - $last_start >= $width && $cut && $last_start >= $last_space) {
+                $result .= iconv_substr($str, $last_start, $current - $last_start, $charset) . $break;
+                $last_start = $last_space = $current;
+                continue;
+            }
+
+            if ($current - $last_start >= $width && $last_start < $last_space) {
+                $result .= iconv_substr($str, $last_start, $last_space - $last_start, $charset) . $break;
+                $last_start = $last_space = $last_space + 1;
+                continue;
+            }
+        }
+
+        if ($last_start !== $current) {
+            $result .= iconv_substr($str, $last_start, $current - $last_start, $charset);
+        }
+
+        return $result;
+    }
+
 	
 	/**
 	 * UTF-8 aware alternative to ucfirst.
