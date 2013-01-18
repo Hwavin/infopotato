@@ -783,7 +783,7 @@ class PHP_UTF8 {
         }
 
         if ($break_width === NULL) {
-           halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
+            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
         }
 
         if ($width === 0 && $cut) {

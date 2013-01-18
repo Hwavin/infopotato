@@ -8,7 +8,7 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
-// Register given function as __autoload() implementation
+// Register given function as __autoload() implementation, PHP 5 >= 5.1.2
 spl_autoload_register('auto_load');
 
 // $_GET data is disallowed 
