@@ -6,7 +6,7 @@
  * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
@@ -30,6 +30,8 @@ class MySQL_DAO extends Base_DAO {
 				halt('An Error Was Encountered', 'Could not connect: '.mysql_error($this->dbh), 'sys_error');		
 			} 
 			
+			// Use utf8mb4 as the character set and utf8mb4_general_ci as the collation if MySQL > 5.5
+			// Use utf8 as the character set and utf8_unicode_ci as the collation if MySQL < 5.5
 			if (function_exists('mysql_set_charset')) { 
 				// Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
 				// This function requires MySQL 5.0.7 or later.

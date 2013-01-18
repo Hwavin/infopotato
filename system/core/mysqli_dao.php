@@ -4,7 +4,7 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
@@ -32,6 +32,8 @@ class MySQLi_DAO extends Base_DAO {
 				halt('An Error Was Encountered', 'Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error(), 'sys_error');		
 			}
 
+			// Use utf8mb4 as the character set and utf8mb4_general_ci as the collation if MySQL > 5.5
+			// Use utf8 as the character set and utf8_unicode_ci as the collation if MySQL < 5.5
 			if (method_exists($this->mysqli, 'set_charset')) { 
 				// Set charset, (PHP 5 >= 5.0.5)
 				$this->mysqli->set_charset($config['charset']);
