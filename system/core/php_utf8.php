@@ -49,6 +49,17 @@ class PHP_UTF8 {
 	 */
 	private static function _check_mbstring() {
 		self::$_mbstring_available = extension_loaded('mbstring');
+		if (self::$_mbstring_available) {
+			// If string overloading is active, it will break many of the native implementations
+			if (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING) {
+			    halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for PHP-UTF8 to work.', 'sys_error');
+			}
+			
+			// Also need to check we have the correct internal mbstring encoding.
+			// The Mbstring functions assume mbstring internal encoding is set to UTF-8.
+			mb_language('uni');
+			mb_internal_encoding('UTF-8');
+		}
 	}
 	
 	/**
@@ -271,7 +282,7 @@ class PHP_UTF8 {
 	 * Returns the number of characters in the string (not the number of bytes),
 	 * replacing multibyte characters with a single byte equivalent utf8_decode
 	 * converts characters that are not in ISO-8859-1 to '?', which, for the purpose
-	 * of counting, is alright. It's much faster than iconv_strlen.
+	 * of counting, is alright. It's much faster than mb_strlen.
 	 *
 	 * @see http://www.php.net/strlen
 	 * @param string $str A UTF-8 string
@@ -282,7 +293,7 @@ class PHP_UTF8 {
 		self::_check_mbstring();
 		
 		if (self::$_mbstring_available && function_exists('mb_strlen')) {
-			return mb_strlen($str, 'UTF-8');
+			return mb_strlen($str);
 		} else {
 		    return strlen(utf8_decode(self::_bad_clean($str)));
 		}
@@ -312,7 +323,7 @@ class PHP_UTF8 {
 			if ($offset === FALSE) {
 				return mb_strpos($str, $needle);
 			}
-			return mb_strpos($str, $needle, $offset, 'UTF-8');
+			return mb_strpos($str, $needle, $offset);
 		} else {
 		    if ($offset === FALSE) {
 				$ar = explode($needle, $str, 2);
@@ -331,7 +342,7 @@ class PHP_UTF8 {
 
 			$str = self::mirror_substr($str, $offset);
 
-			if (($pos = pos($str, $needle)) !== FALSE) {
+			if (($pos = self::mirror_strpos($str, $needle)) !== FALSE) {
 				return $pos + $offset;
 			}
 
@@ -443,7 +454,7 @@ class PHP_UTF8 {
 			if ($length === FALSE) {
 				return mb_substr($str, $offset);
             }
-			return mb_substr($str, $offset, $length, 'UTF-8');
+			return mb_substr($str, $offset, $length);
 		} else {
 		    // Generates E_NOTICE for PHP4 objects, but not PHP5 objects
 			$str = (string) $str;
@@ -465,7 +476,7 @@ class PHP_UTF8 {
 			// anchored pattern, but they are horribly slow!)
 			if ($offset < 0) {
 				// See notes
-				$strlen = len($str);
+				$strlen = self::mirror_strlen($str);
 				$offset = $strlen + $offset;
 
 				if ($offset < 0) {
@@ -559,19 +570,19 @@ class PHP_UTF8 {
 	 * @see utf8_from_unicode
 	 * @see http://www.unicode.org/reports/tr21/tr21-5.html
 	 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
-	 * @param string $string
+	 * @param string $str
 	 * @return mixed either string in lowercase or FALSE is UTF-8 invalid
 	 */
-	public static function mirror_strtolower($string) {
+	public static function mirror_strtolower($str) {
 		// Checks to see if the mbstring extension is available
 		self::_check_mbstring();
 		
 		if (self::$_mbstring_available && function_exists('mb_strtolower')) {
-			return mb_strtolower($str, 'UTF-8');
+			return mb_strtolower($str);
 		} else {
 			static $UTF8_UPPER_TO_LOWER;
 
-			$uni = self::_to_unicode($string);
+			$uni = self::_to_unicode($str);
 			if ( ! $uni) {
 				return FALSE;
 			}
@@ -650,19 +661,19 @@ class PHP_UTF8 {
 	 * @see utf8_from_unicode
 	 * @see http://www.unicode.org/reports/tr21/tr21-5.html
 	 * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
-	 * @param string $string
+	 * @param string $str
 	 * @return mixed either string in lowercase or FALSE is UTF-8 invalid
 	 */
-	public static function mirror_strtoupper($string) {
+	public static function mirror_strtoupper($str) {
 		// Checks to see if the mbstring extension is available
 		self::_check_mbstring();
 		
 		if (self::$_mbstring_available && function_exists('mb_strtoupper')) {
-			return mb_strtoupper($str, 'UTF-8');
+			return mb_strtoupper($str);
 		} else {
 			static $UTF8_LOWER_TO_UPPER;
 
-			$uni = self::_to_unicode($string);
+			$uni = self::_to_unicode($str);
 			if ( ! $uni) {
 				return FALSE;
 			}
@@ -743,7 +754,7 @@ class PHP_UTF8 {
 		self::_check_mbstring();
 		
 		if (self::$_mbstring_available && function_exists('mb_convert_case')) {
-			return mb_convert_case($str, MB_CASE_TITLE, 'UTF-8');
+			return mb_convert_case($str, MB_CASE_TITLE);
 		} else {
 		    // Note: [\x0c\x09\x0b\x0a\x0d\x20] matches;
 			// Form feeds, horizontal tabs, vertical tabs, linefeeds and carriage returns
@@ -1028,7 +1039,7 @@ class PHP_UTF8 {
 		preg_match('/^(.*)'.preg_quote($lsearch).'/Us', $lstr, $matches);
 
 		if (count($matches) == 2) {
-			return substr($str, strlen($matches[1]));
+			return self::mirror_substr($str, self::mirror_strlen($matches[1]));
         }
 		
 		return FALSE;
@@ -1101,7 +1112,7 @@ class PHP_UTF8 {
 	 * @param int $split_len A number of characters to split string by
 	 * @return string characters in string reverses
 	 */
-	public static function mirror_str_split($str, $split_len=1) {
+	public static function mirror_str_split($str, $split_len = 1) {
 		if ( ! preg_match('/^[0-9]+$/', $split_len) || $split_len < 1) {
 			return FALSE;
         }
@@ -1190,12 +1201,12 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_str_ireplace($search, $replace, $str, $count = NULL) {
 		if ( ! is_array($search)) {
-			$slen = strlen($search);
+			$slen = self::mirror_strlen($search);
 
 			if ($slen == 0)
 				return $str;
 
-			$lendif = strlen($replace) - strlen($search);
+			$lendif = self::mirror_strlen($replace) - self::mirror_strlen($search);
 			$search = self::mirror_strtolower($search);
 
 			$search = preg_quote($search);
@@ -1208,9 +1219,9 @@ class PHP_UTF8 {
 					break;
                 }
 				
-				$mlen = strlen($matches[0]);
-				$lstr = substr($lstr, $mlen);
-				$str = substr_replace($str, $replace, $matched + strlen($matches[1]), $slen);
+				$mlen = self::mirror_strlen($matches[0]);
+				$lstr = self::mirror_substr($lstr, $mlen);
+				$str = self::mirror_substr_replace($str, $replace, $matched + self::mirror_strlen($matches[1]), $slen);
 				$matched += $mlen + $lendif;
 				$i++;
 			}
