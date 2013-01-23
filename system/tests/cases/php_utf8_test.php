@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__FILE__).'/../../core/php_utf8.php';
+require_once dirname(__FILE__).'/../../php_utf8.php';
 
 class PHP_UTF8_Test extends PHPUnit_Framework_TestCase {
     // Test is_valid_utf8()
@@ -1076,6 +1076,36 @@ class PHP_UTF8_Test extends PHPUnit_Framework_TestCase {
 		$str_x = "iñtërnâtiôn\nàlizætiøn";
 		$str_y = "IÑTËRNÂTIÔN\nÀLIZÆTIØN";
 		$this->assertTrue(PHP_UTF8::mirror_strcasecmp($str_x, $str_y) == 0);
+	}
+	
+	// Test mirror_ord()
+	public function test_mirror_ord_empty_str() {
+		$str = '';
+		$this->assertEquals(0, PHP_UTF8::mirror_ord($str));
+	}
+
+	// Test mirror_ord()
+	public function test_mirror_ord_ascii_char() {
+		$str = 'a';
+		$this->assertEquals(97, PHP_UTF8::mirror_ord($str));
+	}
+
+	// Test mirror_ord()
+	public function test_mirror_ord_2_byte_char() {
+		$str = 'ñ';
+		$this->assertEquals(241, PHP_UTF8::mirror_ord($str));
+	}
+
+	// Test mirror_ord()
+	public function test_mirror_ord_3_byte_char() {
+		$str = '₧';
+		$this->assertEquals(8359, PHP_UTF8::mirror_ord($str));
+	}
+
+	// Test mirror_ord()
+	public function test_mirror_ord_4_byte_char() {
+		$str = "\xf0\x90\x8c\xbc";
+		$this->assertEquals(66364, PHP_UTF8::mirror_ord($str));
 	}
 	
 }
