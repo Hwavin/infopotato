@@ -180,7 +180,7 @@ class HTTP_Client_Library {
 	 *
 	 * @var  integer  
 	 */
-	public $max_length =	500000;
+	public $max_length = 500000;
 	
 	/**
 	 * timeout on read operations, in seconds
@@ -243,7 +243,7 @@ class HTTP_Client_Library {
 	 *
 	 * @var  string  
 	 */
-	private $_http_version =	'HTTP/1.0';
+	private $_http_version = 'HTTP/1.1';
 	
 	/**
 	 * default submit method
