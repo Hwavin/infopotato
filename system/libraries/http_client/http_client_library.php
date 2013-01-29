@@ -1026,6 +1026,7 @@ class HTTP_Client_Library {
 		}
 		
 		if ( ! empty($body)) {
+			// strlen() may cause problem when the content is utf8 encoded
 			$headers .= "Content-length: ".strlen($body)."\r\n";
 		}
 		
@@ -1140,7 +1141,7 @@ class HTTP_Client_Library {
 	 * @param	
 	 * @return	
 	 */
-	private function _https_request($url, $uri, $http_method, $content_type = '',$body = '') {  
+	private function _https_request($url, $uri, $http_method, $content_type = '', $body = '') {  
 		if ($this->pass_cookies && $this->_redirect_addr) {
 			$this->setcookies();
 		}
@@ -1204,6 +1205,7 @@ class HTTP_Client_Library {
 		}
 		
 		if ( ! empty($body)) {
+			// strlen() may cause problem when the content is utf8 encoded
 			$headers[] = "Content-length: ".strlen($body);
 		}
 		
@@ -1226,7 +1228,7 @@ class HTTP_Client_Library {
 		
 		$header_file = tempnam($temp_dir, "sno");
 
-		exec($this->curl_path." -k -D \"$header_file\"".$cmdline_params." \"".escapeshellcmd($uri)."\"",$results,$return);
+		exec($this->curl_path." -k -D \"$header_file\"".$cmdline_params." \"".escapeshellcmd($uri)."\"", $results, $return);
 		
 		if ($return) {
 			$this->error = "Error: cURL could not retrieve the document, error $return.";
