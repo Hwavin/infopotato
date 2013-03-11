@@ -76,7 +76,7 @@ class Email_Library {
 	/**
 	 * SMTP Encryption
 	 * 
-	 * @var string NULL, 'tls' or 'ssl'
+	 * @var string  'tls' or 'ssl'
 	 */
 	public $smtp_crypto = '';
 	
@@ -207,7 +207,7 @@ class Email_Library {
 	 *
 	 * @var	string
 	 */
-	private	$_atc_boundary	= '';
+	private	$_atc_boundary = '';
 	
 	/**
 	 * Final headers to send
@@ -228,7 +228,7 @@ class Email_Library {
 	 *
 	 * @var	string	'8bit' or '7bit'
 	 */
-	private	$_encoding		= '8bit';
+	private	$_encoding = '8bit';
 
 	/**
 	 * Whether to perform SMTP authentication
@@ -292,10 +292,10 @@ class Email_Library {
 	/**
 	 * Valid $protocol values
 	 *
-	 * @see	CI_Email::$protocol
+	 * @see	Email_Library::$protocol
 	 * @var	string[]
 	 */
-	private	$_protocols		= array('mail', 'sendmail', 'smtp');
+	private	$_protocols = array('mail', 'sendmail', 'smtp');
 	
 	/**
 	 * Character sets valid for 7-bit encoding
@@ -309,7 +309,7 @@ class Email_Library {
 	 *
 	 * Valid mail encodings
 	 *
-	 * @see	CI_Email::$_encoding
+	 * @see	Email_Library::$_encoding
 	 * @var	string[]
 	 */
 	private $_bit_depths = array('7bit', '8bit');
