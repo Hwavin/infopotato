@@ -78,7 +78,7 @@ class Email_Library {
 	 * 
 	 * @var string NULL, 'tls' or 'ssl'
 	 */
-	public $smtp_crypto = NULL;
+	public $smtp_crypto = '';
 	
 	/**
 	 * TRUE/FALSE  Turns word-wrap on/off
@@ -1616,7 +1616,7 @@ class Email_Library {
 			return TRUE;
 		}
 		
-		$ssl = ($this->smtp_crypto === 'ssl') ? 'ssl://' : NULL;
+		$ssl = ($this->smtp_crypto === 'ssl') ? 'ssl://' : '';
 
 		$this->_smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
 
