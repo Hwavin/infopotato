@@ -1650,7 +1650,7 @@ class Email_Library {
 	 * @access	protected
 	 * @param	string
 	 * @param	string
-	 * @return	string
+	 * @return	bool
 	 */
 	protected function _send_command($cmd, $data = '') {
 		switch ($cmd) {
@@ -1848,8 +1848,9 @@ class Email_Library {
 	 * Set Message
 	 *
 	 * @access	protected
-	 * @param	string
-	 * @return	string
+	 * @param	string	$msg
+	 * @param	string	$val = ''
+	 * @return	void
 	 */
 	protected function _set_error_message($msg, $val = '') {
 		$error_messages = array(
