@@ -109,14 +109,15 @@ class MySQLi_DAO extends Base_DAO {
 					}
 				} elseif ($type === '%d') {
 					if (is_int($arg)) {
-						// Format the variable into a valid integer
+						// Get the integer value of a variable in base 10
 						intval($arg);
 					} else {
 						halt('An Error Was Encountered', 'The binding value for %d must be an integer', 'sys_error');
 					}
 				} elseif ($type === '%f') {
 					if (is_float($arg)) {
-						// Format the variable into a valid float
+						// E.g., is_float(1e7) returns TRUE since 1e7 is a float in Scientific Notation
+						// We need to use floatval() to get the float value of the given variable
 						floatval($arg);
 					} else {
 						halt('An Error Was Encountered', 'The binding value for %f must be a float', 'sys_error');
