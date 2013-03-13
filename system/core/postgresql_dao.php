@@ -49,7 +49,7 @@ class PostgreSQL_DAO extends Base_DAO {
 	/** 
 	 * USAGE: prepare( string $query [, array $params ] ) 
 	 * The following directives can be used in the query format string:
-	 * %d (decimal integer)
+	 * %d (integer)
 	 * %s (string)
 	 * %f (float)
 	 * 

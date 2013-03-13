@@ -332,6 +332,7 @@ class Email_Library {
 	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
 				if (isset($this->$key)) {
 					$method = 'set_'.$key;
 
