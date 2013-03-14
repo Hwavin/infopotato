@@ -93,10 +93,11 @@ class PostgreSQL_DAO extends Base_DAO {
 						halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
 					}
 				} elseif ($type === '%i') {
-					if (is_int($arg)) {
-						// Get the integer value of a variable in base 10
-						intval($arg);
-					} else {
+					// 32 bit systems have a maximum signed integer range of -2147483648 to 2147483647. 
+					// So is_int(2147483648) will return FALSE in 32 bit systems.
+					// 64 bit systems have a maximum signed integer range of -9223372036854775808 to 9223372036854775807. 
+					// So is_int(9223372036854775808) will return FALSE in 64 bit systems.
+					if ( ! is_int($arg)) {
 						halt('An Error Was Encountered', 'The binding value for %i must be an integer', 'sys_error');
 					}
 				} elseif ($type === '%f') {
