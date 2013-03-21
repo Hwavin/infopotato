@@ -5,316 +5,321 @@
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @link		http://codeigniter.com/user_guide/libraries/image_lib.html
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Image_Library {
     /**
-	 * Sets the image library to be used (Can be:  imagemagick, netpbm, gd, gd2)
-	 * 
-	 * Availability: R, C, X, W
-	 * 
-	 * @var string 
+	 * PHP extension/library to use for image manipulation
+	 * Can be: imagemagick, netpbm, gd, gd2
+	 *
+	 * @var string
 	 */
 	public $image_library_to_use = 'gd2';
 	
 	/**
-	 * Sets the server path to your ImageMagick or NetPBM library. 
-	 * If you use either of those libraries you must supply the path.
-	 * 
-	 * Availability: R, C, X
-	 * 
-	 * @var string 
+	 * Path to the graphic library (if applicable)
+	 *
+	 * @var string
 	 */
 	public $library_path = '';
 	
 	/**
-	 * Determines whether the new image file should be written to disk or generated dynamically. 
 	 * Whether to send to browser or write to disk
-	 * Note: If you choose the dynamic setting, only one image can be shown at a time, 
-	 * and it can't be positioned on the page. 
-	 * It simply outputs the raw image dynamically to your browser, along with image headers.
-	 * 
-	 * Availability: R, C, X, W
-	 * 
-	 * @var string 
+	 *
+	 * @var bool
 	 */
 	public $dynamic_output = FALSE;	
 	
 	/**
-	 * Sets the source image name/path. 
-	 * The path must be a relative or absolute server path, not a URL.
-	 * 
-	 * Availability: R, C, X, W
-	 * 
-	 * @var string 
+	 * Path to original image
+	 *
+	 * @var string
 	 */
 	public $source_image = '';
 	
 	/**
-	 * Sets the destination image name/path. You'll use this preference when creating an image copy. 
-	 * The path must be a relative or absolute server path, not a URL.
-	 * 
-	 * Availability: R, C, X, W
-	 * 
-	 * @var string 
+	 * Path to the modified image
+	 *
+	 * @var string
 	 */
 	public $new_image = '';
 	
 	/**
-	 * Sets the width you would like the image set to.
-	 * 
-	 * Availability: R, C
-	 * 
-	 * @var string 
+	 * Image width
+	 *
+	 * @var int
 	 */
 	public $width = '';
 	
 	/**
-	 * Sets the height you would like the image set to.
-	 * 
-	 * Availability: R, C
-	 * 
-	 * @var string 
+	 * Image height
+	 *
+	 * @var int
 	 */
 	public $height = '';
 	
 	/**
-	 * Sets the quality of the image. The higher the quality the larger the file size.
-	 * 
-	 * Availability: R, C, X, W
-	 * 
-	 * @var string 
+	 * Quality percentage of new image
+	 *
+	 * @var int
 	 */
 	public $quality = '90';
 	
 	/**
-	 * Tells the image processing function to create a thumb.
-	 * 
-	 * Availability: R
-	 * 
-	 * @var boolean
+	 * Whether to create a thumbnail
+	 *
+	 * @var bool
 	 */
 	public $create_thumb = FALSE;
 	
 	/**
-	 * Specifies the thumbnail indicator. It will be inserted just before the file extension, 
-	 * so mypic.jpg would become mypic_thumb.jpg 
-	 * 
-	 * Availability: R
-	 * 
-	 * @var string 
+	 * String to add to thumbnail version of image
+	 *
+	 * @var string
 	 */
 	public $thumb_marker = '_thumb';
 	
 	/**
-	 * Specifies whether to maintain the original aspect ratio when resizing or use hard values.
-	 * 
-	 * Availability: R, C
-	 * 
-	 * @var boolean
+	 * Whether to maintain aspect ratio when resizing or use hard values
+	 *
+	 * @var bool
 	 */
 	public $maintain_ratio = TRUE;	
 	
 	/**
-	 * Specifies what to use as the master axis when resizing or creating thumbs. 
-	 * For example, let's say you want to resize an image to 100 X 75 pixels. 
-	 * If the source image size does not allow perfect resizing to those dimensions, 
-	 * this setting determines which axis should be used as the hard value. 
-	 * "auto" sets the axis automatically based on whether the image is taller then wider, or vice versa.
-	 *
 	 * auto, height, or width.  Determines what to use as the master dimension
-	 * 
-	 * Availability: R
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $master_dim = 'auto';
 	
 	/**
-	 * Specifies the angle of rotation when rotating images. 
-	 * Note that PHP rotates counter-clockwise, 
-	 * so a 90 degree rotation to the right must be specified as 270.
-	 * 
-	 * Availability: X
-	 * 
-	 * @var string 
+	 * Angle at to rotate image
+	 *
+	 * @var string
 	 */
 	public $rotation_angle = '';
 	
 	/**
-	 * Sets the X coordinate in pixels for image cropping. 
-	 * For example, a setting of 30 will crop an image 30 pixels from the left.
-	 * 
-	 * Availability: C
-	 * 
-	 * @var string 
+	 * X Coordinate for manipulation of the current image
+	 *
+	 * @var int
 	 */
 	public $x_axis = '';
 	
 	/**
-	 * Sets the Y coordinate in pixels for image cropping. 
-	 * For example, a setting of 30 will crop an image 30 pixels from the top.
-	 * 
-	 * Availability: C
-	 * 
-	 * @var string 
+	 * Y Coordinate for manipulation of the current image
+	 *
+	 * @var int
 	 */
 	public $y_axis = '';
 
 	// Watermark Vars
 	
 	/**
-	 * The text you would like shown as the watermark. 
-	 * Typically this will be a copyright notice.
-	 * 
-	 * @var string 
+	 * Watermark text if graphic is not used
+	 *
+	 * @var string
 	 */
 	public $wm_text = '';
 	
 	/**
-	 * Sets the type of watermarking that should be used.
-	 * Options:  text/overlay
-	 * 
-	 * @var string 
+	 * Type of watermarking.  Options:  text/overlay
+	 *
+	 * @var string
 	 */
 	public $wm_type = 'text';
 	
 	/**
-	 * If your watermark image is a PNG or GIF image, 
-	 * you may specify a color on the image to be "transparent". 
-	 * This setting (along with the next) will allow you to specify that color. 
-	 * This works by specifying the "X" and "Y" coordinate pixel (measured from the upper left) 
-	 * within the image that corresponds to a pixel representative of the color you want to be transparent.
-	 * 
-	 * @var integer
+	 * Default transparency for watermark
+	 *
+	 * @var int
 	 */
 	public $wm_x_transp	= 4;
 	
 	/**
-	 * Along with the previous setting, this allows you to specify the coordinate 
-	 * to a pixel representative of the color you want to be transparent.
-	 * 
-	 * @var integer
+	 * Default transparency for watermark
+	 *
+	 * @var int
 	 */
 	public $wm_y_transp = 4;
 	
 	/**
-	 * The server path to the image you wish to use as your watermark. 
-	 * Required only if you are using the overlay method.
-	 * 
-	 * @var string 
+	 * Watermark image path
+	 *
+	 * @var string
 	 */
 	public $wm_overlay_path	= '';
 	
 	/**
-	 * The server path to the True Type Font you would like to use. 
-	 * If you do not use this option, the native GD font will be used.
-	 * 
-	 * @var string 
+	 * True Type font
+	 *
+	 * @var string
 	 */
 	public $wm_font_path = '';
 	
 	/**
-	 * The size of the text. Note: If you are not using the True Type option above, 
-	 * the number is set using a range of 1 - 5. 
-	 * Otherwise, you can use any valid pixel size for the font you're using.
-	 * 
-	 * @var integer
+	 * Font size (different versions of GD will either use points or pixels)
+	 *
+	 * @var int
 	 */
 	public $wm_font_size = 17;
 	
 	/**
-	 * Sets the vertical alignment for the watermark image.
 	 * Vertical alignment:   T M B
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $wm_vrt_alignment = 'B';
 	
 	/**
-	 * Sets the horizontal alignment for the watermark image.
 	 * Horizontal alignment: L R C
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	public $wm_hor_alignment = 'C';	
 	
 	/**
-	 * The amount of padding around text, set in pixels, 
-	 * that will be applied to the watermark to set it away from the edge of your images.
-	 * 
-	 * @var integer
+	 * Padding around text
+	 *
+	 * @var int
 	 */
 	public $wm_padding = 0;
 	
 	/**
-	 * You may specify a horizontal offset (in pixels) to apply to the watermark position. 
-	 * The offset normally moves the watermark to the right, except if you have your alignment 
-	 * set to "right" then your offset value will move the watermark toward the left of the image.
-	 * 
-	 * @var integer
+	 * Lets you push text to the right
+	 *
+	 * @var int
 	 */
 	public $wm_hor_offset = 0;
 	
 	/**
-	 * You may specify a vertical offset (in pixels) to apply to the watermark position. 
-	 * The offset normally moves the watermark down, except if you have your alignment 
-	 * set to "bottom" then your offset value will move the watermark toward the top of the image.
-	 * 
-	 * @var integer
+	 * Lets you push text down
+	 *
+	 * @var int
 	 */
 	public $wm_vrt_offset = 0;
 	
 	/**
-	 * The font color, specified in hex. 
-	 * Note, you must use the full 6 character hex value (ie, 993300), 
-	 * rather than the three character abbreviated version (ie fff).
-	 * 
-	 * @var string 
+	 * Text color
+	 *
+	 * @var string
 	 */
 	public $wm_font_color = '#ffffff';
 	
 	/**
-	 * The color of the drop shadow, specified in hex. 
-	 * If you leave this blank a drop shadow will not be used. 
-	 * Note, you must use the full 6 character hex value (ie, 993300), 
-	 * rather than the three character abbreviated version (ie fff).
-	 * 
-	 * @var string 
+	 * Dropshadow color
+	 *
+	 * @var string
 	 */
 	public $wm_shadow_color	= '';
 	
 	/**
-	 * The distance (in pixels) from the font that the drop shadow should appear.
-	 * 
-	 * @var integer
+	 * Dropshadow distance
+	 *
+	 * @var int
 	 */
 	public $wm_shadow_distance = 2;
 	
 	/**
-	 * Image opacity. You may specify the opacity (i.e. transparency) of your watermark image. 
-	 * This allows the watermark to be faint and not completely obscure the details 
-	 * from the original image behind it. A 50% opacity is typical.
 	 * Image opacity: 1 - 100  Only works with image
-	 * 
-	 * @var integer
+	 *
+	 * @var int
 	 */
 	public $wm_opacity = 50;
 
 	// Private Vars
+	
+	/**
+	 * Source image folder
+	 *
+	 * @var string
+	 */
 	private $source_folder		= '';
+	
+	/**
+	 * Destination image folder
+	 *
+	 * @var string
+	 */
 	private $dest_folder		= '';
+	
+	/**
+	 * Image mime-type
+	 *
+	 * @var string
+	 */
 	private $mime_type			= '';
+	
+	/**
+	 * Original image width
+	 *
+	 * @var int
+	 */
 	private $orig_width			= '';
+	
+	/**
+	 * Original image height
+	 *
+	 * @var int
+	 */
 	private $orig_height		= '';
+	
+	/**
+	 * Image format
+	 *
+	 * @var string
+	 */
 	private $image_type			= '';
+	
+	/**
+	 * Size of current image
+	 *
+	 * @var string
+	 */
 	private $size_str			= '';
+	
+	/**
+	 * Full path to source image
+	 *
+	 * @var string
+	 */
 	private $full_src_path		= '';
+	
+	/**
+	 * Full path to destination image
+	 *
+	 * @var string
+	 */
 	private $full_dst_path		= '';
+	
+	/**
+	 * Name of function to create image
+	 *
+	 * @var string
+	 */
 	private $create_fnc			= 'imagecreatetruecolor';
+	
+	/**
+	 * Name of function to copy image
+	 *
+	 * @var string
+	 */
 	private $copy_fnc			= 'imagecopyresampled';
+	
+	/**
+	 * Whether to have a drop shadow on watermark
+	 *
+	 * @var bool
+	 */
 	private $wm_use_drop_shadow	= FALSE;
+	
+	/**
+	 * Whether to use truetype fonts
+	 *
+	 * @var bool
+	 */
 	private $wm_use_truetype	= FALSE;
 	
 	
