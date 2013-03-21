@@ -572,7 +572,9 @@ class Image_Library {
 	 */
 	public function clear() {
 		$props = array(
-		    'source_folder', 
+		    'thumb_marker', 
+			'library_path',
+			'source_folder', 
 			'dest_folder', 
 			'source_image', 
 			'full_src_path', 
