@@ -785,7 +785,7 @@ class Image_Library {
 		imagedestroy($dst_img);
 		imagedestroy($src_img);
 
-		// Set the file to 777
+		// Set the file to 666
 		@chmod($this->full_dst_path, 0666);
 
 		return TRUE;
@@ -848,7 +848,7 @@ class Image_Library {
 			return FALSE;
 		}
 
-		// Set the file to 777
+		// Set the file to 666
 		@chmod($this->full_dst_path, 0666);
 
 		return TRUE;
@@ -976,8 +976,7 @@ class Image_Library {
 		imagedestroy($dst_img);
 		imagedestroy($src_img);
 
-		// Set the file to 777
-
+		// Set the file to 666
 		@chmod($this->full_dst_path, 0666);
 
 		return TRUE;
@@ -1001,7 +1000,7 @@ class Image_Library {
 
 		if ($this->rotation_angle === 'hor') {
 			for ($i = 0; $i < $height; $i++) {
-				$left  = 0;
+				$left = 0;
 				$right = $width-1;
 
 				while ($left < $right) {
@@ -1046,7 +1045,7 @@ class Image_Library {
 		//  Kill the file handles
 		imagedestroy($src_img);
 
-		// Set the file to 777
+		// Set the file to 666
 		@chmod($this->full_dst_path, 0666);
 
 		return TRUE;
