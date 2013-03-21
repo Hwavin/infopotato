@@ -235,77 +235,77 @@ class Image_Library {
 	 *
 	 * @var string
 	 */
-	private $source_folder		= '';
+	private $source_folder = '';
 	
 	/**
 	 * Destination image folder
 	 *
 	 * @var string
 	 */
-	private $dest_folder		= '';
+	private $dest_folder = '';
 	
 	/**
 	 * Image mime-type
 	 *
 	 * @var string
 	 */
-	private $mime_type			= '';
+	private $mime_type = '';
 	
 	/**
 	 * Original image width
 	 *
 	 * @var int
 	 */
-	private $orig_width			= '';
+	private $orig_width = '';
 	
 	/**
 	 * Original image height
 	 *
 	 * @var int
 	 */
-	private $orig_height		= '';
+	private $orig_height = '';
 	
 	/**
 	 * Image format
 	 *
 	 * @var string
 	 */
-	private $image_type			= '';
+	private $image_type = '';
 	
 	/**
 	 * Size of current image
 	 *
 	 * @var string
 	 */
-	private $size_str			= '';
+	private $size_str = '';
 	
 	/**
 	 * Full path to source image
 	 *
 	 * @var string
 	 */
-	private $full_src_path		= '';
+	private $full_src_path = '';
 	
 	/**
 	 * Full path to destination image
 	 *
 	 * @var string
 	 */
-	private $full_dst_path		= '';
+	private $full_dst_path = '';
 	
 	/**
 	 * Name of function to create image
 	 *
 	 * @var string
 	 */
-	private $create_fnc			= 'imagecreatetruecolor';
+	private $create_fnc = 'imagecreatetruecolor';
 	
 	/**
 	 * Name of function to copy image
 	 *
 	 * @var string
 	 */
-	private $copy_fnc			= 'imagecopyresampled';
+	private $copy_fnc = 'imagecopyresampled';
 	
 	/**
 	 * Whether to have a drop shadow on watermark
@@ -319,7 +319,7 @@ class Image_Library {
 	 *
 	 * @var bool
 	 */
-	private $wm_use_truetype	= FALSE;
+	private $wm_use_truetype = FALSE;
 	
 	
 	/**
