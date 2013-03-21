@@ -1443,7 +1443,7 @@ class Image_Library {
 				break;
 			
 			case 2 :	
-			    imagejpeg($resource, '', $this->quality);
+			    imagejpeg($resource, NULL, $this->quality);
 				break;
 			
 			case 3 :	
