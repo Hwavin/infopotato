@@ -97,8 +97,8 @@ require_once $file;
 // Set session normal length as 30 mins
 Session::init(APP_SESSION_DIR, '30 minutes');
 
-// Dispatch the incoming request
-dispatch();
+// Dispatching
+Dispatcher::run();
 
 // End of file: ./dev.php 
 
