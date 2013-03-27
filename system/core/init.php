@@ -7,6 +7,9 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+if (version_compare(PHP_VERSION, '5.3.0','<')) {
+    exit('InfoPotato requires PHP 5.3.0 or newer.');
+}
 
 // Register given function as __autoload() implementation, PHP 5 >= 5.1.2
 spl_autoload_register('auto_load');
