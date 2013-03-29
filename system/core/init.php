@@ -159,24 +159,25 @@ function halt($heading, $message, $template = 'sys_error') {
 	if (ENVIRONMENT === 'development') {
 		ob_start();
         require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
-        $buffer = ob_get_contents();
+        $output = ob_get_contents();
         ob_end_clean();
-        echo $buffer;
-        exit;
     }
 	
 	if (ENVIRONMENT === 'production') {
-		// Display app specific 404 error page
+		// Display app specific 404 error page if defined, 
+		// otherwise use the system default template
 		if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
-			$uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
-			$output = file_get_contents($uri);
-			// To avoid soft 404, we need to send the 404 HTTP header status code 
-			// before outputing the custom 404 content
-			header('HTTP/1.1 404 Not Found');
-			echo $output;
+			$output = file_get_contents(APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD);
+		} else {
+			$output = file_get_contents(SYS_CORE_DIR.'sys_templates'.DS.'404_error.php');
 		}
-        exit;
+		// Send the 404 HTTP header status code to avoid soft 404 before outputing the custom 404 content
+		// No need to send this 404 header status code under 'development' environment
+		header('HTTP/1.1 404 Not Found');
     }
+	
+	echo $output;
+    exit;
 }
 
 /**
