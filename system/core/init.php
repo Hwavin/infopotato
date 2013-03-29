@@ -153,10 +153,10 @@ function auto_load($class_name) {
  * @return	string
  */
 function halt($heading, $message, $template = 'sys_error') {
-	if (ENVIRONMENT === 'development') {
-        // Log in case some errors can't be manually captured
-		Logger::log_debug(APP_LOG_DIR, $message);
+    // Log to caputre all errors since some errors can't be manually captured
+    Logger::log_debug(APP_LOG_DIR, $message);
 		
+	if (ENVIRONMENT === 'development') {
 		ob_start();
         require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
         $buffer = ob_get_contents();
@@ -166,9 +166,6 @@ function halt($heading, $message, $template = 'sys_error') {
     }
 	
 	if (ENVIRONMENT === 'production') {
-		// Log to caputre all errors since they won't be displayed in production environment
-		Logger::log_debug(APP_LOG_DIR, $message);
-		
 		// Display app specific 404 error page
 		if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
 			$uri = APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD;
