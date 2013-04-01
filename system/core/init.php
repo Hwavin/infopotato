@@ -149,7 +149,6 @@ function auto_load($class_name) {
  * @param	string	the heading
  * @param	string	the message
  * @param	string	the template name
- * @param	int	the HTTP response status code
  * @return	string
  */
 function halt($heading, $message, $template = 'sys_error') {
