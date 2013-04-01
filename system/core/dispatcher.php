@@ -7,7 +7,7 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */ 
-class dispatcher{
+class Dispatcher{
     /**
 	 * Parse incoming request to get the desiered manager, request method, and optional parameters
 	 * Then the desginated manager prepares the related resources and sends response back to client
