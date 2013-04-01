@@ -60,10 +60,13 @@ define('APP_DEFAULT_MANAGER', 'home');
 define('APP_DEFAULT_MANAGER_METHOD', 'index');
 
 /**
- * Error 404 manager/method to use
+ * Error 404 manager/method is designed for production mode
+ * No need to show 404 error page in development mode
  */
-define('APP_404_MANAGER', 'error');
-define('APP_404_MANAGER_METHOD', '404');
+if (ENVIRONMENT === 'production') {
+	define('APP_404_MANAGER', 'error');
+	define('APP_404_MANAGER_METHOD', '404');
+}
 
 /**
  * When turned-on, the system core/libraries/functions called will be cached and stored in SYS_RUNTIME_CACHE_DIR
