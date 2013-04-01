@@ -204,7 +204,6 @@ class MySQLi_DAO extends Base_DAO {
 	 * Disable autocommit to begin transaction
 	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
 	 * 
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
@@ -214,7 +213,6 @@ class MySQLi_DAO extends Base_DAO {
 	/**
 	 * Commit Transaction
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_commit() {
@@ -224,7 +222,6 @@ class MySQLi_DAO extends Base_DAO {
 	/**
 	 * Rollback Transaction
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_rollback() {

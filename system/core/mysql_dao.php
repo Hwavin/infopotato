@@ -209,7 +209,6 @@ class MySQL_DAO extends Base_DAO {
 	 * Begin Transaction using standard sql
 	 * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
 	 * 
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
@@ -220,7 +219,6 @@ class MySQL_DAO extends Base_DAO {
 	/**
 	 * Commit Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_commit() {
@@ -231,7 +229,6 @@ class MySQL_DAO extends Base_DAO {
 	/**
 	 * Rollback Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_rollback() {

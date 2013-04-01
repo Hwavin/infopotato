@@ -182,7 +182,6 @@ class PostgreSQL_DAO extends Base_DAO {
 	/**
 	 * Begin Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_begin() {
@@ -192,7 +191,6 @@ class PostgreSQL_DAO extends Base_DAO {
 	/**
 	 * Commit Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_commit() {
@@ -202,7 +200,6 @@ class PostgreSQL_DAO extends Base_DAO {
 	/**
 	 * Rollback Transaction using standard sql
 	 *
-	 * @access	public
 	 * @return	bool
 	 */
 	public function trans_rollback() {
