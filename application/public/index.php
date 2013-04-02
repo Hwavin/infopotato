@@ -97,9 +97,22 @@ if (RUNTIME_CACHE === TRUE) {
 }
 require_once $file;
 
-// Set session directory, must be writable
+// APP_SESSION_DIR must be writable
 // Set session normal length as 30 mins
-Session::init(APP_SESSION_DIR, '30 minutes');
+if ( ! is_writable(APP_SESSION_DIR)) {
+	exit('APP_SESSION_DIR must be writable');
+} else {
+    Session::init(APP_SESSION_DIR, '30 minutes');
+}
+
+// Sets the global severity threshold
+// Severity levels: 'ERROR', 'WARN', 'INFO', 'DEBUG'
+// APP_LOG_DIR must be writable
+if ( ! is_writable(APP_LOG_DIR)) {
+	exit('APP_LOG_DIR must be writable');
+} else {
+    Logger::set_severity_threshold('DEBUG');
+}
 
 // Dispatching
 Dispatcher::run();
