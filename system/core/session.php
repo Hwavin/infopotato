@@ -44,11 +44,11 @@ class Session {
 	private static $_regenerated = FALSE;
 	
 	/**
-	 * Forces use as a static class
+	 * Prevent direct object creation
 	 * 
 	 * @return Session
 	 */
-	private function __construct() { }
+	private function __construct() {}
 	
 	/**
 	 * Adds a value to an already-existing array value, or to a new array value

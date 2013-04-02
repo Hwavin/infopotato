@@ -9,6 +9,13 @@
  */ 
 class Dispatcher{
     /**
+	 * Prevent direct object creation
+	 * 
+	 * @return Dispatcher
+	 */
+	private function __construct() {}
+	
+	/**
 	 * Parse incoming request to get the desiered manager, request method, and optional parameters
 	 * Then the desginated manager prepares the related resources and sends response back to client
 	 *

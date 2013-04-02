@@ -46,11 +46,11 @@ class Cookie {
 	private static $_default_secure = FALSE;
 	
 	/**
-	 * Forces use as a static class
+	 * Prevent direct object creation
 	 * 
 	 * @return Cookie
 	 */
-	private function __construct() { }
+	private function __construct() {}
 	
 	/**
 	 * Deletes a cookie - uses default parameters set by the other set methods of this class

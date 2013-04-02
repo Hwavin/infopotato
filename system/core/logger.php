@@ -81,6 +81,13 @@ class Logger {
     private static $_default_permissions = 0777;
 
 	/**
+	 * Prevent direct object creation
+	 * 
+	 * @return Logger
+	 */
+	private function __construct() {}
+	
+	/**
      * Sets the global severity threshold
      * 
      * @param string $level Valid severity level ('ERROR', 'WARN', 'INFO', 'DEBUG')

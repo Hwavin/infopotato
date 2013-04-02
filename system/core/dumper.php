@@ -42,6 +42,13 @@ class Dumper {
 	public static $initialized;
 	public static $arr_history;
 	
+	/**
+	 * Prevent direct object creation
+	 * 
+	 * @return Dumper
+	 */
+	private function __construct() {}
+	
 	public static function dump($var, $force_type = '', $collapsed = FALSE) {
 	    // Reseet the settings each time dump() is called
 		self::$xml_count = 0;
