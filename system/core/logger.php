@@ -4,7 +4,7 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
  
@@ -63,9 +63,9 @@ class Logger {
      * @var array
      */
     private static $_messages = array(
-        'write_fail' => 'The file could not be written to. Check permissions.',
-        'open_fail' => 'The file could not be opened. Check permissions.',
-		'invalid_level' => 'The severity level you provided is invalid',
+        'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable.',
+        'open_fail' => 'Failed to open the log files. Please check permissions.',
+		'invalid_level' => 'The logging severity level you provided is invalid',
     );
     
 	/**
