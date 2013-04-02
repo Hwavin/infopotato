@@ -34,6 +34,13 @@ class I18n {
 	private static $_cache = array();
 	
 	/**
+	 * Prevent direct object creation
+	 * 
+	 * @return I18ns
+	 */
+	private function __construct() {}
+	
+	/**
 	 * Returns translation of a string. If no translation exists, the original
 	 * string will be returned. No parameters are replaced.
 	 *

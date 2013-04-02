@@ -36,11 +36,11 @@ class PHP_UTF8 {
 	private static $_mbstring_available = FALSE;
 	
 	/**
-	 * Forces use as a static class
+	 * Prevent direct object creation
 	 * 
 	 * @return UTF8
 	 */
-	private function __construct() { }
+	private function __construct() {}
 	
 	/**
 	 * Checks to see if the [http://php.net/mbstring mbstring] extension is available
