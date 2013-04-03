@@ -97,9 +97,8 @@ function captcha_function(array $data = NULL) {
 	// The "expiration" (in seconds) signifies how long an image will remain in the captcha folder before it will be deleted. The default is two hours.
 	$defaults = array(
 		'img_dir' => '', 
-		'img_url' => '', 
-		'img_width' => '150', 
-		'img_height' => '30', 
+		'img_width' => 150, 
+		'img_height' => 30, 
 		'font_path' => '', 
 		'expiration' => 7200
 	);
@@ -108,7 +107,7 @@ function captcha_function(array $data = NULL) {
 		$$key = isset($data[$key]) ? $data[$key] : $val;
 	}
 
-	if ($img_dir === '' || $img_url === '' || ! @is_dir($img_dir) || ! is_writable($img_dir) || ! extension_loaded('gd')) {
+	if (! @is_dir($img_dir) || ! is_writable($img_dir) || ! extension_loaded('gd')) {
 		return FALSE;
 	}
 
@@ -199,14 +198,15 @@ function captcha_function(array $data = NULL) {
 
 	// Generate the image
 	$img_name = $now.'.jpg';
-	ImageJPEG($im, $img_dir.$img_name);
-	$img = '<img src="'.$img_url.$img_name.'" style="width: '.$img_width.'; height: '.$img_height .'; border: 0;" alt=" " />';
-	ImageDestroy($im);
+	imagejpeg($im, $img_dir.$img_name);
+	imagedestroy($im);
 
 	return array(
 		'answer' => $result_captcha_arr['answer'], 
 		'time' => $now, 
-		'image' => $img
+		'img_name' => $img_name,
+		'img_width' => $img_width,
+		'img_height' => $img_height
 	);
 }
 
