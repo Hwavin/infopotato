@@ -1,6 +1,6 @@
 <?php
 /**
- * Create image-based CAPTCHA
+ * Create logic question image CAPTCHA
  *
  * @access	public
  * @param	array	array of data for the CAPTCHA
@@ -9,15 +9,93 @@
  * @param	string	server path to font
  * @return	array or FALSE on failure
  */
-function image_captcha_function(array $data = NULL) {
+function captcha_function(array $data = NULL) {
+	$captcha_text = array(
+	    array(
+		    'question' => '2 + 2 = ?',
+			'answer' => '4'
+		),
+		array(
+		    'question' => '5 + 3 = ?',
+			'answer' => '8'
+		),
+		array(
+		    'question' => '8 + 1 = ?',
+			'answer' => '9'
+		),
+		array(
+		    'question' => 'What is the sum of 2 and 2 ?',
+			'answer' => '4'
+		),
+		array(
+		    'question' => 'The last letter in "rocket" is?',
+			'answer' => 't'
+		),
+		array(
+		    'question' => 'The last letter in "computer" is?',
+			'answer' => 'r'
+		),
+		array(
+		    'question' => 'The first letter in "morning" is?',
+			'answer' => 'm'
+		),
+		array(
+		    'question' => 'In the number 73627, what is the 3rd digit?',
+			'answer' => '6'
+		),
+		array(
+		    'question' => 'In the number 73628, what is the 4th digit?',
+			'answer' => '2'
+		),
+		array(
+		    'question' => 'If tomorrow is Monday what day is today?',
+			'answer' => 'sunday'
+		),
+		array(
+		    'question' => 'The color of a red rose is?',
+			'answer' => 'red'
+		),
+		array(
+		    'question' => 'If the cat is black, what color is it?',
+			'answer' => 'black'
+		),
+		array(
+		    'question' => '2, 4, 8, 10 : which of these is the largest?',
+			'answer' => '10'
+		),
+		array(
+		    'question' => '4, 5, 6, 7 : the 2nd number is?',
+			'answer' => '5'
+		),
+		array(
+		    'question' => 'What is "one hundred" as a number?',
+			'answer' => '100'
+		),
+		array(
+		    'question' => 'How many letters in "jilting"?',
+			'answer' => '7'
+		),
+		array(
+		    'question' => 'Twelve minus 6 = ?',
+			'answer' => '6'
+		),
+		array(
+		    'question' => 'What is eighteen minus 3?',
+			'answer' => '15'
+		),
+	);
+	
+	$random_key = array_rand($captcha_text, 1);
+	$result_captcha_arr = $captcha_text[$random_key];
+	
+	
+	
 	// The captcha function requires the GD image library.
 	// Only the img_dir and img_url are required.
-	// If a "word" is not supplied, the function will generate a random ASCII string. You might put together your own word library that you can draw randomly from.
 	// If you do not specify a path to a TRUE TYPE font, the native ugly GD font will be used.
 	// The "captcha" folder must be writable (666, or 777)
 	// The "expiration" (in seconds) signifies how long an image will remain in the captcha folder before it will be deleted. The default is two hours.
 	$defaults = array(
-		'word' => '', 
 		'img_dir' => '', 
 		'img_url' => '', 
 		'img_width' => '150', 
@@ -45,17 +123,9 @@ function image_captcha_function(array $data = NULL) {
 
 	@closedir($current_dir);
 
-	// Do we have a "word" yet?
-    if (empty($word)) {
-		$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$word = '';
-		for ($i = 0, $mt_rand_max = strlen($pool) - 1; $i < 8; $i++) {
-			$word .= $pool[mt_rand(0, $mt_rand_max)];
-		}
-	} elseif ( ! is_string($word)) {
-		$word = (string) $word;
-	}
-
+	// Text question to be displayed on captcha image
+	$word = $result_captcha_arr['question'];
+	
 	// Determine angle and position
 	$length	= strlen($word);
 	$angle = ($length >= 6) ? rand(-($length-6), ($length-6)) : 0;
@@ -75,10 +145,10 @@ function image_captcha_function(array $data = NULL) {
 	$grid_color	= imagecolorallocate($im, 255, 182, 182);
 	$shadow_color = imagecolorallocate($im, 255, 240, 240);
 
-	//  Create the rectangle
+	// Create the rectangle
 	ImageFilledRectangle($im, 0, 0, $img_width, $img_height, $bg_color);
 
-	//  Create the spiral pattern
+	// Create the spiral pattern
 	$theta = 1;
 	$thetac = 7;
 	$radius = 16;
@@ -98,7 +168,7 @@ function image_captcha_function(array $data = NULL) {
 		$theta -= $thetac;
 	}
 
-	//  Write the text
+	// Write the text
 	$use_font = ($font_path !== '' && file_exists($font_path) && function_exists('imagettftext'));
 
 	if ($use_font === FALSE) {
@@ -124,20 +194,20 @@ function image_captcha_function(array $data = NULL) {
 	}
 
 
-	//  Create the border
+	// Create the border
 	imagerectangle($im, 0, 0, $img_width-1, $img_height-1, $border_color);
 
-	//  Generate the image
+	// Generate the image
 	$img_name = $now.'.jpg';
 	ImageJPEG($im, $img_dir.$img_name);
 	$img = '<img src="'.$img_url.$img_name.'" style="width: '.$img_width.'; height: '.$img_height .'; border: 0;" alt=" " />';
 	ImageDestroy($im);
 
 	return array(
-		'word' => $word, 
+		'answer' => $result_captcha_arr['answer'], 
 		'time' => $now, 
 		'image' => $img
 	);
 }
 
-/* End of file: ./system/functions/image_captcha_function.php */
+/* End of file: ./system/functions/captcha/captcha_function.php */
