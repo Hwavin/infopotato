@@ -9,100 +9,66 @@ function captcha_function(array $data = NULL) {
 	if ( ! extension_loaded('gd')) {
 		exit('You need to enable GD library to use this function!');
 	}
-	
-	$captcha_text = array(
-	    array(
-		    'question' => '2 + 2 = ?',
-			'answer' => '4'
-		),
-		array(
-		    'question' => '5 + 3 = ?',
-			'answer' => '8'
-		),
-		array(
-		    'question' => '8 + 1 = ?',
-			'answer' => '9'
-		),
-		array(
-		    'question' => 'What is the sum of 2 and 2 ?',
-			'answer' => '4'
-		),
-		array(
-		    'question' => 'The last letter in "rocket" is?',
-			'answer' => 't'
-		),
-		array(
-		    'question' => 'The last letter in "computer" is?',
-			'answer' => 'r'
-		),
-		array(
-		    'question' => 'The first letter in "morning" is?',
-			'answer' => 'm'
-		),
-		array(
-		    'question' => 'In the number 73627, what is the 3rd digit?',
-			'answer' => '6'
-		),
-		array(
-		    'question' => 'In the number 73628, what is the 4th digit?',
-			'answer' => '2'
-		),
-		array(
-		    'question' => 'If tomorrow is Monday what day is today?',
-			'answer' => 'sunday'
-		),
-		array(
-		    'question' => 'The color of a red rose is?',
-			'answer' => 'red'
-		),
-		array(
-		    'question' => 'If the cat is black, what color is it?',
-			'answer' => 'black'
-		),
-		array(
-		    'question' => '2, 4, 8, 10 : which of these is the largest?',
-			'answer' => '10'
-		),
-		array(
-		    'question' => '4, 5, 6, 7 : the 2nd number is?',
-			'answer' => '5'
-		),
-		array(
-		    'question' => 'What is "one hundred" as a number?',
-			'answer' => '100'
-		),
-		array(
-		    'question' => 'How many letters in "jilting"?',
-			'answer' => '7'
-		),
-		array(
-		    'question' => 'Twelve minus 6 = ?',
-			'answer' => '6'
-		),
-		array(
-		    'question' => 'What is eighteen minus 3?',
-			'answer' => '15'
-		),
-	);
-	
-	$random_key = array_rand($captcha_text, 1);
-	$result_captcha_arr = $captcha_text[$random_key];
-	
+
 	// The captcha function requires the GD image library.
 	// If you do not specify a path to a TRUE TYPE font, the native ugly GD font will be used.
 	$defaults = array(
-		'img_width' => 150, 
-		'img_height' => 30, 
+		'img_width' => 200, 
+		'img_height' => 50, 
 		'font_path' => '', 
+		'type' => 'text'
 	);
 
 	foreach ($defaults as $key => $val) {
 		$$key = isset($data[$key]) ? $data[$key] : $val;
 	}
-
-	// Text question to be displayed on captcha image
-	$word = $result_captcha_arr['question'];
 	
+	// Check to see which captcha type to use
+	
+	// Content to be displayed in captcha image
+	$display = '';
+	// Captcha answer to be stored in SESSION
+	$answer = '';
+	
+	// Create the random math question
+	if ($type === 'math') {
+		$signs = array('+', '-', 'x');
+		
+		do {
+			$sign = $signs[mt_rand(0, 2)];
+			$left = mt_rand(1, 10);
+			$right = mt_rand(1, 5);
+
+			switch($sign) {
+				case 'x': 
+					$answer = $left * $right; 
+					break;
+
+				case '-': 
+					$answer = $left - $right; 
+					break;
+				
+				default:  
+					$answer = $left + $right; 
+					break;
+			}
+		} while ($answer <= 0); // no negative #'s or 0
+
+		$display = "$left $sign $right = ?";
+	}
+	
+	// Create the random text
+	if ($type === 'text') {
+	    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		for ($i = 0, $mt_rand_max = strlen($pool) - 1; $i < 8; $i++) {
+			$display .= $pool[mt_rand(0, $mt_rand_max)];
+		}
+		$answer = $display;
+	}
+
+	// Math question to be displayed on captcha image
+	$word = $display;
+
 	// Determine angle and position
 	$length	= strlen($word);
 	$angle = ($length >= 6) ? rand(-($length-6), ($length-6)) : 0;
@@ -115,12 +81,11 @@ function captcha_function(array $data = NULL) {
 			? imagecreatetruecolor($img_width, $img_height)
 			: imagecreate($img_width, $img_height);
 
-	//  Assign colors
-	$bg_color = imagecolorallocate ($im, 255, 255, 255);
-	$border_color = imagecolorallocate ($im, 153, 102, 102);
-	$text_color = imagecolorallocate ($im, 204, 153, 153);
+	// Assign colors
+	$bg_color = imagecolorallocate($im, 255, 255, 255);
+	$border_color = imagecolorallocate($im, 153, 102, 102);
+	$text_color = imagecolorallocate($im, 204, 153, 153);
 	$grid_color	= imagecolorallocate($im, 255, 182, 182);
-	$shadow_color = imagecolorallocate($im, 255, 240, 240);
 
 	// Create the rectangle
 	ImageFilledRectangle($im, 0, 0, $img_width, $img_height, $bg_color);
@@ -186,7 +151,7 @@ function captcha_function(array $data = NULL) {
 	// You will need to send the header before outputing the image
 	return array(
 		'image' => $image,
-		'answer' => $result_captcha_arr['answer'], 
+		'answer' => (string) $answer // Convert math answer to string too
 	);
 }
 
