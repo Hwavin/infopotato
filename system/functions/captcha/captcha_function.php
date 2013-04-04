@@ -88,39 +88,21 @@ function captcha_function(array $data = NULL) {
 	$random_key = array_rand($captcha_text, 1);
 	$result_captcha_arr = $captcha_text[$random_key];
 	
-	
-	
 	// The captcha function requires the GD image library.
-	// Only the img_dir and img_url are required.
 	// If you do not specify a path to a TRUE TYPE font, the native ugly GD font will be used.
-	// The "captcha" folder must be writable (666, or 777)
-	// The "expiration" (in seconds) signifies how long an image will remain in the captcha folder before it will be deleted. The default is two hours.
 	$defaults = array(
-		'img_dir' => '', 
 		'img_width' => 150, 
 		'img_height' => 30, 
 		'font_path' => '', 
-		'expiration' => 7200
 	);
 
 	foreach ($defaults as $key => $val) {
 		$$key = isset($data[$key]) ? $data[$key] : $val;
 	}
 
-	if (! @is_dir($img_dir) || ! is_writable($img_dir) || ! extension_loaded('gd')) {
+	if ( ! extension_loaded('gd')) {
 		return FALSE;
 	}
-
-	// Remove old images
-	$now = microtime(TRUE);
-	$current_dir = @opendir($img_dir);
-	while ($filename = @readdir($current_dir)) {
-		if (substr($filename, -4) === '.jpg' && (str_replace('.jpg', '', $filename) + $expiration) < $now) {
-			@unlink($img_dir.$filename);
-		}
-	}
-
-	@closedir($current_dir);
 
 	// Text question to be displayed on captcha image
 	$word = $result_captcha_arr['question'];
@@ -197,16 +179,15 @@ function captcha_function(array $data = NULL) {
 	imagerectangle($im, 0, 0, $img_width-1, $img_height-1, $border_color);
 
 	// Generate the image
-	$img_name = $now.'.jpg';
-	imagejpeg($im, $img_dir.$img_name);
+	ob_start();
+	imagejpeg($im, NULL, 90);
+	$image = ob_get_contents();
+    ob_end_clean();
 	imagedestroy($im);
 
 	return array(
+		'image' => $image,
 		'answer' => $result_captcha_arr['answer'], 
-		'time' => $now, 
-		'img_name' => $img_name,
-		'img_width' => $img_width,
-		'img_height' => $img_height
 	);
 }
 
