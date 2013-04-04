@@ -2,14 +2,14 @@
 /**
  * Create logic question image CAPTCHA
  *
- * @access	public
  * @param	array	array of data for the CAPTCHA
- * @param	string	path to create the image in
- * @param	string	URL to the CAPTCHA image folder
- * @param	string	server path to font
- * @return	array or FALSE on failure
+ * @return	array 
  */
 function captcha_function(array $data = NULL) {
+	if ( ! extension_loaded('gd')) {
+		exit('You need to enable GD library to use this function!');
+	}
+	
 	$captcha_text = array(
 	    array(
 		    'question' => '2 + 2 = ?',
@@ -100,10 +100,6 @@ function captcha_function(array $data = NULL) {
 		$$key = isset($data[$key]) ? $data[$key] : $val;
 	}
 
-	if ( ! extension_loaded('gd')) {
-		return FALSE;
-	}
-
 	// Text question to be displayed on captcha image
 	$word = $result_captcha_arr['question'];
 	
@@ -177,14 +173,17 @@ function captcha_function(array $data = NULL) {
 
 	// Create the border
 	imagerectangle($im, 0, 0, $img_width-1, $img_height-1, $border_color);
-
-	// Generate the image
+	
+	// Use output buffering to capture outputted image stream
 	ob_start();
+	// Generate and output the image to browser
 	imagejpeg($im, NULL, 90);
 	$image = ob_get_contents();
     ob_end_clean();
+	// Free up memory
 	imagedestroy($im);
 
+	// You will need to send the header before outputing the image
 	return array(
 		'image' => $image,
 		'answer' => $result_captcha_arr['answer'], 
