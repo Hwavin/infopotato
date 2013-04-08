@@ -24,7 +24,8 @@ class CAPTCHA_Library {
 	
 	/**
 	 * The path to the TrueType font file to use to draw the captcha code
-	 * 
+	 * This is a required option, otherwise you will see an error message on the generated image.
+	 *
 	 * @var string 
 	 */
 	protected $ttf_path = '';
@@ -95,14 +96,14 @@ class CAPTCHA_Library {
 	/**
      * Source image resource identifier
 	 *
-     * @var respurce
+     * @var resource
      */
 	protected $im;
 	
 	/**
      * Temp image resource identifier
 	 *
-     * @var respurce
+     * @var resource
      */
     protected $tmpimg;
 	
@@ -242,7 +243,7 @@ class CAPTCHA_Library {
 	
 
 	/**
-     * Draws random noise spots on the image
+     * Draws random noise spots on the temp image
 	 *
 	 * @return void
      */
@@ -306,7 +307,7 @@ class CAPTCHA_Library {
             for ($i = 0; $i < $n; ++ $i) {
                 $x = $x0 + $i * $dx + $amp * $dy * sin($k * $i * $step + $phi);
                 $y = $y0 + $i * $dy - $amp * $dx * sin($k * $i * $step + $phi);
-                // Draw a filled rectangle with the distorted line
+                // Draw a filled rectangle with the distorted line on the source image
 				imagefilledrectangle($this->im, $x, $y, $x + $lwid, $y + $lwid, $line_color);
             }
         }
