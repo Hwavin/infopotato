@@ -4,15 +4,16 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
- * @link		based on http://www.jongales.com/blog/2009/02/18/simple-file-based-php-cache-class/
- * @link        based on http://www.rooftopsolutions.nl/article/107
+ * @link based on http://www.jongales.com/blog/2009/02/18/simple-file-based-php-cache-class/
+ * @link based on http://www.rooftopsolutions.nl/article/107
  */
 class Output_Cache_Library {  
 	
 	/**
-	 * The cache dir. The dir should end with DIRECTORY_SEPARATOR
+	 * The cache directory
+	 * The dir should end with DIRECTORY_SEPARATOR or DS (defined in bootstrap)
 	 * 
 	 * @var string 
 	 */
