@@ -115,8 +115,13 @@ class CAPTCHA_Library {
 			}
 		}
 	}
+
 	
-	// Check to see which captcha type to use
+	/**
+     * Generate the captcha text or math question based on the captcha type
+	 *
+	 * @return array Array that contains the captcha text or math question and the answer
+     */
 	private function _prepare_captcha() {
 		// Content to be displayed in captcha image
 		$display = '';
@@ -171,7 +176,9 @@ class CAPTCHA_Library {
 	
 	/**
      * Used to serve a captcha image to the browser
+	 *
      * @param string $background_image The path to the background image to use
+	 * @return array Array that contains the image stream and the answer string
      */
     public function create() {
         // Generate the captcha and its answer
@@ -231,6 +238,8 @@ class CAPTCHA_Library {
 
 	/**
      * Draws random noise spots on the image
+	 *
+	 * @return void
      */
     private function _draw_noise() {
         $noise_level = ($this->noise_level > 10) ? 10 : $this->noise_level;
@@ -257,6 +266,8 @@ class CAPTCHA_Library {
 	
 	/**
      * Draws distorted lines on the source image
+	 *
+	 * @return void
      */
     private function _draw_lines() {
         // Allocate the colors to be used for the image
@@ -298,6 +309,8 @@ class CAPTCHA_Library {
 	
 	/**
      * Draws the captcha code on the image
+	 * 
+	 * @return void
      */
     private function _draw_word($word) {
 		// Allocate the colors to be used for the image
@@ -340,6 +353,7 @@ class CAPTCHA_Library {
      * Copies the temp image to the source image with distortion applied
 	 * 
 	 * Based on http://www.lagom.nl/linux/hkcaptcha/
+	 * @return void
      */
     private function _distorted_copy() {
         $numpoles = 3; // Distortion factor
@@ -405,6 +419,7 @@ class CAPTCHA_Library {
      * Construct from an html hex color code
 	 *
      * @param string hex color code
+	 * @return array Array of RGB color
      */
     private function _hex_2_rgb($hex) {
 		$hex = str_replace('#', '', $hex);
