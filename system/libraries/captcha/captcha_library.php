@@ -192,9 +192,6 @@ class CAPTCHA_Library {
 				? imagecreatetruecolor($this->img_width * $this->iscale, $this->img_height * $this->iscale)
 				: imagecreate($this->img_width * $this->iscale, $this->img_height * $this->iscale);
 		
-		// Copy the colors from the source palette to the temp image
-		//imagepalettecopy($this->tmpimg, $this->im);		
-	
 		// Allocate the background color to be used for the image
 		$bg_color_rgb = $this->_hex_2_rgb($this->bg_color);
 		$bg_color = imagecolorallocate($this->im, $bg_color_rgb['r'], $bg_color_rgb['g'], $bg_color_rgb['b']);
