@@ -11,14 +11,14 @@ class CAPTCHA_Library {
     /**
 	 * The width of the captcha image
 	 * 
-	 * @var integer
+	 * @var int
 	 */
 	protected $img_width = 215;
 
 	/**
 	 * The height of the captcha image
 	 * 
-	 * @var integer
+	 * @var int
 	 */
 	protected $img_height = 80;
 	
@@ -78,6 +78,11 @@ class CAPTCHA_Library {
      */
     protected $perturbation = 0.85;
 	
+	/**
+     * Internal scale factor for antialias
+	 *
+     * @var int
+     */
 	protected $iscale = 5;
 	
 	/**
@@ -265,7 +270,7 @@ class CAPTCHA_Library {
     }
 	
 	/**
-     * Draws distorted lines on the source image
+     * Draws wiggly random lines on the source image
 	 *
 	 * @return void
      */
@@ -318,7 +323,7 @@ class CAPTCHA_Library {
 		$text_color = imagecolorallocate($this->im, $text_color_rgb['r'], $text_color_rgb['g'], $text_color_rgb['b']);
 		
         if ( ! is_readable($this->ttf_path)) {
-            imagestring($this->im, 4, 10, ($this->img_height / 2) - 5, 'Failed to load TTF font file!', $text_color);
+            imagestring($this->im, 4, 10, ($this->img_height / 2) - 5, 'Failed to load TTF file!', $text_color);
         } else {
 			if ($this->perturbation > 0) {
                 $width2 = $this->img_width * $this->iscale;
