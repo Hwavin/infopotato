@@ -27,7 +27,7 @@ class CAPTCHA_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $ttf_file = '';
+	protected $ttf_path = '';
 	
 	/**
 	 * The type of captcha to create, either alphanumeric or a math question
@@ -317,7 +317,7 @@ class CAPTCHA_Library {
 		$text_color_rgb = $this->_hex_2_rgb($this->text_color);
 		$text_color = imagecolorallocate($this->im, $text_color_rgb['r'], $text_color_rgb['g'], $text_color_rgb['b']);
 		
-        if ( ! is_readable($this->ttf_file)) {
+        if ( ! is_readable($this->ttf_path)) {
             imagestring($this->im, 4, 10, ($this->img_height / 2) - 5, 'Failed to load TTF font file!', $text_color);
         } else {
 			if ($this->perturbation > 0) {
@@ -325,26 +325,26 @@ class CAPTCHA_Library {
                 $height2 = $this->img_height * $this->iscale;
 				
 				$font_size = $height2 * .4;
-                $bb = imageftbbox($font_size, 0, $this->ttf_file, $word);
+                $bb = imageftbbox($font_size, 0, $this->ttf_path, $word);
                 $tx = $bb[4] - $bb[0];
                 $ty = $bb[5] - $bb[1];
                 $x = floor($width2 / 2 - $tx / 2 - $bb[0]);
                 $y = round($height2 / 2 - $ty / 2 - $bb[1]);
 
 				// Write the captcha letters or math question to the temp image using TrueType fonts
-                imagettftext($this->tmpimg, $font_size, 0, $x, $y, $text_color, $this->ttf_file, $word);
+                imagettftext($this->tmpimg, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
 				
 				$this->_distorted_copy();	
             } else {
                 $font_size = $this->img_height * .4;
-				$bb = imageftbbox($font_size, 0, $this->ttf_file, $word);
+				$bb = imageftbbox($font_size, 0, $this->ttf_path, $word);
 				$tx = $bb[4] - $bb[0];
 				$ty = $bb[5] - $bb[1];
 				$x = floor($this->img_width / 2 - $tx / 2 - $bb[0]);
 				$y = round($this->img_height / 2 - $ty / 2 - $bb[1]);
 
 				// Write the captcha letters or math question to the source image using TrueType fonts
-				imagettftext($this->im, $font_size, 0, $x, $y, $text_color, $this->ttf_file, $word);
+				imagettftext($this->im, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
             }
         }
     }
