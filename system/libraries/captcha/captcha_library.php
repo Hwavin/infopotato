@@ -50,6 +50,12 @@ class CAPTCHA_Library {
      */
     protected $text_color = '#3388FF';
 
+	/**
+     * The level of noise (random dots) to place on the image, 0-10
+	 *
+     * @var int
+     */
+    protected $noise_level = 2;
 	
 	/**
      * The color of the noise that is drawn
@@ -85,27 +91,20 @@ class CAPTCHA_Library {
      * @var int
      */
 	protected $iscale = 5;
-	
-	/**
-     * The level of noise (random dots) to place on the image, 0-10
-	 *
-     * @var int
-     */
-    protected $noise_level = 2;
-	
+
 	/**
      * Source image resource identifier
 	 *
      * @var resource
      */
-	protected $im;
+	protected $img;
 	
 	/**
      * Temp image resource identifier
 	 *
      * @var resource
      */
-    protected $tmpimg;
+    protected $temp_img;
 	
 	/**
 	 * Constructor
@@ -115,13 +114,139 @@ class CAPTCHA_Library {
 	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
-				if (isset($key)) {
-					$this->$key = $val;
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					} else {
+						exit("'".$key."' is not an acceptable parameter!");
+					}
 				}
 			}
 		}
 	}
 
+	/**
+	 * Set $img_width
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_img_width($val) {
+		$this->img_width = $val;
+	}
+	
+	/**
+	 * Set $img_height
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_img_height($val) {
+		$this->img_height = $val;
+	}
+	
+	/**
+	 * Set $ttf_path
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_ttf_path($val) {
+		$this->ttf_path = $val;
+	}
+	
+	/**
+	 * Set $type
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_type($val) {
+		$this->type = $val;
+	}
+	
+	/**
+	 * Set $bg_color
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_bg_color($val) {
+		$this->bg_color = $val;
+	}
+	
+	/**
+	 * Set $text_color
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_text_color($val) {
+		$this->text_color = $val;
+	}
+	
+	/**
+	 * Set $noise_level
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_noise_level($val) {
+		$this->noise_level = $val;
+	}
+	
+	/**
+	 * Set $noise_color
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_noise_color($val) {
+		$this->noise_color = $val;
+	}
+	
+	/**
+	 * Set $num_lines
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_num_lines($val) {
+		$this->num_lines = $val;
+	}
+	
+	/**
+	 * Set $line_color
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_line_color($val) {
+		$this->line_color = $val;
+	}
+	
+	/**
+	 * Set $perturbation
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_perturbation($val) {
+		$this->perturbation = $val;
+	}
+	
+	/**
+	 * Set $iscale
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_iscale($val) {
+		$this->iscale = $val;
+	}
 	
 	/**
      * Generate the captcha text or math question based on the captcha type
@@ -195,22 +320,22 @@ class CAPTCHA_Library {
 
 		// Create the source image
 		// Returns an image identifier representing a black image of the specified size
-		$this->im = function_exists('imagecreatetruecolor')
+		$this->img = function_exists('imagecreatetruecolor')
 				? imagecreatetruecolor($this->img_width, $this->img_height)
 				: imagecreate($this->img_width, $this->img_height);
 
 		// Create the temp image
 		// Returns an image identifier representing a black image of the specified size
-		$this->tmpimg = function_exists('imagecreatetruecolor')
+		$this->temp_img = function_exists('imagecreatetruecolor')
 				? imagecreatetruecolor($this->img_width * $this->iscale, $this->img_height * $this->iscale)
 				: imagecreate($this->img_width * $this->iscale, $this->img_height * $this->iscale);
 		
 		// Allocate the background color to be used for the image
 		$bg_color_rgb = $this->_hex_2_rgb($this->bg_color);
-		$bg_color = imagecolorallocate($this->im, $bg_color_rgb['r'], $bg_color_rgb['g'], $bg_color_rgb['b']);
+		$bg_color = imagecolorallocate($this->img, $bg_color_rgb['r'], $bg_color_rgb['g'], $bg_color_rgb['b']);
 		
 		// Create a rectangle filled with background color
-		imagefilledrectangle($this->im, 0, 0, $this->img_width, $this->img_height, $bg_color);
+		imagefilledrectangle($this->img, 0, 0, $this->img_width, $this->img_height, $bg_color);
         
 		// Draw random noise spot on the image
 		if ($this->noise_level > 0) {
@@ -228,11 +353,11 @@ class CAPTCHA_Library {
 		// Use output buffering to capture outputted image stream
 		ob_start();
 		// Generate and output the image to browser
-		imagejpeg($this->im, NULL, 90);
+		imagejpeg($this->img, NULL, 90);
 		$image = ob_get_contents();
 		ob_end_clean();
 		// Free up memory
-		imagedestroy($this->im);
+		imagedestroy($this->img);
 		
 		// You will need to send the header before outputing the image
 		return array(
@@ -255,7 +380,7 @@ class CAPTCHA_Library {
 
 		// Allocate the colors to be used for the image
 		$noise_color_rgb = $this->_hex_2_rgb($this->noise_color);
-		$noise_color = imagecolorallocate($this->im, $noise_color_rgb['r'], $noise_color_rgb['g'], $noise_color_rgb['b']);
+		$noise_color = imagecolorallocate($this->img, $noise_color_rgb['r'], $noise_color_rgb['g'], $noise_color_rgb['b']);
 		
 		for ($i = 0; $i < $noise_level; ++$i) {
             $x = mt_rand(10, $this->img_width * $this->iscale);
@@ -266,7 +391,7 @@ class CAPTCHA_Library {
 				continue; 
             }
 			// Draw a partial arc and fill it
-			imagefilledarc($this->tmpimg, $x, $y, $size, $size, 0, 360, $noise_color, IMG_ARC_PIE);
+			imagefilledarc($this->temp_img, $x, $y, $size, $size, 0, 360, $noise_color, IMG_ARC_PIE);
         }
     }
 	
@@ -278,7 +403,7 @@ class CAPTCHA_Library {
     private function _draw_lines() {
         // Allocate the colors to be used for the image
 		$line_color_rgb = $this->_hex_2_rgb($this->line_color);
-		$line_color	= imagecolorallocate($this->im, $line_color_rgb['r'], $line_color_rgb['g'], $line_color_rgb['b']);
+		$line_color	= imagecolorallocate($this->img, $line_color_rgb['r'], $line_color_rgb['g'], $line_color_rgb['b']);
 		
 		for ($line = 0; $line < $this->num_lines; ++ $line) {
             $x = $this->img_width * (1 + $line) / ($this->num_lines + 1);
@@ -308,7 +433,7 @@ class CAPTCHA_Library {
                 $x = $x0 + $i * $dx + $amp * $dy * sin($k * $i * $step + $phi);
                 $y = $y0 + $i * $dy - $amp * $dx * sin($k * $i * $step + $phi);
                 // Draw a filled rectangle with the distorted line on the source image
-				imagefilledrectangle($this->im, $x, $y, $x + $lwid, $y + $lwid, $line_color);
+				imagefilledrectangle($this->img, $x, $y, $x + $lwid, $y + $lwid, $line_color);
             }
         }
     }
@@ -321,10 +446,10 @@ class CAPTCHA_Library {
     private function _draw_word($word) {
 		// Allocate the colors to be used for the image
 		$text_color_rgb = $this->_hex_2_rgb($this->text_color);
-		$text_color = imagecolorallocate($this->im, $text_color_rgb['r'], $text_color_rgb['g'], $text_color_rgb['b']);
+		$text_color = imagecolorallocate($this->img, $text_color_rgb['r'], $text_color_rgb['g'], $text_color_rgb['b']);
 		
         if ( ! is_readable($this->ttf_path)) {
-            imagestring($this->im, 4, 10, ($this->img_height / 2) - 5, 'Failed to load TTF file!', $text_color);
+            imagestring($this->img, 4, 10, ($this->img_height / 2) - 5, 'Failed to load TTF file!', $text_color);
         } else {
 			if ($this->perturbation > 0) {
                 $width2 = $this->img_width * $this->iscale;
@@ -338,7 +463,7 @@ class CAPTCHA_Library {
                 $y = round($height2 / 2 - $ty / 2 - $bb[1]);
 
 				// Write the captcha letters or math question to the temp image using TrueType fonts
-                imagettftext($this->tmpimg, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
+                imagettftext($this->temp_img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
 				
 				$this->_distorted_copy();	
             } else {
@@ -350,7 +475,7 @@ class CAPTCHA_Library {
 				$y = round($this->img_height / 2 - $ty / 2 - $bb[1]);
 
 				// Write the captcha letters or math question to the source image using TrueType fonts
-				imagettftext($this->im, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
+				imagettftext($this->img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
             }
         }
     }
@@ -372,14 +497,14 @@ class CAPTCHA_Library {
             $amp[$i] = $this->perturbation * $tmp;
         }
 
-        $bg_c = imagecolorat($this->tmpimg, 0, 0);
+        $bg_c = imagecolorat($this->temp_img, 0, 0);
         $width2 = $this->iscale * $this->img_width;
         $height2 = $this->iscale * $this->img_height;
         
 		// Copy palette from the temp image to the source image so text colors come across
-		//imagepalettecopy($this->im, $this->tmpimg); 
+		//imagepalettecopy($this->img, $this->temp_img); 
         
-		// Loop over img pixels, take pixels from $tmpimg with distortion field
+		// Loop over img pixels, take pixels from $temp_img with distortion field
         for ($ix = 0; $ix < $this->img_width; ++ $ix) {
             for ($iy = 0; $iy < $this->img_height; ++ $iy) {
                 $x = $ix;
@@ -402,11 +527,11 @@ class CAPTCHA_Library {
                 $x *= $this->iscale;
                 $y *= $this->iscale;
                 if ($x >= 0 && $x < $width2 && $y >= 0 && $y < $height2) {
-                    $c = imagecolorat($this->tmpimg, $x, $y);
+                    $c = imagecolorat($this->temp_img, $x, $y);
                 }
                 if ($c !== $bg_c) { 
                     // Only copy pixels of letters to preserve any background image
-					imagesetpixel($this->im, $ix, $iy, $c);
+					imagesetpixel($this->img, $ix, $iy, $c);
                 }
             }
         }
