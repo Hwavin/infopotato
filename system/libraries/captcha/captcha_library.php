@@ -323,8 +323,8 @@ class CAPTCHA_Library {
 		// Create the random text
 		if ($this->type === 'text') {
 			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-			// Generate 6 letters
-			for ($i = 0, $mt_rand_max = strlen($pool) - 1; $i < 6; $i++) {
+			// Generate each random character
+			for ($i = 0, $mt_rand_max = strlen($pool) - 1; $i < 5; $i++) {
 				$display .= $pool[mt_rand(0, $mt_rand_max)];
 			}
 			// Answer is the same as the display
