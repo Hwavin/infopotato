@@ -522,7 +522,11 @@ class CAPTCHA_Library {
     private function _distorted_copy() {
         $num_poles = 3; // Distortion factor
         // Make an array of poles AKA attractor points
-        for ($i = 0; $i < $num_poles; ++$i) {
+        $px = array();
+		$py = array();
+		$rad = array();
+		$amp = array();
+		for ($i = 0; $i < $num_poles; ++$i) {
             $px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
@@ -533,15 +537,13 @@ class CAPTCHA_Library {
         $bg_c = imagecolorat($this->temp_img, 0, 0);
         $width2 = $this->iscale * $this->img_width;
         $height2 = $this->iscale * $this->img_height;
-        
-		// Copy palette from the temp image to the source image so text colors come across
- 
+
 		// Loop over img pixels, take pixels from $temp_img with distortion field
-        for ($ix = 0; $ix < $this->img_width; ++ $ix) {
-            for ($iy = 0; $iy < $this->img_height; ++ $iy) {
+        for ($ix = 0; $ix < $this->img_width; ++$ix) {
+            for ($iy = 0; $iy < $this->img_height; ++$iy) {
                 $x = $ix;
                 $y = $iy;
-                for ($i = 0; $i < $num_poles; ++ $i) {
+                for ($i = 0; $i < $num_poles; ++$i) {
                     $dx = $ix - $px[$i];
                     $dy = $iy - $py[$i];
                     if ($dx === 0 && $dy === 0) {
