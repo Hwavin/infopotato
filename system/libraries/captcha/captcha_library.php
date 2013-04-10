@@ -537,7 +537,7 @@ class CAPTCHA_Library {
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
             $tmp = ((- $this->_frand()) * 0.15) - 0.15;
-            $amp[$i] = $this->perturbation * $tmp; // amplification
+            $amp[$i] = $this->perturbation * $tmp; // amplitude
         }
 
 		// Get the index of the color of a pixel
