@@ -135,6 +135,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_img_width($val) {
+		if ( ! is_int($val)) {
+		    return FALSE;
+		}
 		$this->img_width = $val;
 	}
 	
@@ -145,6 +148,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_img_height($val) {
+		if ( ! is_int($val)) {
+		    return FALSE;
+		}
 		$this->img_height = $val;
 	}
 	
@@ -155,6 +161,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_ttf_path($val) {
+		if ( ! is_string($val)) {
+		    return FALSE;
+		}
 		$this->ttf_path = $val;
 	}
 	
@@ -165,6 +174,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_type($val) {
+		if ( ! in_array($val, array('text', 'math'), TRUE)) {
+		    return FALSE;
+		}
 		$this->type = $val;
 	}
 	
@@ -175,6 +187,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_bg_color($val) {
+		if ( ! is_string($val)) {
+		    return FALSE;
+		}
 		$this->bg_color = $val;
 	}
 	
@@ -185,6 +200,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_text_color($val) {
+		if ( ! is_string($val)) {
+		    return FALSE;
+		}
 		$this->text_color = $val;
 	}
 	
@@ -195,6 +213,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_noise_level($val) {
+		if ( ! is_int($val) || $val > 10 || $val < 0) {
+		    return FALSE;
+		}
 		$this->noise_level = $val;
 	}
 	
@@ -205,6 +226,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_noise_color($val) {
+		if ( ! is_string($val)) {
+		    return FALSE;
+		}
 		$this->noise_color = $val;
 	}
 	
@@ -215,6 +239,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_num_lines($val) {
+		if ( ! is_int($val)) {
+		    return FALSE;
+		}
 		$this->num_lines = $val;
 	}
 	
@@ -225,6 +252,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_line_color($val) {
+		if ( ! is_string($val)) {
+		    return FALSE;
+		}
 		$this->line_color = $val;
 	}
 	
@@ -235,6 +265,9 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_perturbation($val) {
+		if ( ! is_float($val)) {
+		    return FALSE;
+		}
 		$this->perturbation = $val;
 	}
 	
@@ -487,9 +520,9 @@ class CAPTCHA_Library {
 	 * @return void
      */
     private function _distorted_copy() {
-        $numpoles = 3; // Distortion factor
+        $num_poles = 3; // Distortion factor
         // Make an array of poles AKA attractor points
-        for ($i = 0; $i < $numpoles; ++$i) {
+        for ($i = 0; $i < $num_poles; ++$i) {
             $px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
@@ -502,14 +535,13 @@ class CAPTCHA_Library {
         $height2 = $this->iscale * $this->img_height;
         
 		// Copy palette from the temp image to the source image so text colors come across
-		//imagepalettecopy($this->img, $this->temp_img); 
-        
+ 
 		// Loop over img pixels, take pixels from $temp_img with distortion field
         for ($ix = 0; $ix < $this->img_width; ++ $ix) {
             for ($iy = 0; $iy < $this->img_height; ++ $iy) {
                 $x = $ix;
                 $y = $iy;
-                for ($i = 0; $i < $numpoles; ++ $i) {
+                for ($i = 0; $i < $num_poles; ++ $i) {
                     $dx = $ix - $px[$i];
                     $dy = $iy - $py[$i];
                     if ($dx === 0 && $dy === 0) {
