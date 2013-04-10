@@ -389,8 +389,10 @@ class CAPTCHA_Library {
 		imagejpeg($this->img, NULL, 90);
 		$image = ob_get_contents();
 		ob_end_clean();
+		
 		// Free up memory
 		imagedestroy($this->img);
+		imagedestroy($this->temp_img);
 		
 		// You will need to send the header before outputing the image
 		return array(
@@ -489,15 +491,19 @@ class CAPTCHA_Library {
                 $height2 = $this->img_height * $this->iscale;
 				
 				$font_size = $height2 * .4;
-                $bb = imageftbbox($font_size, 0, $this->ttf_path, $word);
-                $tx = $bb[4] - $bb[0];
+                // Calculate and return the bounding box in pixels for the captcha code
+				$bb = imageftbbox($font_size, 0, $this->ttf_path, $word);
+                // Width of the bounding box
+				$tx = $bb[4] - $bb[0];
+				// Height of the bounding box
                 $ty = $bb[5] - $bb[1];
-                $x = floor($width2 / 2 - $tx / 2 - $bb[0]);
+                // Put the captcha code in the center of the image
+				$x = floor($width2 / 2 - $tx / 2 - $bb[0]);
                 $y = round($height2 / 2 - $ty / 2 - $bb[1]);
 
-				// Write the captcha letters or math question to the temp image using TrueType fonts
+				// Write the captcha letters or math question on the temp image using TrueType fonts
                 imagettftext($this->temp_img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
-				
+				// Apply distortion to the captcha code
 				$this->_distorted_copy();	
             } else {
                 $font_size = $this->img_height * .4;
@@ -507,7 +513,7 @@ class CAPTCHA_Library {
 				$x = floor($this->img_width / 2 - $tx / 2 - $bb[0]);
 				$y = round($this->img_height / 2 - $ty / 2 - $bb[1]);
 
-				// Write the captcha letters or math question to the source image using TrueType fonts
+				// Write the captcha letters or math question on the source image using TrueType fonts
 				imagettftext($this->img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
             }
         }
@@ -524,19 +530,22 @@ class CAPTCHA_Library {
         // Make an array of poles AKA attractor points
         $px = array();
 		$py = array();
-		$rad = array();
+		$rad = array(); // radians
 		$amp = array();
 		for ($i = 0; $i < $num_poles; ++$i) {
             $px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
             $tmp = ((- $this->_frand()) * 0.15) - 0.15;
-            $amp[$i] = $this->perturbation * $tmp;
+            $amp[$i] = $this->perturbation * $tmp; // amplification
         }
 
+		// Get the index of the color of a pixel
+		// It will be 0 (black) since we haven't set any background color for temp_img
         $bg_c = imagecolorat($this->temp_img, 0, 0);
-        $width2 = $this->iscale * $this->img_width;
-        $height2 = $this->iscale * $this->img_height;
+        // Since we are working on the temp_img
+		$width2 = $this->img_width * $this->iscale;
+        $height2 = $this->img_height * $this->iscale;
 
 		// Loop over img pixels, take pixels from $temp_img with distortion field
         for ($ix = 0; $ix < $this->img_width; ++$ix) {
@@ -553,7 +562,8 @@ class CAPTCHA_Library {
                     if ($r > $rad[$i]) {
                         continue;
                     }
-                    $rscale = $amp[$i] * sin(3.14 * $r / $rad[$i]);
+                    // Rescale will alwasy between 0 and 1
+					$rscale = $amp[$i] * sin(pi() * $r / $rad[$i]);
                     $x += $dx * $rscale;
                     $y += $dy * $rscale;
                 }
@@ -563,8 +573,9 @@ class CAPTCHA_Library {
                 if ($x >= 0 && $x < $width2 && $y >= 0 && $y < $height2) {
                     $c = imagecolorat($this->temp_img, $x, $y);
                 }
-                if ($c !== $bg_c) { 
-                    // Only copy pixels of letters to preserve any background image
+                // Only draw pixel if its color different from the background color
+				if ($c !== $bg_c) { 
+                    // Draw a pixel on the source image at the specified coordinate with the text color
 					imagesetpixel($this->img, $ix, $iy, $c);
                 }
             }
