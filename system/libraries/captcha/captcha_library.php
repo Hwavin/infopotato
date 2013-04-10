@@ -503,7 +503,7 @@ class CAPTCHA_Library {
 
 				// Write the captcha letters or math question on the temp image using TrueType fonts
                 imagettftext($this->temp_img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
-				// Apply distortion to the captcha code
+				// Apply letter distortion to the captcha code
 				$this->_distorted_copy();	
             } else {
                 $font_size = $this->img_height * .4;
@@ -523,6 +523,7 @@ class CAPTCHA_Library {
      * Copies the temp image to the source image with distortion applied
 	 * 
 	 * Based on http://www.lagom.nl/linux/hkcaptcha/
+	 * This is the bottleneck of the performance
 	 * @return void
      */
     private function _distorted_copy() {
@@ -531,13 +532,13 @@ class CAPTCHA_Library {
         $px = array();
 		$py = array();
 		$rad = array(); // radians
-		$amp = array();
+		$amp = array(); // amplitude
 		for ($i = 0; $i < $num_poles; ++$i) {
             $px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
             $tmp = ((- $this->_frand()) * 0.15) - 0.15;
-            $amp[$i] = $this->perturbation * $tmp; // amplitude
+            $amp[$i] = $this->perturbation * $tmp; 
         }
 
 		// Get the index of the color of a pixel
