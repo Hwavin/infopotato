@@ -21,7 +21,7 @@ class Pagination_Library {
      *
      * @var integer
      */
-	protected $items_total;
+	protected $items_total = 0;
 	
 	/**
      * The page the user is viewing. Will always be an integer >= 1
@@ -70,15 +70,113 @@ class Pagination_Library {
 	
 	/**
 	 * Constructor
-	 */	
-	public function __construct(array $config = NULL) { 
+	 *
+	 * The constructor can be passed an array of config values
+	 */
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
-				$this->$key = $val;
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
+				}
 			}
 		}
 	}
 
+	/**
+	 * Set $items_per_page
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_items_per_page($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('items_per_page');
+		}
+		$this->items_per_page = $val;
+	}
+	
+	/**
+	 * Set $items_total
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_items_total($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('items_total');
+		}
+		$this->items_total = $val;
+	}
+	
+	/**
+	 * Set $current_page
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_current_page($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('current_page');
+		}
+		$this->current_page = $val;
+	}
+	
+	/**
+	 * Set $current_page_class
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_current_page_class($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('current_page_class');
+		}
+		$this->current_page_class = $val;
+	}
+	
+	/**
+	 * Set $mid_range
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_mid_range($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('mid_range');
+		}
+		$this->mid_range = $val;
+	}
+	
+	/**
+	 * Set $base_uri
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_base_uri($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('base_uri');
+		}
+		$this->base_uri = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
+	
 	/**
      * The build_pagination method is what determines how many page numbers to display,
 	 * figures out how they should be linked, and applies CSS for styling.
