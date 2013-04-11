@@ -17,20 +17,50 @@ class Output_Cache_Library {
 	 * 
 	 * @var string 
 	 */
-	private $_dir;
+	protected $cache_dir;
 	
 	/**
 	 * Constructor
 	 *
-	 * @param array $config['cache_dir']
-	 *
-	 */	
-	public function __construct(array $config = NULL) { 
+	 * The constructor can be passed an array of config values
+	 */
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
-			if (isset($config['cache_dir'])) {
-				$this->_dir = $config['cache_dir'];
+			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
+				}
 			}
 		}
+	}
+	
+	/**
+	 * Set $cache_dir
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_cache_dir($dir_path) {
+		if ( ! is_string($dir_path)) {
+		    $this->_invalid_argument_value('cache_dir');
+		}
+		$this->cache_dir = $dir_path;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
 	/**
@@ -40,7 +70,7 @@ class Output_Cache_Library {
 	 * @return	string
 	 */
     private function _name($key) {  
-        return ($this->_dir).sha1($key);  
+        return ($this->cache_dir).sha1($key);  
     }  
 	
 	/**
@@ -50,7 +80,7 @@ class Output_Cache_Library {
 	 * @return	mixed - FALSE|string (cached data)
 	 */
     public function get($key) {  
-        if ( ! is_dir($this->_dir)) {
+        if ( ! is_dir($this->cache_dir)) {
             return FALSE;   
 		}
         $cache_path = $this->_name($key);  
@@ -92,7 +122,7 @@ class Output_Cache_Library {
 	 * @return	boolean
 	 */
     public function set($key, $data, $ttl = 3600) {  
-        if ( ! is_dir($this->_dir) || ! $this->_is_really_writable($this->_dir)) {
+        if ( ! is_dir($this->cache_dir) || ! $this->_is_really_writable($this->cache_dir)) {
             return FALSE;  
 		}
         $cache_path = $this->_name($key);  
