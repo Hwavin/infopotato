@@ -120,9 +120,9 @@ class CAPTCHA_Library {
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
-					} else {
-						exit("'".$key."' is not an acceptable parameter!");
 					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
 				}
 			}
 		}
@@ -136,7 +136,7 @@ class CAPTCHA_Library {
 	 */
 	protected function set_img_width($val) {
 		if ( ! is_int($val)) {
-		    return FALSE;
+		    $this->_invalid_argument_value('img_width');
 		}
 		$this->img_width = $val;
 	}
@@ -149,7 +149,7 @@ class CAPTCHA_Library {
 	 */
 	protected function set_img_height($val) {
 		if ( ! is_int($val)) {
-		    return FALSE;
+		    $this->_invalid_argument_value('img_height');
 		}
 		$this->img_height = $val;
 	}
@@ -162,7 +162,7 @@ class CAPTCHA_Library {
 	 */
 	protected function set_ttf_path($val) {
 		if ( ! is_string($val)) {
-		    return FALSE;
+		    $this->_invalid_argument_value('ttf_path');
 		}
 		$this->ttf_path = $val;
 	}
@@ -175,7 +175,7 @@ class CAPTCHA_Library {
 	 */
 	protected function set_type($val) {
 		if ( ! in_array($val, array('text', 'math'), TRUE)) {
-		    return FALSE;
+		    $this->_invalid_argument_value('type');
 		}
 		$this->type = $val;
 	}
@@ -183,27 +183,27 @@ class CAPTCHA_Library {
 	/**
 	 * Set $bg_color
 	 *
-	 * @param  $val string
+	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_bg_color($val) {
-		if ( ! is_string($val)) {
-		    return FALSE;
+	protected function set_bg_color($hex_color) {
+		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
+		    $this->_invalid_argument_value('bg_color');
 		}
-		$this->bg_color = $val;
+		$this->bg_color = $hex_color;
 	}
 	
 	/**
 	 * Set $text_color
 	 *
-	 * @param  $val string
+	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_text_color($val) {
-		if ( ! is_string($val)) {
-		    return FALSE;
+	protected function set_text_color($hex_color) {
+		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
+		    $this->_invalid_argument_value('text_color');
 		}
-		$this->text_color = $val;
+		$this->text_color = $hex_color;
 	}
 	
 	/**
@@ -214,7 +214,7 @@ class CAPTCHA_Library {
 	 */
 	protected function set_noise_level($val) {
 		if ( ! is_int($val) || $val > 10 || $val < 0) {
-		    return FALSE;
+		    $this->_invalid_argument_value('noise_level');
 		}
 		$this->noise_level = $val;
 	}
@@ -222,14 +222,14 @@ class CAPTCHA_Library {
 	/**
 	 * Set $noise_color
 	 *
-	 * @param  $val string
+	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_noise_color($val) {
-		if ( ! is_string($val)) {
-		    return FALSE;
+	protected function set_noise_color($hex_color) {
+		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
+		    $this->_invalid_argument_value('noise_color');
 		}
-		$this->noise_color = $val;
+		$this->noise_color = $hex_color;
 	}
 	
 	/**
@@ -240,7 +240,7 @@ class CAPTCHA_Library {
 	 */
 	protected function set_num_lines($val) {
 		if ( ! is_int($val)) {
-		    return FALSE;
+		    $this->_invalid_argument_value('num_lines');
 		}
 		$this->num_lines = $val;
 	}
@@ -248,14 +248,14 @@ class CAPTCHA_Library {
 	/**
 	 * Set $line_color
 	 *
-	 * @param  $val string
+	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_line_color($val) {
-		if ( ! is_string($val)) {
-		    return FALSE;
+	protected function set_line_color($hex_color) {
+		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
+		    $this->_invalid_argument_value('line_color');
 		}
-		$this->line_color = $val;
+		$this->line_color = $hex_color;
 	}
 	
 	/**
@@ -265,8 +265,8 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_perturbation($val) {
-		if ( ! is_float($val)) {
-		    return FALSE;
+		if ( ! is_float($val) || $val > 1) {
+		    $this->_invalid_argument_value('perturbation');
 		}
 		$this->perturbation = $val;
 	}
@@ -278,7 +278,19 @@ class CAPTCHA_Library {
 	 * @return	void
 	 */
 	protected function set_iscale($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('iscale');
+		}
 		$this->iscale = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
 	/**
@@ -534,7 +546,8 @@ class CAPTCHA_Library {
 		$rad = array(); // radians
 		$amp = array(); // amplitude
 		for ($i = 0; $i < $num_poles; ++$i) {
-            $px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
+            // Calling mt_rand() too many times can downgrade the performance of ANY algorithm
+			$px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
             $tmp = ((- $this->_frand()) * 0.15) - 0.15;
