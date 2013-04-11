@@ -4,7 +4,7 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2012 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Calendar_Library {
@@ -13,7 +13,53 @@ class Calendar_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $show = array();
+	protected $show = array(
+		'cal_su' => 'Su',
+		'cal_mo' => 'Mo',
+		'cal_tu' => 'Tu',
+		'cal_we' => 'We',
+		'cal_th' => 'Th',
+		'cal_fr' => 'Fr',
+		'cal_sa' => 'Sa',
+		'cal_sun' => 'Sun',
+		'cal_mon' => 'Mon',
+		'cal_tue' => 'Tue',
+		'cal_wed' => 'Wed',
+		'cal_thu' => 'Thu',
+		'cal_fri' => 'Fri',
+		'cal_sat' => 'Sat',
+		'cal_sunday' => 'Sunday',
+		'cal_monday' => 'Monday',
+		'cal_tuesday' => 'Tuesday',
+		'cal_wednesday' => 'Wednesday',
+		'cal_thursday' => 'Thursday',
+		'cal_friday' => 'Friday',
+		'cal_saturday'=> 'Saturday',
+		'cal_jan' => 'Jan',
+		'cal_feb' => 'Feb',
+		'cal_mar' => 'Mar',
+		'cal_apr' => 'Apr',
+		'cal_may' => 'May',
+		'cal_jun' => 'Jun',
+		'cal_jul' => 'Jul',
+		'cal_aug' => 'Aug',
+		'cal_sep' => 'Sep',
+		'cal_oct' => 'Oct',
+		'cal_nov' => 'Nov',
+		'cal_dec' => 'Dec',
+		'cal_january' => 'January',
+		'cal_february' => 'February',
+		'cal_march' => 'March',
+		'cal_april' => 'April',
+		'cal_mayl' => 'May',
+		'cal_june' => 'June',
+		'cal_july' => 'July',
+		'cal_august' => 'August',
+		'cal_september' => 'September',
+		'cal_october' => 'October',
+		'cal_november'	=> 'November',
+		'cal_december' => 'December',
+	);
 	
 	/**
 	 * A Unix timestamp corresponding to the current time.
@@ -67,67 +113,116 @@ class Calendar_Library {
 	protected $next_prev_url = '';
 
 	/**
-	 * Set the calendar message and sets the default time reference
+	 * Constructor
+	 *
+	 * The constructor can be passed an array of config values
 	 */
-	public function __construct(array $config = NULL) {		
-		$this->show = array(
-			'cal_su' => 'Su',
-			'cal_mo' => 'Mo',
-			'cal_tu' => 'Tu',
-			'cal_we' => 'We',
-			'cal_th' => 'Th',
-			'cal_fr' => 'Fr',
-			'cal_sa' => 'Sa',
-			'cal_sun' => 'Sun',
-			'cal_mon' => 'Mon',
-			'cal_tue' => 'Tue',
-			'cal_wed' => 'Wed',
-			'cal_thu' => 'Thu',
-			'cal_fri' => 'Fri',
-			'cal_sat' => 'Sat',
-			'cal_sunday' => 'Sunday',
-			'cal_monday' => 'Monday',
-			'cal_tuesday' => 'Tuesday',
-			'cal_wednesday' => 'Wednesday',
-			'cal_thursday' => 'Thursday',
-			'cal_friday' => 'Friday',
-			'cal_saturday'=> 'Saturday',
-			'cal_jan' => 'Jan',
-			'cal_feb' => 'Feb',
-			'cal_mar' => 'Mar',
-			'cal_apr' => 'Apr',
-			'cal_may' => 'May',
-			'cal_jun' => 'Jun',
-			'cal_jul' => 'Jul',
-			'cal_aug' => 'Aug',
-			'cal_sep' => 'Sep',
-			'cal_oct' => 'Oct',
-			'cal_nov' => 'Nov',
-			'cal_dec' => 'Dec',
-			'cal_january' => 'January',
-			'cal_february' => 'February',
-			'cal_march' => 'March',
-			'cal_april' => 'April',
-			'cal_mayl' => 'May',
-			'cal_june' => 'June',
-			'cal_july' => 'July',
-			'cal_august' => 'August',
-			'cal_september' => 'September',
-			'cal_october' => 'October',
-			'cal_november'	=> 'November',
-			'cal_december' => 'December',
-		);
-		
-		$this->local_time = time();
-		
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
-				if (isset($key)) {
-					$this->$key = $val;
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
 				}
 			}
 		}
+		
+		$this->local_time = time();
 	}
+	
+	/**
+	 * Set $template
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_template($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('template');
+		}
+		$this->template = $val;
+	}
+	
+	/**
+	 * Set $show_next_prev
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_show_next_prev($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('show_next_prev');
+		}
+		$this->show_next_prev = $val;
+	}
+	
+	/**
+	 * Set $next_prev_url
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_next_prev_url($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('next_prev_url');
+		}
+		$this->next_prev_url = $val;
+	}
+	
+	/**
+	 * Set $month_type
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_month_type($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('month_type');
+		}
+		$this->month_type = $val;
+	}
+	
+	/**
+	 * Set $day_type
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_day_type($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('day_type');
+		}
+		$this->day_type = $val;
+	}
+	
+	/**
+	 * Set $start_day
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_start_day($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('start_day');
+		}
+		$this->start_day = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
+	
 	
 	/**
 	 * Generate the calendar
@@ -161,12 +256,12 @@ class Calendar_Library {
 		
 		$adjusted_date = $this->adjust_date($month, $year);
 		
-		$month	= $adjusted_date['month'];
-		$year	= $adjusted_date['year'];
+		$month = $adjusted_date['month'];
+		$year = $adjusted_date['year'];
 		
 		// Determine the total days in the month
 		$total_days = $this->get_total_days($month, $year);
-						
+
 		// Set the starting day of the week
 		$start_days	= array('sunday' => 0, 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6);
 		$start_day = ( ! isset($start_days[$this->start_day])) ? 0 : $start_days[$this->start_day];
@@ -174,7 +269,7 @@ class Calendar_Library {
 		// Set the starting day number
 		$local_date = mktime(12, 0, 0, $month, 1, $year);
 		$date = getdate($local_date);
-		$day  = $start_day + 1 - $date["wday"];
+		$day = $start_day + 1 - $date["wday"];
 		
 		while ($day > 1) {
 			$day -= 7;
@@ -182,9 +277,9 @@ class Calendar_Library {
 		
 		// Set the current month/year/day
 		// We use this to determine the "today" date
-		$cur_year	= date("Y", $this->local_time);
-		$cur_month	= date("m", $this->local_time);
-		$cur_day	= date("j", $this->local_time);
+		$cur_year = date("Y", $this->local_time);
+		$cur_month = date("m", $this->local_time);
+		$cur_day = date("j", $this->local_time);
 		
 		$is_current_month = ($cur_year === $year && $cur_month === $month) ? TRUE : FALSE;
 	
