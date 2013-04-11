@@ -8,17 +8,47 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class FTP_Library {
-
+    /**
+	 * FTP Server hostname
+	 *
+	 * @var	string
+	 */
 	protected $hostname = '';
+	
+	/**
+	 * FTP Username
+	 *
+	 * @var	string
+	 */
 	protected $username = '';
+	
+	/**
+	 * FTP Password
+	 *
+	 * @var	string
+	 */
 	protected $password = '';
+	
+	/**
+	 * FTP Server port
+	 *
+	 * @var	int
+	 */
 	protected $port = 21;
+	
+	/**
+	 * Passive mode flag
+	 *
+	 * @var	bool
+	 */
 	protected $passive = TRUE;
 	
 	/**
-	 * Whether to enable debugging to display error messages
-	 * 
-	 * @var  bollean  
+	 * Debug flag
+	 *
+	 * Specifies whether to display error messages.
+	 *
+	 * @var	bool
 	 */
 	protected $debug = FALSE; 
 	
@@ -29,52 +59,45 @@ class FTP_Library {
 	 */
 	protected $conn_id = FALSE;
 	
-	private $_error_messages = array();
-
-
+	/**
+	 * Error messages
+	 *
+	 * @var	array
+	 */
+	private $_error_messages = array(
+		'ftp_no_connection' => 'Unable to locate a valid connection ID.  Please make sure you are connected before peforming any file routines.',
+		'ftp_unable_to_connect' => 'Unable to connect to your FTP server using the supplied hostname.',
+		'ftp_unable_to_login' => 'Unable to login to your FTP server.  Please check your username and password.',
+		'ftp_unable_to_makdir' => 'Unable to create the directory you have specified.',
+		'ftp_unable_to_changedir' => 'Unable to change directories.',
+		'ftp_unable_to_chmod' => 'Unable to set file permissions.  Please check your path.  Note: This feature is only available in PHP 5 or higher.',
+		'ftp_unable_to_upload' => 'Unable to upload the specified file.  Please check your path.',
+		'ftp_unable_to_download' => 'Unable to download the specified file.  Please check your path.',
+		'ftp_no_source_file' => 'Unable to locate the source file.  Please check your path.',
+		'ftp_unable_to_rename' => 'Unable to rename the file.',
+		'ftp_unable_to_delete' => 'Unable to delete the file.',
+		'ftp_unable_to_move' => 'Unable to move the file.  Please make sure the destination directory exists.',
+	);
+	
 	/**
 	 * Constructor
+	 *
+	 * The constructor can be passed an array of config values
 	 */
 	public function __construct(array $config = NULL) {
-		$this->_error_messages = array(
-			'ftp_no_connection' => 'Unable to locate a valid connection ID.  Please make sure you are connected before peforming any file routines.',
-			'ftp_unable_to_connect' => 'Unable to connect to your FTP server using the supplied hostname.',
-			'ftp_unable_to_login' => 'Unable to login to your FTP server.  Please check your username and password.',
-			'ftp_unable_to_makdir' => 'Unable to create the directory you have specified.',
-			'ftp_unable_to_changedir' => 'Unable to change directories.',
-			'ftp_unable_to_chmod' => 'Unable to set file permissions.  Please check your path.  Note: This feature is only available in PHP 5 or higher.',
-			'ftp_unable_to_upload' => 'Unable to upload the specified file.  Please check your path.',
-			'ftp_unable_to_download' => 'Unable to download the specified file.  Please check your path.',
-			'ftp_no_source_file' => 'Unable to locate the source file.  Please check your path.',
-			'ftp_unable_to_rename' => 'Unable to rename the file.',
-			'ftp_unable_to_delete' => 'Unable to delete the file.',
-			'ftp_unable_to_move' => 'Unable to move the file.  Please make sure the destination directory exists.',
-		);
-		
-		if (isset($config['hostname'])) {
-			$this->hostname = $config['hostname'];
-			// Prep the hostname
-			$this->hostname = preg_replace('|.+?://|', '', $this->hostname);
-		}
-		
-		if (isset($config['username'])) {
-			$this->username = $config['username'];
-		}
-		
-		if (isset($config['password'])) {
-			$this->password = $config['password'];
-		}
-		
-		if (isset($config['port'])) {
-			$this->port = $config['port'];
-		}
-		
-		if (isset($config['passive'])) {
-			$this->passive = $config['passive'];
-		}
-		
-		if (isset($config['debug'])) {
-			$this->debug = $config['debug'];
+		if (count($config) > 0) {
+			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
+				}
+			}
 		}
 		
 		if (($this->conn_id = @ftp_connect($this->hostname, $this->port)) === FALSE) {
@@ -94,7 +117,94 @@ class FTP_Library {
 			ftp_pasv($this->conn_id, TRUE);
 		}
 	}
-
+	
+	
+	/**
+	 * Set $hostname
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_hostname($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('hostname');
+		}
+		$this->hostname = preg_replace('|.+?://|', '', $val);
+	}
+	
+	/**
+	 * Set $username
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_username($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('username');
+		}
+		$this->username = $val;
+	}
+	
+	/**
+	 * Set $password
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_password($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('password');
+		}
+		$this->password = $val;
+	}
+	
+	/**
+	 * Set $port
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_port($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('port');
+		}
+		$this->port = $val;
+	}
+	
+	/**
+	 * Set $passive
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_passive($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('passive');
+		}
+		$this->passive = $val;
+	}
+	
+	/**
+	 * Set $debug
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_debug($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('debug');
+		}
+		$this->debug = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
 	
 	/**
 	 * FTP Login
