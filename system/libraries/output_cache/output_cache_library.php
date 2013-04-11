@@ -17,7 +17,7 @@ class Output_Cache_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $cache_dir;
+	protected $cache_dir = '';
 	
 	/**
 	 * Constructor
