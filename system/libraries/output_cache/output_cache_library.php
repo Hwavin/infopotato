@@ -10,7 +10,6 @@
  * @link based on http://www.rooftopsolutions.nl/article/107
  */
 class Output_Cache_Library {  
-	
 	/**
 	 * The cache directory
 	 * The dir should end with DIRECTORY_SEPARATOR or DS (defined in bootstrap)

@@ -10,54 +10,89 @@
  * @version Version 0.3 / genuine
  */
 class Password_Hash_Library {
-	private $_itoa64;
+	private $_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';;
 	
 	/**
 	 * Base-2 logarithm of the iteration count used for password stretching
 	 * 
 	 * @var string
 	 */
-	private $_iteration_count_log2;
+	protected $iteration_count_log2 = 8;
 	
 	/**
 	 * Do we require the hashes to be portable to older systems (less secure)?
-	 * 
-	 * @var boolean
+	 *
+	 * Set FALSE to use stronger but system-specific hashes, 
+	 * with a possible fallback to the weaker portable hashes.
+	 * If set to TRUE, then force the use of weaker portable hashes.
+	 *
+	 * If all your servers are running PHP 5.3 and above, 
+	 * it's recommended to turn off portable mode and let PHPass use bcrypt instead.
+	 *
+	 * @var bool
 	 */
-	private $_portable_hashes;
-	
-	private $_random_state;
-	
+	protected $portable_hashes = FALSE;
+
 	/**
 	 * Constructor
 	 *
-	 * @param integer $config['iteration_count_log2'] -- specifies the "base-2 logarithm of the iteration count used for password stretching"
-	 * @param boolean $config['portable_hashes'] -- specifies the use of portable hashes
-	 * 
-	 * If all your servers are running PHP 5.3 and above, 
-	 * it's recommended to turn off portable mode and let PHPass use bcrypt instead.
+	 * The constructor can be passed an array of config values
 	 */
-	public function __construct(array $config = NULL) { 
+	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
-			$this->_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
 
-			if ($config['iteration_count_log2'] < 4 || $config['iteration_count_log2'] > 31) {
-				$config['iteration_count_log2'] = 8;
-			}
-			$this->_iteration_count_log2 = $config['iteration_count_log2'];
-
-			// Set $config['portable_hashes'] = FALSE to use stronger but system-specific hashes, 
-			// with a possible fallback to the weaker portable hashes.
-			// If set to TRUE, then force the use of weaker portable hashes.
-			$this->_portable_hashes = $config['portable_hashes'];
-
-			$this->_random_state = microtime();
-			if (function_exists('getmypid')) {
-				$this->_random_state .= getmypid();
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
+				}
 			}
 		}
 	}
-
+	
+	/**
+	 * Set $iteration_count_log2
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_iteration_count_log2($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('iteration_count_log2');
+		}
+		if ($val < 4 || $val > 31) {
+			$val = 8;
+		}
+		$this->iteration_count_log2 = $val;
+	}
+	
+	/**
+	 * Set $portable_hashes
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_portable_hashes($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('portable_hashes');
+		}
+		$this->portable_hashes = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
+	
 	protected function get_random_bytes($count) {
 		$output = '';
 		if (is_readable('/dev/urandom') && ($fh = @fopen('/dev/urandom', 'rb'))) {
@@ -67,11 +102,15 @@ class Password_Hash_Library {
 
 		if (strlen($output) < $count) {
 			$output = '';
+			
+			$random_state = microtime();
+			if (function_exists('getmypid')) {
+				$random_state .= getmypid();
+			}
+			
 			for ($i = 0; $i < $count; $i += 16) {
-				$this->_random_state =
-				    md5(microtime() . $this->_random_state);
-				$output .=
-				    pack('H*', md5($this->_random_state));
+				$random_state = md5(microtime() . $random_state);
+				$output .= pack('H*', md5($random_state));
 			}
 			$output = substr($output, 0, $count);
 		}
@@ -107,7 +146,7 @@ class Password_Hash_Library {
 
 	protected function gensalt_private($input) {
 		$output = '$P$';
-		$output .= $this->_itoa64[min($this->_iteration_count_log2 + 5, 30)];
+		$output .= $this->_itoa64[min($this->iteration_count_log2 + 5, 30)];
 		$output .= $this->encode64($input, 6);
 
 		return $output;
@@ -151,7 +190,7 @@ class Password_Hash_Library {
 	}
 
 	protected function gensalt_extended($input) {
-		$count_log2 = min($this->_iteration_count_log2 + 8, 24);
+		$count_log2 = min($this->iteration_count_log2 + 8, 24);
 		// This should be odd to not reveal weak DES keys, and the
 		// maximum valid value is (2**24 - 1) which is odd anyway.
 		$count = (1 << $count_log2) - 1;
@@ -179,8 +218,8 @@ class Password_Hash_Library {
 		$itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 		$output = '$2a$';
-		$output .= chr(ord('0') + $this->_iteration_count_log2 / 10);
-		$output .= chr(ord('0') + $this->_iteration_count_log2 % 10);
+		$output .= chr(ord('0') + $this->iteration_count_log2 / 10);
+		$output .= chr(ord('0') + $this->iteration_count_log2 % 10);
 		$output .= '$';
 
 		$i = 0;
@@ -217,7 +256,7 @@ class Password_Hash_Library {
 	public function hash_password($password) {
 		$random = '';
 
-		if (CRYPT_BLOWFISH == 1 && ! $this->_portable_hashes) {
+		if (CRYPT_BLOWFISH == 1 && ! $this->portable_hashes) {
 			$random = $this->get_random_bytes(16);
 			$hash = crypt($password, $this->gensalt_blowfish($random));
 			if (strlen($hash) == 60) {
@@ -225,7 +264,7 @@ class Password_Hash_Library {
 			}
 		}
 
-		if (CRYPT_EXT_DES == 1 && ! $this->_portable_hashes) {
+		if (CRYPT_EXT_DES == 1 && ! $this->portable_hashes) {
 			if (strlen($random) < 3) {
 				$random = $this->get_random_bytes(3);
 			}
