@@ -9,26 +9,80 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Encrypt_Library {
-
-	private $_encryption_key = '';
+    /**
+	 * Reference to the user's encryption key
+	 *
+	 * @var string
+	 */
+	protected $encryption_key = '';
+	
+	/**
+	 * Type of hash operation
+	 *
+	 * @var string
+	 */
 	private $_hash_type	= 'sha1';
-	private $_mcrypt_exists = FALSE;
+
+	/**
+	 * Current cipher to be used with mcrypt
+	 *
+	 * @var string
+	 */
 	private $_mcrypt_cipher;
+	
+	/**
+	 * Method for encrypting/decrypting data
+	 *
+	 * @var int
+	 */
 	private $_mcrypt_mode;
+
 
 	/**
 	 * Constructor
 	 *
-	 * Simply determines whether the mcrypt library exists.
+	 * The constructor can be passed an array of config values
 	 */
 	public function __construct(array $config = NULL) {
-		$this->_mcrypt_exists = ( ! function_exists('mcrypt_encrypt')) ? FALSE : TRUE;
-		// Set the encryption key
-		if (isset($config['encryption_key'])) {
-			$this->_encryption_key = $config['encryption_key'];
+		if (count($config) > 0) {
+			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
+				}
+			}
 		}
 	}
-
+	
+	
+	/**
+	 * Set $encryption_key
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_encryption_key($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('encryption_key');
+		}
+		$this->encryption_key = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
+	
 
 	/**
 	 * Fetch the encryption key
@@ -36,8 +90,8 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	public function get_key() {
-		if ($this->_encryption_key !== '') {
-			return $this->_encryption_key;
+		if ($this->encryption_key !== '') {
+			return $this->encryption_key;
 		}
 	}
 
@@ -61,7 +115,7 @@ class Encrypt_Library {
 		$key = $this->get_key();
 		$enc = $this->_xor_encode($string, $key);
 		
-		if ($this->_mcrypt_exists === TRUE){
+		if (function_exists('mcrypt_encrypt')){
 			$enc = $this->mcrypt_encode($enc, $key);
 		}
 		return base64_encode($enc);
@@ -85,7 +139,7 @@ class Encrypt_Library {
 
 		$dec = base64_decode($string);
 
-		if ($this->_mcrypt_exists === TRUE) {
+		if (function_exists('mcrypt_encrypt')) {
 			if (($dec = $this->mcrypt_decode($dec, $key)) === FALSE) {
 				return FALSE;
 			}
