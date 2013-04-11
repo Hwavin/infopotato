@@ -13,54 +13,88 @@ class Form_Validation_Library {
 	 * 
 	 * @var array
 	 */
-	private $_post = array();	
+	protected $post = array();	
 	
 	private $_field_data = array();	
 	private $_error_array = array();
-	private $_error_messages = array();	
+	
 	private $_error_prefix = '<div>';
 	private $_error_suffix = '</div>';
 	private $_safe_form_data = FALSE;
 	
+	private $_error_messages = array(
+		'required' => "The %s field is required.",
+		'isset' => "The %s field must have a value.",
+		'valid_email' => "The %s field must contain a valid email address.",
+		'valid_emails' => "The %s field must contain a valid email address.",
+		'min_length' => "The %s field must be at least %s characters in length.",
+		'max_length' => "The %s field can not exceed %s characters in length.",
+		'exact_length' => "The %s field must be exactly %s characters in length.",
+		'equals' => "The %s field must equal the value designed.",
+		'form_token' => "Please do not resubmit the form data.",
+		'alpha' => "The %s field may only contain alphabetical characters.",
+		'alpha_numeric' => "The %s field may only contain alpha-numeric characters.",
+		'alpha_dash' => "The %s field may only contain alpha-numeric characters, underscores, and dashes.",
+		'numeric' => "The %s field must contain only numbers.",
+		'is_numeric' => "The %s field must contain only numeric characters.",
+		'is_integer' => "The %s field must contain an integer.",
+		'matches' => "The %s field does not match the %s field.",
+		'decimal' => "The %s field must contain a decimal number.",
+		'less_than' => "The %s field must contain a number less than %s.",
+		'greater_than' => "The %s field must contain a number greater than %s.",
+		'is_natural' => "The %s field must contain only positive numbers.",
+		'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
+	);
+
 	/**
 	 * Constructor
 	 *
-	 * $config must contain ['post']
-	 */	
-	public function __construct(array $config = NULL) { 
-		// Assign the $this->_POST_DATA array
-		$this->_post = $config['post'];
+	 * The constructor can be passed an array of config values
+	 */
+	public function __construct(array $config = NULL) {
+		if (count($config) > 0) {
+			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
+
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
+				}
+			}
+		}
 		
 		// Set the character encoding in MB.
 		if (function_exists('mb_internal_encoding')){
 			mb_internal_encoding('UTF-8');
-		}
-
-		$this->_error_messages = array(
-			'required' => "The %s field is required.",
-			'isset' => "The %s field must have a value.",
-			'valid_email' => "The %s field must contain a valid email address.",
-			'valid_emails' => "The %s field must contain a valid email address.",
-			'min_length' => "The %s field must be at least %s characters in length.",
-			'max_length' => "The %s field can not exceed %s characters in length.",
-			'exact_length' => "The %s field must be exactly %s characters in length.",
-			'equals' => "The %s field must equal the value designed.",
-			'form_token' => "Please do not resubmit the form data.",
-			'alpha' => "The %s field may only contain alphabetical characters.",
-			'alpha_numeric' => "The %s field may only contain alpha-numeric characters.",
-			'alpha_dash' => "The %s field may only contain alpha-numeric characters, underscores, and dashes.",
-			'numeric' => "The %s field must contain only numbers.",
-			'is_numeric' => "The %s field must contain only numeric characters.",
-			'is_integer' => "The %s field must contain an integer.",
-			'matches' => "The %s field does not match the %s field.",
-			'decimal' => "The %s field must contain a decimal number.",
-			'less_than' => "The %s field must contain a number less than %s.",
-			'greater_than' => "The %s field must contain a number greater than %s.",
-			'is_natural' => "The %s field must contain only positive numbers.",
-			'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
-		);	
+		}	
 	}
-
+	
+	/**
+	 * Set $post
+	 *
+	 * @param  $val array
+	 * @return	void
+	 */
+	protected function set_post($val) {
+		if ( ! is_array($val)) {
+		    $this->_invalid_argument_value('post');
+		}
+		$this->post = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
+	
 	/**
 	 * Set Rules
 	 *
@@ -74,7 +108,7 @@ class Form_Validation_Library {
 	 */
 	public function set_rules($field = '', $label = '', $rules = '') {
 		// No reason to set rules if we have no POST data
-		if (count($this->_post) == 0) {
+		if (count($this->post) === 0) {
 			return;
 		}
 
@@ -201,7 +235,7 @@ class Form_Validation_Library {
 	 */		
 	public function run() {
 		// Do we even have any data to process?
-		if (count($this->_post) == 0) {
+		if (count($this->post) == 0) {
 			return FALSE;
 		}
 		
@@ -211,15 +245,15 @@ class Form_Validation_Library {
 		}
 
 		// Cycle through the rules for each field, match the 
-		// corresponding $this->_post item and test for errors
+		// corresponding $this->post item and test for errors
 		foreach ($this->_field_data as $field => $row) {		
-			// Fetch the data from the corresponding $this->_post array and cache it in the _field_data array.
+			// Fetch the data from the corresponding $this->post array and cache it in the _field_data array.
 			// Depending on whether the field name is an array or a string will determine where we get it from.
 			if ($row['is_array'] == TRUE) {
-				$this->_field_data[$field]['postdata'] = $this->_reduce_array($this->_post, $row['keys']);
+				$this->_field_data[$field]['postdata'] = $this->_reduce_array($this->post, $row['keys']);
 			} else {
-				if (isset($this->_post[$field]) && $this->_post[$field] != '') {
-					$this->_field_data[$field]['postdata'] = $this->_post[$field];
+				if (isset($this->post[$field]) && $this->post[$field] != '') {
+					$this->_field_data[$field]['postdata'] = $this->post[$field];
 				}
 			}
 		
@@ -247,7 +281,7 @@ class Form_Validation_Library {
 
 
 	/**
-	 * Traverse a multidimensional $this->_post array index until the data is found
+	 * Traverse a multidimensional $this->post array index until the data is found
 	 *
 	 * @param	array
 	 * @param	array
@@ -271,7 +305,7 @@ class Form_Validation_Library {
 
 
 	/**
-	 * Re-populate the $this->_post data array with our finalized and processed data
+	 * Re-populate the $this->post data array with our finalized and processed data
 	 *
 	 * @return	null
 	 */		
@@ -279,12 +313,12 @@ class Form_Validation_Library {
 		foreach ($this->_field_data as $field => $row) {
 			if ( ! is_null($row['postdata'])) {
 				if ($row['is_array'] == FALSE) {
-					if (isset($this->_post[$row['field']])) {
-						$this->_post[$row['field']] = $this->prep_for_form($row['postdata']);
+					if (isset($this->post[$row['field']])) {
+						$this->post[$row['field']] = $this->prep_for_form($row['postdata']);
 					}
 				} else {
 					// start with a reference
-					$post_ref =& $this->_post;
+					$post_ref =& $this->post;
 					
 					// before we assign values, make a reference to the right POST key
 					if (count($row['keys']) == 1) {
@@ -321,7 +355,7 @@ class Form_Validation_Library {
 	 * @return	mixed
 	 */	
 	private function _execute($row, $rules, $postdata = NULL, $cycles = 0) {
-		// If the $this->_post data is an array we will run a recursive call
+		// If the $this->post data is an array we will run a recursive call
 		if (is_array($postdata)) { 
 			foreach ($postdata as $key => $val) {
 				$this->_execute($row, $rules, $val, $cycles);
@@ -586,11 +620,11 @@ class Form_Validation_Library {
 	 * @return	bool
 	 */
 	public function matches($str, $field) {
-		if ( ! isset($this->_post[$field])) {
+		if ( ! isset($this->post[$field])) {
 			return FALSE;				
 		}
 		
-		$field = $this->_post[$field];
+		$field = $this->post[$field];
 
 		return ($str !== $field) ? FALSE : TRUE;
 	}
