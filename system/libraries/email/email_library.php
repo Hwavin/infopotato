@@ -15,7 +15,7 @@ class Email_Library {
 	 * 
 	 * @var string
 	 */
-	protected $useragent = 'InfoPotato Email Class';
+	protected $user_agent = 'InfoPotato Email Class';
 
 	/**
 	 * Path to the Sendmail binary
@@ -381,7 +381,7 @@ class Email_Library {
 		$this->_headers = array();
 		$this->_debug_msg = array();
 
-		$this->_set_header('User-Agent', $this->useragent);
+		$this->_set_header('User-Agent', $this->user_agent);
 		$this->_set_header('Date', $this->_set_date());
 
 		if ($clear_attachments !== FALSE) {
@@ -1016,7 +1016,7 @@ class Email_Library {
 	 */
 	protected function _build_headers() {
 		$this->_set_header('X-Sender', $this->clean_email($this->_headers['From']));
-		$this->_set_header('X-Mailer', $this->useragent);
+		$this->_set_header('X-Mailer', $this->user_agent);
 		$this->_set_header('X-Priority', $this->_priorities[$this->priority - 1]);
 		$this->_set_header('Message-ID', $this->_get_message_id());
 		$this->_set_header('Mime-Version', '1.0');
