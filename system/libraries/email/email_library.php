@@ -1786,8 +1786,11 @@ class Email_Library {
 			return TRUE;
 		}
 		
+		// OpenSSL extension needed to use ssl
 		$ssl = ($this->smtp_crypto === 'ssl') ? 'ssl://' : '';
 
+		// You can prefix the hostname with either ssl:// or tls:// to use an SSL or TLS client connection over TCP/IP 
+		// to connect to the remote host if OpenSSL support is installed
 		$this->_smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
 
 		if ( ! is_resource($this->_smtp_connect)) {
