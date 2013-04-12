@@ -11,10 +11,12 @@
 class Encrypt_Library {
     /**
 	 * Reference to the user's encryption key
+	 * To take maximum advantage of the encryption algorithm, 
+	 * your key should be 32 characters in length (128 bits). 
 	 *
 	 * @var string
 	 */
-	protected $encryption_key = '';
+	protected $encryption_key = 'your key should be 32 characters';
 	
 	/**
 	 * Type of hash operation
@@ -23,6 +25,13 @@ class Encrypt_Library {
 	 */
 	private $_hash_type	= 'sha1';
 
+	/**
+	 * Flag for the existance of mcrypt
+	 *
+	 * @var bool
+	 */
+	private $_mcrypt_exists	= FALSE;
+	
 	/**
 	 * Current cipher to be used with mcrypt
 	 *
@@ -59,6 +68,9 @@ class Encrypt_Library {
 				}
 			}
 		}
+		
+		// Flag for the existance of mcrypt extension
+		$this->_mcrypt_exists = function_exists('mcrypt_encrypt');
 	}
 	
 	
@@ -83,19 +95,25 @@ class Encrypt_Library {
 	private function _invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
-	
 
 	/**
 	 * Fetch the encryption key
 	 *
+	 * Returns it as MD5 in order to have an exact-length 128 bit key.
+	 * Mcrypt is sensitive to keys that are not in the correct length
+	 *
+	 * @param	string
 	 * @return	string
 	 */
-	public function get_key() {
-		if ($this->encryption_key !== '') {
+	public function get_key($key = '') {
+		if ($key === '') {
+			// encryption_key won't be empty
 			return $this->encryption_key;
 		}
+        // md5() returns the hash as a 32-character hexadecimal number
+		return md5($key);
 	}
-
+	
 	
 	/**
 	 * Encode
@@ -112,45 +130,31 @@ class Encrypt_Library {
 	 * @param	string	the key
 	 * @return	string
 	 */
-	public function encode($string) {
-		$key = $this->get_key();
-		$enc = $this->_xor_encode($string, $key);
-		
-		// mcrypt_encrypt() requires mcryt extension installed
-		if (function_exists('mcrypt_encrypt')){
-			$enc = $this->mcrypt_encode($enc, $key);
-		}
-		return base64_encode($enc);
+	public function encode($string, $key) {
+		$method = ($this->_mcrypt_exists === TRUE) ? 'mcrypt_encode' : '_xor_encode';
+		return base64_encode($this->$method($string, $this->get_key($key)));
 	}
 
 
-	/**
+    /**
 	 * Decode
 	 *
-	 * Decrypts an encoded string
+	 * Reverses the above process
 	 *
+	 * @param	string
 	 * @param	string
 	 * @return	string
 	 */
-	public function decode($string) {
-		$key = $this->get_key();
-		
-		if (preg_match('/[^a-zA-Z0-9\/\+=]/', $string)) {
+	public function decode($string, $key = '') {
+		if (preg_match('/[^a-zA-Z0-9\/\+=]/', $string) || base64_encode(base64_decode($string)) !== $string) {
 			return FALSE;
 		}
 
-		$dec = base64_decode($string);
-
-		if (function_exists('mcrypt_encrypt')) {
-			if (($dec = $this->mcrypt_decode($dec, $key)) === FALSE) {
-				return FALSE;
-			}
-		}
-
-		return $this->_xor_decode($dec, $key);
+		$method = ($this->_mcrypt_exists === TRUE) ? 'mcrypt_decode' : '_xor_decode';
+		return $this->$method(base64_decode($string), $this->get_key($key));
 	}
-
-
+	
+	
 	/**
 	 * XOR Encode
 	 *
@@ -163,20 +167,19 @@ class Encrypt_Library {
 	 */
 	private function _xor_encode($string, $key) {
 		$rand = '';
-		while (strlen($rand) < 32) {
-			$rand .= mt_rand(0, mt_getrandmax());
-		}
+		do {
+			$rand .= mt_rand();
+		} while (strlen($rand) < 32);
 
 		$rand = $this->hash($rand);
 
 		$enc = '';
-		for ($i = 0; $i < strlen($string); $i++) {			
-			$enc .= substr($rand, ($i % strlen($rand)), 1).(substr($rand, ($i % strlen($rand)), 1) ^ substr($string, $i, 1));
+		for ($i = 0, $ls = strlen($string), $lr = strlen($rand); $i < $ls; $i++) {
+			$enc .= $rand[($i % $lr)].($rand[($i % $lr)] ^ $string[$i]);
 		}
 
 		return $this->_xor_merge($enc, $key);
 	}
-
 
 	/**
 	 * XOR Decode
@@ -192,14 +195,13 @@ class Encrypt_Library {
 		$string = $this->_xor_merge($string, $key);
 
 		$dec = '';
-		for ($i = 0; $i < strlen($string); $i++) {
-			$dec .= (substr($string, $i++, 1) ^ substr($string, $i, 1));
+		for ($i = 0, $l = strlen($string); $i < $l; $i++) {
+			$dec .= ($string[$i++] ^ $string[$i]);
 		}
 
 		return $dec;
 	}
-
-
+	
 	/**
 	 * XOR key + string Combiner
 	 *
@@ -212,15 +214,14 @@ class Encrypt_Library {
 	private function _xor_merge($string, $key) {
 		$hash = $this->hash($key);
 		$str = '';
-		for ($i = 0; $i < strlen($string); $i++) {
-			$str .= substr($string, $i, 1) ^ substr($hash, ($i % strlen($hash)), 1);
+		for ($i = 0, $ls = strlen($string), $lh = strlen($hash); $i < $ls; $i++) {
+			$str .= $string[$i] ^ $hash[($i % $lh)];
 		}
 
 		return $str;
 	}
 
-
-	/**
+    /**
 	 * Encrypt using Mcrypt
 	 *
 	 * @param	string
@@ -232,7 +233,6 @@ class Encrypt_Library {
 		$init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
 		return $this->_add_cipher_noise($init_vect.mcrypt_encrypt($this->_get_cipher(), $key, $data, $this->_get_mode(), $init_vect), $key);
 	}
-
 
 	/**
 	 * Decrypt using Mcrypt
@@ -254,7 +254,6 @@ class Encrypt_Library {
 		return rtrim(mcrypt_decrypt($this->_get_cipher(), $key, $data, $this->_get_mode(), $init_vect), "\0");
 	}
 
-
 	/**
 	 * Adds permuted noise to the IV + encrypted data to protect
 	 * against Man-in-the-middle attacks on CBC mode ciphers
@@ -265,73 +264,72 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _add_cipher_noise($data, $key) {
-		$keyhash = $this->hash($key);
-		$keylen = strlen($keyhash);
+		$key = $this->hash($key);
 		$str = '';
 
-		for ($i = 0, $j = 0, $len = strlen($data); $i < $len; ++$i, ++$j) {
-			if ($j >= $keylen) {
+		for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j) {
+			if ($j >= $lk) {
 				$j = 0;
 			}
 
-			$str .= chr((ord($data[$i]) + ord($keyhash[$j])) % 256);
+			$str .= chr((ord($data[$i]) + ord($key[$j])) % 256);
 		}
 
 		return $str;
 	}
 
-
-	/**
+    /**
 	 * Removes permuted noise from the IV + encrypted data, reversing
 	 * _add_cipher_noise()
 	 *
-	 * @param	type
-	 * @return	type
+	 * Function description
+	 *
+	 * @param	string	$data
+	 * @param	string	$key
+	 * @return	string
 	 */
 	private function _remove_cipher_noise($data, $key) {
-		$keyhash = $this->hash($key);
-		$keylen = strlen($keyhash);
+		$key = $this->hash($key);
 		$str = '';
 
-		for ($i = 0, $j = 0, $len = strlen($data); $i < $len; ++$i, ++$j) {
-			if ($j >= $keylen) {
+		for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j) {
+			if ($j >= $lk) {
 				$j = 0;
 			}
 
-			$temp = ord($data[$i]) - ord($keyhash[$j]);
+			$temp = ord($data[$i]) - ord($key[$j]);
 
 			if ($temp < 0) {
-				$temp = $temp + 256;
+				$temp += 256;
 			}
-			
+
 			$str .= chr($temp);
 		}
 
 		return $str;
 	}
 
-
 	/**
 	 * Set the Mcrypt Cipher
 	 *
-	 * @param	constant
-	 * @return	string
+	 * @param	int
+	 * @return	Encrypt_Library
 	 */
 	public function set_cipher($cipher) {
 		$this->_mcrypt_cipher = $cipher;
+		return $this;
 	}
-
 
 	/**
 	 * Set the Mcrypt Mode
 	 *
-	 * @param	constant
-	 * @return	string
+	 * @param	int
+	 * @return	Encrypt_Library
 	 */
 	public function set_mode($mode) {
 		$this->_mcrypt_mode = $mode;
+		return $this;
 	}
-
 
 	/**
 	 * Get Mcrypt cipher Value
@@ -339,27 +337,25 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _get_cipher() {
-		if ($this->_mcrypt_cipher === '') {
-			$this->_mcrypt_cipher = MCRYPT_RIJNDAEL_256;
+		if ($this->_mcrypt_cipher === NULL) {
+			return $this->_mcrypt_cipher = MCRYPT_RIJNDAEL_256;
 		}
 
 		return $this->_mcrypt_cipher;
 	}
 
-	
 	/**
 	 * Get Mcrypt Mode Value
 	 *
-	 * @return	string
+	 * @return	int
 	 */
 	private function _get_mode() {
-		if ($this->_mcrypt_mode === '') {
-			$this->_mcrypt_mode = MCRYPT_MODE_ECB;
+		if ($this->_mcrypt_mode === NULL) {
+			return $this->_mcrypt_mode = MCRYPT_MODE_CBC;
 		}
-		
+
 		return $this->_mcrypt_mode;
 	}
-
 
 	/**
 	 * Set the Hash type
@@ -380,7 +376,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */	
 	public function hash($str) {
-		return ($this->_hash_type === 'sha1') ? sha1($str) : md5($str);
+		return hash($this->_hash_type, $str);
 	}
 
 }
