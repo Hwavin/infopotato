@@ -13,7 +13,7 @@ class Upload_Library {
 	 * 
 	 * @var array
 	 */
-	private $_files = array();	
+	protected $files = array();	
 	
 	/**
 	 * The maximum size (in kilobytes) that the file can be. Set to zero for no limit.
@@ -39,9 +39,9 @@ class Upload_Library {
 	protected $max_height = 0;
 	
 	/**
-	 * The maximum length that a file name can be. Set to zero for no limit.
-	 * 
-	 * @var string
+	 * Maximum filename length
+	 *
+	 * @var	int
 	 */
 	protected $max_filename = 0;
 	
@@ -68,9 +68,33 @@ class Upload_Library {
 	 * @var string
 	 */
 	protected $file_name = '';
+	
+	/**
+	 * Original filename
+	 *
+	 * @var	string
+	 */
 	protected $orig_name = '';
+	
+	/**
+	 * File type
+	 *
+	 * @var	string
+	 */
 	protected $file_type = '';
-	protected $file_size = '';
+	
+	/**
+	 * File size
+	 *
+	 * @var	int
+	 */
+	protected $file_size = 0;
+	
+	/**
+	 * Filename extension
+	 *
+	 * @var	string
+	 */
 	protected $file_ext = '';
 	
 	/**
@@ -80,7 +104,7 @@ class Upload_Library {
 	 * 
 	 * @var string
 	 */
-	protected $upload_path	= '';
+	protected $upload_path = '';
 	
 	/**
 	 * If set to true, if a file with the same name as the one you are uploading exists, 
@@ -100,9 +124,32 @@ class Upload_Library {
 	 */
 	protected $encrypt_name = FALSE;
 
-	protected $image_width	= '';
+	/**
+	 * Image width
+	 *
+	 * @var	int
+	 */
+	protected $image_width = '';
+	
+	/**
+	 * Image height
+	 *
+	 * @var	int
+	 */
 	protected $image_height = '';
+	
+	/**
+	 * Image type
+	 *
+	 * @var	string
+	 */
 	protected $image_type = '';
+	
+	/**
+	 * Image size string
+	 *
+	 * @var	string
+	 */
 	protected $image_size_str = '';
 	
 	/**
@@ -120,13 +167,29 @@ class Upload_Library {
 	 */
 	protected $file_name_override = '';
 
-	
 	/**
 	 * All the pre defined error messages
 	 * 
 	 * @var array
 	 */
-	private $_error_messages = array();
+	private $_error_messages = array(
+		'upload_userfile_not_set' => 'Unable to find a post variable called userfile.',
+		'upload_file_exceeds_limit' => 'The uploaded file exceeds the maximum allowed size in your PHP configuration file.',
+		'upload_file_exceeds_form_limit' => 'The uploaded file exceeds the maximum size allowed by the submission form.',
+		'upload_file_partial' => 'The file was only partially uploaded.',
+		'upload_no_temp_directory' => 'The temporary folder is missing.',
+		'upload_unable_to_write_file' => 'The file could not be written to disk.',
+		'upload_stopped_by_extension' => 'The file upload was stopped by extension.',
+		'upload_no_file_selected' => 'You did not select a file to upload.',
+		'upload_invalid_filetype' => 'The filetype you are attempting to upload is not allowed.',
+		'upload_invalid_filesize' => 'The file you are attempting to upload is larger than the permitted size.',
+		'upload_invalid_dimensions' => 'The image you are attempting to upload exceedes the maximum height or width.',
+		'upload_destination_error' => 'A problem was encountered while attempting to move the uploaded file to the final destination.',
+		'upload_no_filepath' => 'The upload path does not appear to be valid.',
+		'upload_no_file_types' => 'You have not specified any allowed file types.',
+		'upload_bad_filename' => 'The file name you submitted already exists on the server.',
+		'upload_not_writable' => 'The upload destination folder does not appear to be writable.',
+	);
 	
 	/**
 	 * The errors caputered to display
@@ -135,69 +198,119 @@ class Upload_Library {
 	 */
 	private $_error_msg_to_display= array();
 	
+	
 	/**
 	 * Constructor
+	 *
+	 * The constructor can be passed an array of config values
 	 */
 	public function __construct(array $config = NULL) {
 		if (count($config) > 0) {
-			// Assign the $this->_FILES_DATA array
-		    $this->_files = $config['files'];
-			
-			$default_vars = array(
-				'max_size' => 0,
-				'max_width'	=> 0,
-				'max_height' => 0,
-				'max_filename' => 0,
-				'allowed_types' => array(),
-				'file_temp' => '',
-				'file_name' => '',
-				'orig_name' => '',
-				'file_type' => '',
-				'file_size' => '',
-				'file_ext' => '',
-				'upload_path' => '',
-				'overwrite' => FALSE,
-				'encrypt_name' => FALSE,
+			foreach ($config as $key => $val) {
+				// Using isset() requires $this->$key not to be NULL in property definition
+				if (isset($this->$key)) {
+					$method = 'set_'.$key;
 
-				'image_width' => '',
-				'image_height' => '',
-				'image_type' => '',
-				'image_size_str' => '',
-				'remove_spaces'	=> TRUE,
-			);	
-		
-			foreach ($default_vars as $key => $val) {
-				if (isset($config[$key])) {
-					$this->$key = $config[$key];			
+					if (method_exists($this, $method)) {
+						$this->$method($val);
+					}
+				} else {
+				    exit("'".$key."' is not an acceptable config argument!");
 				}
 			}
-			
-			// If a file_name was provided in the config, use it instead of the user input
-			// supplied file name for all uploads until initialized again
-			$this->file_name_override = $this->file_name;
 		}
 		
-
-		$this->_error_messages = array(
-			'upload_userfile_not_set' => 'Unable to find a post variable called userfile.',
-			'upload_file_exceeds_limit' => 'The uploaded file exceeds the maximum allowed size in your PHP configuration file.',
-			'upload_file_exceeds_form_limit' => 'The uploaded file exceeds the maximum size allowed by the submission form.',
-			'upload_file_partial' => 'The file was only partially uploaded.',
-			'upload_no_temp_directory' => 'The temporary folder is missing.',
-			'upload_unable_to_write_file' => 'The file could not be written to disk.',
-			'upload_stopped_by_extension' => 'The file upload was stopped by extension.',
-			'upload_no_file_selected' => 'You did not select a file to upload.',
-			'upload_invalid_filetype' => 'The filetype you are attempting to upload is not allowed.',
-			'upload_invalid_filesize' => 'The file you are attempting to upload is larger than the permitted size.',
-			'upload_invalid_dimensions' => 'The image you are attempting to upload exceedes the maximum height or width.',
-			'upload_destination_error' => 'A problem was encountered while attempting to move the uploaded file to the final destination.',
-			'upload_no_filepath' => 'The upload path does not appear to be valid.',
-			'upload_no_file_types' => 'You have not specified any allowed file types.',
-			'upload_bad_filename' => 'The file name you submitted already exists on the server.',
-			'upload_not_writable' => 'The upload destination folder does not appear to be writable.',
-		);
+		// If a file_name was provided in the config, use it instead of the user input
+		// supplied file name for all uploads until initialized again
+		$this->file_name_override = $this->file_name;
 	}
-
+	
+	/**
+	 * Set $files
+	 *
+	 * @param  $val array
+	 * @return	void
+	 */
+	protected function set_files($val) {
+		if ( ! is_array($val)) {
+		    $this->_invalid_argument_value('files');
+		}
+		$this->files = $val;
+	}
+	
+	/**
+	 * Set $allowed_types
+	 *
+	 * @param  $val array
+	 * @return	void
+	 */
+	protected function set_allowed_types($val) {
+		if ( ! is_array($val)) {
+		    $this->_invalid_argument_value('allowed_types');
+		}
+		$this->allowed_types = $val;
+	}
+	
+	/**
+	 * Set $upload_path
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_upload_path($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('upload_path');
+		}
+		$this->upload_path = $val;
+	}
+	
+	/**
+	 * Set $max_size
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_max_size($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('max_size');
+		}
+		$this->max_size = $val;
+	}
+	
+	/**
+	 * Set $max_width
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_max_width($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('max_width');
+		}
+		$this->max_width = $val;
+	}
+	
+	/**
+	 * Set $max_height
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_max_height($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('max_height');
+		}
+		$this->max_height = $val;
+	}
+	
+	/**
+     * Output the error message for invalid argument value
+	 *
+	 * @return void
+     */
+	private function _invalid_argument_value($arg) {
+	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+	}
 
 	/**
 	 * Perform the file upload
@@ -208,8 +321,8 @@ class Upload_Library {
 	 * @return	bool
 	 */	
 	public function run($field = 'userfile') {
-		// Is $this->_files[$field] set? If not, no reason to continue.
-		if ( ! isset($this->_files[$field])) {
+		// Is $this->files[$field] set? If not, no reason to continue.
+		if ( ! isset($this->files[$field])) {
 			$this->_set_error('upload_no_file_selected');
 			return FALSE;
 		}
@@ -221,8 +334,8 @@ class Upload_Library {
 		}
 
 		// Was the file able to be uploaded? If not, determine the reason why.
-		if ( ! is_uploaded_file($this->_files[$field]['tmp_name'])) {
-			$error = ( ! isset($this->_files[$field]['error'])) ? 4 : $this->_files[$field]['error'];
+		if ( ! is_uploaded_file($this->files[$field]['tmp_name'])) {
+			$error = ( ! isset($this->files[$field]['error'])) ? 4 : $this->files[$field]['error'];
 
 			switch($error) {
 				case 1:	// UPLOAD_ERR_INI_SIZE
@@ -261,11 +374,11 @@ class Upload_Library {
 		}
 
 		// Set the uploaded data as class variables
-		$this->file_temp = $this->_files[$field]['tmp_name'];
-		$this->file_size = $this->_files[$field]['size'];			
-		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->_files[$field]['type']);
+		$this->file_temp = $this->files[$field]['tmp_name'];
+		$this->file_size = $this->files[$field]['size'];			
+		$this->file_type = preg_replace("/^(.+?);.*$/", "\\1", $this->files[$field]['type']);
 		$this->file_type = strtolower(trim(stripslashes($this->file_type), '"'));
-		$this->file_name = $this->_prep_filename($this->_files[$field]['name']);
+		$this->file_name = $this->_prep_filename($this->files[$field]['name']);
 		$this->file_ext	 = $this->get_extension($this->file_name);
 		
 		// Is the file type allowed to be uploaded?

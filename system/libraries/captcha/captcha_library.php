@@ -115,7 +115,8 @@ class CAPTCHA_Library {
 		if (count($config) > 0) {
 			foreach ($config as $key => $val) {
 				// Using isset() requires $this->$key not to be NULL in property definition
-				if (isset($this->$key)) {
+                // property_exists() allows empty property
+                if (property_exists($this, $key)) {
 					$method = 'set_'.$key;
 
 					if (method_exists($this, $method)) {
