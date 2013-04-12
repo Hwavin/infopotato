@@ -10,7 +10,7 @@
  * @version Version 0.3 / genuine
  */
 class Password_Hash_Library {
-	private $_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';;
+	private $_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 	
 	/**
 	 * Base-2 logarithm of the iteration count used for password stretching
