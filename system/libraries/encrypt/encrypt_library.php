@@ -69,7 +69,7 @@ class Encrypt_Library {
 	 * @return	void
 	 */
 	protected function set_encryption_key($val) {
-		if ( ! is_string($val)) {
+		if ( ! is_string($val) || empty($val)) {
 		    $this->_invalid_argument_value('encryption_key');
 		}
 		$this->encryption_key = $val;
@@ -116,6 +116,7 @@ class Encrypt_Library {
 		$key = $this->get_key();
 		$enc = $this->_xor_encode($string, $key);
 		
+		// mcrypt_encrypt() requires mcryt extension installed
 		if (function_exists('mcrypt_encrypt')){
 			$enc = $this->mcrypt_encode($enc, $key);
 		}
@@ -367,7 +368,8 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	public function set_hash($type = 'sha1') {
-		$this->_hash_type = ($type !== 'sha1' && $type !== 'md5') ? 'sha1' : $type;
+		// hash_algos() returns a numerically indexed array containing the list of supported hashing algorithms
+		$this->_hash_type = in_array($type, hash_algos()) ? $type : 'sha1';
 	}
 
 
