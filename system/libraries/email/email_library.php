@@ -477,6 +477,9 @@ class Email_Library {
         if ( ! is_string($val) || ! in_array($val, array('ssl', 'tls'))) {
             $this->_invalid_argument_value('smtp_crypto');
         }
+		if ( ! extension_loaded('openssl')) {
+		    exit('OpenSSL extension needed to use ssl or tls');
+		}
         $this->smtp_crypto = $val;
     }
 	
