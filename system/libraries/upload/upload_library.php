@@ -305,6 +305,71 @@ class Upload_Library {
 	}
 	
 	/**
+	 * Set $file_name
+	 *
+	 * @param  $val string
+	 * @return	void
+	 */
+	protected function set_file_nameh($val) {
+		if ( ! is_string($val)) {
+		    $this->_invalid_argument_value('file_name');
+		}
+		$this->file_name = $val;
+	}
+	
+	/**
+	 * Set $overwrite
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_overwrite($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('overwrite');
+		}
+		$this->overwrite = $val;
+	}
+	
+	/**
+	 * Set $max_filename
+	 *
+	 * @param  $val int
+	 * @return	void
+	 */
+	protected function set_max_filename($val) {
+		if ( ! is_int($val)) {
+		    $this->_invalid_argument_value('max_filename');
+		}
+		$this->max_filename = $val;
+	}
+	
+	/**
+	 * Set $encrypt_name
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_encrypt_name($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('encrypt_name');
+		}
+		$this->encrypt_name = $val;
+	}
+	
+	/**
+	 * Set $remove_spaces
+	 *
+	 * @param  $val bool
+	 * @return	void
+	 */
+	protected function set_remove_spaces($val) {
+		if ( ! is_bool($val)) {
+		    $this->_invalid_argument_value('remove_spaces');
+		}
+		$this->remove_spaces = $val;
+	}
+	
+	/**
      * Output the error message for invalid argument value
 	 *
 	 * @return void
