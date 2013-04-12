@@ -22,7 +22,7 @@ class Email_Library {
 	 * 
 	 * @var string
 	 */
-	protected $mailpath	= '/usr/sbin/sendmail';
+	protected $sendmail_path = '/usr/sbin/sendmail';
 
 	/**
 	 * Which method to use for sending e-mails
@@ -1519,7 +1519,7 @@ class Email_Library {
 	 */
 	protected function _send_with_sendmail() {
 		// Opens process file pointer
-		$fp = @popen($this->mailpath.' -oi -f '.$this->clean_email($this->_headers['From']).' -t -r '.$this->clean_email($this->_headers['Return-Path']), 'w');
+		$fp = @popen($this->sendmail_path.' -oi -f '.$this->clean_email($this->_headers['From']).' -t -r '.$this->clean_email($this->_headers['Return-Path']), 'w');
 
 		if ($fp === FALSE) {
 			// server probably has popen disabled, so nothing we can do to get a verbose error.
