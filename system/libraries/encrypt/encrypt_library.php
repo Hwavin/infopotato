@@ -33,7 +33,7 @@ class Encrypt_Library {
 	private $_mcrypt_cipher = MCRYPT_RIJNDAEL_256;
 	
 	/**
-	 * Method for encrypting/decrypting data
+	 * One of the MCRYPT_MODE_modename constants, or one of the following strings: "ecb", "cbc", "cfb", "ofb", "nofb" or "stream".
 	 *
 	 * @var int
 	 */
