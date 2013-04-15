@@ -131,7 +131,9 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	public function encode($string, $key = '') {
-		$method = ($this->_mcrypt_exists === TRUE) ? 'mcrypt_encode' : '_xor_encode';
+		$method = ($this->_mcrypt_exists === TRUE) ? '_mcrypt_encode' : '_xor_encode';
+		
+		
 		return base64_encode($this->$method($string, $this->get_key($key)));
 	}
 
@@ -150,7 +152,7 @@ class Encrypt_Library {
 			return FALSE;
 		}
 
-		$method = ($this->_mcrypt_exists === TRUE) ? 'mcrypt_decode' : '_xor_decode';
+		$method = ($this->_mcrypt_exists === TRUE) ? '_mcrypt_decode' : '_xor_decode';
 		return $this->$method(base64_decode($string), $this->get_key($key));
 	}
 	
@@ -228,7 +230,7 @@ class Encrypt_Library {
 	 * @param	string
 	 * @return	string
 	 */
-	public function mcrypt_encode($data, $key) {
+	private function _mcrypt_encode($data, $key) {
 		$init_size = mcrypt_get_iv_size($this->_get_cipher(), $this->_get_mode());
 		$init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
 		return $this->_add_cipher_noise($init_vect.mcrypt_encrypt($this->_get_cipher(), $key, $data, $this->_get_mode(), $init_vect), $key);
@@ -238,10 +240,10 @@ class Encrypt_Library {
 	 * Decrypt using Mcrypt
 	 *
 	 * @param	string
-	 * @param	string (optional)
+	 * @param	string
 	 * @return	string
 	 */
-	public function mcrypt_decode($data, $key) {
+	private function _mcrypt_decode($data, $key) {
 		$data = $this->_remove_cipher_noise($data, $key);
 		$init_size = mcrypt_get_iv_size($this->_get_cipher(), $this->_get_mode());
 
