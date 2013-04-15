@@ -28,7 +28,7 @@ class Encrypt_Library {
 	/**
 	 * One of the MCRYPT_ciphername constants, or the name of the algorithm as string.
 	 *
-	 * @var string
+	 * @var int
 	 */
 	private $_mcrypt_cipher = MCRYPT_RIJNDAEL_256;
 	
