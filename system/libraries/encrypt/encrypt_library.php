@@ -127,7 +127,7 @@ class Encrypt_Library {
 	 * even if the supplied message and key are the same.
 	 *
 	 * @param	string	the string to encode
-	 * @param	string	the key
+	 * @param	string	the key  (optional)
 	 * @return	string
 	 */
 	public function encode($string, $key = '') {
@@ -238,7 +238,7 @@ class Encrypt_Library {
 	 * Decrypt using Mcrypt
 	 *
 	 * @param	string
-	 * @param	string
+	 * @param	string (optional)
 	 * @return	string
 	 */
 	public function mcrypt_decode($data, $key) {
