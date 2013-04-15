@@ -17,13 +17,6 @@ class Encrypt_Library {
 	 * @var string
 	 */
 	protected $encryption_key = 'your key should be 32 characters';
-	
-	/**
-	 * Type of hash operation
-	 *
-	 * @var string
-	 */
-	private $_hash_type	= 'sha1';
 
 	/**
 	 * Flag for the existance of mcrypt
@@ -309,28 +302,6 @@ class Encrypt_Library {
 		}
 
 		return $str;
-	}
-
-	/**
-	 * Set the Hash type
-	 *
-	 * @param	string
-	 * @return	string
-	 */
-	public function set_hash($type = 'sha1') {
-		// hash_algos() returns a numerically indexed array containing the list of supported hashing algorithms
-		$this->_hash_type = in_array($type, hash_algos()) ? $type : 'sha1';
-	}
-
-
-	/**
-	 * Hash encode a string
-	 *
-	 * @param	string
-	 * @return	string
-	 */	
-	public function hash($str) {
-		return hash($this->_hash_type, $str);
 	}
 
 }
