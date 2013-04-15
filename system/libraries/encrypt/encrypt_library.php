@@ -98,7 +98,7 @@ class Encrypt_Library {
 	 * @param	string
 	 * @return	string
 	 */
-	public function get_key($key = '') {
+	private function _get_key($key = '') {
 		if ($key === '') {
 			// encryption_key won't be empty
 			return $this->encryption_key;
@@ -127,7 +127,7 @@ class Encrypt_Library {
 		$method = ($this->_mcrypt_exists === TRUE) ? '_mcrypt_encode' : '_xor_encode';
 		
 		
-		return base64_encode($this->$method($string, $this->get_key($key)));
+		return base64_encode($this->$method($string, $this->_get_key($key)));
 	}
 
 
@@ -146,7 +146,7 @@ class Encrypt_Library {
 		}
 
 		$method = ($this->_mcrypt_exists === TRUE) ? '_mcrypt_decode' : '_xor_decode';
-		return $this->$method(base64_decode($string), $this->get_key($key));
+		return $this->$method(base64_decode($string), $this->_get_key($key));
 	}
 	
 	
