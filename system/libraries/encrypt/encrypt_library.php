@@ -166,7 +166,7 @@ class Encrypt_Library {
 			$rand .= mt_rand();
 		} while (strlen($rand) < 32);
 
-		$rand = $this->hash($rand);
+		$rand = sha1($rand);
 
 		$enc = '';
 		for ($i = 0, $ls = strlen($string), $lr = strlen($rand); $i < $ls; $i++) {
@@ -207,7 +207,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _xor_merge($string, $key) {
-		$hash = $this->hash($key);
+		$hash = sha1($key);
 		$str = '';
 		for ($i = 0, $ls = strlen($string), $lh = strlen($hash); $i < $ls; $i++) {
 			$str .= $string[$i] ^ $hash[($i % $lh)];
@@ -259,7 +259,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _add_cipher_noise($data, $key) {
-		$key = $this->hash($key);
+		$key = sha1($key);
 		$str = '';
 
 		for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j) {
@@ -284,7 +284,7 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _remove_cipher_noise($data, $key) {
-		$key = $this->hash($key);
+		$key = sha1($key);
 		$str = '';
 
 		for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j) {
