@@ -44,7 +44,7 @@ class Encrypt_Library {
 	 *
 	 * @var int
 	 */
-	private $_mcrypt_mode;
+	private $_mcrypt_mode = MCRYPT_MODE_CBC;
 
 
 	/**
@@ -231,9 +231,9 @@ class Encrypt_Library {
 	 * @return	string
 	 */
 	private function _mcrypt_encode($data, $key) {
-		$init_size = mcrypt_get_iv_size($this->_mcrypt_cipher, $this->_get_mode());
+		$init_size = mcrypt_get_iv_size($this->_mcrypt_cipher, $this->_mcrypt_mode);
 		$init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
-		return $this->_add_cipher_noise($init_vect.mcrypt_encrypt($this->_mcrypt_cipher, $key, $data, $this->_get_mode(), $init_vect), $key);
+		return $this->_add_cipher_noise($init_vect.mcrypt_encrypt($this->_mcrypt_cipher, $key, $data, $this->_mcrypt_mode, $init_vect), $key);
 	}
 
 	/**
@@ -245,7 +245,7 @@ class Encrypt_Library {
 	 */
 	private function _mcrypt_decode($data, $key) {
 		$data = $this->_remove_cipher_noise($data, $key);
-		$init_size = mcrypt_get_iv_size($this->_mcrypt_cipher, $this->_get_mode());
+		$init_size = mcrypt_get_iv_size($this->_mcrypt_cipher, $this->_mcrypt_mode);
 
 		if ($init_size > strlen($data)) {
 			return FALSE;
@@ -253,7 +253,7 @@ class Encrypt_Library {
 
 		$init_vect = substr($data, 0, $init_size);
 		$data = substr($data, $init_size);
-		return rtrim(mcrypt_decrypt($this->_mcrypt_cipher, $key, $data, $this->_get_mode(), $init_vect), "\0");
+		return rtrim(mcrypt_decrypt($this->_mcrypt_cipher, $key, $data, $this->_mcrypt_mode, $init_vect), "\0");
 	}
 
 	/**
@@ -309,30 +309,6 @@ class Encrypt_Library {
 		}
 
 		return $str;
-	}
-
-	/**
-	 * Set the Mcrypt Mode
-	 *
-	 * @param	int
-	 * @return	Encrypt_Library
-	 */
-	public function set_mode($mode) {
-		$this->_mcrypt_mode = $mode;
-		return $this;
-	}
-
-	/**
-	 * Get Mcrypt Mode Value
-	 *
-	 * @return	int
-	 */
-	private function _get_mode() {
-		if ($this->_mcrypt_mode === NULL) {
-			return $this->_mcrypt_mode = MCRYPT_MODE_CBC;
-		}
-
-		return $this->_mcrypt_mode;
 	}
 
 	/**
