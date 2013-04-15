@@ -130,7 +130,7 @@ class Encrypt_Library {
 	 * @param	string	the key
 	 * @return	string
 	 */
-	public function encode($string, $key) {
+	public function encode($string, $key = '') {
 		$method = ($this->_mcrypt_exists === TRUE) ? 'mcrypt_encode' : '_xor_encode';
 		return base64_encode($this->$method($string, $this->get_key($key)));
 	}
