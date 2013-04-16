@@ -31,7 +31,7 @@ class I18n {
 	 * 
 	 * @var  array  
 	 */
-	private static $_cache = array();
+	private static $cache = array();
 	
 	/**
 	 * Prevent direct object creation
@@ -70,8 +70,8 @@ class I18n {
 	 * @return  array
 	 */
 	public static function load($lang) {
-		if (isset(I18n::$_cache[$lang])) {
-			return I18n::$_cache[$lang];
+		if (isset(I18n::$cache[$lang])) {
+			return I18n::$cache[$lang];
 		}
 
 		// New translation table
@@ -89,7 +89,7 @@ class I18n {
 		}
 
 		// Cache the translation table locally
-		return I18n::$_cache[$lang] = $table;
+		return I18n::$cache[$lang] = $table;
 	}
 
 }
