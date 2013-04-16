@@ -27,7 +27,7 @@ class Logger {
      * Logging severity levels, from the most important priority(0) to the least important priority(3).
 	 * @var array
      */
-	private static $_severity_levels = array(
+	private static $severity_levels = array(
 		'ERROR' => 0, // Error: error conditions
 		'WARN' => 1, // Warning: warning conditions
 		'INFO' => 2, // Informational: informational messages
@@ -38,31 +38,31 @@ class Logger {
      * Current minimum logging threshold
      * @var integer
      */
-    private static $_severity_threshold;
+    private static $severity_threshold;
 	
     /**
      * Current status of the log file
      * @var integer
      */
-    private static $_log_status = self::STATUS_LOG_CLOSED;
+    private static $log_status = self::STATUS_LOG_CLOSED;
     
 	/**
      * Path to the log file
      * @var string
      */
-    private static $_log_file_path = NULL;
+    private static $log_file_path = NULL;
     
 	/**
      * This holds the file handle for this instance's log file
      * @var resource
      */
-    private static $_file_handle = NULL;
+    private static $file_handle = NULL;
 
     /**
      * Standard messages produced by the class. Can be modified for il8n
      * @var array
      */
-    private static $_messages = array(
+    private static $messages = array(
         'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable.',
         'open_fail' => 'Failed to open the log files. Please check permissions.',
 		'invalid_level' => 'The logging severity level you provided is invalid',
@@ -72,13 +72,13 @@ class Logger {
      * Valid PHP date() format string for log timestamps
      * @var string
      */
-    private static $_date_format = 'Y-m-d G:i:s';
+    private static $date_format = 'Y-m-d G:i:s';
     
 	/**
      * Octal notation for default permissions of the log file
      * @var integer
      */
-    private static $_default_permissions = 0777;
+    private static $default_permissions = 0777;
 
 	/**
 	 * Prevent direct object creation
@@ -93,12 +93,12 @@ class Logger {
      * @param string $level Valid severity level ('ERROR', 'WARN', 'INFO', 'DEBUG')
      */
     public static function set_severity_threshold($level) {
-        if (isset(self::$_severity_levels[$level])) {
-		    self::$_severity_threshold = self::$_severity_levels[$level];
+        if (isset(self::$severity_levels[$level])) {
+		    self::$severity_threshold = self::$severity_levels[$level];
 		} else {
 			// Output error message and terminate the current script
 			// Don't use halt() or any log functions in this class to avoid dead loop 
-			exit(self::$_messages['invalid_level']);
+			exit(self::$messages['invalid_level']);
 		}
     }
 	
@@ -108,7 +108,7 @@ class Logger {
      * @param string $date_format Valid format string for date()
      */
     public static function set_date_format($date_format) {
-        self::$_date_format = $date_format;
+        self::$date_format = $date_format;
     }
 
 	/**
@@ -120,7 +120,7 @@ class Logger {
      * @return void
      */
     public static function log_error($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::_log($log_dir, $line, self::$_severity_levels['ERROR'], $args);
+        self::log($log_dir, $line, self::$severity_levels['ERROR'], $args);
     }
 	
     /**
@@ -133,7 +133,7 @@ class Logger {
      * @return void
      */
     public static function log_warn($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::_log($log_dir, $line, self::$_severity_levels['WARN'], $args);
+        self::log($log_dir, $line, self::$severity_levels['WARN'], $args);
     }
 
     /**
@@ -145,7 +145,7 @@ class Logger {
      * @return void
      */
     public static function log_info($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::_log($log_dir, $line, self::$_severity_levels['INFO'], $args);
+        self::log($log_dir, $line, self::$severity_levels['INFO'], $args);
     }
 
 	/**
@@ -156,7 +156,7 @@ class Logger {
      * @return void
      */
     public static function log_debug($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::_log($log_dir, $line, self::$_severity_levels['DEBUG'], $args);
+        self::log($log_dir, $line, self::$severity_levels['DEBUG'], $args);
     }
 	
     /**
@@ -166,54 +166,54 @@ class Logger {
      * @param string  $line     Text to add to the log
      * @param integer $severity Severity level of log message (use constants)
      */
-    private static function _log($log_dir, $line, $severity, $args = self::NO_ARGUMENTS) {
+    private static function log($log_dir, $line, $severity, $args = self::NO_ARGUMENTS) {
 		// Set the default severity threshold in case set_severity_threshold() is not called in bootstrap 
-		if ( ! isset(self::$_severity_threshold)) {
-		    self::$_severity_threshold = self::$_severity_levels['DEBUG'];
+		if ( ! isset(self::$severity_threshold)) {
+		    self::$severity_threshold = self::$severity_levels['DEBUG'];
 		}
 		
 		// Log only when severity level is over the pre-defined severity threshold
-		if ($severity <= self::$_severity_threshold) {
+		if ($severity <= self::$severity_threshold) {
 		    $log_dir = rtrim($log_dir, '\\/');
 
 			// Log file path and name, e.g. log_2012-08-16.txt
-			self::$_log_file_path = $log_dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
+			self::$log_file_path = $log_dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
 
 			// Create the log file first
 			if ( ! file_exists($log_dir)) {
-				mkdir($log_dir, self::$_default_permissions, TRUE);
+				mkdir($log_dir, self::$default_permissions, TRUE);
 			}
 
-			if (file_exists(self::$_log_file_path) && ! is_writable(self::$_log_file_path)) {
-				self::$_log_status = self::STATUS_OPEN_FAILED;
+			if (file_exists(self::$log_file_path) && ! is_writable(self::$log_file_path)) {
+				self::$log_status = self::STATUS_OPEN_FAILED;
 				// Output error message and terminate the current script
 				// Don't use halt() or any log functions in this class to avoid dead loop 
-				exit(self::$_messages['write_fail']);
+				exit(self::$messages['write_fail']);
 			}
 
-			if ((self::$_file_handle = fopen(self::$_log_file_path, 'a'))) {
-				self::$_log_status = self::STATUS_LOG_OPEN;
+			if ((self::$file_handle = fopen(self::$log_file_path, 'a'))) {
+				self::$log_status = self::STATUS_LOG_OPEN;
 			} else {
-				self::$_log_status = self::STATUS_OPEN_FAILED;
+				self::$log_status = self::STATUS_OPEN_FAILED;
 				// Output error message and terminate the current script
 				// Don't use halt() or any log functions in this class to avoid dead loop 
-				exit(self::$_messages['open_fail']);
+				exit(self::$messages['open_fail']);
 			}
 
 			// Formatted time
-			$time = date(self::$_date_format);
+			$time = date(self::$date_format);
 
 			switch ($severity) {
-				case self::$_severity_levels['ERROR']:
+				case self::$severity_levels['ERROR']:
 					$status = "$time - ERROR -->";
 					break;
-				case self::$_severity_levels['WARN']:
+				case self::$severity_levels['WARN']:
 					$status = "$time - WARN -->";
 					break;
-				case self::$_severity_levels['INFO']:
+				case self::$severity_levels['INFO']:
 					$status = "$time - INFO -->";
 					break;
-				case self::$_severity_levels['DEBUG']:
+				case self::$severity_levels['DEBUG']:
 					$status = "$time - DEBUG -->";
 					break;
 			}
@@ -226,17 +226,17 @@ class Logger {
 			}
 			
 			// Writes a line to the log without prepending a status or timestamp
-			if (self::$_log_status === self::STATUS_LOG_OPEN) {
+			if (self::$log_status === self::STATUS_LOG_OPEN) {
 				// PHP_EOL: The correct 'End Of Line' symbol for this platform
-				if (fwrite(self::$_file_handle, $line.PHP_EOL) === FALSE) {
+				if (fwrite(self::$file_handle, $line.PHP_EOL) === FALSE) {
 					// Output error message and terminate the current script
 					// Don't use halt() or any log functions in this class to avoid dead loop 
-					exit(self::$_messages['write_fail']);
+					exit(self::$messages['write_fail']);
 				}
 				
 				// Closes the open file pointer
-				if (self::$_file_handle) {
-					fclose(self::$_file_handle);
+				if (self::$file_handle) {
+					fclose(self::$file_handle);
 				}
 			}
 		}
