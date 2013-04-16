@@ -532,7 +532,7 @@ class Calendar_Library {
 	 *
 	 * @return	void
 	 */
- 	public function parse_template() {
+ 	private function parse_template() {
 		$this->temp = $this->default_template();
  	
  		if ($this->template === '') {

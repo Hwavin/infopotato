@@ -265,7 +265,7 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function sinitialize_perturbation($val) {
+	private function initialize_perturbation($val) {
 		if ( ! is_float($val) || $val > 1) {
 		    $this->invalid_argument_value('perturbation');
 		}
@@ -377,7 +377,7 @@ class CAPTCHA_Library {
 				: imagecreate($this->img_width * $this->iscale, $this->img_height * $this->iscale);
 		
 		// Allocate the background color to be used for the image
-		$bg_color_rgb = $this->hex_2_rgb($this->bg_color);
+		$bg_color_rgb = $this->hex_to_rgb($this->bg_color);
 		$bg_color = imagecolorallocate($this->img, $bg_color_rgb['r'], $bg_color_rgb['g'], $bg_color_rgb['b']);
 		
 		// Create a rectangle filled with background color
@@ -427,7 +427,7 @@ class CAPTCHA_Library {
         $noise_level *= 125; 
 
 		// Allocate the colors to be used for the image
-		$noise_color_rgb = $this->hex_2_rgb($this->noise_color);
+		$noise_color_rgb = $this->hex_to_rgb($this->noise_color);
 		$noise_color = imagecolorallocate($this->img, $noise_color_rgb['r'], $noise_color_rgb['g'], $noise_color_rgb['b']);
 		
 		for ($i = 0; $i < $noise_level; ++$i) {
@@ -450,7 +450,7 @@ class CAPTCHA_Library {
      */
     private function draw_lines() {
         // Allocate the colors to be used for the image
-		$line_color_rgb = $this->hex_2_rgb($this->line_color);
+		$line_color_rgb = $this->hex_to_rgb($this->line_color);
 		$line_color	= imagecolorallocate($this->img, $line_color_rgb['r'], $line_color_rgb['g'], $line_color_rgb['b']);
 		
 		for ($line = 0; $line < $this->num_lines; ++ $line) {
@@ -493,7 +493,7 @@ class CAPTCHA_Library {
      */
     private function draw_word($word) {
 		// Allocate the colors to be used for the image
-		$text_color_rgb = $this->hex_2_rgb($this->text_color);
+		$text_color_rgb = $this->hex_to_rgb($this->text_color);
 		$text_color = imagecolorallocate($this->img, $text_color_rgb['r'], $text_color_rgb['g'], $text_color_rgb['b']);
 		
         if ( ! is_readable($this->ttf_path)) {
@@ -612,7 +612,7 @@ class CAPTCHA_Library {
      * @param string hex color code
 	 * @return array Array of RGB color
      */
-    private function hex_2_rgb($hex) {
+    private function hex_to_rgb($hex) {
 		$hex = str_replace('#', '', $hex);
 
 		if (strlen($hex) === 3) {
