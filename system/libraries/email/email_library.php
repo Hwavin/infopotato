@@ -1657,7 +1657,7 @@ class Email_Library {
 	private function spool_email() {
 		$this->unwrap_specials();
 
-		$method = '_send_with_'.$this->get_protocol();
+		$method = 'send_with_'.$this->get_protocol();
 		if ( ! $this->$method()) {
 			$this->set_error_message('email_send_failure_'.($this->get_protocol() === 'mail' ? 'phpmail' : $this->get_protocol()));
 			return FALSE;
@@ -1889,7 +1889,7 @@ class Email_Library {
 	 *
 	 * @return	bool
 	 */
-	private function _smtp_authenticate() {
+	private function smtp_authenticate() {
 		if ( ! $this->smtp_auth) {
 			return TRUE;
 		}
