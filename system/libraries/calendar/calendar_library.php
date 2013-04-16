@@ -13,7 +13,7 @@ class Calendar_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $show = array(
+	private $show = array(
 		'cal_su' => 'Su',
 		'cal_mo' => 'Mo',
 		'cal_tu' => 'Tu',
@@ -66,21 +66,21 @@ class Calendar_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $local_time;
+	private $local_time;
 	
 	/**
 	 * A string containing your calendar template.
 	 * 
 	 * @var string 
 	 */
-	protected $template = '';
+	private $template = '';
 	
 	/**
 	 * Sets the day of the week the calendar should start on.
 	 * 
 	 * @var string 
 	 */
-	protected $start_day = 'sunday';
+	private $start_day = 'sunday';
 	
 	/**
 	 * Determines what version of the month name to use in the header. 
@@ -88,7 +88,7 @@ class Calendar_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $month_type = 'long';
+	private $month_type = 'long';
 	
 	/**
 	 * Determines what version of the weekday names to use in the column headers. 
@@ -96,21 +96,21 @@ class Calendar_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $day_type = 'abr';
+	private$day_type = 'abr';
 	
 	/**
 	 * SDetermines whether to display links allowing you to toggle to next/previous months.
 	 * 
 	 * @var boolean
 	 */
-	protected $show_next_prev = FALSE;
+	private $show_next_prev = FALSE;
 	
 	/**
 	 * Sets the basepath used in the next/previous calendar links.
 	 * 
 	 * @var string 
 	 */
-	protected $next_prev_url = '';
+	private $next_prev_url = '';
 
 	/**
 	 * Constructor
@@ -143,9 +143,9 @@ class Calendar_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_template($val) {
+	private function set_template($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('template');
+		    $this->invalid_argument_value('template');
 		}
 		$this->template = $val;
 	}
@@ -156,9 +156,9 @@ class Calendar_Library {
 	 * @param  $val bool
 	 * @return	void
 	 */
-	protected function set_show_next_prev($val) {
+	private function set_show_next_prev($val) {
 		if ( ! is_bool($val)) {
-		    $this->_invalid_argument_value('show_next_prev');
+		    $this->invalid_argument_value('show_next_prev');
 		}
 		$this->show_next_prev = $val;
 	}
@@ -169,9 +169,9 @@ class Calendar_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_next_prev_url($val) {
+	private function set_next_prev_url($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('next_prev_url');
+		    $this->invalid_argument_value('next_prev_url');
 		}
 		$this->next_prev_url = $val;
 	}
@@ -182,9 +182,9 @@ class Calendar_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_month_type($val) {
+	private function set_month_type($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('month_type');
+		    $this->invalid_argument_value('month_type');
 		}
 		$this->month_type = $val;
 	}
@@ -195,9 +195,9 @@ class Calendar_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_day_type($val) {
+	private function set_day_type($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('day_type');
+		    $this->invalid_argument_value('day_type');
 		}
 		$this->day_type = $val;
 	}
@@ -208,9 +208,9 @@ class Calendar_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_start_day($val) {
+	private function set_start_day($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('start_day');
+		    $this->invalid_argument_value('start_day');
 		}
 		$this->start_day = $val;
 	}
@@ -220,7 +220,7 @@ class Calendar_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
@@ -387,7 +387,7 @@ class Calendar_Library {
 	 * @param	integer	the month
 	 * @return	string
 	 */
-	public function get_month_name($month) {
+	private function get_month_name($month) {
 		if ($this->month_type === 'short') {
 			$month_names = array('01' => 'cal_jan', '02' => 'cal_feb', '03' => 'cal_mar', '04' => 'cal_apr', '05' => 'cal_may', '06' => 'cal_jun', '07' => 'cal_jul', '08' => 'cal_aug', '09' => 'cal_sep', '10' => 'cal_oct', '11' => 'cal_nov', '12' => 'cal_dec');
 		} else {
@@ -412,7 +412,7 @@ class Calendar_Library {
 	 * @param	string
 	 * @return	array
 	 */
-	public function get_day_names($day_type = '') {
+	private function get_day_names($day_type = '') {
 		if ($day_type !== '') {
 			$this->day_type = $day_type;
 	    }
@@ -444,7 +444,7 @@ class Calendar_Library {
 	 * @param	integer	the year
 	 * @return	array
 	 */
-	public function adjust_date($month, $year) {
+	private function adjust_date($month, $year) {
 		$date = array();
 
 		$date['month']	= $month;
@@ -474,7 +474,7 @@ class Calendar_Library {
 	 * @param	integer	the year
 	 * @return	integer
 	 */
-	public function get_total_days($month, $year) {
+	private function get_total_days($month, $year) {
 		$days_in_month	= array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 
 		if ($month < 1 || $month > 12) {
@@ -498,7 +498,7 @@ class Calendar_Library {
 	 *
 	 * @return array
 	 */
-	public function default_template() {
+	private function default_template() {
 		return  array (
 			'table_open' 				=> '<table border="0" cellpadding="0" cellspacing="0">',
 			'heading_row_start' 		=> '<tr>',
