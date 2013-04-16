@@ -1,27 +1,7 @@
 <?php
 /**
- * Dump variable, based on dBug at http://dbug.ospinto.com
+ * Dump Variable
  *
- * Dumps/Displays the contents of a variable in a colored tabular format
- * Based on the idea, javascript and css code of Macromedia's ColdFusion cfdump tag
- * A much better presentation of a variable's contents than PHP's var_dump and print_r functions
- *
- * Direct Usage
- * =============
- * new Dumper( $myVariable );
- *
- * 
- * if the optional "force_type" string is given, the variable supplied to the 
- * function is forced to have that force_type type. 
- * example: new dBug( $myVariable , "array" );
- * will force $myVariable to be treated and dumped as an array type, 
- * even though it might originally have been a string type, etc.
- *
- * NOTE!
- * ==============
- * force_type is REQUIRED for dumping an xml string or xml file
- * new Dump($str_xml, 'xml');
- * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * Original code from {@link http://dbug.ospinto.com}
@@ -30,17 +10,16 @@
  */
  
 class Dumper {
-	
-	public static $xml_CDATA;
-	public static $xml_SDATA;
-	public static $xml_DDATA;
-	public static $xml_count;
-	public static $xml_attrib;
-	public static $xml_name;
-	public static $arr_type;
-	public static $collapsed;
-	public static $initialized;
-	public static $arr_history;
+	private static $xml_CDATA;
+	private static $xml_SDATA;
+	private static $xml_DDATA;
+	private static $xml_count;
+	private static $xml_attrib;
+	private static $xml_name;
+	private static $arr_type;
+	private static $collapsed;
+	private static $initialized;
+	private static $arr_history;
 	
 	/**
 	 * Prevent direct object creation
@@ -79,7 +58,7 @@ class Dumper {
 	}
 
 	// Get variable info
-	public static function get_var_info() {
+	private static function get_var_info() {
 		$var_info = array();
 		
 		$trace = debug_backtrace();
@@ -116,7 +95,7 @@ class Dumper {
 	}
 	
 	// Create the main table header, can't show the variable name
-	public static function make_table_header($type, $header, $colspan = 2) {
+	private static function make_table_header($type, $header, $colspan = 2) {
 		$var_info = self::get_var_info();
 		if ($var_info !== array()) {
 		    if( ! self::$initialized) {
@@ -131,23 +110,23 @@ class Dumper {
 	}
 	
 	// Create the table row header
-	public static function make_td_header($type, $header) {
+	private static function make_td_header($type, $header) {
 		$str_d = (self::$collapsed) ? ' style="display:none"' : '';
 		echo '<tr'.$str_d.'><td valign="top" onClick="dump_toggle_row(this)" class="dump_'.$type.'_key">'.$header.'</td><td>';
 	}
 	
 	// Close table row
-	public static function close_td_row() {
+	private static function close_td_row() {
 		echo '</td></tr>';
 	}
 	
 	// Display error
-	public static function  error($type) {
+	private static function  error($type) {
 		return 'Error: Variable cannot be '.$type.' type';
 	}
 
 	// Check variable type
-	public static function check_type($var) {
+	private static function check_type($var) {
 		// Never use gettype() to test for a certain type, 
 		// since the returned string may be subject to change in a future version. 
 		// In addition, it is slow too, as it involves string comparison.
@@ -172,32 +151,32 @@ class Dumper {
 	}
 	
 	
-	public static function var_is_null() {
+	private static function var_is_null() {
 		self::make_table_header('object', 'NULL');
 		self::make_td_header('object', 'NULL');
 		self::close_td_row();
 	}
 	
-	public static function var_is_string($var) {
+	private static function var_is_string($var) {
 		$var = ($var == '') ? '[empty string]' : $var;
 		self::make_table_header('object', 'string ['.strlen($var).']');
 		self::make_td_header('object', $var);
 		self::close_td_row();
 	}
 	
-	public static function var_is_int($var) {
+	private static function var_is_int($var) {
 		self::make_table_header('object', 'integer');
 		self::make_td_header('object', $var);
 		self::close_td_row();
 	}
 	
-	public static function var_is_double($var) {
+	private static function var_is_double($var) {
 		self::make_table_header('object', 'double');
 		self::make_td_header('object', $var);
 		self::close_td_row();
 	}
 	
-	public static function var_is_bool($var) {
+	private static function var_is_bool($var) {
 		$var = ($var === TRUE) ? 'TRUE' : 'FALSE';
 		self::make_table_header('object', 'bool');
 		self::make_td_header('object', $var);
@@ -205,7 +184,7 @@ class Dumper {
 	}
 			
 	// If variable is an array type
-	public static function var_is_array($var) {
+	private static function var_is_array($var) {
 		$var_ser = serialize($var);
 		array_push(self::$arr_history, $var_ser);
 		
@@ -238,7 +217,7 @@ class Dumper {
 	}
 	
 	// If variable is an object type
-	public static function var_is_object($var) {
+	private static function var_is_object($var) {
 		$var_ser = serialize($var);
 		array_push(self::$arr_history, $var_ser);
 		self::make_table_header('object', 'object');
@@ -278,7 +257,7 @@ class Dumper {
 	}
 
 	// If variable is a resource type
-	public static function var_is_resource($var) {
+	private static function var_is_resource($var) {
 		self::make_table_header('resourceC', 'resource', 1);
 		echo '<tr><td>';
 		switch (get_resource_type($var)) {
@@ -300,8 +279,8 @@ class Dumper {
 		echo '</table>';
 	}
 	
-	//if variable is a database resource type
-	public static function var_is_db_resource($var, $db = 'mysql') {
+	// If variable is a database resource type
+	private static function var_is_db_resource($var, $db = 'mysql') {
 		if ($db == 'pgsql') {
 			$db = 'pg';
 		}
@@ -345,7 +324,7 @@ class Dumper {
 	}
 	
 	// If variable is an image/gd resource type
-	public static function var_is_gd_resource($var) {
+	private static function var_is_gd_resource($var) {
 		self::make_table_header('resource', 'gd', 2);
 		self::make_td_header('resource', 'Width');
 		imagesx($var).self::close_td_row();
@@ -357,7 +336,7 @@ class Dumper {
 	}
 
 	// If variable is an xml resource type
-	public static function var_is_xml_resource($var) {
+	private static function var_is_xml_resource($var) {
 		$xml_parser = xml_parser_create();
 		xml_parser_set_option($xml_parser, XML_OPTION_CASE_FOLDING, 0); 
 		xml_set_element_handler($xml_parser, array('Dumper', 'xml_start_element'), array('Dumper', 'xml_end_element')); 
@@ -391,7 +370,7 @@ class Dumper {
 	}
 	
 	// Parse xml
-	public static function xml_parse($xml_parser, $data, $final) {
+	pprivate static function xml_parse($xml_parser, $data, $final) {
 		if ( ! xml_parse($xml_parser, $data, $final)) { 
 			die(sprintf("XML error: %s at line %d\n", 
 				xml_error_string(xml_get_error_code($xml_parser)), 
@@ -400,7 +379,7 @@ class Dumper {
 	}
 	
 	// xml: inititiated when a start tag is encountered
-	public static function xml_start_element($parser, $name, $attribs) {
+	private static function xml_start_element($parser, $name, $attribs) {
 		self::$xml_attrib[self::$xml_count] = $attribs;
 		self::$xml_name[self::$xml_count] = $name;
 		self::$xml_SDATA[self::$xml_count] = 'self::make_table_header("xml", "Element", 2);';
@@ -418,7 +397,7 @@ class Dumper {
 	} 
 	
 	// xml: initiated when an end tag is encountered
-	public static function xml_end_element($parser, $name) {
+	private static function xml_end_element($parser, $name) {
 		for ($i = 0; $i < self::$xml_count; $i++) {
 			eval(self::$xml_SDATA[$i]);
 			self::make_td_header('xml', 'Text');
@@ -436,7 +415,7 @@ class Dumper {
 	} 
 	
 	//xml: initiated when text between tags is encountered
-	public static function xml_character_data($parser,$data) {
+	private static function xml_character_data($parser,$data) {
 		$count = self::$xml_count - 1;
 		if ( ! empty(self::$xml_CDATA[$count])) {
 			self::$xml_CDATA[$count] .= $data;
@@ -446,7 +425,7 @@ class Dumper {
 	} 
 	
 	//xml: initiated when a comment or other miscellaneous texts is encountered
-	public static function xml_default_handler($parser, $data) {
+	private static function xml_default_handler($parser, $data) {
 		//strip '<!--' and '-->' off comments
 		$data = str_replace(array("&lt;!--", "--&gt;"), '', htmlspecialchars($data));
 		$count = self::$xml_count - 1;
@@ -457,7 +436,7 @@ class Dumper {
 		}
 	}
 
-	public static function init_js_and_css() {
+	private static function init_js_and_css() {
 		$out =
 <<<SCRIPTS
 			<script language="JavaScript">
