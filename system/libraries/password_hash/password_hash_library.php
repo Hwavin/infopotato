@@ -62,7 +62,7 @@ class Password_Hash_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function initialize_iteration_count_log2($val) {
+	private function initialize_iteration_count_log2($val) {
 		if ( ! is_int($val)) {
 		    $this->invalid_argument_value('iteration_count_log2');
 		}
@@ -78,7 +78,7 @@ class Password_Hash_Library {
 	 * @param  $val bool
 	 * @return	void
 	 */
-	protected function initialize_portable_hashes($val) {
+	private function initialize_portable_hashes($val) {
 		if ( ! is_bool($val)) {
 		    $this->invalid_argument_value('portable_hashes');
 		}
@@ -94,7 +94,7 @@ class Password_Hash_Library {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
-	protected function get_random_bytes($count) {
+	private function get_random_bytes($count) {
 		$output = '';
 		if (is_readable('/dev/urandom') && ($fh = @fopen('/dev/urandom', 'rb'))) {
 			$output = fread($fh, $count);
@@ -119,7 +119,7 @@ class Password_Hash_Library {
 		return $output;
 	}
 
-	protected function encode64($input, $count) {
+	private function encode64($input, $count) {
 		$output = '';
 		$i = 0;
 		do {
@@ -145,7 +145,7 @@ class Password_Hash_Library {
 		return $output;
 	}
 
-	protected function gensalt_private($input) {
+	private function gensalt_private($input) {
 		$output = '$P$';
 		$output .= $this->_itoa64[min($this->iteration_count_log2 + 5, 30)];
 		$output .= $this->encode64($input, 6);
@@ -153,7 +153,7 @@ class Password_Hash_Library {
 		return $output;
 	}
 
-	protected function crypt_private($password, $setting) {
+	private function crypt_private($password, $setting) {
 		$output = '*0';
 		if (substr($setting, 0, 2) == $output) {
 			$output = '*1';
@@ -190,7 +190,7 @@ class Password_Hash_Library {
 		return $output;
 	}
 
-	protected function gensalt_extended($input) {
+	private function gensalt_extended($input) {
 		$count_log2 = min($this->iteration_count_log2 + 8, 24);
 		// This should be odd to not reveal weak DES keys, and the
 		// maximum valid value is (2**24 - 1) which is odd anyway.
@@ -207,7 +207,7 @@ class Password_Hash_Library {
 		return $output;
 	}
 
-	protected function gensalt_blowfish($input) {
+	private function gensalt_blowfish($input) {
 		// This one needs to use a different order of characters and a
 		// different encoding scheme from the one in encode64() above.
 		// We care because the last character in our encoded string will
