@@ -166,7 +166,6 @@ class Email_Library {
 	 */
 	private $bcc_batch_size = 200;
 	
-
 	/**
 	 * Subject header
 	 *
@@ -1004,7 +1003,7 @@ class Email_Library {
 	 *
 	 * @return	string
 	 */
-	private function _get_content_type() {
+	private function get_content_type() {
 		if ($this->mailtype === 'html') {
 			return (count($this->attach_name) === 0) ? 'html' : 'html-attach';
 		} elseif	($this->mailtype === 'text' && count($this->attach_name) > 0) {
@@ -1020,7 +1019,7 @@ class Email_Library {
 	 *
 	 * @return	string
 	 */
-	private function _set_date() {
+	private function set_date() {
 		$timezone = date('Z');
 		$operator = ($timezone[0] === '-') ? '-' : '+';
 		$timezone = abs($timezone);
