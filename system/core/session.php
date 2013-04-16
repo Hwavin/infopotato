@@ -20,28 +20,28 @@ class Session {
 	 * 
 	 * @var integer 
 	 */
-	private static $_normal_timespan = NULL;
+	private static $normal_timespan = NULL;
 	
 	/**
 	 * If the session is open
 	 * 
 	 * @var boolean 
 	 */
-	private static $_open = FALSE;
+	private static $open = FALSE;
 	
 	/**
 	 * The length for a persistent session cookie - one that survives browser restarts
 	 * 
 	 * @var integer 
 	 */
-	private static $_persistent_timespan = NULL;
+	private static $persistent_timespan = NULL;
 	
 	/**
 	 * If the session ID was regenerated during this script
 	 * 
 	 * @var boolean 
 	 */
-	private static $_regenerated = FALSE;
+	private static $regenerated = FALSE;
 	
 	/**
 	 * Prevent direct object creation
@@ -134,13 +134,13 @@ class Session {
 	 * @return void
 	 */
 	public static function close() {
-		if ( ! self::$_open) { 
+		if ( ! self::$open) { 
 			return; 
 		}
 		
 		session_write_close();
 		unset($_SESSION);
-		self::$_open = FALSE;
+		self::$open = FALSE;
 	}
 	
 	
@@ -227,14 +227,14 @@ class Session {
 	 * @return void
 	 */
 	public static function enable_persistence() {
-		if (self::$_persistent_timespan === NULL) {
-			halt('A System Error Was Encountered', "The method Session::init() must be called with the '$_persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
+		if (self::$persistent_timespan === NULL) {
+			halt('A System Error Was Encountered', "The method Session::init() must be called with the '$persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
 		}
 		
 		$current_params = session_get_cookie_params();
 		
 		$params = array(
-			self::$_persistent_timespan,
+			self::$persistent_timespan,
 			$current_params['path'],
 			$current_params['domain'],
 			$current_params['secure']
@@ -247,7 +247,7 @@ class Session {
 		$_SESSION['SESSION::type'] = 'persistent';
 		
 		session_regenerate_id();
-		self::$_regenerated = TRUE;
+		self::$regenerated = TRUE;
 	}
 	
 	
@@ -300,7 +300,7 @@ class Session {
 	 * @return void
 	 */
 	public static function ignore_subdomain() {
-		if (self::$_open || isset($_SESSION)) {
+		if (self::$open || isset($_SESSION)) {
 			halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 		
@@ -337,14 +337,14 @@ class Session {
 	 * @return void
 	 */
 	public static function open($cookie_only_session_id = TRUE) {
-		if (self::$_open) { 
+		if (self::$open) { 
 			return; 
 		}
 		
-		self::$_open = TRUE;
+		self::$open = TRUE;
 		
-		if (self::$_normal_timespan === NULL) {
-			self::$_normal_timespan = ini_get('session.gc_maxlifetime');	
+		if (self::$normal_timespan === NULL) {
+			self::$normal_timespan = ini_get('session.gc_maxlifetime');	
 		}
 		
 		// If the session is already open, we just piggy-back without setting options
@@ -367,10 +367,10 @@ class Session {
 		}
 		
 		// We store the expiration time for a session to allow for both normal and persistent sessions
-		if ($_SESSION['SESSION::type'] === 'persistent' && self::$_persistent_timespan) {
-			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$_persistent_timespan;
+		if ($_SESSION['SESSION::type'] === 'persistent' && self::$persistent_timespan) {
+			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$persistent_timespan;
 		} else {
-			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$_normal_timespan;	
+			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$normal_timespan;	
 		}
 	}
 	
@@ -383,9 +383,9 @@ class Session {
 	 * @return void
 	 */
 	public static function regenerate_id() {
-		if ( ! self::$_regenerated){
+		if ( ! self::$regenerated){
 			session_regenerate_id();
-			self::$_regenerated = TRUE;
+			self::$regenerated = TRUE;
 		}
 	}
 	
@@ -443,9 +443,9 @@ class Session {
 	 * @return void
 	 */
 	public static function reset() {
-		self::$_normal_timespan = NULL;
-		self::$_persistent_timespan = NULL;
-		self::$_regenerated = FALSE;
+		self::$normal_timespan = NULL;
+		self::$persistent_timespan = NULL;
+		self::$regenerated = FALSE;
 		self::$destroy();
 		self::$close();	
 	}
@@ -504,7 +504,7 @@ class Session {
 	 * @return void
 	 */
 	public static function init($dir, $normal_timespan, $persistent_timespan = NULL) {
-		if (self::$_open || isset($_SESSION)) {
+		if (self::$open || isset($_SESSION)) {
 			halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
 		}
 
@@ -512,11 +512,11 @@ class Session {
 		session_save_path($dir);
 
 		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
-		self::$_normal_timespan = $seconds;
+		self::$normal_timespan = $seconds;
 		
 		if ($persistent_timespan) {
 			$seconds = ( ! is_numeric($persistent_timespan)) ? strtotime($persistent_timespan) - time() : $persistent_timespan;	
-			self::$_persistent_timespan = $seconds;
+			self::$persistent_timespan = $seconds;
 		}
 		
 		ini_set('session.gc_maxlifetime', $seconds);
