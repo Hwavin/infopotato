@@ -13,14 +13,14 @@ class CAPTCHA_Library {
 	 * 
 	 * @var int
 	 */
-	protected $img_width = 215;
+	private $img_width = 215;
 
 	/**
 	 * The height of the captcha image
 	 * 
 	 * @var int
 	 */
-	protected $img_height = 80;
+	private $img_height = 80;
 	
 	/**
 	 * The path to the TrueType font file to use to draw the captcha code
@@ -28,83 +28,83 @@ class CAPTCHA_Library {
 	 *
 	 * @var string 
 	 */
-	protected $ttf_path = '';
+	private $ttf_path = '';
 	
 	/**
 	 * The type of captcha to create, either alphanumeric or a math question
 	 * 
 	 * @var string 'text' or 'math'
 	 */
-	protected $type = 'text';
+	private $type = 'text';
 
 	/**
      * The background color of the captcha
      * @var string 
      */
-    protected $bg_color = '#ffffff';
+    private $bg_color = '#ffffff';
 
     /**
      * The color of the captcha text
 	 *
      * @var string 
      */
-    protected $text_color = '#3388FF';
+    private $text_color = '#3388FF';
 
 	/**
      * The level of noise (random dots) to place on the image, 0-10
 	 *
      * @var int
      */
-    protected $noise_level = 2;
+    private $noise_level = 2;
 	
 	/**
      * The color of the noise that is drawn
 	 *
      * @var string
      */
-    protected $noise_color = '#3388FF';
+    private $noise_color = '#3388FF';
 	
 	/**
      * How many lines to draw over the captcha code to increase security
 	 *
      * @var int
      */
-    protected $num_lines = 5;
+    private $num_lines = 5;
 
 	/**
      * The color of the lines over the captcha
 	 *
      * @var string
      */
-    protected $line_color = '#707070';
+    private $line_color = '#707070';
 	
 	/**
      * The level of distortion, 0.75 = normal, 1.0 = very high distortion
 	 *
      * @var double
      */
-    protected $perturbation = 0.85;
+    private $perturbation = 0.85;
 	
 	/**
      * Internal scale factor for antialias
 	 *
      * @var int
      */
-	protected $iscale = 5;
+	private $iscale = 5;
 
 	/**
      * Source image resource identifier
 	 *
      * @var resource
      */
-	protected $img;
+	private $img;
 	
 	/**
      * Temp image resource identifier
 	 *
      * @var resource
      */
-    protected $temp_img;
+    private $temp_img;
 	
 	/**
 	 * Constructor
@@ -135,9 +135,9 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_img_width($val) {
+	private function set_img_width($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('img_width');
+		    $this->invalid_argument_value('img_width');
 		}
 		$this->img_width = $val;
 	}
@@ -148,9 +148,9 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_img_height($val) {
+	private function set_img_height($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('img_height');
+		    $this->invalid_argument_value('img_height');
 		}
 		$this->img_height = $val;
 	}
@@ -161,9 +161,9 @@ class CAPTCHA_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_ttf_path($val) {
+	private function set_ttf_path($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('ttf_path');
+		    $this->invalid_argument_value('ttf_path');
 		}
 		$this->ttf_path = $val;
 	}
@@ -174,9 +174,9 @@ class CAPTCHA_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_type($val) {
+	private function set_type($val) {
 		if ( ! in_array($val, array('text', 'math'), TRUE)) {
-		    $this->_invalid_argument_value('type');
+		    $this->invalid_argument_value('type');
 		}
 		$this->type = $val;
 	}
@@ -187,9 +187,9 @@ class CAPTCHA_Library {
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_bg_color($hex_color) {
+	private function set_bg_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
-		    $this->_invalid_argument_value('bg_color');
+		    $this->invalid_argument_value('bg_color');
 		}
 		$this->bg_color = $hex_color;
 	}
@@ -200,9 +200,9 @@ class CAPTCHA_Library {
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_text_color($hex_color) {
+	private function set_text_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
-		    $this->_invalid_argument_value('text_color');
+		    $this->invalid_argument_value('text_color');
 		}
 		$this->text_color = $hex_color;
 	}
@@ -213,9 +213,9 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_noise_level($val) {
+	private function set_noise_level($val) {
 		if ( ! is_int($val) || $val > 10 || $val < 0) {
-		    $this->_invalid_argument_value('noise_level');
+		    $this->invalid_argument_value('noise_level');
 		}
 		$this->noise_level = $val;
 	}
@@ -226,9 +226,9 @@ class CAPTCHA_Library {
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_noise_color($hex_color) {
+	private function set_noise_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
-		    $this->_invalid_argument_value('noise_color');
+		    $this->invalid_argument_value('noise_color');
 		}
 		$this->noise_color = $hex_color;
 	}
@@ -239,9 +239,9 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_num_lines($val) {
+	private function set_num_lines($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('num_lines');
+		    $this->invalid_argument_value('num_lines');
 		}
 		$this->num_lines = $val;
 	}
@@ -252,9 +252,9 @@ class CAPTCHA_Library {
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	protected function set_line_color($hex_color) {
+	private function set_line_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
-		    $this->_invalid_argument_value('line_color');
+		    $this->invalid_argument_value('line_color');
 		}
 		$this->line_color = $hex_color;
 	}
@@ -265,9 +265,9 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_perturbation($val) {
+	private function set_perturbation($val) {
 		if ( ! is_float($val) || $val > 1) {
-		    $this->_invalid_argument_value('perturbation');
+		    $this->invalid_argument_value('perturbation');
 		}
 		$this->perturbation = $val;
 	}
@@ -278,9 +278,9 @@ class CAPTCHA_Library {
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_iscale($val) {
+	private function set_iscale($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('iscale');
+		    $this->invalid_argument_value('iscale');
 		}
 		$this->iscale = $val;
 	}
@@ -290,7 +290,7 @@ class CAPTCHA_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
@@ -299,7 +299,7 @@ class CAPTCHA_Library {
 	 *
 	 * @return array Array that contains the captcha text or math question and the answer
      */
-	private function _prepare_captcha() {
+	private function prepare_captcha() {
 		// Content to be displayed in captcha image
 		$display = '';
 		// Captcha answer to be stored in SESSION
@@ -359,7 +359,7 @@ class CAPTCHA_Library {
      */
     public function create() {
         // Generate the captcha and its answer
-		$captcha_info = $this->_prepare_captcha();
+		$captcha_info = $this->prepare_captcha();
 
 		// Captcha letters or math question to display
 		$word = $captcha_info['display'];
@@ -377,7 +377,7 @@ class CAPTCHA_Library {
 				: imagecreate($this->img_width * $this->iscale, $this->img_height * $this->iscale);
 		
 		// Allocate the background color to be used for the image
-		$bg_color_rgb = $this->_hex_2_rgb($this->bg_color);
+		$bg_color_rgb = $this->hex_2_rgb($this->bg_color);
 		$bg_color = imagecolorallocate($this->img, $bg_color_rgb['r'], $bg_color_rgb['g'], $bg_color_rgb['b']);
 		
 		// Create a rectangle filled with background color
@@ -385,16 +385,16 @@ class CAPTCHA_Library {
         
 		// Draw random noise spot on the image
 		if ($this->noise_level > 0) {
-            $this->_draw_noise();
+            $this->draw_noise();
         }
 
 		// Draw distorted lines on the source image
 		if ($this->num_lines > 0) {
-            $this->_draw_lines();
+            $this->draw_lines();
         }
 		
 		// Draw the actual captcha letters or math question on the source image
-		$this->_draw_word($word);
+		$this->draw_word($word);
 		
 		// Use output buffering to capture outputted image stream
 		ob_start();
@@ -420,14 +420,14 @@ class CAPTCHA_Library {
 	 *
 	 * @return void
      */
-    private function _draw_noise() {
+    private function draw_noise() {
         $noise_level = ($this->noise_level > 10) ? 10 : $this->noise_level;
 
 		// An arbitrary number that works well on a 1-10 scale
         $noise_level *= 125; 
 
 		// Allocate the colors to be used for the image
-		$noise_color_rgb = $this->_hex_2_rgb($this->noise_color);
+		$noise_color_rgb = $this->hex_2_rgb($this->noise_color);
 		$noise_color = imagecolorallocate($this->img, $noise_color_rgb['r'], $noise_color_rgb['g'], $noise_color_rgb['b']);
 		
 		for ($i = 0; $i < $noise_level; ++$i) {
@@ -448,29 +448,29 @@ class CAPTCHA_Library {
 	 *
 	 * @return void
      */
-    private function _draw_lines() {
+    private function draw_lines() {
         // Allocate the colors to be used for the image
-		$line_color_rgb = $this->_hex_2_rgb($this->line_color);
+		$line_color_rgb = $this->hex_2_rgb($this->line_color);
 		$line_color	= imagecolorallocate($this->img, $line_color_rgb['r'], $line_color_rgb['g'], $line_color_rgb['b']);
 		
 		for ($line = 0; $line < $this->num_lines; ++ $line) {
             $x = $this->img_width * (1 + $line) / ($this->num_lines + 1);
-            $x += (0.5 - $this->_frand()) * $this->img_width / $this->num_lines;
+            $x += (0.5 - $this->frand()) * $this->img_width / $this->num_lines;
             $y = mt_rand($this->img_height * 0.1, $this->img_height * 0.9);
 
-            $theta = ($this->_frand() - 0.5) * pi() * 0.7;
+            $theta = ($this->frand() - 0.5) * pi() * 0.7;
             $w = $this->img_width;
             $len = mt_rand($w * 0.4, $w * 0.7);
             $lwid = mt_rand(0, 2);
 
-            $k = $this->_frand() * 0.6 + 0.2;
+            $k = $this->frand() * 0.6 + 0.2;
             $k = $k * $k * 0.5;
-            $phi = $this->_frand() * 6.28;
+            $phi = $this->frand() * 6.28;
             $step = 0.5;
             $dx = $step * cos($theta);
             $dy = $step * sin($theta);
             $n = $len / $step;
-            $amp = 1.5 * $this->_frand() / ($k + 5.0 / $len);
+            $amp = 1.5 * $this->frand() / ($k + 5.0 / $len);
             $x0 = $x - 0.5 * $len * cos($theta);
             $y0 = $y - 0.5 * $len * sin($theta);
 
@@ -491,9 +491,9 @@ class CAPTCHA_Library {
 	 * 
 	 * @return void
      */
-    private function _draw_word($word) {
+    private function draw_word($word) {
 		// Allocate the colors to be used for the image
-		$text_color_rgb = $this->_hex_2_rgb($this->text_color);
+		$text_color_rgb = $this->hex_2_rgb($this->text_color);
 		$text_color = imagecolorallocate($this->img, $text_color_rgb['r'], $text_color_rgb['g'], $text_color_rgb['b']);
 		
         if ( ! is_readable($this->ttf_path)) {
@@ -517,7 +517,7 @@ class CAPTCHA_Library {
 				// Write the captcha letters or math question on the temp image using TrueType fonts
                 imagettftext($this->temp_img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
 				// Apply letter distortion to the captcha code
-				$this->_distorted_copy();	
+				$this->distorted_copy();	
             } else {
                 $font_size = $this->img_height * .4;
 				$bb = imageftbbox($font_size, 0, $this->ttf_path, $word);
@@ -539,7 +539,7 @@ class CAPTCHA_Library {
 	 * This is the bottleneck of the performance
 	 * @return void
      */
-    private function _distorted_copy() {
+    private function distorted_copy() {
         $num_poles = 3; // Distortion factor
         // Make an array of poles AKA attractor points
         $px = array();
@@ -551,7 +551,7 @@ class CAPTCHA_Library {
 			$px[$i] = mt_rand($this->img_width * 0.3, $this->img_width * 0.7);
             $py[$i] = mt_rand($this->img_height * 0.3, $this->img_height * 0.7);
             $rad[$i] = mt_rand($this->img_height * 0.4, $this->img_height * 0.8);
-            $tmp = ((- $this->_frand()) * 0.15) - 0.15;
+            $tmp = ((- $this->frand()) * 0.15) - 0.15;
             $amp[$i] = $this->perturbation * $tmp; 
         }
 
@@ -602,7 +602,7 @@ class CAPTCHA_Library {
      *
      * @return float Random float between 0 and 0.9999
      */
-    private function _frand() {
+    private function frand() {
         return 0.0001 * mt_rand(0, 9999);
     }
 
@@ -612,7 +612,7 @@ class CAPTCHA_Library {
      * @param string hex color code
 	 * @return array Array of RGB color
      */
-    private function _hex_2_rgb($hex) {
+    private function hex_2_rgb($hex) {
 		$hex = str_replace('#', '', $hex);
 
 		if (strlen($hex) === 3) {
