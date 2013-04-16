@@ -33,7 +33,7 @@ class PHP_UTF8 {
 	 * 
 	 * @var boolean
 	 */
-	private static $_mbstring_available = FALSE;
+	private static $mbstring_available = FALSE;
 	
 	/**
 	 * Prevent direct object creation
@@ -47,9 +47,9 @@ class PHP_UTF8 {
 	 * 
 	 * @return void
 	 */
-	private static function _check_mbstring() {
-		self::$_mbstring_available = extension_loaded('mbstring');
-		if (self::$_mbstring_available) {
+	private static function check_mbstring() {
+		self::$mbstring_available = extension_loaded('mbstring');
+		if (self::$mbstring_available) {
 			// If string overloading is active, it will break many of the native implementations
 			if (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING) {
 			    halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for PHP-UTF8 to work.', 'sys_error');
@@ -110,7 +110,7 @@ class PHP_UTF8 {
 	 * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
 	 * @see http://hsivonen.iki.fi/php-utf8/
 	 */
-	private static function _to_unicode($str) {
+	private static function to_unicode($str) {
 		$mState = 0; // Cached expected number of octets after the current octet
 					 // until the beginning of the next UTF8 character sequence
 		$mUcs4 = 0; // Cached Unicode character
@@ -167,7 +167,7 @@ class PHP_UTF8 {
 					$mBytes = 6;
 				} else {
 					// Current octet is neither in the US-ASCII range nor a legal first octet of a multi-octet sequence
-					halt('A System Error Was Encountered', "PHP_UTF8::_to_unicode(): Illegal sequence identifier in UTF-8 at byte {$i}", 'sys_error');
+					halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence identifier in UTF-8 at byte {$i}", 'sys_error');
 				}
 			} else {
 				// When mState is non-zero, we expect a continuation of the multi-octet sequence
@@ -194,7 +194,7 @@ class PHP_UTF8 {
 								// Codepoints outside the Unicode range are illegal
 								($mUcs4 > 0x10FFFF))
 						{
-							halt('A System Error Was Encountered', "PHP_UTF8::_to_unicode(): Illegal sequence or codepoint in UTF-8 at byte {$i}", 'sys_error');
+							halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence or codepoint in UTF-8 at byte {$i}", 'sys_error');
 						}
 
 						// BOM is legal but we don't want to output it
@@ -209,7 +209,7 @@ class PHP_UTF8 {
 				} else {
 					/* ((0xC0 & (*in) != 0x80) && (mState != 0))
 					  Incomplete multi-octet sequence. */
-					halt('A System Error Was Encountered', "PHP_UTF8::_to_unicode(): Incomplete multi-octet sequence in UTF-8 at byte {$i}", 'sys_error');
+					halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Incomplete multi-octet sequence in UTF-8 at byte {$i}", 'sys_error');
 				}
 			}
 		}
@@ -240,7 +240,7 @@ class PHP_UTF8 {
 	 * @return mixed UTF-8 string or FALSE if array contains invalid code points
 	 * @author <hsivonen@iki.fi>
 	 */
-	private static function _from_unicode($arr) {
+	private static function from_unicode($arr) {
 		ob_start();
 
 		foreach(array_keys($arr) as $k) {
@@ -253,7 +253,7 @@ class PHP_UTF8 {
 				// Nop -- zap the BOM
 			} elseif ($arr[$k] >= 0xD800 && $arr[$k] <= 0xDFFF) { // Test for illegal surrogates
 				// Found a surrogate
-				halt('A System Error Was Encountered', "PHP_UTF8::_from_unicode(): Illegal surrogate at index: {$k}, value: {$arr[$k]}", 'sys_error');
+				halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Illegal surrogate at index: {$k}, value: {$arr[$k]}", 'sys_error');
 			} elseif ($arr[$k] <= 0xffff) { // 3 byte sequence
 				echo chr(0xe0 | ($arr[$k] >> 12));
 				echo chr(0x80 | (($arr[$k] >> 6) & 0x003f));
@@ -265,7 +265,7 @@ class PHP_UTF8 {
 				echo chr(0x80 | ($arr[$k] & 0x3f));
 			} else {
 				// Out of range
-				halt('A System Error Was Encountered', "PHP_UTF8::_from_unicode(): Codepoint out of Unicode range at index: {$k}, value: {$arr[$k]}", 'sys_error');
+				halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Codepoint out of Unicode range at index: {$k}, value: {$arr[$k]}", 'sys_error');
 			}
 		}
 
@@ -290,9 +290,9 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_strlen($str) {
 		// Checks to see if the [http://php.net/mbstring mbstring] extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_strlen')) {
+		if (self::$mbstring_available && function_exists('mb_strlen')) {
 			return mb_strlen($str);
 		} else {
 		    return strlen(utf8_decode(self::_bad_clean($str)));
@@ -315,9 +315,9 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_strpos($str, $needle, $offset = FALSE) {
 		// Checks to see if the mbstring extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_strpos')) {
+		if (self::$mbstring_available && function_exists('mb_strpos')) {
 			$str = self::_bad_clean($str);
 
 			if ($offset === FALSE) {
@@ -366,9 +366,9 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_strrpos($str, $needle, $offset = FALSE) {
 		// Checks to see if the mbstring extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_strrpos')) {
+		if (self::$mbstring_available && function_exists('mb_strrpos')) {
 			$str = self::_bad_clean($str);
 
 			if ( ! $offset) {
@@ -448,9 +448,9 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_substr($str, $offset, $length = FALSE) {
 		// Checks to see if the mbstring extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_substr')) {
+		if (self::$mbstring_available && function_exists('mb_substr')) {
 			if ($length === FALSE) {
 				return mb_substr($str, $offset);
             }
@@ -575,14 +575,14 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_strtolower($str) {
 		// Checks to see if the mbstring extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_strtolower')) {
+		if (self::$mbstring_available && function_exists('mb_strtolower')) {
 			return mb_strtolower($str);
 		} else {
 			static $UTF8_UPPER_TO_LOWER;
 
-			$uni = self::_to_unicode($str);
+			$uni = self::to_unicode($str);
 			if ( ! $uni) {
 				return FALSE;
 			}
@@ -642,7 +642,7 @@ class PHP_UTF8 {
 				}
 			}
 
-			return self::_from_unicode($uni);
+			return self::from_unicode($uni);
 		}
 	}
 
@@ -666,14 +666,14 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_strtoupper($str) {
 		// Checks to see if the mbstring extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_strtoupper')) {
+		if (self::$mbstring_available && function_exists('mb_strtoupper')) {
 			return mb_strtoupper($str);
 		} else {
 			static $UTF8_LOWER_TO_UPPER;
 
-			$uni = self::_to_unicode($str);
+			$uni = self::to_unicode($str);
 			if ( ! $uni) {
 				return FALSE;
 			}
@@ -733,7 +733,7 @@ class PHP_UTF8 {
 				}
 			}
 
-			return self::_from_unicode($uni);
+			return self::from_unicode($uni);
 		}
 	}
 
@@ -751,9 +751,9 @@ class PHP_UTF8 {
 	 */
 	public static function mirror_ucwords($str) {
 		// Checks to see if the mbstring extension is available
-		self::_check_mbstring();
+		self::check_mbstring();
 		
-		if (self::$_mbstring_available && function_exists('mb_convert_case')) {
+		if (self::$mbstring_available && function_exists('mb_convert_case')) {
 			return mb_convert_case($str, MB_CASE_TITLE);
 		} else {
 		    // Note: [\x0c\x09\x0b\x0a\x0d\x20] matches;
