@@ -29,7 +29,7 @@ class Output_Cache_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -42,12 +42,12 @@ class Output_Cache_Library {
 	}
 	
 	/**
-	 * Set $cache_dir
+	 * Validate and set $cache_dir
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_cache_dir($dir_path) {
+	private function initialize_cache_dir($dir_path) {
 		if ( ! is_string($dir_path)) {
 		    $this->invalid_argument_value('cache_dir');
 		}

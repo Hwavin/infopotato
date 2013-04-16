@@ -123,7 +123,7 @@ class Calendar_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -138,12 +138,12 @@ class Calendar_Library {
 	}
 	
 	/**
-	 * Set $template
+	 * Validate and set $template
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_template($val) {
+	private function initialize_template($val) {
 		if ( ! is_string($val)) {
 		    $this->invalid_argument_value('template');
 		}
@@ -151,12 +151,12 @@ class Calendar_Library {
 	}
 	
 	/**
-	 * Set $show_next_prev
+	 * Validate and set $show_next_prev
 	 *
 	 * @param  $val bool
 	 * @return	void
 	 */
-	private function set_show_next_prev($val) {
+	private function initialize_show_next_prev($val) {
 		if ( ! is_bool($val)) {
 		    $this->invalid_argument_value('show_next_prev');
 		}
@@ -164,12 +164,12 @@ class Calendar_Library {
 	}
 	
 	/**
-	 * Set $next_prev_url
+	 * Validate and set $next_prev_url
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_next_prev_url($val) {
+	private function initialize_next_prev_url($val) {
 		if ( ! is_string($val)) {
 		    $this->invalid_argument_value('next_prev_url');
 		}
@@ -177,12 +177,12 @@ class Calendar_Library {
 	}
 	
 	/**
-	 * Set $month_type
+	 * Validate and set $month_type
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_month_type($val) {
+	private function initialize_month_type($val) {
 		if ( ! is_string($val)) {
 		    $this->invalid_argument_value('month_type');
 		}
@@ -190,12 +190,12 @@ class Calendar_Library {
 	}
 	
 	/**
-	 * Set $day_type
+	 * Validate and set $day_type
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_day_type($val) {
+	private function initialize_day_type($val) {
 		if ( ! is_string($val)) {
 		    $this->invalid_argument_value('day_type');
 		}
@@ -203,12 +203,12 @@ class Calendar_Library {
 	}
 	
 	/**
-	 * Set $start_day
+	 * Validate and set $start_day
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_start_day($val) {
+	private function initialize_start_day($val) {
 		if ( ! is_string($val)) {
 		    $this->invalid_argument_value('start_day');
 		}

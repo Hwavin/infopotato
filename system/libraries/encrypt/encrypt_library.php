@@ -16,7 +16,7 @@ class Encrypt_Library {
 	 *
 	 * @var string
 	 */
-	protected $encryption_key = 'your key should be 32 characters';
+	private $encryption_key = 'your key should be 32 characters';
 
 	/**
 	 * Flag for the existance of mcrypt
@@ -51,7 +51,7 @@ class Encrypt_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -68,14 +68,14 @@ class Encrypt_Library {
 	
 	
 	/**
-	 * Set $encryption_key
+	 * Validate and set $encryption_key
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_encryption_key($val) {
+	private function initialize_encryption_key($val) {
 		if ( ! is_string($val) || empty($val)) {
-		    $this->_invalid_argument_value('encryption_key');
+		    $this->invalid_argument_value('encryption_key');
 		}
 		$this->encryption_key = $val;
 	}
@@ -85,7 +85,7 @@ class Encrypt_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 

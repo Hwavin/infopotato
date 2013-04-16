@@ -117,7 +117,7 @@ class CAPTCHA_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -130,12 +130,12 @@ class CAPTCHA_Library {
 	}
 
 	/**
-	 * Set $img_width
+	 * Validate and set $img_width
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function set_img_width($val) {
+	private function initialize_img_width($val) {
 		if ( ! is_int($val)) {
 		    $this->invalid_argument_value('img_width');
 		}
@@ -143,12 +143,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $img_height
+	 * Validate and set $img_height
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function set_img_height($val) {
+	private function initialize_img_height($val) {
 		if ( ! is_int($val)) {
 		    $this->invalid_argument_value('img_height');
 		}
@@ -156,12 +156,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $ttf_path
+	 * Validate and set $ttf_path
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_ttf_path($val) {
+	private function initialize_ttf_path($val) {
 		if ( ! is_string($val)) {
 		    $this->invalid_argument_value('ttf_path');
 		}
@@ -169,12 +169,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $type
+	 * Validate and set $type
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	private function set_type($val) {
+	private function initialize_type($val) {
 		if ( ! in_array($val, array('text', 'math'), TRUE)) {
 		    $this->invalid_argument_value('type');
 		}
@@ -182,12 +182,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $bg_color
+	 * Validate and set $bg_color
 	 *
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	private function set_bg_color($hex_color) {
+	private function initialize_bg_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
 		    $this->invalid_argument_value('bg_color');
 		}
@@ -195,12 +195,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $text_color
+	 * Validate and set $text_color
 	 *
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	private function set_text_color($hex_color) {
+	private function initialize_text_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
 		    $this->invalid_argument_value('text_color');
 		}
@@ -208,12 +208,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $noise_level
+	 * Validate and set $noise_level
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function set_noise_level($val) {
+	private function initialize_noise_level($val) {
 		if ( ! is_int($val) || $val > 10 || $val < 0) {
 		    $this->invalid_argument_value('noise_level');
 		}
@@ -221,12 +221,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $noise_color
+	 * Validate and set $noise_color
 	 *
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	private function set_noise_color($hex_color) {
+	private function initialize_noise_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
 		    $this->invalid_argument_value('noise_color');
 		}
@@ -234,12 +234,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $num_lines
+	 * Validate and set $num_lines
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function set_num_lines($val) {
+	private function initialize_num_lines($val) {
 		if ( ! is_int($val)) {
 		    $this->invalid_argument_value('num_lines');
 		}
@@ -247,12 +247,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $line_color
+	 * Validate and set $line_color
 	 *
 	 * @param  $hex_color string
 	 * @return	void
 	 */
-	private function set_line_color($hex_color) {
+	private function initialize_line_color($hex_color) {
 		if ( ! is_string($hex_color) || ! preg_match('/^#[a-f0-9]{6}$/i', $hex_color)) {
 		    $this->invalid_argument_value('line_color');
 		}
@@ -260,12 +260,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $perturbation
+	 * Validate and set $perturbation
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function set_perturbation($val) {
+	private function sinitialize_perturbation($val) {
 		if ( ! is_float($val) || $val > 1) {
 		    $this->invalid_argument_value('perturbation');
 		}
@@ -273,12 +273,12 @@ class CAPTCHA_Library {
 	}
 	
 	/**
-	 * Set $iscale
+	 * Validate and set $iscale
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	private function set_iscale($val) {
+	private function initialize_iscale($val) {
 		if ( ! is_int($val)) {
 		    $this->invalid_argument_value('iscale');
 		}

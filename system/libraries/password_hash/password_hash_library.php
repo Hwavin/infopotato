@@ -17,7 +17,7 @@ class Password_Hash_Library {
 	 * 
 	 * @var string
 	 */
-	protected $iteration_count_log2 = 8;
+	private $iteration_count_log2 = 8;
 	
 	/**
 	 * Do we require the hashes to be portable to older systems (less secure)?
@@ -31,7 +31,7 @@ class Password_Hash_Library {
 	 *
 	 * @var bool
 	 */
-	protected $portable_hashes = FALSE;
+	private $portable_hashes = FALSE;
 
 	/**
 	 * Constructor
@@ -44,7 +44,7 @@ class Password_Hash_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -57,14 +57,14 @@ class Password_Hash_Library {
 	}
 	
 	/**
-	 * Set $iteration_count_log2
+	 * Validate and set $iteration_count_log2
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_iteration_count_log2($val) {
+	protected function initialize_iteration_count_log2($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('iteration_count_log2');
+		    $this->invalid_argument_value('iteration_count_log2');
 		}
 		if ($val < 4 || $val > 31) {
 			$val = 8;
@@ -73,14 +73,14 @@ class Password_Hash_Library {
 	}
 	
 	/**
-	 * Set $portable_hashes
+	 * Validate and set $portable_hashes
 	 *
 	 * @param  $val bool
 	 * @return	void
 	 */
-	protected function set_portable_hashes($val) {
+	protected function initialize_portable_hashes($val) {
 		if ( ! is_bool($val)) {
-		    $this->_invalid_argument_value('portable_hashes');
+		    $this->invalid_argument_value('portable_hashes');
 		}
 		$this->portable_hashes = $val;
 	}
@@ -90,7 +90,7 @@ class Password_Hash_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	

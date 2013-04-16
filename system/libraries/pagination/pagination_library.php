@@ -14,28 +14,28 @@ class Pagination_Library {
 	 * 
 	 * @var integer 
      */
-	protected $items_per_page = 10;
+	private $items_per_page = 10;
 	
 	/**
      * The total number of items you'll be paginating.
      *
      * @var integer
      */
-	protected $items_total = 0;
+	private $items_total = 0;
 	
 	/**
      * The page the user is viewing. Will always be an integer >= 1
 	 * 
 	 * @var integer 
      */
-	protected $current_page = 1;
+	private $current_page = 1;
 	
 	/**
      * The CSS class for current page
 	 * 
 	 * @var string
      */
-	protected $current_page_class = '';
+	private $current_page_class = '';
 	
 	/**
      * The number of pages to show 'around' the current page, is odd and >=3
@@ -52,21 +52,21 @@ class Pagination_Library {
 	 * 
 	 * @var integer 
      */
-	protected $mid_range = 7;
+	private $mid_range = 7;
 	
 	/**
      * The base page URI we are linking to
 	 * 
 	 * @var string
      */
-	protected $base_uri = '';
+	private $base_uri = '';
 	
 	/**
      * The pagination data in an array for debug
 	 * 
 	 * @var array()
      */
-	private $_pagination_data = array();
+	private $pagination_data = array();
 	
 	/**
 	 * Constructor
@@ -79,7 +79,7 @@ class Pagination_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -92,79 +92,79 @@ class Pagination_Library {
 	}
 
 	/**
-	 * Set $items_per_page
+	 * Validate and set $items_per_page
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_items_per_page($val) {
+	private function initialize_items_per_page($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('items_per_page');
+		    $this->invalid_argument_value('items_per_page');
 		}
 		$this->items_per_page = $val;
 	}
 	
 	/**
-	 * Set $items_total
+	 * Validate and set $items_total
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_items_total($val) {
+	private function initialize_items_total($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('items_total');
+		    $this->invalid_argument_value('items_total');
 		}
 		$this->items_total = $val;
 	}
 	
 	/**
-	 * Set $current_page
+	 * Validate and set $current_page
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_current_page($val) {
+	private function initialize_current_page($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('current_page');
+		    $this->invalid_argument_value('current_page');
 		}
 		$this->current_page = $val;
 	}
 	
 	/**
-	 * Set $current_page_class
+	 * Validate and set $current_page_class
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_current_page_class($val) {
+	private function initialize_current_page_class($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('current_page_class');
+		    $this->invalid_argument_value('current_page_class');
 		}
 		$this->current_page_class = $val;
 	}
 	
 	/**
-	 * Set $mid_range
+	 * Validate and set $mid_range
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_mid_range($val) {
+	private function initialize_mid_range($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('mid_range');
+		    $this->invalid_argument_value('mid_range');
 		}
 		$this->mid_range = $val;
 	}
 	
 	/**
-	 * Set $base_uri
+	 * Validate and set $base_uri
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_base_uri($val) {
+	private function initialize_base_uri($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('base_uri');
+		    $this->invalid_argument_value('base_uri');
 		}
 		$this->base_uri = $val;
 	}
@@ -174,7 +174,7 @@ class Pagination_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
@@ -205,7 +205,7 @@ class Pagination_Library {
 				$end_range = $num_pages;
 			}
 			
-			$this->_pagination_data = array(
+			$this->pagination_data = array(
 			    'base_uri' => $this->base_uri,
 			    'items_total' => $this->items_total,
 			    'items_per_page' => $this->items_per_page,
@@ -221,30 +221,30 @@ class Pagination_Library {
 		    );
 			
 			
-		    if ($this->_pagination_data['current_page'] > 1) {
-			    $output = '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['prev_page'].'">&laquo;</a> ';
+		    if ($this->pagination_data['current_page'] > 1) {
+			    $output = '<a href="'.$this->pagination_data['base_uri'].$this->pagination_data['prev_page'].'">&laquo;</a> ';
 		    }
 		
-		    for ($i = 1; $i <= $this->_pagination_data['num_pages']; $i++) {
-			    if ($this->_pagination_data['range'][0] > 2 && $i === $this->_pagination_data['range'][0]) {
+		    for ($i = 1; $i <= $this->pagination_data['num_pages']; $i++) {
+			    if ($this->pagination_data['range'][0] > 2 && $i === $this->pagination_data['range'][0]) {
 				    $output .= '...';
 			    }
 			
-			    if ($i === 1 || $i === $this->_pagination_data['num_pages'] || in_array($i, $this->_pagination_data['range'])) {
-				    if ($i === $this->_pagination_data['current_page']) {
-					    $output .= '<span class="'.$this->_pagination_data['current_page_class'].'">'.$i.'</span>'; 
+			    if ($i === 1 || $i === $this->pagination_data['num_pages'] || in_array($i, $this->pagination_data['range'])) {
+				    if ($i === $this->pagination_data['current_page']) {
+					    $output .= '<span class="'.$this->pagination_data['current_page_class'].'">'.$i.'</span>'; 
 				    } else {
-					    $output .= '<a href="'.$this->_pagination_data['base_uri'].$i.'">'.$i.'</a>'; 
+					    $output .= '<a href="'.$this->pagination_data['base_uri'].$i.'">'.$i.'</a>'; 
 				    }
 			    }
 			
-			    if ($this->_pagination_data['range'][$this->_pagination_data['mid_range']-1] < $this->_pagination_data['num_pages']-1 && $i === $this->_pagination_data['range'][$this->_pagination_data['mid_range']-1]) {
+			    if ($this->pagination_data['range'][$this->pagination_data['mid_range']-1] < $this->pagination_data['num_pages']-1 && $i === $this->pagination_data['range'][$this->pagination_data['mid_range']-1]) {
 				    $output .= '...';
 			    }
 		    }
 		
-		    if ($this->_pagination_data['current_page'] !== $this->_pagination_data['num_pages']) {
-			    $output .= '<a href="'.$this->_pagination_data['base_uri'].$this->_pagination_data['next_page'].'">&raquo;</a>'; 
+		    if ($this->pagination_data['current_page'] !== $this->pagination_data['num_pages']) {
+			    $output .= '<a href="'.$this->pagination_data['base_uri'].$this->pagination_data['next_page'].'">&raquo;</a>'; 
 		    }
 		} 
 		
@@ -257,7 +257,7 @@ class Pagination_Library {
      * @return the pagination data array
      */
 	public function get_pagination_data() {
-		return $this->_pagination_data;
+		return $this->pagination_data;
 	}
 }
 

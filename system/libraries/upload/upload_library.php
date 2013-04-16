@@ -13,7 +13,7 @@ class Upload_Library {
 	 * 
 	 * @var array
 	 */
-	protected $files = array();	
+	private $files = array();	
 	
 	/**
 	 * The maximum size (in kilobytes) that the file can be. Set to zero for no limit.
@@ -22,28 +22,28 @@ class Upload_Library {
 	 * 
 	 * @var integer
 	 */
-	protected $max_size = 0;
+	private $max_size = 0;
 	
 	/**
 	 * The maximum width (in pixels) that the file can be. Set to zero for no limit.
 	 * 
 	 * @var integer
 	 */
-	protected $max_width = 0;
+	private $max_width = 0;
 	
 	/**
 	 * The maximum height (in pixels) that the file can be. Set to zero for no limit.
 	 * 
 	 * @var integer
 	 */
-	protected $max_height = 0;
+	private $max_height = 0;
 	
 	/**
 	 * Maximum filename length
 	 *
 	 * @var	int
 	 */
-	protected $max_filename = 0;
+	private $max_filename = 0;
 	
 	/**
 	 * The mime types corresponding to the types of files you allow to be uploaded. 
@@ -52,14 +52,14 @@ class Upload_Library {
 	 * 
 	 * @var array
 	 */
-	protected $allowed_types = array();
+	private $allowed_types = array();
 	
 	/**
 	 * The maximum length that a file name can be. Set to zero for no limit.
 	 * 
 	 * @var string
 	 */
-	protected $file_temp = '';
+	private $file_temp = '';
 	
 	/**
 	 * If set InfoPotato will rename the uploaded file to this name. 
@@ -67,35 +67,35 @@ class Upload_Library {
 	 * 
 	 * @var string
 	 */
-	protected $file_name = '';
+	private $file_name = '';
 	
 	/**
 	 * Original filename
 	 *
 	 * @var	string
 	 */
-	protected $orig_name = '';
+	private $orig_name = '';
 	
 	/**
 	 * File type
 	 *
 	 * @var	string
 	 */
-	protected $file_type = '';
+	private $file_type = '';
 	
 	/**
 	 * File size
 	 *
 	 * @var	int
 	 */
-	protected $file_size = 0;
+	private $file_size = 0;
 	
 	/**
 	 * Filename extension
 	 *
 	 * @var	string
 	 */
-	protected $file_ext = '';
+	private $file_ext = '';
 	
 	/**
 	 * The path to the folder where the upload should be placed. 
@@ -104,7 +104,7 @@ class Upload_Library {
 	 * 
 	 * @var string
 	 */
-	protected $upload_path = '';
+	private $upload_path = '';
 	
 	/**
 	 * If set to true, if a file with the same name as the one you are uploading exists, 
@@ -113,7 +113,7 @@ class Upload_Library {
 	 * 
 	 * @var boolean
 	 */
-	protected $overwrite = FALSE;
+	private $overwrite = FALSE;
 	
 	/**
 	 * If set to TRUE the file name will be converted to a random encrypted string. 
@@ -122,42 +122,42 @@ class Upload_Library {
 	 * 
 	 * @var boolean
 	 */
-	protected $encrypt_name = FALSE;
+	private $encrypt_name = FALSE;
 
 	/**
 	 * Image width
 	 *
 	 * @var	int
 	 */
-	protected $image_width = '';
+	private $image_width = '';
 	
 	/**
 	 * Image height
 	 *
 	 * @var	int
 	 */
-	protected $image_height = '';
+	private $image_height = '';
 	
 	/**
 	 * Image type
 	 *
 	 * @var	string
 	 */
-	protected $image_type = '';
+	private $image_type = '';
 	
 	/**
 	 * Image size string
 	 *
 	 * @var	string
 	 */
-	protected $image_size_str = '';
+	private $image_size_str = '';
 	
 	/**
 	 * If set to TRUE, any spaces in the file name will be converted to underscores. This is recommended.
 	 * 
 	 * @var boolean
 	 */
-	protected $remove_spaces = TRUE;
+	private $remove_spaces = TRUE;
 
 	/**
 	 * If a file_name was provided in the config, use it instead of the user input
@@ -165,7 +165,7 @@ class Upload_Library {
 	 *
 	 * @var string
 	 */
-	protected $file_name_override = '';
+	private $file_name_override = '';
 
 	/**
 	 * All the pre defined error messages
@@ -210,7 +210,7 @@ class Upload_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -227,144 +227,144 @@ class Upload_Library {
 	}
 	
 	/**
-	 * Set $files
+	 * Validate and set $files
 	 *
 	 * @param  $val array
 	 * @return	void
 	 */
-	protected function set_files($val) {
+	private function initialize_files($val) {
 		if ( ! is_array($val)) {
-		    $this->_invalid_argument_value('files');
+		    $this->invalid_argument_value('files');
 		}
 		$this->files = $val;
 	}
 	
 	/**
-	 * Set $allowed_types
+	 * Validate and set $allowed_types
 	 *
 	 * @param  $val array
 	 * @return	void
 	 */
-	protected function set_allowed_types($val) {
+	private function initialize_allowed_types($val) {
 		if ( ! is_array($val)) {
-		    $this->_invalid_argument_value('allowed_types');
+		    $this->invalid_argument_value('allowed_types');
 		}
 		$this->allowed_types = $val;
 	}
 	
 	/**
-	 * Set $upload_path
+	 * Validate and set $upload_path
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_upload_path($val) {
+	private function initialize_upload_path($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('upload_path');
+		    $this->invalid_argument_value('upload_path');
 		}
 		$this->upload_path = $val;
 	}
 	
 	/**
-	 * Set $max_size
+	 * Validate and set $max_size
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_max_size($val) {
+	private function initialize_max_size($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('max_size');
+		    $this->invalid_argument_value('max_size');
 		}
 		$this->max_size = $val;
 	}
 	
 	/**
-	 * Set $max_width
+	 * Validate and set $max_width
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_max_width($val) {
+	private function initialize_max_width($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('max_width');
+		    $this->invalid_argument_value('max_width');
 		}
 		$this->max_width = $val;
 	}
 	
 	/**
-	 * Set $max_height
+	 * Validate and set $max_height
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_max_height($val) {
+	private function initialize_max_height($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('max_height');
+		    $this->invalid_argument_value('max_height');
 		}
 		$this->max_height = $val;
 	}
 	
 	/**
-	 * Set $file_name
+	 * Validate and set $file_name
 	 *
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_file_nameh($val) {
+	private function initialize_file_name($val) {
 		if ( ! is_string($val)) {
-		    $this->_invalid_argument_value('file_name');
+		    $this->invalid_argument_value('file_name');
 		}
 		$this->file_name = $val;
 	}
 	
 	/**
-	 * Set $overwrite
+	 * Validate and set $overwrite
 	 *
 	 * @param  $val bool
 	 * @return	void
 	 */
-	protected function set_overwrite($val) {
+	private function initialize_overwrite($val) {
 		if ( ! is_bool($val)) {
-		    $this->_invalid_argument_value('overwrite');
+		    $this->invalid_argument_value('overwrite');
 		}
 		$this->overwrite = $val;
 	}
 	
 	/**
-	 * Set $max_filename
+	 * Validate and set $max_filename
 	 *
 	 * @param  $val int
 	 * @return	void
 	 */
-	protected function set_max_filename($val) {
+	private function initialize_max_filename($val) {
 		if ( ! is_int($val)) {
-		    $this->_invalid_argument_value('max_filename');
+		    $this->invalid_argument_value('max_filename');
 		}
 		$this->max_filename = $val;
 	}
 	
 	/**
-	 * Set $encrypt_name
+	 * Validate and set $encrypt_name
 	 *
 	 * @param  $val bool
 	 * @return	void
 	 */
-	protected function set_encrypt_name($val) {
+	private function initialize_encrypt_name($val) {
 		if ( ! is_bool($val)) {
-		    $this->_invalid_argument_value('encrypt_name');
+		    $this->invalid_argument_value('encrypt_name');
 		}
 		$this->encrypt_name = $val;
 	}
 	
 	/**
-	 * Set $remove_spaces
+	 * Validate and set $remove_spaces
 	 *
 	 * @param  $val bool
 	 * @return	void
 	 */
-	protected function set_remove_spaces($val) {
+	private function initialize_remove_spaces($val) {
 		if ( ! is_bool($val)) {
-		    $this->_invalid_argument_value('remove_spaces');
+		    $this->invalid_argument_value('remove_spaces');
 		}
 		$this->remove_spaces = $val;
 	}
@@ -374,7 +374,7 @@ class Upload_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 

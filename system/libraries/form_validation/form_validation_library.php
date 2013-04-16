@@ -13,7 +13,7 @@ class Form_Validation_Library {
 	 * 
 	 * @var array
 	 */
-	protected $post = array();	
+	private $post = array();	
 	
 	private $_field_data = array();	
 	private $_error_array = array();
@@ -57,7 +57,7 @@ class Form_Validation_Library {
 				// Using isset() requires $this->$key not to be NULL in property definition
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
-					$method = 'set_'.$key;
+					$method = 'initialize_'.$key;
 
 					if (method_exists($this, $method)) {
 						$this->$method($val);
@@ -75,14 +75,14 @@ class Form_Validation_Library {
 	}
 	
 	/**
-	 * Set $post
+	 * Validate and set $post
 	 *
 	 * @param  $val array
 	 * @return	void
 	 */
-	protected function set_post($val) {
+	private function initialize_post($val) {
 		if ( ! is_array($val)) {
-		    $this->_invalid_argument_value('post');
+		    $this->invalid_argument_value('post');
 		}
 		$this->post = $val;
 	}
@@ -92,7 +92,7 @@ class Form_Validation_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
