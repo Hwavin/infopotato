@@ -16,7 +16,7 @@ class Output_Cache_Library {
 	 * 
 	 * @var string 
 	 */
-	protected $cache_dir = '';
+	private $cache_dir = '';
 	
 	/**
 	 * Constructor
@@ -47,9 +47,9 @@ class Output_Cache_Library {
 	 * @param  $val string
 	 * @return	void
 	 */
-	protected function set_cache_dir($dir_path) {
+	private function set_cache_dir($dir_path) {
 		if ( ! is_string($dir_path)) {
-		    $this->_invalid_argument_value('cache_dir');
+		    $this->invalid_argument_value('cache_dir');
 		}
 		$this->cache_dir = $dir_path;
 	}
@@ -59,7 +59,7 @@ class Output_Cache_Library {
 	 *
 	 * @return void
      */
-	private function _invalid_argument_value($arg) {
+	private function invalid_argument_value($arg) {
 	    exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
 	}
 	
@@ -69,7 +69,7 @@ class Output_Cache_Library {
 	 * @param	string
 	 * @return	string
 	 */
-    private function _name($key) {  
+    private function name($key) {  
         return ($this->cache_dir).sha1($key);  
     }  
 	
@@ -83,7 +83,7 @@ class Output_Cache_Library {
         if ( ! is_dir($this->cache_dir)) {
             return FALSE;   
 		}
-        $cache_path = $this->_name($key);  
+        $cache_path = $this->name($key);  
 
         if ( ! file_exists($cache_path) || ! is_readable($cache_path)) {
             return FALSE;   
@@ -122,10 +122,10 @@ class Output_Cache_Library {
 	 * @return	boolean
 	 */
     public function set($key, $data, $ttl = 3600) {  
-        if ( ! is_dir($this->cache_dir) || ! $this->_is_really_writable($this->cache_dir)) {
+        if ( ! is_dir($this->cache_dir) || ! $this->is_really_writable($this->cache_dir)) {
             return FALSE;  
 		}
-        $cache_path = $this->_name($key);  
+        $cache_path = $this->name($key);  
 		
 		// Open for writing only; use 'b' to force binary mode
         if ( ! $fp = fopen($cache_path, 'wb')) {
@@ -153,7 +153,7 @@ class Output_Cache_Library {
 	 * @return	boolean
 	 */
     public function clear($key) {  
-        $cache_path = $this->_name($key);  
+        $cache_path = $this->name($key);  
         if (file_exists($cache_path)) {  
             // Deletes cached file
 			unlink($cache_path);  
@@ -171,7 +171,7 @@ class Output_Cache_Library {
 	 *
 	 * @return	void
 	 */
-	private function _is_really_writable($file) {	
+	private function is_really_writable($file) {	
 		// If we're on a Unix server with safe_mode off we call is_writable
 		if (DIRECTORY_SEPARATOR == '/' && @ini_get("safe_mode") == FALSE) {
 			return is_writable($file);
