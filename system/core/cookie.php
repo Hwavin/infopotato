@@ -14,14 +14,14 @@ class Cookie {
 	 * 
 	 * @var string
 	 */
-	private static $_default_domain = NULL;
+	private static $default_domain = NULL;
 	
 	/**
 	 * The default expiration date to set for cookies
 	 * 
 	 * @var string|integer
 	 */
-	private static $_default_expires = NULL;
+	private static $default_expires = NULL;
 	
 	/**
 	 * If cookies should default to being http-only
@@ -29,21 +29,21 @@ class Cookie {
 	 * 
 	 * @var boolean
 	 */
-	private static $_default_httponly = TRUE;
+	private static $default_httponly = TRUE;
 	
 	/**
 	 * The default path to set for cookies
 	 * 
 	 * @var string
 	 */
-	private static $_default_path = NULL;
+	private static $default_path = NULL;
 	
 	/**
 	 * If cookies should default to being secure-only
 	 * 
 	 * @var boolean
 	 */
-	private static $_default_secure = FALSE;
+	private static $default_secure = FALSE;
 	
 	/**
 	 * Prevent direct object creation
@@ -93,11 +93,11 @@ class Cookie {
 	 * @return void
 	 */
 	public static function reset() {
-		self::$_default_domain = NULL;
-		self::$_default_expires = NULL;
-		self::$_default_httponly = FALSE;
-		self::$_default_path = NULL;
-		self::$_default_secure = FALSE;
+		self::$default_domain = NULL;
+		self::$default_expires = NULL;
+		self::$default_httponly = FALSE;
+		self::$default_path = NULL;
+		self::$default_secure = FALSE;
 	}
 	
 	
@@ -122,24 +122,24 @@ class Cookie {
 	 * @return void
 	 */
 	public static function set($name, $value, $expires = NULL, $path = NULL, $domain = NULL, $secure = NULL, $httponly = NULL) {
-		if ($expires === NULL && self::$_default_expires !== NULL) {
-			$expires = self::$_default_expires;	
+		if ($expires === NULL && self::$default_expires !== NULL) {
+			$expires = self::$default_expires;	
 		}
 		
-		if ($path === NULL && self::$_default_path !== NULL) {
-			$path = self::$_default_path;	
+		if ($path === NULL && self::$default_path !== NULL) {
+			$path = self::$default_path;	
 		}
 		
-		if ($domain === NULL && self::$_default_domain !== NULL) {
-			$domain = self::$_default_domain;	
+		if ($domain === NULL && self::$default_domain !== NULL) {
+			$domain = self::$default_domain;	
 		}
 		
-		if ($secure === NULL && self::$_default_secure !== NULL) {
-			$secure = self::$_default_secure;	
+		if ($secure === NULL && self::$default_secure !== NULL) {
+			$secure = self::$default_secure;	
 		}
 		
-		if ($httponly === NULL && self::$_default_httponly !== NULL) {
-			$httponly = self::$_default_httponly;	
+		if ($httponly === NULL && self::$default_httponly !== NULL) {
+			$httponly = self::$default_httponly;	
 		}
 		
 		if ($expires && ! is_numeric($expires)) {
@@ -169,7 +169,7 @@ class Cookie {
 	 * @return void
 	 */
 	public static function set_default_domain($domain) {
-		self::$_default_domain = $domain;	
+		self::$default_domain = $domain;	
 	}
 	
 	
@@ -183,7 +183,7 @@ class Cookie {
 	 * @return void
 	 */
 	public static function set_default_expires($expires) {
-		self::$_default_expires = $expires;	
+		self::$default_expires = $expires;	
 	}
 	
 	
@@ -197,7 +197,7 @@ class Cookie {
 	 * @return void
 	 */
 	public static function set_default_httponly($httponly) {
-		self::$_default_httponly = $httponly;	
+		self::$default_httponly = $httponly;	
 	}
 	
 	
@@ -211,7 +211,7 @@ class Cookie {
 	 * @return void
 	 */
 	public static function set_default_path($path) {
-		self::$_default_path = $path;	
+		self::$default_path = $path;	
 	}
 	
 	
@@ -225,7 +225,7 @@ class Cookie {
 	 * @return void
 	 */
 	public static function set_default_secure($secure) {
-		self::$_default_secure = $secure;	
+		self::$default_secure = $secure;	
 	}
 	
 }
