@@ -1,8 +1,9 @@
 <?php
-require_once dirname(__FILE__).'/../../php_utf8.php';
+require_once dirname(__FILE__).'/../../core/php_utf8.php';
 
 class PHP_UTF8_Test extends PHPUnit_Framework_TestCase {
-    // Test is_valid_utf8()
+    
+	// Test is_valid_utf8()
 	public function test_is_valid_utf8_utf8() {
 		$str = 'Iñtërnâtiônàlizætiøn';
 		$this->assertTrue(PHP_UTF8::is_valid_utf8($str));

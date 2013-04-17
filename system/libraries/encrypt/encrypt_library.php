@@ -23,7 +23,7 @@ class Encrypt_Library {
 	 *
 	 * @var bool
 	 */
-	private $mcrypt_exists	= FALSE;
+	private $mcrypt_exists = FALSE;
 	
 	/**
 	 * One of the MCRYPT_ciphername constants, or the name of the algorithm as string.
