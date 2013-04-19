@@ -361,11 +361,10 @@ class Session {
 		}
 		
 		// We store the expiration time for a session to allow for both normal and persistent sessions
-		if ($_SESSION['SESSION::type'] === 'persistent' && self::$persistent_timespan) {
-			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$persistent_timespan;
-		} else {
-			$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + self::$normal_timespan;	
-		}
+		$timespan = ($_SESSION['SESSION::type'] === 'persistent' && self::$persistent_timespan) 
+		            ? self::$persistent_timespan
+					: self::$normal_timespan;
+		$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
 	}
 	
 	
