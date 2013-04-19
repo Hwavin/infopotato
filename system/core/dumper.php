@@ -52,7 +52,7 @@ class Dumper {
 		    if (strtolower($force_type) === 'xml') {
 		        self::var_is_xml_resource($var);
 		    } else {
-			    die('Only xml is allowed as force type');
+			    exit('Only xml is allowed as force type');
 			}
 		}
 	}
@@ -372,7 +372,7 @@ class Dumper {
 	// Parse xml
 	pprivate static function xml_parse($xml_parser, $data, $final) {
 		if ( ! xml_parse($xml_parser, $data, $final)) { 
-			die(sprintf("XML error: %s at line %d\n", 
+			exit(sprintf("XML error: %s at line %d\n", 
 				xml_error_string(xml_get_error_code($xml_parser)), 
 				xml_get_current_line_number($xml_parser)));
 		}
