@@ -232,16 +232,9 @@ class Session {
 		}
 		
 		$current_params = session_get_cookie_params();
-		
-		$params = array(
-			self::$persistent_timespan,
-			$current_params['path'],
-			$current_params['domain'],
-			$current_params['secure']
-		);
-		
-		call_user_func_array('session_set_cookie_params', $params);
-		
+
+		session_set_cookie_params(self::$persistent_timespan, $current_params['path'], $current_params['domain'], $current_params['secure']);
+
 		self::open();
 		
 		$_SESSION['SESSION::type'] = 'persistent';
