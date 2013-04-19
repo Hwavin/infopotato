@@ -236,6 +236,7 @@ class Session {
 		// session.cookie_lifetime (defaults to 0 that means "until the browser is closed.") 
 		// is set by calling session_set_cookie_params() with the first parameter 
 		// to specify the lifetime of the cookie in seconds which is sent to the browser.
+		// This keeps the user logged in after browser restarts
 		session_set_cookie_params( 
 			self::$persistent_timespan,
 			$current_params['path'],
