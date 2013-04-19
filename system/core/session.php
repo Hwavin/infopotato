@@ -2,10 +2,9 @@
 /**
  * Wraps the session control functions and the `$_SESSION` superglobal for a more consistent and safer API
  *
- * A `Cannot send session cache limiter` warning will be triggered if ::open(),
+ * A `Cannot send session cache limiter` warning will be triggered if 
  * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output has
- * been sent to the browser. To prevent such a warning, explicitly call ::open()
- * before generating any output.
+ * been sent to the browser. 
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -299,7 +298,7 @@ class Session {
 	 */
 	public static function ignore_subdomain() {
 		if (self::$open || isset($_SESSION)) {
-			halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
+			halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
 		}
 		
 		$current_params = session_get_cookie_params();
@@ -497,7 +496,7 @@ class Session {
 	 */
 	public static function init($dir, $normal_timespan, $persistent_timespan = NULL) {
 		if (self::$open || isset($_SESSION)) {
-			halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::open(), Session::set(), session_start()", 'sys_error');
+			halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
 		}
 
 		// Set the path of the current directory used to save session data.
