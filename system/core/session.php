@@ -233,7 +233,12 @@ class Session {
 		
 		$current_params = session_get_cookie_params();
 
-		session_set_cookie_params(self::$persistent_timespan, $current_params['path'], $current_params['domain'], $current_params['secure']);
+		session_set_cookie_params( 
+			self::$persistent_timespan,
+			$current_params['path'],
+			$current_params['domain'],
+			$current_params['secure']
+		);
 
 		self::open();
 		
@@ -306,15 +311,13 @@ class Session {
 		} else {
 			halt('A System Error Was Encountered', "The domain name could not be found in ['SERVER_NAME'] or ['HTTP_HOST']. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
 		}
-		
-		$params = array(
+
+		session_set_cookie_params( 
 			$current_params['lifetime'],
 			$current_params['path'],
 			preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $domain),
 			$current_params['secure']
 		);
-		
-		call_user_func_array('session_set_cookie_params', $params);
 	}
 	
 	
