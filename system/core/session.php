@@ -324,15 +324,15 @@ class Session {
 	/**
 	 * Opens the session for writing, is automatically called by ::clear(), ::get() and ::set()
 	 * 
-	 * A `Cannot send session cache limiter` warning will be triggered if this,
+	 * A `Cannot send session cache limiter` warning will be triggered if 
 	 * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output
 	 * has been sent to the browser. To prevent such a warning, explicitly call
 	 * this method before generating any output.
 	 * 
-	 * @param  boolean $cookie_only_session_id  If the session id should only be allowed via cookie - this is a security issue and should only be set to `FALSE` when absolutely necessary 
+	 * @param  bool  $cookie_only_session_id  If the session id should only be allowed via cookie - this is a security issue and should only be set to `FALSE` when absolutely necessary 
 	 * @return void
 	 */
-	public static function open($cookie_only_session_id = TRUE) {
+	private static function open($cookie_only_session_id = TRUE) {
 		if (self::$open) { 
 			return; 
 		}
@@ -373,8 +373,6 @@ class Session {
 	
 	/**
 	 * Regenerates the session ID, but only once per script execution
-	 * 
-	 * @internal
 	 * 
 	 * @return void
 	 */
@@ -433,9 +431,7 @@ class Session {
 	
 	/**
 	 * Resets the configuration of the class
-	 * 
-	 * @internal
-	 * 
+	 *  
 	 * @return void
 	 */
 	public static function reset() {
