@@ -328,10 +328,9 @@ class Session {
 	 * has been sent to the browser. To prevent such a warning, explicitly call
 	 * this method before generating any output.
 	 * 
-	 * @param  bool  $cookie_only_session_id  If the session id should only be allowed via cookie - this is a security issue and should only be set to `FALSE` when absolutely necessary 
 	 * @return void
 	 */
-	private static function open($cookie_only_session_id = TRUE) {
+	private static function open() {
 		if (self::$open) { 
 			return; 
 		}
@@ -344,10 +343,10 @@ class Session {
 		
 		// If the session is already open, we just piggy-back without setting options
 		if ( ! isset($_SESSION)) {
-			if ($cookie_only_session_id) {
-				ini_set('session.use_cookies', 1);
-				ini_set('session.use_only_cookies', 1);
-			}
+			// Forces to use cookies to store the session id on the client side
+			ini_set('session.use_cookies', 1);
+			// Prevents attacks involved passing session ids in URLs, defaults to 1 (enabled) since PHP 5.3.0.
+			ini_set('session.use_only_cookies', 1);
 			session_start();
 		}
 		
