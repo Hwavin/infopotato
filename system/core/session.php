@@ -232,6 +232,10 @@ class Session {
 		
 		$current_params = session_get_cookie_params();
 
+		// This sets the lifetime of the session cookie to self::$persistent_timespan
+		// session.cookie_lifetime (defaults to 0 that means "until the browser is closed.") 
+		// is set by calling session_set_cookie_params() with the first parameter 
+		// to specify the lifetime of the cookie in seconds which is sent to the browser.
 		session_set_cookie_params( 
 			self::$persistent_timespan,
 			$current_params['path'],
@@ -338,6 +342,7 @@ class Session {
 		self::$open = TRUE;
 		
 		if (self::$normal_timespan === NULL) {
+			// The number of seconds after which data will be seen as 'garbage' and potentially cleaned up.
 			self::$normal_timespan = ini_get('session.gc_maxlifetime');	
 		}
 		
@@ -479,10 +484,10 @@ class Session {
 	 * You should always be called with a non-standard directory to ensure that 
 	 * another site on the server doesn't garbage collect the session files for this site.
 	 * 
-	 * Standard session directories usually include `/tmp` and `/var/tmp`. 
+	 * Standard session directories usually include '/tmp' and '/var/tmp'. 
 	 * 
 	 * Both of the $normal_timespan and $persistent_timespan can accept either a integer timespan in seconds,
-	 * or an english description of a timespan (e.g. `'30 minutes'`, `'1 hour'`, `'1 day 2 hours'`).
+	 * or an english description of a timespan (e.g. '30 minutes', '1 hour', '1 day 2 hours').
 	 * 
 	 * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
 	 * across browser restarts, the static method ::enable_persistence() must be called when they log in.
@@ -503,7 +508,7 @@ class Session {
 		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
 		self::$normal_timespan = $seconds;
 		
-		if ($persistent_timespan) {
+		if ($persistent_timespan !== NULL) {
 			$seconds = ( ! is_numeric($persistent_timespan)) ? strtotime($persistent_timespan) - time() : $persistent_timespan;	
 			self::$persistent_timespan = $seconds;
 		}
