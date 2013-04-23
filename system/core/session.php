@@ -209,6 +209,7 @@ class Session {
 			// In fact no need to destroy the session cookie because the ID in the cookie should be invalid.
 			// It would still be smart to remove the session cookie in order to increase cacheability 
 			// of anonymous content with caches such as Varnish.
+			// 43200 = 60*60*12 means12 hours ahead of current timestamp
 			setcookie(session_name(), '', time() - 43200, $params['path'], $params['domain'], $params['secure']);
 		}
 		// Destroy all the data associated with the current session
