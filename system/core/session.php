@@ -179,7 +179,6 @@ class Session {
 			}
 			
 			$key = end($array_keys);
-			
 		} else {
 			$tip =& $_SESSION;
 		}
@@ -200,13 +199,20 @@ class Session {
 	 */
 	public static function destroy() {
 		self::open();
+		// Unset all the session variables
 		$_SESSION = array();
 		unset($_SESSION);
 		// PHPSESSID is the default session_name
 		if (isset($_COOKIE[session_name()])) {
 			$params = session_get_cookie_params();
+			// If it's desired to kill the session, also delete the session cookie
+			// In fact no need to destroy the session cookie because the ID in the cookie should be invalid.
+			// It would still be smart to remove the session cookie in order to increase cacheability 
+			// of anonymous content with caches such as Varnish.
 			setcookie(session_name(), '', time() - 43200, $params['path'], $params['domain'], $params['secure']);
 		}
+		// Destroy all the data associated with the current session
+		// This does not unset the session cookie
 		session_destroy();
 	}
 	
