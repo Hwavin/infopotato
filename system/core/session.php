@@ -255,7 +255,10 @@ class Session {
 		self::open();
 		
 		$_SESSION['SESSION::type'] = 'persistent';
-		
+		// Update the current session id with a newly generated one
+		// and keep the current session information
+		// If session cookies are enabled, use of session_regenerate_id() will 
+		// also submit a new session cookie with the new session id.
 		session_regenerate_id();
 		self::$regenerated = TRUE;
 	}
@@ -389,7 +392,8 @@ class Session {
 	 */
 	public static function regenerate_id() {
 		if ( ! self::$regenerated){
-			session_regenerate_id();
+			// Create a new session, deleting the previous associated session file
+			session_regenerate_id(TRUE);
 			self::$regenerated = TRUE;
 		}
 	}
