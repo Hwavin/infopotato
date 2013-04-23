@@ -367,7 +367,7 @@ class Session {
 			session_start();
 		}
 		
-		// If the session has existed for too long, reset it
+		// If the session has existed for too long and not been garbage collected, reset it
 		if (isset($_SESSION['SESSION::expires']) && $_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME']) {
 			$_SESSION = array();
 			self::regenerate_id();
@@ -381,6 +381,7 @@ class Session {
 		$timespan = ($_SESSION['SESSION::type'] === 'persistent' && self::$persistent_timespan) 
 		            ? self::$persistent_timespan
 					: self::$normal_timespan;
+		// Extends the expiration time upon active request
 		$_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
 	}
 	
