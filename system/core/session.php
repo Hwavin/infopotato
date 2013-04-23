@@ -199,9 +199,10 @@ class Session {
 	 */
 	public static function destroy() {
 		self::open();
-		// Unset all the session variables
+		// Unset all the session variables on server side
 		$_SESSION = array();
 		unset($_SESSION);
+		// Delete the session cookie
 		// PHPSESSID is the default session_name
 		if (isset($_COOKIE[session_name()])) {
 			$params = session_get_cookie_params();
@@ -221,11 +222,10 @@ class Session {
 	/**
 	 * Changed the session to use a time-based cookie instead of a session-based cookie
 	 * 
-	 * The length of the time-based cookie is controlled by ::set_length(). When
+	 * The length of the time-based cookie is controlled by ::init(). When
 	 * this method is called, a time-based cookie is used to store the session
 	 * ID. This means the session can persist browser restarts. Normally, a
-	 * session-based cookie is used, which is wiped when a browser restart
-	 * occurs.
+	 * session-based cookie is used, which is wiped when a browser is closed.
 	 * 
 	 * This method should be called during the login process and will normally
 	 * be controlled by a checkbox or similar where the user can indicate if
