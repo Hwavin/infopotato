@@ -193,7 +193,7 @@ class Session {
 	
 	
 	/**
-	 * Destroys the session, removing all values
+	 * Destroys the session data and session cookie
 	 * 
 	 * @return void
 	 */
