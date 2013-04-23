@@ -352,12 +352,7 @@ class Session {
 		}
 		
 		self::$open = TRUE;
-		
-		if (self::$normal_timespan === NULL) {
-			// The number of seconds after which data will be seen as 'garbage' and potentially cleaned up.
-			self::$normal_timespan = ini_get('session.gc_maxlifetime');	
-		}
-		
+
 		// If the session is already open, we just piggy-back without setting options
 		if ( ! isset($_SESSION)) {
 			// Forces to use cookies to store the session id on the client side
@@ -518,8 +513,13 @@ class Session {
 
 		// Set the path of the current directory used to save session data.
 		session_save_path($dir);
-
-		$seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
+		
+		if (self::$normal_timespan === NULL) {
+			// Use the default config in php.ini
+			$seconds = ini_get('session.gc_maxlifetime');	
+		} else {
+		    $seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
+		}
 		self::$normal_timespan = $seconds;
 		
 		if ($persistent_timespan !== NULL) {
