@@ -201,12 +201,13 @@ class Session {
 	public static function destroy() {
 		self::open();
 		$_SESSION = array();
+		unset($_SESSION);
+		// PHPSESSID is the default session_name
 		if (isset($_COOKIE[session_name()])) {
 			$params = session_get_cookie_params();
 			setcookie(session_name(), '', time() - 43200, $params['path'], $params['domain'], $params['secure']);
 		}
 		session_destroy();
-		self::regenerate_id();
 	}
 	
 	
@@ -514,6 +515,7 @@ class Session {
 			self::$persistent_timespan = $seconds;
 		}
 		
+		// If $persistent_timespan specified, it has to be longer than the $normal_timespan
 		ini_set('session.gc_maxlifetime', $seconds);
 		
 		// Marks the cookie as accessible only through the HTTP protocol. 
