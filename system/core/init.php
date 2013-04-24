@@ -84,6 +84,7 @@ function auto_load($class_name) {
 		'logger', 
 		'php_utf8',
         'i18n',
+		'cookie',
         'session',
 		'data', 
         'base_dao',
