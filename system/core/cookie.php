@@ -46,14 +46,18 @@ class Cookie {
 	 * 
 	 * @param	string	$name		The name of the cookie to set
 	 * @param	string	$value		Cookie value to be stored on the clients computer
-	 * @param	int		$expire		The Unix timestamp the cookie expires. If set to 0, the cookie will expire at the end of the session (when the browser closes).
+	 * @param	int		$expire		A relative string to be interpreted by [http://php.net/strtotime strtotime()] or an integer unix timestamp
 	 * @param	string	$domain		Cookie domain (e.g.: '.yourdomain.com')
 	 * @param	string	$path		Cookie path (default: '/')
 	 * @param	bool	$secure		If the cookie should only be transmitted over a secure connection SSL
 	 * @param	bool	$httponly	If the cookie should only be readable by HTTP connection, not javascript
 	 * @return	void
 	 */
-	public static function set($name = '', $value = '', $expires = 0, $path = '', $domain = '', $secure = FALSE, $httponly = TRUE) {
+	public static function set($name = '', $value = '', $expires = NULL, $path = '', $domain = '', $secure = FALSE, $httponly = TRUE) {
+        if ( ! is_int($expires)) {
+            $expires = strtotime($expires);
+        }
+		
 		// Use HTTP only cookie by default
 		if ($httponly !== TRUE) {
 			// Defines a cookie to be sent along with the rest of the HTTP headers
