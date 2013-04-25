@@ -46,7 +46,7 @@ class Cookie {
 	 * 
 	 * @param	string	$name		The name of the cookie to set
 	 * @param	string	$value		Cookie value to be stored on the clients computer
-	 * @param	int		$expire		A relative string to be interpreted by [http://php.net/strtotime strtotime()] or an integer unix timestamp
+	 * @param	int|string	$expire	A relative string to be interpreted by [http://php.net/strtotime strtotime()] or an integer unix timestamp
 	 * @param	string	$domain		Cookie domain (e.g.: '.yourdomain.com')
 	 * @param	string	$path		Cookie path (default: '/')
 	 * @param	bool	$secure		If the cookie should only be transmitted over a secure connection SSL

@@ -370,7 +370,7 @@ class Dumper {
 	}
 	
 	// Parse xml
-	pprivate static function xml_parse($xml_parser, $data, $final) {
+	private static function xml_parse($xml_parser, $data, $final) {
 		if ( ! xml_parse($xml_parser, $data, $final)) { 
 			exit(sprintf("XML error: %s at line %d\n", 
 				xml_error_string(xml_get_error_code($xml_parser)), 
