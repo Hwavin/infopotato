@@ -56,9 +56,12 @@ class Dispatcher{
 				$request_uri = trim($_SERVER['PATH_INFO'], '/');
 			} elseif (isset($_SERVER['ORIG_PATH_INFO'])) {
 				// Check for $_SERVER['ORIG_PATH_INFO'] when $_SERVER['PATH_INFO'] is absent
-				// When we use Apache mod_rewrite to hide index.php, the $_SERVER['PATH_INFO'] may be missing 
+				// When we use Apache mod_rewrite to hide index.php, the $_SERVER['PATH_INFO'] will be missing 
 				// but ORIG_PATH_INFO may be there with the information PATH_INFO was supposed to have
-				$request_uri = trim($_SERVER['ORIG_PATH_INFO'], '/');
+				// This is different on IIS, IIS keeps the trailing slash in both PATH_INFO and ORIG_PATH_INFO 
+				// if presented in URI and set PATH_INFO to '/' when 'index.php/' being requested, 
+				// so need to remove the script name
+				$request_uri = trim(str_replace($_SERVER['SCRIPT_NAME'], '', $_SERVER['ORIG_PATH_INFO']), '/');
 			} else {
 				// When server doesn't support PATH_INFO nor ORIG_PATH_INFO, only the default manager runs
 				$request_uri = '';
