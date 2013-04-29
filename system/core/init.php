@@ -14,14 +14,10 @@ if (version_compare(PHP_VERSION, '5.3.0','<')) {
 // Register given function as __autoload() implementation, PHP 5 >= 5.1.2
 spl_autoload_register('auto_load');
 
-// $_GET data is disallowed 
-// InfoPotato utilizes URI segments rather than traditional URI query strings
-unset($_GET);
-
-// One key aspect of Web application security is referring to variables with precision
-// one should not use $_REQUEST as it is less exact, and therefore less secure, 
-// than explicitly referring to $_GET, $_POST and $_COOKIE
-unset($_REQUEST);
+// $_GET is disallowed since InfoPotato utilizes URI segments rather than traditional URI query strings
+// $_REQUEST as it is less exact, and therefore less secure
+// $_ENV is disabllowed since it's not as commonly used and you can still get access to the environment variables through getenv()
+unset($_GET, $_REQUEST, $_ENV);
 
 // $_COOKIE can be used directly by InfoPotato's Cookie class or your own Cookie process 
 // Remove backslashes added by magic quotes and return the user's raw input
