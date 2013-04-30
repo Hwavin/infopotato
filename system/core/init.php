@@ -17,7 +17,7 @@ spl_autoload_register('auto_load');
 // $_GET is disallowed since InfoPotato utilizes URI segments rather than traditional URI query strings
 // $_REQUEST as it is less exact, and therefore less secure
 // $_ENV is disabllowed since it's not as commonly used and you can still get access to the environment variables through getenv()
-// $GLOBALS is disabled for security
+// $GLOBALS contains all other superglobals (so no need to duplicate) and every variable with global scope (should be disabled for security)
 unset($_GET, $_REQUEST, $_ENV, $GLOBALS);
 
 // $_COOKIE can be used directly by InfoPotato's Cookie class or your own Cookie process 
