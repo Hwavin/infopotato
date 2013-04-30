@@ -24,7 +24,7 @@ unset($_GET, $_REQUEST, $_ENV, $GLOBALS);
 // Remove backslashes added by magic quotes and return the user's raw input
 // Normalizes all newlines to LF
 // NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
-// $_POST, $_COOKIE, $_FILES and $_ENV were affected
+// $_POST, $_COOKIE and $_FILES are affected
 $_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
 
 /**
