@@ -118,7 +118,7 @@ function htmlawed_function($t, array $C = NULL, $S = NULL) {
 		$t = preg_replace_callback('`<!(?:(?:--.*?--)|(?:\[CDATA\[.*?\]\]))>`sm', 'hl_cmtcd', $t);
 	}
 	$t = preg_replace_callback('`&amp;([A-Za-z][A-Za-z0-9]{1,30}|#(?:[0-9]{1,8}|[Xx][0-9A-Fa-f]{1,7}));`', 'hl_ent', str_replace('&', '&amp;', $t));
-	if ($C['unique_ids'] && !isset($GLOBALS['hl_Ids'])) {
+	if ($C['unique_ids'] && ! isset($GLOBALS['hl_Ids'])) {
 		$GLOBALS['hl_Ids'] = array();
 	}
 	if ($C['hook']) {
@@ -168,7 +168,7 @@ function hl_attrval($t, $p){
 				$o = 0;
 			}
 			break; 
-			case 'nomatch': if(preg_match($v, $t)) {
+			case 'nomatch': if (preg_match($v, $t)) {
 				$o = 0;
 			}
 			break; 
@@ -314,7 +314,7 @@ function hl_bal($t, $do = 1, $in = 'div'){
 		list($all, $s, $e, $a, $x) = $r;
 		// close tag
 		if ($s) {
-			if (isset($cE[$e]) or !in_array($e, $q)) {
+			if (isset($cE[$e]) or ! in_array($e, $q)) {
 				continue;
 			} // Empty/unopen
 			if ($p == $e) {
@@ -396,7 +396,7 @@ function hl_bal($t, $do = 1, $in = 'div'){
 				$ok2 = array_diff_assoc($ok2, $cN[$d]);
 			}
 			if ( ! isset($ok2[$e])){
-				if ( ! $k && !isset($inOk[$e])) {
+				if ( ! $k && ! isset($inOk[$e])) {
 					continue 2;
 				}
 				$add = "</{$d}>";
@@ -606,7 +606,7 @@ function hl_spec($t){
 				}
 				$y[$x][strtolower(substr($m, 0, $p))] = str_replace(array("\x01", "\x02", "\x03", "\x04", "\x05", "\x06", "\x07", "\x08"), array(";", "|", "~", " ", ",", "/", "(", ")"), substr($m, $p+1));
 			}
-			if (isset($y[$x]['match']) && !hl_regex($y[$x]['match'])) {
+			if (isset($y[$x]['match']) && ! hl_regex($y[$x]['match'])) {
 				unset($y[$x]['match']);
 			}
 			if (isset($y[$x]['nomatch']) && !hl_regex($y[$x]['nomatch'])) {
