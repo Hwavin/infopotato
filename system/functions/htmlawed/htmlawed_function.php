@@ -499,7 +499,7 @@ function hl_ent($t) {
 	if (($n = ctype_digit($t = substr($t, 1)) ? intval($t) : hexdec(substr($t, 1))) < 9 or ($n > 13 && $n < 32) or $n == 11 or $n == 12 or ($n > 126 && $n < 160 && $n != 133) or ($n > 55295 && ($n < 57344 or ($n > 64975 && $n < 64992) or $n == 65534 or $n == 65535 or $n > 1114111))){
 		return ($C['and_mark'] ? "\x06" : '&'). "amp;#{$t};";
 	}
-	return ($C['and_mark'] ? "\x06" : '&'). '#'. (((ctype_digit($t) && $C['hexdec_entity'] < 2) or !$C['hexdec_entity']) ? $n : 'x'. dechex($n)). ';';
+	return ($C['and_mark'] ? "\x06" : '&'). '#'. (((ctype_digit($t) && $C['hexdec_entity'] < 2) or ! $C['hexdec_entity']) ? $n : 'x'. dechex($n)). ';';
 }
 
 function hl_prot($p, $c = NULL) {
@@ -636,10 +636,10 @@ function hl_tag($t) {
 	global $C;
 	$t = $t[0];
 	// invalid < >
-	if ($t == '< '){
+	if ($t == '< ') {
 		return '&lt; ';
 	}
-	if ($t == '>'){
+	if ($t == '>') {
 		return '&gt;';
 	}
 	if ( ! preg_match('`^<(/?)([a-zA-Z][a-zA-Z1-6]*)([^>]*?)\s?>$`m', $t, $m)) {
