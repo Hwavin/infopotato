@@ -1,12 +1,8 @@
 <?php
 /**
  * Base Database Access Object
+ * 
  * Members must be public in order to be called in data object
- * The following databases are supported:
- *
- *  - [http://mysql.com MySQL]
- *  - [http://postgresql.org PostgreSQL]
- *  - [http://sqlite.org SQLite]
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
