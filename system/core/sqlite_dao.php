@@ -159,6 +159,8 @@ class SQLite_DAO extends Base_DAO {
 			
 			// Store Query Results
 			$num_rows = 0;
+			// PDO::FETCH_ASSOC is the fetch_style parameter predefined in PDO
+			// don't be confused with the FETCH_ASSOC defined for DAO
 			while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
 				// Store relults as an objects within main array
 				// Convert to object
