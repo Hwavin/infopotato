@@ -10,14 +10,6 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
- 
- 
-// Must define the constants out of the class
-// Can not define them as class const 
-define('FETCH_OBJ', 'FETCH_OBJ');
-define('FETCH_ASSOC', 'FETCH_ASSOC');
-define('FETCH_NUM', 'FETCH_NUM');
-
 class Base_DAO {
 	/**
 	 * Query result
@@ -111,11 +103,11 @@ class Base_DAO {
 	 * If the query returns more than one row and no row offset is supplied the first row within the results set will be returned by default.
 	 *
 	 * @param string $query SQL query.
-	 * @param string $output (optional) one of FETCH_ASSOC | FETCH_NUM | FETCH_OBJ constants.  
+	 * @param string $output (optional) one of 'FETCH_ASSOC' | 'FETCH_NUM' | 'FETCH_OBJ' constants.  
 	 * @param int $y (optional) Row to return if the query returns more than one row.  Indexed from 0.
 	 * @return mixed Database query result in format specifed by $output
 	 */
-	public function get_row($query, $output = FETCH_OBJ, $y = 0) {
+	public function get_row($query, $output = 'FETCH_OBJ', $y = 0) {
 		$return_val = NULL;
 		
 		$this->exec_query($query);
@@ -125,14 +117,14 @@ class Base_DAO {
 				halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
 			}
 			
-			if ($output == FETCH_OBJ) {
+			if ($output === 'FETCH_OBJ') {
 				$return_val = $this->query_result[$y];
-			} elseif ($output == FETCH_ASSOC) {
+			} elseif ($output === 'FETCH_ASSOC') {
 				$return_val = get_object_vars($this->query_result[$y]);
-			} elseif ($output == FETCH_NUM) {
+			} elseif ($output === 'FETCH_NUM') {
 				$return_val = array_values(get_object_vars($this->query_result[$y]));
 			} else {
-				halt('A System Error Was Encountered', " \$db->get_row() -- Output type must be one of: FETCH_OBJ, FETCH_ASSOC, FETCH_NUM", 'sys_error');
+				halt('A System Error Was Encountered', " \$db->get_row() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
 			}
 		}
 		
@@ -181,25 +173,25 @@ class Base_DAO {
 	 * If no results are found then the function returns false enabling you to use the function within logic statements such as if.
 	 *
 	 * @param string $query SQL query.
-	 * @param string $output (optional) ane of FETCH_ASSOC | FETCH_ASSOC | FETCH_OBJ constants.  
+	 * @param string $output (optional) ane of 'FETCH_ASSOC' | 'FETCH_ASSOC' | 'FETCH_OBJ' constants.  
 	 * @return mixed Database query results
 	 */
-	public function get_all($query, $output = FETCH_OBJ) {
+	public function get_all($query, $output = 'FETCH_OBJ') {
 		$return_val = array();
 		
 		$this->exec_query($query);
 		
 		// Send back array of objects. Each row is an object
-		if ($output == FETCH_OBJ) {
+		if ($output === 'FETCH_OBJ') {
 			$return_val = $this->query_result;
-		} elseif ($output == FETCH_ASSOC || $output == FETCH_NUM) {
+		} elseif ($output === 'FETCH_ASSOC' || $output === 'FETCH_NUM') {
 			if ($this->query_result) {
 				$i = 0;
 				// $row is object
 				foreach($this->query_result as $row) {
 					$return_val[$i] = get_object_vars($row);
 
-					if ($output == FETCH_NUM) {
+					if ($output === 'FETCH_NUM') {
 						$return_val[$i] = array_values($return_val[$i]);
 					}
 					$i++;
