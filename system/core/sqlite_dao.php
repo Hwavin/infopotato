@@ -13,7 +13,7 @@ class SQLite_DAO extends Base_DAO {
 	 *
 	 * @var  object
 	 */
-	public $dbh;
+	private $dbh;
 	
 	/**
 	 * Constructor

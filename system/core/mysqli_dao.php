@@ -14,7 +14,7 @@ class MySQLi_DAO extends Base_DAO {
 	 *
 	 * @var  object
 	 */
-	public $mysqli;
+	private $mysqli;
 	
 	/**
 	 * Constructor

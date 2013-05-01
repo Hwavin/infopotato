@@ -16,7 +16,7 @@ class MySQL_DAO extends Base_DAO {
 	 *
 	 * @var  resource  
 	 */
-	public $dbh;
+	private $dbh;
 	
 	/**
 	 * Constructor
