@@ -82,8 +82,6 @@ class Manager {
      * $config['type']: (string required)  specify the character encoding of the text document, like html, css, plain text
 	 *
 	 * $config['extra_headers']: (array optional)  any extra headers to response
-	 *
-	 * $config['disable_cache']: (boolean optional) Sets the correct headers to instruct the client to not cache the response
 	 * 
      * @return NULL
      */   
@@ -108,14 +106,6 @@ class Manager {
 			                           ? $config['type'].'; charset=utf-8' 
 									   : $config['type'];
 
-			// HTTP Cache, sets the correct headers to instruct the client to not cache the response
-			if (isset($config['disable_cache']) && $config['disable_cache'] === TRUE) {
-				$headers['Expires'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
-				$headers['Last-Modified'] = gmdate("D, d M Y H:i:s") . " GMT";
-				$headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0';
-				$headers['Pragma'] = 'no-cache';
-			}
-			
 			// Send server response headers
 			// Like other headers, cookies must be sent before any output from your script
 			// In InfoPotato, you should use Cookie class before $this->response()
