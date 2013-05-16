@@ -177,8 +177,7 @@ class Output_Cache_Library {
 			return is_writable($file);
 		}
 
-		// For windows servers and safe_mode "on" installations we'll actually
-		// write a file then read it.  Bah...
+		// For windows servers we'll actually write a file then read it
 		if (is_dir($file)) {
 			$file = rtrim($file, '/').'/'.md5(rand(1, 100));
 
