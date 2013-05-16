@@ -172,7 +172,7 @@ class Output_Cache_Library {
 	 * @return	void
 	 */
 	private function is_really_writable($file) {	
-		// If we're on a Unix server with safe_mode off we call is_writable()
+		// If we're on a Unix server we call is_writable() directly
 		if (DIRECTORY_SEPARATOR === '/') {
 			return is_writable($file);
 		}
