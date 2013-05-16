@@ -167,7 +167,7 @@ class Output_Cache_Library {
 	 *
 	 * is_writable() returns TRUE on Windows servers when you really can't write to 
 	 * the file, based on the read-only attribute.  is_writable() is also unreliable
-	 * on Unix servers if safe_mode is on. 
+	 * on Unix servers if safe_mode is on (safe_mode has been DEPRECATED as of PHP 5.3.0). 
 	 *
 	 * @return	void
 	 */
