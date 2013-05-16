@@ -122,7 +122,7 @@ class Output_Cache_Library {
 	 * @return	boolean
 	 */
     public function set($key, $data, $ttl = 3600) {  
-        if ( ! is_dir($this->cache_dir) || ! $this->is_really_writable($this->cache_dir)) {
+        if ( ! is_dir($this->cache_dir) || ! $this->is_writable($this->cache_dir)) {
             return FALSE;  
 		}
         $cache_path = $this->name($key);  
@@ -162,40 +162,6 @@ class Output_Cache_Library {
         return FALSE;  
     }  
 	
-	/**
-	 * Tests for file writability
-	 *
-	 * is_writable() returns TRUE on Windows servers when you really can't write to 
-	 * the file, based on the read-only attribute.  is_writable() is also unreliable
-	 * on Unix servers if safe_mode is on (safe_mode has been DEPRECATED as of PHP 5.3.0). 
-	 *
-	 * @return	void
-	 */
-	private function is_really_writable($file) {	
-		// If we're on a Unix server we call is_writable() directly
-		if (DIRECTORY_SEPARATOR === '/') {
-			return is_writable($file);
-		}
-
-		// For windows servers we'll actually write a file then read it
-		if (is_dir($file)) {
-			$file = rtrim($file, '/').'/'.md5(rand(1, 100));
-
-			if (($fp = @fopen($file, 'ab')) === FALSE) {
-				return FALSE;
-			}
-
-			fclose($fp);
-			@chmod($file, 0777);
-			@unlink($file);
-			return TRUE;
-		} elseif (($fp = @fopen($file, 'ab')) === FALSE) {
-			return FALSE;
-		}
-
-		fclose($fp);
-		return TRUE;
-	}
 } 
  
 /* End of file: ./system/libraries/output_cache/output_cache_library.php */
