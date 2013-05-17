@@ -11,9 +11,6 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
     exit('InfoPotato requires PHP 5.3.0 or newer. You are currently running PHP '. PHP_VERSION .'.');
 }
 
-// Register given function as __autoload() implementation, PHP 5 >= 5.1.2
-spl_autoload_register('auto_load');
-
 // $_GET is disallowed since InfoPotato utilizes URI segments rather than traditional URI query strings
 // $_REQUEST as it is less exact, and therefore less secure
 // $_ENV is disabllowed since it's not as commonly used and you can still get access to the environment variables through getenv()
@@ -62,18 +59,15 @@ switch (ENVIRONMENT) {
         exit('The application environment is not set correctly.');
 }
 
-/**
- * SPL Autoloading required systen core components or app managers
- *
- * @param   string $class_name the class name we are trying to load
- * @return  void
- */   
-function auto_load($class_name) {
+// Register given anonymous function as __autoload() implementation
+// Anonymous functions become available since PHP 5.3.0
+// By uuing this anonymous function we can make sure other components can't access it
+spl_autoload_register(function ($class_name) {
     $class_name = strtolower($class_name);
 	
     // Create and use core files to speed up the parsing process for all the following requests.
     // Init (loaded in entry point script) and Manager class ('manager', in the list below) are required for all app requests.
-	// All core conponents must be listed is this array
+	// All core conponents must be listed in this array
     $core = array(
         'dispatcher', 
 		'manager', 
@@ -135,7 +129,8 @@ function auto_load($class_name) {
 	// If your file containg your class was already included, the class defenition would already be loaded 
 	// and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
 	require $file;
-} 
+});
+
 
 /**
  * Display system error
