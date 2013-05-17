@@ -213,15 +213,15 @@ function __($str, array $values = NULL) {
  * @param   mixed  any variable
  * @return  mixed  sanitized variable
  */
-function sanitize($value) {
-    if (is_array($value)) {
-        foreach ($value as $key => $val) {
-            // Recursively clean each value
-            $value[$key] = sanitize($val);
+function sanitize($str) {
+    if (is_array($str)) {
+        foreach ($str as $key => $val) {
+            // Recursively clean each string
+            $str[$key] = sanitize($val);
 		}
 	} 
 	
-	if (is_string($value)) {	
+	if (is_string($str)) {	
 		// NOTE: Magic Quotes has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0. 
 		// And it will probably not exist in future versions at all.
 		if (version_compare(PHP_VERSION, '5.4.0', '<')) {
@@ -232,17 +232,17 @@ function sanitize($value) {
 			// $_FILES comes through POST request, so it's affected. 
 			if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
 				// Remove backslashes added by magic quotes and return the user's raw input
-				$value = stripslashes($value);
+				$str = stripslashes($str);
 			}
 		}
 		
-		if (strpos($value, "\r") !== FALSE) {
+		if (strpos($str, "\r") !== FALSE) {
 			// Standardize newlines
-			$value = str_replace(array("\r\n", "\r"), "\n", $value);
+			$str = str_replace(array("\r\n", "\r"), "\n", $str);
 		}
 	}
 
-	return $value;
+	return $str;
 }
 
 // End of file: ./system/core/init.php
