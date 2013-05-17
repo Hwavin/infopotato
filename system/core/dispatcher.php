@@ -102,6 +102,8 @@ class Dispatcher{
 			// The uploaded files data can only be accessed in manager using $this->_FILES_DATA
 			// $FILES will only be set when the form is enctype="multipart/form-data" and action="post"
 			if (isset($_FILES)) {
+				// Even though PHP doc says that magic_quotes_gpc affects HTTP Request data (GET, POST, and COOKIE)
+				// $_FILES comes through POST request, so it's affected. 
 				$manager_obj->_FILES_DATA = sanitize($_FILES);
 				// Disable direct access to $_FILES
 				unset($_FILES);

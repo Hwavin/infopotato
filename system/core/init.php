@@ -228,6 +228,8 @@ function sanitize($value) {
 			// When Magic Quotes are on (it's on by default), 
 			// all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
 			// are escaped with a backslash automatically. This is identical to what addslashes() does.
+			// Even though PHP doc says that magic_quotes_gpc affects HTTP Request data (GET, POST, and COOKIE)
+			// $_FILES comes through POST request, so it's affected. 
 			if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
 				// Remove backslashes added by magic quotes and return the user's raw input
 				$value = stripslashes($value);
