@@ -63,8 +63,8 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
  * No need to show 404 error page in development mode
  */
 if (ENVIRONMENT === 'production') {
-	define('APP_404_MANAGER', 'error');
-	define('APP_404_MANAGER_METHOD', '404');
+    define('APP_404_MANAGER', 'error');
+    define('APP_404_MANAGER_METHOD', '404');
 }
 
 /**
@@ -83,23 +83,23 @@ define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 // Components for init, debug, autoloading, internationalization function
 if (RUNTIME_CACHE === TRUE) {
-	// SYS_RUNTIME_CACHE_DIR must be writable
-	if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) ||  ! is_writable(APP_RUNTIME_CACHE_DIR)) {
-	    exit('SYS_RUNTIME_CACHE_DIR and APP_RUNTIME_CACHE_DIR must be writable');
-	}
-	$file = SYS_RUNTIME_CACHE_DIR.'~init.php';
-	if ( ! file_exists($file)) {
-		file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
-	}
+    // SYS_RUNTIME_CACHE_DIR must be writable
+    if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) ||  ! is_writable(APP_RUNTIME_CACHE_DIR)) {
+        exit('SYS_RUNTIME_CACHE_DIR and APP_RUNTIME_CACHE_DIR must be writable');
+    }
+    $file = SYS_RUNTIME_CACHE_DIR.'~init.php';
+    if ( ! file_exists($file)) {
+        file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
+    }
 } else {
-	$file = SYS_CORE_DIR.'init.php';
+    $file = SYS_CORE_DIR.'init.php';
 }
 require_once $file;
 
 // APP_SESSION_DIR must be writable
 // Set session normal length as 30 mins
 if ( ! is_writable(APP_SESSION_DIR)) {
-	exit('APP_SESSION_DIR must be writable');
+    exit('APP_SESSION_DIR must be writable');
 } else {
     Session::init(APP_SESSION_DIR, '30 minutes');
 }
@@ -108,7 +108,7 @@ if ( ! is_writable(APP_SESSION_DIR)) {
 // Severity levels: 'ERROR', 'WARN', 'INFO', 'DEBUG'
 // APP_LOG_DIR must be writable
 if ( ! is_writable(APP_LOG_DIR)) {
-	exit('APP_LOG_DIR must be writable');
+    exit('APP_LOG_DIR must be writable');
 } else {
     Logger::set_severity_threshold('DEBUG');
 }
