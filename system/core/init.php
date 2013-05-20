@@ -208,7 +208,6 @@ function __($str, array $values = NULL) {
  * Recursively sanitizes an input variable:
  *
  * Strips slashes if magic quotes are enabled
- * Normalizes all newlines to LF
  *
  * @param   mixed  any variable
  * @return  mixed  sanitized variable
@@ -234,11 +233,6 @@ function sanitize($str) {
 				// Remove backslashes added by magic quotes and return the user's raw input
 				$str = stripslashes($str);
 			}
-		}
-		
-		if (strpos($str, "\r") !== FALSE) {
-			// Standardize newlines
-			$str = str_replace(array("\r\n", "\r"), "\n", $str);
 		}
 	}
 
