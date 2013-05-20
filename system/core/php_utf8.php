@@ -26,7 +26,7 @@ define('BAD_UTF_PATTERN',
     '|\xF4[\x80-\x8F][\x80-\xBF]{2}'.        # Plane 16
     '|(.{1}))'                                # Invalid byte
 );
- 
+
 class PHP_UTF8 {
     /**
      * If the [http://php.net/mbstring mbstring] extension is available
@@ -75,7 +75,7 @@ class PHP_UTF8 {
      */
     private static function _bad_clean($str, $replace = FALSE) {
         ob_start();
-
+		
         while (preg_match('/'.BAD_UTF_PATTERN.'/S', $str, $matches)) {
             if ( ! isset($matches[2])) {
                 echo $matches[0];
@@ -84,10 +84,10 @@ class PHP_UTF8 {
             }
             $str = substr($str, strlen($matches[0]));
         }
-
+		
         return ob_get_clean();
     }
-
+	
     /**
      * Takes an UTF-8 string and returns an array of ints representing the Unicode characters.
      * Astral planes are supported ie. the ints in the output can be > 0xFFFF.
@@ -115,13 +115,13 @@ class PHP_UTF8 {
                      // until the beginning of the next UTF8 character sequence
         $mUcs4 = 0; // Cached Unicode character
         $mBytes = 1; // Cached expected number of octets in the current sequence
-
+		
         $out = array();
         $len = strlen($str);
-
+		
         for ($i = 0; $i < $len; $i++) {
             $in = ord($str[$i]);
-
+			
             if ($mState == 0) {
                 // When mState is zero we expect either a US-ASCII character or a multi-octet sequence.
                 if (0 == (0x80 & ($in))) {
@@ -177,7 +177,7 @@ class PHP_UTF8 {
                     $tmp = $in;
                     $tmp = ($tmp & 0x0000003F) << $shift;
                     $mUcs4 |= $tmp;
-
+					
                     /**
                      * End of the multi-octet sequence. mUcs4 now contains the final
                      * Unicode codepoint to be output
@@ -196,7 +196,7 @@ class PHP_UTF8 {
                         {
                             halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence or codepoint in UTF-8 at byte {$i}", 'sys_error');
                         }
-
+						
                         // BOM is legal but we don't want to output it
                         if (0xFEFF != $mUcs4) {
                             $out[] = $mUcs4;
@@ -213,7 +213,7 @@ class PHP_UTF8 {
                 }
             }
         }
-
+		
         return $out;
     }
     
@@ -242,7 +242,7 @@ class PHP_UTF8 {
      */
     private static function from_unicode($arr) {
         ob_start();
-
+		
         foreach(array_keys($arr) as $k) {
             if(($arr[$k] >= 0) && ($arr[$k] <= 0x007f)) { // ASCII range (including control chars)
                 echo chr($arr[$k]);
@@ -268,14 +268,13 @@ class PHP_UTF8 {
                 halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Codepoint out of Unicode range at index: {$k}, value: {$arr[$k]}", 'sys_error');
             }
         }
-
+		
         $result = ob_get_contents();
         ob_end_clean();
-
+		
         return $result;
     }
-
-
+	
     /**
      * Unicode aware replacement for *strlen*.
      *
@@ -298,7 +297,7 @@ class PHP_UTF8 {
             return strlen(utf8_decode(self::_bad_clean($str)));
         }
     }
-
+	
     /**
      * UTF-8 aware alternative to strpos.
      *
@@ -319,7 +318,7 @@ class PHP_UTF8 {
         
         if (self::$mbstring_available && function_exists('mb_strpos')) {
             $str = self::_bad_clean($str);
-
+			
             if ($offset === FALSE) {
                 return mb_strpos($str, $needle);
             }
@@ -327,29 +326,29 @@ class PHP_UTF8 {
         } else {
             if ($offset === FALSE) {
                 $ar = explode($needle, $str, 2);
-
+				
                 //if (count($ar) > 1)
                 if (isset($ar[1])) {
                     return self::mirror_strlen($ar[0]);
                 }
-
+				
                 return FALSE;
             }
-
+			
             if ( ! is_int($offset)) {
                 halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strpos(): Offset must be an integer', 'sys_error');
             }
-
+			
             $str = self::mirror_substr($str, $offset);
-
+			
             if (($pos = self::mirror_strpos($str, $needle)) !== FALSE) {
                 return $pos + $offset;
             }
-
+			
             return FALSE; 
         }
     }
-
+	
     /**
      * UTF-8 aware alternative to strrpos.
      *
@@ -370,7 +369,7 @@ class PHP_UTF8 {
         
         if (self::$mbstring_available && function_exists('mb_strrpos')) {
             $str = self::_bad_clean($str);
-
+			
             if ( ! $offset) {
                 // Emulate behaviour of strrpos rather than raising warning
                 if (empty($str)) {
@@ -378,13 +377,13 @@ class PHP_UTF8 {
                 }
                 return mb_strrpos($str, $needle);
             }
-
+			
             if ( ! is_int($offset)) {
                 halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
             }
-
+			
             $str = mb_substr($str, $offset);
-
+			
             if (($pos = mb_strrpos($str, $needle)) !== FALSE) {
                 return $pos + $offset;
             }
@@ -393,33 +392,33 @@ class PHP_UTF8 {
         } else {
             if ($offset === FALSE) {
                 $ar = explode($needle, $str);
-
+				
                 //if (count($ar) > 1)
                 if (isset($ar[1])) {
                     // Pop off the end of the string where the last match was made
                     array_pop($ar);
                     $str = implode($needle, $ar);
-
+					
                     return self::mirror_strlen($str);
                 }
-
+				
                 return FALSE;
             }
-
+			
             if ( ! is_int($offset)) {
                 halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
             }
-
+			
             $str = self::mirror_substr($str, $offset);
-
+			
             if (($pos = self::mirror_strrpos($str, $needle)) !== FALSE) {
                 return $pos + $offset;
             }
-
+			
             return FALSE;
         }
     }
-
+	
     /**
      * UTF-8 aware alternative to substr.
      *
@@ -459,11 +458,11 @@ class PHP_UTF8 {
             // Generates E_NOTICE for PHP4 objects, but not PHP5 objects
             $str = (string) $str;
             $offset = (int) $offset;
-
+			
             if ($length) {
                 $length = (int) $length;
             }
-
+			
             // Handle trivial cases
             if ($length === 0) {
                 return '';
@@ -471,28 +470,28 @@ class PHP_UTF8 {
             if ($offset < 0 && $length < 0 && $length < $offset) {
                 return '';
             }
-
+			
             // Normalise negative offsets (we could use a tail
             // anchored pattern, but they are horribly slow!)
             if ($offset < 0) {
                 // See notes
                 $strlen = self::mirror_strlen($str);
                 $offset = $strlen + $offset;
-
+				
                 if ($offset < 0) {
                     $offset = 0;
                 }
             }
-
+			
             $offset_pattern = '';
             $length_pattern = '';
-
+			
             // Establish a pattern for offset, a
             // non-captured group equal in length to offset
             if ($offset > 0) {
                 $ox = (int) ($offset / 65535);
                 $oy = $offset % 65535;
-
+				
                 if ($ox) {
                     $offset_pattern = '(?:.{65535}){'.$ox.'}';
                 }
@@ -500,8 +499,8 @@ class PHP_UTF8 {
             } else {
                 $offset_pattern = '^';
             }
-
-
+			
+			
             // Establish a pattern for length
             if ( ! $length) {
                 $length_pattern = '(.*)$'; // The rest of the string
@@ -510,51 +509,51 @@ class PHP_UTF8 {
                 if ( ! isset($strlen)) {
                     $strlen = self::mirror_strlen($str);
                 }
-
+				
                 // Another trivial case
                 if ($offset > $strlen) {
                     return '';
                 }
-
+				
                 if ($length > 0) {
                     // Reduce any length that would go passed the end of the string
                     $length = min($strlen - $offset, $length);
-
+					
                     $lx = (int) ($length / 65535);
                     $ly = $length % 65535;
-
+					
                     // Negative length requires a captured group of length characters
                     if ($lx) {
                         $length_pattern = '(?:.{65535}){'.$lx.'}';
                     }
-
+					
                     $length_pattern = '('.$length_pattern.'.{'.$ly.'})';
                 } elseif ($length < 0) {
                     if ($length < ($offset - $strlen)) {
                         return '';
                     }
-
+					
                     $lx = (int) ((-$length) / 65535);
                     $ly = (-$length) % 65535;
-
+					
                     // Negative length requires ... capture everything except a group of
                     // -length characters anchored at the tail-end of the string
                     if ($lx) {
                         $length_pattern = '(?:.{65535}){'.$lx.'}';
                     }
-
+					
                     $length_pattern = '(.*)(?:'.$length_pattern.'.{'.$ly.'})$';
                 }
             }
-
+			
             if ( ! preg_match('#'.$offset_pattern.$length_pattern.'#us', $str, $match)) {
                 return '';
             }
-
+			
             return $match[1];
         }
     }
-
+	
     /**
      * UTF-8 aware alternative to strtolower.
      *
@@ -581,7 +580,7 @@ class PHP_UTF8 {
             return mb_strtolower($str);
         } else {
             static $UTF8_UPPER_TO_LOWER;
-
+			
             $uni = self::to_unicode($str);
             if ( ! $uni) {
                 return FALSE;
@@ -634,18 +633,18 @@ class PHP_UTF8 {
                     0x00D0 => 0x00F0, 0x0407 => 0x0457, 0x0122 => 0x0123
                 );
             }
-
+			
             $cnt = count($uni);
             for ($i = 0; $i < $cnt; $i++) {
                 if (isset($UTF8_UPPER_TO_LOWER[$uni[$i]])) {
                     $uni[$i] = $UTF8_UPPER_TO_LOWER[$uni[$i]];
                 }
             }
-
+			
             return self::from_unicode($uni);
         }
     }
-
+	
     /**
      * UTF-8 aware alternative to strtoupper.
      *
@@ -672,7 +671,7 @@ class PHP_UTF8 {
             return mb_strtoupper($str);
         } else {
             static $UTF8_LOWER_TO_UPPER;
-
+			
             $uni = self::to_unicode($str);
             if ( ! $uni) {
                 return FALSE;
@@ -725,19 +724,18 @@ class PHP_UTF8 {
                     0x00F0 => 0x00D0, 0x0457 => 0x0407, 0x0123 => 0x0122
                 );
             }
-
+			
             $cnt = count($uni);
             for ($i = 0; $i < $cnt; $i++) {
                 if (isset($UTF8_LOWER_TO_UPPER[$uni[$i]])) {
                     $uni[$i] = $UTF8_LOWER_TO_UPPER[$uni[$i]];
                 }
             }
-
+			
             return self::from_unicode($uni);
         }
     }
-
-
+	
     /**
      * UTF-8 aware alternative to ucwords.
      *
@@ -760,18 +758,18 @@ class PHP_UTF8 {
             // Form feeds, horizontal tabs, vertical tabs, linefeeds and carriage returns
             // This corresponds to the definition of a "word" defined at http://www.php.net/ucwords
             $pattern = '/(^|([\x0c\x09\x0b\x0a\x0d\x20]+))([^\x0c\x09\x0b\x0a\x0d\x20]{1})[^\x0c\x09\x0b\x0a\x0d\x20]*/u';
-
+			
             return preg_replace_callback($pattern, function ($match) {
                 $leadingws = $match[2];
                 $ucfirst = self::mirror_strtoupper($match[3]);
                 $ucword = self::mirror_substr_replace(ltrim($match[0]), $ucfirst, 0, 1);
-
+				
                 return $leadingws.$ucword;
             }, $str);
         }
     }
     
-
+	
     /**
      * UTF-8 aware alternative to wordwrap.
      *
@@ -788,64 +786,64 @@ class PHP_UTF8 {
     public static function mirror_wordwrap($str, $width = 75, $break = "\n", $cut = FALSE, $charset = 'utf-8') {
         $string_width = iconv_strlen($str, $charset);
         $break_width = iconv_strlen($break, $charset);
-
+		
         if (strlen($str) === 0) {
             return '';
         }
-
+		
         if ($break_width === NULL) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
         }
-
+		
         if ($width === 0 && $cut) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Cannot force cut when width is zero', 'sys_error');
         }
-
+		
         $result = '';
         $last_start = $last_space = 0;
-
+		
         for ($current = 0; $current < $string_width; $current++) {
             $char = iconv_substr($str, $current, 1, $charset);
-
+			
             $possibleBreak = $char;
             if ($break_width !== 1) {
                 $possibleBreak = iconv_substr($str, $current, $break_width, $charset);
             }
-
+			
             if ($possibleBreak === $break) {
                 $result .= iconv_substr($str, $last_start, $current - $last_start + $break_width, $charset);
                 $current += $break_width - 1;
                 $last_start = $last_space = $current + 1;
                 continue;
             }
-
+			
             if ($char === ' ') {
                 if ($current - $last_start >= $width) {
                     $result .= iconv_substr($str, $last_start, $current - $last_start, $charset) . $break;
                     $last_start = $current + 1;
                 }
-
+				
                 $last_space = $current;
                 continue;
             }
-
+			
             if ($current - $last_start >= $width && $cut && $last_start >= $last_space) {
                 $result .= iconv_substr($str, $last_start, $current - $last_start, $charset) . $break;
                 $last_start = $last_space = $current;
                 continue;
             }
-
+			
             if ($current - $last_start >= $width && $last_start < $last_space) {
                 $result .= iconv_substr($str, $last_start, $last_space - $last_start, $charset) . $break;
                 $last_start = $last_space = $last_space + 1;
                 continue;
             }
         }
-
+		
         if ($last_start !== $current) {
             $result .= iconv_substr($str, $last_start, $current - $last_start, $charset);
         }
-
+		
         return $result;
     }
 
@@ -876,8 +874,7 @@ class PHP_UTF8 {
                 break;
         }
     }
-        
-
+	
     /**
      * UTF-8 aware replacement for ltrim().
      *
@@ -897,10 +894,10 @@ class PHP_UTF8 {
         
         // Quote charlist for use in a characterclass
         $charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
-
+		
         return preg_replace('/^['.$charlist.']+/u', '', $str);
     }
-
+	
     /**
      * UTF-8 aware replacement for rtrim().
      *
@@ -920,10 +917,10 @@ class PHP_UTF8 {
         
         // Quote charlist for use in a characterclass
         $charlist = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $charlist);
-
+		
         return preg_replace('/['.$charlist.']+$/u', '', $str);
     }
-
+	
     /**
      * UTF-8 aware replacement for trim().
      *
@@ -960,14 +957,14 @@ class PHP_UTF8 {
     public static function mirror_substr_replace($str, $repl, $start, $length = NULL) {
         preg_match_all('/./us', $str, $ar);
         preg_match_all('/./us', $repl, $rar);
-
+		
         $length = is_int($length) ? $length : self::mirror_strlen($str);
-
+		
         array_splice($ar[0], $start, $length, $rar[0]);
-
+		
         return implode($ar[0]);
     }
-
+	
     /**
      * UTF-8 aware alternative to strspn.
      *
@@ -986,13 +983,13 @@ class PHP_UTF8 {
      */
     public static function mirror_strspn($str, $mask, $start = NULL, $length = NULL) {
         $mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
-
+		
         if ($start !== NULL || $length !== NULL) {
             $str = self::mirror_substr($str, $start, $length);
         }
         
         preg_match('/^['.$mask.']+/u', $str, $matches);
-
+		
         if (isset($matches[0])) {
             return self::mirror_strlen($matches[0]);
         }
@@ -1037,15 +1034,14 @@ class PHP_UTF8 {
         $lstr = self::mirror_strtolower($str);
         $lsearch = self::mirror_strtolower($search);
         preg_match('/^(.*)'.preg_quote($lsearch).'/Us', $lstr, $matches);
-
+		
         if (count($matches) == 2) {
             return self::mirror_substr($str, self::mirror_strlen($matches[1]));
         }
         
         return FALSE;
     }
-
-
+	
     /**
      * UTF-8 aware alternative to strcspn.
      *
@@ -1065,20 +1061,20 @@ class PHP_UTF8 {
         }
         
         $mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
-
+		
         if ($start !== NULL || $length !== NULL) {
             $str = self::mirror_substr($str, $start, $length);
         }
         
         preg_match('/^[^'.$mask.']+/u', $str, $matches);
-
+		
         if (isset($matches[0])) {
             return self::mirror_strlen($matches[0]);
         }
         
         return 0;
     }
-
+	
     /**
      * UTF-8 aware alternative to strcasecmp.
      *
@@ -1095,7 +1091,7 @@ class PHP_UTF8 {
     public static function mirror_strcasecmp($str_x, $str_y) {
         $str_x = self::mirror_strtolower($str_x);
         $str_y = self::mirror_strtolower($str_y);
-
+		
         return strcmp($str_x, $str_y);
     }
     
@@ -1123,10 +1119,9 @@ class PHP_UTF8 {
         }
         
         preg_match_all('/.{'.$split_len.'}|[^\x00]{1,'.$split_len.'}$/us', $str, $ar);
-
+		
         return $ar[0];
     }
-
     
     /**
      * UTF-8 aware alternative to str_pad.
@@ -1152,33 +1147,33 @@ class PHP_UTF8 {
         
         $pad_str_len = self::mirror_strlen($pad_str);
         $pad_len = $length - $input_len;
-
+		
         if ($type == STR_PAD_RIGHT) {
             $repeat_times = ceil($pad_len / $pad_str_len);
             return self::mirror_substr($input.str_repeat($pad_str, $repeat_times), 0, $length);
         }
-
+		
         if ($type == STR_PAD_LEFT) {
             $repeat_times = ceil($pad_len / $pad_str_len);
             return self::mirror_substr(str_repeat($pad_str, $repeat_times), 0, floor($pad_len)).$input;
         }
-
+		
         if ($type == STR_PAD_BOTH) {
             $pad_len /= 2;
             $pad_amount_left = floor($pad_len);
             $pad_amount_right = ceil($pad_len);
             $repeat_times_left = ceil($pad_amount_left / $pad_str_len);
             $repeat_times_right = ceil($pad_amount_right / $pad_str_len);
-
+			
             $padding_left = self::mirror_substr(str_repeat($pad_str, $repeat_times_left), 0, $pad_amount_left);
             $padding_right = self::mirror_substr(str_repeat($pad_str, $repeat_times_right), 0, $pad_amount_right);
-
+			
             return $padding_left.$input.$padding_right;
         }
-
+		
         halt('A System Error Was Encountered', "PHP_UTF8::mirror_str_pad(): Unknown padding type ({$type})", 'sys_error');
     }
-
+	
     
     /**
      * UTF-8 aware alternative to str_ireplace.
@@ -1202,18 +1197,18 @@ class PHP_UTF8 {
     public static function mirror_str_ireplace($search, $replace, $str, $count = NULL) {
         if ( ! is_array($search)) {
             $slen = self::mirror_strlen($search);
-
+			
             if ($slen == 0)
                 return $str;
-
+				
             $lendif = self::mirror_strlen($replace) - self::mirror_strlen($search);
             $search = self::mirror_strtolower($search);
-
+			
             $search = preg_quote($search);
             $lstr = self::mirror_strtolower($str);
             $i = 0;
             $matched = 0;
-
+			
             while (preg_match('/(.*)'.$search.'/Us', $lstr, $matches)) {
                 if ($i === $count) {
                     break;
@@ -1225,7 +1220,7 @@ class PHP_UTF8 {
                 $matched += $mlen + $lendif;
                 $i++;
             }
-
+			
             return $str;
         } else {
             foreach (array_keys($search) as $k) {
@@ -1239,11 +1234,10 @@ class PHP_UTF8 {
                     $str = self::mirror_str_ireplace($search[$k], $replace, $str, $count);
                 }
             }
-
+			
             return $str;
         }
     }
-
     
     /**
      * UTF-8 aware alternative to ord.
@@ -1258,7 +1252,7 @@ class PHP_UTF8 {
      */
     public static function mirror_ord($chr) {
         $ord0 = ord($chr);
-
+		
         if ($ord0 >= 0 && $ord0 <= 127) {
             return $ord0;
         }
@@ -1266,7 +1260,7 @@ class PHP_UTF8 {
         if ( ! isset($chr[1])) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 2 bytes expected, only 1 seen', 'sys_error');
         }
-
+		
         $ord1 = ord($chr[1]);
         if ($ord0 >= 192 && $ord0 <= 223) {
             return ($ord0 - 192) * 64 + ($ord1 - 128);
@@ -1275,7 +1269,7 @@ class PHP_UTF8 {
         if ( ! isset($chr[2])) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 3 bytes expected, only 2 seen', 'sys_error');
         }
-
+		
         $ord2 = ord($chr[2]);
         if ($ord0 >= 224 && $ord0 <= 239) {
             return ($ord0 - 224) * 4096 + ($ord1 - 128) * 64 + ($ord2 - 128);
@@ -1284,7 +1278,7 @@ class PHP_UTF8 {
         if ( ! isset($chr[3])) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 4 bytes expected, only 3 seen', 'sys_error');
         }
-
+		
         $ord3 = ord($chr[3]);
         if ($ord0 >= 240 && $ord0 <= 247) {
             return ($ord0 - 240) * 262144 + ($ord1 - 128) * 4096 + ($ord2 - 128) * 64 + ($ord3 - 128);
@@ -1293,7 +1287,7 @@ class PHP_UTF8 {
         if ( ! isset($chr[4])) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 5 bytes expected, only 4 seen', 'sys_error');
         }
-
+		
         $ord4 = ord($chr[4]);
         if ($ord0 >= 248 && $ord0 <= 251) {
             return ($ord0 - 248) * 16777216 + ($ord1 - 128) * 262144 + ($ord2 - 128) * 4096 + ($ord3 - 128) * 64 + ($ord4 - 128);
@@ -1302,7 +1296,7 @@ class PHP_UTF8 {
         if ( ! isset($chr[5])) {
             halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 6 bytes expected, only 5 seen', 'sys_error');
         }
-
+		
         if ($ord0 >= 252 && $ord0 <= 253) {
             return ($ord0 - 252) * 1073741824 + ($ord1 - 128) * 16777216 + ($ord2 - 128) * 262144 + ($ord3 - 128) * 4096 + ($ord4 - 128) * 64 + (ord($chr[5]) - 128);
         }
@@ -1311,8 +1305,7 @@ class PHP_UTF8 {
             halt('A System Error Was Encountered', "PHP_UTF8::mirror_ord(): Invalid UTF-8 with surrogate ordinal {$ord0}", 'sys_error');
         }
     }
-
-
+	
     /**
      * Tests a string as to whether it's valid UTF-8 and supported by the Unicode standard
      *
@@ -1335,12 +1328,12 @@ class PHP_UTF8 {
                       // until the beginning of the next UTF8 character sequence
         $mUcs4 = 0;  // Cached Unicode character
         $mBytes = 1;  // Cached expected number of octets in the current sequence
-
+		
         $len = strlen($str);
-
+		
         for ($i = 0; $i < $len; $i++) {
             $in = ord($str{$i});
-
+			
             if ($mState == 0) {
                 // When mState is zero we expect either a US-ASCII character or a multi-octet sequence.
                 if (0 == (0x80 & ($in))) {
@@ -1394,7 +1387,7 @@ class PHP_UTF8 {
                     $tmp = $in;
                     $tmp = ($tmp & 0x0000003F) << $shift;
                     $mUcs4 |= $tmp;
-
+					
                     /**
                      * End of the multi-octet sequence. mUcs4 now contains the final
                      * Unicode codepoint to be output
@@ -1413,7 +1406,7 @@ class PHP_UTF8 {
                         {
                             return FALSE;
                         }
-
+						
                         // Initialize UTF8 cache
                         $mState = 0;
                         $mUcs4 = 0;
@@ -1428,10 +1421,10 @@ class PHP_UTF8 {
                 }
             }
         }
-
+		
         return TRUE;
     }
-
+	
 }
 
 // End of file: ./system/core/php_utf8.php 
