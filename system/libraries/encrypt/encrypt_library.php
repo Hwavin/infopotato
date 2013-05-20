@@ -17,7 +17,7 @@ class Encrypt_Library {
      * @var string
      */
     private $encryption_key = 'your key should be 32 characters';
-
+	
     /**
      * Flag for the existance of mcrypt
      *
@@ -38,8 +38,7 @@ class Encrypt_Library {
      * @var int
      */
     private $mcrypt_mode = MCRYPT_MODE_CBC;
-
-
+	
     /**
      * Constructor
      *
@@ -52,7 +51,7 @@ class Encrypt_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-
+					
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -65,8 +64,7 @@ class Encrypt_Library {
         // Flag for the existance of mcrypt extension
         $this->mcrypt_exists = function_exists('mcrypt_encrypt');
     }
-    
-    
+	
     /**
      * Validate and set $encryption_key
      *
@@ -88,7 +86,7 @@ class Encrypt_Library {
     private function invalid_argument_value($arg) {
         exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
     }
-
+	
     /**
      * Fetch the encryption key
      *
@@ -106,7 +104,6 @@ class Encrypt_Library {
         // md5() returns the hash as a 32-character hexadecimal number
         return md5($key);
     }
-    
     
     /**
      * Encode
@@ -129,8 +126,7 @@ class Encrypt_Library {
         
         return base64_encode($this->$method($string, $this->get_key($key)));
     }
-
-
+	
     /**
      * Decode
      *
@@ -144,11 +140,10 @@ class Encrypt_Library {
         if (preg_match('/[^a-zA-Z0-9\/\+=]/', $string) || base64_encode(base64_decode($string)) !== $string) {
             return FALSE;
         }
-
+		
         $method = ($this->mcrypt_exists === TRUE) ? 'mcrypt_decode' : 'xor_decode';
         return $this->$method(base64_decode($string), $this->get_key($key));
     }
-    
     
     /**
      * XOR Encode
@@ -165,17 +160,17 @@ class Encrypt_Library {
         do {
             $rand .= mt_rand();
         } while (strlen($rand) < 32);
-
+		
         $rand = sha1($rand);
-
+		
         $enc = '';
         for ($i = 0, $ls = strlen($string), $lr = strlen($rand); $i < $ls; $i++) {
             $enc .= $rand[($i % $lr)].($rand[($i % $lr)] ^ $string[$i]);
         }
-
+		
         return $this->xor_merge($enc, $key);
     }
-
+	
     /**
      * XOR Decode
      *
@@ -188,12 +183,12 @@ class Encrypt_Library {
      */
     private function xor_decode($string, $key) {
         $string = $this->xor_merge($string, $key);
-
+		
         $dec = '';
         for ($i = 0, $l = strlen($string); $i < $l; $i++) {
             $dec .= ($string[$i++] ^ $string[$i]);
         }
-
+		
         return $dec;
     }
     
@@ -212,10 +207,10 @@ class Encrypt_Library {
         for ($i = 0, $ls = strlen($string), $lh = strlen($hash); $i < $ls; $i++) {
             $str .= $string[$i] ^ $hash[($i % $lh)];
         }
-
+		
         return $str;
     }
-
+	
     /**
      * Encrypt using Mcrypt
      *
@@ -228,7 +223,7 @@ class Encrypt_Library {
         $init_vect = mcrypt_create_iv($init_size, MCRYPT_RAND);
         return $this->add_cipher_noise($init_vect.mcrypt_encrypt($this->mcrypt_cipher, $key, $data, $this->mcrypt_mode, $init_vect), $key);
     }
-
+	
     /**
      * Decrypt using Mcrypt
      *
@@ -239,16 +234,16 @@ class Encrypt_Library {
     private function mcrypt_decode($data, $key) {
         $data = $this->remove_cipher_noise($data, $key);
         $init_size = mcrypt_get_iv_size($this->mcrypt_cipher, $this->mcrypt_mode);
-
+		
         if ($init_size > strlen($data)) {
             return FALSE;
         }
-
+		
         $init_vect = substr($data, 0, $init_size);
         $data = substr($data, $init_size);
         return rtrim(mcrypt_decrypt($this->mcrypt_cipher, $key, $data, $this->mcrypt_mode, $init_vect), "\0");
     }
-
+	
     /**
      * Adds permuted noise to the IV + encrypted data to protect
      * against Man-in-the-middle attacks on CBC mode ciphers
@@ -261,18 +256,18 @@ class Encrypt_Library {
     private function add_cipher_noise($data, $key) {
         $key = sha1($key);
         $str = '';
-
+		
         for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j) {
             if ($j >= $lk) {
                 $j = 0;
             }
-
+			
             $str .= chr((ord($data[$i]) + ord($key[$j])) % 256);
         }
-
+		
         return $str;
     }
-
+	
     /**
      * Removes permuted noise from the IV + encrypted data, reversing
      * _add_cipher_noise()
@@ -286,24 +281,24 @@ class Encrypt_Library {
     private function remove_cipher_noise($data, $key) {
         $key = sha1($key);
         $str = '';
-
+		
         for ($i = 0, $j = 0, $ld = strlen($data), $lk = strlen($key); $i < $ld; ++$i, ++$j) {
             if ($j >= $lk) {
                 $j = 0;
             }
-
+			
             $temp = ord($data[$i]) - ord($key[$j]);
-
+			
             if ($temp < 0) {
                 $temp += 256;
             }
-
+			
             $str .= chr($temp);
         }
-
+		
         return $str;
     }
-
+	
 }
 
 

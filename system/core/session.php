@@ -13,7 +13,6 @@
  * @link   based on    http://flourishlib.com/fSession
  */
 class Session {
-
     /**
      * The length for a normal session
      * 
@@ -239,7 +238,7 @@ class Session {
         }
         
         $current_params = session_get_cookie_params();
-
+		
         // This sets the lifetime of the session cookie to self::$persistent_timespan
         // session.cookie_lifetime (defaults to 0 that means "until the browser is closed.") 
         // is set by calling session_set_cookie_params() with the first parameter 
@@ -251,7 +250,7 @@ class Session {
             $current_params['domain'],
             $current_params['secure']
         );
-
+		
         self::open();
         
         $_SESSION['SESSION::type'] = 'persistent';
@@ -326,7 +325,7 @@ class Session {
         } else {
             halt('A System Error Was Encountered', "The domain name could not be found in ['SERVER_NAME'] or ['HTTP_HOST']. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
         }
-
+		
         session_set_cookie_params( 
             $current_params['lifetime'],
             $current_params['path'],
@@ -352,7 +351,7 @@ class Session {
         }
         
         self::$open = TRUE;
-
+		
         // If the session is already open, we just piggy-back without setting options
         if ( ! isset($_SESSION)) {
             // Forces to use cookies to store the session id on the client side
@@ -484,7 +483,7 @@ class Session {
             $tip[$key] = $value;
         }
     }
-
+	
     /**
      * Sets the path to store session files in and 
      * Sets the minimum length of a session
@@ -510,7 +509,7 @@ class Session {
         if (self::$open || isset($_SESSION)) {
             halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
         }
-
+		
         // Set the path of the current directory used to save session data.
         session_save_path($dir);
         

@@ -8,7 +8,6 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 class Data {
-    
     /**
      * Database object instance
      * @var  object
@@ -46,11 +45,11 @@ class Data {
         
         // Parse the connection string
         $conn = explode(':', $connection);
-
+		
         if ( ! empty($conn)) {
             // Load data source config
             $data_source = require_once APP_CONFIG_DIR.'data_source.php';
-
+			
             // Checks if data config exists 
             if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
                 halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');

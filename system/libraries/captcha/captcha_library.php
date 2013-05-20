@@ -14,7 +14,7 @@ class CAPTCHA_Library {
      * @var int
      */
     private $img_width = 215;
-
+	
     /**
      * The height of the captcha image
      * 
@@ -36,20 +36,20 @@ class CAPTCHA_Library {
      * @var string 'text' or 'math'
      */
     private $type = 'text';
-
+	
     /**
      * The background color of the captcha
      * @var string 
      */
     private $bg_color = '#ffffff';
-
+	
     /**
      * The color of the captcha text
      *
      * @var string 
      */
     private $text_color = '#3388FF';
-
+	
     /**
      * The level of noise (random dots) to place on the image, 0-10
      *
@@ -70,7 +70,7 @@ class CAPTCHA_Library {
      * @var int
      */
     private $num_lines = 5;
-
+	
     /**
      * The color of the lines over the captcha
      *
@@ -91,7 +91,7 @@ class CAPTCHA_Library {
      * @var int
      */
     private $iscale = 5;
-
+	
     /**
      * Source image resource identifier
      *
@@ -118,7 +118,7 @@ class CAPTCHA_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-
+					
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -128,7 +128,7 @@ class CAPTCHA_Library {
             }
         }
     }
-
+	
     /**
      * Validate and set $img_width
      *
@@ -313,12 +313,12 @@ class CAPTCHA_Library {
                 $sign = $signs[mt_rand(0, 2)];
                 $left = mt_rand(1, 10);
                 $right = mt_rand(1, 5);
-
+				
                 switch($sign) {
                     case 'x': 
                         $result = $left * $right; 
                         break;
-
+						
                     case '-': 
                         $result = $left - $right; 
                         break;
@@ -328,7 +328,7 @@ class CAPTCHA_Library {
                         break;
                 }
             } while ($result <= 0); // no negative #'s or 0
-
+			
             $display = "$left $sign $right = ?";
             $answer = (string) $result;
         }
@@ -360,16 +360,16 @@ class CAPTCHA_Library {
     public function create() {
         // Generate the captcha and its answer
         $captcha_info = $this->prepare_captcha();
-
+		
         // Captcha letters or math question to display
         $word = $captcha_info['display'];
-
+		
         // Create the source image
         // Returns an image identifier representing a black image of the specified size
         $this->img = function_exists('imagecreatetruecolor')
                 ? imagecreatetruecolor($this->img_width, $this->img_height)
                 : imagecreate($this->img_width, $this->img_height);
-
+				
         // Create the temp image
         // Returns an image identifier representing a black image of the specified size
         $this->temp_img = function_exists('imagecreatetruecolor')
@@ -387,7 +387,7 @@ class CAPTCHA_Library {
         if ($this->noise_level > 0) {
             $this->draw_noise();
         }
-
+		
         // Draw distorted lines on the source image
         if ($this->num_lines > 0) {
             $this->draw_lines();
@@ -414,7 +414,6 @@ class CAPTCHA_Library {
         );
     }
     
-
     /**
      * Draws random noise spots on the temp image
      *
@@ -422,10 +421,10 @@ class CAPTCHA_Library {
      */
     private function draw_noise() {
         $noise_level = ($this->noise_level > 10) ? 10 : $this->noise_level;
-
+		
         // An arbitrary number that works well on a 1-10 scale
         $noise_level *= 125; 
-
+		
         // Allocate the colors to be used for the image
         $noise_color_rgb = $this->hex_to_rgb($this->noise_color);
         $noise_color = imagecolorallocate($this->img, $noise_color_rgb['r'], $noise_color_rgb['g'], $noise_color_rgb['b']);
@@ -457,12 +456,12 @@ class CAPTCHA_Library {
             $x = $this->img_width * (1 + $line) / ($this->num_lines + 1);
             $x += (0.5 - $this->frand()) * $this->img_width / $this->num_lines;
             $y = mt_rand($this->img_height * 0.1, $this->img_height * 0.9);
-
+			
             $theta = ($this->frand() - 0.5) * pi() * 0.7;
             $w = $this->img_width;
             $len = mt_rand($w * 0.4, $w * 0.7);
             $lwid = mt_rand(0, 2);
-
+			
             $k = $this->frand() * 0.6 + 0.2;
             $k = $k * $k * 0.5;
             $phi = $this->frand() * 6.28;
@@ -473,10 +472,10 @@ class CAPTCHA_Library {
             $amp = 1.5 * $this->frand() / ($k + 5.0 / $len);
             $x0 = $x - 0.5 * $len * cos($theta);
             $y0 = $y - 0.5 * $len * sin($theta);
-
+			
             $ldx = round(- $dy * $lwid);
             $ldy = round($dx * $lwid);
-
+			
             for ($i = 0; $i < $n; ++ $i) {
                 $x = $x0 + $i * $dx + $amp * $dy * sin($k * $i * $step + $phi);
                 $y = $y0 + $i * $dy - $amp * $dx * sin($k * $i * $step + $phi);
@@ -513,7 +512,7 @@ class CAPTCHA_Library {
                 // Put the captcha code in the center of the image
                 $x = floor($width2 / 2 - $tx / 2 - $bb[0]);
                 $y = round($height2 / 2 - $ty / 2 - $bb[1]);
-
+				
                 // Write the captcha letters or math question on the temp image using TrueType fonts
                 imagettftext($this->temp_img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
                 // Apply letter distortion to the captcha code
@@ -525,7 +524,7 @@ class CAPTCHA_Library {
                 $ty = $bb[5] - $bb[1];
                 $x = floor($this->img_width / 2 - $tx / 2 - $bb[0]);
                 $y = round($this->img_height / 2 - $ty / 2 - $bb[1]);
-
+				
                 // Write the captcha letters or math question on the source image using TrueType fonts
                 imagettftext($this->img, $font_size, 0, $x, $y, $text_color, $this->ttf_path, $word);
             }
@@ -554,14 +553,14 @@ class CAPTCHA_Library {
             $tmp = ((- $this->frand()) * 0.15) - 0.15;
             $amp[$i] = $this->perturbation * $tmp; 
         }
-
+		
         // Get the index of the color of a pixel
         // It will be 0 (black) since we haven't set any background color for temp_img
         $bg_c = imagecolorat($this->temp_img, 0, 0);
         // Since we are working on the temp_img
         $width2 = $this->img_width * $this->iscale;
         $height2 = $this->img_height * $this->iscale;
-
+		
         // Loop over img pixels, take pixels from $temp_img with distortion field
         for ($ix = 0; $ix < $this->img_width; ++$ix) {
             for ($iy = 0; $iy < $this->img_height; ++$iy) {
@@ -605,7 +604,7 @@ class CAPTCHA_Library {
     private function frand() {
         return 0.0001 * mt_rand(0, 9999);
     }
-
+	
     /**
      * Construct from an html hex color code
      *
@@ -614,7 +613,7 @@ class CAPTCHA_Library {
      */
     private function hex_to_rgb($hex) {
         $hex = str_replace('#', '', $hex);
-
+		
         if (strlen($hex) === 3) {
             $r = hexdec(substr($hex, 0, 1).substr($hex, 0, 1));
             $g = hexdec(substr($hex, 1, 1).substr($hex, 1, 1));
@@ -632,7 +631,7 @@ class CAPTCHA_Library {
             'b' => $b
         );
     }
-
+	
 }
 
 /* End of file: ./system/libraries/captcha/captcha_library.php */

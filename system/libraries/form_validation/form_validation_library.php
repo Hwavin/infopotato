@@ -45,7 +45,7 @@ class Form_Validation_Library {
         'is_natural' => "The %s field must contain only positive numbers.",
         'is_natural_no_zero' => "The %s field must contain a number greater than zero.",
     );
-
+	
     /**
      * Constructor
      *
@@ -58,7 +58,7 @@ class Form_Validation_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-
+					
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -112,10 +112,10 @@ class Form_Validation_Library {
         if (count($this->post) === 0) {
             return;
         }
-
+		
         // If the field label wasn't passed we use the field name
         $label = ($label == '') ? $field : $label;
-
+		
         // Is the field name an array?  We test for the existence of a bracket "[" in
         // the field name to determine this.  If it is an array, we break it apart
         // into its components so that we can fetch the corresponding POST data later        
@@ -124,7 +124,7 @@ class Form_Validation_Library {
             // of PHP we can not pass function call directly into it
             $x = explode('[', $field);
             $indexes[] = current($x);
-
+			
             for ($i = 0; $i < count($matches['0']); $i++) {
                 if ($matches['1'][$i] != '') {
                     $indexes[] = $matches['1'][$i];
@@ -148,8 +148,7 @@ class Form_Validation_Library {
             'error' => ''
         );
     }
-
-
+	
     /**
      * Set The Error Delimiter
      *
@@ -163,8 +162,7 @@ class Form_Validation_Library {
         $this->error_prefix = $prefix;
         $this->error_suffix = $suffix;
     }
-
-
+	
     /**
      * Get Single Field Error Message
      *
@@ -183,15 +181,14 @@ class Form_Validation_Library {
         if ($prefix == '') {
             $prefix = $this->error_prefix;
         }
-
+		
         if ($suffix == '') {
             $suffix = $this->error_suffix;
         }
-
+		
         return $prefix.$this->field_data[$field]['error'].$suffix;
     }
-
-
+	
     /**
      * Error String
      *
@@ -211,7 +208,7 @@ class Form_Validation_Library {
         if ($prefix == '') {
             $prefix = $this->error_prefix;
         }
-
+		
         if ($suffix == '') {
             $suffix = $this->error_suffix;
         }
@@ -225,8 +222,7 @@ class Form_Validation_Library {
         }
         return $str;
     }
-
-
+	
     /**
      * Run the Validator
      *
@@ -244,7 +240,7 @@ class Form_Validation_Library {
         if (count($this->field_data) == 0) {
             return FALSE;
         }
-
+		
         // Cycle through the rules for each field, match the 
         // corresponding $this->post item and test for errors
         foreach ($this->field_data as $field => $row) {        
@@ -260,14 +256,14 @@ class Form_Validation_Library {
         
             $this->execute($row, explode('|', $row['rules']), $this->field_data[$field]['postdata']);        
         }
-
+		
         // Did we end up with any errors?
         $total_errors = count($this->error_array);
-
+		
         if ($total_errors > 0) {
             $this->safe_form_data = TRUE;
         }
-
+		
         // Now we need to re-set the POST data with the new, processed data
         $this->reset_post_array();
         
@@ -275,12 +271,11 @@ class Form_Validation_Library {
         if ($total_errors == 0) {
             return TRUE;
         }
-
+		
         // Validation fails
         return FALSE;
     }
-
-
+	
     /**
      * Traverse a multidimensional $this->post array index until the data is found
      *
@@ -303,8 +298,7 @@ class Form_Validation_Library {
         }
         return $array;
     }
-
-
+	
     /**
      * Re-populate the $this->post data array with our finalized and processed data
      *
@@ -329,13 +323,13 @@ class Form_Validation_Library {
                             $post_ref =& $post_ref[$val];
                         }
                     }
-
+					
                     if (is_array($row['postdata'])) {
                         $array = array();
                         foreach ($row['postdata'] as $k => $v) {
                             $array[$k] = $this->prep_for_form($v);
                         }
-
+						
                         $post_ref = $array;
                     } else {
                         $post_ref = $this->prep_for_form($row['postdata']);
@@ -344,8 +338,7 @@ class Form_Validation_Library {
             }
         }
     }
-
-
+	
     /**
      * Executes the Validation routines
      *
@@ -369,8 +362,8 @@ class Form_Validation_Library {
         if ( ! in_array('required', $rules) && is_null($postdata)) {
             return;
         }
-
-        // Isset Test. Typically this rule will only apply to checkboxes.
+		
+		// Isset Test. Typically this rule will only apply to checkboxes.
         if (is_null($postdata)) {
             if (in_array('isset', $rules, TRUE) || in_array('required', $rules)) {
                 // Set the message type
@@ -384,7 +377,7 @@ class Form_Validation_Library {
                 
                 // Build the error message
                 $message = sprintf($line, $row['label']);
-
+				
                 // Save the error message
                 $this->field_data[$row['field']]['error'] = $message;
                 
@@ -394,7 +387,7 @@ class Form_Validation_Library {
             }    
             return;
         }
-
+		
         // Cycle through each rule and run it
         foreach ($rules as $rule) {
             $_in_array = FALSE;
@@ -413,7 +406,7 @@ class Form_Validation_Library {
             } else {
                 $postdata = $this->field_data[$row['field']]['postdata'];
             }
-
+			
             // Strip the parameter (if exists) from the rule
             // Rules can contain a parameter: max_length[5]
             $param = FALSE;
@@ -438,9 +431,9 @@ class Form_Validation_Library {
                                     
                 continue;
             }
-
+			
             $result = $this->$rule($postdata, $param);
-
+			
             if ($_in_array == TRUE) {
                 $this->field_data[$row['field']]['postdata'][$cycles] = (is_bool($result)) ? $postdata : $result;
             } else {
@@ -463,7 +456,7 @@ class Form_Validation_Library {
                 
                 // Build the error message
                 $message = sprintf($line, $row['label'], $param);
-
+				
                 // Save the error message
                 $this->field_data[$row['field']]['error'] = $message;
                 
@@ -475,7 +468,6 @@ class Form_Validation_Library {
             }
         }
     }
-
     
     /**
      * Get the value from a form
@@ -495,7 +487,6 @@ class Form_Validation_Library {
         return $this->field_data[$field]['postdata'];
     }
     
-
     /**
      * Set Select
      *
@@ -529,7 +520,6 @@ class Form_Validation_Library {
         return ' selected="selected"';
     }
     
-
     /**
      * Set Radio
      *
@@ -563,7 +553,6 @@ class Form_Validation_Library {
         return ' checked="checked"';
     }
     
-
     /**
      * Set Checkbox
      *
@@ -597,7 +586,6 @@ class Form_Validation_Library {
         return ' checked="checked"';
     }
     
-
     /**
      * Required
      *
@@ -612,7 +600,6 @@ class Form_Validation_Library {
         }
     }
     
-
     /**
      * Match one field to another
      *
@@ -626,11 +613,10 @@ class Form_Validation_Library {
         }
         
         $field = $this->post[$field];
-
+		
         return ($str !== $field) ? FALSE : TRUE;
     }
     
-
     /**
      * Minimum Length
      *
@@ -642,7 +628,7 @@ class Form_Validation_Library {
         if (preg_match("/[^0-9]/", $val)) {
             return FALSE;
         }
-
+		
         if (function_exists('mb_strlen')) {
             return (mb_strlen($str) < $val) ? FALSE : TRUE;        
         }
@@ -650,7 +636,6 @@ class Form_Validation_Library {
         return (strlen(utf8_decode($str)) < $val) ? FALSE : TRUE;
     }
     
-
     /**
      * Max Length
      *
@@ -662,7 +647,7 @@ class Form_Validation_Library {
         if (preg_match("/[^0-9]/", $val)) {
             return FALSE;
         }
-
+		
         if (function_exists('mb_strlen')) {
             return (mb_strlen($str) > $val) ? FALSE : TRUE;        
         }
@@ -670,7 +655,6 @@ class Form_Validation_Library {
         return (strlen(utf8_decode($str)) > $val) ? FALSE : TRUE;
     }
     
-
     /**
      * Exact Length
      *
@@ -682,7 +666,7 @@ class Form_Validation_Library {
         if (preg_match("/[^0-9]/", $val)) {
             return FALSE;
         }
-
+		
         if (function_exists('mb_strlen')) {
             return (mb_strlen($str) != $val) ? FALSE : TRUE;        
         }
@@ -711,7 +695,7 @@ class Form_Validation_Library {
     private function equals($str, $val) {
         return ($str !== $val) ? FALSE : TRUE;
     }
-
+	
     /**
      * Valid Email
      *
@@ -724,8 +708,7 @@ class Form_Validation_Library {
     private function valid_email($str) {
         return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
     }
-
-
+	
     /**
      * Valid Emails
      *
@@ -745,7 +728,6 @@ class Form_Validation_Library {
         
         return TRUE;
     }
-
     
     /**
      * Alpha
@@ -756,8 +738,7 @@ class Form_Validation_Library {
     private function alpha($str) {
         return ( ! preg_match("/^([a-z])+$/i", $str)) ? FALSE : TRUE;
     }
-
-
+	
     /**
      * Alpha-numeric
      *
@@ -768,7 +749,6 @@ class Form_Validation_Library {
         return ( ! preg_match("/^([a-z0-9])+$/i", $str)) ? FALSE : TRUE;
     }
     
-
     /**
      * Alpha-numeric with underscores and dashes
      *
@@ -779,7 +759,6 @@ class Form_Validation_Library {
         return ( ! preg_match("/^([-a-z0-9_-])+$/i", $str)) ? FALSE : TRUE;
     }
     
-
     /**
      * Numeric
      *
@@ -789,8 +768,7 @@ class Form_Validation_Library {
     private function numeric($str) {
         return (bool)preg_match( '/^[\-+]?[0-9]*\.?[0-9]+$/', $str);
     }
-
-
+	
     /**
      * Finds whether a variable is a number or a numeric string
      *
@@ -800,8 +778,7 @@ class Form_Validation_Library {
     private function is_numeric($str) {
         return ( ! is_numeric($str)) ? FALSE : TRUE;
     } 
-
-
+	
     /**
      * Integer
      *
@@ -811,7 +788,7 @@ class Form_Validation_Library {
     private function is_integer($str) {
         return (bool)preg_match( '/^[\-+]?[0-9]+$/', $str);
     }
-
+	
     /**
      * Decimal number
      *
@@ -834,8 +811,7 @@ class Form_Validation_Library {
         }
         return $str > $min;
     }
-
-
+	
     /**
      * Less than
      *
@@ -858,8 +834,7 @@ class Form_Validation_Library {
     private function is_natural($str) {   
            return (bool)preg_match( '/^[0-9]+$/', $str);
     }
-
-
+	
     /**
      * Is a Natural number, but not a zero  (1,2,3, etc.)
      *
@@ -876,8 +851,7 @@ class Form_Validation_Library {
         }
            return TRUE;
     }
-    
-
+	
     /**
      * Valid Base64
      *
@@ -891,7 +865,6 @@ class Form_Validation_Library {
         return (bool) ! preg_match('/[^a-zA-Z0-9\/\+=]/', $str);
     }
     
-
     /**
      * Prep data for form
      *
@@ -912,10 +885,8 @@ class Form_Validation_Library {
         if ($this->safe_form_data == FALSE || $data === '') {
             return $data;
         }
-
         return str_replace(array("'", '"', '<', '>'), array("&#39;", "&quot;", '&lt;', '&gt;'), stripslashes($data));
     }
-
     
     /**
      * Convert PHP tags to entities
@@ -926,7 +897,6 @@ class Form_Validation_Library {
     private function encode_php_tags($str) {
         return str_replace(array('<?php', '<?PHP', '<?', '?>'),  array('&lt;?php', '&lt;?PHP', '&lt;?', '?&gt;'), $str);
     }
-
 }
 
 /* End of file: ./system/libraries/form_validation/form_validation_library.php */

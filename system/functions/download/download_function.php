@@ -15,18 +15,18 @@ function download_function($file, $mime_type = '') {
     if ( ! is_readable($file)) {
         die('File not found or inaccessible!');
     }
-
+	
     // Grab the file extension if provided
     //$dot_ext = strrchr($file, '.');
     //$file_extension = $dot_ext ? strtolower(substr($dot_ext, 1)) : '';
-
+	
     // The fastest method to get file extension?
     // http://cowburn.info/2008/01/13/get-file-extension-comparison/
     $file_extension = pathinfo($file, PATHINFO_EXTENSION);
-
+	
     // File name shown in the save window
     $save_name = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
-
+	
     // Figure out the MIME type (if not specified) 
     $known_mime_types = array(    
         'txt' => 'text/plain',
@@ -74,7 +74,7 @@ function download_function($file, $mime_type = '') {
         'odt' => 'application/vnd.oasis.opendocument.text',
         'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
     );
-
+	
     if ($mime_type === '') {
         if (array_key_exists($file_extension, $known_mime_types)) {
             $mime_type = $known_mime_types[$file_extension];
@@ -88,20 +88,20 @@ function download_function($file, $mime_type = '') {
     }
     
     $size = filesize($file);
-
+	
     // Turn off output buffering to decrease cpu usage
     @ob_end_clean(); 
-
+	
     header('Content-Type: '.$mime_type);
     header('Content-Disposition: attachment; filename="'.$save_name.'"');
     header('Content-Transfer-Encoding: binary');
     header('Accept-Ranges: bytes');
-
+	
     // The three lines below basically make the download non-cacheable 
     header('Cache-control: private');
     header('Pragma: private');
     header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-
+	
     // Multipart-download and download resuming support
     if (isset($_SERVER['HTTP_RANGE'])) {
         list($a, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
@@ -113,7 +113,7 @@ function download_function($file, $mime_type = '') {
         } else {
             $range_end = intval($range_end);
         }
-
+		
         $new_length = $range_end-$range + 1;
         header("HTTP/1.1 206 Partial Content");
         header("Content-Length: $new_length");
@@ -122,7 +122,7 @@ function download_function($file, $mime_type = '') {
         $new_length = $size;
         header("Content-Length: ".$size);
     }
-
+	
     // Output the file itself 
     // You may want to change this
     $chunksize = 1*(1024*1024); 
@@ -142,6 +142,6 @@ function download_function($file, $mime_type = '') {
         die('Error - can not open file.');
     }
     die();
-}    
+}
 
 // End of file: ./system/functions/download/download_function.php

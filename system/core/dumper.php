@@ -35,7 +35,7 @@ class Dumper {
         self::$collapsed = FALSE;
         self::$initialized = FALSE;
         self::$arr_history = array();
-
+		
         // Enable collapse of tables when initiated.
         self::$collapsed = $collapsed;
         
@@ -56,7 +56,7 @@ class Dumper {
             }
         }
     }
-
+	
     // Get variable info
     private static function get_var_info() {
         $var_info = array();
@@ -81,7 +81,7 @@ class Dumper {
         if (isset($file)) {
             $lines = file($file['file']);
             $code = $lines[($file['line'] - 1)];
-    
+			
             // Find call to dump()
             preg_match('/\bdump\s*\(\s*(.+)\s*\);/i', $code, $matches);
             
@@ -103,7 +103,7 @@ class Dumper {
                 self::$initialized = TRUE;
             }
         }
-
+		
         $str_i = (self::$collapsed) ? 'style="font-style:italic" ' : ''; 
         
         echo '<table cellspacing="1" cellpadding="2" class="dump_'.$type.'"><tr><td '.$str_i.'class="dump_'.$type.'_header" colspan="'.$colspan.'" onClick="dump_toggle_table(this)">'.$header.'</td></tr>';
@@ -124,7 +124,7 @@ class Dumper {
     private static function  error($type) {
         return 'Error: Variable cannot be '.$type.' type';
     }
-
+	
     // Check variable type
     private static function check_type($var) {
         // Never use gettype() to test for a certain type, 
@@ -255,7 +255,7 @@ class Dumper {
         array_pop(self::$arr_history);
         echo '</table>';
     }
-
+	
     // If variable is a resource type
     private static function var_is_resource($var) {
         self::make_table_header('resourceC', 'resource', 1);
@@ -334,7 +334,7 @@ class Dumper {
         imagecolorstotal($var).self::close_td_row();
         echo '</table>';
     }
-
+	
     // If variable is an xml resource type
     private static function var_is_xml_resource($var) {
         $xml_parser = xml_parser_create();
@@ -435,7 +435,7 @@ class Dumper {
             self::$xml_DDATA[$count] = $data;
         }
     }
-
+	
     private static function init_js_and_css() {
         $out =
 <<<SCRIPTS
@@ -601,7 +601,7 @@ SCRIPTS;
         $out = str_replace("\r", ' ', $out);
         echo $out;
     }
-
+	
 }
 
 // End of file: ./system/core/dumper.php 

@@ -30,7 +30,7 @@ class Output_Cache_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-
+					
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -84,7 +84,7 @@ class Output_Cache_Library {
             return FALSE;   
         }
         $cache_path = $this->name($key);  
-
+		
         if ( ! file_exists($cache_path) || ! is_readable($cache_path)) {
             return FALSE;   
         }
@@ -144,7 +144,7 @@ class Output_Cache_Library {
         }
         chmod($cache_path, 0777); 
         return TRUE;    
-    }  
+    }
     
     /**
      * Delete the cached file for a certain key 
@@ -162,6 +162,6 @@ class Output_Cache_Library {
         return FALSE;  
     }  
     
-} 
- 
+}
+
 /* End of file: ./system/libraries/output_cache/output_cache_library.php */

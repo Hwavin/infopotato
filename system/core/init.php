@@ -48,13 +48,13 @@ switch (ENVIRONMENT) {
             ini_set('error_reporting', E_ALL);
         }
         break;
-
+		
     case 'production':
         // Turn off all error reporting
         // Same as error_reporting(0);
         ini_set('error_reporting', 0);
         break;
-
+		
     default:
         exit('The application environment is not set correctly.');
 }
@@ -84,7 +84,7 @@ spl_autoload_register(function ($class_name) {
         'postgresql_dao', 
         'sqlite_dao',
     );
-
+	
     if (in_array($class_name, $core)) {
         $source_file = SYS_CORE_DIR.$class_name.'.php';
         
@@ -123,14 +123,13 @@ spl_autoload_register(function ($class_name) {
             $file = $source_file;
         }
     }
-
+	
     // Using require_once() in the __autoload() function is redundant.  
     // __autoload() is only called when php can't find your class definition.  
     // If your file containg your class was already included, the class defenition would already be loaded 
     // and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
     require $file;
 });
-
 
 /**
  * Display system error
@@ -235,7 +234,7 @@ function sanitize($str) {
             }
         }
     }
-
+	
     return $str;
 }
 
