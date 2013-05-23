@@ -23,7 +23,7 @@ class Manager {
      * @var array   
      */
     public $_FILES_DATA = array();
-	
+    
     /**
      * Render template and return output as string
      *
@@ -43,7 +43,7 @@ class Manager {
         }
         
         $template_file_path = APP_TEMPLATE_DIR.$template.'.php';
-		
+        
         if ( ! file_exists($template_file_path)) {
             halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
         } else {
@@ -53,7 +53,7 @@ class Manager {
                 // Needs to think carefully wheather to use EXTR_OVERWRITE or EXTR_SKIP
                 extract($template_vars, EXTR_OVERWRITE);
             }
-			
+            
             // Capture the rendered output
             // Turn on output buffering
             ob_start();
@@ -67,7 +67,7 @@ class Manager {
             $content = ob_get_contents();
             // Clean (erase) the output buffer and turn off output buffering
             ob_end_clean();
-			
+            
             return $content;
         }    
     }
@@ -99,13 +99,13 @@ class Manager {
                 'application/xml', 
                 'application/json',
             );
-			
+            
             // Explicitly specify the charset parameter (utf-8) of the text document
             // The value of charset should be case insensitive - browsers shouldn't care.
             $headers['Content-Type'] = in_array($config['type'], $mime_types) 
                                        ? $config['type'].'; charset=utf-8' 
                                        : $config['type'];
-									   
+                                       
             // Send server response headers
             // Like other headers, cookies must be sent before any output from your script
             // In InfoPotato, you should use Cookie class before $this->response()
@@ -115,13 +115,13 @@ class Manager {
             foreach ($headers as $name => $val) {
                 header($name.': '.$val);
             }
-			
+            
             // Output the uncompressed content
             // You can use apache's mod_gzip module to compress the output if you want
             echo $config['content'];    
         }
     }
-	
+    
     /**
      * Data Object Loader
      *
@@ -135,7 +135,7 @@ class Manager {
         $data = strtolower($data);
         
         $orig_data = $data;
-		
+        
         // Is the data in a sub-folder? If so, parse out the filename and path.
         if (strpos($data, '/') === FALSE) {
             $path = '';
@@ -143,12 +143,12 @@ class Manager {
             $path = strtr(pathinfo($data, PATHINFO_DIRNAME), '/', DS).DS;
             $data = substr(strrchr($data, '/'), 1);        
         }
-		
+        
         // If no alias, use the data name
         if ($alias === '') {
             $alias = $data;
         }
-		
+        
         if (method_exists($this, $alias)) {
             halt('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
         }
@@ -156,7 +156,7 @@ class Manager {
         // Data already loaded? silently skip
         if ( ! isset($this->$alias)) {
             $source_file = APP_DATA_DIR.$path.$data.'.php';
-			
+            
             if ( ! file_exists($source_file)) {
                 halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
             }
@@ -175,20 +175,20 @@ class Manager {
             } else {
                 $file = $source_file;
             }
-			
+            
             require_once $file;
-			
+            
             // Class name must be the same as the data name
             if ( ! class_exists($data)) {
                 halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
             }
-			
+            
             // Instantiate the data object as a worker's property 
             // The names of user-defined classes are case-insensitive
             $this->{$alias} = new $data;
         }
     }
-	
+    
     /**
      * Library Class Loader
      *
@@ -205,7 +205,7 @@ class Manager {
      */       
     protected function load_library($scope, $library, $alias = '', array $config = NULL) {
         $library = strtolower($library);
-		
+        
         $orig_library = $library;
         
         // Is the library in a sub-folder? If so, parse out the filename and path.
@@ -234,7 +234,7 @@ class Manager {
             } else {
                 halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
             }
-			
+            
             if ( ! file_exists($source_file)) {
                 halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
             }
@@ -259,14 +259,14 @@ class Manager {
             } else {
                 $file = $source_file;
             }
-			
+            
             require_once $file;
             
             // Class name must be the same as the library name
             if ( ! class_exists($library)) {
                 halt('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
             }
-			
+            
             // Instantiate the library object as a manager's property 
             // An empty array is considered as a NULL variable
             // The names of user-defined classes are case-insensitive
@@ -294,7 +294,7 @@ class Manager {
             $path = strtr(pathinfo($func, PATHINFO_DIRNAME), '/', DS).DS;
             $func = substr(strrchr($func, '/'), 1);    
         }
-		
+        
         if ($scope === 'SYS') {
             $source_file = SYS_FUNCTION_DIR.$path.$func.'.php';
         } elseif ($scope === 'APP') {
@@ -302,7 +302,7 @@ class Manager {
         } else {
             halt('A System Error Was Encountered', "The location of the functions folder must be specified, either 'SYS' or 'APP'", 'sys_error');
         }
-		
+        
         if ( ! file_exists($source_file)) {
             halt('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');        
         }
@@ -327,12 +327,12 @@ class Manager {
         } else {
             $file = $source_file;
         }
-		
+        
         // The require_once() statement will check if the file has already been included, 
         // and if so, not include (require) it again
         require_once $file;
     }
-	
+    
 }
 
 // End of file: ./system/core/manager.php 

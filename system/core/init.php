@@ -17,13 +17,6 @@ if (version_compare(PHP_VERSION, '5.3.0', '<')) {
 // $GLOBALS contains all other superglobals (so no need to duplicate) and every variable with global scope (should be disabled for security)
 unset($_GET, $_REQUEST, $_ENV, $GLOBALS);
 
-// $_COOKIE can be used directly by InfoPotato's Cookie class or your own Cookie process 
-// Remove backslashes added by magic quotes and return the user's raw input
-// Normalizes all newlines to LF
-// NOTE: $_SERVER and $_SESSION are not affected by magic_quotes
-// $_POST, $_COOKIE and $_FILES are affected
-$_COOKIE = isset($_COOKIE) ? sanitize($_COOKIE) : array();
-
 /**
  * Sets the error_reporting directive at runtime
  *
@@ -48,13 +41,13 @@ switch (ENVIRONMENT) {
             ini_set('error_reporting', E_ALL);
         }
         break;
-		
+
     case 'production':
         // Turn off all error reporting
         // Same as error_reporting(0);
         ini_set('error_reporting', 0);
         break;
-		
+
     default:
         exit('The application environment is not set correctly.');
 }
@@ -84,7 +77,7 @@ spl_autoload_register(function ($class_name) {
         'postgresql_dao', 
         'sqlite_dao',
     );
-	
+    
     if (in_array($class_name, $core)) {
         $source_file = SYS_CORE_DIR.$class_name.'.php';
         
@@ -123,7 +116,7 @@ spl_autoload_register(function ($class_name) {
             $file = $source_file;
         }
     }
-	
+    
     // Using require_once() in the __autoload() function is redundant.  
     // __autoload() is only called when php can't find your class definition.  
     // If your file containg your class was already included, the class defenition would already be loaded 
@@ -201,46 +194,6 @@ function __($str, array $values = NULL) {
     // Get the translation for this message
     $str = I18n::get($str);
     return empty($values) ? $str : strtr($str, $values);
-}
-
-/**
- * Recursively sanitizes an input variable:
- *
- * Strips slashes if magic quotes are enabled
- *
- * @param   mixed  any variable
- * @return  mixed  sanitized variable
- */
-function sanitize($str) {
-    if (is_array($str)) {
-        foreach ($str as $key => $val) {
-            // Recursively clean each string
-            $str[$key] = sanitize($val);
-        }
-    } 
-    
-    if (is_string($str)) {    
-        // NOTE: Magic Quotes has been DEPRECATED as of PHP 5.3.0 and REMOVED as of PHP 5.4.0. 
-        // And it will probably not exist in future versions at all.
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            // When Magic Quotes are on (it's on by default), 
-            // all ' (single-quote), " (double quote), \ (backslash) and NULL characters 
-            // are escaped with a backslash automatically. This is identical to what addslashes() does.
-            // Even though PHP doc says that magic_quotes_gpc affects HTTP Request data (GET, POST, and COOKIE)
-            // $_FILES comes through POST request, so it's affected. 
-            if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
-                // Remove backslashes added by magic quotes and return the user's raw input
-                $str = stripslashes($str);
-            }
-        }
-		
-		// Standardize newlines to always represent newlines as the value of PHP_EOL 
-		// instead of having e.g. \r\n in one place and \n in another.
-		// Read http://php.net/manual/en/regexp.reference.subpatterns.php for the use of ?: in subpattern
-		preg_replace('/(?:\r\n|[\r\n])/', PHP_EOL, $str);
-    }
-	
-    return $str;
 }
 
 // End of file: ./system/core/init.php
