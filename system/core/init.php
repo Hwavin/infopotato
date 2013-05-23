@@ -233,6 +233,11 @@ function sanitize($str) {
                 $str = stripslashes($str);
             }
         }
+		
+		// Standardize newlines to always represent newlines as the value of PHP_EOL 
+		// instead of having e.g. \r\n in one place and \n in another.
+		// Read http://php.net/manual/en/regexp.reference.subpatterns.php for the use of ?: in subpattern
+		preg_replace('/(?:\r\n|[\r\n])/', PHP_EOL, $str);
     }
 	
     return $str;
