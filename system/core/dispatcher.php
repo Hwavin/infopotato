@@ -132,6 +132,7 @@ class Dispatcher{
      * Recursively sanitizes an input variable
      *
      * Strips slashes if magic quotes are enabled
+     * Standardize newlines using PHP_EOL
      *
      * @param   mixed  any variable
      * @return  mixed  sanitized variable
