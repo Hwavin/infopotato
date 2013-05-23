@@ -139,7 +139,7 @@ class Dispatcher{
         if (is_array($str)) {
             foreach ($str as $key => $val) {
                 // Recursively clean each string
-                $str[$key] = sanitize($val);
+                $str[$key] = self::sanitize($val);
             }
         } 
         
