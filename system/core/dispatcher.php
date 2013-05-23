@@ -13,9 +13,7 @@ class Dispatcher{
      * 
      * @return Dispatcher
      */
-    private function __construct() {
-        
-    }
+    private function __construct() {}
     
     /**
      * Parse incoming request to get the desiered manager, request method, and optional parameters
