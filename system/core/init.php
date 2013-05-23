@@ -137,7 +137,7 @@ spl_autoload_register(function ($class_name) {
  */
 function halt($heading, $message, $template = 'sys_error') {
     // Log to caputre all errors since some errors can't be manually captured
-        ::log_debug(APP_LOG_DIR, $message);
+    Logger::log_debug(APP_LOG_DIR, $message);
         
     if (ENVIRONMENT === 'development') {
         ob_start();
