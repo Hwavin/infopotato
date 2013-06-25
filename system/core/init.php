@@ -66,6 +66,7 @@ spl_autoload_register(function ($class_name) {
         'manager', 
         'dumper', 
         'logger', 
+        'validator', 
         'php_utf8',
         'i18n',
         'cookie',
