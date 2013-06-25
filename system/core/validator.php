@@ -230,61 +230,61 @@ class Validator {
     /**
      * Is a Decimal number?
      *
-     * @param    string
+     * @param    decimal
      * @return    bool
      */
-    public static function is_decimal($str) {
-        return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $str);
+    public static function is_decimal($val) {
+        return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $val);
     }
     
     /**
      * Greather than
      *
-     * @param    string
+     * @param    mix
      * @return    bool
      */
-    public static function greater_than($str, $min) {
-        if ( ! is_numeric($str)) {
+    public static function greater_than($val, $min) {
+        if ( ! is_numeric($val)) {
             return FALSE;
         }
-        return $str > $min;
+        return $val > $min;
     }
     
     /**
      * Less than
      *
-     * @param    string
+     * @param    numeric
      * @return    bool
      */
-    public static function less_than($str, $max) {
-        if ( ! is_numeric($str)) {
+    public static function less_than($val, $max) {
+        if ( ! is_numeric($val)) {
             return FALSE;
         }
-        return $str < $max;
+        return $val < $max;
     }
     
     /**
      * Is a Natural number  (0,1,2,3, etc.)
      *
-     * @param    string
+     * @param    int
      * @return    bool
      */
-    public static function is_natural($str) {
-        return (bool)preg_match( '/^[0-9]+$/', $str);
+    public static function is_natural($val) {
+        return (bool)preg_match( '/^[0-9]+$/', $val);
     }
     
     /**
      * Is a Natural number, but not a zero  (1,2,3, etc.)
      *
-     * @param    string
+     * @param    int
      * @return    bool
      */
-    public static function is_natural_no_zero($str) {
-        if ( ! preg_match( '/^[0-9]+$/', $str)) {
+    public static function is_natural_no_zero($val) {
+        if ( ! preg_match( '/^[0-9]+$/', $val)) {
             return FALSE;
         }
         
-        if ($str === 0) {
+        if ($val === 0) {
             return FALSE;
         }
         return TRUE;
