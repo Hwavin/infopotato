@@ -250,7 +250,7 @@ class Validator {
     /**
      * Checks that a value is a valid decimal
      *
-     * @param    decimal
+     * @param    float $check The value the test for decimal
      * @return    bool
      */
     public static function decimal($check) {
@@ -286,7 +286,7 @@ class Validator {
     }
 
     /**
-     * Checks if a value is a natural number.
+     * Checks if a value is a natural number
      *
      * @param string $check Value to check
      * @param boolean $allow_zero Set true to allow zero, defaults to false
