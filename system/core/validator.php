@@ -95,7 +95,7 @@ class Validator {
     }
     
     /**
-     * Check that a value is a valid email address
+     * Checks that a value is a valid email address
      *
      * The local-part of the email address may use any of these ASCII characters RFC 5322 Section 3.2.3, 
      * RFC 6531 permits Unicode beyond the ASCII range, UTF8 charcters can be used but 
@@ -118,7 +118,7 @@ class Validator {
     }
     
     /**
-     * Check that a value is a valid 7, 10, 11 digit phone number (North America, Europe and most Asian and Middle East countries)
+     * Checks that a value is a valid 7, 10, 11 digit phone number (North America, Europe and most Asian and Middle East countries)
      *
      * supporting country and area codes (in dot, space or dashed notations) such as:
      * (555)555-5555
@@ -138,7 +138,7 @@ class Validator {
     
     /**
      *
-     * Check that a value is a valid date
+     * Checks that a value is a valid date
      *
      * @param    string    $date
      * @param    string    format
@@ -187,7 +187,7 @@ class Validator {
     }
     
     /**
-     * Check that a value is a valid IP address
+     * Checks that a value is a valid IP address
      *
      * @param string $check The string to test
      * @param string $type The IP Protocol version to validate against
