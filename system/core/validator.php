@@ -248,13 +248,13 @@ class Validator {
     // Integer or Decimal
 
     /**
-     * Is a Decimal number?
+     * Checks that a value is a valid decimal
      *
      * @param    decimal
      * @return    bool
      */
-    public static function is_decimal($check) {
-        return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $check);
+    public static function decimal($check) {
+        return ( ! preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $check)) ? FALSE : TRUE;
     }
     
     /**
