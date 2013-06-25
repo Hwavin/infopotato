@@ -23,7 +23,7 @@ class Validator {
     // Comparing Two Strings or Two Integers
     
     /**
-     * Value equals in both value and data type
+     * Checks whether two values are identical in both value and data type
      *
      * @param    value 1
      * @param    value 2
@@ -76,7 +76,7 @@ class Validator {
     }
     
     /**
-     * Exact Length
+     * Checks whether the length of a string is the desired length
      *
      * @param    string
      * @param    value
@@ -95,7 +95,7 @@ class Validator {
     }
     
     /**
-     * Valid Email
+     * Check that a value is a valid email address
      *
      * The local-part of the email address may use any of these ASCII characters RFC 5322 Section 3.2.3, 
      * RFC 6531 permits Unicode beyond the ASCII range, UTF8 charcters can be used but 
@@ -118,7 +118,7 @@ class Validator {
     }
     
     /**
-     * Validates a valid 7, 10, 11 digit phone number (North America, Europe and most Asian and Middle East countries)
+     * Check that a value is a valid 7, 10, 11 digit phone number (North America, Europe and most Asian and Middle East countries)
      *
      * supporting country and area codes (in dot, space or dashed notations) such as:
      * (555)555-5555
@@ -138,7 +138,7 @@ class Validator {
     
     /**
      *
-     * Validate a date
+     * Check that a value is a valid date
      *
      * @param    string    $date
      * @param    string    format
@@ -187,9 +187,9 @@ class Validator {
     }
     
     /**
-     * Validation of an IP address.
+     * Check that a value is a valid IP address
      *
-     * @param string $check The string to test.
+     * @param string $check The string to test
      * @param string $type The IP Protocol version to validate against
      * @return boolean Success
      */
@@ -208,7 +208,7 @@ class Validator {
     }
     
     /**
-     * Alpha
+     * Checks that a string contains only letters
      *
      * @param    string
      * @return    bool
@@ -218,23 +218,13 @@ class Validator {
     }
     
     /**
-     * Alpha-numeric
+     * Checks that a string contains only integer or letters
      *
      * @param    string
      * @return    bool
      */
     public static function alpha_numeric($check) {
         return ( ! preg_match("/^([a-z0-9])+$/i", $check)) ? FALSE : TRUE;
-    }
-    
-    /**
-     * Alpha-numeric with underscores and dashes
-     *
-     * @param    string
-     * @return    bool
-     */    
-    public static function alpha_dash($check) {
-        return ( ! preg_match("/^([-a-z0-9_-])+$/i", $check)) ? FALSE : TRUE;
     }
 
     // Integer or Decimal
@@ -250,7 +240,7 @@ class Validator {
     }
     
     /**
-     * Greather than
+     * Checks that a value is greather than the $min
      *
      * @param    mix
      * @return    bool
@@ -264,7 +254,7 @@ class Validator {
     }
     
     /**
-     * Less than
+     * Checks that a value is less than the $max
      *
      * @param    numeric
      * @return    bool
