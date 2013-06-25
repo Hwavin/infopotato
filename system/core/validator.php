@@ -29,8 +29,8 @@ class Validator {
      * @param    value 2
      * @return    bool
      */    
-    public static function equals($val_1, $val_2) {
-        return ($val_1 === $val_2);
+    public static function equals($check_1, $check_2) {
+        return ($check_1 === $check_2);
     }
     
     // String
@@ -41,8 +41,8 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function not_empty($str) {
-        return (trim($str) === '') ? FALSE : TRUE;
+    public static function not_empty($check) {
+        return (trim($check) === '') ? FALSE : TRUE;
     }
 
     /**
@@ -52,16 +52,16 @@ class Validator {
      * @param    value
      * @return    bool
      */    
-    public static function min_length($str, $val) {
+    public static function min_length($check, $val) {
         if (preg_match("/[^0-9]/", $val)) {
             return FALSE;
         }
         
         if (function_exists('mb_strlen')) {
-            return (mb_strlen($str) < $val) ? FALSE : TRUE;
+            return (mb_strlen($check) < $val) ? FALSE : TRUE;
         }
     
-        return (strlen(utf8_decode($str)) < $val) ? FALSE : TRUE;
+        return (strlen(utf8_decode($check)) < $val) ? FALSE : TRUE;
     }
     
     /**
@@ -71,16 +71,16 @@ class Validator {
      * @param    value
      * @return    bool
      */    
-    public static function max_length($str, $val) {
+    public static function max_length($check, $val) {
         if (preg_match("/[^0-9]/", $val)) {
             return FALSE;
         }
         
         if (function_exists('mb_strlen')) {
-            return (mb_strlen($str) > $val) ? FALSE : TRUE;
+            return (mb_strlen($check) > $val) ? FALSE : TRUE;
         }
     
-        return (strlen(utf8_decode($str)) > $val) ? FALSE : TRUE;
+        return (strlen(utf8_decode($check)) > $val) ? FALSE : TRUE;
     }
     
     /**
@@ -90,16 +90,16 @@ class Validator {
      * @param    value
      * @return    bool
      */    
-    public static function exact_length($str, $val) {
+    public static function exact_length($check, $val) {
         if (preg_match("/[^0-9]/", $val)) {
             return FALSE;
         }
         
         if (function_exists('mb_strlen')) {
-            return (mb_strlen($str) !== $val) ? FALSE : TRUE;
+            return (mb_strlen($check) !== $val) ? FALSE : TRUE;
         }
     
-        return (strlen(utf8_decode($str)) !== $val) ? FALSE : TRUE;
+        return (strlen(utf8_decode($check)) !== $val) ? FALSE : TRUE;
     }
     
     /**
@@ -111,8 +111,8 @@ class Validator {
      * @param    string
      * @return    bool
      */    
-    public static function valid_email($str) {
-        return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
+    public static function valid_email($check) {
+        return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $check)) ? FALSE : TRUE;
     }
     
     /**
@@ -121,8 +121,8 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function valid_url($str) {
-        return ( ! filter_var($str, FILTER_VALIDATE_URL)) ? FALSE : TRUE;
+    public static function valid_url($check) {
+        return ( ! filter_var($check, FILTER_VALIDATE_URL)) ? FALSE : TRUE;
     }
     
     /**
@@ -140,8 +140,8 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function valid_phone($str) {
-        return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $str);
+    public static function valid_phone($check) {
+        return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $check);
     }
     
     /**
@@ -221,8 +221,8 @@ class Validator {
      * @param    string
      * @return    bool
      */        
-    public static function alpha($str) {
-        return ( ! preg_match("/^([a-z])+$/i", $str)) ? FALSE : TRUE;
+    public static function alpha($check) {
+        return ( ! preg_match("/^([a-z])+$/i", $check)) ? FALSE : TRUE;
     }
     
     /**
@@ -231,8 +231,8 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function alpha_numeric($str) {
-        return ( ! preg_match("/^([a-z0-9])+$/i", $str)) ? FALSE : TRUE;
+    public static function alpha_numeric($check) {
+        return ( ! preg_match("/^([a-z0-9])+$/i", $check)) ? FALSE : TRUE;
     }
     
     /**
@@ -241,8 +241,8 @@ class Validator {
      * @param    string
      * @return    bool
      */    
-    public static function alpha_dash($str) {
-        return ( ! preg_match("/^([-a-z0-9_-])+$/i", $str)) ? FALSE : TRUE;
+    public static function alpha_dash($check) {
+        return ( ! preg_match("/^([-a-z0-9_-])+$/i", $check)) ? FALSE : TRUE;
     }
 
     // Integer or Decimal
@@ -253,8 +253,8 @@ class Validator {
      * @param    decimal
      * @return    bool
      */
-    public static function is_decimal($val) {
-        return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $val);
+    public static function is_decimal($check) {
+        return (bool) preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $check);
     }
     
     /**
@@ -263,11 +263,12 @@ class Validator {
      * @param    mix
      * @return    bool
      */
-    public static function greater_than($val, $min) {
-        if ( ! is_numeric($val)) {
+    public static function greater_than($check, $min) {
+        if ( ! is_numeric($check)) {
             return FALSE;
         }
-        return $val > $min;
+        
+        return $check > $min;
     }
     
     /**
@@ -276,40 +277,26 @@ class Validator {
      * @param    numeric
      * @return    bool
      */
-    public static function less_than($val, $max) {
-        if ( ! is_numeric($val)) {
-            return FALSE;
-        }
-        return $val < $max;
-    }
-    
-    /**
-     * Is a Natural number  (0,1,2,3, etc.)
-     *
-     * @param    int
-     * @return    bool
-     */
-    public static function is_natural($val) {
-        return (bool)preg_match( '/^[0-9]+$/', $val);
-    }
-    
-    /**
-     * Is a Natural number, but not a zero  (1,2,3, etc.)
-     *
-     * @param    int
-     * @return    bool
-     */
-    public static function is_natural_no_zero($val) {
-        if ( ! preg_match( '/^[0-9]+$/', $val)) {
+    public static function less_than($check, $max) {
+        if ( ! is_numeric($check)) {
             return FALSE;
         }
         
-        if ($val === 0) {
-            return FALSE;
-        }
-        return TRUE;
+        return $check < $max;
     }
 
+    /**
+     * Checks if a value is a natural number.
+     *
+     * @param string $check Value to check
+     * @param boolean $allow_zero Set true to allow zero, defaults to false
+     * @return boolean Success
+     * @see http://en.wikipedia.org/wiki/Natural_number
+     */
+    public static function natural_number($check, $allow_zero = FALSE) {
+        $regex = $allow_zero ? '/^(?:0|[1-9][0-9]*)$/' : '/^[1-9][0-9]*$/';
+        return ( ! preg_match($regex, $check)) ? FALSE : TRUE;
+    }
 
 }
 
