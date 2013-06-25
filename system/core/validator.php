@@ -23,20 +23,20 @@ class Validator {
     // Comparing Two Strings or Two Integers
     
     /**
-     * Value equals
+     * Value equals in both value and data type
      *
      * @param    value 1
      * @param    value 2
      * @return    bool
      */    
     public static function equals($val_1, $val_2) {
-        return ($val_1 !== $val_2) ? FALSE : TRUE;
+        return ($val_1 === $val_2);
     }
     
     // String
     
     /**
-     * Required
+     * Checks that a string contains something other than whitespace
      *
      * @param    string
      * @return    bool
@@ -144,7 +144,6 @@ class Validator {
         return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $str);
     }
     
-        
     /**
      *
      * Validate a date
@@ -193,6 +192,27 @@ class Validator {
         }
         
         return checkdate($m, $d, $y);
+    }
+    
+    /**
+     * Validation of an IP address.
+     *
+     * @param string $check The string to test.
+     * @param string $type The IP Protocol version to validate against
+     * @return boolean Success
+     */
+    public static function ip($check, $type = 'both') {
+        $type = strtolower($type);
+        $flags = 0;
+        
+        if ($type === 'ipv4') {
+            $flags = FILTER_FLAG_IPV4;
+        }
+        if ($type === 'ipv6') {
+            $flags = FILTER_FLAG_IPV6;
+        }
+        
+        return (bool) filter_var($check, FILTER_VALIDATE_IP, array('flags' => $flags));
     }
     
     /**
