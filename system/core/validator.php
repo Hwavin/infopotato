@@ -103,7 +103,7 @@ class Validator {
      * @param    string
      * @return    bool
      */    
-    public static function valid_email($check) {
+    public static function is_email($check) {
         return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $check)) ? FALSE : TRUE;
     }
     
@@ -113,7 +113,7 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function valid_url($check) {
+    public static function is_url($check) {
         return ( ! filter_var($check, FILTER_VALIDATE_URL)) ? FALSE : TRUE;
     }
     
@@ -132,7 +132,7 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function valid_phone($check) {
+    public static function is_phone($check) {
         return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $check);
     }
     
@@ -145,7 +145,7 @@ class Validator {
      * @return    bool
      *
      */
-    function valid_date($date, $format = 'YYYY-MM-DD') {
+    function is_date($date, $format = 'YYYY-MM-DD') {
         switch($format) {
             case 'YYYY/MM/DD':
             case 'YYYY-MM-DD':
@@ -190,10 +190,10 @@ class Validator {
      * Checks that a value is a valid IP address
      *
      * @param string $check The string to test
-     * @param string $type The IP Protocol version to validate against
+     * @param string $type The IP Protocol version (ipv4 or ipv6) to validate against
      * @return boolean Success
      */
-    public static function ip($check, $type = 'both') {
+    public static function is_ip($check, $type = 'both') {
         $type = strtolower($type);
         $flags = 0;
         
@@ -213,7 +213,7 @@ class Validator {
      * @param    string
      * @return    bool
      */        
-    public static function alpha($check) {
+    public static function is_alpha($check) {
         return ( ! preg_match("/^([a-z])+$/i", $check)) ? FALSE : TRUE;
     }
     
@@ -223,7 +223,7 @@ class Validator {
      * @param    string
      * @return    bool
      */
-    public static function alpha_numeric($check) {
+    public static function is_alpha_numeric($check) {
         return ( ! preg_match("/^([a-z0-9])+$/i", $check)) ? FALSE : TRUE;
     }
 
@@ -235,7 +235,7 @@ class Validator {
      * @param    float $check The value the test for decimal
      * @return    bool
      */
-    public static function decimal($check) {
+    public static function is_decimal($check) {
         return ( ! preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $check)) ? FALSE : TRUE;
     }
     
@@ -245,7 +245,7 @@ class Validator {
      * @param    mix
      * @return    bool
      */
-    public static function greater_than($check, $min) {
+    public static function is_greater_than($check, $min) {
         if ( ! is_numeric($check)) {
             return FALSE;
         }
@@ -259,7 +259,7 @@ class Validator {
      * @param    numeric
      * @return    bool
      */
-    public static function less_than($check, $max) {
+    public static function is_less_than($check, $max) {
         if ( ! is_numeric($check)) {
             return FALSE;
         }
@@ -275,7 +275,7 @@ class Validator {
      * @return boolean Success
      * @see http://en.wikipedia.org/wiki/Natural_number
      */
-    public static function natural_number($check, $allow_zero = FALSE) {
+    public static function is_natural_number($check, $allow_zero = FALSE) {
         $regex = $allow_zero ? '/^(?:0|[1-9][0-9]*)$/' : '/^[1-9][0-9]*$/';
         return ( ! preg_match($regex, $check)) ? FALSE : TRUE;
     }
