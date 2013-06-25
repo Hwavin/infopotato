@@ -46,41 +46,33 @@ class Validator {
     }
 
     /**
-     * Minimum Length
+     * Checks whether the length of a string is greater or equal to a minimal length
      *
-     * @param    string
-     * @param    value
+     * @param    string $check The string to test
+     * @param    integer $min The minimal string length
      * @return    bool
      */    
-    public static function min_length($check, $val) {
-        if (preg_match("/[^0-9]/", $val)) {
-            return FALSE;
-        }
-        
+    public static function min_length($check, $min) {
         if (function_exists('mb_strlen')) {
-            return (mb_strlen($check) < $val) ? FALSE : TRUE;
+            return (mb_strlen($check) < $min) ? FALSE : TRUE;
         }
     
-        return (strlen(utf8_decode($check)) < $val) ? FALSE : TRUE;
+        return (strlen(utf8_decode($check)) < $min) ? FALSE : TRUE;
     }
     
     /**
-     * Max Length
+     * Checks whether the length of a string is smaller or equal to a maximal length
      *
-     * @param    string
-     * @param    value
+     * @param    string $check The string to test
+     * @param    integer $max The minimal string length
      * @return    bool
      */    
-    public static function max_length($check, $val) {
-        if (preg_match("/[^0-9]/", $val)) {
-            return FALSE;
-        }
-        
+    public static function max_length($check, $max) {
         if (function_exists('mb_strlen')) {
-            return (mb_strlen($check) > $val) ? FALSE : TRUE;
+            return (mb_strlen($check) > $max) ? FALSE : TRUE;
         }
     
-        return (strlen(utf8_decode($check)) > $val) ? FALSE : TRUE;
+        return (strlen(utf8_decode($check)) > $max) ? FALSE : TRUE;
     }
     
     /**
@@ -116,7 +108,7 @@ class Validator {
     }
     
     /**
-     * Determine if the provided value is a valid URL
+     * Checks that a value is a valid URL
      *
      * @param    string
      * @return    bool
