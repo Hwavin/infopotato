@@ -1342,7 +1342,7 @@ class Email_Library {
             $attachment[$z++] = $h;
             $file = filesize($filename) +1;
             
-            if ( ! $fp = fopen($filename, FOPEN_READ)) {
+            if ( ! $fp = fopen($filename, 'rb')) {
                 $this->set_error_message('email_attachment_unreadable', $filename);
                 return FALSE;
             }
