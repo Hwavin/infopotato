@@ -1382,11 +1382,10 @@ class Email_Library {
         // the RFC rules due to (apparently) a bug in MS Exchange,
         // which only works with "\n".
         if ($this->crlf === "\r\n") {
-            if (is_php('5.3')) {
-                return quoted_printable_encode($str);
-            } elseif (function_exists('imap_8bit')) {
-                return imap_8bit($str);
-            }
+            // Convert a 8 bit string to a quoted-printable string
+            // This function requries PHP 5.3.0 or newer
+            // This function is similar to imap_8bit(), except this one does not require the IMAP module to work
+            return quoted_printable_encode($str);
         }
         
         // Reduce multiple spaces & remove nulls
