@@ -171,21 +171,21 @@ class Email_Library {
      *
      * @var    string
      */
-    private    $subject = '';
+    private $subject = '';
     
     /**
      * Message body
      *
      * @var    string
      */
-    private    $body = '';
+    private $body = '';
     
     /**
      * Final message body to be sent.
      *
      * @var    string
      */
-    private    $finalbody = '';
+    private $finalbody = '';
     
     /**
      * Alternative message (for HTML messages only)
@@ -199,42 +199,42 @@ class Email_Library {
      *
      * @var    string
      */
-    private    $alt_boundary = '';
+    private $alt_boundary = '';
     
     /**
      * Attachment boundary
      *
      * @var    string
      */
-    private    $atc_boundary = '';
+    private $atc_boundary = '';
     
     /**
      * Final headers to send
      *
      * @var    string
      */
-    private    $header_str = '';
+    private $header_str = '';
     
     /**
      * SMTP Connection socket placeholder
      *
      * @var    resource
      */
-    private    $smtp_connect = '';
+    private $smtp_connect = '';
     
     /**
      * Mail encoding
      *
      * @var    string    '8bit' or '7bit'
      */
-    private    $encoding = '8bit';
+    private $encoding = '8bit';
     
     /**
      * Whether to perform SMTP authentication
      *
      * @var    bool
      */
-    private    $smtp_auth    = FALSE;
+    private $smtp_auth    = FALSE;
     
     /**
      * Whether to send a Reply-To header
@@ -249,44 +249,44 @@ class Email_Library {
      * @see    print_debugger()
      * @var    string
      */
-    private    $debug_msg = array();
+    private $debug_msg = array();
     
     /**
      * Recipients
      *
      * @var    string[]
      */
-    private    $recipients = array();
+    private $recipients = array();
     
     /**
      * CC Recipients
      *
      * @var    string[]
      */
-    private    $cc_array = array();
+    private $cc_array = array();
     
     /**
      * BCC Recipients
      *
      * @var    string[]
      */
-    private    $bcc_array = array();
+    private $bcc_array = array();
     
     /**
      * Message headers
      *
      * @var    string[]
      */
-    private    $headers = array();
+    private $headers = array();
     
     /**
      * Attachment data
      *
      * @var    array
      */
-    private    $attach_name = array();
-    private    $attach_type = array();
-    private    $attach_disp = array();
+    private $attach_name = array();
+    private $attach_type = array();
+    private $attach_disp = array();
     
     /**
      * Valid $protocol values
@@ -294,14 +294,14 @@ class Email_Library {
      * @see    Email_Library::$protocol
      * @var    string[]
      */
-    private    $protocols = array('mail', 'sendmail', 'smtp');
+    private $protocols = array('mail', 'sendmail', 'smtp');
     
     /**
      * Character sets valid for 7-bit encoding
      * 
      * @var array
      */
-    private    $base_charsets = array('us-ascii', 'iso-2022-');
+    private $base_charsets = array('us-ascii', 'iso-2022-');
     
     /**
      * Bit depths
@@ -320,7 +320,7 @@ class Email_Library {
      *
      * @var    string[]
      */
-    private    $priorities = array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
+    private $priorities = array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
     
     /**
      * Constructor
