@@ -1267,8 +1267,8 @@ class Email_Library {
             
             case 'html' :
                 if ($this->send_multipart === FALSE) {
-                    $hdr .= "Content-Type: text/html; charset=" . $this->charset . $this->newline;
-                    $hdr .= "Content-Transfer-Encoding: quoted-printable";
+                    $hdr .= 'Content-Type: text/html; charset=' . $this->charset . $this->newline;
+                    $hdr .= 'Content-Transfer-Encoding: quoted-printable' . $this->newline . $this->newline;
                 } else {
                     $hdr .= "Content-Type: multipart/alternative; boundary=\"" . $this->alt_boundary . "\"" . $this->newline . $this->newline;
                     
