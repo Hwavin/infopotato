@@ -929,7 +929,7 @@ class Email_Library {
      * @return    void
      */
     private function add_header($header, $value) {
-        $this->headers[$header] = $value;
+        $this->headers[$header] = str_replace(array("\n", "\r"), '', $value);
     }
     
     /**
