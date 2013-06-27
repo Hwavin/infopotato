@@ -145,6 +145,13 @@ class Email_Library {
     private $crlf = "\n";
     
     /**
+     * Whether to use Delivery Status Notification (DSN).
+     *
+     * @var	bool
+     */
+    public $dsn = FALSE;
+    
+    /**
      * TRUE/FALSE - Yahoo does not like multipart alternative, so this is an override.  
      * Set to FALSE for Yahoo.
      * 
@@ -604,6 +611,19 @@ class Email_Library {
      * @param  $val bool
      * @return void
      */
+    private function initialize_dsn($val) {
+        if ( ! is_bool($val)) {
+            $this->invalid_argument_value('dsn');
+        }
+        $this->dsn = $val;
+    }
+    
+    /**
+     * Validate and set $send_multipart
+     *
+     * @param  $val bool
+     * @return void
+     */
     private function initialize_send_multipart($val) {
         if ( ! is_bool($val)) {
             $this->invalid_argument_value('send_multipart');
@@ -705,6 +725,9 @@ class Email_Library {
         
         if ($this->validate) {
             $this->validate_email($this->str_to_array($from));
+            if ($return_path) {
+                $this->validate_email($this->str_to_array($return_path));
+            }
         }
         
         // prepare the display name
@@ -722,7 +745,7 @@ class Email_Library {
         
         $return_path = isset($return_path) ? $return_path : $from;
         $this->add_header('Return-Path', '<'.$return_path.'>');
-        
+
         return $this;
     }
     
@@ -1807,8 +1830,12 @@ class Email_Library {
                 $resp = 250;
                 break;
             
-            case 'to'    :
-                $this->send_data('RCPT TO:<'.$data.'>');
+            case 'to' :
+                if ($this->dsn) {
+                    $this->_send_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
+                } else {
+                    $this->send_data('RCPT TO:<'.$data.'>');
+                }
                 $resp = 250;
                 break;
             
