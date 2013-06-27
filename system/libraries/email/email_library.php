@@ -1219,6 +1219,7 @@ class Email_Library {
             unset($this->headers['Subject']);
         }
         
+        // Set the internal pointer of headers array to its first element
         reset($this->headers);
         $this->header_str = '';
 
@@ -1834,7 +1835,7 @@ class Email_Library {
             
             case 'to' :
                 if ($this->dsn) {
-                    $this->_send_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
+                    $this->send_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 } else {
                     $this->send_data('RCPT TO:<'.$data.'>');
                 }
@@ -1978,7 +1979,7 @@ class Email_Library {
             }
         }
         
-        // Determine which parts of our raw data needs to be printed
+        // Determine which part of our raw data needs to be printed
         $raw_data = '';
         $include = is_array($include) ? $include : array($include);
         
