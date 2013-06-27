@@ -929,6 +929,7 @@ class Email_Library {
      * @return    void
      */
     private function add_header($header, $value) {
+        // Filters the input by removing all "\\n" and "\\r" characters.
         $this->headers[$header] = str_replace(array("\n", "\r"), '', $value);
     }
     
