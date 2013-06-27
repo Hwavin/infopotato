@@ -715,7 +715,7 @@ class Email_Library {
      *
      * @param    string
      * @param    string
-     * @param    string    Return-Path Return-Path is the address where bounce messages (undeliverable notifications, etc.) should be delivered.
+     * @param    string    Return-Path is the email address where bounce messages (undeliverable notifications, etc.) should be delivered.
      * @return    Email_Library
      */
     public function from($from, $name = '', $return_path = NULL) {
