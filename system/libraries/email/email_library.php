@@ -2041,9 +2041,9 @@ class Email_Library {
      * @return    string
      */
     private function mime_types($ext = "") {
-        $mimes = array(    
+        $mimes = array(
             'hqx' => 'application/mac-binhex40',
-            'cpt' =>    'application/mac-compactpro',
+            'cpt' => 'application/mac-compactpro',
             'doc' => 'application/msword',
             'bin' => 'application/macbinary',
             'dms' => 'application/octet-stream',
