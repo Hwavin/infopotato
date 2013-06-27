@@ -803,8 +803,8 @@ class Email_Library {
                 $this->recipients = $to;
                 break;
             
-            case 'sendmail'    :
-            case 'mail'    :
+            case 'sendmail' :
+            case 'mail' :
                 $this->recipients = implode(", ", $to);
                 break;
         }
