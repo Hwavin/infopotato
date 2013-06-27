@@ -743,6 +743,7 @@ class Email_Library {
         
         $this->add_header('From', $name.' <'.$from.'>');
         
+        // Return-Path can't be used if you've configured 'smtp' as your protocol.
         $return_path = isset($return_path) ? $return_path : $from;
         $this->add_header('Return-Path', '<'.$return_path.'>');
 
@@ -1220,7 +1221,7 @@ class Email_Library {
         
         reset($this->headers);
         $this->header_str = '';
-        
+
         foreach ($this->headers as $key => $val) {
             $val = trim($val);
             
