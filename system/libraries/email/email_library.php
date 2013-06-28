@@ -817,8 +817,7 @@ class Email_Library {
      * @return    Email_Library
      */
     public function cc($cc) {
-        $cc = $this->str_to_array($cc);
-        $cc = $this->clean_email($cc);
+        $cc = $this->clean_email($this->str_to_array($cc));
         
         if ($this->validate) {
             $this->validate_email($cc);
