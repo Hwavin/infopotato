@@ -351,8 +351,6 @@ class Email_Library {
             }
             $this->clear();
         }
-        
-        $this->smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
     }
     
     /**
@@ -1710,6 +1708,8 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_smtp() {
+        $this->smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
+        
         if ($this->smtp_host === '') {
             $this->set_error_message('email_no_hostname');
             return FALSE;
