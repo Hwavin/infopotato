@@ -1377,7 +1377,7 @@ class Email_Library {
             fclose($fp);
         }
         
-        $body .= implode($this->newline, $attachment).$this->newline."--".$this->atc_boundary.'--';
+        $body .= implode($this->newline, $attachment).$this->newline.'--'.$this->atc_boundary.'--';
         
         
         if ($this->get_protocol() === 'mail') {
