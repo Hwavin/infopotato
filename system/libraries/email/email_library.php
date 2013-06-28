@@ -824,7 +824,7 @@ class Email_Library {
             $this->validate_email($cc);
         }
         
-        $this->set_header('Cc', implode(", ", $cc));
+        $this->set_header('Cc', implode(', ', $cc));
         
         if ($this->get_protocol() === 'smtp') {
             $this->cc_array = $cc;
@@ -856,7 +856,7 @@ class Email_Library {
         if (($this->get_protocol() === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
             $this->bcc_array = $bcc;
         } else {
-            $this->set_header('Bcc', implode(", ", $bcc));
+            $this->set_header('Bcc', implode(', ', $bcc));
         }
         
         return $this;
