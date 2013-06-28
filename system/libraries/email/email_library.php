@@ -1261,7 +1261,7 @@ class Email_Library {
                     $this->header_str .= $hdr;
                     $this->finalbody = $this->body;
                 } else {
-                    $this->finalbody = $hdr . $this->newline . $this->newline . $this->body;
+                    $this->finalbody = $hdr.$this->newline.$this->newline.$this->body;
                 }
                 
                 return;
@@ -1311,7 +1311,7 @@ class Email_Library {
                 }
                 
                 $body .= $this->get_mime_message().$this->newline.$this->newline;
-                $body .= '--' . $this->atc_boundary.$this->newline;
+                $body .= '--'.$this->atc_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
@@ -1320,7 +1320,7 @@ class Email_Library {
                 break;
             
             case 'html-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="' . $this->atc_boundary.'"'.$this->newline.$this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->get_protocol() === 'mail') {
                     $this->header_str .= $hdr;
