@@ -1744,9 +1744,9 @@ class Email_Library {
         $this->send_smtp_command('data');
         
         // perform dot transformation on any lines that begin with a dot
-        $this->send_data($this->header_str . preg_replace('/^\./m', '..$1', $this->finalbody));
+        $this->send_smtp_data($this->header_str . preg_replace('/^\./m', '..$1', $this->finalbody));
         
-        $this->send_data('.');
+        $this->send_smtp_data('.');
         
         $reply = $this->get_smtp_data();
         
@@ -1818,43 +1818,43 @@ class Email_Library {
         switch ($cmd) {
             case 'hello' :
                 if ($this->smtp_auth || $this->get_encoding() === '8bit') {
-                    $this->send_data('EHLO '.$this->get_hostname());
+                    $this->send_smtp_data('EHLO '.$this->get_hostname());
                 } else {
-                    $this->send_data('HELO '.$this->get_hostname());
+                    $this->send_smtp_data('HELO '.$this->get_hostname());
                 }
                 $resp = 250;
                 break;
             
-            case 'starttls'    :
-                $this->send_data('STARTTLS');
+            case 'starttls' :
+                $this->send_smtp_data('STARTTLS');
                 $resp = 220;
                 break;
             
             case 'from' :
-                $this->send_data('MAIL FROM:<'.$data.'>');
+                $this->send_smtp_data('MAIL FROM:<'.$data.'>');
                 $resp = 250;
                 break;
             
             case 'to' :
                 if ($this->dsn) {
-                    $this->send_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
+                    $this->send_smtp_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 } else {
-                    $this->send_data('RCPT TO:<'.$data.'>');
+                    $this->send_smtp_data('RCPT TO:<'.$data.'>');
                 }
                 $resp = 250;
                 break;
             
             case 'data'    :
-                $this->send_data('DATA');
+                $this->send_smtp_data('DATA');
                 $resp = 354;
                 break;
             
             case 'reset':
-                $this->send_data('RSET');
+                $this->send_smtp_data('RSET');
                 $resp = 250;
                 
-            case 'quit'    :
-                $this->send_data('QUIT');
+            case 'quit' :
+                $this->send_smtp_data('QUIT');
                 $resp = 221;
                 break;
         }
@@ -1890,7 +1890,7 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_data('AUTH LOGIN');
+        $this->send_smtp_data('AUTH LOGIN');
         
         $reply = $this->get_smtp_data();
         
@@ -1902,7 +1902,7 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_data(base64_encode($this->smtp_user));
+        $this->send_smtp_data(base64_encode($this->smtp_user));
         
         $reply = $this->get_smtp_data();
         
@@ -1911,7 +1911,7 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_data(base64_encode($this->smtp_pass));
+        $this->send_smtp_data(base64_encode($this->smtp_pass));
         
         $reply = $this->get_smtp_data();
         
@@ -1928,7 +1928,7 @@ class Email_Library {
      *
      * @return    bool
      */
-    private function send_data($data) {
+    private function send_smtp_data($data) {
         if ( ! fwrite($this->smtp_connect, $data . $this->newline)) {
             $this->set_error_message('email_smtp_data_failure', $data);
             return FALSE;
