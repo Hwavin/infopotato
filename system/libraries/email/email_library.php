@@ -845,9 +845,8 @@ class Email_Library {
             $this->bcc_batch_mode = TRUE;
             $this->bcc_batch_size = $limit;
         }
-        
-        $bcc = $this->str_to_array($bcc);
-        $bcc = $this->clean_email($bcc);
+
+        $bcc = $this->clean_email($this->str_to_array($bcc));
         
         if ($this->validate) {
             $this->validate_email($bcc);
