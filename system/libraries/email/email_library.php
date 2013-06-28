@@ -1221,7 +1221,7 @@ class Email_Library {
                 unset($this->headers['Subject']);
             }
         }
-        
+
         // Set the internal pointer of headers array to its first element
         reset($this->headers);
         $this->header_str = '';
@@ -2134,6 +2134,7 @@ class Email_Library {
             'xl' => 'application/excel',
             'eml' => 'message/rfc822'
         );
+        
         return ( ! isset($mimes[strtolower($ext)])) ? 'application/x-unknown-content-type' : $mimes[strtolower($ext)];
     }
     
