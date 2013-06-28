@@ -1216,8 +1216,10 @@ class Email_Library {
      */
     private function write_headers() {
         if ($this->protocol === 'mail') {
-            $this->subject = $this->headers['Subject'];
-            unset($this->headers['Subject']);
+            if (isset($this->headers['Subject'])) {
+                $this->subject = $this->headers['Subject'];
+                unset($this->headers['Subject']);
+            }
         }
         
         // Set the internal pointer of headers array to its first element
@@ -1228,7 +1230,7 @@ class Email_Library {
             $val = trim($val);
             
             if ($val !== '') {
-                $this->header_str .= $key.": ".$val.$this->newline;
+                $this->header_str .= $key.': '.$val.$this->newline;
             }
         }
         
