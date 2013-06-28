@@ -1053,15 +1053,23 @@ class Email_Library {
         }
         
         foreach ($email as $val) {
-            $is_valid = ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $val)) ? FALSE : TRUE;
-            
-            if ( ! $is_valid) {
-                $this->set_error_message('email_invalid_address', $val);
+            if ( ! $this->valid_email($val)) {
+                $this->_set_error_message('email_invalid_address', $val);
                 return FALSE;
             }
         }
         
         return TRUE;
+    }
+    
+    /**
+    * Email Validation
+    *
+    * @param    string
+    * @return   bool
+    */
+    public function valid_email($email) {
+        return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
     }
     
     /**
