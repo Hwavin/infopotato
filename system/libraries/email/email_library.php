@@ -1685,7 +1685,7 @@ class Email_Library {
         $fp = @popen($this->sendmail_path.' -oi -f '.$this->clean_email($this->headers['From']).' -t -r '.$this->clean_email($this->headers['Return-Path']), 'w');
         
         if ($fp === FALSE) {
-            // server probably has popen disabled, so nothing we can do to get a verbose error.
+            // Server probably has popen disabled, so nothing we can do to get a verbose error.
             return FALSE;
         }
         
@@ -1709,6 +1709,7 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_smtp() {
+        // Determin if authendication is required for SMTP
         $this->smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
         
         if ($this->smtp_host === '') {
