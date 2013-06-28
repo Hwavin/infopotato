@@ -2189,6 +2189,7 @@ class Email_Library {
         $ext = strtolower($ext);
 
         if (isset($mimes[$ext])) {
+            // Returns the current element if $mimes[$ext] is an array
             return is_array($mimes[$ext]) ? current($mimes[$ext]) : $mimes[$ext];
         }
         
