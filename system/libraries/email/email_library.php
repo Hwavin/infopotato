@@ -1562,7 +1562,9 @@ class Email_Library {
             return $result;
         }
         
-        $this->build_message();
+        if ($this->build_message() === FALSE) {
+            return FALSE;
+        }
         
         $result = $this->spool_email();
         
