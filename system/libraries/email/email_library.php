@@ -2040,7 +2040,7 @@ class Email_Library {
      * @param    string
      * @return    string
      */
-    private function mime_types($ext = "") {
+    private function mime_types($ext = '') {
         $mimes = array(
             'hqx' => 'application/mac-binhex40',
             'cpt' => 'application/mac-compactpro',
@@ -2130,7 +2130,7 @@ class Email_Library {
             'xl' => 'application/excel',
             'eml' => 'message/rfc822'
         );
-        return ( ! isset($mimes[strtolower($ext)])) ? "application/x-unknown-content-type" : $mimes[strtolower($ext)];
+        return ( ! isset($mimes[strtolower($ext)])) ? 'application/x-unknown-content-type' : $mimes[strtolower($ext)];
     }
     
 }
