@@ -606,7 +606,7 @@ class Email_Library {
     }
     
     /**
-     * Validate and set $send_multipart
+     * Validate and set $dsn
      *
      * @param  $val bool
      * @return void
