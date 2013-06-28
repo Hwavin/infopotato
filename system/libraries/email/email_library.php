@@ -958,8 +958,8 @@ class Email_Library {
      * @return    void
      */
     private function set_boundaries() {
-        $this->alt_boundary = "B_ALT_".uniqid(''); // multipart/alternative
-        $this->atc_boundary = "B_ATC_".uniqid(''); // attachment boundary
+        $this->alt_boundary = 'B_ALT_'.uniqid(''); // multipart/alternative
+        $this->atc_boundary = 'B_ATC_'.uniqid(''); // attachment boundary
     }
     
     /**
