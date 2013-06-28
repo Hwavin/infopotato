@@ -938,12 +938,9 @@ class Email_Library {
      */
     private function str_to_array($email) {
         if ( ! is_array($email)) {
-            if (strpos($email, ',') !== FALSE) {
-                $email = preg_split('/[\s,]/', $email, -1, PREG_SPLIT_NO_EMPTY);
-            } else {
-                $email = trim($email);
-                settype($email, "array");
-            }
+            return (strpos($email, ',') !== FALSE)
+                ? preg_split('/[\s,]/', $email, -1, PREG_SPLIT_NO_EMPTY)
+                : (array) trim($email);
         }
         return $email;
     }
