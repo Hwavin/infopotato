@@ -696,8 +696,8 @@ class Email_Library {
         $this->headers = array();
         $this->debug_msg = array();
         
-        $this->add_header('User-Agent', $this->user_agent);
-        $this->add_header('Date', $this->set_date());
+        $this->set_header('User-Agent', $this->user_agent);
+        $this->set_header('Date', $this->set_date());
         
         if ($clear_attachments !== FALSE) {
             $this->attach_name = array();
@@ -741,11 +741,11 @@ class Email_Library {
             }
         }
         
-        $this->add_header('From', $name.' <'.$from.'>');
+        $this->set_header('From', $name.' <'.$from.'>');
         
         // Return-Path can't be used if you've configured 'smtp' as your protocol.
         $return_path = isset($return_path) ? $return_path : $from;
-        $this->add_header('Return-Path', ' <'.$return_path.'>');
+        $this->set_header('Return-Path', ' <'.$return_path.'>');
 
         return $this;
     }
@@ -774,7 +774,7 @@ class Email_Library {
             $name = '"'.$name.'"';
         }
         
-        $this->add_header('Reply-To', $name.' <'.$replyto.'>');
+        $this->set_header('Reply-To', $name.' <'.$replyto.'>');
         $this->replyto_flag = TRUE;
         
         return $this;
@@ -795,7 +795,7 @@ class Email_Library {
         }
         
         if ($this->get_protocol() !== 'mail') {
-            $this->add_header('To', implode(", ", $to));
+            $this->set_header('To', implode(", ", $to));
         }
         
         switch ($this->get_protocol()) {
@@ -826,7 +826,7 @@ class Email_Library {
             $this->validate_email($cc);
         }
         
-        $this->add_header('Cc', implode(", ", $cc));
+        $this->set_header('Cc', implode(", ", $cc));
         
         if ($this->get_protocol() === 'smtp') {
             $this->cc_array = $cc;
@@ -858,7 +858,7 @@ class Email_Library {
         if (($this->get_protocol() === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
             $this->bcc_array = $bcc;
         } else {
-            $this->add_header('Bcc', implode(", ", $bcc));
+            $this->set_header('Bcc', implode(", ", $bcc));
         }
         
         return $this;
@@ -873,7 +873,7 @@ class Email_Library {
      */
     public function subject($subject) {
         $subject = $this->prep_q_encoding($subject);
-        $this->add_header('Subject', $subject);
+        $this->set_header('Subject', $subject);
         return $this;
     }
     
@@ -929,7 +929,7 @@ class Email_Library {
      * @param    string
      * @return    void
      */
-    private function add_header($header, $value) {
+    private function set_header($header, $value) {
         // Filters the input by removing all "\\n" and "\\r" characters.
         $this->headers[$header] = str_replace(array("\n", "\r"), '', $value);
     }
@@ -1201,11 +1201,11 @@ class Email_Library {
      * @return    string
      */
     private function build_headers() {
-        $this->add_header('X-Sender', $this->clean_email($this->headers['From']));
-        $this->add_header('X-Mailer', $this->user_agent);
-        $this->add_header('X-Priority', $this->priorities[$this->priority - 1]);
-        $this->add_header('Message-ID', $this->get_message_id());
-        $this->add_header('Mime-Version', '1.0');
+        $this->set_header('X-Sender', $this->clean_email($this->headers['From']));
+        $this->set_header('X-Mailer', $this->user_agent);
+        $this->set_header('X-Priority', $this->priorities[$this->priority - 1]);
+        $this->set_header('Message-ID', $this->get_message_id());
+        $this->set_header('Mime-Version', '1.0');
     }
     
     /**
@@ -1608,7 +1608,7 @@ class Email_Library {
             $bcc = $this->clean_email($bcc);
             
             if ($this->protocol !== 'smtp') {
-                $this->add_header('Bcc', implode(", ", $bcc));
+                $this->set_header('Bcc', implode(", ", $bcc));
             } else {
                 $this->bcc_array = $bcc;
             }
