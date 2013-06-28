@@ -1015,7 +1015,7 @@ class Email_Library {
     private function get_content_type() {
         if ($this->mailtype === 'html') {
             return (count($this->attach_name) === 0) ? 'html' : 'html-attach';
-        } elseif    ($this->mailtype === 'text' && count($this->attach_name) > 0) {
+        } elseif ($this->mailtype === 'text' && count($this->attach_name) > 0) {
             return 'plain-attach';
         } else {
             return 'plain';
@@ -1042,7 +1042,7 @@ class Email_Library {
      * @return    string
      */
     private function get_mime_message() {
-        return "This is a multi-part message in MIME format.".$this->newline."Your email application may not support this format.";
+        return 'This is a multi-part message in MIME format.'.$this->newline.'Your email application may not support this format.';
     }
     
     /**
