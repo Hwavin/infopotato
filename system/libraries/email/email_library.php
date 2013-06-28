@@ -1155,7 +1155,7 @@ class Email_Library {
         $str = wordwrap($str, $charlim, "\n", FALSE);
         
         // Split the string into individual lines of text and cycle through them
-        $output = "";
+        $output = '';
         foreach (explode("\n", $str) as $line) {
             // Is the line within the allowed character count?
             // If so we'll join it to the output and continue
@@ -1165,7 +1165,7 @@ class Email_Library {
             }
             
             $temp = '';
-            while ((strlen($line)) > $charlim) {
+            do {
                 // If the over-length word is a URL we won't wrap it
                 if (preg_match("!\[url.+\]|://|wwww.!", $line)) {
                     break;
@@ -1174,7 +1174,7 @@ class Email_Library {
                 // Trim the word down
                 $temp .= substr($line, 0, $charlim-1);
                 $line = substr($line, $charlim-1);
-            }
+            } while ((strlen($line)) > $charlim)
             
             // If $temp contains data it means we had to split up an over-length
             // word into smaller chunks so we'll add it back to our current line
