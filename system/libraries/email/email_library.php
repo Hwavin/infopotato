@@ -241,7 +241,7 @@ class Email_Library {
      *
      * @var    bool
      */
-    private $smtp_auth    = FALSE;
+    private $smtp_auth = FALSE;
     
     /**
      * Whether to send a Reply-To header
@@ -673,7 +673,7 @@ class Email_Library {
      */
     public function __destruct() {
         if (is_resource($this->smtp_connect)) {
-            $this->send_command('quit');
+            $this->send_smtp_command('quit');
         }
     }
     
@@ -964,6 +964,8 @@ class Email_Library {
     
     /**
      * Get the Message ID
+     *
+     * The Message-ID uses the domain part from the Return-Path
      *
      * @return    string
      */
@@ -1669,8 +1671,8 @@ class Email_Library {
             $this->recipients = implode(', ', $this->recipients);
         }
         
-        // most documentation of sendmail using the "-f" flag lacks a space after it, however
-        // we've encountered servers that seem to require it to be in place.
+        // Most documentation of sendmail using the "-f" flag lacks a space after it, 
+        // however we've encountered servers that seem to require it to be in place.
         return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->clean_email($this->headers['Return-Path']));
     }
     
@@ -1717,16 +1719,16 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_command('from', $this->clean_email($this->headers['From']));
+        $this->send_smtp_command('from', $this->clean_email($this->headers['From']));
         
         foreach ($this->recipients as $val) {
-            $this->send_command('to', $val);
+            $this->send_smtp_command('to', $val);
         }
         
         if (count($this->cc_array) > 0) {
             foreach ($this->cc_array as $val) {
                 if ($val !== '') {
-                    $this->send_command('to', $val);
+                    $this->send_smtp_command('to', $val);
                 }
             }
         }
@@ -1734,12 +1736,12 @@ class Email_Library {
         if (count($this->bcc_array) > 0) {
             foreach ($this->bcc_array as $val) {
                 if ($val !== '') {
-                    $this->send_command('to', $val);
+                    $this->send_smtp_command('to', $val);
                 }
             }
         }
         
-        $this->send_command('data');
+        $this->send_smtp_command('data');
         
         // perform dot transformation on any lines that begin with a dot
         $this->send_data($this->header_str . preg_replace('/^\./m', '..$1', $this->finalbody));
@@ -1756,9 +1758,9 @@ class Email_Library {
         }
         
         if ($this->smtp_keepalive) {
-            $this->send_command('reset');
+            $this->send_smtp_command('reset');
         } else {
-            $this->send_command('quit');
+            $this->send_smtp_command('quit');
         }
         
         return TRUE;
@@ -1791,8 +1793,8 @@ class Email_Library {
         $this->set_error_message($this->get_smtp_data());
         
         if ($this->smtp_crypto === 'tls') {
-            $this->send_command('hello');
-            $this->send_command('starttls');
+            $this->send_smtp_command('hello');
+            $this->send_smtp_command('starttls');
             
             $crypto = stream_socket_enable_crypto($this->smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
         
@@ -1802,7 +1804,7 @@ class Email_Library {
             }
         }
         
-        return $this->send_command('hello');
+        return $this->send_smtp_command('hello');
     }
     
     /**
@@ -1812,7 +1814,7 @@ class Email_Library {
      * @param    string
      * @return    bool
      */
-    private function send_command($cmd, $data = '') {
+    private function send_smtp_command($cmd, $data = '') {
         switch ($cmd) {
             case 'hello' :
                 if ($this->smtp_auth || $this->get_encoding() === '8bit') {
