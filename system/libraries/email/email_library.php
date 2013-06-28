@@ -1745,8 +1745,8 @@ class Email_Library {
         
         $this->send_smtp_command('data');
         
-        // perform dot transformation on any lines that begin with a dot
-        $this->send_smtp_data($this->header_str . preg_replace('/^\./m', '..$1', $this->finalbody));
+        // Perform dot transformation on any lines that begin with a dot
+        $this->send_smtp_data($this->header_str.preg_replace('/^\./m', '..$1', $this->finalbody));
         
         $this->send_smtp_data('.');
         
