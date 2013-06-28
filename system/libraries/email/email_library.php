@@ -740,7 +740,7 @@ class Email_Library {
         }
         
         $this->set_header('From', $name.' <'.$from.'>');
-        
+
         // Return-Path can't be used if you've configured 'smtp' as your protocol.
         $return_path = isset($return_path) ? $return_path : $from;
         $this->set_header('Return-Path', ' <'.$return_path.'>');
@@ -793,7 +793,7 @@ class Email_Library {
         }
         
         if ($this->get_protocol() !== 'mail') {
-            $this->set_header('To', implode(", ", $to));
+            $this->set_header('To', implode(', ', $to));
         }
         
         switch ($this->get_protocol()) {
