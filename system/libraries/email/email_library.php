@@ -1268,8 +1268,6 @@ class Email_Library {
                 }
                 
                 return;
-                
-                break;
             
             case 'html' :
                 if ($this->send_multipart === FALSE) {
@@ -1303,8 +1301,6 @@ class Email_Library {
                 }
                 
                 return;
-
-                break;
             
             case 'plain-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
