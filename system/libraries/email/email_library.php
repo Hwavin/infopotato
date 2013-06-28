@@ -1254,8 +1254,8 @@ class Email_Library {
         
         switch ($this->get_content_type()) {
             case 'plain' :
-                $hdr .= 'Content-Type: text/plain; charset=' . $this->charset . $this->newline;
-                $hdr .= 'Content-Transfer-Encoding: ' . $this->get_encoding();
+                $hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
+                $hdr .= 'Content-Transfer-Encoding: '.$this->get_encoding();
                 
                 if ($this->get_protocol() === 'mail') {
                     $this->header_str .= $hdr;
@@ -1270,33 +1270,33 @@ class Email_Library {
             
             case 'html' :
                 if ($this->send_multipart === FALSE) {
-                    $hdr .= 'Content-Type: text/html; charset=' . $this->charset . $this->newline;
-                    $hdr .= 'Content-Transfer-Encoding: quoted-printable' . $this->newline . $this->newline;
+                    $hdr .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
+                    $hdr .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
                 } else {
-                    $hdr .= 'Content-Type: multipart/alternative; boundary="' . $this->alt_boundary . '"' . $this->newline . $this->newline;
+                    $hdr .= 'Content-Type: multipart/alternative; boundary="'.$this->alt_boundary.'"'.$this->newline.$this->newline;
                     
-                    $body .= $this->get_mime_message() . $this->newline . $this->newline;
-                    $body .= '--' . $this->alt_boundary . $this->newline;
+                    $body .= $this->get_mime_message().$this->newline.$this->newline;
+                    $body .= '--'.$this->alt_boundary.$this->newline;
                     
-                    $body .= 'Content-Type: text/plain; charset=' . $this->charset . $this->newline;
-                    $body .= 'Content-Transfer-Encoding: ' . $this->get_encoding() . $this->newline . $this->newline;
-                    $body .= $this->get_alt_message() . $this->newline . $this->newline . '--' . $this->alt_boundary . $this->newline;
+                    $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
+                    $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
+                    $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$this->alt_boundary.$this->newline;
                     
-                    $body .= 'Content-Type: text/html; charset=' . $this->charset . $this->newline;
-                    $body .= 'Content-Transfer-Encoding: quoted-printable' . $this->newline . $this->newline;
+                    $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
+                    $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
                 }
                 
-                $this->finalbody = $body . $this->prep_quoted_printable($this->body) . $this->newline . $this->newline;
+                $this->finalbody = $body.$this->prep_quoted_printable($this->body).$this->newline.$this->newline;
                 
                 
                 if ($this->get_protocol() === 'mail') {
                     $this->header_str .= $hdr;
                 } else {
-                    $this->finalbody = $hdr . $this->finalbody;
+                    $this->finalbody = $hdr.$this->finalbody;
                 }
                 
                 if ($this->send_multipart !== FALSE) {
-                    $this->finalbody .= '--' . $this->alt_boundary . '--';
+                    $this->finalbody .= '--'.$this->alt_boundary.'--';
                 }
                 
                 return;
@@ -1304,43 +1304,43 @@ class Email_Library {
                 break;
             
             case 'plain-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="' . $this->atc_boundary.'"' . $this->newline . $this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->get_protocol() === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
-                $body .= $this->get_mime_message() . $this->newline . $this->newline;
-                $body .= '--' . $this->atc_boundary . $this->newline;
+                $body .= $this->get_mime_message().$this->newline.$this->newline;
+                $body .= '--' . $this->atc_boundary.$this->newline;
                 
-                $body .= 'Content-Type: text/plain; charset=' . $this->charset . $this->newline;
-                $body .= 'Content-Transfer-Encoding: ' . $this->get_encoding() . $this->newline . $this->newline;
-                $body .= $this->body . $this->newline . $this->newline;
+                $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
+                $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
+                $body .= $this->body.$this->newline.$this->newline;
 
                 break;
             
             case 'html-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="' . $this->atc_boundary.'"' . $this->newline . $this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="' . $this->atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->get_protocol() === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
-                $body .= $this->get_mime_message() . $this->newline . $this->newline;
-                $body .= '--' . $this->atc_boundary . $this->newline;
+                $body .= $this->get_mime_message().$this->newline.$this->newline;
+                $body .= '--'.$this->atc_boundary.$this->newline;
                 
-                $body .= 'Content-Type: multipart/alternative; boundary="' . $this->alt_boundary . '"' . $this->newline .$this->newline;
-                $body .= '--' . $this->alt_boundary . $this->newline;
+                $body .= 'Content-Type: multipart/alternative; boundary="'.$this->alt_boundary.'"'.$this->newline.$this->newline;
+                $body .= '--'.$this->alt_boundary.$this->newline;
                 
-                $body .= 'Content-Type: text/plain; charset=' . $this->charset . $this->newline;
-                $body .= 'Content-Transfer-Encoding: ' . $this->get_encoding() . $this->newline . $this->newline;
-                $body .= $this->get_alt_message() . $this->newline . $this->newline . '--' . $this->alt_boundary . $this->newline;
+                $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
+                $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
+                $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$this->alt_boundary.$this->newline;
                 
-                $body .= 'Content-Type: text/html; charset=' . $this->charset . $this->newline;
-                $body .= 'Content-Transfer-Encoding: quoted-printable' . $this->newline . $this->newline;
+                $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
+                $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
                 
-                $body .= $this->prep_quoted_printable($this->body) . $this->newline . $this->newline;
-                $body .= '--' . $this->alt_boundary . '--' . $this->newline . $this->newline;
+                $body .= $this->prep_quoted_printable($this->body).$this->newline.$this->newline;
+                $body .= '--'.$this->alt_boundary.'--'.$this->newline.$this->newline;
                 
                 break;
         }
@@ -1383,7 +1383,7 @@ class Email_Library {
         if ($this->get_protocol() === 'mail') {
             $this->finalbody = $body;
         } else {
-            $this->finalbody = $hdr . $body;
+            $this->finalbody = $hdr.$body;
         }
         
         return;
