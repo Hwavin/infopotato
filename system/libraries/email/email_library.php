@@ -1131,14 +1131,14 @@ class Email_Library {
             $charlim = empty($this->wrapchars) ? 76 : $this->wrapchars;
         }
         
-        // Reduce multiple spaces
-        $str = preg_replace("| +|", " ", $str);
-        
         // Standardize newlines
         if (strpos($str, "\r") !== FALSE) {
             $str = str_replace(array("\r\n", "\r"), "\n", $str);
         }
         
+        // Reduce multiple spaces
+        $str = preg_replace('| +\n|', "\n", $str);
+
         // If the current word is surrounded by {unwrap} tags we'll
         // strip the entire chunk and replace it with a marker.
         $unwrap = array();
@@ -1179,12 +1179,10 @@ class Email_Library {
             // If $temp contains data it means we had to split up an over-length
             // word into smaller chunks so we'll add it back to our current line
             if ($temp !== '') {
-                $output .= $temp.$this->newline.$line;
-            } else {
-                $output .= $line;
+                $output .= $temp.$this->newline;
             }
             
-            $output .= $this->newline;
+            $output .= $line.$this->newline;
         }
         
         // Put our markers back
