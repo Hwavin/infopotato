@@ -80,6 +80,13 @@ class Email_Library {
     private $smtp_crypto = '';
     
     /**
+     * Whether to use Delivery Status Notification (DSN) for the NOTIFY command.
+     *
+     * @var bool
+     */
+    public $smtp_dsn = FALSE;
+    
+    /**
      * TRUE/FALSE  Turns word-wrap on/off
      * 
      * @var bool
@@ -143,13 +150,6 @@ class Email_Library {
      * @var string
      */
     private $crlf = "\n";
-    
-    /**
-     * Whether to use Delivery Status Notification (DSN).
-     *
-     * @var	bool
-     */
-    public $dsn = FALSE;
     
     /**
      * TRUE/FALSE - Yahoo does not like multipart alternative, so this is an override.  
@@ -487,12 +487,25 @@ class Email_Library {
     }
     
     /**
+     * Validate and set $smtp_dsn
+     *
+     * @param  $val bool
+     * @return void
+     */
+    private function initialize_smtp_dsn($val) {
+        if ( ! is_bool($val)) {
+            $this->invalid_argument_value('smtp_dsn');
+        }
+        $this->smtp_dsn = $val;
+    }
+    
+    /**
      * Validate and set $wordwrap
      *
      * @param  $val bool
      * @return void
      */
-    private function initialize_smtp_wordwrap($val) {
+    private function initialize_wordwrap($val) {
         if ( ! is_bool($val)) {
             $this->invalid_argument_value('wordwrap');
         }
@@ -601,19 +614,6 @@ class Email_Library {
             $this->invalid_argument_value('newline');
         }
         $this->newline = $val;
-    }
-    
-    /**
-     * Validate and set $dsn
-     *
-     * @param  $val bool
-     * @return void
-     */
-    private function initialize_dsn($val) {
-        if ( ! is_bool($val)) {
-            $this->invalid_argument_value('dsn');
-        }
-        $this->dsn = $val;
     }
     
     /**
@@ -1838,7 +1838,10 @@ class Email_Library {
                 break;
             
             case 'to' :
-                if ($this->dsn) {
+                if ($this->smtp_dsn) {
+                    // Notify the sender when the email as arraved at its destination (SUCCESS), 
+                    // or if an arror occured during delivery (FAILURE), or there is an unusual delay in delivery, 
+                    // but the actual delivery's outcome (success or failure) is not yet decided.
                     $this->send_smtp_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 } else {
                     $this->send_smtp_data('RCPT TO:<'.$data.'>');
