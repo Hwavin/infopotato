@@ -741,7 +741,7 @@ class Email_Library {
         
         $this->set_header('From', $name.' <'.$from.'>');
 
-        // Return-Path can't be used if you've configured 'smtp' as your protocol.
+        // Use user defined email as Return-Path if specified, otherwise use $from
         $return_path = isset($return_path) ? $return_path : $from;
         $this->set_header('Return-Path', ' <'.$return_path.'>');
 
