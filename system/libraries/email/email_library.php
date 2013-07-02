@@ -289,13 +289,6 @@ class Email_Library {
     private $attach_disp = array();
     
     /**
-     * Character sets valid for 7-bit encoding
-     * 
-     * @var array
-     */
-    private $base_charsets = array('us-ascii', 'iso-2022-');
-    
-    /**
      * $priority translations
      *
      * Actual values to send with the X-Priority header
@@ -947,21 +940,21 @@ class Email_Library {
     /**
      * Get Mail Encoding
      *
-     * @param    bool
      * @return    string
      */
-    private function get_encoding($return = TRUE) {
-        $this->encoding = in_array($this->encoding, array('7bit', '8bit')) ? $this->encoding : '8bit';
+    private function get_encoding() {
+        $bit_depths = array('7bit', '8bit');
+        $base_charsets = array('us-ascii', 'iso-2022-');
         
-        foreach ($this->base_charsets as $charset) {
+        $this->encoding = in_array($this->encoding, $bit_depths) ? $this->encoding : '8bit';
+
+        foreach ($base_charsets as $charset) {
             if (strpos($charset, $this->charset) === 0) {
                 $this->encoding = '7bit';
             }
         }
         
-        if ($return === TRUE) {
-            return $this->encoding;
-        }
+        return $this->encoding;
     }
     
     /**
