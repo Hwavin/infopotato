@@ -38,13 +38,6 @@ class Email_Library {
     private $smtp_host = '';
     
     /**
-     * Whether to perform SMTP authentication
-     *
-     * @var    bool
-     */
-    private $smtp_auth = FALSE;
-    
-    /**
      * SMTP Username
      * 
      * @var string
@@ -1808,12 +1801,8 @@ class Email_Library {
     private function send_smtp_command($cmd, $data = '') {
         switch ($cmd) {
             case 'hello' :
-                if ($this->smtp_auth || $this->get_encoding() === '8bit') {
-                    // EHLO is the Enhanced SMTP (ESMTP) version of HELO
-                    $this->send_smtp_data('EHLO '.$this->get_hostname());
-                } else {
-                    $this->send_smtp_data('HELO '.$this->get_hostname());
-                }
+                // EHLO is the Enhanced SMTP (ESMTP) version of HELO
+                $this->send_smtp_data('EHLO '.$this->get_hostname());
                 $resp = 250;
                 break;
             
@@ -1876,13 +1865,6 @@ class Email_Library {
      * @return    bool
      */
     private function smtp_authenticate() {
-        // Determin if authendication is required for SMTP
-        $this->smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
-        
-        if ( ! $this->smtp_auth) {
-            return TRUE;
-        }
-        
         if ($this->smtp_user === '' && $this->smtp_pass === '') {
             $this->set_error_message('email_no_smtp_unpw');
             return FALSE;
