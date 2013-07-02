@@ -373,7 +373,8 @@ class Email_Library {
      * @return void
      */
     private function initialize_transport($val) {
-        if ( ! is_string($val) || ! in_array($val, $this->transports)) {
+        $val = strtolower($val);
+        if ( ! is_string($val) || ! in_array($val, array('mail', 'sendmail', 'smtp'))) {
             $this->invalid_argument_value('transport');
         }
         $this->transport = $val;
@@ -793,11 +794,11 @@ class Email_Library {
             $this->validate_email($to);
         }
         
-        if ($this->get_transport() !== 'mail') {
+        if ($this->transport !== 'mail') {
             $this->set_header('To', implode(', ', $to));
         }
         
-        switch ($this->get_transport()) {
+        switch ($this->transport) {
             case 'smtp' :
                 $this->recipients = $to;
                 break;
@@ -826,7 +827,7 @@ class Email_Library {
         
         $this->set_header('Cc', implode(', ', $cc));
         
-        if ($this->get_transport() === 'smtp') {
+        if ($this->transport === 'smtp') {
             $this->cc_array = $cc;
         }
         
@@ -852,7 +853,7 @@ class Email_Library {
             $this->validate_email($bcc);
         }
         
-        if (($this->get_transport() === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
+        if (($this->transport === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
             $this->bcc_array = $bcc;
         } else {
             $this->set_header('Bcc', implode(', ', $bcc));
@@ -967,22 +968,7 @@ class Email_Library {
         $from = str_replace(array('>', '<'), '', $this->headers['Return-Path']);
         return '<'.uniqid('').strstr($from, '@').'>';
     }
-    
-    /**
-     * Get Mail Transport
-     *
-     * @param    bool
-     * @return    string
-     */
-    private function get_transport($return = TRUE) {
-        $this->transport = strtolower($this->transport);
-        $this->transport = ( ! in_array($this->transport, $this->transports, TRUE)) ? 'mail' : $this->transport;
-        
-        if ($return === TRUE) {
-            return $this->transport;
-        }
-    }
-    
+
     /**
      * Get Mail Encoding
      *
@@ -1235,7 +1221,7 @@ class Email_Library {
             }
         }
         
-        if ($this->get_transport() === 'mail') {
+        if ($this->transport === 'mail') {
             $this->header_str = rtrim($this->header_str);
         }
     }
@@ -1253,7 +1239,7 @@ class Email_Library {
         $this->set_boundaries();
         $this->write_headers();
         
-        $hdr = ($this->get_transport() === 'mail') ? $this->newline : '';
+        $hdr = ($this->transport === 'mail') ? $this->newline : '';
         $body = '';
         
         switch ($this->get_content_type()) {
@@ -1261,7 +1247,7 @@ class Email_Library {
                 $hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $hdr .= 'Content-Transfer-Encoding: '.$this->get_encoding();
                 
-                if ($this->get_transport() === 'mail') {
+                if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
                     $this->finalbody = $this->body;
                 } else {
@@ -1291,7 +1277,7 @@ class Email_Library {
                 $this->finalbody = $body.$this->prep_quoted_printable($this->body).$this->newline.$this->newline;
                 
                 
-                if ($this->get_transport() === 'mail') {
+                if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
                 } else {
                     $this->finalbody = $hdr.$this->finalbody;
@@ -1306,7 +1292,7 @@ class Email_Library {
             case 'plain-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
                 
-                if ($this->get_transport() === 'mail') {
+                if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
@@ -1322,7 +1308,7 @@ class Email_Library {
             case 'html-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
                 
-                if ($this->get_transport() === 'mail') {
+                if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
@@ -1380,7 +1366,7 @@ class Email_Library {
         $body .= implode($this->newline, $attachment).$this->newline.'--'.$this->atc_boundary.'--';
         
         
-        if ($this->get_transport() === 'mail') {
+        if ($this->transport === 'mail') {
             $this->finalbody = $body;
         } else {
             $this->finalbody = $hdr.$body;
@@ -1650,13 +1636,13 @@ class Email_Library {
     private function spool_email() {
         $this->unwrap_specials();
         
-        $method = 'send_with_'.$this->get_transport();
+        $method = 'send_with_'.$this->transport;
         if ( ! $this->$method()) {
-            $this->set_error_message('email_send_failure_'.($this->get_transport() === 'mail' ? 'phpmail' : $this->get_transport()));
+            $this->set_error_message('email_send_failure_'.($this->transport === 'mail' ? 'phpmail' : $this->transport));
             return FALSE;
         }
         
-        $this->set_error_message('email_sent', $this->get_transport());
+        $this->set_error_message('email_sent', $this->transport);
         return TRUE;
     }
     
