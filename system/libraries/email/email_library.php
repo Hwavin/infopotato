@@ -644,7 +644,6 @@ class Email_Library {
         }
     }
     
-    
     /**
      * Initialize the Email Data
      *
@@ -944,7 +943,7 @@ class Email_Library {
      */
     private function get_encoding() {
         $bit_depths = array('7bit', '8bit');
-        $base_charsets = array('us-ascii', 'iso-2022-');
+        $base_charsets = array('us-ascii', 'iso-2022-'); // Charcter sets valid for 7bit encoding
         
         $this->encoding = in_array($this->encoding, $bit_depths) ? $this->encoding : '8bit';
 
@@ -1227,6 +1226,9 @@ class Email_Library {
             case 'html' :
                 if ($this->send_multipart === FALSE) {
                     $hdr .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
+                    // quoted-printable is used to encode arbitrary octet sequences into a form that satisfies the rules of 7bit. 
+                    // Designed to be efficient and mostly human readable when used for text data consisting primarily of US-ASCII characters 
+                    // but also containing a small proportion of bytes with values outside that range.
                     $hdr .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
                 } else {
                     $hdr .= 'Content-Type: multipart/alternative; boundary="'.$this->alt_boundary.'"'.$this->newline.$this->newline;
