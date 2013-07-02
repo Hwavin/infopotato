@@ -1673,7 +1673,7 @@ class Email_Library {
             return FALSE;
         }
         
-        if ( ! $this->smtp_authenticate()) {
+        if ( ! $this->smtp_auth()) {
             return FALSE;
         }
         
@@ -1847,7 +1847,7 @@ class Email_Library {
      *
      * @return    bool
      */
-    private function smtp_authenticate() {
+    private function smtp_auth() {
         if ($this->smtp_user === '' && $this->smtp_pass === '') {
             $this->set_error_message('email_no_smtp_unpw');
             return FALSE;
