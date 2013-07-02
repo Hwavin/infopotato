@@ -122,7 +122,7 @@ class Email_Library {
     private $multipart = 'mixed';
     
     /**
-     * Whether to validate e-mail addresses
+     * Whether to validate email addresses
      * 
      * @var bool
      */
