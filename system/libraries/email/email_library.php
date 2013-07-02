@@ -743,6 +743,7 @@ class Email_Library {
 
         // Use user defined email as Return-Path if specified, otherwise use $from
         $return_path = isset($return_path) ? $return_path : $from;
+        // Return-Path must not include a personal name
         $this->set_header('Return-Path', ' <'.$return_path.'>');
 
         return $this;
@@ -1682,6 +1683,7 @@ class Email_Library {
      */
     private function send_with_sendmail() {
         // Opens process file pointer
+        // Check out http://www.sendmail.org/~ca/email/man/sendmail.html for sendmail flags
         $fp = @popen($this->sendmail_path.' -oi -f '.$this->clean_email($this->headers['From']).' -t -r '.$this->clean_email($this->headers['Return-Path']), 'w');
         
         if ($fp === FALSE) {
@@ -1794,10 +1796,16 @@ class Email_Library {
         stream_set_timeout($this->smtp_connect, $this->smtp_timeout);
         $this->set_error_message($this->get_smtp_data());
         
+        // RFC 3207 defines how SMTP connections can make use of encryption. 
+        // Once a connection is established, the client issues a STARTTLS command. 
+        // If the server accepts this, the client and the server negotiate an encryption mechanism. 
+        // If the negotiation succeeds, the data that subsequently passes between them is encrypted.
         if ($this->smtp_crypto === 'tls') {
             $this->send_smtp_command('hello');
+            // http://www.ietf.org/rfc/rfc3207.txt
             $this->send_smtp_command('starttls');
             
+            // Enable encryption on an already connected socket stream
             $crypto = stream_socket_enable_crypto($this->smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
         
             if ($crypto !== TRUE) {
