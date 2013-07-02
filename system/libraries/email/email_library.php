@@ -296,16 +296,6 @@ class Email_Library {
     private $base_charsets = array('us-ascii', 'iso-2022-');
     
     /**
-     * Bit depths
-     *
-     * Valid mail encodings
-     *
-     * @see    Email_Library::$encoding
-     * @var    string[]
-     */
-    private $bit_depths = array('7bit', '8bit');
-    
-    /**
      * $priority translations
      *
      * Actual values to send with the X-Priority header
@@ -961,7 +951,7 @@ class Email_Library {
      * @return    string
      */
     private function get_encoding($return = TRUE) {
-        $this->encoding = in_array($this->encoding, $this->bit_depths) ? $this->encoding : '8bit';
+        $this->encoding = in_array($this->encoding, array('7bit', '8bit')) ? $this->encoding : '8bit';
         
         foreach ($this->base_charsets as $charset) {
             if (strpos($charset, $this->charset) === 0) {
