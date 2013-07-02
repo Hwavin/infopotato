@@ -1693,7 +1693,11 @@ class Email_Library {
             return FALSE;
         }
         
-        if ( ! $this->smtp_connect() || ! $this->smtp_authenticate()) {
+        if ( ! $this->smtp_connect()) {
+            return FALSE;
+        }
+        
+        if ( ! $this->smtp_authenticate()) {
             return FALSE;
         }
         
@@ -1745,7 +1749,7 @@ class Email_Library {
     }
     
     /**
-     * SMTP Connect
+     * Connect to a SMTP server, no Auth
      *
      * @param    string
      * @return    string
