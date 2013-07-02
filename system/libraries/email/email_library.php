@@ -630,7 +630,7 @@ class Email_Library {
      * @return void
      */
     private function invalid_argument_value($arg) {
-        exit("In your config array, the provided argument value of "."'".$arg."'"." is invalid.");
+        exit('In your config array, the provided argument value of '."'".$arg."'".' is invalid.');
     }
     
     /**
