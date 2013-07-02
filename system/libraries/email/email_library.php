@@ -1560,7 +1560,7 @@ class Email_Library {
      * @return    void
      */
     private function batch_bcc_send() {
-        $float = $this->bcc_batch_size -1;
+        $float = $this->bcc_batch_size - 1;
         $set = '';
         $chunk = array();
         
@@ -1588,7 +1588,7 @@ class Email_Library {
             $bcc = $this->clean_email($bcc);
             
             if ($this->transport !== 'smtp') {
-                $this->set_header('Bcc', implode(", ", $bcc));
+                $this->set_header('Bcc', implode(', ', $bcc));
             } else {
                 $this->bcc_array = $bcc;
             }
@@ -1604,7 +1604,7 @@ class Email_Library {
      * @return    void
      */
     private function unwrap_specials() {
-        $this->finalbody = preg_replace_callback("/\{unwrap\}(.*?)\{\/unwrap\}/si", array($this, 'remove_nl_callback'), $this->finalbody);
+        $this->finalbody = preg_replace_callback('/\{unwrap\}(.*?)\{\/unwrap\}/si', array($this, 'remove_nl_callback'), $this->finalbody);
     }
     
     /**
