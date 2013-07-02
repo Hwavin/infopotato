@@ -301,7 +301,7 @@ class Email_Library {
      * @see    Email_Library::$transport
      * @var    string[]
      */
-    private $protocols = array('mail', 'sendmail', 'smtp');
+    private $transports = array('mail', 'sendmail', 'smtp');
     
     /**
      * Character sets valid for 7-bit encoding
@@ -373,7 +373,7 @@ class Email_Library {
      * @return void
      */
     private function initialize_transport($val) {
-        if ( ! is_string($val) || ! in_array($val, $this->protocols)) {
+        if ( ! is_string($val) || ! in_array($val, $this->transports)) {
             $this->invalid_argument_value('transport');
         }
         $this->transport = $val;
@@ -976,7 +976,7 @@ class Email_Library {
      */
     private function get_transport($return = TRUE) {
         $this->transport = strtolower($this->transport);
-        $this->transport = ( ! in_array($this->transport, $this->protocols, TRUE)) ? 'mail' : $this->transport;
+        $this->transport = ( ! in_array($this->transport, $this->transports, TRUE)) ? 'mail' : $this->transport;
         
         if ($return === TRUE) {
             return $this->transport;
