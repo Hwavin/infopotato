@@ -38,6 +38,13 @@ class Email_Library {
     private $smtp_host = '';
     
     /**
+     * Whether to perform SMTP authentication
+     *
+     * @var    bool
+     */
+    private $smtp_auth = FALSE;
+    
+    /**
      * SMTP Username
      * 
      * @var string
@@ -235,13 +242,6 @@ class Email_Library {
      * @var    string    '8bit' or '7bit'
      */
     private $encoding = '8bit';
-    
-    /**
-     * Whether to perform SMTP authentication
-     *
-     * @var    bool
-     */
-    private $smtp_auth = FALSE;
     
     /**
      * Whether to send a Reply-To header
@@ -1827,6 +1827,7 @@ class Email_Library {
         switch ($cmd) {
             case 'hello' :
                 if ($this->smtp_auth || $this->get_encoding() === '8bit') {
+                    // EHLO is the Enhanced SMTP (ESMTP) version of HELO
                     $this->send_smtp_data('EHLO '.$this->get_hostname());
                 } else {
                     $this->send_smtp_data('HELO '.$this->get_hostname());
