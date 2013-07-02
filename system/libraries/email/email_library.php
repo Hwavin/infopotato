@@ -24,11 +24,11 @@ class Email_Library {
     private $sendmail_path = '/usr/sbin/sendmail';
     
     /**
-     * Which method to use for sending e-mails
+     * Which transport to use for sending e-mails
      * 
      * @var string 'mail', 'sendmail' or 'smtp'
      */
-    private $protocol = 'mail';
+    private $transport = 'mail';
     
     /**
      * Remote SMTP hostname or IP
@@ -296,9 +296,9 @@ class Email_Library {
     private $attach_disp = array();
     
     /**
-     * Valid $protocol values
+     * Valid $transport values
      *
-     * @see    Email_Library::$protocol
+     * @see    Email_Library::$transport
      * @var    string[]
      */
     private $protocols = array('mail', 'sendmail', 'smtp');
@@ -367,16 +367,16 @@ class Email_Library {
     }
     
     /**
-     * Validate and set $protocol
+     * Validate and set $transport
      *
      * @param  $val string
      * @return void
      */
-    private function initialize_protocol($val) {
+    private function initialize_transport($val) {
         if ( ! is_string($val) || ! in_array($val, $this->protocols)) {
-            $this->invalid_argument_value('protocol');
+            $this->invalid_argument_value('transport');
         }
-        $this->protocol = $val;
+        $this->transport = $val;
     }
     
     /**
@@ -793,11 +793,11 @@ class Email_Library {
             $this->validate_email($to);
         }
         
-        if ($this->get_protocol() !== 'mail') {
+        if ($this->get_transport() !== 'mail') {
             $this->set_header('To', implode(', ', $to));
         }
         
-        switch ($this->get_protocol()) {
+        switch ($this->get_transport()) {
             case 'smtp' :
                 $this->recipients = $to;
                 break;
@@ -826,7 +826,7 @@ class Email_Library {
         
         $this->set_header('Cc', implode(', ', $cc));
         
-        if ($this->get_protocol() === 'smtp') {
+        if ($this->get_transport() === 'smtp') {
             $this->cc_array = $cc;
         }
         
@@ -852,7 +852,7 @@ class Email_Library {
             $this->validate_email($bcc);
         }
         
-        if (($this->get_protocol() === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
+        if (($this->get_transport() === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
             $this->bcc_array = $bcc;
         } else {
             $this->set_header('Bcc', implode(', ', $bcc));
@@ -969,17 +969,17 @@ class Email_Library {
     }
     
     /**
-     * Get Mail Protocol
+     * Get Mail Transport
      *
      * @param    bool
      * @return    string
      */
-    private function get_protocol($return = TRUE) {
-        $this->protocol = strtolower($this->protocol);
-        $this->protocol = ( ! in_array($this->protocol, $this->protocols, TRUE)) ? 'mail' : $this->protocol;
+    private function get_transport($return = TRUE) {
+        $this->transport = strtolower($this->transport);
+        $this->transport = ( ! in_array($this->transport, $this->protocols, TRUE)) ? 'mail' : $this->transport;
         
         if ($return === TRUE) {
-            return $this->protocol;
+            return $this->transport;
         }
     }
     
@@ -1216,7 +1216,7 @@ class Email_Library {
      * @return    void
      */
     private function write_headers() {
-        if ($this->protocol === 'mail') {
+        if ($this->transport === 'mail') {
             if (isset($this->headers['Subject'])) {
                 $this->subject = $this->headers['Subject'];
                 unset($this->headers['Subject']);
@@ -1235,7 +1235,7 @@ class Email_Library {
             }
         }
         
-        if ($this->get_protocol() === 'mail') {
+        if ($this->get_transport() === 'mail') {
             $this->header_str = rtrim($this->header_str);
         }
     }
@@ -1253,7 +1253,7 @@ class Email_Library {
         $this->set_boundaries();
         $this->write_headers();
         
-        $hdr = ($this->get_protocol() === 'mail') ? $this->newline : '';
+        $hdr = ($this->get_transport() === 'mail') ? $this->newline : '';
         $body = '';
         
         switch ($this->get_content_type()) {
@@ -1261,7 +1261,7 @@ class Email_Library {
                 $hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $hdr .= 'Content-Transfer-Encoding: '.$this->get_encoding();
                 
-                if ($this->get_protocol() === 'mail') {
+                if ($this->get_transport() === 'mail') {
                     $this->header_str .= $hdr;
                     $this->finalbody = $this->body;
                 } else {
@@ -1291,7 +1291,7 @@ class Email_Library {
                 $this->finalbody = $body.$this->prep_quoted_printable($this->body).$this->newline.$this->newline;
                 
                 
-                if ($this->get_protocol() === 'mail') {
+                if ($this->get_transport() === 'mail') {
                     $this->header_str .= $hdr;
                 } else {
                     $this->finalbody = $hdr.$this->finalbody;
@@ -1306,7 +1306,7 @@ class Email_Library {
             case 'plain-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
                 
-                if ($this->get_protocol() === 'mail') {
+                if ($this->get_transport() === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
@@ -1322,7 +1322,7 @@ class Email_Library {
             case 'html-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
                 
-                if ($this->get_protocol() === 'mail') {
+                if ($this->get_transport() === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
@@ -1380,7 +1380,7 @@ class Email_Library {
         $body .= implode($this->newline, $attachment).$this->newline.'--'.$this->atc_boundary.'--';
         
         
-        if ($this->get_protocol() === 'mail') {
+        if ($this->get_transport() === 'mail') {
             $this->finalbody = $body;
         } else {
             $this->finalbody = $hdr.$body;
@@ -1609,7 +1609,7 @@ class Email_Library {
             $bcc = $this->str_to_array($chunk[$i]);
             $bcc = $this->clean_email($bcc);
             
-            if ($this->protocol !== 'smtp') {
+            if ($this->transport !== 'smtp') {
                 $this->set_header('Bcc', implode(", ", $bcc));
             } else {
                 $this->bcc_array = $bcc;
@@ -1650,13 +1650,13 @@ class Email_Library {
     private function spool_email() {
         $this->unwrap_specials();
         
-        $method = 'send_with_'.$this->get_protocol();
+        $method = 'send_with_'.$this->get_transport();
         if ( ! $this->$method()) {
-            $this->set_error_message('email_send_failure_'.($this->get_protocol() === 'mail' ? 'phpmail' : $this->get_protocol()));
+            $this->set_error_message('email_send_failure_'.($this->get_transport() === 'mail' ? 'phpmail' : $this->get_transport()));
             return FALSE;
         }
         
-        $this->set_error_message('email_sent', $this->get_protocol());
+        $this->set_error_message('email_sent', $this->get_transport());
         return TRUE;
     }
     
@@ -2034,7 +2034,7 @@ class Email_Library {
             'email_send_failure_phpmail' => "Unable to send email using PHP mail().  Your server might not be configured to send mail using this method.",
             'email_send_failure_sendmail' => "Unable to send email using PHP Sendmail.  Your server might not be configured to send mail using this method.",
             'email_send_failure_smtp' => "Unable to send email using PHP SMTP.  Your server might not be configured to send mail using this method.",
-            'email_sent' => "Your message has been successfully sent using the following protocol: %s",
+            'email_sent' => "Your message has been successfully sent using the following transport: %s",
             'email_no_socket' => "Unable to open a socket to Sendmail. Please check settings.",
             'email_no_hostname' => "You did not specify a SMTP hostname.",
             'email_smtp_error' => "The following SMTP error was encountered: %s",
