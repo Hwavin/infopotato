@@ -1781,7 +1781,11 @@ class Email_Library {
             return TRUE;
         }
         
-        // OpenSSL extension needed to use ssl
+        // If no transport is specified, tcp:// will be assumed
+        // The ssl:// and tls:// transports (available only when openssl support is compiled into PHP) 
+        // are extensions of the tcp:// transport which include SSL encryption.
+        // ssl:// will attempt to negotiate an SSL V2, or SSL V3 connection 
+        // depending on the capabilities and preferences of the remote host.
         $ssl = ($this->smtp_crypto === 'ssl') ? 'ssl://' : '';
         
         // You can prefix the hostname with either ssl:// or tls:// to use an SSL or TLS client connection over TCP/IP 
