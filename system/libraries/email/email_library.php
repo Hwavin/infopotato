@@ -1346,9 +1346,8 @@ class Email_Library {
     }
     
     /**
-     * Prep Quoted Printable
-     *
      * Prepares string for Quoted-Printable Content-Transfer-Encoding
+     * 
      * Refer to RFC 2045 http://www.ietf.org/rfc/rfc2045.txt
      *
      * @param    string
@@ -1420,10 +1419,9 @@ class Email_Library {
     }
     
     /**
-     * Prep Q Encoding
+     * Performs "Q Encoding" on a string for use in email headers.
      *
-     * Performs "Q Encoding" on a string for use in email headers.  It's related
-     * but not identical to quoted-printable, so it has its own method
+     * It's related but not identical to quoted-printable, so it has its own method
      *
      * @param    str
      * @param    bool    // set to TRUE for processing From: headers
@@ -1434,9 +1432,9 @@ class Email_Library {
         
         if ($this->charset === 'UTF-8') {
             if (extension_loaded('mbstring')) {
-                // set internal encoding for multibyte string functions
+                // Set internal encoding for multibyte string functions
                 mb_internal_encoding($this->charset);
-                
+                // Encode string for MIME header
                 return mb_encode_mimeheader($str, $this->charset, 'Q', $this->crlf);
             } elseif (extension_loaded('iconv')) {
                 $output = @iconv_mime_encode('', $str,
