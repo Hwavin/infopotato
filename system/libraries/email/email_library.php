@@ -31,7 +31,7 @@ class Email_Library {
     private $protocol = 'mail';
     
     /**
-     * SMTP Server.  Example: mail.earthlink.net
+     * Remote SMTP hostname or IP
      * 
      * @var string
      */
@@ -237,7 +237,7 @@ class Email_Library {
     private $smtp_connect = '';
     
     /**
-     * Mail encoding
+     * Mail Transfer Encoding
      *
      * @var    string    '8bit' or '7bit'
      */
