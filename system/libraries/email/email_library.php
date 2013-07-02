@@ -296,14 +296,6 @@ class Email_Library {
     private $attach_disp = array();
     
     /**
-     * Valid $transport values
-     *
-     * @see    Email_Library::$transport
-     * @var    string[]
-     */
-    private $transports = array('mail', 'sendmail', 'smtp');
-    
-    /**
      * Character sets valid for 7-bit encoding
      * 
      * @var array
