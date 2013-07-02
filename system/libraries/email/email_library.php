@@ -63,7 +63,7 @@ class Email_Library {
      * 
      * @var int
      */
-    private $smtp_timeout    = 5;
+    private $smtp_timeout = 5;
     
     /**
      * SMTP persistent connection
