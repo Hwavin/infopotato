@@ -1796,13 +1796,12 @@ class Email_Library {
         stream_set_timeout($this->smtp_connect, $this->smtp_timeout);
         $this->set_error_message($this->get_smtp_data());
         
-        // RFC 3207 defines how SMTP connections can make use of encryption. 
+        // RFC 3207 (http://www.ietf.org/rfc/rfc3207.txt) defines how SMTP connections can make use of encryption. 
         // Once a connection is established, the client issues a STARTTLS command. 
         // If the server accepts this, the client and the server negotiate an encryption mechanism. 
         // If the negotiation succeeds, the data that subsequently passes between them is encrypted.
         if ($this->smtp_crypto === 'tls') {
             $this->send_smtp_command('hello');
-            // http://www.ietf.org/rfc/rfc3207.txt
             $this->send_smtp_command('starttls');
             
             // Enable encryption on an already connected socket stream
@@ -1857,7 +1856,7 @@ class Email_Library {
                 $resp = 250;
                 break;
             
-            case 'data'    :
+            case 'data' :
                 $this->send_smtp_data('DATA');
                 $resp = 354;
                 break;
