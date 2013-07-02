@@ -1644,7 +1644,6 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_mail() {
-        
         if (is_array($this->recipients)) {
             $this->recipients = implode(', ', $this->recipients);
         }
@@ -1689,9 +1688,6 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_smtp() {
-        // Determin if authendication is required for SMTP
-        $this->smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
-        
         if ($this->smtp_host === '') {
             $this->set_error_message('email_no_hostname');
             return FALSE;
@@ -1871,11 +1867,14 @@ class Email_Library {
     }
     
     /**
-     *  SMTP Authenticate
+     *  SMTP Authentication
      *
      * @return    bool
      */
     private function smtp_authenticate() {
+        // Determin if authendication is required for SMTP
+        $this->smtp_auth = ! ($this->smtp_user === '' && $this->smtp_pass === '');
+        
         if ( ! $this->smtp_auth) {
             return TRUE;
         }
