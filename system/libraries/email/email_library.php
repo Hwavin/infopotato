@@ -230,11 +230,11 @@ class Email_Library {
     private $header_str = '';
     
     /**
-     * SMTP Connection socket placeholder
+     * SMTP Socket Connection File Pointer
      *
      * @var    resource
      */
-    private $smtp_connect = '';
+    private $smtp_connection_fp = '';
     
     /**
      * Mail Transfer Encoding
@@ -670,7 +670,7 @@ class Email_Library {
      * @return    void
      */
     public function __destruct() {
-        if (is_resource($this->smtp_connect)) {
+        if (is_resource($this->smtp_connection_fp)) {
             $this->send_smtp_command('quit');
         }
     }
@@ -1777,7 +1777,7 @@ class Email_Library {
      * @return    string
      */
     private function smtp_connect() {
-        if (is_resource($this->smtp_connect)) {
+        if (is_resource($this->smtp_connection_fp)) {
             return TRUE;
         }
         
@@ -1790,14 +1790,14 @@ class Email_Library {
         
         // You can prefix the hostname with either ssl:// or tls:// to use an SSL or TLS client connection over TCP/IP 
         // to connect to the remote host if OpenSSL support is installed
-        $this->smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_connection_timeout);
+        $this->smtp_connection_fp = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_connection_timeout);
         
-        if ( ! is_resource($this->smtp_connect)) {
+        if ( ! is_resource($this->smtp_connection_fp)) {
             $this->set_error_message('email_smtp_error', $errno.' '.$errstr);
             return FALSE;
         }
         
-        stream_set_timeout($this->smtp_connect, $this->smtp_connection_timeout);
+        stream_set_timeout($this->smtp_connection_fp, $this->smtp_connection_timeout);
         $this->set_error_message($this->get_smtp_data());
         
         // RFC 3207 (http://www.ietf.org/rfc/rfc3207.txt) defines how SMTP connections can make use of encryption. 
@@ -1809,7 +1809,7 @@ class Email_Library {
             $this->send_smtp_command('starttls');
             
             // Enable encryption on an already connected socket stream
-            $crypto = stream_socket_enable_crypto($this->smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+            $crypto = stream_socket_enable_crypto($this->smtp_connection_fp, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
         
             if ($crypto !== TRUE) {
                 $this->set_error_message('email_smtp_error', $this->get_smtp_data());
@@ -1886,7 +1886,7 @@ class Email_Library {
         }
         
         if ($cmd === 'quit') {
-            fclose($this->smtp_connect);
+            fclose($this->smtp_connection_fp);
         }
         
         return TRUE;
@@ -1946,7 +1946,7 @@ class Email_Library {
      * @return    bool
      */
     private function send_smtp_data($data) {
-        if ( ! fwrite($this->smtp_connect, $data . $this->newline)) {
+        if ( ! fwrite($this->smtp_connection_fp, $data . $this->newline)) {
             $this->set_error_message('email_smtp_data_failure', $data);
             return FALSE;
         } 
@@ -1962,7 +1962,7 @@ class Email_Library {
     private function get_smtp_data() {
         $data = '';
         
-        while ($str = fgets($this->smtp_connect, 512)) {
+        while ($str = fgets($this->smtp_connection_fp, 512)) {
             $data .= $str;
             
             if ($str[3] === ' ') {
