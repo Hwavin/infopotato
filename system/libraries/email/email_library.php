@@ -24,7 +24,7 @@ class Email_Library {
     private $sendmail_path = '/usr/sbin/sendmail';
     
     /**
-     * Which transport to use for sending e-mails
+     * Which transport to use for sending emails
      * 
      * @var string 'mail', 'sendmail' or 'smtp'
      */
@@ -73,14 +73,14 @@ class Email_Library {
     private $smtp_keepalive = FALSE;
     
     /**
-     * SMTP Encryption
+     * SMTP Encryption Type
      * 
      * @var string  'tls' or 'ssl'
      */
     private $smtp_crypto = '';
     
     /**
-     * Whether to use Delivery Status Notification (DSN) for the NOTIFY command.
+     * Whether to use Delivery Status Notification (DSN) for the NOTIFY command
      *
      * @var bool
      */
