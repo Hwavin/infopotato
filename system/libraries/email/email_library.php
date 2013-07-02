@@ -70,7 +70,7 @@ class Email_Library {
      * 
      * @var int
      */
-    private $smtp_timeout = 5;
+    private $smtp_connection_timeout = 5;
     
     /**
      * SMTP persistent connection
@@ -445,16 +445,16 @@ class Email_Library {
     }
     
     /**
-     * Validate and set $smtp_timeout
+     * Validate and set $smtp_connection_timeout
      *
      * @param  $val int
      * @return void
      */
     private function initialize_smtp_timeout($val) {
         if ( ! is_int($val)) {
-            $this->invalid_argument_value('smtp_timeout');
+            $this->invalid_argument_value('smtp_connection_timeout');
         }
-        $this->smtp_timeout = $val;
+        $this->smtp_connection_timeout = $val;
     }
     
     /**
@@ -1786,14 +1786,14 @@ class Email_Library {
         
         // You can prefix the hostname with either ssl:// or tls:// to use an SSL or TLS client connection over TCP/IP 
         // to connect to the remote host if OpenSSL support is installed
-        $this->smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_timeout);
+        $this->smtp_connect = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_connection_timeout);
         
         if ( ! is_resource($this->smtp_connect)) {
             $this->set_error_message('email_smtp_error', $errno.' '.$errstr);
             return FALSE;
         }
         
-        stream_set_timeout($this->smtp_connect, $this->smtp_timeout);
+        stream_set_timeout($this->smtp_connect, $this->smtp_connection_timeout);
         $this->set_error_message($this->get_smtp_data());
         
         // RFC 3207 (http://www.ietf.org/rfc/rfc3207.txt) defines how SMTP connections can make use of encryption. 
