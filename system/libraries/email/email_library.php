@@ -1186,7 +1186,7 @@ class Email_Library {
     /**
      * Build Final Body and attachments
      *
-     * @return    void
+     * @return    bool
      */
     private function build_message() {
         if ($this->wordwrap === TRUE  &&  $this->mailtype !== 'html') {
@@ -1324,15 +1324,9 @@ class Email_Library {
         }
         
         $body .= implode($this->newline, $attachment).$this->newline.'--'.$this->atc_boundary.'--';
+        $this->finalbody = ($this->transport === 'mail') ? $body : $hdr.$body;
         
-        
-        if ($this->transport === 'mail') {
-            $this->finalbody = $body;
-        } else {
-            $this->finalbody = $hdr.$body;
-        }
-        
-        return;
+        return TRUE;
     }
     
     /**
