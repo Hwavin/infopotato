@@ -1532,13 +1532,13 @@ class Email_Library {
         
         for ($i = 0; $i < count($this->bcc_array); $i++) {
             if (isset($this->bcc_array[$i])) {
-                $set .= ", ".$this->bcc_array[$i];
+                $set .= ', '.$this->bcc_array[$i];
             }
             
             if ($i === $float) {
                 $chunk[] = substr($set, 1);
                 $float = $float + $this->bcc_batch_size;
-                $set = "";
+                $set = '';
             }
             
             if ($i === count($this->bcc_array)-1) {
@@ -1549,9 +1549,8 @@ class Email_Library {
         for ($i = 0; $i < count($chunk); $i++) {
             unset($this->headers['Bcc']);
             unset($bcc);
-            
-            $bcc = $this->str_to_array($chunk[$i]);
-            $bcc = $this->clean_email($bcc);
+
+            $bcc = $this->clean_email($this->str_to_array($chunk[$i]));
             
             if ($this->transport !== 'smtp') {
                 $this->set_header('Bcc', implode(', ', $bcc));
