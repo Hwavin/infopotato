@@ -645,7 +645,7 @@ class Email_Library {
     }
     
     /**
-     * Initialize the Email Data
+     * Reset the Email Data
      *
      * @param    bool
      * @return    Email_Library
@@ -665,7 +665,8 @@ class Email_Library {
         $this->set_header('User-Agent', $this->user_agent);
         $this->set_header('Date', $this->set_date());
         
-        if ($clear_attachments !== FALSE) {
+        // You need to set $clear_attachments = TRUE if attachments are sent in loop
+        if ($clear_attachments === TRUE) {
             $this->attach_name = array();
             $this->attach_type = array();
             $this->attach_disp = array();
