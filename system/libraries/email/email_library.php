@@ -915,16 +915,6 @@ class Email_Library {
     }
     
     /**
-     * Set Message Boundary
-     *
-     * @return    void
-     */
-    private function set_boundaries() {
-        $this->alt_boundary = 'B_ALT_'.uniqid(''); // multipart/alternative
-        $this->atc_boundary = 'B_ATC_'.uniqid(''); // attachment boundary
-    }
-    
-    /**
      * Get the Message ID
      *
      * The Message-ID uses the domain part from the Return-Path
@@ -1194,7 +1184,11 @@ class Email_Library {
             $this->body = $this->word_wrap($this->body);
         }
         
-        $this->set_boundaries();
+        // Set Message Boundary
+        $this->alt_boundary = 'B_ALT_'.uniqid(''); // For multipart/alternative
+        $this->atc_boundary = 'B_ATC_'.uniqid(''); // For attachment boundary
+        
+        // Write Headers as a string
         $this->write_headers();
         
         $hdr = ($this->transport === 'mail') ? $this->newline : '';
