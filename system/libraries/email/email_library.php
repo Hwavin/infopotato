@@ -748,14 +748,13 @@ class Email_Library {
     }
     
     /**
-     * Set Recipients
+     * Set Recipients, a comma-delimited list or an array
      *
-     * @param    string
+     * @param    string | array
      * @return    Email_Library
      */
     public function to($to) {
-        $to = $this->str_to_array($to);
-        $to = $this->clean_email($to);
+        $to = $this->clean_email($this->str_to_array($to));
         
         if ($this->validate) {
             $this->validate_email($to);
@@ -780,9 +779,9 @@ class Email_Library {
     }
     
     /**
-     * Set CC
+     * Set CC, a comma-delimited list or an array
      *
-     * @param    string
+     * @param    string | array
      * @return    Email_Library
      */
     public function cc($cc) {
@@ -802,7 +801,7 @@ class Email_Library {
     }
     
     /**
-     * Set BCC
+     * Set BCC, a comma-delimited list or an array
      *
      * @param    string
      * @param    string
@@ -902,7 +901,7 @@ class Email_Library {
     /**
      * Convert a String to an Array
      *
-     * @param    string
+     * @param    string | array
      * @return    array
      */
     private function str_to_array($email) {
