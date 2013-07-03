@@ -1007,7 +1007,8 @@ class Email_Library {
         }
         
         foreach ($email as $val) {
-            if ( ! $this->valid_email($val)) {
+            // Use PHP's email validate filter
+            if ( ! filter_var($val, FILTER_VALIDATE_EMAIL)) {
                 $this->_set_error_message('email_invalid_address', $val);
                 return FALSE;
             }
@@ -1015,17 +1016,7 @@ class Email_Library {
         
         return TRUE;
     }
-    
-    /**
-    * Email Validation
-    *
-    * @param    string
-    * @return   bool
-    */
-    public function valid_email($email) {
-        return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
-    }
-    
+
     /**
      * Clean Extended Email Address: Joe Smith <joe@smith.com>
      *
