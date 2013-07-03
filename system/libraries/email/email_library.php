@@ -200,21 +200,7 @@ class Email_Library {
      * @var string
      */
     private $alt_message = '';
-    
-    /**
-     * multipart/alternative boundary
-     *
-     * @var    string
-     */
-    private $alt_boundary = '';
-    
-    /**
-     * Attachment boundary
-     *
-     * @var    string
-     */
-    private $atc_boundary = '';
-    
+
     /**
      * Final headers to send
      *
@@ -1185,8 +1171,8 @@ class Email_Library {
         }
         
         // Set Message Boundary
-        $this->alt_boundary = 'B_ALT_'.uniqid(''); // For multipart/alternative
-        $this->atc_boundary = 'B_ATC_'.uniqid(''); // For attachment boundary
+        $alt_boundary = 'B_ALT_'.uniqid(''); // For multipart/alternative
+        $atc_boundary = 'B_ATC_'.uniqid(''); // For attachment boundary
         
         // Write Headers as a string
         $this->write_headers();
@@ -1216,14 +1202,14 @@ class Email_Library {
                     // but also containing a small proportion of bytes with values outside that range.
                     $hdr .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
                 } else {
-                    $hdr .= 'Content-Type: multipart/alternative; boundary="'.$this->alt_boundary.'"'.$this->newline.$this->newline;
+                    $hdr .= 'Content-Type: multipart/alternative; boundary="'.$alt_boundary.'"'.$this->newline.$this->newline;
                     
                     $body .= $this->get_mime_message().$this->newline.$this->newline;
-                    $body .= '--'.$this->alt_boundary.$this->newline;
+                    $body .= '--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                     $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
-                    $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$this->alt_boundary.$this->newline;
+                    $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
                     $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
@@ -1239,20 +1225,20 @@ class Email_Library {
                 }
                 
                 if ($this->send_multipart !== FALSE) {
-                    $this->finalbody .= '--'.$this->alt_boundary.'--';
+                    $this->finalbody .= '--'.$alt_boundary.'--';
                 }
                 
                 return;
             
             case 'plain-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
                 $body .= $this->get_mime_message().$this->newline.$this->newline;
-                $body .= '--'.$this->atc_boundary.$this->newline;
+                $body .= '--'.$atc_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
@@ -1261,27 +1247,27 @@ class Email_Library {
                 break;
             
             case 'html-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$this->atc_boundary.'"'.$this->newline.$this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
                 }
                 
                 $body .= $this->get_mime_message().$this->newline.$this->newline;
-                $body .= '--'.$this->atc_boundary.$this->newline;
+                $body .= '--'.$atc_boundary.$this->newline;
                 
-                $body .= 'Content-Type: multipart/alternative; boundary="'.$this->alt_boundary.'"'.$this->newline.$this->newline;
-                $body .= '--'.$this->alt_boundary.$this->newline;
+                $body .= 'Content-Type: multipart/alternative; boundary="'.$alt_boundary.'"'.$this->newline.$this->newline;
+                $body .= '--'.$alt_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
-                $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$this->alt_boundary.$this->newline;
+                $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
                 
                 $body .= $this->prep_quoted_printable($this->body).$this->newline.$this->newline;
-                $body .= '--'.$this->alt_boundary.'--'.$this->newline.$this->newline;
+                $body .= '--'.$alt_boundary.'--'.$this->newline.$this->newline;
                 
                 break;
         }
@@ -1300,7 +1286,7 @@ class Email_Library {
                 return FALSE;
             }
             
-            $h  = '--'.$this->atc_boundary.$this->newline;
+            $h  = '--'.$atc_boundary.$this->newline;
             $h .= 'Content-type: '.$ctype.'; ';
             $h .= 'name="'.$basename.'"'.$this->newline;
             $h .= 'Content-Disposition: '.$this->attach_disp[$i].';'.$this->newline;
@@ -1318,7 +1304,7 @@ class Email_Library {
             fclose($fp);
         }
         
-        $body .= implode($this->newline, $attachment).$this->newline.'--'.$this->atc_boundary.'--';
+        $body .= implode($this->newline, $attachment).$this->newline.'--'.$atc_boundary.'--';
         $this->finalbody = ($this->transport === 'mail') ? $body : $hdr.$body;
         
         return TRUE;
