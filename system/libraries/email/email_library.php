@@ -1746,6 +1746,7 @@ class Email_Library {
         // If the negotiation succeeds, the data that subsequently passes between them is encrypted.
         if ($this->smtp_crypto === 'tls') {
             $this->send_smtp_command('hello');
+            // Activated TLS layer with STARTTLS
             $this->send_smtp_command('starttls');
             
             // Enable encryption on an already connected socket stream
@@ -1771,6 +1772,8 @@ class Email_Library {
         switch ($cmd) {
             case 'hello' :
                 // EHLO is the Enhanced SMTP (ESMTP) version of HELO
+                // When using authentication, ELHO should be used for the greeting to indicate 
+                // that Extended SMTP is in use, as opposed to the HELO greeting in standard SMTP.
                 $this->send_smtp_data('EHLO '.$this->get_hostname());
                 $resp = 250;
                 break;
@@ -1839,6 +1842,8 @@ class Email_Library {
             return FALSE;
         }
         
+        // There are several types of authorization that the SMTP server will accept
+        // Here uses the LOGIN (uses Base64 encoding)
         $this->send_smtp_data('AUTH LOGIN');
         
         $reply = $this->get_smtp_data();
