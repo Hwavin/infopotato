@@ -863,7 +863,7 @@ class Email_Library {
      * @return    Email_Library
      */
     public function attach($filename, $disposition = '', $newname = NULL, $mime = '') {
-        $this->_attachments[] = array(
+        $this->attachments[] = array(
             'name' => array($filename, $newname),
             'disposition' => empty($disposition) ? 'attachment' : $disposition, // Can also be 'inline'  Not sure if it matters
             'type' => $mime
