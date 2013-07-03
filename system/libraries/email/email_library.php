@@ -1843,6 +1843,7 @@ class Email_Library {
         }
         
         // There are several types of authorization that the SMTP server will accept
+        // PLAIN LOGIN DIGEST-MD5 CRAM-MD5 GSSAPI
         // Here uses the LOGIN (uses Base64 encoding)
         $this->send_smtp_data('AUTH LOGIN');
         
