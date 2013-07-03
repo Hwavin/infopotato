@@ -270,9 +270,7 @@ class Email_Library {
      *
      * @var    array
      */
-    private $attach_name = array();
-    private $attach_type = array();
-    private $attach_disp = array();
+    private $attachments = array(); 
     
     /**
      * $priority translations
@@ -653,9 +651,7 @@ class Email_Library {
         
         // You need to set $clear_attachments = TRUE if attachments are sent in loop
         if ($clear_attachments === TRUE) {
-            $this->attach_name = array();
-            $this->attach_type = array();
-            $this->attach_disp = array();
+            $this->attachments = array();
         }
         
         // This will return the instance this method is called on. 
@@ -866,10 +862,13 @@ class Email_Library {
      * @param    string
      * @return    Email_Library
      */
-    public function attach($filename, $disposition = 'attachment') {
-        $this->attach_name[] = $filename;
-        $this->attach_type[] = $this->mime_types(pathinfo($filename, PATHINFO_EXTENSION));
-        $this->attach_disp[] = $disposition; // Can also be 'inline'  Not sure if it matters
+    public function attach($filename, $disposition = '', $newname = NULL, $mime = '') {
+        $this->_attachments[] = array(
+            'name' => array($filename, $newname),
+            'disposition' => empty($disposition) ? 'attachment' : $disposition, // Can also be 'inline'  Not sure if it matters
+            'type' => $mime
+        );
+
         return $this;
     }
     
@@ -939,8 +938,8 @@ class Email_Library {
      */
     private function get_content_type() {
         if ($this->mailtype === 'html') {
-            return (count($this->attach_name) === 0) ? 'html' : 'html-attach';
-        } elseif ($this->mailtype === 'text' && count($this->attach_name) > 0) {
+            return (count($this->attachments) === 0) ? 'html' : 'html-attach';
+        } elseif ($this->mailtype === 'text' && count($this->attachments) > 0) {
             return 'plain-attach';
         } else {
             return 'plain';
@@ -1273,35 +1272,40 @@ class Email_Library {
         }
         
         $attachment = array();
-        
-        $z = 0;
-        
-        for ($i = 0; $i < count($this->attach_name); $i++) {
-            $filename = $this->attach_name[$i];
-            $basename = basename($filename);
-            $ctype = $this->attach_type[$i];
+
+        for ($i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++) {
+            $filename = $this->attachments[$i]['name'][0];
+            $basename = ($this->attachments[$i]['name'][1] === NULL) ? basename($filename) : $this->attachments[$i]['name'][1];
+            $ctype = $this->attachments[$i]['type'];
+            $file_content = '';
             
-            if ( ! file_exists($filename)) {
-                $this->set_error_message('email_attachment_missing', $filename);
-                return FALSE;
+            if ($ctype === '') {
+                if ( ! file_exists($filename)) {
+                    $this->set_error_message('email_attachment_missing', $filename);
+                    return FALSE;
+                }
+
+                $file = filesize($filename) +1;
+
+                if ( ! $fp = fopen($filename, 'rb')) {
+                    $this->set_error_message('email_attachment_unreadable', $filename);
+                    return FALSE;
+                }
+
+                $ctype = $this->mime_types(pathinfo($filename, PATHINFO_EXTENSION));
+                $file_content = fread($fp, $file);
+                fclose($fp);
+            } else {
+                $file_content =& $this->attachments[$i]['name'][0];
             }
             
-            $h  = '--'.$atc_boundary.$this->newline;
-            $h .= 'Content-type: '.$ctype.'; ';
-            $h .= 'name="'.$basename.'"'.$this->newline;
-            $h .= 'Content-Disposition: '.$this->attach_disp[$i].';'.$this->newline;
-            $h .= 'Content-Transfer-Encoding: base64'.$this->newline;
-            
-            $attachment[$z++] = $h;
-            $file = filesize($filename) +1;
-            
-            if ( ! $fp = fopen($filename, 'rb')) {
-                $this->set_error_message('email_attachment_unreadable', $filename);
-                return FALSE;
-            }
-            
-            $attachment[$z++] = chunk_split(base64_encode(fread($fp, $file)));
-            fclose($fp);
+            $attachment[$z++] = '--'.$atc_boundary.$this->newline
+                .'Content-type: '.$ctype.'; '
+                .'name="'.$basename.'"'.$this->newline
+                .'Content-Disposition: '.$this->attachments[$i]['disposition'].';'.$this->newline
+                .'Content-Transfer-Encoding: base64'.$this->newline;
+
+            $attachment[$z++] = chunk_split(base64_encode($file_content));
         }
         
         $body .= implode($this->newline, $attachment).$this->newline.'--'.$atc_boundary.'--';
