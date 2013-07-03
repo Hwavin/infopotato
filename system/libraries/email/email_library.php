@@ -1552,7 +1552,10 @@ class Email_Library {
                 $this->bcc_array = $bcc;
             }
             
-            $this->build_message();
+            if ($this->build_message() === FALSE) {
+                return FALSE;
+            }
+            
             $this->spool_email();
         }
     }
