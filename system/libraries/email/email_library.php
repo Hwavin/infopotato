@@ -855,21 +855,56 @@ class Email_Library {
         return $this;
     }
     
+    /**
+     * Assign file attachments
+     *
+     * @param    string    $file_path
+     * @param    string    $newname = '' (optional)
+     * @param    string    $content_type = '' (optional)
+     * @param    string    $content_disposition = 'attachment' (optional)
+     * @return    Email_Library
+     */
+    public function attach_from_path($file_path, $newname = '', $content_type = '', $content_disposition = '') {
+        if ( ! file_exists($file_path)) {
+            $this->set_error_message('email_attachment_missing', $file_path);
+            return FALSE;
+        }
+
+        $file = filesize($file_path) +1;
+
+        if ( ! $fp = fopen($file_path, 'rb')) {
+            $this->set_error_message('email_attachment_unreadable', $file_path);
+            return FALSE;
+        }
+
+        $file_content = fread($fp, $file);
+        fclose($fp);
+        
+        $this->attachments[] = array(
+            'name' => ($newname === '') ? basename($file_path) : $newname, // Use new name if there is one provided
+            'content' => $file_content,
+            'content_type' => ($content_type === '') ? $this->mime_types(pathinfo($file_path, PATHINFO_EXTENSION)) : $content_type,
+            'content_disposition' => empty($content_disposition) ? 'attachment' : $content_disposition, // Can also be 'inline'  Not sure if it matters
+        );
+        
+        return $this;
+    }
     
     /**
      * Assign file attachments
      *
-     * @param   string    $filename
-     * @param   string    $content_disposition = 'attachment'
-     * @param   string    $newname = NULL
-     * @param   string    $content_type = ''
+     * @param    string    $file_content
+     * @param    string    $filename
+     * @param    string    $content_type
+     * @param    string    $content_disposition = 'attachment' (optional)
      * @return    Email_Library
      */
-    public function attach($filename, $content_disposition = '', $newname = NULL, $content_type = '') {
+    public function attach_from_content($file_content, $filename, $content_type, $content_disposition = '') {
         $this->attachments[] = array(
-            'name' => array($filename, $newname),
+            'name' => $filename,
+            'content' => $file_content,
+            'content_type' => $content_type,
             'content_disposition' => empty($content_disposition) ? 'attachment' : $content_disposition, // Can also be 'inline'  Not sure if it matters
-            'content_type' => $content_type
         );
 
         return $this;
@@ -1277,38 +1312,13 @@ class Email_Library {
         $attachment = array();
 
         for ($i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++) {
-            $filename = $this->attachments[$i]['name'][0];
-            $basename = ($this->attachments[$i]['name'][1] === NULL) ? basename($filename) : $this->attachments[$i]['name'][1];
-            $content_type = $this->attachments[$i]['content_type'];
-            $file_content = '';
-            
-            if ($content_type === '') {
-                if ( ! file_exists($filename)) {
-                    $this->set_error_message('email_attachment_missing', $filename);
-                    return FALSE;
-                }
-
-                $file = filesize($filename) +1;
-
-                if ( ! $fp = fopen($filename, 'rb')) {
-                    $this->set_error_message('email_attachment_unreadable', $filename);
-                    return FALSE;
-                }
-
-                $content_type = $this->mime_types(pathinfo($filename, PATHINFO_EXTENSION));
-                $file_content = fread($fp, $file);
-                fclose($fp);
-            } else {
-                $file_content =& $this->attachments[$i]['name'][0];
-            }
-            
             $attachment[$z++] = '--'.$atc_boundary.$this->newline
-                .'Content-type: '.$content_type.'; '
-                .'name="'.$basename.'"'.$this->newline
+                .'Content-type: '.$this->attachments[$i]['content_type'].'; '
+                .'name="'.$this->attachments[$i]['name'].'"'.$this->newline
                 .'Content-Disposition: '.$this->attachments[$i]['content_disposition'].';'.$this->newline
                 .'Content-Transfer-Encoding: base64'.$this->newline;
 
-            $attachment[$z++] = chunk_split(base64_encode($file_content));
+            $attachment[$z++] = chunk_split(base64_encode($this->attachments[$i]['content']));
         }
         
         $body .= implode($this->newline, $attachment).$this->newline.'--'.$atc_boundary.'--';
