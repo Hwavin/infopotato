@@ -1276,10 +1276,10 @@ class Email_Library {
         for ($i = 0, $c = count($this->attachments), $z = 0; $i < $c; $i++) {
             $filename = $this->attachments[$i]['name'][0];
             $basename = ($this->attachments[$i]['name'][1] === NULL) ? basename($filename) : $this->attachments[$i]['name'][1];
-            $ctype = $this->attachments[$i]['type'];
+            $content_type = $this->attachments[$i]['type'];
             $file_content = '';
             
-            if ($ctype === '') {
+            if ($content_type === '') {
                 if ( ! file_exists($filename)) {
                     $this->set_error_message('email_attachment_missing', $filename);
                     return FALSE;
@@ -1292,7 +1292,7 @@ class Email_Library {
                     return FALSE;
                 }
 
-                $ctype = $this->mime_types(pathinfo($filename, PATHINFO_EXTENSION));
+                $content_type = $this->mime_types(pathinfo($filename, PATHINFO_EXTENSION));
                 $file_content = fread($fp, $file);
                 fclose($fp);
             } else {
@@ -1300,7 +1300,7 @@ class Email_Library {
             }
             
             $attachment[$z++] = '--'.$atc_boundary.$this->newline
-                .'Content-type: '.$ctype.'; '
+                .'Content-type: '.$content_type.'; '
                 .'name="'.$basename.'"'.$this->newline
                 .'Content-Disposition: '.$this->attachments[$i]['disposition'].';'.$this->newline
                 .'Content-Transfer-Encoding: base64'.$this->newline;
