@@ -856,7 +856,7 @@ class Email_Library {
     }
     
     /**
-     * Assign file attachments
+     * Add an attachment that exists on disk
      *
      * @param    string    $file_path
      * @param    string    $newname = '' (optional)
@@ -891,7 +891,7 @@ class Email_Library {
     }
     
     /**
-     * Assign file attachments
+     * Create an attachment on-the-fly
      *
      * @param    string    $file_content
      * @param    string    $filename
