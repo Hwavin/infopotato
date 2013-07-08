@@ -1729,7 +1729,7 @@ class Email_Library {
         // You can prefix the hostname with either ssl:// or tls:// to use an SSL or TLS client connection over TCP/IP 
         // to connect to the remote host if OpenSSL support is installed
         $this->smtp_connection_fp = fsockopen($ssl.$this->smtp_host, $this->smtp_port, $errno, $errstr, $this->smtp_connection_timeout);
-        
+
         if ( ! is_resource($this->smtp_connection_fp)) {
             $this->set_error_message('email_smtp_error', $errno.' '.$errstr);
             return FALSE;
@@ -1737,7 +1737,7 @@ class Email_Library {
         
         stream_set_timeout($this->smtp_connection_fp, $this->smtp_connection_timeout);
         $this->set_error_message($this->get_smtp_data());
-        
+
         // RFC 3207 (http://www.ietf.org/rfc/rfc3207.txt) defines how SMTP connections can make use of encryption. 
         // Once a connection is established, the client issues a STARTTLS command. 
         // If the server accepts this, the client and the server negotiate an encryption mechanism. 
@@ -1748,10 +1748,12 @@ class Email_Library {
             $this->send_smtp_command('starttls');
             
             // Enable encryption on an already connected socket stream
+            // Returns TRUE on success, FALSE if negotiation has failed or 0 if there isn't enough data 
+            // and you should try again (only for non-blocking sockets).
             $crypto = stream_socket_enable_crypto($this->smtp_connection_fp, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-        
+
             if ($crypto !== TRUE) {
-                $this->set_error_message('email_smtp_error', $this->get_smtp_data());
+                $this->set_error_message('email_smtp_tls_error', $this->get_smtp_data());
                 return FALSE;
             }
         }
@@ -1773,17 +1775,17 @@ class Email_Library {
                 // When using authentication, ELHO should be used for the greeting to indicate 
                 // that Extended SMTP is in use, as opposed to the HELO greeting in standard SMTP.
                 $this->send_smtp_data('EHLO '.$this->get_hostname());
-                $resp = 250;
+                $server_reply = 250;
                 break;
             
             case 'starttls' :
                 $this->send_smtp_data('STARTTLS');
-                $resp = 220;
+                $server_reply = 220;
                 break;
             
             case 'from' :
                 $this->send_smtp_data('MAIL FROM:<'.$data.'>');
-                $resp = 250;
+                $server_reply = 250;
                 break;
             
             case 'to' :
@@ -1795,21 +1797,21 @@ class Email_Library {
                 } else {
                     $this->send_smtp_data('RCPT TO:<'.$data.'>');
                 }
-                $resp = 250;
+                $server_reply = 250;
                 break;
             
             case 'data' :
                 $this->send_smtp_data('DATA');
-                $resp = 354;
+                $server_reply = 354;
                 break;
             
-            case 'reset':
+            case 'reset' :
                 $this->send_smtp_data('RSET');
-                $resp = 250;
+                $server_reply = 250;
                 
             case 'quit' :
                 $this->send_smtp_data('QUIT');
-                $resp = 221;
+                $server_reply = 221;
                 break;
         }
         
@@ -1817,7 +1819,7 @@ class Email_Library {
         
         $this->debug_msg[] = '<pre>'.$cmd.': '.$reply.'</pre>';
         
-        if ((int) substr($reply, 0, 3) !== $resp) {
+        if ((int) substr($reply, 0, 3) !== $server_reply) {
             $this->set_error_message('email_smtp_error', $reply);
             return FALSE;
         }
@@ -1846,7 +1848,7 @@ class Email_Library {
         $this->send_smtp_data('AUTH LOGIN');
         
         $reply = $this->get_smtp_data();
-        
+
         if (strpos($reply, '503') === 0) {
             // Already authenticated
             return TRUE;
@@ -1891,13 +1893,13 @@ class Email_Library {
     }
     
     /**
-     * Get SMTP data
+     * Get SMTP response data
      *
      * @return    string
      */
     private function get_smtp_data() {
         $data = '';
-        
+
         while ($str = fgets($this->smtp_connection_fp, 512)) {
             $data .= $str;
             
@@ -1974,6 +1976,7 @@ class Email_Library {
             'email_no_socket' => "Unable to open a socket to Sendmail. Please check settings.",
             'email_no_hostname' => "You did not specify a SMTP hostname.",
             'email_smtp_error' => "The following SMTP error was encountered: %s",
+            'email_smtp_tls_error' => "Failed to send email using SMTP over TLS layer: %s",
             'email_no_smtp_unpw' => "Error: You must assign a SMTP username and password.",
             'email_failed_smtp_login' => "Failed to send AUTH LOGIN command. Error: %s",
             'email_smtp_auth_un' => "Failed to authenticate username. Error: %s",
