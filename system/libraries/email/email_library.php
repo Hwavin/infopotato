@@ -754,7 +754,7 @@ class Email_Library {
             
             case 'sendmail' :
             case 'mail' :
-                $this->recipients = implode(", ", $to);
+                $this->recipients = implode(', ', $to);
                 break;
         }
         
