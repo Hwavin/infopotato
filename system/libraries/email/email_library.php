@@ -1028,22 +1028,21 @@ class Email_Library {
     /**
      * Clean Extended Email Address: Joe Smith <joe@smith.com>
      *
-     * @param    string
+     * @param    string | array
      * @return    string | array
      */
     private function clean_email($email) {
         if ( ! is_array($email)) {
-            // preg_match() returns 1 if the pattern matches given subject, 0 if it does not, or FALSE if an error occurred.
             return preg_match('/\<(.*)\>/', $email, $match) ? $match[1] : $email;
         }
         
-        $clean_email = array();
+        $cleaned_email = array();
         
         foreach ($email as $addy) {
-            $clean_email[] = preg_match('/\<(.*)\>/', $addy, $match) ? $match[1] : $addy;
+            $cleaned_email[] = preg_match('/\<(.*)\>/', $addy, $match) ? $match[1] : $addy;
         }
         
-        return $clean_email;
+        return $cleaned_email;
     }
     
     /**
