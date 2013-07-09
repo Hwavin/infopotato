@@ -1033,6 +1033,7 @@ class Email_Library {
      */
     private function clean_email($email) {
         if ( ! is_array($email)) {
+            // preg_match() returns 1 if the pattern matches given subject, 0 if it does not, or FALSE if an error occurred.
             return preg_match('/\<(.*)\>/', $email, $match) ? $match[1] : $email;
         }
         
@@ -1120,7 +1121,7 @@ class Email_Library {
             $temp = '';
             do {
                 // If the over-length word is a URL we won't wrap it
-                if (preg_match("!\[url.+\]|://|wwww.!", $line)) {
+                if (preg_match('!\[url.+\]|://|wwww.!', $line)) {
                     break;
                 }
                 
