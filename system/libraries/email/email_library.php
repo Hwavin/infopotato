@@ -1010,15 +1010,10 @@ class Email_Library {
     /**
      * Validate Email Address
      *
-     * @param    string
+     * @param    array
      * @return    bool
      */
     private function validate_email($email) {
-        if ( ! is_array($email)) {
-            $this->set_error_message('email_must_be_array');
-            return FALSE;
-        }
-        
         foreach ($email as $val) {
             // Use PHP's email validate filter
             if ( ! filter_var($val, FILTER_VALIDATE_EMAIL)) {
@@ -1034,7 +1029,7 @@ class Email_Library {
      * Clean Extended Email Address: Joe Smith <joe@smith.com>
      *
      * @param    string
-     * @return    string
+     * @return    string | array
      */
     private function clean_email($email) {
         if ( ! is_array($email)) {
@@ -1964,7 +1959,6 @@ class Email_Library {
      */
     private function set_error_message($msg, $val = '') {
         $error_messages = array(
-            'email_must_be_array' => "The email validation method must be passed an array.",
             'email_invalid_address' => "Invalid email address: %s",
             'email_attachment_missing' => "Unable to locate the following email attachment: %s",
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
