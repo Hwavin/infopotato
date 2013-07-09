@@ -1142,7 +1142,7 @@ class Email_Library {
         // Put our markers back
         if (count($unwrap) > 0) {
             foreach ($unwrap as $key => $val) {
-                $output = str_replace("{{unwrapped".$key."}}", $val, $output);
+                $output = str_replace('{{unwrapped'.$key.'}}', $val, $output);
             }
         }
         
