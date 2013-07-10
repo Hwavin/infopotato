@@ -693,7 +693,11 @@ class Email_Library {
         // but  adding a space enhances readability.
         $this->set_header('From', $name.' <'.$from.'>');
 
-        // Use user defined email as Return-Path if specified, otherwise use $from
+        // Use user defined email as return path if specified, otherwise use $from
+        // Note: sendmail can use a different email address as the return path, 
+        // BUT setting this $return_path won't work when you use SMTP transport,
+        // It's because the return path is not set by the sender, but by the SMTP server 
+        // making final delivery, from the information in the SMTP MAIL command, which is the $from
         $return_path = isset($return_path) ? $return_path : $from;
         // Return-Path must not include a personal name
         $this->set_header('Return-Path', '<'.$return_path.'>');
@@ -1618,7 +1622,10 @@ class Email_Library {
      */
     private function send_with_sendmail() {
         // Opens process file pointer
-        // Check out http://www.sendmail.org/~ca/email/man/sendmail.html for sendmail flags
+        // Check out http://www.postfix.org/sendmail.1.html for sendmail flags
+        // -t extracts recipients from message headers.
+        // -r sets the envelope sender address. This  is  the address where delivery problems are sent to.
+        // Return-Path is defined by the third parameter of $this->from()
         $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($this->headers['Return-Path']), 'w');
         
         if ($fp === FALSE) {
@@ -1782,8 +1789,6 @@ class Email_Library {
                 break;
             
             case 'from' :
-                // When smtp_dsn = TRUE, this MAIL FROM email will be used as the sender 
-                // to receive those delivery status notifications
                 // http://tools.ietf.org/html/rfc3461#page-9
                 // http://tools.ietf.org/html/rfc3461#section-6.2 says if the length of the message 
                 // is greater than some implementation-specified length, 
@@ -1797,7 +1802,9 @@ class Email_Library {
                     // Notify the sender when the email as arraved at its destination (SUCCESS), 
                     // or if an arror occured during delivery (FAILURE), or there is an unusual delay in delivery, 
                     // but the actual delivery's outcome (success or failure) is not yet decided.
-                    // http://tools.ietf.org/html/rfc3461#section-6.2
+                    // See http://tools.ietf.org/html/rfc3461#section-6.2 to know contents of the DSN
+                    // Return-path is added at the receiving end, from the SMTP's 'MAIL FROM' command. 
+                    // This MAIL FROM email will be used as the sender to receive those delivery status notifications
                     $this->send_smtp_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 } else {
                     $this->send_smtp_data('RCPT TO:<'.$data.'>');
