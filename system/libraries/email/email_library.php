@@ -690,6 +690,8 @@ class Email_Library {
             }
         }
         
+        // Note that there need not be a space between $name  and  the '<',  
+        // but  adding a space enhances readability.
         $this->set_header('From', $name.' <'.$from.'>');
 
         // Use user defined email as Return-Path if specified, otherwise use $from
@@ -1026,8 +1028,10 @@ class Email_Library {
     }
 
     /**
-     * Clean Extended Email Address: Joe Smith <joe@smith.com>
+     * Only extract the email part from the extended email address 
      *
+     * Example: 'My name <email@example.com>' should result in 'email@example.com'
+     * 
      * @param    string | array
      * @return    string | array
      */
