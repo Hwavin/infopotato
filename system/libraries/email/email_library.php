@@ -1782,7 +1782,13 @@ class Email_Library {
                 break;
             
             case 'from' :
-                $this->send_smtp_data('MAIL FROM:<'.$data.'>');
+                // When smtp_dsn = TRUE, this MAIL FROM email will be used as the sender 
+                // to receive those delivery status notifications
+                // http://tools.ietf.org/html/rfc3461#page-9
+                // http://tools.ietf.org/html/rfc3461#section-6.2 says if the length of the message 
+                // is greater than some implementation-specified length, 
+                // the MTA MAY return only the headers even if the RET parameter specified FULL.
+                $this->send_smtp_data('MAIL FROM:<'.$data.'> RET=FULL');
                 $server_reply = 250;
                 break;
             
@@ -1791,6 +1797,7 @@ class Email_Library {
                     // Notify the sender when the email as arraved at its destination (SUCCESS), 
                     // or if an arror occured during delivery (FAILURE), or there is an unusual delay in delivery, 
                     // but the actual delivery's outcome (success or failure) is not yet decided.
+                    // http://tools.ietf.org/html/rfc3461#section-6.2
                     $this->send_smtp_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 } else {
                     $this->send_smtp_data('RCPT TO:<'.$data.'>');
