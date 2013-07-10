@@ -690,12 +690,12 @@ class Email_Library {
             }
         }
         
-        $this->set_header('From', $this->clean_email($name.' <'.$from.'>'));
+        $this->set_header('From', $name.' <'.$from.'>');
 
         // Use user defined email as Return-Path if specified, otherwise use $from
         $return_path = isset($return_path) ? $return_path : $from;
         // Return-Path must not include a personal name
-        $this->set_header('Return-Path', $this->clean_email(' <'.$return_path.'>'));
+        $this->set_header('Return-Path', ' <'.$return_path.'>');
 
         return $this;
     }
@@ -724,7 +724,7 @@ class Email_Library {
             $name = '"'.$name.'"';
         }
         
-        $this->set_header('Reply-To', $this->clean_email($name.' <'.$replyto.'>'));
+        $this->set_header('Reply-To', $name.' <'.$replyto.'>');
         $this->replyto_flag = TRUE;
         
         return $this;
@@ -1155,7 +1155,7 @@ class Email_Library {
      * @return    string
      */
     private function build_headers() {
-        $this->set_header('X-Sender', $this->headers['From']);
+        $this->set_header('X-Sender', $this->clean_email($this->headers['From']));
         $this->set_header('X-Mailer', $this->user_agent);
         $this->set_header('X-Priority', $this->priorities[$this->priority - 1]);
         $this->set_header('Message-ID', $this->get_message_id());
@@ -1605,7 +1605,7 @@ class Email_Library {
         
         // Most documentation of sendmail using the "-f" flag lacks a space after it, 
         // however we've encountered servers that seem to require it to be in place.
-        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->headers['Return-Path']);
+        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->clean_email($this->headers['Return-Path']));
     }
     
     /**
@@ -1616,7 +1616,7 @@ class Email_Library {
     private function send_with_sendmail() {
         // Opens process file pointer
         // Check out http://www.sendmail.org/~ca/email/man/sendmail.html for sendmail flags
-        $fp = @popen($this->sendmail_path.' -oi -f '.$this->headers['From'].' -t -r '.$this->headers['Return-Path'], 'w');
+        $fp = @popen($this->sendmail_path.' -oi -f '.$this->clean_email($this->headers['From']).' -t -r '.$this->clean_email($this->headers['Return-Path']), 'w');
         
         if ($fp === FALSE) {
             // Server probably has popen disabled, so nothing we can do to get a verbose error.
@@ -1656,7 +1656,7 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_smtp_command('from', $this->headers['From']);
+        $this->send_smtp_command('from', $this->clean_email($this->headers['From']));
         
         foreach ($this->recipients as $val) {
             $this->send_smtp_command('to', $val);
