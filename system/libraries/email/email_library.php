@@ -715,7 +715,7 @@ class Email_Library {
      */
     public function reply_to($replyto, $name = '') {
         if (preg_match('/\<(.*)\>/', $replyto, $match)) {
-            $replyto = $match['1'];
+            $replyto = $match[1];
         }
         
         if ($this->validate) {
@@ -1105,8 +1105,8 @@ class Email_Library {
         $unwrap = array();
         if (preg_match_all("|(\{unwrap\}.+?\{/unwrap\})|s", $str, $matches)) {
             for ($i = 0; $i < count($matches['0']); $i++) {
-                $unwrap[] = $matches['1'][$i];
-                $str = str_replace($matches['1'][$i], "{{unwrapped".$i."}}", $str);
+                $unwrap[] = $matches[1][$i];
+                $str = str_replace($matches[1][$i], '{{unwrapped'.$i.'}}', $str);
             }
         }
         
