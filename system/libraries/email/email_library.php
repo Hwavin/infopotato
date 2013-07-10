@@ -1793,6 +1793,8 @@ class Email_Library {
                 // http://tools.ietf.org/html/rfc3461#section-6.2 says if the length of the message 
                 // is greater than some implementation-specified length, 
                 // the MTA MAY return only the headers even if the RET parameter specified FULL.
+                // MAIL FROM:<reverse-path> (http://www.ietf.org/rfc/rfc2821.txt)
+                // It won't work even if you set the return path in $this->from()
                 $this->send_smtp_data('MAIL FROM:<'.$data.'> RET=FULL');
                 $server_reply = 250;
                 break;
