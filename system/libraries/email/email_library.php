@@ -122,11 +122,11 @@ class Email_Library {
     private $multipart = 'mixed';
     
     /**
-     * Whether to validate email addresses
+     * Whether to validate all email addresses
      * 
      * @var bool
      */
-    private $validate = FALSE;
+    private $email_validation = FALSE;
     
     /**
      * X-Priority header value 
@@ -518,16 +518,16 @@ class Email_Library {
     }
     
     /**
-     * Validate and set $validate
+     * Validate and set $email_validation
      *
      * @param  $val bool
      * @return void
      */
     private function initialize_validate($val) {
         if ( ! is_bool($val)) {
-            $this->invalid_argument_value('validate');
+            $this->invalid_argument_value('email_validation');
         }
-        $this->validate = $val;
+        $this->email_validation = $val;
     }
     
     /**
@@ -676,7 +676,7 @@ class Email_Library {
             $from = $match[1];
         }
         
-        if ($this->validate) {
+        if ($this->email_validation) {
             $this->validate_email($this->str_to_array($from));
             if ($return_path) {
                 $this->validate_email($this->str_to_array($return_path));
@@ -718,7 +718,7 @@ class Email_Library {
             $replyto = $match[1];
         }
         
-        if ($this->validate) {
+        if ($this->email_validation) {
             $this->validate_email($this->str_to_array($replyto));
         }
         
@@ -745,7 +745,7 @@ class Email_Library {
     public function to($to) {
         $to = $this->extract_email($this->str_to_array($to));
         
-        if ($this->validate) {
+        if ($this->email_validation) {
             $this->validate_email($to);
         }
         
@@ -776,7 +776,7 @@ class Email_Library {
     public function cc($cc) {
         $cc = $this->extract_email($this->str_to_array($cc));
         
-        if ($this->validate) {
+        if ($this->email_validation) {
             $this->validate_email($cc);
         }
         
@@ -804,7 +804,7 @@ class Email_Library {
 
         $bcc = $this->extract_email($this->str_to_array($bcc));
         
-        if ($this->validate) {
+        if ($this->email_validation) {
             $this->validate_email($bcc);
         }
         
