@@ -668,8 +668,12 @@ class Email_Library {
      * @return    Email_Library
      */
     public function from($from, $name = '', $return_path = NULL) {
+        // RFC-822(http://tools.ietf.org/html/rfc822) allows email addresses to be specified 
+        // either by a pure email-style address, called an "addr-spec" (e.g., name@host.domain); 
+        // or by using a nickname ("phrase") with the email-style address (the "addr-spec") enclosed 
+        // in angle brackets (Foo Bar <foobar@host.domain>).
         if (preg_match('/\<(.*)\>/', $from, $match)) {
-            $from = $match['1'];
+            $from = $match[1];
         }
         
         if ($this->validate) {
@@ -1028,7 +1032,7 @@ class Email_Library {
     }
 
     /**
-     * Only extract the email part from the extended email address 
+     * Only extract the email part inside the angle brackets ('<', '>') 
      *
      * Example: 'My name <email@example.com>' should result in 'email@example.com'
      * 
