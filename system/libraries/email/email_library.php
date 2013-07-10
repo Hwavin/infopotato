@@ -697,7 +697,7 @@ class Email_Library {
         // Use user defined email as Return-Path if specified, otherwise use $from
         $return_path = isset($return_path) ? $return_path : $from;
         // Return-Path must not include a personal name
-        $this->set_header('Return-Path', ' <'.$return_path.'>');
+        $this->set_header('Return-Path', '<'.$return_path.'>');
 
         return $this;
     }
