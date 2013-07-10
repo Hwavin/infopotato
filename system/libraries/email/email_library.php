@@ -743,7 +743,7 @@ class Email_Library {
      * @return    Email_Library
      */
     public function to($to) {
-        $to = $this->clean_email($this->str_to_array($to));
+        $to = $this->extract_email($this->str_to_array($to));
         
         if ($this->validate) {
             $this->validate_email($to);
@@ -774,7 +774,7 @@ class Email_Library {
      * @return    Email_Library
      */
     public function cc($cc) {
-        $cc = $this->clean_email($this->str_to_array($cc));
+        $cc = $this->extract_email($this->str_to_array($cc));
         
         if ($this->validate) {
             $this->validate_email($cc);
@@ -802,7 +802,7 @@ class Email_Library {
             $this->bcc_batch_size = $limit;
         }
 
-        $bcc = $this->clean_email($this->str_to_array($bcc));
+        $bcc = $this->extract_email($this->str_to_array($bcc));
         
         if ($this->validate) {
             $this->validate_email($bcc);
@@ -1039,18 +1039,18 @@ class Email_Library {
      * @param    string | array
      * @return    string | array
      */
-    private function clean_email($email) {
+    private function extract_email($email) {
         if ( ! is_array($email)) {
             return preg_match('/\<(.*)\>/', $email, $match) ? $match[1] : $email;
         }
         
-        $cleaned_email = array();
+        $extracted_email = array();
         
-        foreach ($email as $addy) {
-            $cleaned_email[] = preg_match('/\<(.*)\>/', $addy, $match) ? $match[1] : $addy;
+        foreach ($email as $addr) {
+            $extracted_email[] = preg_match('/\<(.*)\>/', $addr, $match) ? $match[1] : $addr;
         }
         
-        return $cleaned_email;
+        return $extracted_email;
     }
     
     /**
@@ -1163,7 +1163,7 @@ class Email_Library {
      * @return    string
      */
     private function build_headers() {
-        $this->set_header('X-Sender', $this->clean_email($this->headers['From']));
+        $this->set_header('X-Sender', $this->extract_email($this->headers['From']));
         $this->set_header('X-Mailer', $this->user_agent);
         $this->set_header('X-Priority', $this->priorities[$this->priority - 1]);
         $this->set_header('Message-ID', $this->get_message_id());
@@ -1545,7 +1545,7 @@ class Email_Library {
             unset($this->headers['Bcc']);
             unset($bcc);
 
-            $bcc = $this->clean_email($this->str_to_array($chunk[$i]));
+            $bcc = $this->extract_email($this->str_to_array($chunk[$i]));
             
             if ($this->transport !== 'smtp') {
                 $this->set_header('Bcc', implode(', ', $bcc));
@@ -1613,7 +1613,7 @@ class Email_Library {
         
         // Most documentation of sendmail using the "-f" flag lacks a space after it, 
         // however we've encountered servers that seem to require it to be in place.
-        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->clean_email($this->headers['Return-Path']));
+        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($this->headers['Return-Path']));
     }
     
     /**
@@ -1624,7 +1624,7 @@ class Email_Library {
     private function send_with_sendmail() {
         // Opens process file pointer
         // Check out http://www.sendmail.org/~ca/email/man/sendmail.html for sendmail flags
-        $fp = @popen($this->sendmail_path.' -oi -f '.$this->clean_email($this->headers['From']).' -t -r '.$this->clean_email($this->headers['Return-Path']), 'w');
+        $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($this->headers['Return-Path']), 'w');
         
         if ($fp === FALSE) {
             // Server probably has popen disabled, so nothing we can do to get a verbose error.
@@ -1664,7 +1664,7 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_smtp_command('from', $this->clean_email($this->headers['From']));
+        $this->send_smtp_command('from', $this->extract_email($this->headers['From']));
         
         foreach ($this->recipients as $val) {
             $this->send_smtp_command('to', $val);
