@@ -129,7 +129,7 @@ class Email_Library {
     private $email_validation = FALSE;
     
     /**
-     * X-Priority header value 
+     * The message sender's importance value for X-Priority header value 
      * 
      * @var int (1 - 5)
      */
@@ -271,15 +271,6 @@ class Email_Library {
      * @var    array
      */
     private $attachments = array(); 
-    
-    /**
-     * $priority translations
-     *
-     * Actual values to send with the X-Priority header
-     *
-     * @var    string[]
-     */
-    private $priorities = array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
     
     /**
      * Constructor
@@ -540,7 +531,11 @@ class Email_Library {
         if ( ! is_int($val) || ! in_array($val, array(1, 2, 3, 4, 5))) {
             $this->invalid_argument_value('priority');
         }
-        $this->priority = $val;
+        
+        // Actual values to send with the X-Priority header (http://tools.ietf.org/html/rfc4356)
+        $priorities = array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
+
+        $this->priority = $priorities[$val - 1];
     }
     
     /**
@@ -1165,7 +1160,7 @@ class Email_Library {
     private function build_headers() {
         $this->set_header('X-Sender', $this->extract_email($this->headers['From']));
         $this->set_header('X-Mailer', $this->user_agent);
-        $this->set_header('X-Priority', $this->priorities[$this->priority - 1]);
+        $this->set_header('X-Priority', $this->priority);
         $this->set_header('Message-ID', $this->get_message_id());
         $this->set_header('Mime-Version', '1.0');
     }
