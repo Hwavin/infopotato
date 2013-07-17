@@ -2,6 +2,8 @@
 /**
  * SQLite(PDO) Data Access Object
  *
+ * SQLite 3 is supported through PDO SQLite
+ *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
