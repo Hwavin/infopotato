@@ -698,6 +698,7 @@ class Email_Library {
         // BUT setting this $return_path won't work when you use SMTP transport,
         // It's because the return path is not set by the sender, but by the SMTP server 
         // making final delivery, from the information in the SMTP MAIL command, which is the $from
+        // The 'Return-Path:' header is written when the email message is delivered to its final destination.
         $return_path = isset($return_path) ? $return_path : $from;
         // Return-Path must not include a personal name
         $this->set_header('Return-Path', '<'.$return_path.'>');

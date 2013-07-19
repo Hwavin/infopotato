@@ -34,7 +34,7 @@ return array(
         ),
     ),
 
-    // SQLite - PDO
+    // SQLite3 - PDO
     'sqlite_dao' => array(
         'default' => array(
             'dsn' => 'sqlite:'.APP_DIR.'app.db',
