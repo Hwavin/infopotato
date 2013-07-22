@@ -659,10 +659,9 @@ class Email_Library {
      *
      * @param    string
      * @param    string
-     * @param    string    Return-Path is the email address where bounce messages (undeliverable notifications, etc.) should be sent to
      * @return    Email_Library
      */
-    public function from($from, $name = '', $return_path = NULL) {
+    public function from($from, $name = '') {
         // RFC-822(http://tools.ietf.org/html/rfc822) allows email addresses to be specified 
         // either by a pure email-style address, called an "addr-spec" (e.g., name@host.domain); 
         // or by using a nickname ("phrase") with the email-style address (the "addr-spec") enclosed 
@@ -673,9 +672,6 @@ class Email_Library {
         
         if ($this->email_validation) {
             $this->validate_email($this->str_to_array($from));
-            if ($return_path) {
-                $this->validate_email($this->str_to_array($return_path));
-            }
         }
         
         // prepare the display name
@@ -692,16 +688,6 @@ class Email_Library {
         // Note that there need not be a space between $name  and  the '<',  
         // but  adding a space enhances readability.
         $this->set_header('From', $name.' <'.$from.'>');
-
-        // Use user defined email as return path if specified, otherwise use $from
-        // Note: sendmail can use a different email address as the return path, 
-        // BUT setting this $return_path won't work when you use SMTP transport,
-        // It's because the return path is not set by the sender, but by the SMTP server 
-        // making final delivery, from the information in the SMTP MAIL command, which is the $from
-        // The 'Return-Path:' header is written when the email message is delivered to its final destination.
-        $return_path = isset($return_path) ? $return_path : $from;
-        // Return-Path must not include a personal name
-        $this->set_header('Return-Path', '<'.$return_path.'>');
 
         return $this;
     }
@@ -946,12 +932,12 @@ class Email_Library {
     /**
      * Get the Message ID
      *
-     * The Message-ID uses the domain part from the Return-Path
+     * The Message-ID uses the domain part from the From
      *
      * @return    string
      */
     private function get_message_id() {
-        $from = str_replace(array('>', '<'), '', $this->headers['Return-Path']);
+        $from = str_replace(array('>', '<'), '', $this->headers['From']);
         return '<'.uniqid('').strstr($from, '@').'>';
     }
 
@@ -1613,7 +1599,7 @@ class Email_Library {
         
         // Most documentation of sendmail using the "-f" flag lacks a space after it, 
         // however we've encountered servers that seem to require it to be in place.
-        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($this->headers['Return-Path']));
+        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($this->headers['From']));
     }
     
     /**
@@ -1626,8 +1612,7 @@ class Email_Library {
         // Check out http://www.postfix.org/sendmail.1.html for sendmail flags
         // -t extracts recipients from message headers.
         // -r sets the envelope sender address. This  is  the address where delivery problems are sent to.
-        // Return-Path is defined by the third parameter of $this->from()
-        $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($this->headers['Return-Path']), 'w');
+        $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($this->headers['From']), 'w');
         
         if ($fp === FALSE) {
             // Server probably has popen disabled, so nothing we can do to get a verbose error.
