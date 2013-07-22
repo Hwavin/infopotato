@@ -657,6 +657,9 @@ class Email_Library {
     /**
      * Set FROM
      *
+     * Specifies the author(s) of the message; that is, the mailbox(es) of
+     * the person(s) or system(s) responsible for the writing of the message.
+     *
      * @param    string
      * @param    string
      * @return    Email_Library
