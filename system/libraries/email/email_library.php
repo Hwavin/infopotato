@@ -677,11 +677,11 @@ class Email_Library {
             $this->validate_email($this->str_to_array($from));
         }
         
-        // prepare the display name
+        // Prepare the display name
         if ($name !== '') {
-            // only use Q encoding if there are characters that would require it
+            // Only use Q encoding if there are characters that would require it
             if ( ! preg_match('/[\200-\377]/', $name)) {
-                // add slashes for non-printing characters, slashes, and double quotes, and surround it in double quotes
+                // Add slashes for non-printing characters, slashes, and double quotes, and surround it in double quotes
                 $name = '"'.addcslashes($name, "\0..\37\177'\"\\").'"';
             } else {
                 $name = $this->prep_q_encoding($name);
@@ -1944,7 +1944,7 @@ class Email_Library {
         $include = is_array($include) ? $include : array($include);
         
         if (in_array('headers', $include, TRUE)) {
-            $raw_data = $this->header_str."\n";
+            $raw_data = htmlspecialchars($this->header_str)."\n";
         }
         
         if (in_array('subject', $include, TRUE)) {
