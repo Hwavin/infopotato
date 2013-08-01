@@ -766,17 +766,8 @@ class Email_Library {
             $this->set_header('To', implode(', ', $to));
         }
         
-        switch ($this->transport) {
-            case 'smtp' :
-                $this->recipients = $to;
-                break;
-            
-            case 'sendmail' :
-            case 'mail' :
-                $this->recipients = implode(', ', $to);
-                break;
-        }
-        
+        $this->recipients = $to;
+
         return $this;
     }
     
