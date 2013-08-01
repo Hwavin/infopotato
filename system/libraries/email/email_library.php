@@ -631,6 +631,7 @@ class Email_Library {
      */
     public function clear($clear_attachments = FALSE) {
         $this->subject = '';
+        $this->return_path = '';
         $this->body = '';
         $this->finalbody = '';
         $this->header_str = '';
