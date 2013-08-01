@@ -238,25 +238,25 @@ class Email_Library {
     private $debug_msg = array();
     
     /**
-     * Recipients
+     * To Recipients
      *
      * @var    array
      */
-    private $recipients = array();
+    private $to_recipients = array();
     
     /**
      * CC Recipients
      *
      * @var    array
      */
-    private $cc_array = array();
+    private $cc_recipients = array();
     
     /**
      * BCC Recipients
      *
      * @var    array
      */
-    private $bcc_array = array();
+    private $bcc_recipients = array();
     
     /**
      * Message headers
@@ -635,9 +635,9 @@ class Email_Library {
         $this->body = '';
         $this->finalbody = '';
         $this->header_str = '';
-        $this->recipients = array();
-        $this->cc_array = array();
-        $this->bcc_array = array();
+        $this->to_recipients = array();
+        $this->cc_recipients = array();
+        $this->bcc_recipients = array();
         $this->headers = array();
         $this->debug_msg = array();
         
@@ -766,7 +766,7 @@ class Email_Library {
             $this->set_header('To', implode(', ', $to));
         }
         
-        $this->recipients = $to;
+        $this->to_recipients = $to;
 
         return $this;
     }
@@ -787,7 +787,7 @@ class Email_Library {
         $this->set_header('Cc', implode(', ', $cc));
         
         if ($this->transport === 'smtp') {
-            $this->cc_array = $cc;
+            $this->cc_recipients = $cc;
         }
         
         return $this;
@@ -813,7 +813,7 @@ class Email_Library {
         }
         
         if (($this->transport === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
-            $this->bcc_array = $bcc;
+            $this->bcc_recipients = $bcc;
         } else {
             $this->set_header('Bcc', implode(', ', $bcc));
         }
@@ -1491,8 +1491,8 @@ class Email_Library {
             $this->reply_to($this->headers['From']);
         }
         
-        if (( ! isset($this->recipients) && ! isset($this->headers['To']))  
-                && ( ! isset($this->bcc_array) && ! isset($this->headers['Bcc'])) 
+        if (( ! isset($this->to_recipients) && ! isset($this->headers['To']))  
+                && ( ! isset($this->bcc_recipients) && ! isset($this->headers['Bcc'])) 
                 && ( ! isset($this->headers['Cc']))) {
             $this->set_error_message('email_no_recipients');
             return FALSE;
@@ -1500,7 +1500,7 @@ class Email_Library {
         
         $this->build_headers();
         
-        if ($this->bcc_batch_mode && (count($this->bcc_array) > $this->bcc_batch_size)) {
+        if ($this->bcc_batch_mode && (count($this->bcc_recipients) > $this->bcc_batch_size)) {
             $result = $this->batch_bcc_send();
             
             if ($result && $auto_clear) {
@@ -1533,9 +1533,9 @@ class Email_Library {
         $set = '';
         $chunk = array();
         
-        for ($i = 0; $i < count($this->bcc_array); $i++) {
-            if (isset($this->bcc_array[$i])) {
-                $set .= ', '.$this->bcc_array[$i];
+        for ($i = 0; $i < count($this->bcc_recipients); $i++) {
+            if (isset($this->bcc_recipients[$i])) {
+                $set .= ', '.$this->bcc_recipients[$i];
             }
             
             if ($i === $float) {
@@ -1544,7 +1544,7 @@ class Email_Library {
                 $set = '';
             }
             
-            if ($i === count($this->bcc_array)-1) {
+            if ($i === count($this->bcc_recipients)-1) {
                 $chunk[] = substr($set, 1);
             }
         }
@@ -1558,7 +1558,7 @@ class Email_Library {
             if ($this->transport !== 'smtp') {
                 $this->set_header('Bcc', implode(', ', $bcc));
             } else {
-                $this->bcc_array = $bcc;
+                $this->bcc_recipients = $bcc;
             }
             
             if ($this->build_message() === FALSE) {
@@ -1616,7 +1616,7 @@ class Email_Library {
      */
     private function send_with_mail() {
         // Formatting the recipients array into a string
-        $this->recipients = implode(', ', $this->recipients);
+        $this->to_recipients = implode(', ', $this->to_recipients);
         
         // Sendmail will use the address given to From: header as the return path 
         // if it's not specified using $this->return_path()
@@ -1624,7 +1624,7 @@ class Email_Library {
         
         // Most documentation of sendmail using the "-f" flag lacks a space after it, 
         // however we've encountered servers that seem to require it to be in place.
-        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($return_path));
+        return mail($this->to_recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($return_path));
     }
     
     /**
@@ -1687,20 +1687,20 @@ class Email_Library {
         $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
         $this->send_smtp_command('from', $this->extract_email($return_path));
         
-        foreach ($this->recipients as $val) {
+        foreach ($this->to_recipients as $val) {
             $this->send_smtp_command('to', $val);
         }
         
-        if (count($this->cc_array) > 0) {
-            foreach ($this->cc_array as $val) {
+        if (count($this->cc_recipients) > 0) {
+            foreach ($this->cc_recipients as $val) {
                 if ($val !== '') {
                     $this->send_smtp_command('to', $val);
                 }
             }
         }
         
-        if (count($this->bcc_array) > 0) {
-            foreach ($this->bcc_array as $val) {
+        if (count($this->bcc_recipients) > 0) {
+            foreach ($this->bcc_recipients as $val) {
                 if ($val !== '') {
                     $this->send_smtp_command('to', $val);
                 }
