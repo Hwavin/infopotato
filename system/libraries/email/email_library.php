@@ -726,24 +726,24 @@ class Email_Library {
      * @param    string
      * @return    Email_Library
      */
-    public function reply_to($replyto, $name = '') {
-        if (preg_match('/\<(.*)\>/', $replyto, $match)) {
-            $replyto = $match[1];
+    public function reply_to($reply_to, $name = '') {
+        if (preg_match('/\<(.*)\>/', $reply_to, $match)) {
+            $reply_to = $match[1];
         }
         
         if ($this->email_validation) {
-            $this->validate_email($this->str_to_array($replyto));
+            $this->validate_email($this->str_to_array($reply_to));
         }
         
         if ($name === '') {
-            $name = $replyto;
+            $name = $reply_to;
         }
         
         if (strpos($name, '"') !== 0) {
             $name = '"'.$name.'"';
         }
         
-        $this->set_header('Reply-To', $name.' <'.$replyto.'>');
+        $this->set_header('Reply-To', $name.' <'.$reply_to.'>');
         
         return $this;
     }
