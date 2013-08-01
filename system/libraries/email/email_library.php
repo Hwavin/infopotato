@@ -728,7 +728,7 @@ class Email_Library {
     }
     
     /**
-     * Set Reply-to
+     * Set Reply-To
      *
      * @param    string
      * @param    string
