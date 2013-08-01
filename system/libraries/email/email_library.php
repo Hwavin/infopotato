@@ -719,13 +719,16 @@ class Email_Library {
             $this->validate_email($this->str_to_array($return_path));
         }
 
-        // When the delivery SMTP server makes the "final delivery" of a message, it inserts 
-        // a Return-Path header at the beginning of the mail data. We don't need to set it here.
         // SMTP servers do no look at the message headers, so the Return-Path headers and others are irrelevant. 
         // In SMTP, this address will be passed to the FROM command (where and bounced messages will go).
         // In Sendmail, this address will be passed to the -r papameter
         $this->return_path = $return_path;
 
+        // When the delivery SMTP server makes the "final delivery" of a message, it inserts 
+        // a Return-Path header at the beginning of the mail data. We don't need to set it here.
+        // Sender: Address of the actual sender acting on behalf of the author listed in the From: field.
+        $this->set_header('Sender', ' <'.$return_path.'>');
+        
         return $this;
     }
     
@@ -1189,6 +1192,9 @@ class Email_Library {
         $this->set_header('X-Sender', $this->extract_email($this->headers['From']));
         $this->set_header('X-Mailer', $this->user_agent);
         $this->set_header('X-Priority', $this->priority);
+        // Message-ID: An automatically generated field; used to prevent multiple delivery 
+        // and for reference in In-Reply-To 
+        // In-Reply-To is used to link related messages together (only applies for reply messages).
         $this->set_header('Message-ID', $this->get_message_id());
         $this->set_header('Mime-Version', '1.0');
     }
