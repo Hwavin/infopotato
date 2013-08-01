@@ -1615,9 +1615,8 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_mail() {
-        if (is_array($this->recipients)) {
-            $this->recipients = implode(', ', $this->recipients);
-        }
+        // Formatting the recipients array into a string
+        $this->recipients = implode(', ', $this->recipients);
         
         // Sendmail will use the address given to From: header as the return path 
         // if it's not specified using $this->return_path()
