@@ -705,6 +705,7 @@ class Email_Library {
      * Set address for bouncing notifications
      *
      * If set, this email address will be used for the bounce messages
+     * If not set, SMTP and Sendmail will use the address given in from() as Return-Path
      *
      * @param    string
      * @return    Email_Library
