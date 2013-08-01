@@ -233,35 +233,35 @@ class Email_Library {
      * Debug messages
      *
      * @see    print_debugger()
-     * @var    string
+     * @var    array
      */
     private $debug_msg = array();
     
     /**
      * Recipients
      *
-     * @var    string[]
+     * @var    array
      */
     private $recipients = array();
     
     /**
      * CC Recipients
      *
-     * @var    string[]
+     * @var    array
      */
     private $cc_array = array();
     
     /**
      * BCC Recipients
      *
-     * @var    string[]
+     * @var    array
      */
     private $bcc_array = array();
     
     /**
      * Message headers
      *
-     * @var    string[]
+     * @var    array
      */
     private $headers = array();
     
