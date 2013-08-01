@@ -1645,7 +1645,8 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_sendmail() {
-        // Sendmail will use the address given to From: header as the return path is it's not spevified
+        // Sendmail will use the address given to From: header as the return path 
+        // if it's not specified using $this->return_path()
         $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
         
         // Opens process file pointer
