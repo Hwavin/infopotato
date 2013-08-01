@@ -181,6 +181,13 @@ class Email_Library {
     private $subject = '';
     
     /**
+     * Return-Path
+     *
+     * @var    string
+     */
+    private $return_path = '';
+    
+    /**
      * Message body
      *
      * @var    string
@@ -691,6 +698,33 @@ class Email_Library {
         // Note that there need not be a space between $name  and  the '<',  
         // but  adding a space enhances readability.
         $this->set_header('From', $name.' <'.$from.'>');
+
+        return $this;
+    }
+    
+    /**
+     * Set return path
+     *
+     * If set, this email address will be used for the bounce messages
+     *
+     * @param    string
+     * @return    Email_Library
+     */
+    public function return_path($return_path) {
+        if (preg_match('/\<(.*)\>/', $return_path, $match)) {
+            $return_path = $match[1];
+        }
+        
+        if ($this->email_validation) {
+            $this->validate_email($this->str_to_array($return_path));
+        }
+
+        // When the delivery SMTP server makes the "final delivery" of a message, it inserts 
+        // a Return-Path header at the beginning of the mail data. We don't need to set it here.
+        // SMTP servers do no look at the message headers, so the Return-Path headers and others are irrelevant. 
+        // In SMTP, this address will be passed to the FROM command (where and bounced messages will go).
+        // In Sendmail, this address will be passed to the -r papameter
+        $this->return_path = $return_path;
 
         return $this;
     }
@@ -1611,11 +1645,14 @@ class Email_Library {
      * @return    bool
      */
     private function send_with_sendmail() {
+        // Sendmail will use the address given to From: header as the return path is it's not spevified
+        $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
+        
         // Opens process file pointer
         // Check out http://www.postfix.org/sendmail.1.html for sendmail flags
         // -t extracts recipients from message headers.
         // -r sets the envelope sender address. This  is  the address where delivery problems are sent to.
-        $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($this->headers['From']), 'w');
+        $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($return_path), 'w');
         
         if ($fp === FALSE) {
             // Server probably has popen disabled, so nothing we can do to get a verbose error.
@@ -1655,7 +1692,11 @@ class Email_Library {
             return FALSE;
         }
         
-        $this->send_smtp_command('from', $this->extract_email($this->headers['From']));
+        // In SMTP the return path address is the sender email address passed to the FROM command, 
+        // which is not necessarily the same as in the From header.
+        // If return path is not specified using $this->return_path(), the address given to $this->from() will be used
+        $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
+        $this->send_smtp_command('from', $this->extract_email($return_path));
         
         foreach ($this->recipients as $val) {
             $this->send_smtp_command('to', $val);
@@ -1783,7 +1824,6 @@ class Email_Library {
                 // is greater than some implementation-specified length, 
                 // the MTA MAY return only the headers even if the RET parameter specified FULL.
                 // MAIL FROM:<reverse-path> (http://www.ietf.org/rfc/rfc2821.txt)
-                // It won't work even if you set the return path in $this->from()
                 $this->send_smtp_data('MAIL FROM:<'.$data.'> RET=FULL');
                 $server_reply = 250;
                 break;
@@ -1795,7 +1835,7 @@ class Email_Library {
                     // but the actual delivery's outcome (success or failure) is not yet decided.
                     // See http://tools.ietf.org/html/rfc3461#section-6.2 to know contents of the DSN
                     // Return-path is added at the receiving end, from the SMTP's 'MAIL FROM' command. 
-                    // This MAIL FROM email will be used as the sender to receive those delivery status notifications
+                    // This MAIL FROM email address will be used as the sender to receive those delivery status notifications
                     $this->send_smtp_data('RCPT TO:<'.$data.'> NOTIFY=SUCCESS,DELAY,FAILURE ORCPT=rfc822;'.$data);
                 } else {
                     $this->send_smtp_data('RCPT TO:<'.$data.'>');
