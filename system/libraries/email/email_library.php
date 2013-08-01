@@ -228,14 +228,7 @@ class Email_Library {
      * @var    string    '8bit' or '7bit'
      */
     private $encoding = '8bit';
-    
-    /**
-     * Whether to send a Reply-To header
-     *
-     * @var    bool
-     */
-    private $replyto_flag = FALSE;
-    
+
     /**
      * Debug messages
      *
@@ -641,7 +634,6 @@ class Email_Library {
         $this->body = '';
         $this->finalbody = '';
         $this->header_str = '';
-        $this->replyto_flag = FALSE;
         $this->recipients = array();
         $this->cc_array = array();
         $this->bcc_array = array();
@@ -752,7 +744,6 @@ class Email_Library {
         }
         
         $this->set_header('Reply-To', $name.' <'.$replyto.'>');
-        $this->replyto_flag = TRUE;
         
         return $this;
     }
@@ -1503,7 +1494,8 @@ class Email_Library {
      * @return    bool
      */
     public function send($auto_clear = TRUE) {
-        if ($this->replyto_flag === FALSE) {
+        // Use the address in from() is Reply-To is not specified
+        if ( ! isset($this->headers['Reply-To'])) {
             $this->reply_to($this->headers['From']);
         }
         
