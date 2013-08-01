@@ -1619,9 +1619,13 @@ class Email_Library {
             $this->recipients = implode(', ', $this->recipients);
         }
         
+        // Sendmail will use the address given to From: header as the return path 
+        // if it's not specified using $this->return_path()
+        $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
+        
         // Most documentation of sendmail using the "-f" flag lacks a space after it, 
         // however we've encountered servers that seem to require it to be in place.
-        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($this->headers['From']));
+        return mail($this->recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($return_path));
     }
     
     /**
