@@ -664,8 +664,7 @@ class Email_Library {
     /**
      * Set FROM
      *
-     * Specifies the author(s) of the message; that is, the mailbox(es) of
-     * the person(s) or system(s) responsible for the writing of the message.
+     * Specifies who actually wrote the email, and usually who sent it
      *
      * @param    string
      * @param    string
@@ -703,7 +702,7 @@ class Email_Library {
     }
     
     /**
-     * Set return path
+     * Set address for bouncing notifications
      *
      * If set, this email address will be used for the bounce messages
      *
@@ -724,11 +723,6 @@ class Email_Library {
         // In Sendmail, this address will be passed to the -r papameter
         $this->return_path = $return_path;
 
-        // When the delivery SMTP server makes the "final delivery" of a message, it inserts 
-        // a Return-Path header at the beginning of the mail data. We don't need to set it here.
-        // Sender: Address of the actual sender acting on behalf of the author listed in the From: field.
-        $this->set_header('Sender', ' <'.$return_path.'>');
-        
         return $this;
     }
     
