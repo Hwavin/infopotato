@@ -1170,7 +1170,10 @@ class Email_Library {
      * @return    string
      */
     private function build_headers() {
-        $this->set_header('X-Sender', $this->extract_email($this->headers['From']));
+        // X-headers is the generic term for headers starting with a capital X and a hyphen. 
+        // The convention is that X-headers are nonstandard and provided for information only, and that, 
+        // conversely, any nonstandard informative header should be given a name starting with "X-". 
+        // This convention is frequently violated.
         $this->set_header('X-Mailer', $this->user_agent);
         $this->set_header('X-Priority', $this->priority);
         // Message-ID: An automatically generated field; used to prevent multiple delivery 
