@@ -1183,37 +1183,7 @@ class Email_Library {
         $this->set_header('Message-ID', $this->get_message_id());
         $this->set_header('Mime-Version', '1.0');
     }
-    
-    /**
-     * Write Headers as a string
-     *
-     * @return    void
-     */
-    private function write_headers() {
-        if ($this->transport === 'mail') {
-            if (isset($this->headers['Subject'])) {
-                $this->subject = $this->headers['Subject'];
-                unset($this->headers['Subject']);
-            }
-        }
 
-        // Set the internal pointer of headers array to its first element
-        reset($this->headers);
-        $this->header_str = '';
-
-        foreach ($this->headers as $key => $val) {
-            $val = trim($val);
-            
-            if ($val !== '') {
-                $this->header_str .= $key.': '.$val.$this->newline;
-            }
-        }
-        
-        if ($this->transport === 'mail') {
-            $this->header_str = rtrim($this->header_str);
-        }
-    }
-    
     /**
      * Build Final Body and attachments
      *
@@ -1228,9 +1198,31 @@ class Email_Library {
         $alt_boundary = 'B_ALT_'.uniqid(''); // For multipart/alternative
         $atc_boundary = 'B_ATC_'.uniqid(''); // For attachment boundary
         
-        // Write Headers as a string
-        $this->write_headers();
+        // Compose headers as a string
+        if ($this->transport === 'mail') {
+            if (isset($this->headers['Subject'])) {
+                $this->subject = $this->headers['Subject'];
+                unset($this->headers['Subject']);
+            }
+        }
+
+        // Set the internal pointer of headers array to its first element
+        reset($this->headers);
         
+        // Final headers string
+        $this->header_str = '';
+
+        foreach ($this->headers as $key => $val) {
+            $val = trim($val);
+            if ($val !== '') {
+                $this->header_str .= $key.': '.$val.$this->newline;
+            }
+        }
+        
+        if ($this->transport === 'mail') {
+            $this->header_str = rtrim($this->header_str);
+        }
+
         $hdr = ($this->transport === 'mail') ? $this->newline : '';
         $body = '';
         
