@@ -115,7 +115,7 @@ class Email_Library {
     private $charset = 'UTF-8';
     
     /**
-     * Multipart subtype
+     * Multipart subtype http://tools.ietf.org/html/rfc2046#section-5.1
      * 
      * @var string 'mixed' (in the body) or 'related' (separate)
      */
