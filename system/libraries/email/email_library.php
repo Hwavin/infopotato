@@ -712,10 +712,13 @@ class Email_Library {
             $this->validate_email($this->str_to_array($return_path));
         }
 
-        // SMTP servers do no look at the message headers, so the Return-Path headers and others are irrelevant. 
+        // SMTP servers do not look at the message headers, so the Return-Path headers and others are irrelevant. 
         // In SMTP, this address will be passed to the FROM command (where and bounced messages will go).
         // In Sendmail, this address will be passed to the -r papameter
         $this->return_path = $return_path;
+
+        // When the delivery SMTP server makes the "final delivery" of a message, it inserts 
+        // a Return-Path header at the beginning of the mail data. We don't need to set it here.
 
         return $this;
     }
@@ -1682,7 +1685,7 @@ class Email_Library {
         }
         
         // In SMTP the return path address is the sender email address passed to the FROM command, 
-        // which is not necessarily the same as in the From header.
+        // which is not necessarily the same as in the address in From header.
         // If return path is not specified using $this->return_path(), the address given to $this->from() will be used
         $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
         $this->send_smtp_command('from', $this->extract_email($return_path));
