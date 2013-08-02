@@ -988,12 +988,13 @@ class Email_Library {
      * @return    string
      */
     private function get_content_type() {
+        // mailtype can only be 'html' or 'text'
         if ($this->mailtype === 'html') {
             return (count($this->attachments) === 0) ? 'html' : 'html-attach';
-        } elseif ($this->mailtype === 'text' && count($this->attachments) > 0) {
-            return 'plain-attach';
-        } else {
-            return 'plain';
+        } 
+        
+        if ($this->mailtype === 'text') {
+            return (count($this->attachments) > 0) ? 'plain-attach' : 'plain';
         }
     }
     
