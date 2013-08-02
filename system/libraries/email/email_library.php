@@ -1464,7 +1464,7 @@ class Email_Library {
     public function send($auto_clear = TRUE) {
         // Use the address in from() is Reply-To is not specified
         if ( ! isset($this->headers['Reply-To'])) {
-            $this->reply_to($this->headers['From']);
+            $this->headers['Reply-To'] = $this->headers['From'];
         }
         
         // Check if recipients specified
@@ -1476,7 +1476,7 @@ class Email_Library {
         }
 
         // Build some headers
-        
+        $this->set_header('Date', $this->set_date());
         $this->set_header('User-Agent', $this->user_agent);
         // X-headers is the generic term for headers starting with a capital X and a hyphen. 
         // The convention is that X-headers are nonstandard and provided for information only, and that, 
@@ -1484,7 +1484,6 @@ class Email_Library {
         // This convention is frequently violated.
         $this->set_header('X-Mailer', $this->user_agent);
         $this->set_header('X-Priority', $this->priority);
-        $this->set_header('Date', $this->set_date());
         $this->set_header('Mime-Version', '1.0');
         // Message-ID: An automatically generated field; used to prevent multiple delivery 
         // and for reference in In-Reply-To 
