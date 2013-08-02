@@ -1163,26 +1163,6 @@ class Email_Library {
         
         return $output;
     }
-    
-    /**
-     * Build final headers
-     *
-     * @param    string
-     * @return    string
-     */
-    private function build_headers() {
-        // X-headers is the generic term for headers starting with a capital X and a hyphen. 
-        // The convention is that X-headers are nonstandard and provided for information only, and that, 
-        // conversely, any nonstandard informative header should be given a name starting with "X-". 
-        // This convention is frequently violated.
-        $this->set_header('X-Mailer', $this->user_agent);
-        $this->set_header('X-Priority', $this->priority);
-        // Message-ID: An automatically generated field; used to prevent multiple delivery 
-        // and for reference in In-Reply-To 
-        // In-Reply-To is used to link related messages together (only applies for reply messages).
-        $this->set_header('Message-ID', $this->get_message_id());
-        $this->set_header('Mime-Version', '1.0');
-    }
 
     /**
      * Build Final Body and attachments
@@ -1490,15 +1470,28 @@ class Email_Library {
             $this->reply_to($this->headers['From']);
         }
         
+        // Check if recipients specified
         if (( ! isset($this->to_recipients) && ! isset($this->headers['To']))  
                 && ( ! isset($this->bcc_recipients) && ! isset($this->headers['Bcc'])) 
                 && ( ! isset($this->headers['Cc']))) {
             $this->set_error_message('email_no_recipients');
             return FALSE;
         }
+
+        // Build some headers
         
-        $this->build_headers();
-        
+        // X-headers is the generic term for headers starting with a capital X and a hyphen. 
+        // The convention is that X-headers are nonstandard and provided for information only, and that, 
+        // conversely, any nonstandard informative header should be given a name starting with "X-". 
+        // This convention is frequently violated.
+        $this->set_header('X-Mailer', $this->user_agent);
+        $this->set_header('X-Priority', $this->priority);
+        // Message-ID: An automatically generated field; used to prevent multiple delivery 
+        // and for reference in In-Reply-To 
+        // In-Reply-To is used to link related messages together (only applies for reply messages).
+        $this->set_header('Message-ID', $this->get_message_id());
+        $this->set_header('Mime-Version', '1.0');
+
         if ($this->bcc_batch_mode && (count($this->bcc_recipients) > $this->bcc_batch_size)) {
             $result = $this->batch_bcc_send();
             
