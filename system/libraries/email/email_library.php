@@ -103,9 +103,9 @@ class Email_Library {
     /**
      * Email message format
      * 
-     * @var string 'text' or 'html'
+     * @var string 'plain' or 'html'
      */
-    private $mailtype = 'text';
+    private $mailtype = 'plain';
     
     /**
      * Default character set
@@ -476,7 +476,7 @@ class Email_Library {
      * @return void
      */
     private function initialize_mailtype($val) {
-        if ( ! is_string($val) || ! in_array($val, array('text', 'html'))) {
+        if ( ! is_string($val) || ! in_array($val, array('plain', 'html'))) {
             $this->invalid_argument_value('mailtype');
         }
         $this->mailtype = $val;
@@ -988,12 +988,12 @@ class Email_Library {
      * @return    string
      */
     private function get_content_type() {
-        // mailtype can only be 'html' or 'text'
+        // mailtype can only be 'html' or 'plain'
         if ($this->mailtype === 'html') {
-            return (count($this->attachments) === 0) ? 'html' : 'html-attach';
+            return (count($this->attachments) > 0) ? 'html-attach' : 'html';
         } 
         
-        if ($this->mailtype === 'text') {
+        if ($this->mailtype === 'plain') {
             return (count($this->attachments) > 0) ? 'plain-attach' : 'plain';
         }
     }
