@@ -983,11 +983,11 @@ class Email_Library {
     }
     
     /**
-     * Get content type (text/html/attachment)
+     * Get message body content type 
      *
      * @return    string
      */
-    private function get_content_type() {
+    private function get_message_content_type() {
         // mailtype can only be 'html' or 'plain'
         if ($this->mailtype === 'html') {
             return (count($this->attachments) > 0) ? 'html-attach' : 'html';
@@ -1234,7 +1234,7 @@ class Email_Library {
         $hdr = ($this->transport === 'mail') ? $this->newline : '';
         $body = '';
         
-        switch ($this->get_content_type()) {
+        switch ($this->get_message_content_type()) {
             case 'plain' :
                 $hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $hdr .= 'Content-Transfer-Encoding: '.$this->get_encoding();
