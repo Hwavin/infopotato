@@ -103,9 +103,9 @@ class Email_Library {
     /**
      * Email message format
      * 
-     * @var string 'plain' or 'html'
+     * @var string 'text' or 'html'
      */
-    private $mailtype = 'plain';
+    private $mailtype = 'text';
     
     /**
      * Default character set
@@ -476,7 +476,7 @@ class Email_Library {
      * @return void
      */
     private function initialize_mailtype($val) {
-        if ( ! is_string($val) || ! in_array($val, array('plain', 'html'))) {
+        if ( ! is_string($val) || ! in_array($val, array('text', 'html'))) {
             $this->invalid_argument_value('mailtype');
         }
         $this->mailtype = $val;
@@ -985,12 +985,12 @@ class Email_Library {
      * @return    string
      */
     private function get_content_type() {
-        // mailtype can only be 'html' or 'plain'
+        // mailtype can only be 'html' or 'text'
         if ($this->mailtype === 'html') {
             return (count($this->attachments) > 0) ? 'html-attach' : 'html';
         } 
         
-        if ($this->mailtype === 'plain') {
+        if ($this->mailtype === 'text') {
             return (count($this->attachments) > 0) ? 'plain-attach' : 'plain';
         }
     }
@@ -1462,7 +1462,7 @@ class Email_Library {
      * @return    bool
      */
     public function send($auto_clear = TRUE) {
-        // Use the address in from() is Reply-To is not specified
+        // Use the name and address in from() if Reply-To is not specified
         if ( ! isset($this->headers['Reply-To'])) {
             $this->headers['Reply-To'] = $this->headers['From'];
         }
