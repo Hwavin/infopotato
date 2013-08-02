@@ -115,11 +115,11 @@ class Email_Library {
     private $charset = 'UTF-8';
     
     /**
-     * Multipart message
+     * Multipart subtype
      * 
      * @var string 'mixed' (in the body) or 'related' (separate)
      */
-    private $multipart = 'mixed';
+    private $multipart_subtype = 'mixed';
     
     /**
      * Whether to validate all email addresses
@@ -483,16 +483,16 @@ class Email_Library {
     }
     
     /**
-     * Validate and set $multipart
+     * Validate and set $multipart_subtype
      *
      * @param  $val string
      * @return void
      */
-    private function initialize_multipart($val) {
+    private function initialize_multipart_subtype($val) {
         if ( ! is_string($val) || ! in_array($val, array('mixed', 'related'))) {
-            $this->invalid_argument_value('multipart');
+            $this->invalid_argument_value('multipart_subtype');
         }
-        $this->multipart = $val;
+        $this->multipart_subtype = $val;
     }
     
     /**
@@ -1254,7 +1254,7 @@ class Email_Library {
                 return;
             
             case 'plain-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart_subtype.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
@@ -1270,7 +1270,7 @@ class Email_Library {
                 break;
             
             case 'html-attach' :
-                $hdr .= 'Content-Type: multipart/'.$this->multipart.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
+                $hdr .= 'Content-Type: multipart/'.$this->multipart_subtype.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
                 
                 if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
