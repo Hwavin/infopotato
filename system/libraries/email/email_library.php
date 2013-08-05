@@ -115,7 +115,9 @@ class Email_Library {
     private $charset = 'UTF-8';
     
     /**
-     * Multipart subtype http://tools.ietf.org/html/rfc2046#section-5.1
+     * Multipart subtype 
+     * 
+     * http://en.wikipedia.org/wiki/MIME#Multipart_subtypes
      * 
      * @var string 'mixed' (in the body) or 'related' (separate)
      */
@@ -1389,9 +1391,9 @@ class Email_Library {
     }
     
     /**
-     * Performs "Q Encoding" on a string for use in email headers.
+     * Performs "Q Encoding" on a string for use in email header values.
      *
-     * It's related but not identical to quoted-printable, so it has its own method
+     * http://tools.ietf.org/html/rfc2047#section-4.2
      *
      * @param    string
      * @return    string
