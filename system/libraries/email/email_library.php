@@ -997,16 +997,12 @@ class Email_Library {
      * @return    string
      */
     private function get_content_transfer_encoding() {
-        // Character sets valid for 7bit encoding, excluding language suffix
-        $base_charsets = array('us-ascii', 'iso-2022-'); 
         // Default mail encoding
         $content_transfer_encoding = '8bit';
 
-        foreach ($base_charsets as $charset) {
-            if (strpos($charset, $this->charset) === 0) {
-                $content_transfer_encoding = '7bit';
-                break;
-            }
+        // 'us-ascii' and 'iso-2022-' (excluding language suffix) are character sets valid for 7bit encoding
+        if (strpos('us-ascii', $this->charset) === 0 || strpos('iso-2022-', $this->charset) === 0) {
+            $content_transfer_encoding = '7bit';
         }
         
         return $content_transfer_encoding;
