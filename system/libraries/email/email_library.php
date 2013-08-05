@@ -928,6 +928,149 @@ class Email_Library {
     }
     
     /**
+     * Send Email
+     *
+     * Must set $auto_clear = FALSE to have print_debugger() work as expected
+     *
+     * @param    bool    $auto_clear = TRUE
+     * @return    bool
+     */
+    public function send($auto_clear = TRUE) {
+        // Use the name and address in from() if Reply-To is not specified
+        if ( ! isset($this->headers['Reply-To'])) {
+            $this->headers['Reply-To'] = $this->headers['From'];
+        }
+        
+        // Check if recipients specified
+        if (( ! isset($this->to_recipients) && ! isset($this->headers['To']))  
+                && ( ! isset($this->bcc_recipients) && ! isset($this->headers['Bcc'])) 
+                && ( ! isset($this->headers['Cc']))) {
+            $this->set_error_message('email_no_recipients');
+            return FALSE;
+        }
+
+        // Build some headers
+        $this->set_header('Date', $this->set_date());
+        $this->set_header('User-Agent', $this->user_agent);
+        // X-headers is the generic term for headers starting with a capital X and a hyphen. 
+        // The convention is that X-headers are nonstandard and provided for information only, and that, 
+        // conversely, any nonstandard informative header should be given a name starting with "X-". 
+        // This convention is frequently violated.
+        $this->set_header('X-Mailer', $this->user_agent);
+        // X-Priority: does not mark how important an email is. 
+        // It marks how important the sender of the email thinks it is.
+        $this->set_header('X-Priority', $this->priority);
+        $this->set_header('Mime-Version', '1.0');
+        // Message-ID: An automatically generated field; used to prevent multiple delivery 
+        // and for reference in In-Reply-To 
+        // In-Reply-To is used to link related messages together (only applies for reply messages).
+        $this->set_header('Message-ID', $this->create_message_id());
+
+        if ($this->bcc_batch_mode && (count($this->bcc_recipients) > $this->bcc_batch_size)) {
+            $result = $this->batch_bcc_send();
+            
+            if ($result && $auto_clear) {
+                $this->clear();
+            }
+            
+            return $result;
+        }
+        
+        if ($this->build_message() === FALSE) {
+            return FALSE;
+        }
+        
+        $result = $this->spool_email();
+        
+        if ($result && $auto_clear) {
+            $this->clear();
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Get Debug Message
+     *
+     * @param    array    $include    List of raw data chunks to include in the output
+     *                    Valid options are: 'headers', 'subject', 'body'
+     * @return    string
+     */
+    public function print_debugger($include = array('headers', 'subject', 'body')) {
+        $msg = '';
+        
+        if (count($this->debug_msg) > 0) {
+            foreach ($this->debug_msg as $val) {
+                $msg .= $val;
+            }
+        }
+        
+        // Determine which part of our raw data needs to be printed
+        $raw_data = '';
+        $include = is_array($include) ? $include : array($include);
+        
+        if (in_array('headers', $include, TRUE)) {
+            $raw_data = htmlspecialchars($this->header_str)."\n";
+        }
+        
+        if (in_array('subject', $include, TRUE)) {
+            $raw_data .= htmlspecialchars($this->subject)."\n";
+        }
+        
+        if (in_array('body', $include, TRUE)) {
+            $raw_data .= htmlspecialchars($this->finalbody);
+        }
+        
+        return $msg.($raw_data === '' ? '' : '<pre>'.$raw_data.'</pre>');
+    }
+    
+    /**
+     * Batch Bcc Send.  Sends groups of BCCs in batches
+     *
+     * @return    void
+     */
+    private function batch_bcc_send() {
+        $float = $this->bcc_batch_size - 1;
+        $set = '';
+        $chunk = array();
+        
+        for ($i = 0; $i < count($this->bcc_recipients); $i++) {
+            if (isset($this->bcc_recipients[$i])) {
+                $set .= ', '.$this->bcc_recipients[$i];
+            }
+            
+            if ($i === $float) {
+                $chunk[] = substr($set, 1);
+                $float = $float + $this->bcc_batch_size;
+                $set = '';
+            }
+            
+            if ($i === count($this->bcc_recipients)-1) {
+                $chunk[] = substr($set, 1);
+            }
+        }
+        
+        for ($i = 0; $i < count($chunk); $i++) {
+            unset($this->headers['Bcc']);
+            unset($bcc);
+
+            $bcc = $this->extract_email($this->str_to_array($chunk[$i]));
+            
+            if ($this->transport !== 'smtp') {
+                $this->set_header('Bcc', implode(', ', $bcc));
+            } else {
+                $this->bcc_recipients = $bcc;
+            }
+            
+            if ($this->build_message() === FALSE) {
+                return FALSE;
+            }
+            
+            $this->spool_email();
+        }
+    }
+    
+    /**
      * Add a Header Item
      *
      * @param    string
@@ -1441,114 +1584,6 @@ class Email_Library {
     }
     
     /**
-     * Send Email
-     *
-     * Must set $auto_clear = FALSE to have print_debugger() work as expected
-     *
-     * @param    bool    $auto_clear = TRUE
-     * @return    bool
-     */
-    public function send($auto_clear = TRUE) {
-        // Use the name and address in from() if Reply-To is not specified
-        if ( ! isset($this->headers['Reply-To'])) {
-            $this->headers['Reply-To'] = $this->headers['From'];
-        }
-        
-        // Check if recipients specified
-        if (( ! isset($this->to_recipients) && ! isset($this->headers['To']))  
-                && ( ! isset($this->bcc_recipients) && ! isset($this->headers['Bcc'])) 
-                && ( ! isset($this->headers['Cc']))) {
-            $this->set_error_message('email_no_recipients');
-            return FALSE;
-        }
-
-        // Build some headers
-        $this->set_header('Date', $this->set_date());
-        $this->set_header('User-Agent', $this->user_agent);
-        // X-headers is the generic term for headers starting with a capital X and a hyphen. 
-        // The convention is that X-headers are nonstandard and provided for information only, and that, 
-        // conversely, any nonstandard informative header should be given a name starting with "X-". 
-        // This convention is frequently violated.
-        $this->set_header('X-Mailer', $this->user_agent);
-        // X-Priority: does not mark how important an email is. 
-        // It marks how important the sender of the email thinks it is.
-        $this->set_header('X-Priority', $this->priority);
-        $this->set_header('Mime-Version', '1.0');
-        // Message-ID: An automatically generated field; used to prevent multiple delivery 
-        // and for reference in In-Reply-To 
-        // In-Reply-To is used to link related messages together (only applies for reply messages).
-        $this->set_header('Message-ID', $this->create_message_id());
-
-        if ($this->bcc_batch_mode && (count($this->bcc_recipients) > $this->bcc_batch_size)) {
-            $result = $this->batch_bcc_send();
-            
-            if ($result && $auto_clear) {
-                $this->clear();
-            }
-            
-            return $result;
-        }
-        
-        if ($this->build_message() === FALSE) {
-            return FALSE;
-        }
-        
-        $result = $this->spool_email();
-        
-        if ($result && $auto_clear) {
-            $this->clear();
-        }
-        
-        return $result;
-    }
-    
-    /**
-     * Batch Bcc Send.  Sends groups of BCCs in batches
-     *
-     * @return    void
-     */
-    private function batch_bcc_send() {
-        $float = $this->bcc_batch_size - 1;
-        $set = '';
-        $chunk = array();
-        
-        for ($i = 0; $i < count($this->bcc_recipients); $i++) {
-            if (isset($this->bcc_recipients[$i])) {
-                $set .= ', '.$this->bcc_recipients[$i];
-            }
-            
-            if ($i === $float) {
-                $chunk[] = substr($set, 1);
-                $float = $float + $this->bcc_batch_size;
-                $set = '';
-            }
-            
-            if ($i === count($this->bcc_recipients)-1) {
-                $chunk[] = substr($set, 1);
-            }
-        }
-        
-        for ($i = 0; $i < count($chunk); $i++) {
-            unset($this->headers['Bcc']);
-            unset($bcc);
-
-            $bcc = $this->extract_email($this->str_to_array($chunk[$i]));
-            
-            if ($this->transport !== 'smtp') {
-                $this->set_header('Bcc', implode(', ', $bcc));
-            } else {
-                $this->bcc_recipients = $bcc;
-            }
-            
-            if ($this->build_message() === FALSE) {
-                return FALSE;
-            }
-            
-            $this->spool_email();
-        }
-    }
-    
-    /**
      * Unwrap special elements
      *
      * @return    void
@@ -1930,42 +1965,7 @@ class Email_Library {
     private function get_hostname() {
         return (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost.localdomain';
     }
-    
-    /**
-     * Get Debug Message
-     *
-     * @param    array    $include    List of raw data chunks to include in the output
-     *                    Valid options are: 'headers', 'subject', 'body'
-     * @return    string
-     */
-    public function print_debugger($include = array('headers', 'subject', 'body')) {
-        $msg = '';
-        
-        if (count($this->debug_msg) > 0) {
-            foreach ($this->debug_msg as $val) {
-                $msg .= $val;
-            }
-        }
-        
-        // Determine which part of our raw data needs to be printed
-        $raw_data = '';
-        $include = is_array($include) ? $include : array($include);
-        
-        if (in_array('headers', $include, TRUE)) {
-            $raw_data = htmlspecialchars($this->header_str)."\n";
-        }
-        
-        if (in_array('subject', $include, TRUE)) {
-            $raw_data .= htmlspecialchars($this->subject)."\n";
-        }
-        
-        if (in_array('body', $include, TRUE)) {
-            $raw_data .= htmlspecialchars($this->finalbody);
-        }
-        
-        return $msg.($raw_data === '' ? '' : '<pre>'.$raw_data.'</pre>');
-    }
-    
+
     /**
      * Set Message
      *
