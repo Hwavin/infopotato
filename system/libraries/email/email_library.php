@@ -1393,9 +1393,8 @@ class Email_Library {
      *
      * It's related but not identical to quoted-printable, so it has its own method
      *
-     * @param    str
-     * @param    bool    // set to TRUE for processing From: headers
-     * @return    str
+     * @param    string
+     * @return    string
      */
     private function prep_q_encoding($str) {
         $str = str_replace(array("\r", "\n"), '', $str);
