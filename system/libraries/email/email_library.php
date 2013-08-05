@@ -1023,8 +1023,13 @@ class Email_Library {
      *
      * @return    string
      */
-    private function get_mime_message() {
-        return 'This is a multi-part message in MIME format.'.$this->newline.'Your email application may not support this format.';
+    private function insert_mime_message() {
+        // This text is inserted before the first boundary, 
+        // is typically present in every multipart message, 
+        // and is not visible to the client unless there is a problem with the e-mail format. 
+        // For example, a hard line break might have been inserted in the message in the wrong position.
+        return 'This message is in MIME format.'.$this->newline
+               .'Because your mail reader does not understand this format, some or all of this message may not be legible.';
     }
     
     /**
@@ -1237,7 +1242,7 @@ class Email_Library {
                 } else {
                     $hdr .= 'Content-Type: multipart/alternative; boundary="'.$alt_boundary.'"'.$this->newline.$this->newline;
                     
-                    $body .= $this->get_mime_message().$this->newline.$this->newline;
+                    $body .= $this->insert_mime_message().$this->newline.$this->newline;
                     $body .= '--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
@@ -1269,7 +1274,7 @@ class Email_Library {
                     $this->header_str .= $hdr;
                 }
                 
-                $body .= $this->get_mime_message().$this->newline.$this->newline;
+                $body .= $this->insert_mime_message().$this->newline.$this->newline;
                 $body .= '--'.$atc_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
@@ -1285,7 +1290,7 @@ class Email_Library {
                     $this->header_str .= $hdr;
                 }
                 
-                $body .= $this->get_mime_message().$this->newline.$this->newline;
+                $body .= $this->insert_mime_message().$this->newline.$this->newline;
                 $body .= '--'.$atc_boundary.$this->newline;
                 
                 $body .= 'Content-Type: multipart/alternative; boundary="'.$alt_boundary.'"'.$this->newline.$this->newline;
