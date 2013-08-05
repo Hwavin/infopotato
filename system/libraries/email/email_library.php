@@ -723,6 +723,8 @@ class Email_Library {
     /**
      * Set Reply-To
      *
+     * If not specified, will use the address given in from() 
+     *
      * @param    string
      * @param    string
      * @return    Email_Library
