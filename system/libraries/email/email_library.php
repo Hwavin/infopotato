@@ -957,7 +957,7 @@ class Email_Library {
      *
      * @return    string
      */
-    private function get_message_id() {
+    private function create_message_id() {
         // The "Message-ID:" field provides a unique message identifier that
         // refers to a particular version of a particular message.
         // The Message-ID uses the domain part of the From
@@ -1496,7 +1496,7 @@ class Email_Library {
         // Message-ID: An automatically generated field; used to prevent multiple delivery 
         // and for reference in In-Reply-To 
         // In-Reply-To is used to link related messages together (only applies for reply messages).
-        $this->set_header('Message-ID', $this->get_message_id());
+        $this->set_header('Message-ID', $this->create_message_id());
 
         if ($this->bcc_batch_mode && (count($this->bcc_recipients) > $this->bcc_batch_size)) {
             $result = $this->batch_bcc_send();
