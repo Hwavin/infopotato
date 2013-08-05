@@ -966,13 +966,15 @@ class Email_Library {
     }
 
     /**
-     * Get Mail Encoding
+     * Get Content Transfer Encoding
      *
+     * http://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding
+     * 
      * @return    string
      */
-    private function get_encoding() {
+    private function get_content_transfer_encoding() {
         $bit_depths = array('7bit', '8bit');
-        $base_charsets = array('us-ascii', 'iso-2022-'); // Charcter sets valid for 7bit encoding
+        $base_charsets = array('us-ascii', 'iso-2022-'); // Character sets valid for 7bit encoding
         
         $this->encoding = in_array($this->encoding, $bit_depths) ? $this->encoding : '8bit';
 
@@ -1213,7 +1215,7 @@ class Email_Library {
         switch ($this->get_content_type()) {
             case 'plain' :
                 $hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
-                $hdr .= 'Content-Transfer-Encoding: '.$this->get_encoding();
+                $hdr .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding();
                 
                 if ($this->transport === 'mail') {
                     $this->header_str .= $hdr;
@@ -1238,7 +1240,7 @@ class Email_Library {
                     $body .= '--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
-                    $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
+                    $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
                     $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
@@ -1270,7 +1272,7 @@ class Email_Library {
                 $body .= '--'.$atc_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
-                $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
+                $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
                 $body .= $this->body.$this->newline.$this->newline;
 
                 break;
@@ -1289,7 +1291,7 @@ class Email_Library {
                 $body .= '--'.$alt_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
-                $body .= 'Content-Transfer-Encoding: '.$this->get_encoding().$this->newline.$this->newline;
+                $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
                 $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
