@@ -833,6 +833,7 @@ class Email_Library {
      * @return    Email_Library
      */
     public function subject($subject) {
+        // Q Encoding, the form is: "=?charset?encoding?encoded text?=".
         $subject = $this->prep_q_encoding($subject);
         $this->set_header('Subject', $subject);
         return $this;
@@ -1392,7 +1393,8 @@ class Email_Library {
     
     /**
      * Performs "Q Encoding" on a string for use in email header values.
-     *
+     * 
+     * The form is: "=?charset?encoding?encoded text?=".
      * http://tools.ietf.org/html/rfc2047#section-4.2
      *
      * @param    string
