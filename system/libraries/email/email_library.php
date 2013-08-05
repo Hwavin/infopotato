@@ -1080,7 +1080,7 @@ class Email_Library {
      *
      * @return    string
      */
-    private function get_alt_message() {
+    private function auto_alt_message() {
         if ( ! empty($this->alt_message)) {
             return ($this->wordwrap) ? $this->word_wrap($this->alt_message, 76) : $this->alt_message;
         }
@@ -1247,7 +1247,7 @@ class Email_Library {
                     
                     $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                     $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
-                    $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
+                    $body .= $this->auto_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
                     $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
@@ -1298,7 +1298,7 @@ class Email_Library {
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
-                $body .= $this->get_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
+                $body .= $this->auto_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
