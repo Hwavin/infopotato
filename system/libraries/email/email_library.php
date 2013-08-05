@@ -966,9 +966,26 @@ class Email_Library {
     }
 
     /**
+     * Get message body content type 
+     *
+     * @return    string
+     */
+    private function get_content_type() {
+        // mailtype can only be 'html' or 'text'
+        if ($this->mailtype === 'html') {
+            return (count($this->attachments) > 0) ? 'html-attach' : 'html';
+        } 
+        
+        if ($this->mailtype === 'text') {
+            return (count($this->attachments) > 0) ? 'plain-attach' : 'plain';
+        }
+    }
+    
+    /**
      * Get Content Transfer Encoding
      *
      * http://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding
+     * http://tools.ietf.org/html/rfc2045#section-6
      * 
      * @return    string
      */
@@ -986,23 +1003,7 @@ class Email_Library {
         
         return $this->content_transfer_encoding;
     }
-    
-    /**
-     * Get message body content type 
-     *
-     * @return    string
-     */
-    private function get_content_type() {
-        // mailtype can only be 'html' or 'text'
-        if ($this->mailtype === 'html') {
-            return (count($this->attachments) > 0) ? 'html-attach' : 'html';
-        } 
-        
-        if ($this->mailtype === 'text') {
-            return (count($this->attachments) > 0) ? 'plain-attach' : 'plain';
-        }
-    }
-    
+
     /**
      * Set RFC 822 Date
      *
