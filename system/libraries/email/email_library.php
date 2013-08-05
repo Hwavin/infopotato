@@ -833,12 +833,13 @@ class Email_Library {
     }
     
     /**
-     * Set Body
+     * Set message Body
      *
+     * @param    string
      * @param    string
      * @return    Email_Library
      */
-    public function message($body) {
+    public function message($body, $alt_body = '') {
         $this->body = rtrim(str_replace("\r", '', $body));
         
         // Strip slashes only if magic quotes is ON
@@ -849,20 +850,28 @@ class Email_Library {
             $this->body = stripslashes($this->body);
         }
         
+        // Set alternative plain text message (for HTML messages only)
+        if ($this->mailtype === 'html') {
+            // If no alternative message specified, we create one by stripping the HTML message
+            if ($alt_body === '') {
+                // Fetch content from HTML message
+                $alt_body = preg_match('/\<body.*?\>(.*)\<\/body\>/si', $this->body, $match) ? $match[1] : $this->body;
+                $alt_body = str_replace("\t", '', preg_replace('#<!--(.*)--\>#', '', trim(strip_tags($alt_body))));
+                
+                for ($i = 20; $i >= 3; $i--) {
+                    $alt_body = str_replace(str_repeat("\n", $i), "\n\n", $alt_body);
+                }
+                
+                // Reduce multiple spaces
+                $alt_body = preg_replace('| +|', ' ', $alt_body);
+            }
+            
+            $this->alt_message = ($this->wordwrap) ? $this->word_wrap($alt_body, 76) : $alt_body;
+        }
+        
         return $this;
     }
-    
-    /**
-     * Set alternative message (for HTML messages only)
-     *
-     * @param    string
-     * @return    Email_Library
-     */
-    public function set_alt_message($str = '') {
-        $this->alt_message = $str;
-        return $this;
-    }
-    
+
     /**
      * Add an attachment that exists on disk
      *
@@ -1063,32 +1072,6 @@ class Email_Library {
     }
     
     /**
-     * Build alternative plain text message
-     *
-     * Provides the raw message for use in plain-text headers of HTML-formatted emails.
-     * If the user hasn't specified his own alternative message it creates one by stripping the HTML
-     *
-     * @return    string
-     */
-    private function auto_alt_message() {
-        if ( ! empty($this->alt_message)) {
-            return ($this->wordwrap) ? $this->word_wrap($this->alt_message, 76) : $this->alt_message;
-        }
-        
-        $body = preg_match('/\<body.*?\>(.*)\<\/body\>/si', $this->body, $match) ? $match[1] : $this->body;
-        $body = str_replace("\t", '', preg_replace('#<!--(.*)--\>#', '', trim(strip_tags($body))));
-        
-        for ($i = 20; $i >= 3; $i--) {
-            $body = str_replace(str_repeat("\n", $i), "\n\n", $body);
-        }
-        
-        // Reduce multiple spaces
-        $body = preg_replace('| +|', ' ', $body);
-        
-        return ($this->wordwrap) ? $this->word_wrap($body, 76) : $body;
-    }
-    
-    /**
      * Word Wrap
      *
      * @param    string
@@ -1237,7 +1220,7 @@ class Email_Library {
                     
                     $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                     $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
-                    $body .= $this->auto_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
+                    $body .= $this->alt_message.$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                     
                     $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
                     $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
@@ -1288,7 +1271,7 @@ class Email_Library {
                 
                 $body .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding().$this->newline.$this->newline;
-                $body .= $this->auto_alt_message().$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
+                $body .= $this->alt_message.$this->newline.$this->newline.'--'.$alt_boundary.$this->newline;
                 
                 $body .= 'Content-Type: text/html; charset='.$this->charset.$this->newline;
                 $body .= 'Content-Transfer-Encoding: quoted-printable'.$this->newline.$this->newline;
