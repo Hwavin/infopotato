@@ -953,6 +953,20 @@ class Email_Library {
     }
     
     /**
+     * Set RFC 822 Date
+     *
+     * @return    string
+     */
+    private function set_date() {
+        $timezone = date('Z');
+        $operator = ($timezone[0] === '-') ? '-' : '+';
+        $timezone = abs($timezone);
+        $timezone = floor($timezone/3600) * 100 + ($timezone % 3600 ) / 60;
+        
+        return sprintf("%s %s%04d", date("D, j M Y H:i:s"), $operator, $timezone);
+    }
+    
+    /**
      * Get the Message ID
      *
      * @return    string
@@ -1004,20 +1018,6 @@ class Email_Library {
         return $this->content_transfer_encoding;
     }
 
-    /**
-     * Set RFC 822 Date
-     *
-     * @return    string
-     */
-    private function set_date() {
-        $timezone = date('Z');
-        $operator = ($timezone[0] === '-') ? '-' : '+';
-        $timezone = abs($timezone);
-        $timezone = floor($timezone/3600) * 100 + ($timezone % 3600 ) / 60;
-        
-        return sprintf("%s %s%04d", date("D, j M Y H:i:s"), $operator, $timezone);
-    }
-    
     /**
      * Mime message
      *
