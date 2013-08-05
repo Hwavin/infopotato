@@ -225,11 +225,11 @@ class Email_Library {
     private $smtp_connection_fp = '';
     
     /**
-     * Mail Transfer Encoding
+     * Content Transfer Encoding
      *
      * @var    string    '8bit' or '7bit'
      */
-    private $encoding = '8bit';
+    private $content_transfer_encoding = '8bit';
 
     /**
      * Debug messages
@@ -976,15 +976,15 @@ class Email_Library {
         $bit_depths = array('7bit', '8bit');
         $base_charsets = array('us-ascii', 'iso-2022-'); // Character sets valid for 7bit encoding
         
-        $this->encoding = in_array($this->encoding, $bit_depths) ? $this->encoding : '8bit';
+        $this->content_transfer_encoding = in_array($this->content_transfer_encoding, $bit_depths) ? $this->content_transfer_encoding : '8bit';
 
         foreach ($base_charsets as $charset) {
             if (strpos($charset, $this->charset) === 0) {
-                $this->encoding = '7bit';
+                $this->content_transfer_encoding = '7bit';
             }
         }
         
-        return $this->encoding;
+        return $this->content_transfer_encoding;
     }
     
     /**
