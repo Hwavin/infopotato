@@ -962,7 +962,7 @@ class Email_Library {
         // refers to a particular version of a particular message.
         // The Message-ID uses the domain part of the From
         $from = str_replace(array('>', '<'), '', $this->headers['From']);
-        return '<'.uniqid('').strstr($from, '@').'>';
+        return '<'.uniqid('InfoPotato_').strstr($from, '@').'>';
     }
 
     /**
