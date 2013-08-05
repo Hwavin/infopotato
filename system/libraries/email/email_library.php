@@ -532,7 +532,7 @@ class Email_Library {
             $this->invalid_argument_value('priority');
         }
         
-        // Actual values to send with the X-Priority header (http://tools.ietf.org/html/rfc4356)
+        // Actual values to send with the X-Priority header (http://tools.ietf.org/html/rfc4356#section-2.1.3.3.1)
         $priorities = array('1 (Highest)', '2 (High)', '3 (Normal)', '4 (Low)', '5 (Lowest)');
 
         $this->priority = $priorities[$val - 1];
@@ -1483,6 +1483,8 @@ class Email_Library {
         // conversely, any nonstandard informative header should be given a name starting with "X-". 
         // This convention is frequently violated.
         $this->set_header('X-Mailer', $this->user_agent);
+        // X-Priority: does not mark how important an email is. 
+        // It marks how important the sender of the email thinks it is.
         $this->set_header('X-Priority', $this->priority);
         $this->set_header('Mime-Version', '1.0');
         // Message-ID: An automatically generated field; used to prevent multiple delivery 
