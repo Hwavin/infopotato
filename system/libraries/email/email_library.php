@@ -223,13 +223,6 @@ class Email_Library {
      * @var    resource
      */
     private $smtp_connection_fp = '';
-    
-    /**
-     * Content Transfer Encoding
-     *
-     * @var    string    '8bit' or '7bit'
-     */
-    private $content_transfer_encoding = '8bit';
 
     /**
      * Debug messages
@@ -1004,18 +997,19 @@ class Email_Library {
      * @return    string
      */
     private function get_content_transfer_encoding() {
-        $bit_depths = array('7bit', '8bit');
-        $base_charsets = array('us-ascii', 'iso-2022-'); // Character sets valid for 7bit encoding
-        
-        $this->content_transfer_encoding = in_array($this->content_transfer_encoding, $bit_depths) ? $this->content_transfer_encoding : '8bit';
+        // Character sets valid for 7bit encoding, excluding language suffix
+        $base_charsets = array('us-ascii', 'iso-2022-'); 
+        // Default mail encoding
+        $content_transfer_encoding = '8bit';
 
         foreach ($base_charsets as $charset) {
             if (strpos($charset, $this->charset) === 0) {
-                $this->content_transfer_encoding = '7bit';
+                $content_transfer_encoding = '7bit';
+                break;
             }
         }
         
-        return $this->content_transfer_encoding;
+        return $content_transfer_encoding;
     }
 
     /**
