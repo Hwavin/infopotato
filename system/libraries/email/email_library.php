@@ -848,8 +848,8 @@ class Email_Library {
     public function message($body) {
         $this->body = rtrim(str_replace("\r", '', $body));
         
-        // strip slashes only if magic quotes is ON
-        // if we do it with magic quotes OFF, it strips real, user-inputted chars.
+        // Strip slashes only if magic quotes is ON
+        // If we do it with magic quotes OFF, it strips real, user-inputted chars.
         // NOTE: Returns 0 if magic_quotes_gpc is off, 1 otherwise. 
         // Or always returns FALSE as of PHP 5.4.0 because the magic quotes feature was removed from PHP.
         if (version_compare(PHP_VERSION, '5.4', '<') && get_magic_quotes_gpc()) {
@@ -955,11 +955,12 @@ class Email_Library {
     /**
      * Get the Message ID
      *
-     * The Message-ID uses the domain part from the From
-     *
      * @return    string
      */
     private function get_message_id() {
+        // The "Message-ID:" field provides a unique message identifier that
+        // refers to a particular version of a particular message.
+        // The Message-ID uses the domain part of the From
         $from = str_replace(array('>', '<'), '', $this->headers['From']);
         return '<'.uniqid('').strstr($from, '@').'>';
     }
