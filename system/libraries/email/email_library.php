@@ -26,9 +26,9 @@ class Email_Library {
     /**
      * Which transport to use for sending emails
      * 
-     * @var string 'mail', 'sendmail' or 'smtp'
+     * @var string 'sendmail' or 'smtp'
      */
-    private $transport = 'mail';
+    private $transport = '';
     
     /**
      * Remote SMTP hostname or IP
@@ -312,7 +312,7 @@ class Email_Library {
      */
     private function initialize_transport($val) {
         $val = strtolower($val);
-        if ( ! is_string($val) || ! in_array($val, array('mail', 'sendmail', 'smtp'))) {
+        if ( ! is_string($val) || ! in_array($val, array('sendmail', 'smtp'))) {
             $this->invalid_argument_value('transport');
         }
         $this->transport = $val;
@@ -759,9 +759,7 @@ class Email_Library {
             $this->validate_email($to);
         }
         
-        if ($this->transport !== 'mail') {
-            $this->set_header('To', implode(', ', $to));
-        }
+        $this->set_header('To', implode(', ', $to));
         
         $this->to_recipients = $to;
 
@@ -1304,14 +1302,6 @@ class Email_Library {
         // Set Message Boundary
         $alt_boundary = 'B_ALT_'.uniqid(''); // For multipart/alternative
         $atc_boundary = 'B_ATC_'.uniqid(''); // For attachment boundary
-        
-        // Compose headers as a string
-        if ($this->transport === 'mail') {
-            if (isset($this->headers['Subject'])) {
-                $this->subject = $this->headers['Subject'];
-                unset($this->headers['Subject']);
-            }
-        }
 
         // Set the internal pointer of headers array to its first element
         reset($this->headers);
@@ -1325,12 +1315,8 @@ class Email_Library {
                 $this->header_str .= $key.': '.$val.$this->newline;
             }
         }
-        
-        if ($this->transport === 'mail') {
-            $this->header_str = rtrim($this->header_str);
-        }
 
-        $hdr = ($this->transport === 'mail') ? $this->newline : '';
+        $hdr = '';
         $body = '';
         
         // Assemble the message headers and body content
@@ -1339,12 +1325,7 @@ class Email_Library {
                 $hdr .= 'Content-Type: text/plain; charset='.$this->charset.$this->newline;
                 $hdr .= 'Content-Transfer-Encoding: '.$this->get_content_transfer_encoding();
                 
-                if ($this->transport === 'mail') {
-                    $this->header_str .= $hdr;
-                    $this->finalbody = $this->body;
-                } else {
-                    $this->finalbody = $hdr.$this->newline.$this->newline.$this->body;
-                }
+                $this->finalbody = $hdr.$this->newline.$this->newline.$this->body;
                 
                 return;
             
@@ -1371,11 +1352,7 @@ class Email_Library {
                 
                 $this->finalbody = $body.$this->prep_quoted_printable($this->body).$this->newline.$this->newline;
 
-                if ($this->transport === 'mail') {
-                    $this->header_str .= $hdr;
-                } else {
-                    $this->finalbody = $hdr.$this->finalbody;
-                }
+                $this->finalbody = $hdr.$this->finalbody;
                 
                 if ($this->send_multipart !== FALSE) {
                     $this->finalbody .= '--'.$alt_boundary.'--';
@@ -1385,11 +1362,7 @@ class Email_Library {
             
             case 'plain-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart_subtype.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
-                
-                if ($this->transport === 'mail') {
-                    $this->header_str .= $hdr;
-                }
-                
+
                 $body .= $this->insert_mime_message().$this->newline.$this->newline;
                 $body .= '--'.$atc_boundary.$this->newline;
                 
@@ -1401,11 +1374,7 @@ class Email_Library {
             
             case 'html-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart_subtype.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
-                
-                if ($this->transport === 'mail') {
-                    $this->header_str .= $hdr;
-                }
-                
+  
                 $body .= $this->insert_mime_message().$this->newline.$this->newline;
                 $body .= '--'.$atc_boundary.$this->newline;
                 
@@ -1438,7 +1407,7 @@ class Email_Library {
         }
         
         $body .= implode($this->newline, $attachment).$this->newline.'--'.$atc_boundary.'--';
-        $this->finalbody = ($this->transport === 'mail') ? $body : $hdr.$body;
+        $this->finalbody = $hdr.$body;
         
         return TRUE;
     }
@@ -1607,30 +1576,12 @@ class Email_Library {
         
         $method = 'send_with_'.$this->transport;
         if ( ! $this->$method()) {
-            $this->set_error_message('email_send_failure_'.($this->transport === 'mail' ? 'phpmail' : $this->transport));
+            $this->set_error_message('email_send_failure_'.$this->transport);
             return FALSE;
         }
         
         $this->set_error_message('email_sent', $this->transport);
         return TRUE;
-    }
-    
-    /**
-     * Send using mail()
-     *
-     * @return    bool
-     */
-    private function send_with_mail() {
-        // Formatting the recipients array into a string
-        $this->to_recipients = implode(', ', $this->to_recipients);
-        
-        // Sendmail will use the address given to From: header as the return path 
-        // if it's not specified using $this->return_path()
-        $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
-        
-        // Most documentation of sendmail using the "-f" flag lacks a space after it, 
-        // however we've encountered servers that seem to require it to be in place.
-        return mail($this->to_recipients, $this->subject, $this->finalbody, $this->header_str, '-f '.$this->extract_email($return_path));
     }
     
     /**
@@ -1749,7 +1700,7 @@ class Email_Library {
             return TRUE;
         }
         
-        // If no transport is specified, tcp:// will be assumed
+        // If no smtp_crypto is specified, tcp:// will be assumed
         // If OpenSSL support is installed, you may prefix the hostname with either ssl:// or tls:// 
         // to use an SSL or TLS client connection over TCP/IP to connect to the remote host.
         // ssl:// will attempt to negotiate an SSL V2, or SSL V3 connection 
@@ -1971,7 +1922,6 @@ class Email_Library {
             'email_attachment_missing' => "Unable to locate the following email attachment: %s",
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
             'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
-            'email_send_failure_phpmail' => "Unable to send email using PHP's mail().  Your server might not be configured to send mail using this method.",
             'email_send_failure_sendmail' => "Unable to send email using Sendmail.  Your server might not be configured to send mail using this method.",
             'email_send_failure_smtp' => "Unable to send email using SMTP.  Your server might not be configured to send mail using this method.",
             'email_sent' => "Your message has been successfully sent using the following transport: %s",
