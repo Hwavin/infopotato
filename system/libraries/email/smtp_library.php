@@ -290,19 +290,6 @@ class SMTP_Library {
     }
 
     /**
-     * Validate and set $sendmail_path
-     *
-     * @param  $val string
-     * @return void
-     */
-    private function initialize_sendmail_path($val) {
-        if ( ! is_string($val)) {
-            $this->invalid_argument_value('sendmail_path');
-        }
-        $this->sendmail_path = $val;
-    }
-    
-    /**
      * Validate and set $smtp_host
      *
      * @param  $val string
