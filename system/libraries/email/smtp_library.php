@@ -1,35 +1,20 @@
 <?php
 /**
- * Email Library
- * Permits email to be sent using Mail, Sendmail, or SMTP.
+ * SMTP Library
  * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-class Email_Library {
+class SMTP_Library {
     /**
      * Used as the User-Agent and X-Mailer headers' value
      * 
      * @var string
      */
-    private $user_agent = 'InfoPotato Email Class';
-    
-    /**
-     * Path to the Sendmail binary
-     * 
-     * @var string
-     */
-    private $sendmail_path = '/usr/sbin/sendmail';
-    
-    /**
-     * Which transport to use for sending emails
-     * 
-     * @var string 'sendmail' or 'smtp'
-     */
-    private $transport = '';
-    
+    private $user_agent = 'InfoPotato SMTP';
+
     /**
      * Remote SMTP hostname or IP
      * 
@@ -303,21 +288,7 @@ class Email_Library {
         }
         $this->user_agent = $val;
     }
-    
-    /**
-     * Validate and set $transport
-     *
-     * @param  $val string
-     * @return void
-     */
-    private function initialize_transport($val) {
-        $val = strtolower($val);
-        if ( ! is_string($val) || ! in_array($val, array('sendmail', 'smtp'))) {
-            $this->invalid_argument_value('transport');
-        }
-        $this->transport = $val;
-    }
-    
+
     /**
      * Validate and set $sendmail_path
      *
@@ -780,10 +751,8 @@ class Email_Library {
         }
         
         $this->set_header('Cc', implode(', ', $cc));
-        
-        if ($this->transport === 'smtp') {
-            $this->cc_recipients = $cc;
-        }
+
+        $this->cc_recipients = $cc;
         
         return $this;
     }
@@ -807,11 +776,7 @@ class Email_Library {
             $this->validate_email($bcc);
         }
         
-        if (($this->transport === 'smtp') || ($this->bcc_batch_mode && count($bcc) > $this->bcc_batch_size)) {
-            $this->bcc_recipients = $bcc;
-        } else {
-            $this->set_header('Bcc', implode(', ', $bcc));
-        }
+        $this->bcc_recipients = $bcc;
         
         return $this;
     }
@@ -1054,11 +1019,7 @@ class Email_Library {
 
             $bcc = $this->extract_email($this->str_to_array($chunk[$i]));
             
-            if ($this->transport !== 'smtp') {
-                $this->set_header('Bcc', implode(', ', $bcc));
-            } else {
-                $this->bcc_recipients = $bcc;
-            }
+            $this->bcc_recipients = $bcc;
             
             if ($this->build_message() === FALSE) {
                 return FALSE;
@@ -1374,7 +1335,7 @@ class Email_Library {
             
             case 'html-attach' :
                 $hdr .= 'Content-Type: multipart/'.$this->multipart_subtype.'; boundary="'.$atc_boundary.'"'.$this->newline.$this->newline;
-  
+
                 $body .= $this->insert_mime_message().$this->newline.$this->newline;
                 $body .= '--'.$atc_boundary.$this->newline;
                 
@@ -1551,7 +1512,7 @@ class Email_Library {
         // End the header
         return $output.'?=';
     }
-
+    
     /**
      * Unwrap special elements
      *
@@ -1573,77 +1534,29 @@ class Email_Library {
         
         return $matches[1];
     }
-    
+
     /**
      * Spool mail to the mail server
      *
      * @return    bool
      */
     private function spool_email() {
-        // Unwrap special elements
         $this->unwrap_specials();
         
-        $method = 'send_with_'.$this->transport;
-        if ( ! $this->$method()) {
-            $this->set_error_message('email_send_failure_'.$this->transport);
-            return FALSE;
-        }
-        
-        $this->set_error_message('email_sent', $this->transport);
-        return TRUE;
-    }
-    
-    /**
-     * Send using Sendmail
-     *
-     * @return    bool
-     */
-    private function send_with_sendmail() {
-        // Sendmail will use the address given to From: header as the return path 
-        // if it's not specified using $this->return_path()
-        $return_path = ($this->return_path !== '') ? $this->return_path : $this->headers['From'];
-        
-        // Opens process file pointer
-        // Check out http://www.postfix.org/sendmail.1.html for sendmail flags
-        // -t extracts recipients from message headers.
-        // -r sets the envelope sender address. This  is  the address where delivery problems are sent to.
-        $fp = @popen($this->sendmail_path.' -oi -f '.$this->extract_email($this->headers['From']).' -t -r '.$this->extract_email($return_path), 'w');
-        
-        if ($fp === FALSE) {
-            // Server probably has popen disabled, so nothing we can do to get a verbose error.
-            return FALSE;
-        }
-        
-        fputs($fp, $this->header_str);
-        fputs($fp, $this->finalbody);
-        
-        $status = pclose($fp);
-        
-        if ($status !== 0) {
-            $this->set_error_message('email_exit_status', $status);
-            $this->set_error_message('email_no_socket');
-            return FALSE;
-        }
-        
-        return TRUE;
-    }
-    
-    /**
-     * Send using SMTP
-     *
-     * @return    bool
-     */
-    private function send_with_smtp() {
         if ($this->smtp_host === '') {
             $this->set_error_message('email_no_hostname');
+            
+            $this->set_error_message('email_send_failure_smtp');
             return FALSE;
         }
         
         if ( ! $this->smtp_connect()) {
+            $this->set_error_message('email_send_failure_smtp');
             return FALSE;
         }
         
         if ( ! $this->smtp_auth()) {
+            $this->set_error_message('email_send_failure_smtp');
             return FALSE;
         }
         
@@ -1686,6 +1599,8 @@ class Email_Library {
         
         if (strpos($reply, '250') !== 0) {
             $this->set_error_message('email_smtp_error', $reply);
+            
+            $this->set_error_message('email_send_failure_smtp');
             return FALSE;
         }
         
@@ -1695,6 +1610,7 @@ class Email_Library {
             $this->send_smtp_command('quit');
         }
         
+        $this->set_error_message('email_sent', 'smtp');
         return TRUE;
     }
     
@@ -1931,10 +1847,8 @@ class Email_Library {
             'email_attachment_missing' => "Unable to locate the following email attachment: %s",
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
             'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
-            'email_send_failure_sendmail' => "Unable to send email using Sendmail.  Your server might not be configured to send mail using this method.",
             'email_send_failure_smtp' => "Unable to send email using SMTP.  Your server might not be configured to send mail using this method.",
-            'email_sent' => "Your message has been successfully sent using the following transport: %s",
-            'email_no_socket' => "Unable to open a socket to Sendmail. Please check settings.",
+            'email_sent' => "Your message has been successfully sent using smtp",
             'email_no_hostname' => "You did not specify a SMTP hostname.",
             'email_smtp_error' => "The following SMTP error was encountered: %s",
             'email_smtp_tls_error' => "Failed to send email using SMTP over TLS layer: %s",
@@ -2113,4 +2027,4 @@ class Email_Library {
     
 }
 
-/* End of file: ./system/libraries/email/email_library.php */
+/* End of file: ./system/libraries/email/smtp_library.php */
