@@ -1256,7 +1256,7 @@ class SMTP_Library {
      * @return    bool
      */
     private function build_message() {
-        if ($this->wordwrap === TRUE  &&  $this->mailtype !== 'html') {
+        if ($this->wordwrap === TRUE && $this->mailtype !== 'html') {
             $this->body = $this->word_wrap($this->body);
         }
         
