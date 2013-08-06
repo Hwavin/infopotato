@@ -1417,10 +1417,10 @@ class Sendmail_Library {
             'email_invalid_address' => "Invalid email address: %s",
             'email_attachment_missing' => "Unable to locate the following email attachment: %s",
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
-            'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
+            'email_no_recipients' => 'You must include recipients: To, Cc, or Bcc',
             'email_send_failure_sendmail' => "Unable to send email using Sendmail.  Your server might not be configured to send mail using this method.",
-            'email_sent_success' => "Your message has been successfully sent using Sendmail",
-            'email_no_socket' => "Unable to open a socket to Sendmail. Please check settings.",
+            'email_sent_success' => 'Your message has been successfully sent using Sendmail',
+            'email_no_socket' => 'Unable to open a socket to Sendmail. Please check settings.',
             'email_exit_status' => "Exit status code: %s"
         );
         

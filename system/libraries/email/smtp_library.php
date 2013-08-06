@@ -1657,10 +1657,11 @@ class SMTP_Library {
     private function send_smtp_command($cmd, $data = '') {
         switch ($cmd) {
             case 'hello' :
+                $hostname = (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost.localdomain';
                 // EHLO is the Enhanced SMTP (ESMTP) version of HELO
                 // When using authentication, ELHO should be used for the greeting to indicate 
                 // that Extended SMTP is in use, as opposed to the HELO greeting in standard SMTP.
-                $this->send_smtp_data('EHLO '.$this->get_hostname());
+                $this->send_smtp_data('EHLO '.$hostname);
                 $server_reply = 250;
                 break;
             
@@ -1799,15 +1800,6 @@ class SMTP_Library {
         
         return $data;
     }
-    
-    /**
-     * Get Hostname
-     *
-     * @return    string
-     */
-    private function get_hostname() {
-        return (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost.localdomain';
-    }
 
     /**
      * Set Message
@@ -1821,9 +1813,9 @@ class SMTP_Library {
             'email_invalid_address' => "Invalid email address: %s",
             'email_attachment_missing' => "Unable to locate the following email attachment: %s",
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
-            'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
-            'email_send_failure_smtp' => "Unable to send email using SMTP.  Your server might not be configured to send mail using this method.",
-            'email_sent_success' => "Your message has been successfully sent using SMTP",
+            'email_no_recipients' => 'You must include recipients: To, Cc, or Bcc',
+            'email_send_failure_smtp' => 'Unable to send email using SMTP.  Your server might not be configured to send mail using this method.',
+            'email_sent_success' => 'Your message has been successfully sent using SMTP',
             'email_smtp_error' => "The following SMTP error was encountered: %s",
             'email_smtp_tls_error' => "Failed to send email using SMTP over TLS layer: %s",
             'email_failed_smtp_login' => "Failed to send AUTH LOGIN command. Error: %s",
