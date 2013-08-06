@@ -419,7 +419,7 @@ class Sendmail_Library {
      * Reset the Email Data
      *
      * @param    bool
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function clear($clear_attachments = FALSE) {
         $this->subject = '';
@@ -450,7 +450,7 @@ class Sendmail_Library {
      *
      * @param    string
      * @param    string
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function from($from, $name = '') {
         // RFC-822(http://tools.ietf.org/html/rfc822) allows email addresses to be specified 
@@ -490,7 +490,7 @@ class Sendmail_Library {
      * If not set, SMTP and Sendmail will use the address given in from() as Return-Path
      *
      * @param    string
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function return_path($return_path) {
         if (preg_match('/\<(.*)\>/', $return_path, $match)) {
@@ -501,13 +501,8 @@ class Sendmail_Library {
             $this->validate_email($this->str_to_array($return_path));
         }
 
-        // SMTP servers do not look at the message headers, so the Return-Path headers and others are irrelevant. 
-        // In SMTP, this address will be passed to the FROM command (where and bounced messages will go).
         // In Sendmail, this address will be passed to the -r papameter
         $this->return_path = $return_path;
-
-        // When the delivery SMTP server makes the "final delivery" of a message, it inserts 
-        // a Return-Path header at the beginning of the mail data. We don't need to set it here.
 
         return $this;
     }
@@ -519,7 +514,7 @@ class Sendmail_Library {
      *
      * @param    string
      * @param    string
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function reply_to($reply_to, $name = '') {
         if (preg_match('/\<(.*)\>/', $reply_to, $match)) {
@@ -547,7 +542,7 @@ class Sendmail_Library {
      * Set Recipients, a comma-delimited list or an array
      *
      * @param    string | array
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function to($to) {
         $to = $this->extract_email($this->str_to_array($to));
@@ -567,7 +562,7 @@ class Sendmail_Library {
      * Set CC, a comma-delimited list or an array
      *
      * @param    string | array
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function cc($cc) {
         $cc = $this->extract_email($this->str_to_array($cc));
@@ -586,7 +581,7 @@ class Sendmail_Library {
      *
      * @param    string
      * @param    string
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function bcc($bcc, $limit = '') {
         if ($limit !== '' && is_numeric($limit)) {
@@ -614,7 +609,7 @@ class Sendmail_Library {
      * Set Email Subject
      *
      * @param    string
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function subject($subject) {
         // Q Encoding, the form is: "=?charset?encoding?encoded text?=".
@@ -628,7 +623,7 @@ class Sendmail_Library {
      *
      * @param    string
      * @param    string
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function message($body, $alt_body = '') {
         $this->body = rtrim(str_replace("\r", '', $body));
@@ -670,7 +665,7 @@ class Sendmail_Library {
      * @param    string    $newname = '' (optional)
      * @param    string    $content_type = '' (optional)
      * @param    string    $content_disposition = 'attachment' (optional)
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function attach_from_path($file_path, $newname = '', $content_type = '', $content_disposition = '') {
         if ( ! file_exists($file_path)) {
@@ -705,7 +700,7 @@ class Sendmail_Library {
      * @param    string    $filename
      * @param    string    $content_type
      * @param    string    $content_disposition = 'attachment' (optional)
-     * @return    Email_Library
+     * @return    Sendmail_Library
      */
     public function attach_from_content($file_content, $filename, $content_type, $content_disposition = '') {
         $this->attachments[] = array(
