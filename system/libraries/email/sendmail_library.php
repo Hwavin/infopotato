@@ -1406,15 +1406,6 @@ class Sendmail_Library {
     }
 
     /**
-     * Get Hostname
-     *
-     * @return    string
-     */
-    private function get_hostname() {
-        return (isset($_SERVER['SERVER_NAME'])) ? $_SERVER['SERVER_NAME'] : 'localhost.localdomain';
-    }
-
-    /**
      * Set Message
      *
      * @param    string    $msg
