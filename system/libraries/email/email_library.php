@@ -1582,16 +1582,7 @@ class Email_Library {
         // End the header
         return $output.'?=';
     }
-    
-    /**
-     * Unwrap special elements
-     *
-     * @return    void
-     */
-    private function unwrap_specials() {
-        $this->finalbody = preg_replace_callback('/\{unwrap\}(.*?)\{\/unwrap\}/si', array($this, 'remove_nl_callback'), $this->finalbody);
-    }
-    
+
     /**
      * Strip line-breaks via callback
      *
@@ -1611,7 +1602,8 @@ class Email_Library {
      * @return    bool
      */
     private function spool_email() {
-        $this->unwrap_specials();
+        // Unwrap special elements
+        $this->finalbody = preg_replace_callback('/\{unwrap\}(.*?)\{\/unwrap\}/si', array($this, 'remove_nl_callback'), $this->finalbody);
         
         $method = 'send_with_'.$this->transport;
         if ( ! $this->$method()) {
