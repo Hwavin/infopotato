@@ -501,7 +501,7 @@ class Sendmail_Library {
             $this->validate_email($this->str_to_array($return_path));
         }
 
-        // In Sendmail, this address will be passed to the -r papameter
+        // In Sendmail, this address will be passed to the -r parameter
         $this->return_path = $return_path;
 
         return $this;
