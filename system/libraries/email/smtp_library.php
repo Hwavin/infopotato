@@ -309,7 +309,7 @@ class SMTP_Library {
      * @return void
      */
     private function initialize_smtp_user($val) {
-        if ( ! is_string($val)) {
+        if ( ! is_string($val) || empty($val)) {
             $this->invalid_argument_value('smtp_user');
         }
         $this->smtp_user = $val;
@@ -322,7 +322,7 @@ class SMTP_Library {
      * @return void
      */
     private function initialize_smtp_pass($val) {
-        if ( ! is_string($val)) {
+        if ( ! is_string($val) || empty($val)) {
             $this->invalid_argument_value('smtp_pass');
         }
         $this->smtp_pass = $val;
@@ -1731,11 +1731,6 @@ class SMTP_Library {
      * @return    bool
      */
     private function smtp_auth() {
-        if ($this->smtp_user === '' && $this->smtp_pass === '') {
-            $this->set_error_message('email_no_smtp_unpw');
-            return FALSE;
-        }
-        
         // There are several types of authorization that the SMTP server will accept
         // PLAIN LOGIN DIGEST-MD5 CRAM-MD5 GSSAPI
         // Here uses the LOGIN (uses Base64 encoding)
@@ -1831,7 +1826,6 @@ class SMTP_Library {
             'email_sent' => "Your message has been successfully sent using smtp",
             'email_smtp_error' => "The following SMTP error was encountered: %s",
             'email_smtp_tls_error' => "Failed to send email using SMTP over TLS layer: %s",
-            'email_no_smtp_unpw' => "Error: You must assign a SMTP username and password.",
             'email_failed_smtp_login' => "Failed to send AUTH LOGIN command. Error: %s",
             'email_smtp_auth_un' => "Failed to authenticate username. Error: %s",
             'email_smtp_auth_pw' => "Failed to authenticate password. Error: %s",
