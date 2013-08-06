@@ -309,7 +309,7 @@ class SMTP_Library {
      * @return void
      */
     private function initialize_smtp_host($val) {
-        if ( ! is_string($val)) {
+        if ( ! is_string($val) || empty($val)) {
             $this->invalid_argument_value('smtp_host');
         }
         $this->smtp_host = $val;
@@ -1542,14 +1542,7 @@ class SMTP_Library {
      */
     private function spool_email() {
         $this->unwrap_specials();
-        
-        if ($this->smtp_host === '') {
-            $this->set_error_message('email_no_hostname');
-            
-            $this->set_error_message('email_send_failure_smtp');
-            return FALSE;
-        }
-        
+
         if ( ! $this->smtp_connect()) {
             $this->set_error_message('email_send_failure_smtp');
             return FALSE;
@@ -1849,7 +1842,6 @@ class SMTP_Library {
             'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
             'email_send_failure_smtp' => "Unable to send email using SMTP.  Your server might not be configured to send mail using this method.",
             'email_sent' => "Your message has been successfully sent using smtp",
-            'email_no_hostname' => "You did not specify a SMTP hostname.",
             'email_smtp_error' => "The following SMTP error was encountered: %s",
             'email_smtp_tls_error' => "Failed to send email using SMTP over TLS layer: %s",
             'email_no_smtp_unpw' => "Error: You must assign a SMTP username and password.",
