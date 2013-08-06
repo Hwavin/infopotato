@@ -1396,12 +1396,12 @@ class Sendmail_Library {
         if ($status !== 0) {
             $this->set_error_message('email_exit_status', $status);
             $this->set_error_message('email_no_socket');
-            
+    
             $this->set_error_message('email_send_failure_sendmail');
             return FALSE;
         }
         
-        $this->set_error_message('email_sent', 'sendmail');
+        $this->set_error_message('email_sent_success');
         return TRUE;
     }
 
@@ -1419,7 +1419,7 @@ class Sendmail_Library {
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
             'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
             'email_send_failure_sendmail' => "Unable to send email using Sendmail.  Your server might not be configured to send mail using this method.",
-            'email_sent' => "Your message has been successfully sent using sendmail",
+            'email_sent_success' => "Your message has been successfully sent using Sendmail",
             'email_no_socket' => "Unable to open a socket to Sendmail. Please check settings.",
             'email_exit_status' => "Exit status code: %s"
         );

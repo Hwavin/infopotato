@@ -1590,7 +1590,7 @@ class SMTP_Library {
             $this->send_smtp_command('quit');
         }
         
-        $this->set_error_message('email_sent', 'smtp');
+        $this->set_error_message('email_sent_success');
         return TRUE;
     }
     
@@ -1823,7 +1823,7 @@ class SMTP_Library {
             'email_attachment_unreadable' => "Unable to open this attachment: %s",
             'email_no_recipients' => "You must include recipients: To, Cc, or Bcc",
             'email_send_failure_smtp' => "Unable to send email using SMTP.  Your server might not be configured to send mail using this method.",
-            'email_sent' => "Your message has been successfully sent using smtp",
+            'email_sent_success' => "Your message has been successfully sent using SMTP",
             'email_smtp_error' => "The following SMTP error was encountered: %s",
             'email_smtp_tls_error' => "Failed to send email using SMTP over TLS layer: %s",
             'email_failed_smtp_login' => "Failed to send AUTH LOGIN command. Error: %s",
