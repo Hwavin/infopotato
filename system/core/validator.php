@@ -288,18 +288,8 @@ class Validator {
         return preg_match('/^([a-z0-9])+$/i', $input);
     }
 
-    // Integer or Decimal
+    // Integer or Float
 
-    /**
-     * Checks that a value is a valid decimal
-     *
-     * @param    float $input The value the test for decimal
-     * @return    bool
-     */
-    public static function is_decimal($input) {
-        return preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $input) ? TRUE : FALSE;
-    }
-    
     /**
      * Checks that a value is greather than the $min
      *
