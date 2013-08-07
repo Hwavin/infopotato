@@ -243,29 +243,23 @@ class Validator {
     /**
      * Checks that a value is greather than the $min
      *
-     * @param    mix
+     * @param    numeric
+     * @param    numeric
      * @return    bool
      */
     public static function is_greater_than($input, $min) {
-        if ( ! is_numeric($input)) {
-            return FALSE;
-        }
-        
-        return $input > $min;
+        return is_numeric($input) && is_numeric($min) && ($input > $min);
     }
     
     /**
      * Checks that a value is less than the $max
      *
      * @param    numeric
+     * @param    numeric
      * @return    bool
      */
     public static function is_less_than($input, $max) {
-        if ( ! is_numeric($input)) {
-            return FALSE;
-        }
-        
-        return $input < $max;
+        return is_numeric($input) && is_numeric($max) && ($input < $max);
     }
 
     /**
@@ -278,7 +272,7 @@ class Validator {
      */
     public static function is_natural_number($input, $allow_zero = FALSE) {
         $regex = $allow_zero ? '/^(?:0|[1-9][0-9]*)$/' : '/^[1-9][0-9]*$/';
-        return preg_match($regex, $input) ? TRUE: FALSE;
+        return preg_match($regex, $input) ? TRUE : FALSE;
     }
 
 }
