@@ -237,7 +237,7 @@ class Validator {
      * @return    bool
      */
     public static function is_decimal($input) {
-        return ( ! preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $input)) ? FALSE : TRUE;
+        return preg_match('/^[\-+]?[0-9]+\.[0-9]+$/', $input) ? TRUE : FALSE;
     }
     
     /**
