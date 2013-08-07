@@ -278,7 +278,7 @@ class Validator {
      */
     public static function is_natural_number($input, $allow_zero = FALSE) {
         $regex = $allow_zero ? '/^(?:0|[1-9][0-9]*)$/' : '/^[1-9][0-9]*$/';
-        return ( ! preg_match($regex, $input)) ? FALSE : TRUE;
+        return preg_match($regex, $input) ? TRUE: FALSE;
     }
 
 }
