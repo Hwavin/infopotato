@@ -42,7 +42,7 @@ class Validator {
      * @return    bool
      */
     public static function not_empty($input) {
-        return (trim($input) === '') ? FALSE : TRUE;
+        return is_string($input) && (trim($input) !== '');
     }
 
     /**
