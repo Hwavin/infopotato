@@ -20,6 +20,15 @@ class Validator {
         }
     }
 
+    /**
+     * Output the error message for invalid argument value
+     *
+     * @return void
+     */
+    private function invalid_argument_value($func_name) {
+        exit('The provided argument value of '."'".$func_name."()'".' is invalid.');
+    }
+    
     // Comparing Two Strings or Two Integers
     
     /**
@@ -42,7 +51,11 @@ class Validator {
      * @return    bool
      */
     public static function not_empty($input) {
-        return is_string($input) && (trim($input) !== '');
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('not_empty');
+        }
+        
+        return trim($input) !== '';
     }
 
     /**
@@ -53,6 +66,10 @@ class Validator {
      * @return    bool
      */    
     public static function min_length($input, $min) {
+        if ( ! is_string($input) || ! is_int($min)) {
+            $this->invalid_argument_value('min_length');
+        }
+        
         if (function_exists('mb_strlen')) {
             return (mb_strlen($input) < $min) ? FALSE : TRUE;
         }
@@ -68,6 +85,10 @@ class Validator {
      * @return    bool
      */    
     public static function max_length($input, $max) {
+        if ( ! is_string($input) || ! is_int($max)) {
+            $this->invalid_argument_value('max_length');
+        }
+        
         if (function_exists('mb_strlen')) {
             return (mb_strlen($input) > $max) ? FALSE : TRUE;
         }
@@ -83,8 +104,8 @@ class Validator {
      * @return    bool
      */    
     public static function exact_length($input, $val) {
-        if (preg_match("/[^0-9]/", $val)) {
-            return FALSE;
+        if ( ! is_string($input) || ! is_int($val)) {
+            $this->invalid_argument_value('exact_length');
         }
         
         if (function_exists('mb_strlen')) {
@@ -105,7 +126,12 @@ class Validator {
      */    
     public static function is_email($input) {
         //return ( ! preg_match('/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix', $input)) ? FALSE : TRUE;
-        return is_string($input) && filter_var($input, FILTER_VALIDATE_EMAIL);
+
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('is_email');
+        }
+        
+        return filter_var($input, FILTER_VALIDATE_EMAIL);
     }
     
     /**
@@ -115,7 +141,11 @@ class Validator {
      * @return    bool
      */
     public static function is_url($input) {
-        return is_string($input) && filter_var($input, FILTER_VALIDATE_URL);
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('is_url');
+        }
+        
+        return filter_var($input, FILTER_VALIDATE_URL);
     }
     
     /**
@@ -134,6 +164,10 @@ class Validator {
      * @return    bool
      */
     public static function is_phone($input) {
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('is_phone');
+        }
+        
         return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $input);
     }
     
@@ -147,6 +181,23 @@ class Validator {
      *
      */
     function is_date($date, $format = 'YYYY-MM-DD') {
+        $allowed_formats = array(
+            'YYYY/MM/DD',
+            'YYYY-MM-DD',
+            'YYYY/DD/MM',
+            'YYYY-DD-MM',
+            'DD-MM-YYYY',
+            'DD/MM/YYYY',
+            'MM-DD-YYYY',
+            'MM/DD/YYYY',
+            'YYYYMMDD',
+            'YYYYDDMM'
+        );
+        
+        if ( ! is_string($date) || ! in_array($format, $allowed_formats)) {
+            $this->invalid_argument_value('is_date');
+        }
+        
         switch($format) {
             case 'YYYY/MM/DD':
             case 'YYYY-MM-DD':
@@ -179,9 +230,6 @@ class Validator {
                 $d = substr($date, 4, 2);
                 $m = substr($date, 6, 2);
                 break;
-
-            default:
-                throw new Exception("Invalid Date Format");
         }
         
         return checkdate($m, $d, $y);
@@ -195,6 +243,10 @@ class Validator {
      * @return boolean Success
      */
     public static function is_ip($input, $type = 'both') {
+        if ( ! is_string($input) || ! is_string($type) || ! in_array($type, array('ipv4', 'ipv6', 'both'))) {
+            $this->invalid_argument_value('is_ip');
+        }
+        
         $type = strtolower($type);
         $flags = 0;
         
@@ -215,7 +267,11 @@ class Validator {
      * @return    bool
      */        
     public static function is_alpha($input) {
-        return is_string($input) && preg_match('/^([a-z])+$/i', $input);
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('is_alpha');
+        }
+        
+        return preg_match('/^([a-z])+$/i', $input);
     }
     
     /**
@@ -225,7 +281,11 @@ class Validator {
      * @return    bool
      */
     public static function is_alpha_numeric($input) {
-        return is_string($input) && preg_match('/^([a-z0-9])+$/i', $input);
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('is_alpha_numeric');
+        }
+        
+        return preg_match('/^([a-z0-9])+$/i', $input);
     }
 
     // Integer or Decimal
@@ -248,7 +308,11 @@ class Validator {
      * @return    bool
      */
     public static function is_greater_than($input, $min) {
-        return is_numeric($input) && is_numeric($min) && ($input > $min);
+        if ( ! is_numeric($input) || ! is_numeric($min)) {
+            $this->invalid_argument_value('is_greater_than');
+        }
+        
+        return $input > $min;
     }
     
     /**
@@ -259,14 +323,18 @@ class Validator {
      * @return    bool
      */
     public static function is_less_than($input, $max) {
-        return is_numeric($input) && is_numeric($max) && ($input < $max);
+        if ( ! is_numeric($input) || ! is_numeric($max)) {
+            $this->invalid_argument_value('is_less_than');
+        }
+        
+        return $input < $max;
     }
 
     /**
      * Checks if a value is a natural number
      *
      * @param string $input Value to check
-     * @param boolean $allow_zero Set true to allow zero, defaults to false
+     * @param boolean $allow_zero Set true to allow zero
      * @return boolean Success
      * @see http://en.wikipedia.org/wiki/Natural_number
      */
