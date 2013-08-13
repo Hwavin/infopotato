@@ -68,7 +68,7 @@ class PHP_UTF8 {
      * @return string
      */
     private static function bad_clean($str, $replace = FALSE) {
-        ob_start();
+        $new_str = $str;
         
         // PCRE Pattern to locate bad bytes in a UTF-8 string.
         $bad_utf_pattern =
@@ -85,14 +85,14 @@ class PHP_UTF8 {
         
         while (preg_match('/'.$bad_utf_pattern.'/S', $str, $matches)) {
             if ( ! isset($matches[2])) {
-                echo $matches[0];
+                $new_str = $matches[0];
             } elseif ($replace !== FALSE && is_string($replace)) {
-                echo $replace;
+                $new_str = $replace;
             }
             $str = substr($str, strlen($matches[0]));
         }
         
-        return ob_get_clean();
+        return $new_str;
     }
     
     /**
