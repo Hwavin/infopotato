@@ -111,7 +111,7 @@ class Calendar_Library {
      * @var string 
      */
     private $next_prev_url = '';
-	
+    
     /**
      * Constructor
      *
@@ -124,7 +124,7 @@ class Calendar_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-					
+                    
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -262,7 +262,7 @@ class Calendar_Library {
         
         // Determine the total days in the month
         $total_days = $this->get_total_days($month, $year);
-		
+        
         // Set the starting day of the week
         $start_days    = array('sunday' => 0, 'monday' => 1, 'tuesday' => 2, 'wednesday' => 3, 'thursday' => 4, 'friday' => 5, 'saturday' => 6);
         $start_day = ( ! isset($start_days[$this->start_day])) ? 0 : $start_days[$this->start_day];
@@ -290,7 +290,7 @@ class Calendar_Library {
         // Begin building the calendar output                        
         $out = $this->temp['table_open'];
         $out .= "\n";    
-		
+        
         $out .= "\n";        
         $out .= $this->temp['heading_row_start'];
         $out .= "\n";
@@ -304,7 +304,7 @@ class Calendar_Library {
             $out .= str_replace('{previous_url}', $this->next_prev_url.$adjusted_date['year'].'/'.$adjusted_date['month'], $this->temp['heading_previous_cell']);
             $out .= "\n";
         }
-		
+        
         // Heading containing the month/year
         $colspan = ($this->show_next_prev === TRUE) ? 5 : 7;
         
@@ -313,38 +313,38 @@ class Calendar_Library {
         
         $out .= $this->temp['heading_title_cell'];
         $out .= "\n";
-		
+        
         // "next" month link
         if ($this->show_next_prev === TRUE) {        
             $adjusted_date = $this->adjust_date($month + 1, $year);
             $out .= str_replace('{next_url}', $this->next_prev_url.$adjusted_date['year'].'/'.$adjusted_date['month'], $this->temp['heading_next_cell']);
         }
-		
+        
         $out .= "\n";        
         $out .= $this->temp['heading_row_end'];
         $out .= "\n";
-		
+        
         // Write the cells containing the days of the week
         $out .= "\n";    
         $out .= $this->temp['week_row_start'];
         $out .= "\n";
-		
+        
         $day_names = $this->get_day_names();
-		
+        
         for ($i = 0; $i < 7; $i ++) {
             $out .= str_replace('{week_day}', $day_names[($start_day + $i) %7], $this->temp['week_day_cell']);
         }
-		
+        
         $out .= "\n";
         $out .= $this->temp['week_row_end'];
         $out .= "\n";
-		
+        
         // Build the main body of the calendar
         while ($day <= $total_days) {
             $out .= "\n";
             $out .= $this->temp['cal_row_start'];
             $out .= "\n";
-			
+            
             for ($i = 0; $i < 7; $i++) {
                 $out .= ($is_current_month === TRUE && $day === $cur_day) ? $this->temp['cal_cell_start_today'] : $this->temp['cal_cell_start'];
             
@@ -371,13 +371,13 @@ class Calendar_Library {
             $out .= $this->temp['cal_row_end'];
             $out .= "\n";        
         }
-		
+        
         $out .= "\n";        
         $out .= $this->temp['table_close'];
-		
+        
         return $out;
     }
-	
+    
     /**
      * Get Month Name
      *
@@ -399,10 +399,10 @@ class Calendar_Library {
         if ($this->show[$month] === FALSE) {
             return ucfirst(str_replace('cal_', '', $month));
         }
-		
+        
         return $this->show[$month];
     }
-	
+    
     /**
      * Get Day Names
      *
@@ -432,7 +432,7 @@ class Calendar_Library {
     
         return $days;
     }
-	
+    
     /**
      * Adjust Date
      *
@@ -446,24 +446,24 @@ class Calendar_Library {
      */
     private function adjust_date($month, $year) {
         $date = array();
-		
+        
         $date['month']    = $month;
         $date['year']    = $year;
-		
+        
         while ($date['month'] > 12) {
             $date['month'] -= 12;
             $date['year']++;
         }
-		
+        
         while ($date['month'] <= 0) {
             $date['month'] += 12;
             $date['year']--;
         }
-		
+        
         if (strlen($date['month']) == 1) {
             $date['month'] = '0'.$date['month'];
         }
-		
+        
         return $date;
     }
      
@@ -476,21 +476,21 @@ class Calendar_Library {
      */
     private function get_total_days($month, $year) {
         $days_in_month    = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-		
+        
         if ($month < 1 || $month > 12) {
             return 0;
         }
-		
+        
         // Is the year a leap year?
         if ($month == 2) {
             if ($year % 400 == 0 || ($year % 4 == 0 && $year % 100 != 0)) {
                 return 29;
             }
         }
-		
+        
         return $days_in_month[$month - 1];
     }
-	
+    
     /**
      * Set Default Template Data
      *
@@ -523,7 +523,7 @@ class Calendar_Library {
             'table_close'                => '</table>'
         );    
     }
-	
+    
     /**
      * Parse Template
      *
@@ -551,7 +551,7 @@ class Calendar_Library {
             }
         }     
     }
-	
+    
 }
 
 /* End of file: ./system/libraries/calendar/calendar_library.php */

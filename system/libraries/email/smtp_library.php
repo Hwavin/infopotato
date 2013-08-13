@@ -272,8 +272,9 @@ class SMTP_Library {
                     exit("'".$key."' is not an acceptable config argument!");
                 }
             }
-            $this->clear();
         }
+        
+        $this->clear();
     }
     
     /**
