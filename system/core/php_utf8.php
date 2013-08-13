@@ -73,7 +73,7 @@ class PHP_UTF8 {
      * @param string $str
      * @return string
      */
-    private static function _bad_clean($str, $replace = FALSE) {
+    private static function bad_clean($str, $replace = FALSE) {
         ob_start();
         
         while (preg_match('/'.BAD_UTF_PATTERN.'/S', $str, $matches)) {
@@ -294,7 +294,7 @@ class PHP_UTF8 {
         if (self::$mbstring_available && function_exists('mb_strlen')) {
             return mb_strlen($str);
         } else {
-            return strlen(utf8_decode(self::_bad_clean($str)));
+            return strlen(utf8_decode(self::bad_clean($str)));
         }
     }
     
@@ -317,7 +317,7 @@ class PHP_UTF8 {
         self::check_mbstring();
         
         if (self::$mbstring_available && function_exists('mb_strpos')) {
-            $str = self::_bad_clean($str);
+            $str = self::bad_clean($str);
             
             if ($offset === FALSE) {
                 return mb_strpos($str, $needle);
@@ -368,7 +368,7 @@ class PHP_UTF8 {
         self::check_mbstring();
         
         if (self::$mbstring_available && function_exists('mb_strrpos')) {
-            $str = self::_bad_clean($str);
+            $str = self::bad_clean($str);
             
             if ( ! $offset) {
                 // Emulate behaviour of strrpos rather than raising warning
