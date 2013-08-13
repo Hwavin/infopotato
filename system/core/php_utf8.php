@@ -52,8 +52,16 @@ class PHP_UTF8 {
         if (self::$mbstring_available) {
             // If string overloading is active, it will break many of the native implementations
             // MB_OVERLOAD_STRING (integer) is a constant defined by the mbstring extension 
+            // http://php.net/mbstring.func-overload
+            // Possible values are 0,1,2,4 or combination of them.
+            // For example, 7 for overload everything.
+            // 0: No overload
+            // 1: Overload mail() function
+            // 2: Overload str*() functions
+            // 4: Overload ereg*() functions
+            // & is bitwise AND. && is logical AND.
             if (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING) {
-                halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for PHP-UTF8 to work.', 'sys_error');
+                halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for PHP_UTF8 to work.', 'sys_error');
             }
             
             // Also need to check we have the correct internal mbstring encoding.
