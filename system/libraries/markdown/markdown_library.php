@@ -101,8 +101,7 @@ class Markdown_Library {
     private $in_anchor = FALSE;
     
     /**
-     * 
-     * 
+     * Document level functions and their priorities 
      * 
      * @var array
      */
