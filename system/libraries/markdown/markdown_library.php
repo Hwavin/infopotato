@@ -89,7 +89,7 @@ class Markdown_Library {
     /**
      * 
      * 
-     * @var 
+     * @var string
      */
     private $escape_chars_re;
 
@@ -314,13 +314,13 @@ class Markdown_Library {
         foreach ($this->document_gamut as $method => $priority) {
             $text = $this->$method($text);
         }
-        
+
         // Clear any variable which may be taking up memory unnecessarly
         $this->urls = array();
         $this->titles = array();
         $this->html_hashes = array();
 
-        return $text . "\n";
+        return $text."\n";
     }
 
     /**
@@ -375,7 +375,8 @@ class Markdown_Library {
         $link_id = strtolower($matches[1]);
         $this->urls[$link_id] = ($matches[2] === '') ? $matches[3] : $matches[2];
         $this->titles[$link_id] =& $matches[4];
-        return ''; // String that will replace the block
+        // String that will replace the block
+        return ''; 
     }
     
     /**
@@ -538,7 +539,7 @@ class Markdown_Library {
     private function hash_html_blocks_callback($matches) {
         $text = $matches[1];
         $key = $this->hash_part($text, 'B');
-        return "\n\n$key\n\n";
+        return "\n\n".$key."\n\n";
     }
     
     /**
@@ -547,12 +548,12 @@ class Markdown_Library {
      * a unique text-token which will be reverted back when calling unhash.
      *
      * The $boundary argument specify what character should be used to surround
-     * the token. By convension, "B" is used for block elements that needs not
-     * to be wrapped into paragraph tags at the end, ":" is used for elements
-     * that are word separators and "X" is used in the general case.
+     * the token. By convension, 'B' is used for block elements that need not
+     * to be wrapped into paragraph tags at the end, ':' is used for elements
+     * that are word separators and 'X' is used in the general case.
      *
-     * Strips link definitions from text, stores the URLs and titles in hash references.
-     *
+     * @param    string
+     * @param    string
      * @return    string
      */
     private function hash_part($text, $boundary = 'X') {
@@ -561,7 +562,9 @@ class Markdown_Library {
         
         // Then hash the block
         static $i = 0;
-        $key = "$boundary\x1A" . ++$i . $boundary;
+        // \x1A is a SUB control character, used to mark end of a file (EOF)
+        // http://php.net/manual/en/regexp.reference.escape.php
+        $key = $boundary."\x1A". ++$i .$boundary;
         $this->html_hashes[$key] = $text;
         // String that will replace the tag
         return $key; 
@@ -608,7 +611,7 @@ class Markdown_Library {
      * @return    void
      */
     private function do_horizontal_rules($text) {
-        // Do Horizontal Rules:
+        // Do Horizontal Rules
         return preg_replace(
             '{
             ^[ ]{0,3}    # Leading space
@@ -620,15 +623,13 @@ class Markdown_Library {
             [ ]*        # Tailing spaces
             $            # End of line.
             }mx',
-            "\n".$this->hash_part("<hr$this->empty_element_suffix", 'B')."\n", 
+            "\n".$this->hash_part('<hr'.$this->empty_element_suffix, 'B')."\n", 
             $text
         );
     }
 
     /**
-     * 
-     *
-     * Run span gamut tranformations.
+     * Run span gamut tranformations
      *
      * @param    string
      * @return    string
@@ -640,15 +641,14 @@ class Markdown_Library {
 
         return $text;
     }
-    
+
     /**
-     * 
+     * Do hard breaks
      * 
      * @param    string
      * @return    string
      */
     private function do_hard_breaks($text) {
-        // Do hard breaks:
         return preg_replace_callback(
             '/ {2,}\n/', 
             // An anonymous function as callback from PHP 5.3.0
@@ -666,11 +666,11 @@ class Markdown_Library {
      * @return    string
      */
     private function do_hard_breaks_callback($matches) {
-        return $this->hash_part("<br$this->empty_element_suffix\n");
+        return $this->hash_part('<br'.$this->empty_element_suffix."\n");
     }
     
     /**
-     * Turn Markdown link shortcuts into XHTML <a> tags.
+     * Turn Markdown link shortcuts into XHTML <a> tags
      *
      * @return    void
      */
@@ -782,15 +782,15 @@ class Markdown_Library {
             // We've got to encode these to avoid conflicting with italics/bold
             $url = $this->encode_attribute($url);
             
-            $result = "<a href=\"$url\"";
+            $result = '<a href="'.$url.'"';
             if (isset($this->titles[$link_id])) {
                 $title = $this->titles[$link_id];
                 $title = $this->encode_attribute($title);
-                $result .= " title=\"$title\"";
+                $result .= ' title="'.$title.'"';
             }
         
             $link_text = $this->run_span_gamut($link_text);
-            $result .= ">$link_text</a>";
+            $result .= '>'.$link_text.'</a>';
             $result = $this->hash_part($result);
         } else {
             $result = $whole_match;
@@ -814,14 +814,14 @@ class Markdown_Library {
         // We've got to encode these to avoid conflicting with italics/bold
         $url = $this->encode_attribute($url);
 
-        $result = "<a href=\"$url\"";
+        $result = '<a href="'.$url.'"';
         if (isset($title)) {
             $title = $this->encode_attribute($title);
-            $result .= " title=\"$title\"";
+            $result .= ' title="'.$title.'"';
         }
         
         $link_text = $this->run_span_gamut($link_text);
-        $result .= ">$link_text</a>";
+        $result .= '>'.$link_text.'</a>';
 
         return $this->hash_part($result);
     }
@@ -913,11 +913,11 @@ class Markdown_Library {
         if (isset($this->urls[$link_id])) {
             // We've got to encode these to avoid conflicting with italics/bold
             $url = $this->encode_attribute($this->urls[$link_id]);
-            $result = "<img src=\"$url\" alt=\"$alt_text\"";
+            $result = '<img src="'.$url.'" alt="'.$alt_text.'"';
             if (isset($this->titles[$link_id])) {
                 $title = $this->titles[$link_id];
                 $title = $this->encode_attribute($title);
-                $result .=  " title=\"$title\"";
+                $result .=  ' title="'.$title.'"';
             }
             $result .= $this->empty_element_suffix;
             $result = $this->hash_part($result);
@@ -944,11 +944,11 @@ class Markdown_Library {
         $alt_text = $this->encode_attribute($alt_text);
         // We've got to encode these to avoid conflicting with italics/bold
         $url = $this->encode_attribute($url);
-        $result = "<img src=\"$url\" alt=\"$alt_text\"";
+        $result = '<img src="'.$url.'" alt="'.$alt_text.'"';
         
         if (isset($title)) {
             $title = $this->encode_attribute($title);
-            $result .= " title=\"$title\""; // $title already quoted
+            $result .= ' title="'.$title.'"'; // $title already quoted
         }
         $result .= $this->empty_element_suffix;
 
@@ -1015,7 +1015,7 @@ class Markdown_Library {
         }
         
         $level = ($matches[2]{0} === '=') ? 1 : 2;
-        $block = "<h$level>".$this->run_span_gamut($matches[1])."</h$level>";
+        $block = '<h'.$level.'>'.$this->run_span_gamut($matches[1]).'</h'.$level.'>';
         return "\n" . $this->hash_part($block, 'B') . "\n\n";
     }
 
@@ -1027,13 +1027,11 @@ class Markdown_Library {
      */
     private function do_headers_atx_callback($matches) {
         $level = strlen($matches[1]);
-        $block = "<h$level>".$this->run_span_gamut($matches[2])."</h$level>";
-        return "\n" . $this->hash_part($block, 'B') . "\n\n";
+        $block = '<h'.$level.'>'.$this->run_span_gamut($matches[2]).'</h'.$level.'>';
+        return "\n".$this->hash_part($block, 'B')."\n\n";
     }
     
     /**
-     * 
-     *
      * Form HTML ordered (numbered) and unordered (bulleted) lists.
      *
      * @param    string
@@ -1131,16 +1129,15 @@ class Markdown_Library {
         
         $list .= "\n";
         $result = $this->process_list_items($list, $marker_any_re);
-        $result = $this->hash_part("<$list_type>\n" . $result . "</$list_type>", 'B');
+        $result = $this->hash_part('<'.$list_type.">\n".$result.'</'.$list_type.'>', 'B');
         
-        return "\n". $result ."\n\n";
+        return "\n".$result."\n\n";
     }
 
     /**
      * Process the contents of a single ordered or unordered list, splitting it
      * into individual list items.
      * 
-     *
      * @return    void
      */
     private function process_list_items($list_str, $marker_any_re) {
@@ -1259,7 +1256,7 @@ class Markdown_Library {
         $codeblock = htmlspecialchars($codeblock, ENT_NOQUOTES);
         // Trim leading newlines and trailing newlines
         $codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
-        $codeblock = "<pre><code>$codeblock\n</code></pre>";
+        $codeblock = '<pre><code>'.$codeblock."\n</code></pre>";
         
         return "\n\n".$this->hash_part($codeblock, 'B')."\n\n";
     }
@@ -1273,7 +1270,7 @@ class Markdown_Library {
     private function make_code_span($code) {
         $code = htmlspecialchars(trim($code), ENT_NOQUOTES);
         
-        return $this->hash_part("<code>$code</code>");
+        return $this->hash_part('<code>'.$code.'</code>');
     }
 
     /**
@@ -1359,18 +1356,19 @@ class Markdown_Library {
                     array_shift($token_stack);
                     $span = array_shift($text_stack);
                     $span = $this->run_span_gamut($span);
-                    $span = "<strong><em>$span</em></strong>";
+                    $span = '<strong><em>'.$span.'</em></strong>';
                     $text_stack[0] .= $this->hash_part($span);
                     $em = '';
                     $strong = '';
                 } else {
                     // Other closing marker: close one em or strong and
                     // change current token state to match the other
-                    $token_stack[0] = str_repeat($token{0}, 3-$token_len);
-                    $tag = $token_len === 2 ? "strong" : "em";
+                    // E.g., $token = 'abc'; Then $token{0} will be 'a', $token{1} 'b', and $token{2} 'c'
+                    $token_stack[0] = str_repeat($token{0}, 3 - $token_len);
+                    $tag = ($token_len === 2) ? 'strong' : 'em';
                     $span = $text_stack[0];
                     $span = $this->run_span_gamut($span);
-                    $span = "<$tag>$span</$tag>";
+                    $span = '<'.$tag.'>'.$span.'</'.$tag.'>';
                     $text_stack[0] = $this->hash_part($span);
                     $$tag = ''; // $$tag stands for $em or $strong
                 }
@@ -1381,16 +1379,17 @@ class Markdown_Library {
                     // Closing strong marker
                     for ($i = 0; $i < 2; ++$i) {
                         $shifted_token = array_shift($token_stack);
-                        $tag = strlen($shifted_token) == 2 ? "strong" : "em";
+                        $tag = (strlen($shifted_token) === 2) ? 'strong' : 'em';
                         $span = array_shift($text_stack);
                         $span = $this->run_span_gamut($span);
-                        $span = "<$tag>$span</$tag>";
+                        $span = '<'.$tag.'>'.$span.'</'.$tag.'>';
                         $text_stack[0] .= $this->hash_part($span);
                         $$tag = ''; // $$tag stands for $em or $strong
                     }
                 } else {
-                    // Reached opening three-char emphasis marker. Push on token 
-                    // stack; will be handled by the special condition above.
+                    // Reached opening three-char emphasis marker. Push on token stack; 
+                    // will be handled by the special condition above.
+                    // E.g., $token = 'abc'; Then $token{0} will be 'a', $token{1} 'b', and $token{2} 'c'
                     $em = $token{0};
                     $strong = "$em$em";
                     array_unshift($token_stack, $token);
@@ -1408,7 +1407,7 @@ class Markdown_Library {
                     array_shift($token_stack);
                     $span = array_shift($text_stack);
                     $span = $this->run_span_gamut($span);
-                    $span = "<strong>$span</strong>";
+                    $span = '<strong>'.$span.'</strong>';
                     $text_stack[0] .= $this->hash_part($span);
                     $strong = '';
                 } else {
@@ -1424,7 +1423,7 @@ class Markdown_Library {
                         array_shift($token_stack);
                         $span = array_shift($text_stack);
                         $span = $this->run_span_gamut($span);
-                        $span = "<em>$span</em>";
+                        $span = '<em>'.$span.'</em>';
                         $text_stack[0] .= $this->hash_part($span);
                         $em = '';
                     } else {
@@ -1493,7 +1492,7 @@ class Markdown_Library {
             $bq
         );
 
-        return "\n". $this->hash_part("<blockquote>\n$bq\n</blockquote>", 'B')."\n\n";
+        return "\n". $this->hash_part("<blockquote>\n".$bq."\n</blockquote>", 'B')."\n\n";
     }
     
     /**
@@ -1511,13 +1510,13 @@ class Markdown_Library {
         // Wrap <p> tags and unhashify HTML blocks
         foreach ($grafs as $key => $value) {
             if ( ! preg_match('/^B\x1A[0-9]+B$/', $value)) {
-                // Is a paragraph.
+                // Is a paragraph
                 $value = $this->run_span_gamut($value);
-                $value = preg_replace('/^([ ]*)/', "<p>", $value);
-                $value .= "</p>";
+                $value = preg_replace('/^([ ]*)/', '<p>', $value);
+                $value .= '</p>';
                 $grafs[$key] = $this->unhash($value);
             } else {
-                // Is a block.
+                // Is a block
                 // Modify elements of @grafs in-place...
                 $graf = $value;
                 $block = $this->html_hashes[$graf];
@@ -1615,7 +1614,7 @@ class Markdown_Library {
      */
     private function do_auto_links_url_callback($matches) {
         $url = $this->encode_attribute($matches[1]);
-        $link = "<a href=\"$url\">$url</a>";
+        $link = '<a href="'.$url.'">'.$url.'</a>';
         
         return $this->hash_part($link);
     }
@@ -1641,17 +1640,17 @@ class Markdown_Library {
     private function encode_email_address($addr) {
         // Based on a filter by Matthew Wickline, posted to BBEdit-Talk.
         // With some optimizations by Milian Wolff.
-        $addr = "mailto:".$addr;
+        $addr = 'mailto:'.$addr;
         $chars = preg_split('/(?<!^)(?!$)/', $addr);
         $seed = (int) abs(crc32($addr) / strlen($addr)); // Deterministic seed.
         
         foreach ($chars as $key => $char) {
             $ord = ord($char);
-            // Ignore non-ascii chars.
+            // Ignore non-ascii chars
             if ($ord < 128) {
                 $r = ($seed * (1 + $key)) % 100; // Pseudo-random function.
                 // Roughly 10% raw, 45% hex, 45% dec
-                // '@' *must* be encoded. I insist.
+                // '@' *must* be encoded. I insist
                 if ($r <= 90 || $char === '@') {
                     if ($r < 45) {
                         $chars[$key] = '&#x'.dechex($ord).';';
@@ -1665,7 +1664,7 @@ class Markdown_Library {
         $addr = implode('', $chars);
         $text = implode('', array_slice($chars, 7)); // Text without `mailto:`
         
-        return "<a href=\"$addr\">$text</a>";
+        return '<a href="'.$addr.'">'.$text.'</a>';
     }
 
     /**
@@ -1717,9 +1716,9 @@ class Markdown_Library {
             
             // Check if we reach the end.
             if (isset($parts[1])) {
-                $output .= $this->handle_span_token($parts[1], $parts[2]);
-                // $parts[2] may be modified by handle_span_token() since it's passed by reference
-                $str = $parts[2];
+                $span = $this->handle_span_token($parts[1], $parts[2]);   
+                $output .= $span['token'];
+                $str = $span['str']; // $str may be updated by handle_span_token()
             } else {
                 break;
             }
@@ -1733,28 +1732,34 @@ class Markdown_Library {
      * returning the corresponding value that should replace it.
      * 
      * @param    string
-     * @param    string    must be passed by reference so it can be modified
-     * @return    string
+     * @param    string
+     * @return    array
      */
-    private function handle_span_token($token, &$str) {
+    private function handle_span_token($token, $str) {
+        $span = array(
+            'token' => '',
+            'str' => $str
+        );
+
         // E.g., $token = 'abc'; Then $token{0} will be 'a', $token{1} 'b', and $token{2} 'c'
-        switch ($token{0}) {
-            case '\\':
-                return $this->hash_part('&#'. ord($token{1}). ';');
-                
-            case '`':
-                // Search for end marker in remaining text
-                if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm', $str, $matches)) {
-                    $str = $matches[2];
-                    $codespan = $this->make_code_span($matches[1]);
-                    return $this->hash_part($codespan);
-                }
+        if ($token{0} === '\\') {
+            // ord() returns the ASCII value of the first character of $token{1}
+            $span['token'] = $this->hash_part('&#'. ord($token{1}). ';'); // No change to $span['str']
+        } elseif ($token{0} === '`') {
+            // Search for end marker in remaining text
+            if (preg_match('/^(.*?[^`])'.preg_quote($token).'(?!`)(.*)$/sm', $str, $matches)) {
+                $codespan = $this->make_code_span($matches[1]);
+                $span['token'] = $this->hash_part($codespan);
+                $span['str'] = $matches[2]; // Update $span['str']
+            } else {
                 // Return as text since no ending marker found
-                return $token; 
-                
-            default:
-                return $this->hash_part($token);
+                $span['token'] = $token; // No change to $span['str']
+            }
+        } else {
+            $span['token'] = $this->hash_part($token); // No change to $span['str']
         }
+
+        return $span;
     }
 
     /**
