@@ -50,16 +50,16 @@ class Markdown_Library {
     private $keep_html_entities = TRUE;
 
     /**
-     * Regex to match balanced [brackets].
-     * Needed to insert a maximum bracked depth while converting to PHP.
+     * Depth for regex to match balanced [brackets]
+     * Needed to insert a maximum bracked depth while converting to PHP
      * 
      * @var integer
      */
     private $nested_brackets_depth = 6;
     
     /**
-     * Regex to match balanced [parenthesis].
-     * Needed to insert a maximum parenthesis depth while converting to PHP.
+     * Depth for regex to match balanced (parenthesis)
+     * Needed to insert a maximum parenthesis depth while converting to PHP
      * 
      * @var integer
      */
@@ -243,6 +243,45 @@ class Markdown_Library {
             $this->invalid_argument_value('keep_html_entities');
         }
         $this->keep_html_entities = $val;
+    }
+    
+    /**
+     * Validate and set $nested_brackets_depth
+     *
+     * @param  $val int
+     * @return void
+     */
+    private function initialize_nested_brackets_depth($val) {
+        if ( ! is_int($val)) {
+            $this->invalid_argument_value('nested_brackets_depth');
+        }
+        $this->nested_brackets_depth = $val;
+    }
+    
+    /**
+     * Validate and set $nested_url_parenthesis_depth
+     *
+     * @param  $val int
+     * @return void
+     */
+    private function initialize_nested_url_parenthesis_depth($val) {
+        if ( ! is_int($val)) {
+            $this->invalid_argument_value('nested_url_parenthesis_depth');
+        }
+        $this->nested_url_parenthesis_depth = $val;
+    }
+    
+    /**
+     * Validate and set $escape_chars
+     *
+     * @param  $val string
+     * @return void
+     */
+    private function initialize_escape_chars($val) {
+        if ( ! is_string($val)) {
+            $this->invalid_argument_value('escape_chars');
+        }
+        $this->escape_chars = $val;
     }
     
     /**
@@ -656,6 +695,7 @@ class Markdown_Library {
         
         $this->in_anchor = TRUE;
 
+        // These two variables are the same as those two in do_images()
         $nested_brackets_regex = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
         $nested_url_parenthesis_regex = str_repeat('(?>[^()\s]+|\(', $this->nested_url_parenthesis_depth).str_repeat('(?>\)))*', $this->nested_url_parenthesis_depth);   
 
@@ -811,6 +851,7 @@ class Markdown_Library {
      * @return    string
      */
     private function do_images($text) {
+        // These two variables are the same as those two in do_anchors()
         $nested_brackets_regex = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
         $nested_url_parenthesis_regex = str_repeat('(?>[^()\s]+|\(', $this->nested_url_parenthesis_depth).str_repeat('(?>\)))*', $this->nested_url_parenthesis_depth);   
         
@@ -1674,8 +1715,8 @@ class Markdown_Library {
             |
             <[!$]?[-a-zA-Z0-9:_]+      # regular tags
             (?>
-                \s
-                (?>[^"\'>]+|"[^"]*"|\'[^\']*\')*
+            \s
+            (?>[^"\'>]+|"[^"]*"|\'[^\']*\')*
             )?
             >
             |
