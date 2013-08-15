@@ -58,11 +58,11 @@ class Markdown_Library {
     private $nested_brackets_depth = 6;
     
     /**
-     * 
+     * Regular Expression
      * 
      * @var 
      */
-    private $nested_brackets_re;
+    private $nested_brackets_regex;
     
     /**
      * Regex to match balanced [parenthesis].
@@ -73,11 +73,11 @@ class Markdown_Library {
     private $nested_url_parenthesis_depth = 4;
     
     /**
-     * 
+     * Regular Expression
      * 
      * @var 
      */
-    private $nested_url_parenthesis_re;
+    private $nested_url_parenthesis_regex;
     
     /**
      * Table of hash values for escaped characters:
@@ -87,11 +87,11 @@ class Markdown_Library {
     private $escape_chars = '\`*_{}[]()>#+-.!';
     
     /**
-     * 
+     * Regular Expression
      * 
      * @var string
      */
-    private $escape_chars_re;
+    private $escape_chars_regex;
 
     /**
      * URLs of the link preferences
@@ -208,9 +208,9 @@ class Markdown_Library {
 
         $this->prepare_italics_and_bold();
     
-        $this->nested_brackets_re = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
-        $this->nested_url_parenthesis_re = str_repeat('(?>[^()\s]+|\(', $this->nested_url_parenthesis_depth).str_repeat('(?>\)))*', $this->nested_url_parenthesis_depth);   
-        $this->escape_chars_re = '['.preg_quote($this->escape_chars).']';
+        $this->nested_brackets_regex = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
+        $this->nested_url_parenthesis_regex = str_repeat('(?>[^()\s]+|\(', $this->nested_url_parenthesis_depth).str_repeat('(?>\)))*', $this->nested_url_parenthesis_depth);   
+        $this->escape_chars_regex = '['.preg_quote($this->escape_chars).']';
         
         // Sort document, block, and span gamut in ascendent priority order.
         asort($this->document_gamut);
@@ -686,7 +686,7 @@ class Markdown_Library {
             '{
             (                    # wrap whole match in $1
             \[
-            ('.$this->nested_brackets_re.')    # link text = $2
+            ('.$this->nested_brackets_regex.')    # link text = $2
             \]
 
             [ ]?                # one optional space
@@ -709,14 +709,14 @@ class Markdown_Library {
             '{
             (                # wrap whole match in $1
             \[
-            ('.$this->nested_brackets_re.')    # link text = $2
+            ('.$this->nested_brackets_regex.')    # link text = $2
             \]
             \(            # literal paren
             [ \n]*
             (?:
             <(.+?)>    # href = $3
             |
-            ('.$this->nested_url_parenthesis_re.')    # href = $4
+            ('.$this->nested_url_parenthesis_regex.')    # href = $4
             )
             [ \n]*
             (            # $5
@@ -838,7 +838,7 @@ class Markdown_Library {
             '{
             (                # wrap whole match in $1
             !\[
-            ('.$this->nested_brackets_re.')        # alt text = $2
+            ('.$this->nested_brackets_regex.')        # alt text = $2
             \]
 
             [ ]?                # one optional space
@@ -863,7 +863,7 @@ class Markdown_Library {
             '{
             (                # wrap whole match in $1
             !\[
-            ('.$this->nested_brackets_re.')        # alt text = $2
+            ('.$this->nested_brackets_regex.')        # alt text = $2
             \]
             \s?            # One optional whitespace character
             \(            # literal paren
@@ -871,7 +871,7 @@ class Markdown_Library {
             (?:
             <(\S*)>    # src url = $3
             |
-            ('.$this->nested_url_parenthesis_re.')    # src url = $4
+            ('.$this->nested_url_parenthesis_regex.')    # src url = $4
             )
             [ \n]*
             (            # $5
@@ -1679,7 +1679,7 @@ class Markdown_Library {
         
         $span_re = '{
             (
-            \\\\'.$this->escape_chars_re.'
+            \\\\'.$this->escape_chars_regex.'
             |
             (?<![`\\\\])
             `+                         # code span marker
