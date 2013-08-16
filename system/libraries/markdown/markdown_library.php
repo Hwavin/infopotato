@@ -1062,12 +1062,12 @@ class Markdown_Library {
         $less_than_tab = $this->tab_width - 1;
 
         // Re-usable patterns to match list item bullets and number markers
-        $marker_ul_re = '[*+-]';
-        $marker_ol_re = '\d+[\.]';
+        $marker_ul_regex = '[*+-]';
+        $marker_ol_regex = '\d+[\.]';
 
         $markers_relist = array(
-            $marker_ul_re => $marker_ol_re,
-            $marker_ol_re => $marker_ul_re,
+            $marker_ul_regex => $marker_ol_regex,
+            $marker_ol_regex => $marker_ul_regex,
         );
 
         foreach ($markers_relist as $marker_re => $other_marker_re) {
@@ -1139,12 +1139,12 @@ class Markdown_Library {
      */
     private function do_lists_callback($matches) {
         // Re-usable patterns to match list item bullets and number markers
-        $marker_ul_re = '[*+-]';
-        $marker_ol_re = '\d+[\.]';
+        $marker_ul_regex = '[*+-]';
+        $marker_ol_regex = '\d+[\.]';
 
         $list = $matches[1];
-        $list_type = preg_match("/$marker_ul_re/", $matches[4]) ? 'ul' : 'ol';
-        $marker_any_re = ($list_type === 'ul') ? $marker_ul_re : $marker_ol_re;
+        $list_type = preg_match("/$marker_ul_regex/", $matches[4]) ? 'ul' : 'ol';
+        $marker_any_re = ($list_type === 'ul') ? $marker_ul_regex : $marker_ol_regex;
         
         $list .= "\n";
         $result = $this->process_list_items($list, $marker_any_re);
