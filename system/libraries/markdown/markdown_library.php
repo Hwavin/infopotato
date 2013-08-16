@@ -596,7 +596,7 @@ class Markdown_Library {
         $text = $this->do_auto_links($text);
         $text = $this->encode_amps_and_angles($text);
         $text = $this->do_italics_and_bold($text);
-        $text = $this->do_hard_breaks($text);
+        $text = $this->do_line_breaks($text);
 
         return $text;
     }
@@ -607,13 +607,13 @@ class Markdown_Library {
      * @param    string
      * @return    string
      */
-    private function do_hard_breaks($text) {
+    private function do_line_breaks($text) {
         return preg_replace_callback(
             '/ {2,}\n/', 
             // An anonymous function as callback from PHP 5.3.0
             // But $this can be used in anonymous functions from PHP 5.4.0
             // We have to use the old-fashioned callback here
-            array($this, 'do_hard_breaks_callback'),
+            array($this, 'do_line_breaks_callback'),
             $text
         );
     }
@@ -624,7 +624,7 @@ class Markdown_Library {
      * @param    array
      * @return    string
      */
-    private function do_hard_breaks_callback($matches) {
+    private function do_line_breaks_callback($matches) {
         return $this->hash_part("<br />\n");
     }
     
@@ -886,7 +886,7 @@ class Markdown_Library {
                 $title = $this->encode_attribute($title);
                 $result .=  ' title="'.$title.'"';
             }
-            $result .= ' />'; // Closing tag suffix
+            $result .= ' />'; // Closing tag suffix for <img />
             $result = $this->hash_part($result);
         } else {
             // If there's no such link ID, leave intact
@@ -917,7 +917,7 @@ class Markdown_Library {
             $title = $this->encode_attribute($title);
             $result .= ' title="'.$title.'"'; // $title already quoted
         }
-        $result .= ' />'; // Closing tag suffix
+        $result .= ' />'; // Closing tag suffix for <img />
 
         return $this->hash_part($result);
     }
