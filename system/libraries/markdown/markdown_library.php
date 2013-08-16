@@ -99,55 +99,7 @@ class Markdown_Library {
      * @var bool
      */
     private $in_anchor = FALSE;
-    
-    /**
-     * Document level functions and their priorities 
-     * 
-     * @var array
-     */
-    private $document_gamut = array(
-        'strip_link_definitions' => 20, // Strip link definitions, store in hashes.
-        'run_basic_block_gamut' => 30,
-    );
-        
-    /**
-     * These are all the transformations that form block-level
-     * tags like paragraphs, headers, and list items.
-     * 
-     * @var array
-     */
-    private $block_gamut = array(
-        'do_headers' => 10,
-        'do_horizontal_rules' => 20,
-        'do_lists' => 40,
-        'do_code_blocks' => 50,
-        'do_block_quotes' => 60,
-    );
-        
-    /**
-     * These are all the transformations that occur *within* block-level
-     * tags like paragraphs, headers, and list items.
-     * 
-     * @var array
-     */
-    private $span_gamut = array(
-        // Process character escapes, code spans, and inline HTML in one shot.
-        'parse_span' => -30,
 
-        // Process anchor and image tags. Images must come first,
-        // because ![foo][f] looks like an anchor.
-        'do_images' => 10,
-        'do_anchors' => 20,
-        
-        // Make links out of things like `<http://example.com/>`
-        // Must come after do_anchors, because you can use < and >
-        // delimiters in inline links like [this](<url>).
-        'do_auto_links' => 30,
-        'encode_amps_and_angles' => 40,
-        'do_italics_and_bold' => 50,
-        'do_hard_breaks' => 60,
-    );
-     
     /**
      * Used to track when we're inside ab ordered or unordered list
      * 
@@ -185,11 +137,6 @@ class Markdown_Library {
         }
 
         $this->prepare_italics_and_bold();
-
-        // Sort document, block, and span gamut in ascendent priority order.
-        asort($this->document_gamut);
-        asort($this->block_gamut);
-        asort($this->span_gamut);
     }
 
     /**
@@ -323,10 +270,9 @@ class Markdown_Library {
         // contorted like /[ ]*\n+/ .
         $text = preg_replace('/^[ ]+$/m', '', $text);
 
-        // Run document gamut methods.
-        foreach ($this->document_gamut as $method => $priority) {
-            $text = $this->$method($text);
-        }
+        // Two document gamut methods, must run in the following order
+        $text = $this->strip_link_definitions($text);
+        $text = $this->run_basic_block_gamut($text);
 
         // Clear any variable which may be taking up memory unnecessarly
         $this->urls = array();
@@ -609,9 +555,14 @@ class Markdown_Library {
      * @return    string
      */
     private function run_basic_block_gamut($text) {
-        foreach ($this->block_gamut as $method => $priority) {
-            $text = $this->$method($text);
-        }
+        // These are all the transformations that form block-level
+        // tags like paragraphs, headers, and list items
+        // Must run in the following order
+        $text = $this->do_headers($text);
+        $text = $this->do_horizontal_rules($text);
+        $text = $this->do_lists($text);
+        $text = $this->do_code_blocks($text);
+        $text = $this->do_block_quotes($text);
         
         // Finally form paragraph and restore hashed blocks
         return $this->form_paragraphs($text);
@@ -644,14 +595,31 @@ class Markdown_Library {
 
     /**
      * Run span gamut tranformations
+     * 
+     * These are all the transformations that occur *within* block-level 
+     * tags like paragraphs, headers, and list items
      *
      * @param    string
      * @return    string
      */
     private function run_span_gamut($text) {
-        foreach ($this->span_gamut as $method => $priority) {
-            $text = $this->$method($text);
-        }
+        // Must run in the following order
+        
+        // Process character escapes, code spans, and inline HTML in one shot.
+        $text = $this->parse_span($text);
+
+        // Process anchor and image tags. Images must come first,
+        // because ![foo][f] looks like an anchor.
+        $text = $this->do_images($text);
+        $text = $this->do_anchors($text);
+        
+        // Make links out of things like `<http://example.com/>`
+        // Must come after do_anchors, because you can use < and >
+        // delimiters in inline links like [this](<url>).
+        $text = $this->do_auto_links($text);
+        $text = $this->encode_amps_and_angles($text);
+        $text = $this->do_italics_and_bold($text);
+        $text = $this->do_hard_breaks($text);
 
         return $text;
     }
@@ -784,7 +752,7 @@ class Markdown_Library {
     private function do_anchors_reference_callback($matches) {
         $whole_match = $matches[1];
         $link_text = $matches[2];
-        $link_id =& $matches[3];
+        $link_id =& $matches[3]; // The title is optional
 
         if ($link_id === '') {
             // For shortcut links like [this][] or [this].
