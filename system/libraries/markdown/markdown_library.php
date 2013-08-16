@@ -1216,10 +1216,10 @@ class Markdown_Library {
      * @return    string
      */
     private function process_list_items_callback($matches) {
-        $item =& $matches[4];
         $leading_line =& $matches[1];
-        $leading_space = $matches[2];
+        $leading_space =& $matches[2];
         $marker_space = $matches[3];
+        $item = $matches[4];
         $tailing_blank_line =& $matches[5];
 
         if ($leading_line || $tailing_blank_line || preg_match('/\n{2,}/', $item)) {
@@ -1233,7 +1233,7 @@ class Markdown_Library {
             $item = $this->run_span_gamut($item);
         }
 
-        return "<li>" . $item . "</li>\n";
+        return '<li>'.$item."</li>\n";
     }
     
     /**
