@@ -618,13 +618,14 @@ class Markdown_Library {
     }
     
     /**
+     * Produce a horizontal rule tag (<hr />) 
      * 
-     * 
-     *
      * @return    void
      */
     private function do_horizontal_rules($text) {
-        // Do Horizontal Rules
+        // You can produce a horizontal rule tag (<hr />) by placing three or more 
+        // hyphens, asterisks, or underscores on a line by themselves. 
+        // If you wish, you may use spaces between the hyphens or asterisks.
         return preg_replace(
             '{
             ^[ ]{0,3}    # Leading space
@@ -1579,7 +1580,9 @@ class Markdown_Library {
     }
 
     /**
-     * 
+     * Markdown supports a shortcut style for creating "automatic" links for 
+     * URLs and email addresses: simply surround the URL or email address with angle brackets
+     * Show the actual text of a URL or email address, and also have it clickable
      * 
      *
      * @param    string
