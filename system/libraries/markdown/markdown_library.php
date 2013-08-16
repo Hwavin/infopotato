@@ -1146,7 +1146,7 @@ class Markdown_Library {
         
         $list = $matches[1];
         $list_type = preg_match("/$marker_ul_re/", $matches[4]) ? 'ul' : 'ol';
-        $marker_any_re = ( $list_type === 'ul' ? $marker_ul_re : $marker_ol_re );
+        $marker_any_re = ($list_type === 'ul') ? $marker_ul_re : $marker_ol_re;
         
         $list .= "\n";
         $result = $this->process_list_items($list, $marker_any_re);
