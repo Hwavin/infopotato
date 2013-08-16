@@ -12,16 +12,6 @@
 class Markdown_Library {
 
     /**
-     * This is the string used to close tags for HTML elements 
-     * with no content such as <br> and <hr>.
-     * The default value creates XML-style empty element tags which are also valid in HTML 5.
-     * Change to ">" for HTML output.
-     * 
-     * @var string
-     */
-    private $empty_element_suffix = ' />';
-    
-    /**
      * How many spaces a tab character represents
      * 
      * @var integer
@@ -139,19 +129,6 @@ class Markdown_Library {
         $this->prepare_italics_and_bold();
     }
 
-    /**
-     * Validate and set $empty_element_suffix
-     *
-     * @param  $val string
-     * @return void
-     */
-    private function initialize_empty_element_suffix($val) {
-        if ( ! is_string($val)) {
-            $this->invalid_argument_value('empty_element_suffix');
-        }
-        $this->empty_element_suffix = $val;
-    }
-    
     /**
      * Validate and set $tab_width
      *
@@ -588,7 +565,7 @@ class Markdown_Library {
             [ ]*        # Tailing spaces
             $            # End of line.
             }mx',
-            "\n".$this->hash_part('<hr'.$this->empty_element_suffix, 'B')."\n", 
+            "\n".$this->hash_part('<hr />', 'B')."\n", 
             $text
         );
     }
@@ -648,7 +625,7 @@ class Markdown_Library {
      * @return    string
      */
     private function do_hard_breaks_callback($matches) {
-        return $this->hash_part('<br'.$this->empty_element_suffix."\n");
+        return $this->hash_part("<br />\n");
     }
     
     /**
@@ -909,7 +886,7 @@ class Markdown_Library {
                 $title = $this->encode_attribute($title);
                 $result .=  ' title="'.$title.'"';
             }
-            $result .= $this->empty_element_suffix;
+            $result .= ' />'; // Closing tag suffix
             $result = $this->hash_part($result);
         } else {
             // If there's no such link ID, leave intact
@@ -940,7 +917,7 @@ class Markdown_Library {
             $title = $this->encode_attribute($title);
             $result .= ' title="'.$title.'"'; // $title already quoted
         }
-        $result .= $this->empty_element_suffix;
+        $result .= ' />'; // Closing tag suffix
 
         return $this->hash_part($result);
     }
