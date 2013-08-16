@@ -1144,10 +1144,10 @@ class Markdown_Library {
 
         $list = $matches[1];
         $list_type = preg_match("/$marker_ul_regex/", $matches[4]) ? 'ul' : 'ol';
-        $marker_any_re = ($list_type === 'ul') ? $marker_ul_regex : $marker_ol_regex;
+        $marker_any_regex = ($list_type === 'ul') ? $marker_ul_regex : $marker_ol_regex;
         
         $list .= "\n";
-        $result = $this->process_list_items($list, $marker_any_re);
+        $result = $this->process_list_items($list, $marker_any_regex);
         $result = $this->hash_part('<'.$list_type.">\n".$result.'</'.$list_type.'>', 'B');
         
         return "\n".$result."\n\n";
@@ -1159,7 +1159,7 @@ class Markdown_Library {
      * 
      * @return    void
      */
-    private function process_list_items($list_str, $marker_any_re) {
+    private function process_list_items($list_str, $marker_any_regex) {
         // The $this->list_level global keeps track of when we're inside a list.
         // Each time we enter a list, we increment it; when we leave a list,
         // we decrement. If it's zero, we're not in a list anymore.
@@ -1190,12 +1190,12 @@ class Markdown_Library {
             '{
             (\n)?                            # leading line = $1
             (^[ ]*)                          # leading whitespace = $2
-            ('.$marker_any_re.'              # list marker and space = $3
+            ('.$marker_any_regex.'              # list marker and space = $3
             (?:[ ]+|(?=\n))                  # space only required if item is not empty
             )
             ((?s:.*?))                       # list item text   = $4
             (?:(\n+(?=\n))|\n)               # tailing blank line = $5
-            (?= \n* (\z | \2 ('.$marker_any_re.') (?:[ ]+|(?=\n))))
+            (?= \n* (\z | \2 ('.$marker_any_regex.') (?:[ ]+|(?=\n))))
             }xm',
             // An anonymous function as callback from PHP 5.3.0
             // But $this can be used in anonymous functions from PHP 5.4.0
