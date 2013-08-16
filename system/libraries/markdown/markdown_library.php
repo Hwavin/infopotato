@@ -625,6 +625,7 @@ class Markdown_Library {
      * @return    string
      */
     private function do_line_breaks_callback($matches) {
+        // Add a newline "\n" right after the line break tag 
         return $this->hash_part("<br />\n");
     }
     
@@ -644,7 +645,13 @@ class Markdown_Library {
         $nested_brackets_regex = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
         $nested_url_parenthesis_regex = str_repeat('(?>[^()\s]+|\(', $this->nested_url_parenthesis_depth).str_repeat('(?>\)))*', $this->nested_url_parenthesis_depth);   
 
+        // Markdown supports two style of links: inline and reference.
+        
         // First, handle reference-style links: [link text] [id]
+        // This is [an example][id] reference-style link.
+        // You can optionally use a space to separate the sets of brackets:
+        // This is [an example] [id] reference-style link.
+        // [id]: http://example.com/  "Optional Title Here"
         $text = preg_replace_callback(
             '{
             (                    # wrap whole match in $1
@@ -668,6 +675,8 @@ class Markdown_Library {
         );
 
         // Next, inline-style links: [link text](url "optional title")
+        // This is [an example](http://example.com/ "Title") inline link.
+        // [This link](http://example.net/) has no title attribute.
         $text = preg_replace_callback(
             '{
             (                # wrap whole match in $1
@@ -1638,28 +1647,28 @@ class Markdown_Library {
         
         $output = '';
         
-        $span_re = '{
+        $span_regex = '{
             (
             \\\\'.$escape_chars_regex.'
             |
             (?<![`\\\\])
             `+                         # code span marker
             '.( ! $this->keep_html_tags ? '' : '
-            |
-            <!--    .*?     -->        # comment
-            |
-            <\?.*?\?> | <%.*?%>        # processing instruction
-            |
-            <[!$]?[-a-zA-Z0-9:_]+      # regular tags
-            (?>
-            \s
-            (?>[^"\'>]+|"[^"]*"|\'[^\']*\')*
-            )?
-            >
-            |
-            <[-a-zA-Z0-9:_]+\s*/>     # xml-style empty tag
-            |
-            </[-a-zA-Z0-9:_]+\s*>     # closing tag
+                |
+                <!--    .*?     -->        # comment
+                |
+                <\?.*?\?> | <%.*?%>        # processing instruction
+                |
+                <[!$]?[-a-zA-Z0-9:_]+      # regular tags
+                (?>
+                \s
+                (?>[^"\'>]+|"[^"]*"|\'[^\']*\')*
+                )?
+                >
+                |
+                <[-a-zA-Z0-9:_]+\s*/>     # xml-style empty tag
+                |
+                </[-a-zA-Z0-9:_]+\s*>     # closing tag
             ').'
             )
             }xs';
@@ -1668,7 +1677,7 @@ class Markdown_Library {
             // Each loop iteration seach for either the next tag, the next 
             // openning code span marker, or the next escaped character. 
             // Each token is then passed to handle_span_token.
-            $parts = preg_split($span_re, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
+            $parts = preg_split($span_regex, $str, 2, PREG_SPLIT_DELIM_CAPTURE);
             
             // Create token from text preceding tag.
             if ($parts[0] !== '') {
