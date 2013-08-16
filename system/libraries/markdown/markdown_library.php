@@ -1070,13 +1070,13 @@ class Markdown_Library {
             $marker_ol_regex => $marker_ul_regex,
         );
 
-        foreach ($markers_relist as $marker_re => $other_marker_re) {
+        foreach ($markers_relist as $marker_regex => $other_marker_regex) {
             // Re-usable pattern to match any entirel ul or ol list
             $whole_list_re = '
                 (                                # $1 = whole list
                 (                                # $2
                 ([ ]{0,'.$less_than_tab.'})    # $3 = number of spaces
-                ('.$marker_re.')            # $4 = first list item marker
+                ('.$marker_regex.')            # $4 = first list item marker
                 [ ]+
                 )
                 (?s:.+?)
@@ -1087,13 +1087,13 @@ class Markdown_Library {
                 (?=\S)
                 (?!                        # Negative lookahead for another list item marker
                 [ ]*
-                '.$marker_re.'[ ]+
+                '.$marker_regex.'[ ]+
                 )
                 |
                 (?=                        # Lookahead for another kind of list
                 \n
                 \3                        # Must have the same indentation
-                '.$other_marker_re.'[ ]+
+                '.$other_marker_regex.'[ ]+
                 )
                 )
                 )
