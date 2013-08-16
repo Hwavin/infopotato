@@ -1064,7 +1064,6 @@ class Markdown_Library {
         // Re-usable patterns to match list item bullets and number markers
         $marker_ul_re = '[*+-]';
         $marker_ol_re = '\d+[\.]';
-        $marker_any_re = "(?:$marker_ul_re|$marker_ol_re)";
 
         $markers_relist = array(
             $marker_ul_re => $marker_ol_re,
@@ -1142,8 +1141,7 @@ class Markdown_Library {
         // Re-usable patterns to match list item bullets and number markers
         $marker_ul_re = '[*+-]';
         $marker_ol_re = '\d+[\.]';
-        $marker_any_re = "(?:$marker_ul_re|$marker_ol_re)";
-        
+
         $list = $matches[1];
         $list_type = preg_match("/$marker_ul_re/", $matches[4]) ? 'ul' : 'ol';
         $marker_any_re = ($list_type === 'ul') ? $marker_ul_re : $marker_ol_re;
