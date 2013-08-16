@@ -1647,21 +1647,11 @@ class Markdown_Library {
      * @return string
      */
     private function do_auto_links_email_callback($matches) { 
-        $link = $this->encode_email_address($matches[1]);
-        
-        return $this->hash_part($link);
-    }
-
-    /**
-     * Encode an email address to a mailto link
-     *
-     * @param    string    an email address, e.g. "foo@example.com"
-     * @return    string    the mailto link, with each character of the address encoded as either a decimal or hex entity
-     */
-    private function encode_email_address($addr) {
+        // Encode an email address to a mailto link 
+        // with each character of the address encoded as either a decimal or hex entity
         // Based on a filter by Matthew Wickline, posted to BBEdit-Talk.
         // With some optimizations by Milian Wolff.
-        $addr = 'mailto:'.$addr;
+        $addr = 'mailto:'.$matches[1];
         $chars = preg_split('/(?<!^)(?!$)/', $addr);
         $seed = (int) abs(crc32($addr) / strlen($addr)); // Deterministic seed.
         
@@ -1685,7 +1675,9 @@ class Markdown_Library {
         $addr = implode('', $chars);
         $text = implode('', array_slice($chars, 7)); // Text without `mailto:`
         
-        return '<a href="'.$addr.'">'.$text.'</a>';
+        $link = '<a href="'.$addr.'">'.$text.'</a>';
+        
+        return $this->hash_part($link);
     }
 
     /**
