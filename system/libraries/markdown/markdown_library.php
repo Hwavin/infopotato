@@ -88,7 +88,7 @@ class Markdown_Library {
      * 
      * @var bool
      */
-    private $in_anchor = TRUE;
+    private $in_anchor = FALSE;
 
     /**
      * Used to track when we're inside ab ordered or unordered list
