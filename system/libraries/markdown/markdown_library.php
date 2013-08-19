@@ -84,7 +84,7 @@ class Markdown_Library {
     private $html_hashes = array();
  
     /**
-     * Status flag to avoid invalid nesting.
+     * Status flag to avoid invalid nesting
      * 
      * @var bool
      */
@@ -210,12 +210,12 @@ class Markdown_Library {
     /**
      * Main function
      *
-     * Performs some preprocessing on the input text and pass it through the document gamut.
+     * Performs some preprocessing on the input text and pass it through the document gamut
      *
      * @param    string
      * @return    string
      */
-    public function transform($text) {
+    public function markdown_to_html($text) {
         // Remove UTF-8 BOM and marker character in input, if present.
         $text = preg_replace('{^\xEF\xBB\xBF|\x1A}', '', $text);
 
