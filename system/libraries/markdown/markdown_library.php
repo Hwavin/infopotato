@@ -91,7 +91,7 @@ class Markdown_Library {
     private $in_anchor = FALSE;
 
     /**
-     * Used to track when we're inside ab ordered or unordered list
+     * Used to track when we're inside an ordered or unordered list
      * 
      * @var integer
      */     
@@ -102,7 +102,7 @@ class Markdown_Library {
      * 
      * @var 
      */
-    private $em_strong_prepared_relist;
+    private $em_strong_prepared_regex_list;
     
     /**
      * Constructor
@@ -1258,37 +1258,37 @@ class Markdown_Library {
      * @return    void
      */
     private function prepare_italics_and_bold() {
-        $em_relist = array(
+        $em_regex_list = array(
             '' => '(?:(?<!\*)\*(?!\*)|(?<!_)_(?!_))(?=\S|$)(?![\.,:;]\s)',
             '*' => '(?<=\S|^)(?<!\*)\*(?!\*)',
             '_' => '(?<=\S|^)(?<!_)_(?!_)',
         );
         
-        $strong_relist = array(
+        $strong_regex_list = array(
             '' => '(?:(?<!\*)\*\*(?!\*)|(?<!_)__(?!_))(?=\S|$)(?![\.,:;]\s)',
             '**' => '(?<=\S|^)(?<!\*)\*\*(?!\*)',
             '__' => '(?<=\S|^)(?<!_)__(?!_)',
         );
 
-        $em_strong_relist = array(
+        $em_strong_regex_list = array(
             '' => '(?:(?<!\*)\*\*\*(?!\*)|(?<!_)___(?!_))(?=\S|$)(?![\.,:;]\s)',
             '***' => '(?<=\S|^)(?<!\*)\*\*\*(?!\*)',
             '___' => '(?<=\S|^)(?<!_)___(?!_)',
         );
         
-        foreach ($em_relist as $em => $em_re) {
-            foreach ($strong_relist as $strong => $strong_re) {
-                // Construct list of allowed token expressions.
-                $token_relist = array();
-                if (isset($em_strong_relist["$em$strong"])) {
-                    $token_relist[] = $em_strong_relist["$em$strong"];
+        foreach ($em_regex_list as $em => $em_regex) {
+            foreach ($strong_regex_list as $strong => $strong_regex) {
+                // Construct list of allowed token expressions
+                $token_regex_list = array();
+                if (isset($em_strong_regex_list["$em$strong"])) {
+                    $token_regex_list[] = $em_strong_regex_list["$em$strong"];
                 }
-                $token_relist[] = $em_re;
-                $token_relist[] = $strong_re;
+                $token_regex_list[] = $em_regex;
+                $token_regex_list[] = $strong_regex;
                 
-                // Construct master expression from list.
-                $token_re = '{('. implode('|', $token_relist) .')}';
-                $this->em_strong_prepared_relist["$em$strong"] = $token_re;
+                // Construct master expression from list
+                $token_regex = '{('. implode('|', $token_regex_list) .')}';
+                $this->em_strong_prepared_regex_list["$em$strong"] = $token_regex;
             }
         }
     }
@@ -1307,12 +1307,12 @@ class Markdown_Library {
         $tree_char_em = FALSE;
         
         while (1) {
-            // Get prepared regular expression for seraching emphasis tokens in current context.
-            $token_re = $this->em_strong_prepared_relist["$em$strong"];
+            // Get prepared regular expression for seraching emphasis tokens in current context
+            $token_regex = $this->em_strong_prepared_regex_list["$em$strong"];
             
-            // Each loop iteration search for the next emphasis token. 
-            // Each token is then passed to handle_span_token.
-            $parts = preg_split($token_re, $text, 2, PREG_SPLIT_DELIM_CAPTURE);
+            // Each loop iteration searches for the next emphasis token
+            // Each token is then passed to handle_span_token
+            $parts = preg_split($token_regex, $text, 2, PREG_SPLIT_DELIM_CAPTURE);
             $text_stack[0] .= $parts[0];
             $token =& $parts[1];
             $text =& $parts[2];
