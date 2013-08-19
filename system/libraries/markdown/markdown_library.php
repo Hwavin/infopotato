@@ -82,6 +82,13 @@ class Markdown_Library {
      * @var array
      */
     private $html_hashes = array();
+ 
+    /**
+     * Status flag to avoid invalid nesting.
+     * 
+     * @var bool
+     */
+    private $in_anchor = TRUE;
 
     /**
      * Used to track when we're inside ab ordered or unordered list
@@ -628,14 +635,15 @@ class Markdown_Library {
      * @return    void
      */
     private function do_anchors($text) {
-        // Status flag to avoid invalid nesting
-        $in_anchor = FALSE;
-        
-        if ($in_anchor) {
+        // do_anchors() is called recurively when processing the textual
+        // content if the link. And run_span_gaumt() is called in the two 
+        // callbacks below, in which, in turn, will call do_anchors() again.
+        // So we have to use this flag.
+        if ($this->in_anchor) {
             return $text;
         }
         
-        $in_anchor = TRUE;
+        $this->in_anchor = TRUE;
 
         // These two variables are the same as those two in do_images()
         $nested_brackets_regex = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
@@ -721,8 +729,7 @@ class Markdown_Library {
             $text
         );
 
-        $in_anchor = FALSE;
-        
+        $this->in_anchor = FALSE;
         return $text;
     }
 
