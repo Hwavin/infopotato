@@ -98,13 +98,6 @@ class Markdown_Library {
     private $list_level = 0;
 
     /**
-     * 
-     * 
-     * @var 
-     */
-    private $em_strong_prepared_regex_list;
-    
-    /**
      * Constructor
      *
      * The constructor can be passed an array of config values
@@ -125,8 +118,6 @@ class Markdown_Library {
                 }
             }
         }
-
-        $this->prepare_italics_and_bold();
     }
 
     /**
@@ -1253,11 +1244,14 @@ class Markdown_Library {
     }
 
     /**
-     * Prepare regular expressions for searching emphasis tokens in any context.
+     * Italics and Bold
      *
-     * @return    void
+     * @param    string
+     * @return    string
      */
-    private function prepare_italics_and_bold() {
+    private function do_italics_and_bold($text) {
+        $em_strong_prepared_regex_list = array();
+              
         $em_regex_list = array(
             '' => '(?:(?<!\*)\*(?!\*)|(?<!_)_(?!_))(?=\S|$)(?![\.,:;]\s)',
             '*' => '(?<=\S|^)(?<!\*)\*(?!\*)',
@@ -1276,6 +1270,7 @@ class Markdown_Library {
             '___' => '(?<=\S|^)(?<!_)___(?!_)',
         );
         
+        // Prepare regular expressions for searching emphasis tokens in any context.
         foreach ($em_regex_list as $em => $em_regex) {
             foreach ($strong_regex_list as $strong => $strong_regex) {
                 // Construct list of allowed token expressions
@@ -1287,19 +1282,11 @@ class Markdown_Library {
                 $token_regex_list[] = $strong_regex;
                 
                 // Construct master expression from list
-                $token_regex = '{('. implode('|', $token_regex_list) .')}';
-                $this->em_strong_prepared_regex_list["$em$strong"] = $token_regex;
+                $em_strong_prepared_regex_list["$em$strong"] = '{('. implode('|', $token_regex_list) .')}';
             }
         }
-    }
-    
-    /**
-     * Italics and Bold
-     *
-     * @param    string
-     * @return    string
-     */
-    private function do_italics_and_bold($text) {
+        // Done preparation
+
         $token_stack = array(''); // The first array element is empty
         $text_stack = array('');  // The first array element is empty
         $em = '';
@@ -1308,7 +1295,7 @@ class Markdown_Library {
         
         while (1) {
             // Get prepared regular expression for seraching emphasis tokens in current context
-            $token_regex = $this->em_strong_prepared_regex_list["$em$strong"];
+            $token_regex = $em_strong_prepared_regex_list["$em$strong"];
             
             // Each loop iteration searches for the next emphasis token
             // Each token is then passed to handle_span_token
