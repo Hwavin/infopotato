@@ -636,8 +636,8 @@ class Markdown_Library {
      */
     private function do_anchors($text) {
         // do_anchors() is called recurively when processing the textual
-        // content if the link. And run_span_gaumt() is called in the two 
-        // callbacks below, in which, in turn, will call do_anchors() again.
+        // content of the link. And run_span_gaumt() is called in the two 
+        // callbacks below, which, in turn, will call do_anchors() again.
         // So we have to use this flag.
         if ($this->in_anchor) {
             return $text;
@@ -730,6 +730,7 @@ class Markdown_Library {
         );
 
         $this->in_anchor = FALSE;
+        
         return $text;
     }
 
