@@ -77,18 +77,11 @@ class Markdown_Library {
     private $titles = array();
     
     /**
-     * 
+     * Hashed HTML tags
      * 
      * @var array
      */
     private $html_hashes = array();
- 
-    /**
-     * Status flag to avoid invalid nesting.
-     * 
-     * @var bool
-     */
-    private $in_anchor = FALSE;
 
     /**
      * Used to track when we're inside ab ordered or unordered list
@@ -635,11 +628,14 @@ class Markdown_Library {
      * @return    void
      */
     private function do_anchors($text) {
-        if ($this->in_anchor) {
+        // Status flag to avoid invalid nesting
+        $in_anchor = FALSE;
+        
+        if ($in_anchor) {
             return $text;
         }
         
-        $this->in_anchor = TRUE;
+        $in_anchor = TRUE;
 
         // These two variables are the same as those two in do_images()
         $nested_brackets_regex = str_repeat('(?>[^\[\]]+|\[', $this->nested_brackets_depth).str_repeat('\])*', $this->nested_brackets_depth);
@@ -725,7 +721,8 @@ class Markdown_Library {
             $text
         );
 
-        $this->in_anchor = FALSE;
+        $in_anchor = FALSE;
+        
         return $text;
     }
 
