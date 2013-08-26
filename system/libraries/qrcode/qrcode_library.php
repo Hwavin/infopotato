@@ -58,35 +58,6 @@ class QRcode_Library {
     private $pixels_per_module = 4;
 
     /**
-     * Structured append n (2-16)
-     * One QR code can be divided into up to 16 symbols
-     * 
-     * @var integer
-     */
-    private $structured_append_n;
-    
-    /**
-     * Structured append, image number m of n (1-16)
-     * 
-     * @var integer
-     */
-    private $structured_append_m;
-    
-    /**
-     * Parity (0-255)
-     * 
-     * @var string
-     */
-    private $structured_append_parity;
-    
-    /**
-     * Original data (URL encoded data) for calculating parity
-     * 
-     * @var string
-     */
-    private $structured_append_original_data;
-
-    /**
      * Constructor
      *
      * The constructor can be passed an array of config values
@@ -182,38 +153,12 @@ class QRcode_Library {
      * @return void
      */
     private function initialize_pixels_per_module($val) {
-        if ( ! is_int($val)) {
+        if ( ! is_int($val) || ($val < 0)) {
             $this->invalid_argument_value('pixels_per_module');
         }
         $this->pixels_per_module = $val;
     }
-    
-    /**
-     * Validate and set $structured_append_n
-     *
-     * @param  $val int
-     * @return void
-     */
-    private function initialize_structured_append_n($val) {
-        if ( ! is_int($val) || ($val > 16) || ($val < 2)) {
-            $this->invalid_argument_value('structured_append_n');
-        }
-        $this->structured_append_n = $val;
-    }
-    
-    /**
-     * Validate and set $structured_append_m
-     *
-     * @param  $val string
-     * @return void
-     */
-    private function initialize_structured_append_m($val) {
-        if ( ! is_int($val) || ($val > 16) || ($val < 1)) {
-            $this->invalid_argument_value('structured_append_m');
-        }
-        $this->structured_append_m = $val;
-    }
-    
+
     /**
      * Output the error message for invalid argument value
      *
@@ -224,12 +169,14 @@ class QRcode_Library {
     }
     
     /**
-     * Generate a QR code image
+     * Performs all necessary calculations and outputs an image
+     * as defined by the configuration
      * 
-     * @var string 
+     * @var string    the string/data to encode into the QRcode
+     * @param array    an array of elements (n, m, parity, original_data)
      * @return void
      */
-    public function main($str) {
+    public function main($str, array $append = NULL) {
         $data_length = strlen(rawurldecode(trim($str)));
         if ($data_length <= 0) {
             exit('QRcode : Data do not exist.');
@@ -237,33 +184,56 @@ class QRcode_Library {
         
         $data_counter = 0;
 
-        
-        //////
-        $data_value[0] = 3;
-        $data_bits[0] = 4;
+        // Set and apply structured append if provided
+        if ( ! empty($append)) {
+            if (isset($append['n']) && isset($append['m']) && isset($append['parity']) && isset($append['original_data'])) {
+                // Validation
+                if ( ! is_int($append['n']) || ($$append['n'] > 16) || ($$append['n'] < 2)) {
+                    exit('Appended structure data n is not valid');
+                }
+                
+                if ( ! is_int($append['m']) || ($$append['m'] > 16) || ($$append['n'] < 1)) {
+                    exit('Appended structure data m is not valid');
+                }
+                
+                // Structured append n (2-16)
+                $structured_append_n = $append['n'];
+                // Structured append m (1-16)
+                $structured_append_m = $append['m'];
+                // Parity (0-255)
+                $structured_append_parity = $append['parity'];
+                // Original data (URL encoded data) for calculating parity
+                $structured_append_original_data = $append['original_data'];
+                
+                // Apply structured append
+                $data_value[0] = 3;
+                $data_bits[0] = 4;
 
-        $data_value[1] = $this->structured_append_m - 1;
-        $data_bits[1] = 4;
+                $data_value[1] = $structured_append_m - 1;
+                $data_bits[1] = 4;
 
-        $data_value[2] = $this->structured_append_n - 1;
-        $data_bits[2] = 4;
+                $data_value[2] = $structured_append_n - 1;
+                $data_bits[2] = 4;
 
-        $originaldata_length = strlen($this->structured_append_original_data);
-        if ($originaldata_length > 1) {
-            $this->structured_append_parity = 0;
-            $i = 0;
-            while ($i < $originaldata_length) {
-                // ^ is bit Xor (exclusive or)
-                $this->structured_append_parity = ($this->structured_append_parity ^ ord(substr($this->structured_append_original_data, $i, 1)));
-                $i++;
+                $originaldata_length = strlen($structured_append_original_data);
+                if ($originaldata_length > 1) {
+                    $structured_append_parity = 0;
+                    $i = 0;
+                    while ($i < $originaldata_length) {
+                        // ^ is bit Xor (exclusive or)
+                        $structured_append_parity = ($structured_append_parity ^ ord(substr($structured_append_original_data, $i, 1)));
+                        $i++;
+                    }
+                }
+
+                $data_value[3] = $structured_append_parity;
+                $data_bits[3] = 8;
+
+                $data_counter = 4;
+            } else {
+                exit('Appended structure data is not valid');
             }
         }
-
-        $data_value[3] = $this->structured_append_parity;
-        $data_bits[3] = 8;
-
-        $data_counter = 4;
-        //////////
 
         $data_bits[$data_counter] = 4;
 
@@ -436,7 +406,7 @@ class QRcode_Library {
         
         // Upper limit version is 40
         if ($this->qrcode_version > 40) {
-            trigger_error("QRcode : too large version.", E_USER_ERROR);
+            trigger_error('QRcode : too large version.', E_USER_ERROR);
         }
 
         $total_data_bits += $codeword_num_plus[$this->qrcode_version];
@@ -799,7 +769,7 @@ class QRcode_Library {
             imagepng($output_image);
         }
     }
-    
+
 }
 
 /* End of file: ./system/libraries/markdown/qrcode_library.php */
