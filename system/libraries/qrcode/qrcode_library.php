@@ -41,7 +41,7 @@ class QRcode_Library {
      *
      * @var integer
      */
-    private $qrcode_version;
+    private $symbol_version;
     
     /**
      * Output image type    jpeg or png
@@ -120,17 +120,17 @@ class QRcode_Library {
     }
 
     /**
-     * Validate and set $qrcode_version
+     * Validate and set $symbol_version
      *
      * @param  $val int
      * @return void
      */
-    private function initialize_qrcode_version($val) {
+    private function initialize_symbol_version($val) {
         // Version range 1-40
         if ( ! is_int($val) || ($val < 1) || ($val > 40)) {
-            $this->invalid_argument_value('qrcode_version');
+            $this->invalid_argument_value('symbol_version');
         }
-        $this->qrcode_version = $val;
+        $this->symbol_version = $val;
     }
     
     /**
@@ -388,29 +388,29 @@ class QRcode_Library {
         );
         
         // Calculate the QR code version if not specified
-        if ( ! $this->qrcode_version) {      
+        if ( ! $this->symbol_version) {      
             $i = 1 + 40 * $ec;
             $j = $i + 39;
-            $this->qrcode_version = 1; 
+            $this->symbol_version = 1; 
             while ($i <= $j) {
-                if (($max_data_bits_array[$i]) >= $total_data_bits + $codeword_num_plus[$this->qrcode_version]) {
+                if (($max_data_bits_array[$i]) >= $total_data_bits + $codeword_num_plus[$this->symbol_version]) {
                     $max_data_bits = $max_data_bits_array[$i];
                     break;
                 }
                 $i++;
-                $this->qrcode_version++;
+                $this->symbol_version++;
             }
         } else {
-            $max_data_bits = $max_data_bits_array[$this->qrcode_version + 40 * $ec];
+            $max_data_bits = $max_data_bits_array[$this->symbol_version + 40 * $ec];
         }
         
         // Upper limit version is 40
-        if ($this->qrcode_version > 40) {
+        if ($this->symbol_version > 40) {
             exit('QRcode : too large version.');
         }
 
-        $total_data_bits += $codeword_num_plus[$this->qrcode_version];
-        $data_bits[$codeword_num_counter_value] += $codeword_num_plus[$this->qrcode_version];
+        $total_data_bits += $codeword_num_plus[$this->symbol_version];
+        $data_bits[$codeword_num_counter_value] += $codeword_num_plus[$this->symbol_version];
 
         $max_codewords_array = array(
             0, 26, 44, 70, 100, 134, 172, 196, 242,
@@ -419,8 +419,8 @@ class QRcode_Library {
             2611, 2761, 2876, 3034, 3196, 3362, 3532, 3706
         );
 
-        $max_codewords = $max_codewords_array[$this->qrcode_version];
-        $max_modules_1side = 17 + ($this->qrcode_version << 2);
+        $max_codewords = $max_codewords_array[$this->symbol_version];
+        $max_modules_1side = 17 + ($this->symbol_version << 2);
 
         $matrix_remain_bit = array(
             0, 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3,
@@ -428,8 +428,8 @@ class QRcode_Library {
         );
 
         // Read in correct baseline data from ECC/RS files
-        $byte_num = $matrix_remain_bit[$this->qrcode_version] + ($max_codewords << 3);
-        $filename = $this->data_path.'qrv'.$this->qrcode_version.'_'.$ec.'.dat';
+        $byte_num = $matrix_remain_bit[$this->symbol_version] + ($max_codewords << 3);
+        $filename = $this->data_path.'qrv'.$this->symbol_version.'_'.$ec.'.dat';
         $fp1 = fopen($filename, 'rb');
         $matx = fread($fp1, $byte_num);
         $maty = fread($fp1, $byte_num);
@@ -616,10 +616,10 @@ class QRcode_Library {
             $i++;
         }
 
-        $matrix_remain = $matrix_remain_bit[$this->qrcode_version];
+        $matrix_remain = $matrix_remain_bit[$this->symbol_version];
         while ($matrix_remain) {
-            $remain_bit_temp = $matrix_remain + ( $max_codewords << 3);
-            $matrix_content[ $matrix_x_array[$remain_bit_temp] ][ $matrix_y_array[$remain_bit_temp] ] = (0 ^ $mask_array[$remain_bit_temp]);
+            $remain_bit_temp = $matrix_remain + ($max_codewords << 3);
+            $matrix_content[$matrix_x_array[$remain_bit_temp]][$matrix_y_array[$remain_bit_temp]] = (0 ^ $mask_array[$remain_bit_temp]);
             $matrix_remain--;
         }
 
@@ -732,7 +732,7 @@ class QRcode_Library {
         }
         $output_image = imagecreate($image_size, $image_size);
 
-        $this->image_path = $this->image_path.'qrv'.$this->qrcode_version.'.png';
+        $this->image_path = $this->image_path.'qrv'.$this->symbol_version.'.png';
 
         $base_image = imagecreatefrompng($this->image_path);
 
