@@ -237,7 +237,7 @@ class QRcode_Library {
 
         $data_bits[$data_counter] = 4;
 
-        // Determine encoding mode
+        // Determine the encoding mode, based on the input data
         // Supports 8bit, Alphanumeric, and Numeric
         if (preg_match('/[^0-9]/', $str) !== 0) {
             if (preg_match('/[^0-9A-Z \$\*\%\+\.\/\:\-]/', $str) !== 0) {
@@ -387,7 +387,7 @@ class QRcode_Library {
             8264, 8920, 9368, 9848, 10288, 10832, 11408, 12016, 12656, 13328
         );
         
-        // Auto version select if not specified
+        // Calculate the QR code version if not specified
         if ( ! $this->qrcode_version) {      
             $i = 1 + 40 * $ec;
             $j = $i + 39;
@@ -406,7 +406,7 @@ class QRcode_Library {
         
         // Upper limit version is 40
         if ($this->qrcode_version > 40) {
-            trigger_error('QRcode : too large version.', E_USER_ERROR);
+            exit('QRcode : too large version.');
         }
 
         $total_data_bits += $codeword_num_plus[$this->qrcode_version];
@@ -427,8 +427,7 @@ class QRcode_Library {
             4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0
         );
 
-        // Read version ECC data file
-
+        // Read in correct baseline data from ECC/RS files
         $byte_num = $matrix_remain_bit[$this->qrcode_version] + ($max_codewords << 3);
         $filename = $this->path.'qrv'.$this->qrcode_version.'_'.$ec.'.dat';
         $fp1 = fopen ($filename, 'rb');
@@ -465,7 +464,7 @@ class QRcode_Library {
         }
         fclose ($fp0);
 
-        // Set terminator
+        // Set terminator for data
 
         if ($total_data_bits <= $max_data_bits - 4) {
             $data_value[$data_counter] = 0;
@@ -476,8 +475,7 @@ class QRcode_Library {
                 $data_bits[$data_counter] = $max_data_bits - $total_data_bits;
             } else {
                 if ($total_data_bits > $max_data_bits) {
-                    trigger_error("QRcode : Overflow error", E_USER_ERROR);
-                    exit;
+                    exit('QRcode : Overflow error');
                 }
             }
         }
@@ -525,7 +523,7 @@ class QRcode_Library {
             $codewords_counter--;
         }
 
-        // Set padding character
+        // Sets the padding character to pad out data
 
         if ($codewords_counter < $max_data_codewords - 1) {
             $flag = 1;
@@ -559,7 +557,6 @@ class QRcode_Library {
             }
             $i++;
         }
-
 
         // RS-ECC main
 
@@ -605,7 +602,7 @@ class QRcode_Library {
             $i++;
         }
 
-        // Attach data
+        // Attaches the calculated codeword data to the data matrix
 
         $i = 0;
         while ($i < $max_codewords) {
@@ -627,21 +624,21 @@ class QRcode_Library {
             $matrix_remain--;
         }
 
-        // Mask select
+        // Selects the mask to use
 
         $min_demerit_score = 0;
-            $hor_master = '';
-            $ver_master = '';
-            $k = 0;
-            while ($k < $max_modules_1side) {
-                $l = 0;
-                while ($l < $max_modules_1side) {
-                    $hor_master = $hor_master.chr($matrix_content[$l][$k]);
-                    $ver_master = $ver_master.chr($matrix_content[$k][$l]);
-                    $l++;
-                }
-                $k++;
+        $hor_master = '';
+        $ver_master = '';
+        $k = 0;
+        while ($k < $max_modules_1side) {
+            $l = 0;
+            while ($l < $max_modules_1side) {
+                $hor_master = $hor_master.chr($matrix_content[$l][$k]);
+                $ver_master = $ver_master.chr($matrix_content[$k][$l]);
+                $l++;
             }
+            $k++;
+        }
         $i = 0;
         $all_matrix = $max_modules_1side * $max_modules_1side; 
         while ($i < 8) {
@@ -732,7 +729,7 @@ class QRcode_Library {
         $module_size = ($this->output_image_type === 'jpeg') ? $this->pixels_per_module * 2 : $this->pixels_per_module;
         $image_size = $mib * $module_size;
         if ($image_size > 1480) {
-          trigger_error("QRcode : Too large image size", E_USER_ERROR);
+            exit('QRcode : Too large image size');
         }
         $output_image = imagecreate($image_size, $image_size);
 
