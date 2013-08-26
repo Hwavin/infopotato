@@ -12,14 +12,14 @@
 class QRcode_Library {
 
     /**
-     * set path to data files
+     * Set path to data files
      * 
      * @var string
      */
     private $path;
     
     /**
-     * set path to QRcode frame images
+     * Set path to QRcode frame images
      * 
      * @var string
      */
@@ -33,14 +33,14 @@ class QRcode_Library {
     private $version_upper_limit = 40; 
 
     /**
-     * Error correction level    L or M or Q or H   (default M)
+     * Error correction level    L, M (default), Q or H   
      * 
      * @var string
      */
     private $error_correction_level = 'M';
 
     /**
-     * Version (size)    1-40 or Auto select if you do not set.
+     * Version (size)    1-40 or Auto select if you do not set
      * 
      * @var integer
      */
@@ -66,17 +66,17 @@ class QRcode_Library {
      * 
      * @var integer
      */
-    private $structured_append_n = 3;
+    private $structured_append_n;
     
     /**
-     * Structured append m (1-16)
+     * Structured append m of n (1-16)
      * 
      * @var integer
      */
-    private $structured_append_m = 4;
+    private $structured_append_m;
     
     /**
-     * parity
+     * Parity (0-255)
      * 
      * @var string
      */
@@ -159,7 +159,7 @@ class QRcode_Library {
      * @return void
      */
     private function initialize_error_correction_level($val) {
-        if ( ! is_string($val) || ! in_array($val, array('L', 'M', 'Q', 'H'))) {
+        if ( ! is_string($val) || ! in_array(strtoupper($val), array('L', 'M', 'Q', 'H'))) {
             $this->invalid_argument_value('error_correction_level');
         }
         $this->error_correction_level = $val;
@@ -185,7 +185,7 @@ class QRcode_Library {
      * @return void
      */
     private function initialize_output_image_type($val) {
-        if ( ! is_string($val) || ! in_array($val, array('jpeg', 'png'))) {
+        if ( ! is_string($val) || ! in_array(strtolower($val), array('jpeg', 'png'))) {
             $this->invalid_argument_value('output_image_type');
         }
         $this->output_image_type = $val;
@@ -248,8 +248,7 @@ class QRcode_Library {
     public function main($str) {
         $data_length = strlen(rawurldecode($str));
         if ($data_length <= 0) {
-            trigger_error("QRcode : Data do not exist.", E_USER_ERROR);
-            exit;
+            exit('QRcode : Data do not exist.');
         }
         
         $data_counter = 0;
@@ -262,7 +261,6 @@ class QRcode_Library {
 
         $data_value[2] = $this->structured_append_n - 1;
         $data_bits[2] = 4;
-
 
         $originaldata_length = strlen($this->structured_append_original_data);
         if ($originaldata_length > 1) {
