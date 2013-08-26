@@ -1,7 +1,7 @@
 <?php
 /**
- * Class to create QR-code
- * based on http://www.swetake.com/qrcode/qr1_en.html
+ * QRcode - QR 2D barcode generator
+ * based on Y.Swetake's QRcode http://www.swetake.com/qrcode/qr1_en.html
  * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -24,13 +24,6 @@ class QRcode_Library {
      * @var string
      */
     private $image_path;
-    
-    /**
-     * Upper limit for version
-     * 
-     * @var integer
-     */
-    private $version_upper_limit = 40; 
 
     /**
      * Error correction level    L, M (default), Q or H   
@@ -42,6 +35,10 @@ class QRcode_Library {
     /**
      * Version (size)    1-40 or Auto select if you do not set
      * 
+     * Version 1 is 21*21 matrix
+     * and 4 modules increases whenever 1 version increases.
+     * So version 40 is 177*177 matrix.
+     *
      * @var integer
      */
     private $qrcode_version;
@@ -69,7 +66,7 @@ class QRcode_Library {
     private $structured_append_n;
     
     /**
-     * Structured append m of n (1-16)
+     * Structured append, image number m of n (1-16)
      * 
      * @var integer
      */
@@ -88,7 +85,6 @@ class QRcode_Library {
      * @var string
      */
     private $structured_append_original_data;
-    
 
     /**
      * Constructor
@@ -138,20 +134,7 @@ class QRcode_Library {
         }
         $this->image_path = $val;
     }
-    
-    /**
-     * Validate and set $version_upper_limit
-     *
-     * @param  $val int
-     * @return void
-     */
-    private function initialize_version_upper_limit($val) {
-        if ( ! is_int($val)) {
-            $this->invalid_argument_value('version_upper_limit');
-        }
-        $this->version_upper_limit = $val;
-    }
-    
+
     /**
      * Validate and set $error_correction_level
      *
@@ -172,7 +155,8 @@ class QRcode_Library {
      * @return void
      */
     private function initialize_qrcode_version($val) {
-        if ( ! is_int($val)) {
+        // Version range 1-40
+        if ( ! is_int($val) || ($val < 1) || ($val > 40)) {
             $this->invalid_argument_value('qrcode_version');
         }
         $this->qrcode_version = $val;
@@ -246,13 +230,15 @@ class QRcode_Library {
      * @return void
      */
     public function main($str) {
-        $data_length = strlen(rawurldecode($str));
+        $data_length = strlen(rawurldecode(trim($str)));
         if ($data_length <= 0) {
             exit('QRcode : Data do not exist.');
         }
         
         $data_counter = 0;
 
+        
+        //////
         $data_value[0] = 3;
         $data_bits[0] = 4;
 
@@ -277,7 +263,7 @@ class QRcode_Library {
         $data_bits[3] = 8;
 
         $data_counter = 4;
-
+        //////////
 
         $data_bits[$data_counter] = 4;
 
@@ -448,7 +434,8 @@ class QRcode_Library {
             $max_data_bits = $max_data_bits_array[$this->qrcode_version + 40 * $ec];
         }
         
-        if ($this->qrcode_version > $this->version_upper_limit) {
+        // Upper limit version is 40
+        if ($this->qrcode_version > 40) {
             trigger_error("QRcode : too large version.", E_USER_ERROR);
         }
 
