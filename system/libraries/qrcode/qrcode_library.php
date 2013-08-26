@@ -655,7 +655,7 @@ class QRcode_Library {
             $demerit_n1 = 0;
             $ptn_temp = array();
             $bit= 1 << $i; // Shift the bits of 1 $i steps to the left (each step means "multiply by two")
-            $bit_r = (~$bit)&255;
+            $bit_r = (~$bit) & 255;
             $bit_mask = str_repeat(chr($bit), $all_matrix);
             $hor = $hor_master & $bit_mask;
             $ver = $ver_master & $bit_mask;
@@ -726,7 +726,6 @@ class QRcode_Library {
         $i = 0;
         while ($i < 15) {
             $content = substr($format_information_array[$format_information_value], $i, 1);
-
             $matrix_content[$format_information_x1[$i]][$format_information_y1[$i]] = $content * 255;
             $matrix_content[$format_information_x2[$i+1]][$format_information_y2[$i+1]] = $content * 255;
             $i++;
