@@ -430,7 +430,7 @@ class QRcode_Library {
         // Read in correct baseline data from ECC/RS files
         $byte_num = $matrix_remain_bit[$this->qrcode_version] + ($max_codewords << 3);
         $filename = $this->path.'qrv'.$this->qrcode_version.'_'.$ec.'.dat';
-        $fp1 = fopen ($filename, 'rb');
+        $fp1 = fopen($filename, 'rb');
         $matx = fread($fp1, $byte_num);
         $maty = fread($fp1, $byte_num);
         $masks = fread($fp1, $byte_num);
@@ -456,13 +456,13 @@ class QRcode_Library {
         $max_data_codewords = ($max_data_bits >> 3);
 
         $filename = $this->path.'rsc'.$rs_ecc_codewords.'.dat';
-        $fp0 = fopen ($filename, 'rb');
+        $fp0 = fopen($filename, 'rb');
         $i = 0;
         while ($i < 256) {
-            $rs_cal_table_array[$i] = fread ($fp0, $rs_ecc_codewords);
+            $rs_cal_table_array[$i] = fread($fp0, $rs_ecc_codewords);
             $i++;
         }
-        fclose ($fp0);
+        fclose($fp0);
 
         // Set terminator for data
 
@@ -546,7 +546,6 @@ class QRcode_Library {
         $rs_temp[0] = '';
 
         while ($i < $max_data_codewords) {
-
             $rs_temp[$rs_block_number] .= chr($codewords[$i]);
             $j++;
 
@@ -665,13 +664,13 @@ class QRcode_Library {
             $n3_search = chr($bit_r).chr(255).chr($bit_r).chr($bit_r).chr($bit_r).chr(255).chr($bit_r);
 
             $demerit_n3 = substr_count($hor, $n3_search) * 40;
-            $demerit_n4 = floor(abs(( (100 * (substr_count($ver, chr($bit_r))/($byte_num)) )-50)/5)) * 10;
+            $demerit_n4 = floor(abs(((100 * (substr_count($ver, chr($bit_r))/($byte_num)))-50)/5)) * 10;
 
 
             $n2_search1 = '/'.chr($bit_r).chr($bit_r).'+/';
             $n2_search2 = '/'.chr(255).chr(255).'+/';
             $demerit_n2 = 0;
-            preg_match_all($n2_search1,$ver_and,$ptn_temp);
+            preg_match_all($n2_search1, $ver_and, $ptn_temp);
             foreach ($ptn_temp[0] as $str_temp) {
                 $demerit_n2 += (strlen($str_temp) - 1);
             }
