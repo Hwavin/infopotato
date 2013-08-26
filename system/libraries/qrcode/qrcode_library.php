@@ -178,9 +178,10 @@ class QRcode_Library {
      * @return array
      */
     public function generate($str, array $append = NULL) {
-        $data_length = strlen(rawurldecode(trim($str)));
+        $data_length = strlen(trim($str));
+
         if ($data_length <= 0) {
-            exit('QRcode : Data do not exist.');
+            exit('QRcode : Data to be encoded is empty.');
         }
         
         $data_counter = 0;
@@ -242,7 +243,7 @@ class QRcode_Library {
         // Supports 8bit, Alphanumeric (0-9A-Z $%*+-./:), and Numeric (0-9)
         if (preg_match('/[^0-9]/', $str) !== 0) {
             if (preg_match('/[^0-9A-Z \$\*\%\+\.\/\:\-]/', $str) !== 0) {
-                // 8bit byte encoding mode
+                // 8bit byte encoding mode (possible characters: ISO 8859-1)
                 // In theory, 2953 characters or less can be stored in a QRcode
                 
                 $codeword_num_plus = array(
