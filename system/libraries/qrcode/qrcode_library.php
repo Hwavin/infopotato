@@ -399,21 +399,32 @@ class QRcode_Library {
             8264, 8920, 9368, 9848, 10288, 10832, 11408, 12016, 12656, 13328 // Version 31-40
         );
         
-        // Calculate the most appropriate QR code version if not specified
-        if ( ! $this->symbol_version) {      
-            $i = 1 + 40 * $ec;
-            $j = $i + 39;
-            $this->symbol_version = 1; 
-            while ($i <= $j) {
-                if (($max_data_bits_array[$i]) >= $total_data_bits + $codeword_num_plus[$this->symbol_version]) {
-                    $max_data_bits = $max_data_bits_array[$i];
-                    break;
-                }
-                $i++;
-                $this->symbol_version++;
+        // First off, calculate the most appropriate QR code version
+        $i = 1 + 40 * $ec;
+        $j = $i + 39;
+        $needed_symbol_version = 1; 
+        
+        while ($i <= $j) {
+            if (($max_data_bits_array[$i]) >= $total_data_bits + $codeword_num_plus[$needed_symbol_version]) {
+                $caculated_max_data_bits = $max_data_bits_array[$i];
+                break;
             }
+            $i++;
+            $needed_symbol_version++;
+        }
+
+        // Then, check to see if version is specified in config array
+        if ( ! $this->symbol_version) {      
+            $max_data_bits = $caculated_max_data_bits;
+            // Then use this caculated version
+            $this->symbol_version = $needed_symbol_version;
         } else {
-            // The specified version may be smaller than what the input string needs
+            // Check to see if specified version is smaller than needed
+            // It's ok to use a bigger version than needed
+            if ($this->symbol_version < $needed_symbol_version) {
+                exit('The provided symbol version is samller than the version that the string needs.');
+            }
+
             $max_data_bits = $max_data_bits_array[$this->symbol_version + 40 * $ec];
         }
 
