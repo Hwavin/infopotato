@@ -16,7 +16,7 @@ class QRcode_Library {
      * 
      * @var string
      */
-    private $path;
+    private $data_path;
     
     /**
      * Set path to QRcode frame images
@@ -81,16 +81,16 @@ class QRcode_Library {
     }
 
     /**
-     * Validate and set $path
+     * Validate and set $data_path
      *
      * @param  $val string
      * @return void
      */
-    private function initialize_path($val) {
+    private function initialize_data_path($val) {
         if ( ! is_string($val)) {
-            $this->invalid_argument_value('path');
+            $this->invalid_argument_value('data_path');
         }
-        $this->path = $val;
+        $this->data_path = $val;
     }
     
     /**
@@ -429,7 +429,7 @@ class QRcode_Library {
 
         // Read in correct baseline data from ECC/RS files
         $byte_num = $matrix_remain_bit[$this->qrcode_version] + ($max_codewords << 3);
-        $filename = $this->path.'qrv'.$this->qrcode_version.'_'.$ec.'.dat';
+        $filename = $this->data_path.'qrv'.$this->qrcode_version.'_'.$ec.'.dat';
         $fp1 = fopen($filename, 'rb');
         $matx = fread($fp1, $byte_num);
         $maty = fread($fp1, $byte_num);
@@ -455,7 +455,7 @@ class QRcode_Library {
 
         $max_data_codewords = ($max_data_bits >> 3);
 
-        $filename = $this->path.'rsc'.$rs_ecc_codewords.'.dat';
+        $filename = $this->data_path.'rsc'.$rs_ecc_codewords.'.dat';
         $fp0 = fopen($filename, 'rb');
         $i = 0;
         while ($i < 256) {
