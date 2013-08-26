@@ -33,7 +33,7 @@ class QRcode_Library {
     private $error_correction_level = 'M';
 
     /**
-     * Size of QRcode is defined as version    
+     * Size of QRcode is defined as version
      * 1-40 or Auto select if you do not set
      * 
      * Version 1 is 21*21 matrix
@@ -387,7 +387,7 @@ class QRcode_Library {
             14744, 15640, 16568, 17528, 18448, 19472, 20528, 21616, 22496, 23648, // Version 31-40
 
             // Data bits for error correction level H
-            72, 128,208, 288, 368, 480, 528, 688, 800, 976, // Version 1-10
+            72, 128, 208, 288, 368, 480, 528, 688, 800, 976, // Version 1-10
             1120, 1264, 1440, 1576, 1784, 2024, 2264, 2504, 2728, 3080, // Version 11-20
             3248, 3536, 3712, 4112, 4304, 4768, 5024, 5288, 5608, 5960, // Version 21-30
             6344, 6760, 7208, 7688, 7888, 8432, 8768, 9136, 9776, 10208, // Version 31-40
@@ -413,12 +413,8 @@ class QRcode_Library {
                 $this->symbol_version++;
             }
         } else {
+            // The specified version may be smaller than what the input string needs
             $max_data_bits = $max_data_bits_array[$this->symbol_version + 40 * $ec];
-        }
-        
-        // Upper limit version is 40
-        if ($this->symbol_version > 40) {
-            exit('QRcode : too large version.');
         }
 
         $total_data_bits += $codeword_num_plus[$this->symbol_version];
