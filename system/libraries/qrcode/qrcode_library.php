@@ -1,7 +1,7 @@
 <?php
 /**
- * QRcode - QR 2D barcode generator
- * based on Y.Swetake's QRcode http://www.swetake.com/qrcode/qr1_en.html
+ * QRcode - QR (Model 2) code generator 
+ * Based on Y.Swetake's QRcode http://www.swetake.com/qrcode/qr1_en.html
  * 
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -33,7 +33,8 @@ class QRcode_Library {
     private $error_correction_level = 'M';
 
     /**
-     * Version (size)    1-40 or Auto select if you do not set
+     * Size of QRcode is defined as version    
+     * 1-40 or Auto select if you do not set
      * 
      * Version 1 is 21*21 matrix
      * and 4 modules increases whenever 1 version increases.
@@ -169,14 +170,14 @@ class QRcode_Library {
     }
     
     /**
-     * Performs all necessary calculations and outputs an image
+     * Performs all necessary calculations and returns an image
      * as defined by the configuration
      * 
      * @var string    the string/data to encode into the QRcode
      * @param array    an array of elements (n, m, parity, original_data)
-     * @return void
+     * @return array
      */
-    public function main($str, array $append = NULL) {
+    public function generate($str, array $append = NULL) {
         $data_length = strlen(rawurldecode(trim($str)));
         if ($data_length <= 0) {
             exit('QRcode : Data do not exist.');
@@ -238,11 +239,12 @@ class QRcode_Library {
         $data_bits[$data_counter] = 4;
 
         // Determine the encoding mode, based on the input data
-        // Supports 8bit, Alphanumeric, and Numeric
+        // Supports 8bit, Alphanumeric (0-9A-Z $%*+-./:), and Numeric (0-9)
         if (preg_match('/[^0-9]/', $str) !== 0) {
             if (preg_match('/[^0-9A-Z \$\*\%\+\.\/\:\-]/', $str) !== 0) {
                 // 8bit byte encoding mode
-             
+                // In theory, 2953 characters or less can be stored in a QRcode
+                
                 $codeword_num_plus = array(
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                     8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
@@ -264,7 +266,7 @@ class QRcode_Library {
                     $i++;
                 }
             } else {
-                // Alphanumeric encoding mode (11 bits per 2 characters)
+                // Alphanumeric encoding mode (0-9A-Z $%*+-./:) 45characters
 
                 $codeword_num_plus = array(
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -308,10 +310,11 @@ class QRcode_Library {
                 }
             }
         } else {
-            // Numeric encoding mode (10 bits per 3 digits)
-
+            // Numeric encoding mode (0-9)
+            // 3 characters are encoded to 10bit length.
+            // In theory, 7089 characters or less can be stored in a QRcode
             $codeword_num_plus = array(
-                0, 0, 0, 0, 0,0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
             );
@@ -351,11 +354,14 @@ class QRcode_Library {
             $i++;
         }
 
-        // Error correction levels
-        // Level L (Low)   7% of codewords can be restored.
-        // Level M (Medium)    15% of codewords can be restored.
-        // Level Q (Quartile)  25% of codewords can be restored.
-        // Level H (High)  30% of codewords can be restored.
+        // http://www.qrstuff.com/blog/2011/12/14/qr-code-error-correction
+        // Reed-Solomon Error Correction algorithm
+        // Level L (Low)   Approx. 7% of codewords can be restored
+        // Level M (Medium)    Approx. 15% of codewords can be restored
+        // Level Q (Quartile)  Approx. 25% of codewords can be restored
+        // Level H (High)  Approx. 30% of codewords can be restored
+        // The lower the error correction level, the less dense the QR code image is, which improves minimum printing size.
+        // The higher the error correction level, the more damage it can sustain before it becomes unreadabale.
         $ecc_character_hash = array(
             'L' => 1,
             'M' => 0,
@@ -365,29 +371,34 @@ class QRcode_Library {
 
         $ec = $ecc_character_hash[$this->error_correction_level]; 
 
+        // Refer to http://www.qrcode.com/en/about/version.html
         $max_data_bits_array = array(
-            0, 128, 224, 352, 512, 688, 864, 992, 1232, 1456, 1728,
-            2032, 2320, 2672, 2920, 3320, 3624, 4056, 4504, 5016, 5352,
-            5712, 6256, 6880, 7312, 8000, 8496, 9024, 9544, 10136, 10984,
-            11640, 12328, 13048, 13800, 14496, 15312, 15936, 16816, 17728, 18672,
+            // Data bits for error correction level M
+            0, 128, 224, 352, 512, 688, 864, 992, 1232, 1456, 1728, // Version 1-10
+            2032, 2320, 2672, 2920, 3320, 3624, 4056, 4504, 5016, 5352, // Version 11-20
+            5712, 6256, 6880, 7312, 8000, 8496, 9024, 9544, 10136, 10984, // Version 21-30
+            11640, 12328, 13048, 13800, 14496, 15312, 15936, 16816, 17728, 18672, // Version 31-40
+            
+            // Data bits for error correction level L
+            152, 272, 440, 640, 864, 1088, 1248, 1552, 1856, 2192, // Version 1-10
+            2592, 2960, 3424, 3688, 4184, 4712, 5176, 5768, 6360, 6888, // Version 11-20
+            7456, 8048, 8752, 9392, 10208, 10960, 11744, 12248, 13048, 13880, // Version 21-30
+            14744, 15640, 16568, 17528, 18448, 19472, 20528, 21616, 22496, 23648, // Version 31-40
 
-            152, 272, 440, 640, 864, 1088, 1248, 1552, 1856, 2192,
-            2592, 2960, 3424, 3688, 4184, 4712, 5176, 5768, 6360, 6888,
-            7456, 8048, 8752, 9392, 10208, 10960,11744, 12248, 13048, 13880,
-            14744, 15640, 16568, 17528, 18448, 19472, 20528, 21616, 22496, 23648,
+            // Data bits for error correction level H
+            72, 128,208, 288, 368, 480, 528, 688, 800, 976, // Version 1-10
+            1120, 1264, 1440, 1576, 1784, 2024, 2264, 2504, 2728, 3080, // Version 11-20
+            3248, 3536, 3712, 4112, 4304, 4768, 5024, 5288, 5608, 5960, // Version 21-30
+            6344, 6760, 7208, 7688, 7888, 8432, 8768, 9136, 9776, 10208, // Version 31-40
 
-            72, 128,208, 288, 368, 480, 528, 688, 800, 976,
-            1120, 1264, 1440, 1576, 1784, 2024, 2264, 2504, 2728, 3080,
-            3248, 3536, 3712, 4112, 4304, 4768, 5024, 5288, 5608, 5960,
-            6344, 6760, 7208, 7688, 7888, 8432, 8768, 9136, 9776, 10208,
-
-            104, 176, 272, 384, 496, 608, 704, 880, 1056, 1232,
-            1440, 1648, 1952, 2088, 2360, 2600, 2936, 3176, 3560, 3880,
-            4096, 4544, 4912, 5312, 5744, 6032, 6464, 6968, 7288, 7880,
-            8264, 8920, 9368, 9848, 10288, 10832, 11408, 12016, 12656, 13328
+            // Data bits for error correction level Q
+            104, 176, 272, 384, 496, 608, 704, 880, 1056, 1232, // Version 1-10
+            1440, 1648, 1952, 2088, 2360, 2600, 2936, 3176, 3560, 3880, // Version 11-20
+            4096, 4544, 4912, 5312, 5744, 6032, 6464, 6968, 7288, 7880, // Version 21-30
+            8264, 8920, 9368, 9848, 10288, 10832, 11408, 12016, 12656, 13328 // Version 31-40
         );
         
-        // Calculate the QR code version if not specified
+        // Calculate the most appropriate QR code version if not specified
         if ( ! $this->symbol_version) {      
             $i = 1 + 40 * $ec;
             $j = $i + 39;
@@ -538,7 +549,7 @@ class QRcode_Library {
             }
         }
 
-        // RS-ECC prepare
+        // Reed–Solomon (RS) Error Correction Levels (ECC) preparation
 
         $i = 0;
         $j = 0;
@@ -666,7 +677,6 @@ class QRcode_Library {
             $demerit_n3 = substr_count($hor, $n3_search) * 40;
             $demerit_n4 = floor(abs(((100 * (substr_count($ver, chr($bit_r))/($byte_num)))-50)/5)) * 10;
 
-
             $n2_search1 = '/'.chr($bit_r).chr($bit_r).'+/';
             $n2_search2 = '/'.chr(255).chr(255).'+/';
             $demerit_n2 = 0;
@@ -730,13 +740,18 @@ class QRcode_Library {
         if ($image_size > 1480) {
             exit('QRcode : Too large image size');
         }
+        
+        // Create a new palette based image
         $output_image = imagecreate($image_size, $image_size);
+        // Find the corresponding version template
+        $version_template = $this->image_path.'qrv'.$this->symbol_version.'.png';
 
-        $this->image_path = $this->image_path.'qrv'.$this->symbol_version.'.png';
+        // Create a base image from PNG template file
+        $base_image = imagecreatefrompng($version_template);
 
-        $base_image = imagecreatefrompng($this->image_path);
-
+        // White
         $col[1] = imagecolorallocate($base_image, 0, 0, 0);
+        // Black
         $col[0] = imagecolorallocate($base_image, 255, 255, 255);
 
         $i = 4;
@@ -756,14 +771,29 @@ class QRcode_Library {
             $ii++;
         }
         
-        // Output image
-        header("Content-type: image/".$this->output_image_type);
+        // Copy the base image to the destination image
         imagecopyresized($output_image, $base_image, 0, 0, 0, 0, $image_size, $image_size, $mib, $mib);
+
+        // Capture the rendered output
+        // Turn on output buffering
+        ob_start();
+        
+        // Output image to browser
         if ($this->output_image_type === 'jpeg') {
             imagejpeg($output_image);
         } else {
             imagepng($output_image);
         }
+        
+        $image_content = ob_get_contents();
+        // Clean (erase) the output buffer and turn off output buffering
+        ob_end_clean();
+        
+        // Return the image type and content
+        return array(
+            'image_type' => 'image/'.$this->output_image_type,
+            'image_content' => $image_content
+        );
     }
 
 }
