@@ -610,6 +610,8 @@ class QRcode_Library {
         }
 
         // Selects the mask to use
+        // Masks are used to generate QR Codes with a good distribution of 
+        // black and white modules (close to 50:50 and distributed well over the whole code).
 
         $min_demerit_score = 0;
         $hor_master = '';
