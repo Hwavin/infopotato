@@ -190,11 +190,11 @@ class QRcode_Library {
         if ( ! empty($append)) {
             if (isset($append['n']) && isset($append['m']) && isset($append['parity']) && isset($append['original_data'])) {
                 // Validation
-                if ( ! is_int($append['n']) || ($$append['n'] > 16) || ($$append['n'] < 2)) {
+                if ( ! is_int($append['n']) || ($append['n'] > 16) || ($append['n'] < 2)) {
                     exit('Appended structure data n is not valid');
                 }
                 
-                if ( ! is_int($append['m']) || ($$append['m'] > 16) || ($$append['n'] < 1)) {
+                if ( ! is_int($append['m']) || ($append['m'] > 16) || ($append['n'] < 1)) {
                     exit('Appended structure data m is not valid');
                 }
                 
