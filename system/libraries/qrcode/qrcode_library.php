@@ -263,6 +263,7 @@ class QRcode_Library {
             // Numeric encoding mode (0-9)
             // 3 characters are encoded to 10bit length.
             // In theory, 7089 characters or less can be stored in a QRcode
+            
             $codeword_num_plus = array(
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -282,13 +283,13 @@ class QRcode_Library {
                     $data_value[$data_counter] = substr($str, $i, 1);
                     $data_bits[$data_counter] = 4;
                 } else {
-                     $data_value[$data_counter] = $data_value[$data_counter] * 10 + substr($str, $i, 1);
-                 if (($i % 3) === 1) {
-                     $data_bits[$data_counter] = 7;
-                 } else {
-                     $data_bits[$data_counter] = 10;
-                     $data_counter++;
-                 }
+                    $data_value[$data_counter] = $data_value[$data_counter] * 10 + substr($str, $i, 1);
+                    if (($i % 3) === 1) {
+                        $data_bits[$data_counter] = 7;
+                    } else {
+                        $data_bits[$data_counter] = 10;
+                        $data_counter++;
+                    }
                 }
                 $i++;
             }
@@ -299,7 +300,7 @@ class QRcode_Library {
         }
         $i = 0;
         $total_data_bits = 0;
-        while($i < $data_counter){
+        while ($i < $data_counter) {
             $total_data_bits += $data_bits[$i];
             $i++;
         }
@@ -397,8 +398,7 @@ class QRcode_Library {
 
         // Read in correct baseline data from ECC/RS files
         $byte_num = $matrix_remain_bit[$this->symbol_version] + ($max_codewords << 3);
-        $filename = $this->data_path.'qrv'.$this->symbol_version.'_'.$ec.'.dat';
-        $fp1 = fopen($filename, 'rb');
+        $fp1 = fopen($this->data_path.'qrv'.$this->symbol_version.'_'.$ec.'.dat', 'rb');
         $matx = fread($fp1, $byte_num);
         $maty = fread($fp1, $byte_num);
         $masks = fread($fp1, $byte_num);
@@ -423,8 +423,7 @@ class QRcode_Library {
 
         $max_data_codewords = ($max_data_bits >> 3);
 
-        $filename = $this->data_path.'rsc'.$rs_ecc_codewords.'.dat';
-        $fp0 = fopen($filename, 'rb');
+        $fp0 = fopen($this->data_path.'rsc'.$rs_ecc_codewords.'.dat', 'rb');
         $i = 0;
         while ($i < 256) {
             $rs_cal_table_array[$i] = fread($fp0, $rs_ecc_codewords);
@@ -693,6 +692,7 @@ class QRcode_Library {
         // png uses 4 pixels, jpeg uses 8 pixels
         $module_size = ($this->output_image_type === 'jpeg') ? $this->pixels_per_module * 2 : $this->pixels_per_module;
         $image_size = $mib * $module_size;
+        // Max image size of 1480*1480 pixels
         if ($image_size > 1480) {
             exit('QRcode : Too large image size');
         }
