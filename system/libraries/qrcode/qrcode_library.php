@@ -174,68 +174,17 @@ class QRcode_Library {
      * as defined by the configuration
      * 
      * @var string    the string/data to encode into the QRcode
-     * @param array    an array of elements (n, m, parity, original_data)
      * @return array
      */
-    public function generate($str, array $append = NULL) {
+    public function generate($str) {
         $data_length = strlen(trim($str));
 
         if ($data_length <= 0) {
             exit('QRcode : Data to be encoded is empty.');
         }
         
+        $data_bits = array();
         $data_counter = 0;
-
-        // Set and apply structured append if provided
-        if ( ! empty($append)) {
-            if (isset($append['n']) && isset($append['m']) && isset($append['parity']) && isset($append['original_data'])) {
-                // Validation
-                if ( ! is_int($append['n']) || ($append['n'] > 16) || ($append['n'] < 2)) {
-                    exit('Appended structure data n is not valid');
-                }
-                
-                if ( ! is_int($append['m']) || ($append['m'] > 16) || ($append['n'] < 1)) {
-                    exit('Appended structure data m is not valid');
-                }
-                
-                // Structured append n (2-16)
-                $structured_append_n = $append['n'];
-                // Structured append m (1-16)
-                $structured_append_m = $append['m'];
-                // Parity (0-255)
-                $structured_append_parity = $append['parity'];
-                // Original data (URL encoded data) for calculating parity
-                $structured_append_original_data = $append['original_data'];
-                
-                // Apply structured append
-                $data_value[0] = 3;
-                $data_bits[0] = 4;
-
-                $data_value[1] = $structured_append_m - 1;
-                $data_bits[1] = 4;
-
-                $data_value[2] = $structured_append_n - 1;
-                $data_bits[2] = 4;
-
-                $originaldata_length = strlen($structured_append_original_data);
-                if ($originaldata_length > 1) {
-                    $structured_append_parity = 0;
-                    $i = 0;
-                    while ($i < $originaldata_length) {
-                        // ^ is bit Xor (exclusive or)
-                        $structured_append_parity = ($structured_append_parity ^ ord(substr($structured_append_original_data, $i, 1)));
-                        $i++;
-                    }
-                }
-
-                $data_value[3] = $structured_append_parity;
-                $data_bits[3] = 8;
-
-                $data_counter = 4;
-            } else {
-                exit('Appended structure data is not valid');
-            }
-        }
 
         $data_bits[$data_counter] = 4;
 
