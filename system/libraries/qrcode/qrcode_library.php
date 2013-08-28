@@ -183,6 +183,7 @@ class QRcode_Library {
             exit('QRcode : Data to be encoded is empty.');
         }
         
+        $data_value = array();
         $data_bits = array();
         $data_counter = 0;
 
@@ -210,13 +211,14 @@ class QRcode_Library {
                 $data_counter++;
                 $i = 0;
                 while ($i < $data_length) {
+                    // Returns the ASCII value as an integer
                     $data_value[$data_counter] = ord(substr($str, $i, 1));
-                    $data_bits[$data_counter] = 8;
+                    $data_bits[$data_counter] = 8; // In 8bit byte mode, each value is directly encoded in 8bit long binary representation
                     $data_counter++;
                     $i++;
                 }
             } else {
-                // Alphanumeric encoding mode (0-9A-Z $%*+-./:) 45characters
+                // Alphanumeric encoding mode (0-9A-Z $%*+-./:) 45 characters
 
                 $codeword_num_plus = array(
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -233,6 +235,8 @@ class QRcode_Library {
                 // Alphanumeric encoding mode stores a message more compactly than the byte mode can, 
                 // but cannot store lower-case letters and has only a limited selection of punctuation marks, 
                 // which are sufficient for most web addresses.
+                // 45 allowed characters in alphanumeric encoding mode
+                // In alphanumeric mode, each character is converted to value in rule of the following hash table
                 $alphanumeric_character_hash = array(
                     '0' => 0, '1' => 1, '2' => 2, '3' => 3, '4' => 4, 
                     '5' => 5, '6' => 6, '7' => 7, '8' => 8, '9' => 9,
@@ -248,12 +252,19 @@ class QRcode_Library {
                 $i = 0;
                 $data_counter++;
                 while ($i < $data_length) {
+                    // Next we consider delimited data by 2 numbers. 
+                    // First value increases 45 times and second value is added to it. 
+                    // Result value is encoded in 11bit long binary representation. 
+                    // When length of delimited data is 1, 6bit long are used.
                     if (($i % 2) === 0){
+                        // The extracted part of input string
                         $data_value[$data_counter] = $alphanumeric_character_hash[substr($str, $i, 1)];
-                        $data_bits[$data_counter] = 6;
+                        $data_bits[$data_counter] = 6; // 6bit long binary representation
                     } else {
+                        // Two characters are coded in an 11-bit value by this formula: V = 45 * C1 + C2
+                        // The reason why multiply 45 is because there are 45 allowed characters
                         $data_value[$data_counter] = $data_value[$data_counter] * 45 + $alphanumeric_character_hash[substr($str, $i, 1)];
-                        $data_bits[$data_counter] = 11;
+                        $data_bits[$data_counter] = 11; // 11bit long binary representation
                         $data_counter++;
                     }
                     $i++;
@@ -263,6 +274,8 @@ class QRcode_Library {
             // Numeric encoding mode (0-9)
             // 3 characters are encoded to 10bit length.
             // In theory, 7089 characters or less can be stored in a QRcode
+            // In numeric mode ,data is delimited by 3 digits.
+            // For example, "123456" is delimited "123" and "456", and first data is "123", second data is "456".
             
             $codeword_num_plus = array(
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -281,13 +294,13 @@ class QRcode_Library {
             while ($i < $data_length) {
                 if (($i % 3) === 0) {
                     $data_value[$data_counter] = substr($str, $i, 1);
-                    $data_bits[$data_counter] = 4;
+                    $data_bits[$data_counter] = 4; // 4bit long binary representation
                 } else {
                     $data_value[$data_counter] = $data_value[$data_counter] * 10 + substr($str, $i, 1);
                     if (($i % 3) === 1) {
-                        $data_bits[$data_counter] = 7;
+                        $data_bits[$data_counter] = 7; // 7bit long binary representation
                     } else {
-                        $data_bits[$data_counter] = 10;
+                        $data_bits[$data_counter] = 10; // 10bit long binary representation
                         $data_counter++;
                     }
                 }
@@ -298,6 +311,7 @@ class QRcode_Library {
         if (@$data_bits[$data_counter] > 0) {
             $data_counter++;
         }
+        
         $i = 0;
         $total_data_bits = 0;
         while ($i < $data_counter) {
@@ -313,11 +327,13 @@ class QRcode_Library {
         // Level H (High)  Approx. 30% of codewords can be restored
         // The lower the error correction level, the less dense the QR code image is, which improves minimum printing size.
         // The higher the error correction level, the more damage it can sustain before it becomes unreadabale.
+        // Format information includes error correcting level and mask pattern indicator in 15 bit long.
+        // First 2 bit are error correcting level in below. 
         $ecc_character_hash = array(
-            'L' => 1,
-            'M' => 0,
-            'Q' => 3,
-            'H' => 2,
+            'L' => 1, // 01
+            'M' => 0, // 00
+            'Q' => 3, // 11
+            'H' => 2, // 10
         );
 
         $ec = $ecc_character_hash[$this->error_correction_level]; 
@@ -381,6 +397,8 @@ class QRcode_Library {
         $total_data_bits += $codeword_num_plus[$this->symbol_version];
         $data_bits[$codeword_num_counter_value] += $codeword_num_plus[$this->symbol_version];
 
+        // RS block means all code words, data code words, possible count of correcting error words.
+        // http://www.swetake.com/qrcode/qr_table2.html
         $max_codewords_array = array(
             0, 26, 44, 70, 100, 134, 172, 196, 242,
             292, 346, 404, 466, 532, 581, 655, 733, 815, 901, 991, 1085, 1156,
@@ -605,6 +623,7 @@ class QRcode_Library {
             }
             $k++;
         }
+        
         $i = 0;
         $all_matrix = $max_modules_1side * $max_modules_1side; 
         while ($i < 8) {
