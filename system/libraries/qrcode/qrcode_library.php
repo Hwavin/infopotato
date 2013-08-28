@@ -195,6 +195,7 @@ class QRcode_Library {
             if (preg_match('/[^0-9A-Z \$\*\%\+\.\/\:\-]/', $str) !== 0) {
                 // 8bit byte encoding mode (possible characters: ISO 8859-1)
                 // In theory, 2953 characters or less can be stored in a QRcode
+                // Chinese (UTF8) uss 8bit encoding
                 
                 $codeword_num_plus = array(
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
