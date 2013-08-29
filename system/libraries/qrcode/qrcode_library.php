@@ -444,6 +444,7 @@ class QRcode_Library {
         $max_data_codewords = ($max_data_bits >> 3);
 
         $fp0 = fopen($this->data_path.'rsc'.$rs_ecc_codewords.'.dat', 'rb');
+        
         $i = 0;
         $rs_cal_table_array = array();
         while ($i < 256) {
@@ -602,7 +603,7 @@ class QRcode_Library {
             $j = 8;
             while ($j >= 1) {
                 $codeword_bits_number = ($i << 3) +  $j;
-                $matrix_content[ $matrix_x_array[$codeword_bits_number] ][ $matrix_y_array[$codeword_bits_number] ] = ((255*($codeword_i & 1)) ^ $mask_array[$codeword_bits_number] ); 
+                $matrix_content[ $matrix_x_array[$codeword_bits_number] ][ $matrix_y_array[$codeword_bits_number] ] = ((255 * ($codeword_i & 1)) ^ $mask_array[$codeword_bits_number] ); 
                 $codeword_i = $codeword_i >> 1;
                 $j--;
             }
@@ -666,11 +667,14 @@ class QRcode_Library {
             $n2_search2 = '/'.chr(255).chr(255).'+/';
             $demerit_n2 = 0;
             preg_match_all($n2_search1, $ver_and, $ptn_temp);
+            
             foreach ($ptn_temp[0] as $str_temp) {
                 $demerit_n2 += (strlen($str_temp) - 1);
             }
+            
             $ptn_temp = array();
             preg_match_all($n2_search2, $ver_or, $ptn_temp);
+            
             foreach ($ptn_temp[0] as $str_temp) {
                 $demerit_n2 += (strlen($str_temp) - 1);
             }
@@ -679,6 +683,7 @@ class QRcode_Library {
             $ptn_temp = array();
 
             preg_match_all($n1_search,$hor, $ptn_temp);
+            
             foreach ($ptn_temp[0] as $str_temp) {
                 $demerit_n1 += (strlen($str_temp) - 2);
             }
