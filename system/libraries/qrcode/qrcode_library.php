@@ -256,7 +256,7 @@ class QRcode_Library {
                     // Next we consider delimited data by 2 numbers. 
                     // First value increases 45 times and second value is added to it. 
                     // Result value is encoded in 11bit long binary representation. 
-                    // When length of delimited data is 1, 6bit long are used.
+                    // When length of delimited data is 1, 6bit long is used.
                     if (($i % 2) === 0){
                         // The extracted part of input string
                         $data_value[$data_counter] = $alphanumeric_character_hash[substr($str, $i, 1)];
@@ -445,6 +445,7 @@ class QRcode_Library {
 
         $fp0 = fopen($this->data_path.'rsc'.$rs_ecc_codewords.'.dat', 'rb');
         $i = 0;
+        $rs_cal_table_array = array();
         while ($i < 256) {
             $rs_cal_table_array[$i] = fread($fp0, $rs_ecc_codewords);
             $i++;
@@ -452,7 +453,8 @@ class QRcode_Library {
         fclose($fp0);
 
         // Set terminator for data
-
+        // We add 0000 to result data
+        // When length of encoded data is full in this version and error correcting level, terminator is not needed.
         if ($total_data_bits <= $max_data_bits - 4) {
             $data_value[$data_counter] = 0;
             $data_bits[$data_counter] = 4;
@@ -467,7 +469,9 @@ class QRcode_Library {
             }
         }
 
+        // Encode to code words
         // Divide data by 8bit
+        // If last data length is less than 8, padded 0
 
         $i = 0;
         $codewords_counter = 0;
@@ -480,6 +484,8 @@ class QRcode_Library {
 
             $flag = 1;
             while ($flag) {
+                // If count of code words is less than symbol's capacity,
+                // then we alternately put "11101100" and "00010001" until full capacity.
                 if ($remaining_bits > $buffer_bits) {  
                     $codewords[$codewords_counter] = ((@$codewords[$codewords_counter] << $buffer_bits) | $buffer);
                     $remaining_bits -= $buffer_bits;
