@@ -275,9 +275,7 @@ class QRcode_Library {
             // Numeric encoding mode (0-9)
             // 3 characters are encoded to 10bit length.
             // In theory, 7089 characters or less can be stored in a QRcode
-            // In numeric mode ,data is delimited by 3 digits.
-            // For example, "123456" is delimited "123" and "456", and first data is "123", second data is "456".
-            
+
             $codeword_num_plus = array(
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -293,6 +291,9 @@ class QRcode_Library {
             $i = 0;
             $data_counter++;
             while ($i < $data_length) {
+                // In numeric mode, data is delimited by 3 digits. 
+                // For example, "12345678" is delimited "123", "456" and "78"
+                // When length of delimited data is 1 or 2, 4bit long or 7bit long used in each case.
                 if (($i % 3) === 0) {
                     $data_value[$data_counter] = substr($str, $i, 1);
                     $data_bits[$data_counter] = 4; // 4bit long binary representation
@@ -304,12 +305,12 @@ class QRcode_Library {
                         $data_bits[$data_counter] = 10; // 10bit long binary representation
                         $data_counter++;
                     }
-                }
+                } 
                 $i++;
             }
         }
         
-        if (@$data_bits[$data_counter] > 0) {
+        if (isset($data_bits[$data_counter]) && $data_bits[$data_counter] > 0) {
             $data_counter++;
         }
         
