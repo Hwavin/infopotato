@@ -122,7 +122,7 @@ class Output_Cache_Library {
      * @return    boolean
      */
     public function set($key, $data, $ttl = 3600) {  
-        if ( ! is_dir($this->cache_dir) || ! $this->is_writable($this->cache_dir)) {
+        if ( ! is_dir($this->cache_dir) || ! is_writable($this->cache_dir)) {
             return FALSE;  
         }
         $cache_path = $this->name($key);  
