@@ -60,7 +60,7 @@ class Base_DAO {
      * @return int Number of rows affected/selected or false on error
      */
     public function exec_query($query) {}
-	
+
     /**
      * Gets one single data cell from the database
      *
@@ -97,7 +97,7 @@ class Base_DAO {
         
         return $return_val;
     }
-	
+
     /**
      * Gets a single row from the database
      * If the query returns more than one row and no row offset is supplied the first row within the results set will be returned by default.
@@ -130,7 +130,7 @@ class Base_DAO {
         
         return $return_val;
     }
-	
+
     /**
      * Extracts one column as one dimensional array based on a column offset.
      *
@@ -149,7 +149,7 @@ class Base_DAO {
         if ($this->query_result !== array()) {
             // Extract the column values
             $cnt = count($this->query_result);
-			
+
             if ($x >= count(get_object_vars($this->query_result[0]))) {
                 halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
             }
@@ -162,10 +162,10 @@ class Base_DAO {
                 }
             }
         }
-		
+
         return $return_val;
     }
-	
+
     /**
      * Gets multiple rows of results from the database based on query and returns them as a multi dimensional array.
      *

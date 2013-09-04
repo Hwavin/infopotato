@@ -50,7 +50,7 @@ class MySQL_DAO extends Base_DAO {
             }
         }
     }
-	
+
     /** 
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
@@ -76,12 +76,12 @@ class MySQL_DAO extends Base_DAO {
     public function prepare($query, array $params = NULL) { 
         // All variables in $params must be set before being passed to this function
         // if any variables are not set (will be NULL) will cause error in SQL
-        if (count($params) > 0) {             
+        if (count($params) > 0) {
             $pos_list = array();
             $pos_adj = 0;
-			
+
             $bind_types = array('%s', '%i', '%f');
-			
+
             foreach ($bind_types as $type) {
                 $last_pos = 0;
                 while (($pos = strpos($query, $type, $last_pos)) !== FALSE) {
@@ -96,12 +96,12 @@ class MySQL_DAO extends Base_DAO {
             // By default $pos_list is ordered by the position of %s, %i, %f in the query
             // We need to reorder $pos_list so that it will be ordered by the key (position) from small to big
             ksort($pos_list);
-			
+
             foreach ($pos_list as $pos => $type) {
                 $type_length = strlen($type);
-				
+
                 $arg = array_shift($params);
-				
+
                 if ($type === '%s') {
                     // Only single quote and escape string
                     // is_string() will take '' as string
@@ -129,7 +129,7 @@ class MySQL_DAO extends Base_DAO {
                 } else {
                     halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
                 }
-				
+
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
                 // Adjust the start offset for next replace
                 $pos_adj += strlen($arg) - ($type_length);
@@ -145,23 +145,23 @@ class MySQL_DAO extends Base_DAO {
      */
     public function exec_query($query) {
         $return_val = 0;
-		
+
         // Reset stored query result
         $this->query_result = array();
-		
+
         // For reg expressions
         $query = trim($query);
-		
+
         // For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset, 
         // mysql_query() returns a resource on success, or FALSE on error.
         // For INSERT, UPDATE, DELETE, DROP, etc, mysql_query() returns TRUE on success or FALSE on error.
         $result = mysql_query($query, $this->dbh);
-		
+
         // If there is an error then take note of it.
         if ($err_msg = mysql_error($this->dbh)) {
             halt('An Error Was Encountered', $err_msg, 'sys_error');        
         }
-		
+
         // Query was an insert, delete, drop, update, replace, alter
         // mysql_query() returns TRUE on success or FALSE on error
         if (preg_match("/^(insert|delete|truncate|drop|update|replace|alter)\s+/i", $query)) {
@@ -171,7 +171,7 @@ class MySQL_DAO extends Base_DAO {
             // This creates the possibility that mysql_affected_rows() may not actually equal the number of rows matched, 
             // only the number of rows that were literally affected by the query.
             $rows_affected = mysql_affected_rows($this->dbh);
-			
+
             // Take note of the last_insert_id
             // REPLACE works exactly like INSERT, except that if an old row in the table has the same value 
             // as a new row for a PRIMARY KEY or a UNIQUE index, the old row is deleted before the new row is inserted.
@@ -189,22 +189,22 @@ class MySQL_DAO extends Base_DAO {
                 $this->query_result[$num_rows] = $row;
                 $num_rows++;
             }
-			
+
             mysql_free_result($result);
-			
+
             // Log number of rows the query returned
             $this->num_rows = $num_rows;
-			
+
             // Return number of rows selected
             $return_val = $this->num_rows;
         } elseif (preg_match("/^create\s+/i", $query)) {
             // Table creation returns TRUE on success, or FALSE on error.
             $return_val = $result;
         }
-		
+
         return $return_val;
     }
-	
+
     /**
      * Begin Transaction using standard sql
      * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
@@ -235,7 +235,7 @@ class MySQL_DAO extends Base_DAO {
         mysql_query('ROLLBACK', $this->dbh);
         mysql_query('SET AUTOCOMMIT=1', $this->dbh);
     }
-	
+
 }
 
 // End of file: ./system/core/mysql_dao.php

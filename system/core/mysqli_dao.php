@@ -25,13 +25,13 @@ class MySQLi_DAO extends Base_DAO {
         // If there is no existing database connection then try to connect
         if ( ! is_object($this->mysqli)) {
             $this->mysqli = new mysqli($config['host'], $config['user'], $config['pass'], $config['name'], $config['port']);
-			
+
             // Use this instead of $connect_error if you need to ensure
             // compatibility with PHP versions prior to 5.2.9 and 5.3.0.
             if (mysqli_connect_error()) {
                 halt('An Error Was Encountered', 'Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error(), 'sys_error');        
             }
-			
+
             // Use utf8mb4 as the character set and utf8mb4_general_ci as the collation if MySQL > 5.5
             // Use utf8 as the character set and utf8_unicode_ci as the collation if MySQL < 5.5
             if (method_exists($this->mysqli, 'set_charset')) { 
@@ -47,7 +47,7 @@ class MySQLi_DAO extends Base_DAO {
             }
         }
     }
-	
+
     /** 
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
@@ -76,9 +76,9 @@ class MySQLi_DAO extends Base_DAO {
         if (count($params) > 0) {             
             $pos_list = array();
             $pos_adj = 0;
-			
+
             $bind_types = array('%s', '%i', '%f');
-			
+
             foreach ($bind_types as $type) {
                 $last_pos = 0;
                 while (($pos = strpos($query, $type, $last_pos)) !== FALSE) {
@@ -93,12 +93,12 @@ class MySQLi_DAO extends Base_DAO {
             // By default $pos_list is ordered by the position of %s, %i, %f in the query
             // We need to reorder $pos_list so that it will be ordered by the key (position) from small to big
             ksort($pos_list);
-			
+
             foreach ($pos_list as $pos => $type) {
                 $type_length = strlen($type);
-				
+
                 $arg = array_shift($params);
-				
+
                 if ($type === '%s') {
                     // Only single quote and escape string
                     // is_string() will take '' as string
@@ -126,7 +126,7 @@ class MySQLi_DAO extends Base_DAO {
                 } else {
                     halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
                 }
-				
+
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
                 // Adjust the start offset for next replace
                 $pos_adj += strlen($arg) - ($type_length);
@@ -143,24 +143,24 @@ class MySQLi_DAO extends Base_DAO {
     public function exec_query($query) {
         // Initialise return
         $return_val = 0;
-		
+
         // Reset stored query result
         $this->query_result = array();
-		
+
         // For reg expressions
         $query = trim($query);
-		
+
         // Perform the query via std mysqli_query() function.
         // Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
         // queries mysqli_query() will return a result object. 
         // For other successful queries mysqli_query() will return TRUE.
         $result = $this->mysqli->query($query);
-		
+
         // If there is an error then take note of it.
         if ($err_msg = $this->mysqli->error) {
             halt('An Error Was Encountered', $err_msg, 'sys_error');        
         }
-		
+
         // Query was an insert, delete, drop, update, replace, alter
         if (preg_match("/^(insert|delete|drop|supdate|replace|alter)\s+/i", $query)) {
             // When using UPDATE, MySQL will not update columns where the new value is the same as the old value. 
@@ -184,22 +184,22 @@ class MySQLi_DAO extends Base_DAO {
                 $this->query_result[$num_rows] = $row;
                 $num_rows++;
             }
-			
+
             $result->free_result();
-			
+
             // Log number of rows the query returned
             $this->num_rows = $num_rows;
-			
+
             // Return number of rows selected
             $return_val = $this->num_rows;
         } elseif (preg_match("/^create\s+/i", $query)) {
             // Table creation returns TRUE on success, or FALSE on error.
             $return_val = $result;
         }
-		
+
         return $return_val;
     }
-	
+
     /**
      * Disable autocommit to begin transaction
      * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
