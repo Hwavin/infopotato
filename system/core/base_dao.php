@@ -190,13 +190,15 @@ class Base_DAO {
                 // $row is object
                 foreach($this->query_result as $row) {
                     $return_val[$i] = get_object_vars($row);
-					
+
                     if ($output === 'FETCH_NUM') {
                         $return_val[$i] = array_values($return_val[$i]);
                     }
                     $i++;
                 }
             }
+        } else {
+            halt('A System Error Was Encountered', " \$db->get_all() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
         }
         
         return $return_val;
