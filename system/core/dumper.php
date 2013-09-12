@@ -649,8 +649,7 @@ class Dumper {
                 }
             </style>
 SCRIPTS;
-        $out = str_replace("\n", ' ', $out);
-        $out = str_replace("\r", ' ', $out);
+
         echo $out;
     }
     
