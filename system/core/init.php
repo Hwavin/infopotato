@@ -170,7 +170,7 @@ function halt($heading, $message, $template = 'sys_error') {
  * Displays information about a variable in a human readable way
  * 
  * @param    mixed the variable to be dumped
- * @param    force type
+ * @param    force type for xml
  * @param    collapse or not
  * @return    void
  */

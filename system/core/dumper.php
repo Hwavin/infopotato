@@ -34,7 +34,7 @@ class Dumper {
      * Displays information about a variable in a human readable way
      * 
      * @param    mixed the variable to be dumped
-     * @param    force type
+     * @param    force type for xml
      * @param    collapse or not
      * @return    void
      */
@@ -81,7 +81,7 @@ class Dumper {
         // Check for any included/required files. if found, get array of the last included file (they contain the right line numbers)
         for ($i = $cnt - 1; $i >= 0; $i--) {
             $current = $trace[$i];
-            if (array_key_exists('function', $current) && (in_array($current['function'], $include) || (0 != strcasecmp($current['function'], 'dump')))) {
+            if (array_key_exists('function', $current) && (in_array($current['function'], $include) || (strcasecmp($current['function'], 'dump') !== 0))) {
                 continue;
             }
             
@@ -113,7 +113,7 @@ class Dumper {
     private static function make_table_header($type, $header, $colspan = 2) {
         $var_info = self::get_var_info();
         if ($var_info !== array()) {
-            if( ! self::$initialized) {
+            if ( ! self::$initialized) {
                 $header = $var_info['var_name'].' ('.$header.') <span class="dump_file_n_line">'.$var_info['file_name'].' - line '.$var_info['line_number'].'</span>';
                 self::$initialized = TRUE;
             }
@@ -298,6 +298,7 @@ class Dumper {
                         $value = (is_object($value)) ? "*RECURSION* -> $".get_class($value) : "*RECURSION*";
                     }
                 }
+                
                 if (in_array(gettype($value), self::$arr_type)) {
                     self::check_type($value);
                 } else {
@@ -305,6 +306,7 @@ class Dumper {
                 }
                 self::close_td_row();
             }
+            
             $arr_obj_methods = get_class_methods(get_class($var));
             foreach ($arr_obj_methods as $key => $value) {
                 self::make_td_header('object', $value);
@@ -328,12 +330,6 @@ class Dumper {
         self::make_table_header('resourceC', 'resource', 1);
         echo '<tr><td>';
         switch (get_resource_type($var)) {
-            case 'mysql result':
-            case 'pgsql result':
-                $db = current(explode(' ', get_resource_type($var)));
-                self::var_is_db_resource($var, $db);
-                break;
-            
             case 'gd':
                 self::var_is_gd_resource($var);
                 break;
@@ -344,54 +340,6 @@ class Dumper {
         }
         self::close_td_row();
         echo '</table>';
-    }
-
-    /**
-     * If variable is a database resource type
-     * 
-     * @return    void
-     */
-    private static function var_is_db_resource($var, $db = 'mysql') {
-        if ($db == 'pgsql') {
-            $db = 'pg';
-        }
-        $arr_fields = array('name', 'type', 'flags');    
-        $num_rows = call_user_func($db.'_num_rows', $var);
-        $num_fields = call_user_func($db.'_num_fields', $var);
-        self::make_table_header("resource", $db." result", $num_fields + 1);
-        echo '<tr><td class="dump_resource_key">&nbsp;</td>';
-        for ($i = 0; $i < $num_fields; $i++) {
-            $field_header = '';
-            for ($j = 0; $j < count($arr_fields); $j++) {
-                $db_func = $db.'_field_'.$arr_fields[$j];
-                if (function_exists($db_func)) {
-                    $fheader = call_user_func($db_func, $var, $i). ' ';
-                    if ($j == 0) {
-                        $field_name = $fheader;
-                    } else {
-                        $field_header .= $fheader;
-                    }
-                }
-            }
-            $field[$i] = call_user_func($db.'_fetch_field', $var, $i);
-            echo '<td class="dump_resource_key" title="'.$field_header.'">'.$field_name.'</td>';
-        }
-        echo '</tr>';
-        for ($i = 0; $i < $num_rows; $i++) {
-            $row = call_user_func($db.'_fetch_array', $var, constant(strtoupper($db).'_ASSOC'));
-            $out .= '<tr><td class="dump_resource_key">'.($i+1).'</td>'; 
-            for ($k = 0; $k < $num_fields; $k++) {
-                $tempField = $field[$k]->name;
-                $field_row = $row[($field[$k]->name)];
-                $field_row = ($field_row == '') ? "[empty string]" : $field_row;
-                echo '<td>'.$field_row.'</td>';
-            }
-            echo '</tr>';
-        }
-        echo '</table>';
-        if ($num_rows > 0) {
-            call_user_func($db.'_data_seek', $var, 0);
-        }
     }
 
     /**
