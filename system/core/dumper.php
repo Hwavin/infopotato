@@ -53,6 +53,7 @@ class Dumper {
         self::init_js_and_css();
         
         if ($force_type === '') {
+            // Check variable type
             self::check_type($var);
         } else {
             // $force_type is REQUIRED for dumping an xml string or xml file
@@ -121,7 +122,7 @@ class Dumper {
         
         $str_i = (self::$collapsed) ? 'style="font-style:italic" ' : ''; 
         
-        echo '<table cellspacing="1" cellpadding="2" class="dump_'.$type.'"><tr><td '.$str_i.'class="dump_'.$type.'_header" colspan="'.$colspan.'" onClick="dump_toggle_table(this)">'.$header.'</td></tr>';
+        echo '<table cellspacing="1" cellpadding="2" class="dump_'.$type.'">'."\n".'<tr><td '.$str_i.'class="dump_'.$type.'_header" colspan="'.$colspan.'" onClick="dump_toggle_table(this)">'.$header.'</td></tr>';
     }
     
     /**
@@ -131,7 +132,7 @@ class Dumper {
      */
     private static function make_td_header($type, $header) {
         $str_d = (self::$collapsed) ? ' style="display:none"' : '';
-        echo '<tr'.$str_d.'><td valign="top" onClick="dump_toggle_row(this)" class="dump_'.$type.'_key">'.$header.'</td><td>';
+        echo '<tr'.$str_d.'>'."\n".'<td valign="top" onClick="dump_toggle_row(this)" class="dump_'.$type.'_key">'.$header.'</td>'."\n".'<td>';
     }
 
     /**
@@ -140,7 +141,7 @@ class Dumper {
      * @return    void
      */
     private static function close_td_row() {
-        echo '</td></tr>';
+        echo '</td>'."\n".'</tr>'."\n";
     }
 
     /**
@@ -268,11 +269,11 @@ class Dumper {
                 self::close_td_row();
             }
         } else {
-            echo '<tr><td>'.self::error('array');
+            echo '<tr>'."\n".'<td>'.self::error('array');
             self::close_td_row();
         }
         array_pop(self::$arr_history);
-        echo '</table>';
+        echo '</table>'."\n";
     }
 
     /**
@@ -314,11 +315,11 @@ class Dumper {
                 self::close_td_row();
             }
         } else {
-            echo '<tr><td>'.self::error('object');
+            echo '<tr>'."\n".'<td>'.self::error('object');
             self::close_td_row();
         }
         array_pop(self::$arr_history);
-        echo '</table>';
+        echo '</table>'."\n";
     }
 
     /**
@@ -328,7 +329,7 @@ class Dumper {
      */
     private static function var_is_resource($var) {
         self::make_table_header('resourceC', 'resource', 1);
-        echo '<tr><td>';
+        echo '<tr>'."\n".'<td>';
         switch (get_resource_type($var)) {
             case 'gd':
                 self::var_is_gd_resource($var);
@@ -339,7 +340,7 @@ class Dumper {
                 break;
         }
         self::close_td_row();
-        echo '</table>';
+        echo '</table>'."\n";
     }
 
     /**
@@ -355,7 +356,7 @@ class Dumper {
         imagesy($var).self::close_td_row();
         self::make_td_header('resource', 'Colors');
         imagecolorstotal($var).self::close_td_row();
-        echo '</table>';
+        echo '</table>'."\n";
     }
 
     /**
@@ -385,7 +386,7 @@ class Dumper {
             if ( ! is_string($var)) {
                 echo self::error('xml');
                 self::close_td_row();
-                echo '</table>';
+                echo '</table>'."\n";
                 return;
             }
             $data = $var;
@@ -393,7 +394,7 @@ class Dumper {
         }
         
         self::close_td_row();
-        echo '</table>';
+        echo '</table>'."\n";
     }
 
     /**
@@ -449,7 +450,7 @@ class Dumper {
             unset(self::$xml_CDATA[$i], self::$xml_DDATA[$i]);
         }
         self::close_td_row();
-        echo '</table>';
+        echo '</table>'."\n";
         self::$xml_count = 0;
     } 
 
@@ -473,7 +474,7 @@ class Dumper {
      * @return    void
      */
     private static function xml_default_handler($parser, $data) {
-        //strip '<!--' and '-->' off comments
+        // Strip '<!--' and '-->' off comments
         $data = str_replace(array("&lt;!--", "--&gt;"), '', htmlspecialchars($data));
         $count = self::$xml_count - 1;
         if ( ! empty(self::$xml_DDATA[$count])) {
@@ -648,6 +649,7 @@ class Dumper {
                 background-color:#ddd; 
                 }
             </style>
+            
 SCRIPTS;
 
         echo $out;
