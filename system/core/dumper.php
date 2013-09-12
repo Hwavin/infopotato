@@ -130,7 +130,7 @@ class Dumper {
      * 
      * @return    void
      */
-    private static function make_td_header($type, $header) {
+    private static function open_td_row($type, $header) {
         $str_d = (self::$collapsed) ? ' style="display:none"' : '';
         echo '<tr'.$str_d.'>'."\n".'<td valign="top" onClick="dump_toggle_row(this)" class="dump_'.$type.'_key">'.$header.'</td>'."\n".'<td>';
     }
@@ -189,7 +189,7 @@ class Dumper {
      */
     private static function var_is_null() {
         self::make_table_header('object', 'NULL');
-        self::make_td_header('object', 'NULL');
+        self::open_td_row('object', 'NULL');
         self::close_td_row();
     }
     
@@ -201,7 +201,7 @@ class Dumper {
     private static function var_is_string($var) {
         $var = ($var == '') ? '[empty string]' : $var;
         self::make_table_header('object', 'string ['.strlen($var).']');
-        self::make_td_header('object', $var);
+        self::open_td_row('object', $var);
         self::close_td_row();
     }
     
@@ -212,7 +212,7 @@ class Dumper {
      */
     private static function var_is_int($var) {
         self::make_table_header('object', 'integer');
-        self::make_td_header('object', $var);
+        self::open_td_row('object', $var);
         self::close_td_row();
     }
     
@@ -223,7 +223,7 @@ class Dumper {
      */
     private static function var_is_double($var) {
         self::make_table_header('object', 'double');
-        self::make_td_header('object', $var);
+        self::open_td_row('object', $var);
         self::close_td_row();
     }
     
@@ -235,7 +235,7 @@ class Dumper {
     private static function var_is_bool($var) {
         $var = ($var === TRUE) ? 'TRUE' : 'FALSE';
         self::make_table_header('object', 'bool');
-        self::make_td_header('object', $var);
+        self::open_td_row('object', $var);
         self::close_td_row();
     }
 
@@ -251,7 +251,7 @@ class Dumper {
         self::make_table_header('array', 'array');
         if (is_array($var)) {
             foreach ($var as $key => $value) {
-                self::make_td_header('array', $key);
+                self::open_td_row('array', $key);
                 
                 // Check for recursion
                 if (is_array($value)) {
@@ -290,7 +290,7 @@ class Dumper {
             $arr_obj_vars = get_object_vars($var);
             foreach ($arr_obj_vars as $key => $value) {
                 $value = ( ! is_object($value) && ! is_array($value) && trim($value) === '') ? '[empty string]' : $value;
-                self::make_td_header('object', $key);
+                self::open_td_row('object', $key);
                 
                 // Check for recursion
                 if (is_object($value) || is_array($value)) {
@@ -310,7 +310,7 @@ class Dumper {
             
             $arr_obj_methods = get_class_methods(get_class($var));
             foreach ($arr_obj_methods as $key => $value) {
-                self::make_td_header('object', $value);
+                self::open_td_row('object', $value);
                 echo '[method]';
                 self::close_td_row();
             }
@@ -350,11 +350,11 @@ class Dumper {
      */
     private static function var_is_gd_resource($var) {
         self::make_table_header('resource', 'gd', 2);
-        self::make_td_header('resource', 'Width');
+        self::open_td_row('resource', 'Width');
         imagesx($var).self::close_td_row();
-        self::make_td_header('resource', 'Height');
+        self::open_td_row('resource', 'Height');
         imagesy($var).self::close_td_row();
-        self::make_td_header('resource', 'Colors');
+        self::open_td_row('resource', 'Colors');
         imagecolorstotal($var).self::close_td_row();
         echo '</table>'."\n";
     }
@@ -372,7 +372,7 @@ class Dumper {
         xml_set_default_handler($xml_parser, array('Dumper', 'xml_default_handler')); 
         
         self::make_table_header('xml', 'XML Document', 2);
-        self::make_td_header('xml', 'Root');
+        self::open_td_row('xml', 'Root');
         
         // Attempt to open xml file
         $xml_file = ( ! ($fp = @fopen($var, 'r'))) ? FALSE : TRUE;
@@ -419,10 +419,10 @@ class Dumper {
         self::$xml_attrib[self::$xml_count] = $attribs;
         self::$xml_name[self::$xml_count] = $name;
         self::$xml_SDATA[self::$xml_count] = 'self::make_table_header("xml", "Element", 2);';
-        self::$xml_SDATA[self::$xml_count] .= 'self::make_td_header("xml", "Name");';
+        self::$xml_SDATA[self::$xml_count] .= 'self::open_td_row("xml", "Name");';
         self::$xml_SDATA[self::$xml_count] .= 'echo "<strong>'.self::$xml_name[self::$xml_count].'</strong>";';
         self::$xml_SDATA[self::$xml_count] .= 'self::close_td_row();';
-        self::$xml_SDATA[self::$xml_count] .= 'self::make_td_header("xml", "Attributes");';
+        self::$xml_SDATA[self::$xml_count] .= 'self::open_td_row("xml", "Attributes");';
         if (count($attribs) > 0) {
             self::$xml_SDATA[self::$xml_count] .= 'self::var_is_array(self::$xml_attrib['.self::$xml_count.']);';
         } else {
@@ -440,13 +440,13 @@ class Dumper {
     private static function xml_end_element($parser, $name) {
         for ($i = 0; $i < self::$xml_count; $i++) {
             eval(self::$xml_SDATA[$i]);
-            self::make_td_header('xml', 'Text');
+            self::open_td_row('xml', 'Text');
             echo empty(self::$xml_CDATA[$i]) ? '&nbsp;' : self::$xml_CDATA[$i];
             self::close_td_row();
-            self::make_td_header('xml', 'Comment');
+            self::open_td_row('xml', 'Comment');
             echo empty(self::$xml_DDATA[$i]) ? '&nbsp;' : self::$xml_DDATA[$i];
             self::close_td_row();
-            self::make_td_header('xml', 'Children');
+            self::open_td_row('xml', 'Children');
             unset(self::$xml_CDATA[$i], self::$xml_DDATA[$i]);
         }
         self::close_td_row();
