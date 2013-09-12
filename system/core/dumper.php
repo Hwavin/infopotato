@@ -111,7 +111,7 @@ class Dumper {
      * 
      * @return    void
      */
-    private static function make_table_header($type, $header, $colspan = 2) {
+    private static function open_table($type, $header, $colspan = 2) {
         $var_info = self::get_var_info();
         if ($var_info !== array()) {
             if ( ! self::$initialized) {
@@ -123,6 +123,15 @@ class Dumper {
         $str_i = (self::$collapsed) ? 'style="font-style:italic" ' : ''; 
         
         echo '<table cellspacing="1" cellpadding="2" class="dump_'.$type.'">'."\n".'<tr><td '.$str_i.'class="dump_'.$type.'_header" colspan="'.$colspan.'" onClick="dump_toggle_table(this)">'.$header.'</td></tr>';
+    }
+    
+    /**
+     * Close table 
+     * 
+     * @return    void
+     */
+    private static function close_table() {
+        echo '</table>'."\n";
     }
     
     /**
@@ -188,7 +197,7 @@ class Dumper {
      * @return    void
      */
     private static function var_is_null() {
-        self::make_table_header('object', 'NULL');
+        self::open_table('object', 'NULL');
         self::open_td_row('object', 'NULL');
         self::close_td_row();
     }
@@ -200,7 +209,7 @@ class Dumper {
      */
     private static function var_is_string($var) {
         $var = ($var == '') ? '[empty string]' : $var;
-        self::make_table_header('object', 'string ['.strlen($var).']');
+        self::open_table('object', 'string ['.strlen($var).']');
         self::open_td_row('object', $var);
         self::close_td_row();
     }
@@ -211,7 +220,7 @@ class Dumper {
      * @return    void
      */
     private static function var_is_int($var) {
-        self::make_table_header('object', 'integer');
+        self::open_table('object', 'integer');
         self::open_td_row('object', $var);
         self::close_td_row();
     }
@@ -222,7 +231,7 @@ class Dumper {
      * @return    void
      */
     private static function var_is_double($var) {
-        self::make_table_header('object', 'double');
+        self::open_table('object', 'double');
         self::open_td_row('object', $var);
         self::close_td_row();
     }
@@ -234,7 +243,7 @@ class Dumper {
      */
     private static function var_is_bool($var) {
         $var = ($var === TRUE) ? 'TRUE' : 'FALSE';
-        self::make_table_header('object', 'bool');
+        self::open_table('object', 'bool');
         self::open_td_row('object', $var);
         self::close_td_row();
     }
@@ -248,7 +257,7 @@ class Dumper {
         $var_ser = serialize($var);
         array_push(self::$arr_history, $var_ser);
         
-        self::make_table_header('array', 'array');
+        self::open_table('array', 'array');
         if (is_array($var)) {
             foreach ($var as $key => $value) {
                 self::open_td_row('array', $key);
@@ -273,7 +282,7 @@ class Dumper {
             self::close_td_row();
         }
         array_pop(self::$arr_history);
-        echo '</table>'."\n";
+        self::close_table();
     }
 
     /**
@@ -284,7 +293,7 @@ class Dumper {
     private static function var_is_object($var) {
         $var_ser = serialize($var);
         array_push(self::$arr_history, $var_ser);
-        self::make_table_header('object', 'object');
+        self::open_table('object', 'object');
         
         if (is_object($var)) {
             $arr_obj_vars = get_object_vars($var);
@@ -319,7 +328,7 @@ class Dumper {
             self::close_td_row();
         }
         array_pop(self::$arr_history);
-        echo '</table>'."\n";
+        self::close_table();
     }
 
     /**
@@ -328,7 +337,7 @@ class Dumper {
      * @return    void
      */
     private static function var_is_resource($var) {
-        self::make_table_header('resourceC', 'resource', 1);
+        self::open_table('resourceC', 'resource', 1);
         echo '<tr>'."\n".'<td>';
         switch (get_resource_type($var)) {
             case 'gd':
@@ -340,7 +349,7 @@ class Dumper {
                 break;
         }
         self::close_td_row();
-        echo '</table>'."\n";
+        self::close_table();
     }
 
     /**
@@ -349,14 +358,14 @@ class Dumper {
      * @return    void
      */
     private static function var_is_gd_resource($var) {
-        self::make_table_header('resource', 'gd', 2);
+        self::open_table('resource', 'gd', 2);
         self::open_td_row('resource', 'Width');
         imagesx($var).self::close_td_row();
         self::open_td_row('resource', 'Height');
         imagesy($var).self::close_td_row();
         self::open_td_row('resource', 'Colors');
         imagecolorstotal($var).self::close_td_row();
-        echo '</table>'."\n";
+        self::close_table();
     }
 
     /**
@@ -371,7 +380,7 @@ class Dumper {
         xml_set_character_data_handler($xml_parser, array('Dumper', 'xml_character_data'));
         xml_set_default_handler($xml_parser, array('Dumper', 'xml_default_handler')); 
         
-        self::make_table_header('xml', 'XML Document', 2);
+        self::open_table('xml', 'XML Document', 2);
         self::open_td_row('xml', 'Root');
         
         // Attempt to open xml file
@@ -386,7 +395,7 @@ class Dumper {
             if ( ! is_string($var)) {
                 echo self::error('xml');
                 self::close_td_row();
-                echo '</table>'."\n";
+                self::close_table();
                 return;
             }
             $data = $var;
@@ -394,7 +403,7 @@ class Dumper {
         }
         
         self::close_td_row();
-        echo '</table>'."\n";
+        self::close_table();
     }
 
     /**
@@ -418,7 +427,7 @@ class Dumper {
     private static function xml_start_element($parser, $name, $attribs) {
         self::$xml_attrib[self::$xml_count] = $attribs;
         self::$xml_name[self::$xml_count] = $name;
-        self::$xml_SDATA[self::$xml_count] = 'self::make_table_header("xml", "Element", 2);';
+        self::$xml_SDATA[self::$xml_count] = 'self::open_table("xml", "Element", 2);';
         self::$xml_SDATA[self::$xml_count] .= 'self::open_td_row("xml", "Name");';
         self::$xml_SDATA[self::$xml_count] .= 'echo "<strong>'.self::$xml_name[self::$xml_count].'</strong>";';
         self::$xml_SDATA[self::$xml_count] .= 'self::close_td_row();';
@@ -450,7 +459,7 @@ class Dumper {
             unset(self::$xml_CDATA[$i], self::$xml_DDATA[$i]);
         }
         self::close_td_row();
-        echo '</table>'."\n";
+        self::close_table();
         self::$xml_count = 0;
     } 
 
