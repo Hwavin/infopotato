@@ -28,6 +28,16 @@ class Dumper {
      */
     private function __construct() {}
     
+    /**
+     * Dump variable
+     *
+     * Displays information about a variable in a human readable way
+     * 
+     * @param    mixed the variable to be dumped
+     * @param    force type
+     * @param    collapse or not
+     * @return    void
+     */
     public static function dump($var, $force_type = '', $collapsed = FALSE) {
         // Reseet the settings each time dump() is called
         self::$xml_count = 0;

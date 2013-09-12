@@ -170,6 +170,8 @@ function halt($heading, $message, $template = 'sys_error') {
  * Displays information about a variable in a human readable way
  * 
  * @param    mixed the variable to be dumped
+ * @param    force type
+ * @param    collapse or not
  * @return    void
  */
 function dump($var, $force_type = '', $collapsed = FALSE) {
