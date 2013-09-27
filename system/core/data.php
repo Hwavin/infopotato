@@ -45,11 +45,14 @@ class Data {
         
         // Parse the connection string
         $conn = explode(':', $connection);
-		
+        
         if ( ! empty($conn)) {
             // Load data source config
-            $data_source = require_once APP_CONFIG_DIR.'data_source.php';
-			
+            // DO NOT use require_once() here, otherwise if you mix use different DAOs
+            // $data_source will retuen the config array for the first time when DAO is called
+            // Then $data_source will return TRUE for the following DAO connections
+            $data_source = require APP_CONFIG_DIR.'data_source.php';
+
             // Checks if data config exists 
             if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
                 halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
