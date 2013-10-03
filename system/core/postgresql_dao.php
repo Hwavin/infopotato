@@ -37,11 +37,16 @@ class PostgreSQL_DAO extends Base_DAO {
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
      */ 
-    public function escape($str) { 
+    public function escape($str) {
         // Only escape string
         // is_string() will take '' as string
         if (is_string($str)) {
-            $str = pg_escape_string($this->dbh, $str);
+            if (version_compare(PHP_VERSION, '5.4.4', '<')) {
+                $str = pg_escape_string($this->dbh, $str);
+            } else  {
+                // Use of pg_escape_literal() is recommended instead of pg_escape_string()
+                $str = pg_escape_literal($this->dbh, $str);
+            }
         }
         return $str; 
     }
@@ -58,7 +63,7 @@ class PostgreSQL_DAO extends Base_DAO {
     public function prepare($query, array $params = NULL) { 
         // All variables in $params must be set before being passed to this function
         // if any variables are not set (will be NULL) will cause error in SQL
-        if (count($params) > 0) {             
+        if (count($params) > 0) {
             $pos_list = array();
             $pos_adj = 0;
 
