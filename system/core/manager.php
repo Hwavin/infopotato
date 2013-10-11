@@ -118,6 +118,7 @@ class Manager {
             
             // Output the uncompressed content
             // You can use apache's mod_gzip module to compress the output if you want
+            // 1xx, 204, and 304 responses and any response to a HEAD request "MUST NOT" include a message-body
             echo $config['content'];    
         }
     }
