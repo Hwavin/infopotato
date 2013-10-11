@@ -88,6 +88,7 @@ class Manager {
     protected function response(array $config = NULL) {
         if (isset($config['content']) && isset($config['type'])) {
             // Response headers
+            // The origin server will add additional headers about the response if not specified here
             $headers = array();
             
             // Common MIME types that need utf-8 charset encoding
@@ -102,6 +103,8 @@ class Manager {
             
             // Explicitly specify the charset parameter (utf-8) of the text document
             // The value of charset should be case insensitive - browsers shouldn't care.
+            // Any HTTP/1.1 message containing an entity-body SHOULD include a
+            // Content-Type header field defining the media type of that body.
             $headers['Content-Type'] = in_array($config['type'], $mime_types) 
                                        ? $config['type'].'; charset=utf-8' 
                                        : $config['type'];
