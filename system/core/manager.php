@@ -101,7 +101,6 @@ class Manager {
             $mime_types = array(
                 'text/html', 
                 'text/plain', 
-                'text/javascript', 
                 'application/javascript', 
                 'application/xml', 
                 'application/json', 
