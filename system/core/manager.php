@@ -91,14 +91,20 @@ class Manager {
             // The origin server will add additional headers about the response if not specified here
             $headers = array();
             
-            // Common MIME types that need utf-8 charset encoding
+            // http://tools.ietf.org/html/rfc6657
+            // Common Textual Media Types that SHOULD/RECOMMENDED utf-8 charset encoding
+            // CSS: the majority of characters will be CSS syntax and thus US-ASCII, no need to force UTF-8 here
+            // XML: Although listed as an optional parameter, the use of the charset parameter is STRONGLY RECOMMENDED
+            // JSON: text SHALL be encoded in Unicode.  The default encoding is UTF-8.
+            // http://www.ietf.org/rfc/rfc4627.txt?number=4627
+            // JAVASCRIPT: http://www.rfc-editor.org/rfc/rfc4329.txt
             $mime_types = array(
                 'text/html', 
                 'text/plain', 
-                'text/css', 
                 'text/javascript', 
+                'application/javascript', 
                 'application/xml', 
-                'application/json',
+                'application/json', 
             );
             
             // Explicitly specify the charset parameter (utf-8) of the text document
