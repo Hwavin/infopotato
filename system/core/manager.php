@@ -79,7 +79,7 @@ class Manager {
      * 
      * $config['content']: (string required) content to output
      * 
-     * $config['type']: (string required)  specify the character encoding of the text document, like html, css, plain text
+     * $config['type']: (string required)  specify the media type for the output
      *
      * $config['extra_headers']: (array optional)  any extra headers to response
      * 
