@@ -101,9 +101,7 @@ class Manager {
             $mime_types = array(
                 'text/html', 
                 'text/plain', 
-                'application/javascript', 
-                'application/xml', 
-                'application/json', 
+                'application/xml', // http://www.rfc-editor.org/rfc/rfc3023.txt
             );
             
             // Explicitly specify the charset parameter (utf-8) of the text document
