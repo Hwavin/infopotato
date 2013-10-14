@@ -98,7 +98,7 @@ class Manager {
             // JSON: text SHALL be encoded in Unicode.  The default encoding is UTF-8.
             // http://www.ietf.org/rfc/rfc4627.txt?number=4627
             // JAVASCRIPT: http://www.rfc-editor.org/rfc/rfc4329.txt
-            $mime_types = array(
+            $media_types = array(
                 'text/html', 
                 'text/plain', 
                 'application/xml', // http://www.rfc-editor.org/rfc/rfc3023.txt
@@ -108,7 +108,7 @@ class Manager {
             // The value of charset should be case insensitive - browsers shouldn't care.
             // Any HTTP/1.1 message containing an entity-body SHOULD include a
             // Content-Type header field defining the media type of that body.
-            $headers['Content-Type'] = in_array($config['type'], $mime_types) 
+            $headers['Content-Type'] = in_array($config['type'], $media_types) 
                                        ? $config['type'].'; charset=utf-8' 
                                        : $config['type'];
                                        
