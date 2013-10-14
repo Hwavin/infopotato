@@ -98,20 +98,11 @@ class Manager {
             // JSON: text SHALL be encoded in Unicode.  The default encoding is UTF-8.
             // http://www.ietf.org/rfc/rfc4627.txt?number=4627
             // JAVASCRIPT: http://www.rfc-editor.org/rfc/rfc4329.txt
-            $media_types = array(
-                'text/html', 
-                'text/plain', 
-                'application/xml', // http://www.rfc-editor.org/rfc/rfc3023.txt
-            );
-            
-            // Explicitly specify the charset parameter (utf-8) of the text document
-            // The value of charset should be case insensitive - browsers shouldn't care.
+
             // Any HTTP/1.1 message containing an entity-body SHOULD include a
             // Content-Type header field defining the media type of that body.
-            $headers['Content-Type'] = in_array($config['type'], $media_types) 
-                                       ? $config['type'].'; charset=utf-8' 
-                                       : $config['type'];
-                                       
+            $headers['Content-Type'] = $config['type'];
+
             // Send server response headers
             // Like other headers, cookies must be sent before any output from your script
             // In InfoPotato, you should use Cookie class before $this->response()
