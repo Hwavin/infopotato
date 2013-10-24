@@ -15,7 +15,7 @@ class Logger {
     const STATUS_LOG_OPEN = 1;
     const STATUS_OPEN_FAILED = 2;
     const STATUS_LOG_CLOSED = 3;
-	
+    
     /**
      * We need a default argument value in order to add the ability to easily
      * print out objects etc. But we can't use NULL, 0, FALSE, etc, because those
@@ -33,7 +33,7 @@ class Logger {
         'INFO' => 2, // Informational: informational messages
         'DEBUG' => 3, // Debug: debug messages
     );
-	
+    
     /**
      * Current minimum logging threshold
      * @var integer
@@ -57,7 +57,7 @@ class Logger {
      * @var resource
      */
     private static $file_handle = NULL;
-	
+    
     /**
      * Standard messages produced by the class. Can be modified for il8n
      * @var array
@@ -79,7 +79,7 @@ class Logger {
      * @var integer
      */
     private static $default_permissions = 0777;
-	
+    
     /**
      * Prevent direct object creation
      * 
@@ -110,7 +110,7 @@ class Logger {
     public static function set_date_format($date_format) {
         self::$date_format = $date_format;
     }
-	
+    
     /**
      * Writes a $line to the log with a severity level of ERR. Most likely used
      * with E_RECOVERABLE_ERROR
@@ -135,7 +135,7 @@ class Logger {
     public static function log_warn($log_dir, $line, $args = self::NO_ARGUMENTS) {
         self::log($log_dir, $line, self::$severity_levels['WARN'], $args);
     }
-	
+    
     /**
      * Writes a $line to the log with a severity level of INFO. Any information
      * can be used here, or it could be used with E_STRICT errors
@@ -147,7 +147,7 @@ class Logger {
     public static function log_info($log_dir, $line, $args = self::NO_ARGUMENTS) {
         self::log($log_dir, $line, self::$severity_levels['INFO'], $args);
     }
-	
+    
     /**
      * Writes a $line to the log with a severity level of DEBUG
      *
@@ -175,22 +175,22 @@ class Logger {
         // Log only when severity level is over the pre-defined severity threshold
         if ($severity <= self::$severity_threshold) {
             $log_dir = rtrim($log_dir, '\\/');
-			
+            
             // Log file path and name, e.g. log_2012-08-16.txt
             self::$log_file_path = $log_dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
-			
+            
             // Create the log file first
             if ( ! file_exists($log_dir)) {
                 mkdir($log_dir, self::$default_permissions, TRUE);
             }
-			
+            
             if (file_exists(self::$log_file_path) && ! is_writable(self::$log_file_path)) {
                 self::$log_status = self::STATUS_OPEN_FAILED;
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['write_fail']);
             }
-			
+            
             if ((self::$file_handle = fopen(self::$log_file_path, 'a'))) {
                 self::$log_status = self::STATUS_LOG_OPEN;
             } else {
@@ -199,10 +199,10 @@ class Logger {
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['open_fail']);
             }
-			
+            
             // Formatted time
             $time = date(self::$date_format);
-			
+            
             switch ($severity) {
                 case self::$severity_levels['ERROR']:
                     $status = "$time - ERROR -->";
@@ -241,7 +241,7 @@ class Logger {
             }
         }
     }
-	
+    
 }
 
 // End of file: ./system/core/logger.php
