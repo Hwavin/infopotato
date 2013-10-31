@@ -12,6 +12,9 @@
  * @link    based on   https://github.com/FSX/php-utf8
  */
 
+namespace InfoPotato\core;
+use InfoPotato\core\Common;
+
 class PHP_UTF8 {
     /**
      * If the [http://php.net/mbstring mbstring] extension is available
@@ -46,7 +49,7 @@ class PHP_UTF8 {
             // 4: Overload ereg*() functions
             // & is bitwise AND. && is logical AND.
             if (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING) {
-                halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for PHP_UTF8 to work.', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for PHP_UTF8 to work.', 'sys_error');
             }
             
             // Also need to check we have the correct internal mbstring encoding.
@@ -174,7 +177,7 @@ class PHP_UTF8 {
                     $mBytes = 6;
                 } else {
                     // Current octet is neither in the US-ASCII range nor a legal first octet of a multi-octet sequence
-                    halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence identifier in UTF-8 at byte {$i}", 'sys_error');
+                    Common::halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence identifier in UTF-8 at byte {$i}", 'sys_error');
                 }
             } else {
                 // When mState is non-zero, we expect a continuation of the multi-octet sequence
@@ -201,7 +204,7 @@ class PHP_UTF8 {
                                 // Codepoints outside the Unicode range are illegal
                                 ($mUcs4 > 0x10FFFF))
                         {
-                            halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence or codepoint in UTF-8 at byte {$i}", 'sys_error');
+                            Common::halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Illegal sequence or codepoint in UTF-8 at byte {$i}", 'sys_error');
                         }
                         
                         // BOM is legal but we don't want to output it
@@ -216,7 +219,7 @@ class PHP_UTF8 {
                 } else {
                     /* ((0xC0 & (*in) != 0x80) && (mState != 0))
                       Incomplete multi-octet sequence. */
-                    halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Incomplete multi-octet sequence in UTF-8 at byte {$i}", 'sys_error');
+                    Common::halt('A System Error Was Encountered', "PHP_UTF8::to_unicode(): Incomplete multi-octet sequence in UTF-8 at byte {$i}", 'sys_error');
                 }
             }
         }
@@ -260,7 +263,7 @@ class PHP_UTF8 {
                 // Nop -- zap the BOM
             } elseif ($arr[$k] >= 0xD800 && $arr[$k] <= 0xDFFF) { // Test for illegal surrogates
                 // Found a surrogate
-                halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Illegal surrogate at index: {$k}, value: {$arr[$k]}", 'sys_error');
+                Common::halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Illegal surrogate at index: {$k}, value: {$arr[$k]}", 'sys_error');
             } elseif ($arr[$k] <= 0xffff) { // 3 byte sequence
                 echo chr(0xe0 | ($arr[$k] >> 12));
                 echo chr(0x80 | (($arr[$k] >> 6) & 0x003f));
@@ -272,7 +275,7 @@ class PHP_UTF8 {
                 echo chr(0x80 | ($arr[$k] & 0x3f));
             } else {
                 // Out of range
-                halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Codepoint out of Unicode range at index: {$k}, value: {$arr[$k]}", 'sys_error');
+                Common::halt('A System Error Was Encountered', "PHP_UTF8::from_unicode(): Codepoint out of Unicode range at index: {$k}, value: {$arr[$k]}", 'sys_error');
             }
         }
         
@@ -343,7 +346,7 @@ class PHP_UTF8 {
             }
             
             if ( ! is_int($offset)) {
-                halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strpos(): Offset must be an integer', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strpos(): Offset must be an integer', 'sys_error');
             }
             
             $str = self::mirror_substr($str, $offset);
@@ -386,7 +389,7 @@ class PHP_UTF8 {
             }
             
             if ( ! is_int($offset)) {
-                halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
             }
             
             $str = mb_substr($str, $offset);
@@ -413,7 +416,7 @@ class PHP_UTF8 {
             }
             
             if ( ! is_int($offset)) {
-                halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
             }
             
             $str = self::mirror_substr($str, $offset);
@@ -799,11 +802,11 @@ class PHP_UTF8 {
         }
         
         if ($break_width === NULL) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
         }
         
         if ($width === 0 && $cut) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Cannot force cut when width is zero', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Cannot force cut when width is zero', 'sys_error');
         }
         
         $result = '';
@@ -1178,7 +1181,7 @@ class PHP_UTF8 {
             return $padding_left.$input.$padding_right;
         }
         
-        halt('A System Error Was Encountered', "PHP_UTF8::mirror_str_pad(): Unknown padding type ({$type})", 'sys_error');
+        Common::halt('A System Error Was Encountered', "PHP_UTF8::mirror_str_pad(): Unknown padding type ({$type})", 'sys_error');
     }
     
     
@@ -1265,7 +1268,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[1])) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 2 bytes expected, only 1 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 2 bytes expected, only 1 seen', 'sys_error');
         }
         
         $ord1 = ord($chr[1]);
@@ -1274,7 +1277,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[2])) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 3 bytes expected, only 2 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 3 bytes expected, only 2 seen', 'sys_error');
         }
         
         $ord2 = ord($chr[2]);
@@ -1283,7 +1286,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[3])) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 4 bytes expected, only 3 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 4 bytes expected, only 3 seen', 'sys_error');
         }
         
         $ord3 = ord($chr[3]);
@@ -1292,7 +1295,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[4])) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 5 bytes expected, only 4 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 5 bytes expected, only 4 seen', 'sys_error');
         }
         
         $ord4 = ord($chr[4]);
@@ -1301,7 +1304,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[5])) {
-            halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 6 bytes expected, only 5 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 6 bytes expected, only 5 seen', 'sys_error');
         }
         
         if ($ord0 >= 252 && $ord0 <= 253) {
@@ -1309,7 +1312,7 @@ class PHP_UTF8 {
         }
         
         if ($ord0 >= 254 && $ord0 <= 255) {
-            halt('A System Error Was Encountered', "PHP_UTF8::mirror_ord(): Invalid UTF-8 with surrogate ordinal {$ord0}", 'sys_error');
+            Common::halt('A System Error Was Encountered', "PHP_UTF8::mirror_ord(): Invalid UTF-8 with surrogate ordinal {$ord0}", 'sys_error');
         }
     }
     

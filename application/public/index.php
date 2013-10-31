@@ -49,9 +49,15 @@ define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
-define('APP_FUNCTION_DIR', APP_DIR.'functions'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
+
+/**
+ * App namespaces (no leading and trailing backlash)
+ */
+define('APP_MANAGER_NAMESPACE', 'app\managers');
+define('APP_DATA_NAMESPACE', 'app\data');
+define('APP_LIBRARY_NAMESPACE', 'app\libraries');
 
 /**
  * Default manager/method to use if none is given in the URL, lowercase
@@ -82,7 +88,9 @@ define('RUNTIME_CACHE', FALSE);
 define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
-// Components for init, debug, autoloading, internationalization function
+// Environment settings and autoloading
+$file = SYS_CORE_DIR.'init.php';
+
 if (RUNTIME_CACHE === TRUE) {
     // SYS_RUNTIME_CACHE_DIR must be writable
     if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) ||  ! is_writable(APP_RUNTIME_CACHE_DIR)) {
@@ -92,9 +100,8 @@ if (RUNTIME_CACHE === TRUE) {
     if ( ! file_exists($file)) {
         file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
     }
-} else {
-    $file = SYS_CORE_DIR.'init.php';
-}
+} 
+
 require_once $file;
 
 // APP_SESSION_DIR must be writable
@@ -102,7 +109,7 @@ require_once $file;
 if ( ! is_writable(APP_SESSION_DIR)) {
     exit('APP_SESSION_DIR must be writable');
 } else {
-    Session::init(APP_SESSION_DIR, '30 minutes');
+    \InfoPotato\core\Session::init(APP_SESSION_DIR, '30 minutes');
 }
 
 // Sets the global severity threshold
@@ -111,11 +118,11 @@ if ( ! is_writable(APP_SESSION_DIR)) {
 if ( ! is_writable(APP_LOG_DIR)) {
     exit('APP_LOG_DIR must be writable');
 } else {
-    Logger::set_severity_threshold('DEBUG');
+    \InfoPotato\core\Logger::set_severity_threshold('DEBUG');
 }
 
 // Dispatching
-Dispatcher::run();
+\InfoPotato\core\Dispatcher::run();
 
 // End of file: ./index.php 
 

@@ -10,6 +10,10 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+ 
+namespace InfoPotato\core;
+use InfoPotato\core\Common;
+
 class Base_DAO {
     /**
      * Query result
@@ -81,13 +85,13 @@ class Base_DAO {
         
         if ($this->query_result !== array()) {
             if ($y >= count($this->query_result)) {
-                halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
             }
             
             // Returns all the values from the input array and indexes numerically the array
             $values = array_values(get_object_vars($this->query_result[$y]));
             if ($x >= count($values)) {
-                halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
             }
             
             if ($values[$x] !== '') {
@@ -114,7 +118,7 @@ class Base_DAO {
         
         if ($this->query_result !== array()) {
             if ($y >= count($this->query_result)) {
-                halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
             }
             
             if ($output === 'FETCH_OBJ') {
@@ -124,7 +128,7 @@ class Base_DAO {
             } elseif ($output === 'FETCH_NUM') {
                 $return_val = array_values(get_object_vars($this->query_result[$y]));
             } else {
-                halt('A System Error Was Encountered', " \$db->get_row() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
+                Common::halt('A System Error Was Encountered', " \$db->get_row() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
             }
         }
         
@@ -151,7 +155,7 @@ class Base_DAO {
             $cnt = count($this->query_result);
 
             if ($x >= count(get_object_vars($this->query_result[0]))) {
-                halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'The offset x you specified overflows', 'sys_error');
             }
                 
             for ($i = 0; $i < $cnt; $i++) {
@@ -198,7 +202,7 @@ class Base_DAO {
                 }
             }
         } else {
-            halt('A System Error Was Encountered', " \$db->get_all() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
+            Common::halt('A System Error Was Encountered', " \$db->get_all() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
         }
         
         return $return_val;

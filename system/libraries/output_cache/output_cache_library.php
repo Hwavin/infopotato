@@ -9,6 +9,9 @@
  * @link based on http://www.jongales.com/blog/2009/02/18/simple-file-based-php-cache-class/
  * @link based on http://www.rooftopsolutions.nl/article/107
  */
+ 
+namespace InfoPotato\libraries\output_cache;
+
 class Output_Cache_Library {  
     /**
      * The cache directory

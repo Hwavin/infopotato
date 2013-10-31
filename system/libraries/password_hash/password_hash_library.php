@@ -9,6 +9,9 @@
  * @link   based on http://www.openwall.com/phpass/ 
  * @version Version 0.3 / genuine
  */
+
+namespace InfoPotato\libraries\password_hash;
+
 class Password_Hash_Library {
     private $_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     
@@ -32,7 +35,7 @@ class Password_Hash_Library {
      * @var bool
      */
     private $portable_hashes = FALSE;
-	
+    
     /**
      * Constructor
      *
@@ -45,7 +48,7 @@ class Password_Hash_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-					
+                    
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -100,7 +103,7 @@ class Password_Hash_Library {
             $output = fread($fh, $count);
             fclose($fh);
         }
-		
+        
         if (strlen($output) < $count) {
             $output = '';
             
@@ -115,10 +118,10 @@ class Password_Hash_Library {
             }
             $output = substr($output, 0, $count);
         }
-		
+        
         return $output;
     }
-	
+    
     private function encode64($input, $count) {
         $output = '';
         $i = 0;
@@ -141,18 +144,18 @@ class Password_Hash_Library {
             }
             $output .= $this->_itoa64[($value >> 18) & 0x3f];
         } while ($i < $count);
-		
+        
         return $output;
     }
-	
+    
     private function gensalt_private($input) {
         $output = '$P$';
         $output .= $this->_itoa64[min($this->iteration_count_log2 + 5, 30)];
         $output .= $this->encode64($input, 6);
-		
+        
         return $output;
     }
-	
+    
     private function crypt_private($password, $setting) {
         $output = '*0';
         if (substr($setting, 0, 2) == $output) {
@@ -168,7 +171,7 @@ class Password_Hash_Library {
             return $output;
         }
         $count = 1 << $count_log2;
-		
+        
         $salt = substr($setting, 4, 8);
         if (strlen($salt) != 8) {
             return $output;
@@ -183,30 +186,30 @@ class Password_Hash_Library {
         do {
             $hash = md5($hash . $password, TRUE);
         } while (--$count);
-		
+        
         $output = substr($setting, 0, 12);
         $output .= $this->encode64($hash, 16);
-		
+        
         return $output;
     }
-	
+    
     private function gensalt_extended($input) {
         $count_log2 = min($this->iteration_count_log2 + 8, 24);
         // This should be odd to not reveal weak DES keys, and the
         // maximum valid value is (2**24 - 1) which is odd anyway.
         $count = (1 << $count_log2) - 1;
-		
+        
         $output = '_';
         $output .= $this->_itoa64[$count & 0x3f];
         $output .= $this->_itoa64[($count >> 6) & 0x3f];
         $output .= $this->_itoa64[($count >> 12) & 0x3f];
         $output .= $this->_itoa64[($count >> 18) & 0x3f];
-		
+        
         $output .= $this->encode64($input, 3);
-		
+        
         return $output;
     }
-	
+    
     private function gensalt_blowfish($input) {
         // This one needs to use a different order of characters and a
         // different encoding scheme from the one in encode64() above.
@@ -217,12 +220,12 @@ class Password_Hash_Library {
         // chances and we also do not want to waste an additional byte
         // of entropy.
         $itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		
+        
         $output = '$2a$';
         $output .= chr(ord('0') + $this->iteration_count_log2 / 10);
         $output .= chr(ord('0') + $this->iteration_count_log2 % 10);
         $output .= '$';
-		
+        
         $i = 0;
         do {
             $c1 = ord($input[$i++]);
@@ -232,21 +235,21 @@ class Password_Hash_Library {
                 $output .= $itoa64[$c1];
                 break;
             }
-			
+            
             $c2 = ord($input[$i++]);
             $c1 |= $c2 >> 4;
             $output .= $itoa64[$c1];
             $c1 = ($c2 & 0x0f) << 2;
-			
+            
             $c2 = ord($input[$i++]);
             $c1 |= $c2 >> 6;
             $output .= $itoa64[$c1];
             $output .= $itoa64[$c2 & 0x3f];
         } while (1);
-		
+        
         return $output;
     }
-	
+    
     /**
      * Generate the hashed password
      *
@@ -256,7 +259,7 @@ class Password_Hash_Library {
      */
     public function hash_password($password) {
         $random = '';
-		
+        
         if (CRYPT_BLOWFISH == 1 && ! $this->portable_hashes) {
             $random = $this->get_random_bytes(16);
             $hash = crypt($password, $this->gensalt_blowfish($random));
@@ -264,7 +267,7 @@ class Password_Hash_Library {
                 return $hash;
             }
         }
-		
+        
         if (CRYPT_EXT_DES == 1 && ! $this->portable_hashes) {
             if (strlen($random) < 3) {
                 $random = $this->get_random_bytes(3);
@@ -274,7 +277,7 @@ class Password_Hash_Library {
                 return $hash;
             }
         }
-		
+        
         if (strlen($random) < 6) {
             $random = $this->get_random_bytes(6);
         }
@@ -287,8 +290,8 @@ class Password_Hash_Library {
         // hashes and for validating passwords against existing hashes.
         return '*';
     }
-	
-	/**
+    
+    /**
      * Check the supplied password against the hash
      *
      * @return    boolean

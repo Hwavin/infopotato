@@ -8,6 +8,9 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  * @link http://www.catchmyfame.com/2007/07/28/finally-the-simple-pagination-class/
  */
+ 
+namespace InfoPotato\libraries\pagination;
+
 class Pagination_Library {
     /**
      * The desired number of items to be shown on each page.

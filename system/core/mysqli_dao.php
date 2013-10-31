@@ -8,6 +8,9 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
+namespace InfoPotato\core;
+use InfoPotato\core\Common;
+
 class MySQLi_DAO extends Base_DAO {
     /**
      * An object which represents the connection to a MySQL Server
@@ -29,7 +32,7 @@ class MySQLi_DAO extends Base_DAO {
             // Use this instead of $connect_error if you need to ensure
             // compatibility with PHP versions prior to 5.2.9 and 5.3.0.
             if (mysqli_connect_error()) {
-                halt('An Error Was Encountered', 'Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error(), 'sys_error');        
+                Common::halt('An Error Was Encountered', 'Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error(), 'sys_error');        
             }
 
             // Use utf8mb4 as the character set and utf8mb4_general_ci as the collation if MySQL > 5.5
@@ -105,7 +108,7 @@ class MySQLi_DAO extends Base_DAO {
                     if (is_string($arg)) {
                         $arg = "'".$this->escape($arg)."'";
                     } else {
-                        halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
+                        Common::halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
                     }
                 } elseif ($type === '%i') {
                     // 32 bit systems have a maximum signed integer range of -2147483648 to 2147483647. 
@@ -113,7 +116,7 @@ class MySQLi_DAO extends Base_DAO {
                     // 64 bit systems have a maximum signed integer range of -9223372036854775808 to 9223372036854775807. 
                     // So is_int(9223372036854775808) will return FALSE in 64 bit systems.
                     if ( ! is_int($arg)) {
-                        halt('An Error Was Encountered', 'The binding value for %i must be an integer', 'sys_error');
+                        Common::halt('An Error Was Encountered', 'The binding value for %i must be an integer', 'sys_error');
                     }
                 } elseif ($type === '%f') {
                     if (is_float($arg)) {
@@ -121,10 +124,10 @@ class MySQLi_DAO extends Base_DAO {
                         // We need to use floatval() to get the float value of the given variable
                         floatval($arg);
                     } else {
-                        halt('An Error Was Encountered', 'The binding value for %f must be a float', 'sys_error');
+                        Common::halt('An Error Was Encountered', 'The binding value for %f must be a float', 'sys_error');
                     }
                 } else {
-                    halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
+                    Common::halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
                 }
 
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
@@ -158,7 +161,7 @@ class MySQLi_DAO extends Base_DAO {
 
         // If there is an error then take note of it.
         if ($err_msg = $this->mysqli->error) {
-            halt('An Error Was Encountered', $err_msg, 'sys_error');        
+            Common::halt('An Error Was Encountered', $err_msg, 'sys_error');        
         }
 
         // Query was an insert, delete, drop, update, replace, alter
@@ -167,7 +170,7 @@ class MySQLi_DAO extends Base_DAO {
             // This creates the possibility that $affected_rows may not actually equal the number of rows matched, 
             // only the number of rows that were literally affected by the query.
             $rows_affected = $this->mysqli->affected_rows;
-			
+
             // Take note of the last_insert_id
             // REPLACE works exactly like INSERT, except that if an old row in the table has the same value 
             // as a new row for a PRIMARY KEY or a UNIQUE index, the old row is deleted before the new row is inserted.

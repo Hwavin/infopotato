@@ -7,6 +7,10 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+ 
+namespace InfoPotato\core;
+use InfoPotato\core\Common;
+
 class Data {
     /**
      * Database object instance
@@ -55,7 +59,7 @@ class Data {
 
             // Checks if data config exists 
             if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
-                halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
+                Common::halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
             }
             // Create instance
             $db_obj[$connection] = new $conn[0]($data_source[$conn[0]][$conn[1]]);

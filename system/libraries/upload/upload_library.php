@@ -7,6 +7,9 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+
+namespace InfoPotato\libraries\upload;
+
 class Upload_Library {
     /**
      * Key-value array of HTTP FILES parameters to be validated

@@ -7,6 +7,9 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+
+namespace InfoPotato\core;
+
 class Cookie {
     /**
      * Prevent direct object creation
@@ -14,7 +17,7 @@ class Cookie {
      * @return Cookie
      */
     private function __construct() {}
-	
+    
     /**
      * Deletes a cookie
      * 
@@ -27,7 +30,7 @@ class Cookie {
     public static function delete($name, $path = NULL, $domain = NULL, $secure = NULL) {
         self::set($name, '', time() - 43200, $path, $domain, $secure);
     }
-	
+    
     /**
      * Gets a cookie value from $_COOKIE, while allowing a default value to be provided
      * 
@@ -38,7 +41,7 @@ class Cookie {
     public static function get($name, $default_value = NULL) {
         return isset($_COOKIE[$name]) ? $_COOKIE[$name] : $default_value;
     }
-	
+    
     /**
      * Set cookie
      *
@@ -70,7 +73,7 @@ class Cookie {
             setcookie($name, $value, $expires, $path, $domain, $secure, $httponly);
         }
     }
-	
+    
 }
 
 /* End of file: ./system/core/cookie.php */

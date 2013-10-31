@@ -8,6 +8,9 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+
+namespace InfoPotato\libraries\encrypt;
+
 class Encrypt_Library {
     /**
      * Reference to the user's encryption key

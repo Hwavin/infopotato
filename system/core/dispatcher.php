@@ -1,13 +1,17 @@
 <?php
 /**
- * Dispatching based on the default URI routing pattern
+ * Dispatching based on the INFO_PATH URI routing pattern
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */ 
-class Dispatcher{
+
+namespace InfoPotato\core;
+use InfoPotato\core\Common;
+
+class Dispatcher {
     /**
      * Prevent direct object creation
      * 
@@ -23,12 +27,12 @@ class Dispatcher{
      * @param   string $method the optional method name
      * @return  void
      */
-    public static function run($manager = NULL, $method = NULL) {    
+    public static function run($manager = NULL, $method = NULL) {
         // Dispatches all application requests to the given manager/method
         // Otherwise parses the URI
         if (isset($manager) && is_string($manager) && ! empty($manager)) {
             // All application requests will be dispatched to this manager
-            $manager = strtolower($manager).'_manager';
+            $manager_class = strtolower($manager).'_manager';
             
             // Only handles HTTP GET
             if (isset($method) && is_string($method) && ! empty($method)) {
@@ -36,8 +40,11 @@ class Dispatcher{
             } else {
                 $method = 'get_'.strtolower(APP_DEFAULT_MANAGER_METHOD);
             }
-            
-            $manager_obj = new $manager;
+
+            // Autoload will include the target app manager file
+            // Prefix namespace. Using <code>new 'app\managers\\'.$manager_class</code> won't work
+            $manager_class = APP_MANAGER_NAMESPACE.'\\'.$manager_class;
+            $manager_obj = new $manager_class;
             
             // The desginated manager prepares the related resources and sends response back to client
             $manager_obj->{$method}();
@@ -88,8 +95,11 @@ class Dispatcher{
             
             // The name of user-defined manager class (case-insensitive)
             // If the file containg the class was already included, the class defenition would already be loaded 
-            // No need to check if the class exists
             $manager_class = $manager_name.'_manager';
+
+            // Autoload will include the target app manager file
+            // Prefix namespace. Using <code>new 'app\managers\\'.$manager_class</code> won't work
+            $manager_class = APP_MANAGER_NAMESPACE.'\\'.$manager_class;
             $manager_obj = new $manager_class;
             
             // The POST data can only be accessed in manager using $this->_POST_DATA
@@ -118,7 +128,7 @@ class Dispatcher{
 
             // Checks if the manager method exists
             if ( ! method_exists($manager_obj, $real_method)) {
-                halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');                
+                Common::halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in object '{$manager_class}'", 'sys_error');                
             }
             
             // The desginated manager prepares the related resources and sends response back to client
@@ -166,6 +176,7 @@ class Dispatcher{
         
         return $str;
     }
+
 }
 
 // End of file: ./system/core/dispatcher.php

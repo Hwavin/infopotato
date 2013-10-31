@@ -9,6 +9,10 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+
+namespace InfoPotato\core;
+use InfoPotato\core\Common;
+
 class SQLite_DAO extends Base_DAO {
     /**
      * Database connection handler
@@ -28,7 +32,7 @@ class SQLite_DAO extends Base_DAO {
             try {
                 $this->dbh = new PDO($config['dsn']);
             } catch (PDOException $e) {
-                halt('An Error Was Encountered', 'Connection failed: '.$e->getMessage(), 'sys_error');
+                Common::halt('An Error Was Encountered', 'Connection failed: '.$e->getMessage(), 'sys_error');
             }
         }
     }
@@ -90,7 +94,7 @@ class SQLite_DAO extends Base_DAO {
                     if (is_string($arg)) {
                         $arg = "'".$this->escape($arg)."'";
                     } else {
-                        halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
+                        Common::halt('An Error Was Encountered', 'The binding value for %s must be a string', 'sys_error');
                     }
                 } elseif ($type === '%i') {
                     // 32 bit systems have a maximum signed integer range of -2147483648 to 2147483647. 
@@ -98,7 +102,7 @@ class SQLite_DAO extends Base_DAO {
                     // 64 bit systems have a maximum signed integer range of -9223372036854775808 to 9223372036854775807. 
                     // So is_int(9223372036854775808) will return FALSE in 64 bit systems.
                     if ( ! is_int($arg)) {
-                        halt('An Error Was Encountered', 'The binding value for %i must be an integer', 'sys_error');
+                        Common::halt('An Error Was Encountered', 'The binding value for %i must be an integer', 'sys_error');
                     }
                 } elseif ($type === '%f') {
                     if (is_float($arg)) {
@@ -106,10 +110,10 @@ class SQLite_DAO extends Base_DAO {
                         // We need to use floatval() to get the float value of the given variable
                         floatval($arg);
                     } else {
-                        halt('An Error Was Encountered', 'The binding value for %f must be a float', 'sys_error');
+                        Common::halt('An Error Was Encountered', 'The binding value for %f must be a float', 'sys_error');
                     }
                 } else {
-                    halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
+                    Common::halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
                 }
 
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
@@ -156,7 +160,7 @@ class SQLite_DAO extends Base_DAO {
 
             if ($statement === FALSE) {
                 $err = $this->dbh->errorInfo();
-                halt('An Error Was Encountered', $err[0].' - '.$err[1].' - '.$err[2], 'sys_error');
+                Common::halt('An Error Was Encountered', $err[0].' - '.$err[1].' - '.$err[2], 'sys_error');
             }
             
             // Store Query Results

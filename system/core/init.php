@@ -7,6 +7,9 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+
+use InfoPotato\core\Common;
+
 if (version_compare(PHP_VERSION, '5.3.0', '<')) {
     exit('InfoPotato requires PHP 5.3.0 or newer. You are currently running PHP '. PHP_VERSION .'.');
 }
@@ -52,11 +55,15 @@ switch (ENVIRONMENT) {
         exit('The application environment is not set correctly.');
 }
 
+
 // Register given anonymous function as __autoload() implementation
 // Anonymous functions become available since PHP 5.3.0
 // By uuing this anonymous function we can make sure other components can't access it
 spl_autoload_register(function ($class_name) {
-    $class_name = strtolower($class_name);
+    // Remove the namespaces of core components and app managers before parsing
+    // It is very important to realize that because the backslash is used as an escape character 
+    // within strings, it should always be doubled when used inside a string.
+    $class_name = str_replace('infopotato\core\\', '', strtolower($class_name));
     
     // Create and use core files to speed up the parsing process for all the following requests.
     // Init (loaded in entry point script) and Manager class ('manager', in the list below) are required for all app requests.
@@ -64,6 +71,7 @@ spl_autoload_register(function ($class_name) {
     $core = array(
         'dispatcher', 
         'manager', 
+        'common',
         'dumper', 
         'logger', 
         'validator', 
@@ -78,15 +86,19 @@ spl_autoload_register(function ($class_name) {
         'postgresql_dao', 
         'sqlite_dao',
     );
-    
+
     if (in_array($class_name, $core)) {
         $source_file = SYS_CORE_DIR.$class_name.'.php';
         
         // Checks if core component file exists
         if ( ! file_exists($source_file)) { 
-            halt('An Error Was Encountered', "Missing core component file {$class_name}", 'sys_error');
+            Common::halt('An Error Was Encountered', "Missing core component file {$class_name}", 'sys_error');
         }
         
+        // Load stripped source when runtime cache is turned-on
+        // Otherwise load the origional unstripped file
+        $file = $source_file;
+
         if (RUNTIME_CACHE === TRUE) {
             // The runtime folder must be writable
             $file = SYS_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
@@ -94,18 +106,23 @@ spl_autoload_register(function ($class_name) {
                 // Return source with stripped comments and whitespace
                 file_put_contents($file, php_strip_whitespace($source_file));
             }
-        } else {
-            $file = $source_file;
         }
     } else {
+        // Trim the leading backslash in case user added
+        $class_name = trim(str_replace(APP_MANAGER_NAMESPACE, '', strtolower($class_name)), '\\');
+
         // In some cases, an app manager could be a subclass of another app manager
         $source_file = APP_MANAGER_DIR.$class_name.'.php';
-        
+
         // Checks if app manager file exists
         if ( ! file_exists($source_file)) { 
-            halt('An Error Was Encountered', "Manager file {$class_name} does not exist", 'sys_error');
+            Common::halt('An Error Was Encountered', "App Manager file {$class_name} does not exist!", 'sys_error');
         }
         
+        // Load stripped source when runtime cache is turned-on
+        // Otherwise load the origional unstripped file
+        $file = $source_file;
+
         if (RUNTIME_CACHE === TRUE) {
             // The runtime folder must be writable
             $file = APP_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
@@ -113,90 +130,14 @@ spl_autoload_register(function ($class_name) {
                 // Return source with stripped comments and whitespace
                 file_put_contents($file, php_strip_whitespace($source_file));
             }
-        } else {
-            $file = $source_file;
         }
     }
-    
+
     // Using require_once() in the __autoload() function is redundant.  
     // __autoload() is only called when php can't find your class definition.  
     // If your file containg your class was already included, the class defenition would already be loaded 
     // and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
     require $file;
 });
-
-/**
- * Display system error
- *
- * This function takes an error message as input,
- * log it to the defined file path and displays it using the specified template.
- * 
- * @param    string    the heading
- * @param    string    the message
- * @param    string    the template name
- * @return    string
- */
-function halt($heading, $message, $template = 'sys_error') {
-    // Log to caputre all errors since some errors can't be manually captured
-    Logger::log_debug(APP_LOG_DIR, $message);
-        
-    if (ENVIRONMENT === 'development') {
-        ob_start();
-        require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
-        $output = ob_get_contents();
-        ob_end_clean();
-    }
-    
-    if (ENVIRONMENT === 'production') {
-        // Display app specific 404 error page if defined, 
-        // otherwise use the system default template
-        if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
-            $output = file_get_contents(APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD);
-        } else {
-            $output = file_get_contents(SYS_CORE_DIR.'sys_templates'.DS.'404_error.php');
-        }
-        // Send the 404 HTTP header status code to avoid soft 404 before outputing the custom 404 content
-        // No need to send this 404 header status code under 'development' environment
-        header('HTTP/1.1 404 Not Found');
-    }
-    
-    echo $output;
-    exit;
-}
-
-/**
- * Dump variable
- *
- * Displays information about a variable in a human readable way
- * 
- * @param    mixed the variable to be dumped
- * @param    force type for xml
- * @param    collapse or not
- * @return    void
- */
-function dump($var, $force_type = '', $collapsed = FALSE) {
-    Dumper::dump($var, $force_type, $collapsed);
-}
-
-/**
- * Returns a translated string if one is found; Otherwise, the submitted message.
- * 
- * Translation/internationalization function. The PHP function
- * [strtr](http://php.net/strtr) is used for replacing parameters.
- *
- * __('Welcome back, :user', array(':user' => $username));
- *
- * The target language is defined by [I18n::$lang].
- * 
- * @uses    I18n::get
- * @param   string  text to translate
- * @param   array   values to replace in the translated text
- * @return  string
- */
-function __($str, array $values = NULL) {
-    // Get the translation for this message
-    $str = I18n::get($str);
-    return empty($values) ? $str : strtr($str, $values);
-}
 
 // End of file: ./system/core/init.php

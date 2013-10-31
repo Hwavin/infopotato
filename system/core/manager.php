@@ -7,7 +7,12 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
-class Manager {    
+ 
+namespace InfoPotato\core;
+
+use InfoPotato\core\Common;
+
+class Manager {
     /**
      * Key-value array of HTTP POST parameters
      * It's value is assigned in dispatch(), that's why it's marked as public
@@ -45,7 +50,7 @@ class Manager {
         $template_file_path = APP_TEMPLATE_DIR.$template.'.php';
         
         if ( ! file_exists($template_file_path)) {
-            halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
         } else {
             if (count($template_vars) > 0) {
                 // Import the template variables to local namespace
@@ -139,7 +144,7 @@ class Manager {
             $path = '';
         } else {
             $path = strtr(pathinfo($data, PATHINFO_DIRNAME), '/', DS).DS;
-            $data = substr(strrchr($data, '/'), 1);        
+            $data = substr(strrchr($data, '/'), 1);
         }
         
         // If no alias, use the data name
@@ -148,19 +153,21 @@ class Manager {
         }
         
         if (method_exists($this, $alias)) {
-            halt('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
         }
         
-        // Data already loaded? silently skip
+        // Data already loaded? Silently skip
         if ( ! isset($this->$alias)) {
             $source_file = APP_DATA_DIR.$path.$data.'.php';
             
             if ( ! file_exists($source_file)) {
-                halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
             }
             
-            // Load stripped source when system runtime cache turned-on
-            // Otherwise load the origional source
+            // Load stripped source when runtime cache is turned-on
+            // Otherwise load the origional unstripped file
+            $file = $source_file;
+
             if (RUNTIME_CACHE === TRUE) {
                 // Replace all directory separators with underscore
                 $temp_cache_name = str_replace(DS, '_', $path.$data);
@@ -170,15 +177,18 @@ class Manager {
                     // Return source with stripped comments and whitespace
                     file_put_contents($file, php_strip_whitespace($source_file));
                 }
-            } else {
-                $file = $source_file;
-            }
+            } 
             
             require_once $file;
+
+            // Prefix namespace
+            // Trim the leading backslash in case user added
+            $app_data_namespace = trim(APP_DATA_NAMESPACE, '\\');
+            $data = $app_data_namespace.'\\'.$data;
             
-            // Class name must be the same as the data name
+            // Now the data class has been prefixed with proper namespace
             if ( ! class_exists($data)) {
-                halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
             }
             
             // Instantiate the data object as a worker's property 
@@ -211,7 +221,7 @@ class Manager {
             $path = '';
         } else {
             $path = strtr(pathinfo($library, PATHINFO_DIRNAME), '/', DS).DS;
-            $library = substr(strrchr($library, '/'), 1);    
+            $library = substr(strrchr($library, '/'), 1);
         }
         
         // If no alias, use the library name
@@ -220,25 +230,36 @@ class Manager {
         }
         
         if (method_exists($this, $alias)) {    
-            halt('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name", 'sys_error');
+            halt('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name!", 'sys_error');
         }
         
         // Library already loaded? silently skip
         if ( ! isset($this->$alias)) {
             if ($scope === 'SYS') {
                 $source_file = SYS_LIBRARY_DIR.$path.$library.'.php';
+                
+                // Prefix namespace
+                $sys_library_namespace = 'InfoPotato\libraries';
+                $library = $sys_library_namespace.'\\'.$path.$library;
             } elseif ($scope === 'APP') {
                 $source_file = APP_LIBRARY_DIR.$path.$library.'.php';
+                
+                // Prefix namespace
+                // Trim the leading backslash in case user added
+                $app_library_namespace = trim(APP_LIBRARY_NAMESPACE, '\\');
+                $library = $app_library_namespace.'\\'.$path.$library;
             } else {
                 halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
             }
             
             if ( ! file_exists($source_file)) {
-                halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
             }
             
-            // Load stripped source when system runtime cache turned-on
-            // Otherwise load the origional source
+            // Load stripped source when runtime cache is turned-on
+            // Otherwise load the origional unstripped file
+            $file = $source_file;
+
             if (RUNTIME_CACHE === TRUE) {
                 // Replace all directory separators with underscore
                 $temp_cache_name = str_replace(DS, '_', $path.$library);
@@ -254,17 +275,15 @@ class Manager {
                     // Return source with stripped comments and whitespace
                     file_put_contents($file, php_strip_whitespace($source_file));
                 }
-            } else {
-                $file = $source_file;
+            } 
+            
+            require $file;
+
+            // Now the library class has been prefixed with proper namespace
+            if ( ! class_exists($library)) { 
+                Common::halt('A System Error Was Encountered', "Unknown library name '{$library}'", 'sys_error');
             }
-            
-            require_once $file;
-            
-            // Class name must be the same as the library name
-            if ( ! class_exists($library)) {
-                halt('A System Error Was Encountered', "Unknown class name '{$library}'", 'sys_error');
-            }
-            
+
             // Instantiate the library object as a manager's property 
             // An empty array is considered as a NULL variable
             // The names of user-defined classes are case-insensitive
@@ -272,65 +291,7 @@ class Manager {
             $this->{$alias} = new $library($config);
         }
     }
-    
-    /**
-     * Load user-defined function
-     *
-     * If function script is located in a sub-folder, include the relative path from functions folder
-     *
-     * @param   string $scope 'SYS' or 'APP'
-     * @param   string $func the function script name
-     * @return  void
-     */    
-    protected function load_function($scope, $func) {
-        $orig_func = strtolower($func);
-        
-        // Is the script in a sub-folder? If so, parse out the filename and path.
-        if (strpos($func, '/') === FALSE) {
-            $path = '';
-        } else {
-            $path = strtr(pathinfo($func, PATHINFO_DIRNAME), '/', DS).DS;
-            $func = substr(strrchr($func, '/'), 1);    
-        }
-        
-        if ($scope === 'SYS') {
-            $source_file = SYS_FUNCTION_DIR.$path.$func.'.php';
-        } elseif ($scope === 'APP') {
-            $source_file = APP_FUNCTION_DIR.$path.$func.'.php';
-        } else {
-            halt('A System Error Was Encountered', "The location of the functions folder must be specified, either 'SYS' or 'APP'", 'sys_error');
-        }
-        
-        if ( ! file_exists($source_file)) {
-            halt('An Error Was Encountered', "Unknown function script '{$orig_func}'", 'sys_error');        
-        }
-        
-        // Load stripped source when system runtime cache turned-on
-        // Otherwise load the origional source
-        if (RUNTIME_CACHE === TRUE) {
-            // Replace all directory separators with underscore
-            $temp_cache_name = str_replace(DS, '_', $path.$func);
-            
-            // The runtime cache folder must be writable
-            if ($scope === 'SYS') {
-                $file = SYS_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
-            } elseif ($scope === 'APP') {
-                $file = APP_RUNTIME_CACHE_DIR.'~'.$temp_cache_name.'.php';
-            }
-            
-            if ( ! file_exists($file)) {
-                // Return source with stripped comments and whitespace
-                file_put_contents($file, php_strip_whitespace($source_file));
-            }
-        } else {
-            $file = $source_file;
-        }
-        
-        // The require_once() statement will check if the file has already been included, 
-        // and if so, not include (require) it again
-        require_once $file;
-    }
-    
+
 }
 
 // End of file: ./system/core/manager.php 

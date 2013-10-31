@@ -17,6 +17,9 @@
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
+
+namespace InfoPotato\core;
+
 class I18n {
     /**
      * Target language: en_us, es_es, zh_cn, etc
@@ -24,7 +27,7 @@ class I18n {
      * @var  string   
      */
     public static $lang = 'en_us';
-	
+    
     /**
      * Cache of loaded languages
      * 
@@ -51,14 +54,14 @@ class I18n {
      */
     public static function get($string) {
         $lang = I18n::$lang;
-		
+        
         // Load the translation table for this language
         $table = I18n::load($lang);
-		
+        
         // Return the translated string if it exists
         return isset($table[$string]) ? $table[$string] : $string;
     }
-	
+    
     /**
      * Returns the translation table for a given language.
      *
@@ -72,25 +75,25 @@ class I18n {
         if (isset(I18n::$cache[$lang])) {
             return I18n::$cache[$lang];
         }
-		
+        
         // New translation table
         $table = array();
-		
+        
         $file = APP_I18N_DIR.$lang.'.php';
         if (file_exists($file)) {
             $t = array();
             // Merge the language strings into the sub table
             $t = array_merge($t, include $file);
-			
+            
             // Append the sub table, preventing less specific language
             // files from overloading more specific files
             $table += $t;
         }
-		
+        
         // Cache the translation table locally
         return I18n::$cache[$lang] = $table;
     }
-	
+    
 }
 
 // End of file: ./system/core/i18n.php 

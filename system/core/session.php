@@ -12,6 +12,11 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  * @link   based on    http://flourishlib.com/fSession
  */
+
+namespace InfoPotato\core;
+
+use InfoPotato\core\Common;
+
 class Session {
     /**
      * The length for a normal session
@@ -74,7 +79,7 @@ class Session {
                 if ( ! isset($tip[$array_key])) {
                     $tip[$array_key] = array();
                 } elseif ( ! is_array($tip[$array_key])) {
-                    halt('A System Error Was Encountered', "Session::add() was called for the key, {$original_key}, which is not an array", 'sys_error');
+                    Common::halt('A System Error Was Encountered', "Session::add() was called for the key, {$original_key}, which is not an array", 'sys_error');
                 }
                 $tip =& $tip[$array_key];
             }
@@ -85,7 +90,7 @@ class Session {
         if ( ! isset($tip[$key])) {
             $tip[$key] = array();
         } elseif ( ! is_array($tip[$key])) {            
-            halt('A System Error Was Encountered', "Session::add() was called for the key, {$key}, which is not an array", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Session::add() was called for the key, {$key}, which is not an array", 'sys_error');
         }
         
         if ($beginning) {
@@ -172,7 +177,7 @@ class Session {
                 if ( ! isset($tip[$array_key])) {
                     return $value;
                 } elseif ( ! is_array($tip[$array_key])) {
-                    halt('A System Error Was Encountered', "Session::delete() was called for an element, {$original_key}, which is not an array", 'sys_error');
+                    Common::halt('A System Error Was Encountered', "Session::delete() was called for an element, {$original_key}, which is not an array", 'sys_error');
                 }
                 $tip =& $tip[$array_key];
             }
@@ -234,11 +239,11 @@ class Session {
      */
     public static function enable_persistence() {
         if (self::$persistent_timespan === NULL) {
-            halt('A System Error Was Encountered', "The method Session::init() must be called with the '$persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
+            Common::halt('A System Error Was Encountered', "The method Session::init() must be called with the '$persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
         }
         
         $current_params = session_get_cookie_params();
-		
+        
         // This sets the lifetime of the session cookie to self::$persistent_timespan
         // session.cookie_lifetime (defaults to 0 that means "until the browser is closed.") 
         // is set by calling session_set_cookie_params() with the first parameter 
@@ -250,7 +255,7 @@ class Session {
             $current_params['domain'],
             $current_params['secure']
         );
-		
+        
         self::open();
         
         $_SESSION['SESSION::type'] = 'persistent';
@@ -313,7 +318,7 @@ class Session {
      */
     public static function ignore_subdomain() {
         if (self::$open || isset($_SESSION)) {
-            halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
         }
         
         $current_params = session_get_cookie_params();
@@ -323,9 +328,9 @@ class Session {
         } elseif (isset($_SERVER['HTTP_HOST'])) {
             $domain = $_SERVER['HTTP_HOST'];
         } else {
-            halt('A System Error Was Encountered', "The domain name could not be found in ['SERVER_NAME'] or ['HTTP_HOST']. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
+            Common::halt('A System Error Was Encountered', "The domain name could not be found in ['SERVER_NAME'] or ['HTTP_HOST']. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
         }
-		
+        
         session_set_cookie_params( 
             $current_params['lifetime'],
             $current_params['path'],
@@ -351,7 +356,7 @@ class Session {
         }
         
         self::$open = TRUE;
-		
+        
         // If the session is already open, we just piggy-back without setting options
         if ( ! isset($_SESSION)) {
             // Forces to use cookies to store the session id on the client side
@@ -418,7 +423,7 @@ class Session {
                 if ( ! isset($tip[$array_key])) {
                     return NULL;
                 } elseif ( ! is_array($tip[$array_key])) {
-                    halt('A System Error Was Encountered', "Session::remove() was called for the key, {$original_key}, which is not an array", 'sys_error');
+                    Common::halt('A System Error Was Encountered', "Session::remove() was called for the key, {$original_key}, which is not an array", 'sys_error');
                 }
                 $tip =& $tip[$array_key];
             }
@@ -428,7 +433,7 @@ class Session {
         if ( ! isset($tip[$key])) {
             return NULL;
         } elseif ( ! is_array($tip[$key])) {
-            halt('A System Error Was Encountered', "Session::remove() was called for the key, {$key}, which is not an array", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Session::remove() was called for the key, {$key}, which is not an array", 'sys_error');
         }
         
         if ($beginning) {
@@ -483,7 +488,7 @@ class Session {
             $tip[$key] = $value;
         }
     }
-	
+    
     /**
      * Sets the path to store session files in and 
      * Sets the minimum length of a session
@@ -507,9 +512,9 @@ class Session {
      */
     public static function init($dir, $normal_timespan, $persistent_timespan = NULL) {
         if (self::$open || isset($_SESSION)) {
-            halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
         }
-		
+
         // Set the path of the current directory used to save session data.
         session_save_path($dir);
         

@@ -9,6 +9,8 @@
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
 
+namespace InfoPotato\libraries\markdown;
+
 class Markdown_Library {
 
     /**
