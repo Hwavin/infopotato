@@ -230,7 +230,7 @@ class Manager {
         }
         
         if (method_exists($this, $alias)) {    
-            halt('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name!", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Library name '{$alias}' is an invalid (reserved) name!", 'sys_error');
         }
         
         // Library already loaded? silently skip
@@ -249,7 +249,7 @@ class Manager {
                 $app_library_namespace = trim(APP_LIBRARY_NAMESPACE, '\\');
                 $library = $app_library_namespace.'\\'.$path.$library;
             } else {
-                halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
             }
             
             if ( ! file_exists($source_file)) {
