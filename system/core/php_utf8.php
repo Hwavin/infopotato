@@ -116,7 +116,6 @@ class PHP_UTF8 {
      * @author <hsivonen@iki.fi>
      * @param string $str UTF-8 encoded string
      * @return mixed array of unicode code points or FALSE if UTF-8 invalid
-     * @see utf8_from_unicode
      * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
      * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
      * @see http://hsivonen.iki.fi/php-utf8/
@@ -243,7 +242,6 @@ class PHP_UTF8 {
      * the Initial Developer. All Rights Reserved.
      * Ported to PHP by Henri Sivonen (http://hsivonen.iki.fi)
      *
-     * @see utf8_to_unicode
      * @see http://hsivonen.iki.fi/php-utf8/
      * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
      * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
@@ -298,7 +296,7 @@ class PHP_UTF8 {
      * @param string $str A UTF-8 string
      * @return mixed integer length of a string
      */
-    public static function mirror_strlen($str) {
+    public static function strlen($str) {
         // Checks to see if the [http://php.net/mbstring mbstring] extension is available
         self::check_mbstring();
         
@@ -316,14 +314,12 @@ class PHP_UTF8 {
      * This will get alot slower if offset is used.
      *
      * @see http://www.php.net/strpos
-     * @see utf8_strlen
-     * @see utf8_substr
      * @param string $str haystack
      * @param string $str needle (you should validate this with utf8_is_valid)
      * @param integer $offset offset in characters (from left)
      * @return mixed integer position or FALSE on failure
      */
-    public static function mirror_strpos($str, $needle, $offset = FALSE) {
+    public static function strpos($str, $needle, $offset = FALSE) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -340,19 +336,19 @@ class PHP_UTF8 {
                 
                 //if (count($ar) > 1)
                 if (isset($ar[1])) {
-                    return self::mirror_strlen($ar[0]);
+                    return self::strlen($ar[0]);
                 }
                 
                 return FALSE;
             }
             
             if ( ! is_int($offset)) {
-                Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strpos(): Offset must be an integer', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'PHP_UTF8::strpos(): Offset must be an integer', 'sys_error');
             }
             
-            $str = self::mirror_substr($str, $offset);
+            $str = self::substr($str, $offset);
             
-            if (($pos = self::mirror_strpos($str, $needle)) !== FALSE) {
+            if (($pos = self::strpos($str, $needle)) !== FALSE) {
                 return $pos + $offset;
             }
             
@@ -367,14 +363,12 @@ class PHP_UTF8 {
      * This will get alot slower if offset is used
      *
      * @see http://www.php.net/strrpos
-     * @see utf8_substr
-     * @see utf8_strlen
      * @param string $str haystack
      * @param string $needle needle (you should validate this with utf8_is_valid)
      * @param integer $offset (optional) offset (from left)
      * @return mixed integer position or FALSE on failure
      */
-    public static function mirror_strrpos($str, $needle, $offset = FALSE) {
+    public static function strrpos($str, $needle, $offset = FALSE) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -390,7 +384,7 @@ class PHP_UTF8 {
             }
             
             if ( ! is_int($offset)) {
-                Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'PHP_UTF8::strrpos(): expects parameter 3 to be long', 'sys_error');
             }
             
             $str = mb_substr($str, $offset);
@@ -410,19 +404,19 @@ class PHP_UTF8 {
                     array_pop($ar);
                     $str = implode($needle, $ar);
                     
-                    return self::mirror_strlen($str);
+                    return self::strlen($str);
                 }
                 
                 return FALSE;
             }
             
             if ( ! is_int($offset)) {
-                Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_strrpos(): expects parameter 3 to be long', 'sys_error');
+                Common::halt('A System Error Was Encountered', 'PHP_UTF8::strrpos(): expects parameter 3 to be long', 'sys_error');
             }
             
-            $str = self::mirror_substr($str, $offset);
+            $str = self::substr($str, $offset);
             
-            if (($pos = self::mirror_strrpos($str, $needle)) !== FALSE) {
+            if (($pos = self::strrpos($str, $needle)) !== FALSE) {
                 return $pos + $offset;
             }
             
@@ -456,7 +450,7 @@ class PHP_UTF8 {
      * @param integer $length (optional) length in UTF-8 characters from offset
      * @return mixed string or FALSE if failure
      */
-    public static function mirror_substr($str, $offset, $length = FALSE) {
+    public static function substr($str, $offset, $length = FALSE) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -486,7 +480,7 @@ class PHP_UTF8 {
             // anchored pattern, but they are horribly slow!)
             if ($offset < 0) {
                 // See notes
-                $strlen = self::mirror_strlen($str);
+                $strlen = self::strlen($str);
                 $offset = $strlen + $offset;
                 
                 if ($offset < 0) {
@@ -518,7 +512,7 @@ class PHP_UTF8 {
             } else {
                 // See notes
                 if ( ! isset($strlen)) {
-                    $strlen = self::mirror_strlen($str);
+                    $strlen = self::strlen($str);
                 }
                 
                 // Another trivial case
@@ -576,14 +570,12 @@ class PHP_UTF8 {
      *
      * @author Andreas Gohr <andi@splitbrain.org>
      * @see http://www.php.net/strtolower
-     * @see utf8_to_unicode
-     * @see utf8_from_unicode
      * @see http://www.unicode.org/reports/tr21/tr21-5.html
      * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
      * @param string $str
      * @return mixed either string in lowercase or FALSE is UTF-8 invalid
      */
-    public static function mirror_strtolower($str) {
+    public static function strtolower($str) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -667,14 +659,12 @@ class PHP_UTF8 {
      *
      * @author Andreas Gohr <andi@splitbrain.org>
      * @see http://www.php.net/strtoupper
-     * @see utf8_to_unicode
-     * @see utf8_from_unicode
      * @see http://www.unicode.org/reports/tr21/tr21-5.html
      * @see http://dev.splitbrain.org/view/darcs/dokuwiki/inc/utf8.php
      * @param string $str
      * @return mixed either string in lowercase or FALSE is UTF-8 invalid
      */
-    public static function mirror_strtoupper($str) {
+    public static function strtoupper($str) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -753,12 +743,10 @@ class PHP_UTF8 {
      * Uppercase the first character of each word in a string
      *
      * @see http://php.net/manual/en/function.ucwords.php
-     * @uses utf8_substr_replace
-     * @uses utf8_strtoupper
      * @param string
      * @return string with first char of each word uppercase
      */
-    public static function mirror_ucwords($str) {
+    public static function ucwords($str) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -772,8 +760,8 @@ class PHP_UTF8 {
             
             return preg_replace_callback($pattern, function ($match) {
                 $leadingws = $match[2];
-                $ucfirst = self::mirror_strtoupper($match[3]);
-                $ucword = self::mirror_substr_replace(ltrim($match[0]), $ucfirst, 0, 1);
+                $ucfirst = self::strtoupper($match[3]);
+                $ucword = self::substr_replace(ltrim($match[0]), $ucfirst, 0, 1);
                 
                 return $leadingws.$ucword;
             }, $str);
@@ -794,7 +782,7 @@ class PHP_UTF8 {
      * @param  string  $charset
      * @return string
      */
-    public static function mirror_wordwrap($str, $width = 75, $break = "\n", $cut = FALSE, $charset = 'utf-8') {
+    public static function wordwrap($str, $width = 75, $break = "\n", $cut = FALSE, $charset = 'utf-8') {
         $string_width = iconv_strlen($str, $charset);
         $break_width = iconv_strlen($break, $charset);
         
@@ -803,11 +791,11 @@ class PHP_UTF8 {
         }
         
         if ($break_width === NULL) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Break string cannot be empty', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::wordwrap(): Break string cannot be empty', 'sys_error');
         }
         
         if ($width === 0 && $cut) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_wordwrap(): Cannot force cut when width is zero', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::wordwrap(): Cannot force cut when width is zero', 'sys_error');
         }
         
         $result = '';
@@ -864,24 +852,21 @@ class PHP_UTF8 {
      *
      * Make a string's first character uppercase
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/ucfirst
-     * @uses utf8_strtoupper
      * @param string $str
      * @return string A string with the first character in Uppercase (if applicable).
      */
-    public static function mirror_ucfirst($str) {
-        switch (self::mirror_strlen($str)) {
+    public static function ucfirst($str) {
+        switch (self::strlen($str)) {
             case 0:
                 return '';
                 break;
             case 1:
-                return self::mirror_strtoupper($str);
+                return self::strtoupper($str);
                 break;
             default:
                 preg_match('/^(.{1})(.*)$/us', $str, $matches);
-                return self::mirror_strtoupper($matches[1]).$matches[2];
+                return self::strtoupper($matches[1]).$matches[2];
                 break;
         }
     }
@@ -898,7 +883,7 @@ class PHP_UTF8 {
      * @param string $charlist
      * @return string
      */
-    public static function mirror_ltrim($str, $charlist = '') {
+    public static function ltrim($str, $charlist = '') {
         if (empty($charlist)) {
             return ltrim($str);
         }
@@ -921,7 +906,7 @@ class PHP_UTF8 {
      * @param string $charlist
      * @return string
      */
-    public static function mirror_rtrim($str, $charlist= '') {
+    public static function rtrim($str, $charlist= '') {
         if (empty($charlist)) {
             return rtrim($str);
         }
@@ -944,32 +929,28 @@ class PHP_UTF8 {
      * @param boolean $charlist
      * @return string
      */
-    public static function mirror_trim($str, $charlist= '') {
+    public static function trim($str, $charlist= '') {
         if (empty($charlist)) {
             return trim($str);
         }
-        return self::mirror_ltrim(self::mirror_rtrim($str, $charlist), $charlist);
+        return self::ltrim(self::rtrim($str, $charlist), $charlist);
     }
     
     /**
      * UTF-8 aware substr_replace.
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/substr_replace
-     * @uses utf8_strlen
-     * @uses utf8_substr
      * @param string $str
      * @param string $repl
      * @param int $start
      * @param int $length
      * @return string
      */
-    public static function mirror_substr_replace($str, $repl, $start, $length = NULL) {
+    public static function substr_replace($str, $repl, $start, $length = NULL) {
         preg_match_all('/./us', $str, $ar);
         preg_match_all('/./us', $repl, $rar);
         
-        $length = is_int($length) ? $length : self::mirror_strlen($str);
+        $length = is_int($length) ? $length : self::strlen($str);
         
         array_splice($ar[0], $start, $length, $rar[0]);
         
@@ -981,28 +962,24 @@ class PHP_UTF8 {
      *
      * Find length of initial segment matching mask.
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/strspn
-     * @uses utf8_strlen
-     * @uses utf8_substr
      * @param string $str
      * @param string $mask
      * @param int $start
      * @param int $length
      * @return int
      */
-    public static function mirror_strspn($str, $mask, $start = NULL, $length = NULL) {
+    public static function strspn($str, $mask, $start = NULL, $length = NULL) {
         $mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
         
         if ($start !== NULL || $length !== NULL) {
-            $str = self::mirror_substr($str, $start, $length);
+            $str = self::substr($str, $start, $length);
         }
         
         preg_match('/^['.$mask.']+/u', $str, $matches);
         
         if (isset($matches[0])) {
-            return self::mirror_strlen($matches[0]);
+            return self::strlen($matches[0]);
         }
         
         return 0;
@@ -1013,13 +990,11 @@ class PHP_UTF8 {
      *
      * Reverse a string.
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/strrev
      * @param string $str UTF-8 encoded
      * @return string characters in string reverses
      */
-    public static function mirror_strrev($str) {
+    public static function strrev($str) {
         preg_match_all('/./us', $str, $ar);
         return implode(array_reverse($ar[0]));
     }
@@ -1029,25 +1004,22 @@ class PHP_UTF8 {
      *
      * Find first occurrence of a string using case insensitive comparison.
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://us1.php.net/manual/en/function.stristr.php
-     * @uses utf8_strtolower
      * @param string $str
      * @param string $search
      * @return int
      */
-    public static function mirror_stristr($str, $search) {
-        if (strlen($search) == 0) {
+    public static function stristr($str, $search) {
+        if (strlen($search) === 0) {
             return $str;
         }
         
-        $lstr = self::mirror_strtolower($str);
-        $lsearch = self::mirror_strtolower($search);
+        $lstr = self::strtolower($str);
+        $lsearch = self::strtolower($search);
         preg_match('/^(.*)'.preg_quote($lsearch).'/Us', $lstr, $matches);
         
-        if (count($matches) == 2) {
-            return self::mirror_substr($str, self::mirror_strlen($matches[1]));
+        if (count($matches) === 2) {
+            return self::substr($str, self::strlen($matches[1]));
         }
         
         return FALSE;
@@ -1058,29 +1030,25 @@ class PHP_UTF8 {
      *
      * Find length of initial segment not matching mask.
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/strcspn
-     * @uses utf8_strlen
-     * @uses utf8_substr
      * @param string
      * @return int
      */
-    public static function mirror_strcspn($str, $mask, $start = NULL, $length = NULL) {
-        if (empty($mask) || strlen($mask) == 0) {
+    public static function strcspn($str, $mask, $start = NULL, $length = NULL) {
+        if (empty($mask) || strlen($mask) === 0) {
             return NULL;
         }
         
         $mask = preg_replace('!([\\\\\\-\\]\\[/^])!', '\\\${1}', $mask);
         
         if ($start !== NULL || $length !== NULL) {
-            $str = self::mirror_substr($str, $start, $length);
+            $str = self::substr($str, $start, $length);
         }
         
         preg_match('/^[^'.$mask.']+/u', $str, $matches);
         
         if (isset($matches[0])) {
-            return self::mirror_strlen($matches[0]);
+            return self::strlen($matches[0]);
         }
         
         return 0;
@@ -1091,17 +1059,14 @@ class PHP_UTF8 {
      *
      * A case insensivite string comparison
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/strcasecmp
-     * @uses utf8_strtolower
      * @param string $strX
      * @param string $strY
      * @return int
      */
-    public static function mirror_strcasecmp($str_x, $str_y) {
-        $str_x = self::mirror_strtolower($str_x);
-        $str_y = self::mirror_strtolower($str_y);
+    public static function strcasecmp($str_x, $str_y) {
+        $str_x = self::strtolower($str_x);
+        $str_y = self::strtolower($str_y);
         
         return strcmp($str_x, $str_y);
     }
@@ -1111,20 +1076,17 @@ class PHP_UTF8 {
      *
      * Convert a string to an array
      *
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/str_split
-     * @uses utf8_strlen
      * @param string $str A UTF-8 encoded string
      * @param int $split_len A number of characters to split string by
      * @return string characters in string reverses
      */
-    public static function mirror_str_split($str, $split_len = 1) {
+    public static function str_split($str, $split_len = 1) {
         if ( ! preg_match('/^[0-9]+$/', $split_len) || $split_len < 1) {
             return FALSE;
         }
         
-        $len = self::mirror_strlen($str);
+        $len = self::strlen($str);
         if ($len <= $split_len) {
             return array($str);
         }
@@ -1140,33 +1102,30 @@ class PHP_UTF8 {
      * $pad_str may contain multi-byte characters.
      *
      * @author Oliver Saunders <oliver@osinternetservices.com>
-     * @package php-utf8
-     * @subpackage functions
      * @see http://www.php.net/str_pad
-     * @uses utf8_substr
      * @param string $input
      * @param int $length
      * @param string $pad_str
      * @param int $type ( same constants as str_pad )
      * @return string
      */
-    public static function mirror_str_pad($input, $length, $pad_str=' ', $type = STR_PAD_RIGHT) {
-        $input_len = self::mirror_strlen($input);
+    public static function str_pad($input, $length, $pad_str=' ', $type = STR_PAD_RIGHT) {
+        $input_len = self::strlen($input);
         if ($length <= $input_len) {
             return $input;
         }
         
-        $pad_str_len = self::mirror_strlen($pad_str);
+        $pad_str_len = self::strlen($pad_str);
         $pad_len = $length - $input_len;
         
         if ($type == STR_PAD_RIGHT) {
             $repeat_times = ceil($pad_len / $pad_str_len);
-            return self::mirror_substr($input.str_repeat($pad_str, $repeat_times), 0, $length);
+            return self::substr($input.str_repeat($pad_str, $repeat_times), 0, $length);
         }
         
         if ($type == STR_PAD_LEFT) {
             $repeat_times = ceil($pad_len / $pad_str_len);
-            return self::mirror_substr(str_repeat($pad_str, $repeat_times), 0, floor($pad_len)).$input;
+            return self::substr(str_repeat($pad_str, $repeat_times), 0, floor($pad_len)).$input;
         }
         
         if ($type == STR_PAD_BOTH) {
@@ -1176,13 +1135,13 @@ class PHP_UTF8 {
             $repeat_times_left = ceil($pad_amount_left / $pad_str_len);
             $repeat_times_right = ceil($pad_amount_right / $pad_str_len);
             
-            $padding_left = self::mirror_substr(str_repeat($pad_str, $repeat_times_left), 0, $pad_amount_left);
-            $padding_right = self::mirror_substr(str_repeat($pad_str, $repeat_times_right), 0, $pad_amount_right);
+            $padding_left = self::substr(str_repeat($pad_str, $repeat_times_left), 0, $pad_amount_left);
+            $padding_right = self::substr(str_repeat($pad_str, $repeat_times_right), 0, $pad_amount_right);
             
             return $padding_left.$input.$padding_right;
         }
         
-        Common::halt('A System Error Was Encountered', "PHP_UTF8::mirror_str_pad(): Unknown padding type ({$type})", 'sys_error');
+        Common::halt('A System Error Was Encountered', "PHP_UTF8::str_pad(): Unknown padding type ({$type})", 'sys_error');
     }
     
     
@@ -1195,9 +1154,6 @@ class PHP_UTF8 {
      * have the same length in bytes which is currently true given the hash table
      * to strtoLower.
      *
-     * @package php-utf8
-     * @subpackage functions
-     * @uses utf8_strtoLower
      * @see http://www.php.net/str_ireplace
      * @param string $search
      * @param string $replace
@@ -1205,18 +1161,18 @@ class PHP_UTF8 {
      * @param int $count
      * @return string
      */
-    public static function mirror_str_ireplace($search, $replace, $str, $count = NULL) {
+    public static function str_ireplace($search, $replace, $str, $count = NULL) {
         if ( ! is_array($search)) {
-            $slen = self::mirror_strlen($search);
+            $slen = self::strlen($search);
             
             if ($slen == 0)
                 return $str;
                 
-            $lendif = self::mirror_strlen($replace) - self::mirror_strlen($search);
-            $search = self::mirror_strtolower($search);
+            $lendif = self::strlen($replace) - self::strlen($search);
+            $search = self::strtolower($search);
             
             $search = preg_quote($search);
-            $lstr = self::mirror_strtolower($str);
+            $lstr = self::strtolower($str);
             $i = 0;
             $matched = 0;
             
@@ -1225,9 +1181,9 @@ class PHP_UTF8 {
                     break;
                 }
                 
-                $mlen = self::mirror_strlen($matches[0]);
-                $lstr = self::mirror_substr($lstr, $mlen);
-                $str = self::mirror_substr_replace($str, $replace, $matched + self::mirror_strlen($matches[1]), $slen);
+                $mlen = self::strlen($matches[0]);
+                $lstr = self::substr($lstr, $mlen);
+                $str = self::substr_replace($str, $replace, $matched + self::strlen($matches[1]), $slen);
                 $matched += $mlen + $lendif;
                 $i++;
             }
@@ -1237,12 +1193,12 @@ class PHP_UTF8 {
             foreach (array_keys($search) as $k) {
                 if (is_array($replace)) {
                     if(array_key_exists($k, $replace)) {
-                        $str = self::mirror_str_ireplace($search[$k], $replace[$k], $str, $count);
+                        $str = self::str_ireplace($search[$k], $replace[$k], $str, $count);
                     } else {
-                        $str = self::mirror_str_ireplace($search[$k], '', $str, $count);
+                        $str = self::str_ireplace($search[$k], '', $str, $count);
                     }
                 } else {
-                    $str = self::mirror_str_ireplace($search[$k], $replace, $str, $count);
+                    $str = self::str_ireplace($search[$k], $replace, $str, $count);
                 }
             }
             
@@ -1258,10 +1214,8 @@ class PHP_UTF8 {
      * @see http://www.php.net/manual/en/function.ord.php#46267
      * @param string $chr UTF-8 encoded character
      * @return int unicode ordinal for the character
-     * @package php-utf8
-     * @subpackage functions
      */
-    public static function mirror_ord($chr) {
+    public static function ord($chr) {
         $ord0 = ord($chr);
         
         if ($ord0 >= 0 && $ord0 <= 127) {
@@ -1269,7 +1223,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[1])) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 2 bytes expected, only 1 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::ord(): Short sequence - at least 2 bytes expected, only 1 seen', 'sys_error');
         }
         
         $ord1 = ord($chr[1]);
@@ -1278,7 +1232,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[2])) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 3 bytes expected, only 2 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::ord(): Short sequence - at least 3 bytes expected, only 2 seen', 'sys_error');
         }
         
         $ord2 = ord($chr[2]);
@@ -1287,7 +1241,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[3])) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 4 bytes expected, only 3 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::ord(): Short sequence - at least 4 bytes expected, only 3 seen', 'sys_error');
         }
         
         $ord3 = ord($chr[3]);
@@ -1296,7 +1250,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[4])) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 5 bytes expected, only 4 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::ord(): Short sequence - at least 5 bytes expected, only 4 seen', 'sys_error');
         }
         
         $ord4 = ord($chr[4]);
@@ -1305,7 +1259,7 @@ class PHP_UTF8 {
         }
         
         if ( ! isset($chr[5])) {
-            Common::halt('A System Error Was Encountered', 'PHP_UTF8::mirror_ord(): Short sequence - at least 6 bytes expected, only 5 seen', 'sys_error');
+            Common::halt('A System Error Was Encountered', 'PHP_UTF8::ord(): Short sequence - at least 6 bytes expected, only 5 seen', 'sys_error');
         }
         
         if ($ord0 >= 252 && $ord0 <= 253) {
@@ -1313,7 +1267,7 @@ class PHP_UTF8 {
         }
         
         if ($ord0 >= 254 && $ord0 <= 255) {
-            Common::halt('A System Error Was Encountered', "PHP_UTF8::mirror_ord(): Invalid UTF-8 with surrogate ordinal {$ord0}", 'sys_error');
+            Common::halt('A System Error Was Encountered', "PHP_UTF8::ord(): Invalid UTF-8 with surrogate ordinal {$ord0}", 'sys_error');
         }
     }
     
@@ -1330,7 +1284,6 @@ class PHP_UTF8 {
      * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUTF8ToUnicode.cpp
      * @see http://lxr.mozilla.org/seamonkey/source/intl/uconv/src/nsUnicodeToUTF8.cpp
      * @see http://hsivonen.iki.fi/php-utf8/
-     * @see utf8_compliant
      * @param string $str UTF-8 encoded string
      * @return boolean TRUE if valid
      */
