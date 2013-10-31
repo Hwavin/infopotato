@@ -28,7 +28,7 @@ class MySQLi_DAO extends Base_DAO {
     public function __construct(array $config = NULL) {
         // If there is no existing database connection then try to connect
         if ( ! is_object($this->mysqli)) {
-            $this->mysqli = new mysqli($config['host'], $config['user'], $config['pass'], $config['name'], $config['port']);
+            $this->mysqli = new \mysqli($config['host'], $config['user'], $config['pass'], $config['name'], $config['port']);
 
             // Use this instead of $connect_error if you need to ensure
             // compatibility with PHP versions prior to 5.2.9 and 5.3.0.

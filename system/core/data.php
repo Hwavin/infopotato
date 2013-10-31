@@ -62,8 +62,13 @@ class Data {
             if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
                 Common::halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
             }
+            
+            // Prefix namespace
+            $sql_dao_namespace = 'InfoPotato\core';
+            $sql_dao = $sql_dao_namespace.'\\'.$conn[0];
+
             // Create instance
-            $db_obj[$connection] = new $conn[0]($data_source[$conn[0]][$conn[1]]);
+            $db_obj[$connection] = new $sql_dao($data_source[$conn[0]][$conn[1]]);
             return $db_obj[$connection];
         }
     }

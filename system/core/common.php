@@ -9,6 +9,7 @@
  */
 
 namespace InfoPotato\core;
+
 use InfoPotato\core\Logger;
 use InfoPotato\core\Dumper;
 use InfoPotato\core\I18n;
