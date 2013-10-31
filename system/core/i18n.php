@@ -53,10 +53,10 @@ class I18n {
      * @return  string
      */
     public static function get($string) {
-        $lang = I18n::$lang;
+        $lang = self::$lang;
         
         // Load the translation table for this language
-        $table = I18n::load($lang);
+        $table = self::load($lang);
         
         // Return the translated string if it exists
         return isset($table[$string]) ? $table[$string] : $string;
@@ -72,8 +72,8 @@ class I18n {
      * @return  array
      */
     public static function load($lang) {
-        if (isset(I18n::$cache[$lang])) {
-            return I18n::$cache[$lang];
+        if (isset(self::$cache[$lang])) {
+            return self::$cache[$lang];
         }
         
         // New translation table
@@ -91,7 +91,7 @@ class I18n {
         }
         
         // Cache the translation table locally
-        return I18n::$cache[$lang] = $table;
+        return self::$cache[$lang] = $table;
     }
     
 }

@@ -13,6 +13,7 @@
  */
 
 namespace InfoPotato\core;
+
 use InfoPotato\core\Common;
 
 class PHP_UTF8 {

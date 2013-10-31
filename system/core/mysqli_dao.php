@@ -9,6 +9,7 @@
  */
 
 namespace InfoPotato\core;
+
 use InfoPotato\core\Common;
 
 class MySQLi_DAO extends Base_DAO {

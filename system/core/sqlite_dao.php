@@ -11,6 +11,7 @@
  */
 
 namespace InfoPotato\core;
+
 use InfoPotato\core\Common;
 
 class SQLite_DAO extends Base_DAO {
