@@ -179,7 +179,7 @@ class Manager {
                 }
             } 
             
-            require_once $file;
+            require $file;
 
             // Prefix namespace
             // Trim the leading backslash in case user added
