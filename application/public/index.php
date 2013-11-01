@@ -53,6 +53,14 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
+ * User-defined constants go here
+ */
+//define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
+//define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
+//define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
+define('APP_SESSION_DIR', APP_DIR.'session'.DS);
+
+/**
  * App namespaces (no leading and trailing backlash)
  */
 define('APP_MANAGER_NAMESPACE', 'app\managers');
@@ -75,34 +83,27 @@ if (ENVIRONMENT === 'production') {
 }
 
 /**
- * When turned-on, the system core/libraries/functions called will be cached and stored in SYS_RUNTIME_CACHE_DIR
- * When turned-on, the app managers/data/libraries/functions called will be cached and stored in APP_RUNTIME_CACHE_DIR
+ * When turned-on, the system core components|libraries called will be cached and stored in SYS_RUNTIME_CACHE_DIR
+ * When turned-on, the app managers|data|libraries called will be cached and stored in APP_RUNTIME_CACHE_DIR
  */
 define('RUNTIME_CACHE', FALSE);
 
-/**
- * User-defined constants go here
- */
-//define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
-//define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
-define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
-define('APP_SESSION_DIR', APP_DIR.'session'.DS);
-
 // Environment settings and autoloading
-$file = SYS_CORE_DIR.'init.php';
+$file = SYS_CORE_DIR.'starter.php';
 
 if (RUNTIME_CACHE === TRUE) {
     // SYS_RUNTIME_CACHE_DIR must be writable
-    if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) ||  ! is_writable(APP_RUNTIME_CACHE_DIR)) {
+    if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) || ! is_writable(APP_RUNTIME_CACHE_DIR)) {
         exit('SYS_RUNTIME_CACHE_DIR and APP_RUNTIME_CACHE_DIR must be writable');
     }
-    $file = SYS_RUNTIME_CACHE_DIR.'~init.php';
+    $file = SYS_RUNTIME_CACHE_DIR.'~starter.php';
     if ( ! file_exists($file)) {
-        file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'init.php'));
+        file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'starter.php'));
     }
 } 
-
 require_once $file;
+
+\InfoPotato\core\Starter::start();
 
 // APP_SESSION_DIR must be writable
 // Set session normal length as 30 mins
