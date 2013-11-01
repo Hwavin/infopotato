@@ -16,12 +16,12 @@ class Starter {
     /**
      * Prevent direct object creation
      * 
-     * @return Dispatcher
+     * @return Starter
      */
     private function __construct() {}
     
     /**
-     * Constructor
+     * Security setting and autoloading
      *
      * @return  void
      */
