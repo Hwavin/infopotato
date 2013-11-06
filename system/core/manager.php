@@ -140,13 +140,16 @@ class Manager {
         $orig_data = $data;
         
         // Is the data in a sub-folder? If so, parse out the filename and path.
+        // Check both '\' and '\' for error proof
         if (strpos($data, '/') === FALSE) {
             $path = '';
+            $namespace = '';
         } else {
             $path = strtr(pathinfo($data, PATHINFO_DIRNAME), '/', DS).DS;
+            $namespace = strtr(pathinfo($data, PATHINFO_DIRNAME), '/', '\\').'\\';
             $data = substr(strrchr($data, '/'), 1);
         }
-        
+
         // If no alias, use the data name
         if ($alias === '') {
             $alias = $data;
@@ -184,8 +187,8 @@ class Manager {
             // Prefix namespace
             // Trim the leading backslash in case user added
             $app_data_namespace = trim(APP_DATA_NAMESPACE, '\\');
-            $data = $app_data_namespace.'\\'.$data;
-            
+            $data = $app_data_namespace.'\\'.$namespace.$data;
+
             // Now the data class has been prefixed with proper namespace
             if ( ! class_exists($data)) {
                 Common::halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
@@ -217,10 +220,13 @@ class Manager {
         $orig_library = $library;
         
         // Is the library in a sub-folder? If so, parse out the filename and path.
+        // Check both '\' and '\' for error proof
         if (strpos($library, '/') === FALSE) {
             $path = '';
+            $namespace = '';
         } else {
             $path = strtr(pathinfo($library, PATHINFO_DIRNAME), '/', DS).DS;
+            $namespace = strtr(pathinfo($library, PATHINFO_DIRNAME), '/', '\\').'\\';
             $library = substr(strrchr($library, '/'), 1);
         }
         
@@ -240,14 +246,14 @@ class Manager {
                 
                 // Prefix namespace
                 $sys_library_namespace = 'InfoPotato\libraries';
-                $library = $sys_library_namespace.'\\'.$path.$library;
+                $library = $sys_library_namespace.'\\'.$namespace.$library;
             } elseif ($scope === 'APP') {
                 $source_file = APP_LIBRARY_DIR.$path.$library.'.php';
                 
                 // Prefix namespace
                 // Trim the leading backslash in case user added
                 $app_library_namespace = trim(APP_LIBRARY_NAMESPACE, '\\');
-                $library = $app_library_namespace.'\\'.$path.$library;
+                $library = $app_library_namespace.'\\'.$namespace.$library;
             } else {
                 Common::halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
             }
