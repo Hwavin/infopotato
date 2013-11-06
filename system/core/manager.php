@@ -121,7 +121,7 @@ class Manager {
             // Output the uncompressed content
             // You can use apache's mod_gzip module to compress the output if you want
             // 1xx, 204, and 304 responses and any response to a HEAD request "MUST NOT" include a message-body
-            echo $config['content'];    
+            echo $config['content'];
         }
     }
     
@@ -139,8 +139,14 @@ class Manager {
         
         $orig_data = $data;
         
+        // Only the forwardslash '/' is allowed for sub-directory
+        // strpos() returns FALSE if the needle was not found, 
+        // otherwise returns the position of where the needle exists
+        if (strpos($data, '\\') !== FALSE) {
+            Common::halt('A System Error Was Encountered', 'The backslash is not allowed for the data name to be loaded', 'sys_error');
+        }
+        
         // Is the data in a sub-folder? If so, parse out the filename and path.
-        // Check both '\' and '\' for error proof
         if (strpos($data, '/') === FALSE) {
             $path = '';
             $namespace = '';
@@ -218,6 +224,13 @@ class Manager {
         $library = strtolower($library);
         
         $orig_library = $library;
+        
+        // Only the forwardslash '/' is allowed for sub-directory
+        // strpos() returns FALSE if the needle was not found, 
+        // otherwise returns the position of where the needle exists
+        if (strpos($library, '\\') !== FALSE) {
+            Common::halt('A System Error Was Encountered', 'The backslash is not allowed for the library name to be loaded', 'sys_error');
+        }
         
         // Is the library in a sub-folder? If so, parse out the filename and path.
         // Check both '\' and '\' for error proof
