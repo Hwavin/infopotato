@@ -47,15 +47,14 @@ class Manager {
             $template = strtr(pathinfo($orig_template, PATHINFO_DIRNAME), '/', DS).DS.substr(strrchr($orig_template, '/'), 1);
         }
         
-        $template_file_path = APP_TEMPLATE_DIR.$template.'.php';
+        $template_file = APP_TEMPLATE_DIR.$template.'.php';
         
-        if ( ! file_exists($template_file_path)) {
+        if ( ! file_exists($template_file)) {
             Common::halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
         } else {
             if (count($template_vars) > 0) {
                 // Import the template variables to local namespace
                 // If there is a collision, overwrite the existing variable
-                // Needs to think carefully wheather to use EXTR_OVERWRITE or EXTR_SKIP
                 extract($template_vars, EXTR_OVERWRITE);
             }
             
@@ -67,7 +66,7 @@ class Manager {
             // needs to be rendered more than once in the same scope, because require_once 
             // will not include the sub template/element file again if it has already been included
             // so only the first call can be rendered as a result of the use of require_once
-            require $template_file_path;
+            require $template_file;
             // Gets the contents of the output buffer
             $content = ob_get_contents();
             // Clean (erase) the output buffer and turn off output buffering
