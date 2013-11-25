@@ -22,9 +22,9 @@ namespace InfoPotato\core;
 
 class I18n {
     /**
-     * Target language: en_us, es_es, zh_cn, etc
+     * Default target language: en_us, es_es, zh_cn, etc
      * 
-     * @var  string   
+     * @var  string
      */
     public static $lang = 'en_us';
     
@@ -46,13 +46,13 @@ class I18n {
      * Returns translation of a string. If no translation exists, the original
      * string will be returned. No parameters are replaced.
      *
-     *     $hello = I18n::get('Hello friends, my name is :name');
+     * $hello = I18n::get('Hello friends, my name is :name');
      *
      * @param   string   text to translate
      * @param   string   target language
-     * @return  string
+     * @return    string
      */
-    public static function get($string) {
+    private static function get($string) {
         $lang = self::$lang;
         
         // Load the translation table for this language
@@ -65,13 +65,13 @@ class I18n {
     /**
      * Returns the translation table for a given language.
      *
-     *     // Get all defined Spanish messages
-     *     $messages = I18n::load('zh_cn');
+     * Get all defined Spanish messages
+     * $messages = I18n::load('zh_cn');
      *
      * @param   string   language to load
-     * @return  array
+     * @return    array
      */
-    public static function load($lang) {
+    private static function load($lang) {
         if (isset(self::$cache[$lang])) {
             return self::$cache[$lang];
         }
@@ -92,6 +92,27 @@ class I18n {
         
         // Cache the translation table locally
         return self::$cache[$lang] = $table;
+    }
+    
+    /**
+     * Returns a translated string if one is found; Otherwise, the submitted message.
+     * 
+     * Translation/internationalization function. The PHP function
+     * [strtr](http://php.net/strtr) is used for replacing parameters.
+     *
+     * __('Welcome back, :user', array(':user' => $username));
+     *
+     * The target language is defined by [I18n::$lang].
+     * 
+     * @uses    I18n::get
+     * @param   string  text to translate
+     * @param   array   values to replace in the translated text
+     * @return  string
+     */
+    public static function __($str, array $values = NULL) {
+        // Get the translation for this message
+        $str = self::get($str);
+        return empty($values) ? $str : strtr($str, $values);
     }
     
 }

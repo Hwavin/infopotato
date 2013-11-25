@@ -75,27 +75,6 @@ class Common {
         Dumper::dump($var, $force_type, $collapsed);
     }
 
-    /**
-     * Returns a translated string if one is found; Otherwise, the submitted message.
-     * 
-     * Translation/internationalization function. The PHP function
-     * [strtr](http://php.net/strtr) is used for replacing parameters.
-     *
-     * __('Welcome back, :user', array(':user' => $username));
-     *
-     * The target language is defined by [I18n::$lang].
-     * 
-     * @uses    I18n::get
-     * @param   string  text to translate
-     * @param   array   values to replace in the translated text
-     * @return  string
-     */
-    public static function __($str, array $values = NULL) {
-        // Get the translation for this message
-        $str = I18n::get($str);
-        return empty($values) ? $str : strtr($str, $values);
-    }
-
 }
 
 // End of file: ./system/core/common.php
