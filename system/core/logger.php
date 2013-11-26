@@ -117,12 +117,12 @@ class Logger {
      * Writes a $line to the log with a severity level of ERR. Most likely used
      * with E_RECOVERABLE_ERROR
      *
-     * @param string  $log_dir File path to the logging directory
+     * @param string  $dir File path to the logging directory
      * @param string $line Information to log
      * @return void
      */
-    public static function log_error($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$severity_levels['ERROR'], $args);
+    public static function log_error($dir, $line, $args = self::NO_ARGUMENTS) {
+        self::log($dir, $line, self::$severity_levels['ERROR'], $args);
     }
     
     /**
@@ -130,45 +130,45 @@ class Logger {
      * corresponds to E_WARNING, E_USER_WARNING, E_CORE_WARNING, or 
      * E_COMPILE_WARNING
      *
-     * @param string  $log_dir File path to the logging directory
+     * @param string  $dir File path to the logging directory
      * @param string $line Information to log
      * @return void
      */
-    public static function log_warn($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$severity_levels['WARN'], $args);
+    public static function log_warn($dir, $line, $args = self::NO_ARGUMENTS) {
+        self::log($dir, $line, self::$severity_levels['WARN'], $args);
     }
     
     /**
      * Writes a $line to the log with a severity level of INFO. Any information
      * can be used here, or it could be used with E_STRICT errors
      *
-     * @param string  $log_dir File path to the logging directory
+     * @param string  $dir File path to the logging directory
      * @param string $line Information to log
      * @return void
      */
-    public static function log_info($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$severity_levels['INFO'], $args);
+    public static function log_info($dir, $line, $args = self::NO_ARGUMENTS) {
+        self::log($dir, $line, self::$severity_levels['INFO'], $args);
     }
     
     /**
      * Writes a $line to the log with a severity level of DEBUG
      *
-     * @param string  $log_dir File path to the logging directory
+     * @param string  $dir File path to the logging directory
      * @param string $line Information to log
      * @return void
      */
-    public static function log_debug($log_dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($log_dir, $line, self::$severity_levels['DEBUG'], $args);
+    public static function log_debug($dir, $line, $args = self::NO_ARGUMENTS) {
+        self::log($dir, $line, self::$severity_levels['DEBUG'], $args);
     }
     
     /**
      * Writes a $line to the log with the given severity
      *
-     * @param string  $log_dir File path to the logging directory
+     * @param string  $dir File path to the logging directory
      * @param string  $line     Text to add to the log
      * @param integer $severity Severity level of log message (use constants)
      */
-    private static function log($log_dir, $line, $severity, $args = self::NO_ARGUMENTS) {
+    private static function log($dir, $line, $severity, $args = self::NO_ARGUMENTS) {
         // Set the default severity threshold in case set_severity_threshold() is not called in bootstrap 
         if ( ! isset(self::$severity_threshold)) {
             self::$severity_threshold = self::$severity_levels['DEBUG'];
@@ -176,14 +176,14 @@ class Logger {
         
         // Log only when severity level is over the pre-defined severity threshold
         if ($severity <= self::$severity_threshold) {
-            $log_dir = rtrim($log_dir, '\\/');
+            $dir = rtrim($dir, '\\/');
             
             // Log file path and name, e.g. log_2012-08-16.txt
-            self::$log_file_path = $log_dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
+            self::$log_file_path = $dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
             
             // Create the log file first
-            if ( ! file_exists($log_dir)) {
-                mkdir($log_dir, self::$default_permissions, TRUE);
+            if ( ! file_exists($dir)) {
+                mkdir($dir, self::$default_permissions, TRUE);
             }
             
             if (file_exists(self::$log_file_path) && ! is_writable(self::$log_file_path)) {
