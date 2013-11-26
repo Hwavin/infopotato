@@ -13,6 +13,7 @@ define('ENVIRONMENT', 'development');
 
 /**
  * Set default time zone used by all date/time functions
+ * List of Supported Timezones: http://us2.php.net/manual/en/timezones.php
  */
 date_default_timezone_set('America/New_York');
 
@@ -39,7 +40,6 @@ define('DS', DIRECTORY_SEPARATOR);
 define('SYS_DIR', dirname(dirname(dirname(__FILE__).DS)).DS.'system'.DS);
 define('SYS_CORE_DIR', SYS_DIR.'core'.DS);
 define('SYS_LIBRARY_DIR', SYS_DIR.'libraries'.DS);
-define('SYS_FUNCTION_DIR', SYS_DIR.'functions'.DS);
 define('SYS_RUNTIME_CACHE_DIR', SYS_DIR.'runtime'.DS);
 
 define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
