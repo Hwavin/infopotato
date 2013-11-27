@@ -45,7 +45,6 @@ define('SYS_RUNTIME_CACHE_DIR', SYS_DIR.'runtime'.DS);
 
 define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
 define('APP_LOG_DIR', APP_DIR.'logs'.DS);
-define('APP_I18N_DIR', APP_DIR.'i18n'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
