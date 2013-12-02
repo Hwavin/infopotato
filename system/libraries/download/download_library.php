@@ -16,14 +16,14 @@ namespace InfoPotato\libraries\download;
 class Download_Library {
     public function download($file, $mime_type = '') { 
         // Tells whether a file exists and is readable
-        if ( ! is_readable($file)) {
-            exit('File not found or inaccessible!');
+        if ( ! file_exists($file)) {
+            exit("The file $file does not exists!");
+        } else {
+            if ( ! is_readable($file)) {
+                exit("The file $file is not readable!");
+            }
         }
-        
-        // Grab the file extension if provided
-        //$dot_ext = strrchr($file, '.');
-        //$file_extension = $dot_ext ? strtolower(substr($dot_ext, 1)) : '';
-        
+
         // The fastest method to get file extension?
         // http://cowburn.info/2008/01/13/get-file-extension-comparison/
         $file_extension = pathinfo($file, PATHINFO_EXTENSION);
