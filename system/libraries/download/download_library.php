@@ -13,12 +13,11 @@
  
 namespace InfoPotato\libraries\download;
 
-
 class Download_Library {
     public function download($file, $mime_type = '') { 
         // Tells whether a file exists and is readable
         if ( ! is_readable($file)) {
-            die('File not found or inaccessible!');
+            exit('File not found or inaccessible!');
         }
         
         // Grab the file extension if provided
@@ -88,7 +87,7 @@ class Download_Library {
             }
         } else {
             if ( ! isset($known_mime_types[$file_extension]) || $mime_type !== $known_mime_types[$file_extension]) {
-                die('Please specify the valid MIME type or leave it blank!');
+                exit('Please specify the valid MIME type or leave it blank!');
             }
         }
         
@@ -144,9 +143,9 @@ class Download_Library {
             }
             fclose($file);
         } else {
-            die('Error - can not open file.');
+            exit('Error - can not open file.');
         }
-        die();
+        exit();
     }
 }
 
