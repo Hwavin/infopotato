@@ -118,7 +118,7 @@ class Download_Library {
                 $range_end = intval($range_end);
             }
             
-            $new_length = $range_end-$range + 1;
+            $new_length = $range_end - $range + 1;
             header("HTTP/1.1 206 Partial Content");
             header("Content-Length: $new_length");
             header("Content-Range: bytes $range-$range_end/$size");
@@ -149,4 +149,4 @@ class Download_Library {
     }
 }
 
-// End of file: ./system/librariess/download/download_library.php
+// End of file: ./system/libraries/download/download_library.php
