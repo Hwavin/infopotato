@@ -36,7 +36,7 @@ class Redirect_Library {
         // Explictly specify the 301 response status code
         header('HTTP/1.1 301 Moved Permanently');
         header("Location: ".$uri);
-        exit;
+        exit();
     }
 }
 
