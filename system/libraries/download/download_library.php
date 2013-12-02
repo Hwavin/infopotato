@@ -1,19 +1,24 @@
 <?php
 /**
  * Force File Download
- *
- * If you want to do something on download abort/finish,
- * register_shutdown_function('function_name');
  * 
- * @param string $file (required) the path of the file to be downloaded
- * @param string $mime_type (optional) MIME type of the target file
- * @return none
- * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
  
 namespace InfoPotato\libraries\download;
 
 class Download_Library {
+    /**
+     * Force File Download
+     *
+     * @param string $file (required) the path of the file to be downloaded
+     * @param string $mime_type (optional) MIME type of the target file
+     * @return none
+     * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
+     */
     public function download($file, $mime_type = '') { 
         // Tells whether a file exists and is readable
         if ( ! file_exists($file)) {

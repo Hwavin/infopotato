@@ -2,13 +2,21 @@
 /**
  * URI Redirection
  * 
- * @param string $uri the uri to be redirected, must start with http://
- * @return none
+ * @author Zhou Yuan <yuanzhou19@gmail.com>
+ * @link http://www.infopotato.com/
+ * @copyright Copyright &copy; 2009-2013 Zhou Yuan
+ * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  */
- 
+
 namespace InfoPotato\libraries\redirect;
 
 class Redirect_Library {
+    /**
+     * URI Redirection
+     * 
+     * @param string $uri the uri to be redirected, must start with http://
+     * @return none
+     */
     public function redirect($uri) {
         // The headers below ensure that the page is giving out headers that will not be cached
         
