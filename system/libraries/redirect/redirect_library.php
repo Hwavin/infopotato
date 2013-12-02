@@ -1,15 +1,9 @@
 <?php
-/*
-Redirection with delay
-----------------------------------------------
-sleep(10);//seconds to wait..
-header("Location:http://www.domain.com");
-*/
-
 /**
- * Redirect
- *
+ * URI Redirection
+ * 
  * @param string $uri the uri to be redirected, must start with http://
+ * @return none
  */
  
 namespace InfoPotato\libraries\redirect;
