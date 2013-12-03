@@ -82,9 +82,7 @@ class Manager {
      * @param array $config options
      * 
      * $config['content']: (string required) content to output
-     * 
      * $config['type']: (string required)  specify the media type for the output
-     *
      * $config['extra_headers']: (array optional)  any extra headers to response
      * 
      * @return NULL
@@ -101,7 +99,7 @@ class Manager {
             // XML: Although listed as an optional parameter, the use of the charset parameter is STRONGLY RECOMMENDED
             // JSON: text SHALL be encoded in Unicode.  The default encoding is UTF-8.
             // http://www.ietf.org/rfc/rfc4627.txt?number=4627
-            // JAVASCRIPT: http://www.rfc-editor.org/rfc/rfc4329.txt
+            // JavaScript: http://www.rfc-editor.org/rfc/rfc4329.txt
 
             // Any HTTP/1.1 message containing an entity-body SHOULD include a
             // Content-Type header field defining the media type of that body.
