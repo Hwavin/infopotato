@@ -34,6 +34,7 @@ class Starter {
         // $_REQUEST as it is less exact, and therefore less secure
         // $_ENV is disabllowed since it's not as commonly used and you can still get access to the environment variables through getenv()
         // $GLOBALS contains all other superglobals (so no need to duplicate) and every variable with global scope (should be disabled for security)
+        // $_SERVER is untouched
         unset($_GET, $_REQUEST, $_ENV, $GLOBALS);
 
         /**
