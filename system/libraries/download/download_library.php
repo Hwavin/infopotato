@@ -19,7 +19,7 @@ class Download_Library {
      * @return none
      * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
      */
-    public function download($file, $content_type = '') { 
+    public function download($file, $content_type) { 
         // Tells whether a file exists and is readable
         if ( ! file_exists($file)) {
             exit("The file $file does not exists!");
