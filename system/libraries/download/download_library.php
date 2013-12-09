@@ -14,12 +14,12 @@ class Download_Library {
     /**
      * Force File Download
      *
-     * @param string $file (required) the path of the file to be downloaded
-     * @param string $mime_type (optional) MIME type of the target file
+     * @param string $file    the path of the file to be downloaded
+     * @param string $content_type    Content type of the target file
      * @return none
      * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
      */
-    public function download($file, $mime_type = '') { 
+    public function download($file, $content_type = '') { 
         // Tells whether a file exists and is readable
         if ( ! file_exists($file)) {
             exit("The file $file does not exists!");
@@ -35,71 +35,13 @@ class Download_Library {
         
         // File name shown in the save window
         $save_name = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
-        
-        // Figure out the MIME type (if not specified) 
-        $known_mime_types = array(
-            'txt' => 'text/plain',
-            'htm' => 'text/html',
-            'html' => 'text/html',
-            'css' => 'text/css',
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'xml' => 'application/xml',
-            'swf' => 'application/x-shockwave-flash', // Experimental or non-standard[3] media types were prefixed with x-, but this practice was deprecated
-            'flv' => 'video/x-flv',
-            'vcf' => 'text/x-vcard',
-            'png' => 'image/png',
-            'jpe' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'jpg' => 'image/jpeg',
-            'gif' => 'image/gif',
-            'bmp' => 'image/bmp',
-            'ico' => 'image/vnd.microsoft.icon', // Subtypes that begin with vnd. are vendor-specific
-            'tiff' => 'image/tiff',
-            'tif' => 'image/tiff',
-            'svg' => 'image/svg+xml',
-            'svgz' => 'image/svg+xml',
-            'zip' => 'application/zip',
-            'rar' => 'application/x-rar-compressed',
-            'msi' => 'application/x-msdownload',
-            'cab' => 'application/vnd.ms-cab-compressed',
-            'mp3' => 'audio/mpeg',
-            'qt' => 'video/quicktime',
-            'mov' => 'video/quicktime',
-            'pdf' => 'application/pdf',
-            'psd' => 'image/vnd.adobe.photoshop',
-            'ai' => 'application/postscript',
-            'eps' => 'application/postscript',
-            'ps' => 'application/postscript',
-            'doc' => 'application/msword',
-            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'xls' => 'application/vnd.ms-excel',
-            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'rtf' => 'application/rtf',
-            'xls' => 'application/vnd.ms-excel',
-            'ppt' => 'application/vnd.ms-powerpoint',
-            'odt' => 'application/vnd.oasis.opendocument.text',
-            'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
-        );
-        
-        if ($mime_type === '') {
-            if (array_key_exists($file_extension, $known_mime_types)) {
-                $mime_type = $known_mime_types[$file_extension];
-            } else {
-                $mime_type = 'application/force-download';
-            }
-        } else {
-            if ( ! isset($known_mime_types[$file_extension]) || $mime_type !== $known_mime_types[$file_extension]) {
-                exit('Please specify the valid MIME type or leave it blank!');
-            }
-        }
-        
+
         $size = filesize($file);
         
         // Turn off output buffering to decrease cpu usage
         @ob_end_clean(); 
         
-        header('Content-Type: '.$mime_type);
+        header('Content-Type: '.$content_type);
         header('Content-Disposition: attachment; filename="'.$save_name.'"');
         header('Content-Transfer-Encoding: binary');
         header('Accept-Ranges: bytes');
