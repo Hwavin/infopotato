@@ -923,8 +923,6 @@ class Upload_Library {
             'gz' => 'application/x-gzip',
             'gzip' => 'application/x-gzip',
             'php' => array('application/x-httpd-php', 'application/php', 'application/x-php', 'text/php', 'text/x-php', 'application/x-httpd-php-source'),
-            'phtml' => 'application/x-httpd-php',
-            'phps' => 'application/x-httpd-php-source',
             'js' => array('application/x-javascript', 'text/plain'),
             'swf' => 'application/x-shockwave-flash',
             'sit' => 'application/x-stuffit',
