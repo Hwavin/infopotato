@@ -297,7 +297,7 @@ class Manager {
 
             // Now the library class has been prefixed with proper namespace
             if ( ! class_exists($library)) { 
-                Common::halt('A System Error Was Encountered', "Unknown library name '{$library}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "Unknown library name '{$orig_library}'", 'sys_error');
             }
 
             // Instantiate the library object as a manager's property 
