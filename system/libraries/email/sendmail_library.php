@@ -1472,8 +1472,6 @@ class Sendmail_Library {
             'gz' => 'application/x-gzip',
             'gzip' => 'application/x-gzip',
             'php' => array('application/x-httpd-php', 'application/php', 'application/x-php', 'text/php', 'text/x-php', 'application/x-httpd-php-source'),
-            'php4' => 'application/x-httpd-php',
-            'php3' => 'application/x-httpd-php',
             'phtml' => 'application/x-httpd-php',
             'phps' => 'application/x-httpd-php-source',
             'js' => array('application/x-javascript', 'text/plain'),

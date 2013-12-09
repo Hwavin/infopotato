@@ -37,7 +37,7 @@ class Download_Library {
         $save_name = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
         
         // Figure out the MIME type (if not specified) 
-        $known_mime_types = array(    
+        $known_mime_types = array(
             'txt' => 'text/plain',
             'htm' => 'text/html',
             'html' => 'text/html',

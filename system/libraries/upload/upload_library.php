@@ -556,7 +556,7 @@ class Upload_Library {
      */    
     public function data() {
         return array (
-            'file_name'    => $this->file_name,
+            'file_name' => $this->file_name,
             'file_type' => $this->file_type,
             'file_path' => $this->upload_path,
             'full_path' => $this->upload_path.$this->file_name,
