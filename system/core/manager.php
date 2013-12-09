@@ -230,7 +230,6 @@ class Manager {
         }
         
         // Is the library in a sub-folder? If so, parse out the filename and path.
-        // Check both '\' and '\' for error proof
         if (strpos($library, '/') === FALSE) {
             $path = '';
             $namespace = '';
