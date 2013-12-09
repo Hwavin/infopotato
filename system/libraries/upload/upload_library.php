@@ -898,7 +898,6 @@ class Upload_Library {
             'dms' => 'application/octet-stream',
             'lha' => 'application/octet-stream',
             'lzh' => 'application/octet-stream',
-            'class' => 'application/octet-stream',
             'psd' => array('application/x-photoshop', 'image/vnd.adobe.photoshop'),
             'so' => 'application/octet-stream',
             'sea' => 'application/octet-stream',
