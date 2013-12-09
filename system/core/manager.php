@@ -238,7 +238,7 @@ class Manager {
             $namespace = strtr(pathinfo($library, PATHINFO_DIRNAME), '/', '\\').'\\';
             $library = substr(strrchr($library, '/'), 1);
         }
-        
+
         // If no alias, use the library name
         if ($alias === '') {
             $alias = $library;
@@ -258,7 +258,7 @@ class Manager {
                 $library = $sys_library_namespace.'\\'.$namespace.$library;
             } elseif ($scope === 'APP') {
                 $source_file = APP_LIBRARY_DIR.$path.$library.'.php';
-                
+
                 // Prefix namespace
                 // Trim the leading backslash in case user added
                 $app_library_namespace = trim(APP_LIBRARY_NAMESPACE, '\\');
@@ -266,7 +266,7 @@ class Manager {
             } else {
                 Common::halt('A System Error Was Encountered', "The location of the library must be specified, either 'SYS' or 'APP'", 'sys_error');
             }
-            
+
             if ( ! file_exists($source_file)) {
                 Common::halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
             }
@@ -277,7 +277,8 @@ class Manager {
 
             if (RUNTIME_CACHE === TRUE) {
                 // Replace all directory separators with underscore
-                $temp_cache_name = str_replace(DS, '_', $path.$library);
+                // Must use $orig_library since $library has been prefixed with namespace
+                $temp_cache_name = str_replace(DS, '_', $path.$orig_library);
             
                 // The runtime cache folder must be writable
                 if ($scope === 'SYS') {
