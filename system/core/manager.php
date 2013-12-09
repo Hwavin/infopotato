@@ -194,7 +194,7 @@ class Manager {
 
             // Now the data class has been prefixed with proper namespace
             if ( ! class_exists($data)) {
-                Common::halt('A System Error Was Encountered', "Unknown class name '{$data}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "Unknown data class name '{$data}'", 'sys_error');
             }
             
             // Instantiate the data object as a worker's property 
