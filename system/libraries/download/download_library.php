@@ -41,7 +41,6 @@ class Download_Library {
             'txt' => 'text/plain',
             'htm' => 'text/html',
             'html' => 'text/html',
-            'php' => 'text/html',
             'css' => 'text/css',
             'js' => 'application/javascript',
             'json' => 'application/json',
