@@ -1850,7 +1850,6 @@ class SMTP_Library {
             'dms' => 'application/octet-stream',
             'lha' => 'application/octet-stream',
             'lzh' => 'application/octet-stream',
-            'exe' => array('application/octet-stream', 'application/x-msdownload'),
             'class' => 'application/octet-stream',
             'psd' => array('application/x-photoshop', 'image/vnd.adobe.photoshop'),
             'so' => 'application/octet-stream',

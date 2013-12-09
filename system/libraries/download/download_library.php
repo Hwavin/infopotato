@@ -62,7 +62,6 @@ class Download_Library {
             'svgz' => 'image/svg+xml',
             'zip' => 'application/zip',
             'rar' => 'application/x-rar-compressed',
-            'exe' => 'application/x-msdownload',
             'msi' => 'application/x-msdownload',
             'cab' => 'application/vnd.ms-cab-compressed',
             'mp3' => 'audio/mpeg',
