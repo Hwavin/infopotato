@@ -167,7 +167,7 @@ class Manager {
             $source_file = APP_DATA_DIR.$path.$data.'.php';
             
             if ( ! file_exists($source_file)) {
-                Common::halt('A System Error Was Encountered', "Unknown data file name '{$orig_data}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "APP data file '{$orig_data}.php' does not exist!", 'sys_error');
             }
             
             // Load stripped source when runtime cache is turned-on
@@ -193,8 +193,11 @@ class Manager {
             $data = $app_data_namespace.'\\'.$namespace.$data;
 
             // Now the data class has been prefixed with proper namespace
-            if ( ! class_exists($data)) {
-                Common::halt('A System Error Was Encountered', "Unknown data class name '{$data}'", 'sys_error');
+            // Set autoload FALSE so this function won't try to autoload the class if it doesn't exists
+            // This prevents incorrect autoloading error message defined in spl_autoload_register()
+            // Otherwise missing APP Manager file error message will be triggered
+            if ( ! class_exists($data, FALSE)) {
+                Common::halt('A System Error Was Encountered', "The required class '{$orig_data}' is not defined in '{$orig_data}.php'!", 'sys_error');
             }
             
             // Instantiate the data object as a worker's property 
@@ -296,8 +299,9 @@ class Manager {
             require $file;
 
             // Now the library class has been prefixed with proper namespace
-            // Set autoload FALSE so this function won't try autoload the class if it doesn't exists
+            // Set autoload FALSE so this function won't try to autoload the class if it doesn't exists
             // This prevents incorrect autoloading error message defined in spl_autoload_register()
+            // Otherwise missing APP Manager file error message will be triggered
             if ( ! class_exists($library, FALSE)) { 
                 Common::halt('A System Error Was Encountered', "The required class '{$orig_library}' is not defined in {$scope} library file '{$orig_library}.php'!", 'sys_error');
             }
