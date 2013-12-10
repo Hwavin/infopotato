@@ -35,7 +35,7 @@ class Data {
     /**
      * Create database object, only when RDBMS is used
      *
-     * @param    string $connection database connection pool, e.g., 'mysql_dao:default'
+     * @param    string $connection database connection string, e.g., 'mysql_dao:default'
      * @return    a specific database access object
      */
     private static function create_db_obj($connection) {
@@ -58,7 +58,7 @@ class Data {
 
             // Checks if data config exists 
             if ( ! array_key_exists($conn[0], $data_source) || ! array_key_exists($conn[1], $data_source[$conn[0]])) { 
-                Common::halt('An Error Was Encountered', 'Incorrect database connection string', 'sys_error');
+                Common::halt('An Error Was Encountered', 'The specified database connection string is incorrect!', 'sys_error');
             }
             
             // Prefix namespace
