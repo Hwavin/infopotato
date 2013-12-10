@@ -21,7 +21,7 @@ class Starter {
     /**
      * Security setting and autoloading
      *
-     * @return  void
+     * @return void
      */
     public static function start() {
         if (version_compare(PHP_VERSION, '5.3.0', '<')) {

@@ -131,14 +131,14 @@ class Sendmail_Library {
     /**
      * Message body
      *
-     * @var    string
+     * @var string
      */
     private $body = '';
     
     /**
      * Final message body to be sent.
      *
-     * @var    string
+     * @var string
      */
     private $finalbody = '';
     
@@ -159,43 +159,43 @@ class Sendmail_Library {
     /**
      * Debug messages
      *
-     * @see    print_debugger()
-     * @var    array
+     * @see print_debugger()
+     * @var array
      */
     private $debug_msg = array();
     
     /**
      * To Recipients
      *
-     * @var    array
+     * @var array
      */
     private $to_recipients = array();
     
     /**
      * CC Recipients
      *
-     * @var    array
+     * @var array
      */
     private $cc_recipients = array();
     
     /**
      * BCC Recipients
      *
-     * @var    array
+     * @var array
      */
     private $bcc_recipients = array();
     
     /**
      * Message headers
      *
-     * @var    array
+     * @var array
      */
     private $headers = array();
     
     /**
      * Attachment data
      *
-     * @var    array
+     * @var array
      */
     private $attachments = array(); 
     
@@ -227,7 +227,7 @@ class Sendmail_Library {
     /**
      * Validate and set $user_agent
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_user_agent($val) {
@@ -240,7 +240,7 @@ class Sendmail_Library {
     /**
      * Validate and set $sendmail_path
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_sendmail_path($val) {
@@ -253,7 +253,7 @@ class Sendmail_Library {
     /**
      * Validate and set $wordwrap
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_wordwrap($val) {
@@ -266,7 +266,7 @@ class Sendmail_Library {
     /**
      * Validate and set $wrapchars
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_wrapchars($val) {
@@ -279,7 +279,7 @@ class Sendmail_Library {
     /**
      * Validate and set $mailtype
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_mailtype($val) {
@@ -292,7 +292,7 @@ class Sendmail_Library {
     /**
      * Validate and set $multipart_subtype
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_multipart_subtype($val) {
@@ -305,7 +305,7 @@ class Sendmail_Library {
     /**
      * Validate and set $charset
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_charset($val) {
@@ -318,7 +318,7 @@ class Sendmail_Library {
     /**
      * Validate and set $email_validation
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_validate($val) {
@@ -331,7 +331,7 @@ class Sendmail_Library {
     /**
      * Validate and set $priority
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_priority($val) {
@@ -348,7 +348,7 @@ class Sendmail_Library {
     /**
      * Validate and set $crlf
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_crlf($val) {
@@ -361,7 +361,7 @@ class Sendmail_Library {
     /**
      * Validate and set $newline
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_newline($val) {
@@ -374,7 +374,7 @@ class Sendmail_Library {
     /**
      * Validate and set $send_multipart
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_send_multipart($val) {
@@ -387,7 +387,7 @@ class Sendmail_Library {
     /**
      * Validate and set $bcc_batch_mode
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_bcc_batch_mode($val) {
@@ -400,7 +400,7 @@ class Sendmail_Library {
     /**
      * Validate and set $bcc_batch_size
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_bcc_batch_size($val) {
@@ -422,8 +422,8 @@ class Sendmail_Library {
     /**
      * Reset the Email Data
      *
-     * @param    bool
-     * @return    Sendmail_Library
+     * @param bool
+     * @return Sendmail_Library
      */
     public function clear($clear_attachments = FALSE) {
         $this->subject = '';
@@ -452,9 +452,9 @@ class Sendmail_Library {
      *
      * Specifies who actually wrote the email, and usually who sent it
      *
-     * @param    string
-     * @param    string
-     * @return    Sendmail_Library
+     * @param string
+     * @param string
+     * @return Sendmail_Library
      */
     public function from($from, $name = '') {
         // RFC-822(http://tools.ietf.org/html/rfc822) allows email addresses to be specified 
@@ -493,8 +493,8 @@ class Sendmail_Library {
      * If set, this email address will be used for the bounce messages
      * If not set, SMTP and Sendmail will use the address given in from() as Return-Path
      *
-     * @param    string
-     * @return    Sendmail_Library
+     * @param string
+     * @return Sendmail_Library
      */
     public function return_path($return_path) {
         if (preg_match('/\<(.*)\>/', $return_path, $match)) {
@@ -516,9 +516,9 @@ class Sendmail_Library {
      *
      * If not specified, will use the address given in from() 
      *
-     * @param    string
-     * @param    string
-     * @return    Sendmail_Library
+     * @param string
+     * @param string
+     * @return Sendmail_Library
      */
     public function reply_to($reply_to, $name = '') {
         if (preg_match('/\<(.*)\>/', $reply_to, $match)) {
@@ -545,8 +545,8 @@ class Sendmail_Library {
     /**
      * Set Recipients, a comma-delimited list or an array
      *
-     * @param    string | array
-     * @return    Sendmail_Library
+     * @param string|array
+     * @return Sendmail_Library
      */
     public function to($to) {
         $to = $this->extract_email($this->str_to_array($to));
@@ -565,8 +565,8 @@ class Sendmail_Library {
     /**
      * Set CC, a comma-delimited list or an array
      *
-     * @param    string | array
-     * @return    Sendmail_Library
+     * @param string|array
+     * @return Sendmail_Library
      */
     public function cc($cc) {
         $cc = $this->extract_email($this->str_to_array($cc));
@@ -583,9 +583,9 @@ class Sendmail_Library {
     /**
      * Set BCC, a comma-delimited list or an array
      *
-     * @param    string
-     * @param    string
-     * @return    Sendmail_Library
+     * @param string
+     * @param string
+     * @return Sendmail_Library
      */
     public function bcc($bcc, $limit = '') {
         if ($limit !== '' && is_numeric($limit)) {
@@ -612,8 +612,8 @@ class Sendmail_Library {
     /**
      * Set Email Subject
      *
-     * @param    string
-     * @return    Sendmail_Library
+     * @param string
+     * @return Sendmail_Library
      */
     public function subject($subject) {
         // Q Encoding, the form is: "=?charset?encoding?encoded text?=".
@@ -625,9 +625,9 @@ class Sendmail_Library {
     /**
      * Set message Body
      *
-     * @param    string
-     * @param    string
-     * @return    Sendmail_Library
+     * @param string
+     * @param string
+     * @return Sendmail_Library
      */
     public function message($body, $alt_body = '') {
         $this->body = rtrim(str_replace("\r", '', $body));
@@ -665,10 +665,10 @@ class Sendmail_Library {
     /**
      * Add an attachment that exists on disk
      *
-     * @param    string    $file_path
-     * @param    string    $content_type
-     * @param    string    $content_disposition = 'attachment' (optional)
-     * @return    Sendmail_Library
+     * @param string $file_path
+     * @param string $content_type
+     * @param string $content_disposition = 'attachment' (optional)
+     * @return Sendmail_Library
      */
     public function attach_from_path($file_path, $content_type = '', $content_disposition = '') {
         if ( ! file_exists($file_path)) {
@@ -699,11 +699,11 @@ class Sendmail_Library {
     /**
      * Create an attachment on-the-fly
      *
-     * @param    string    $file_content
-     * @param    string    $filename
-     * @param    string    $content_type
-     * @param    string    $content_disposition = 'attachment' (optional)
-     * @return    Sendmail_Library
+     * @param string $file_content
+     * @param string $filename
+     * @param string $content_type
+     * @param string $content_disposition = 'attachment' (optional)
+     * @return Sendmail_Library
      */
     public function attach_from_content($file_content, $filename, $content_type, $content_disposition = '') {
         $this->attachments[] = array(
@@ -721,8 +721,8 @@ class Sendmail_Library {
      *
      * Must set $auto_clear = FALSE to have print_debugger() work as expected
      *
-     * @param    bool    $auto_clear = TRUE
-     * @return    bool
+     * @param bool $auto_clear = TRUE
+     * @return bool
      */
     public function send($auto_clear = TRUE) {
         // Use the name and address in from() if Reply-To is not specified
@@ -781,9 +781,8 @@ class Sendmail_Library {
     /**
      * Get Debug Message
      *
-     * @param    array    $include    List of raw data chunks to include in the output
-     *                    Valid options are: 'headers', 'subject', 'body'
-     * @return    string
+     * @param array $include    List of raw data chunks to include in the output
+     * @return string
      */
     public function print_debugger($include = array('headers', 'subject', 'body')) {
         $msg = '';
@@ -814,9 +813,9 @@ class Sendmail_Library {
     }
     
     /**
-     * Batch Bcc Send.  Sends groups of BCCs in batches
+     * Sends groups of BCCs in batches
      *
-     * @return    void
+     * @return void
      */
     private function batch_bcc_send() {
         $float = $this->bcc_batch_size - 1;
@@ -858,9 +857,9 @@ class Sendmail_Library {
     /**
      * Add a Header Item
      *
-     * @param    string
-     * @param    string
-     * @return    void
+     * @param string
+     * @param string
+     * @return void
      */
     private function set_header($header, $value) {
         // Filters the input by removing all "\\n" and "\\r" characters.
@@ -870,8 +869,8 @@ class Sendmail_Library {
     /**
      * Convert a String to an Array
      *
-     * @param    string | array
-     * @return    array
+     * @param string|array
+     * @return array
      */
     private function str_to_array($email) {
         if ( ! is_array($email)) {
@@ -885,7 +884,7 @@ class Sendmail_Library {
     /**
      * Set RFC 822 Date
      *
-     * @return    string
+     * @return string
      */
     private function set_date() {
         $timezone = date('Z');
@@ -899,7 +898,7 @@ class Sendmail_Library {
     /**
      * Get the Message ID
      *
-     * @return    string
+     * @return string
      */
     private function create_message_id() {
         // The "Message-ID:" field provides a unique message identifier that
@@ -912,7 +911,7 @@ class Sendmail_Library {
     /**
      * Get message body content type 
      *
-     * @return    string
+     * @return string
      */
     private function get_content_type() {
         // mailtype can only be 'html' or 'text'
@@ -931,7 +930,7 @@ class Sendmail_Library {
      * http://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding
      * http://tools.ietf.org/html/rfc2045#section-6
      * 
-     * @return    string
+     * @return string
      */
     private function get_content_transfer_encoding() {
         // Default mail encoding
@@ -948,7 +947,7 @@ class Sendmail_Library {
     /**
      * Mime message
      *
-     * @return    string
+     * @return string
      */
     private function insert_mime_message() {
         // This text is inserted before the first boundary, 
@@ -962,8 +961,8 @@ class Sendmail_Library {
     /**
      * Validate Email Address
      *
-     * @param    array
-     * @return    bool
+     * @param array
+     * @return bool
      */
     private function validate_email($email) {
         foreach ($email as $val) {
@@ -982,8 +981,8 @@ class Sendmail_Library {
      *
      * Example: 'My name <email@example.com>' should result in 'email@example.com'
      * 
-     * @param    string | array
-     * @return    string | array
+     * @param string|array
+     * @return string|array
      */
     private function extract_email($email) {
         if ( ! is_array($email)) {
@@ -1002,9 +1001,9 @@ class Sendmail_Library {
     /**
      * Word Wrap
      *
-     * @param    string
-     * @param    integer line-length limit
-     * @return    string
+     * @param string
+     * @param integer line-length limit
+     * @return string
      */
     private function word_wrap($str, $charlim = NULL) {
         // Set the character limit, if not already present
@@ -1079,7 +1078,7 @@ class Sendmail_Library {
     /**
      * Build Final Body and attachments
      *
-     * @return    bool
+     * @return bool
      */
     private function build_message() {
         if ($this->wordwrap === TRUE && $this->mailtype !== 'html') {
@@ -1204,8 +1203,8 @@ class Sendmail_Library {
      * 
      * Refer to RFC 2045 http://www.ietf.org/rfc/rfc2045.txt
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function prep_quoted_printable($str) {    
         // We are intentionally wrapping so mail servers will encode characters
@@ -1276,10 +1275,9 @@ class Sendmail_Library {
      * Performs "Q Encoding" on a string for use in email header values.
      * 
      * The form is: "=?charset?encoding?encoded text?=".
-     * http://tools.ietf.org/html/rfc2047#section-4.2
-     *
-     * @param    string
-     * @return    string
+     * @link http://tools.ietf.org/html/rfc2047#section-4.2
+     * @param string
+     * @return string
      */
     private function prep_q_encoding($str) {
         $str = str_replace(array("\r", "\n"), '', $str);
@@ -1342,7 +1340,7 @@ class Sendmail_Library {
     /**
      * Unwrap special elements
      *
-     * @return    void
+     * @return void
      */
     private function unwrap_specials() {
         $this->finalbody = preg_replace_callback('/\{unwrap\}(.*?)\{\/unwrap\}/si', array($this, 'remove_nl_callback'), $this->finalbody);
@@ -1351,7 +1349,7 @@ class Sendmail_Library {
     /**
      * Strip line-breaks via callback
      *
-     * @return    string
+     * @return string
      */
     private function remove_nl_callback($matches) {
         if (strpos($matches[1], "\r") !== FALSE || strpos($matches[1], "\n") !== FALSE) {
@@ -1364,7 +1362,7 @@ class Sendmail_Library {
     /**
      * Spool mail to the mail server
      *
-     * @return    bool
+     * @return bool
      */
     private function spool_email() {
         $this->unwrap_specials();
@@ -1406,9 +1404,9 @@ class Sendmail_Library {
     /**
      * Set Message
      *
-     * @param    string    $msg
-     * @param    string    $val = ''
-     * @return    void
+     * @param string $msg
+     * @param string $val = ''
+     * @return void
      */
     private function set_error_message($msg, $val = '') {
         $error_messages = array(

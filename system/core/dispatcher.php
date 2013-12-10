@@ -22,9 +22,9 @@ class Dispatcher {
      * Parse incoming request to get the desiered manager, request method, and optional parameters
      * Then the desginated manager prepares the related resources and sends response back to client
      *
-     * @param   string $manager the optional manager name
-     * @param   string $method the optional method name
-     * @return  void
+     * @param string $manager the optional manager name
+     * @param string $method the optional method name
+     * @return void
      */
     public static function run($manager = NULL, $method = NULL) {
         // Dispatches all application requests to the given manager/method
@@ -141,8 +141,8 @@ class Dispatcher {
      * Strips slashes if magic quotes are enabled
      * Standardize newlines using PHP_EOL
      *
-     * @param   mixed  any variable
-     * @return  mixed  sanitized variable
+     * @param mixed any variable
+     * @return mixed sanitized variable
      */
     private static function sanitize($str) {
         if (is_array($str)) {

@@ -13,7 +13,7 @@ namespace InfoPotato\core;
 class Data {
     /**
      * Database object instance
-     * @var  object
+     * @var object
      */
     protected $db;
     
@@ -23,8 +23,8 @@ class Data {
      * RDBMS connection needs to be specified in the subclass's constructor
      * One database connection for one data file
      * 
-     * @param    string    connection RDBMS connection name
-     * @return  void
+     * @param string RDBMS connection string
+     * @return void
      */
     public function __construct($connection = '') {
         if ($connection !== '') {
@@ -35,8 +35,8 @@ class Data {
     /**
      * Create database object, only when RDBMS is used
      *
-     * @param    string $connection database connection string, e.g., 'mysql_dao:default'
-     * @return    a specific database access object
+     * @param string $connection database connection string, e.g., 'mysqli_dao:default'
+     * @return object A specific database access object
      */
     private static function create_db_obj($connection) {
         static $db_obj = array();

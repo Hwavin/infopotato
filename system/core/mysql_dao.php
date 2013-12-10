@@ -16,7 +16,7 @@ class MySQL_DAO extends Base_DAO {
     /**
      * Database connection handler
      *
-     * @var  resource  
+     * @var resource  
      */
     private $dbh;
     
@@ -211,7 +211,7 @@ class MySQL_DAO extends Base_DAO {
      * Begin Transaction using standard sql
      * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
      * 
-     * @return    bool
+     * @return bool
      */
     public function trans_begin() {
         mysql_query('SET AUTOCOMMIT=0', $this->dbh);
@@ -221,7 +221,7 @@ class MySQL_DAO extends Base_DAO {
     /**
      * Commit Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_commit() {
         mysql_query('COMMIT', $this->dbh);
@@ -231,7 +231,7 @@ class MySQL_DAO extends Base_DAO {
     /**
      * Rollback Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_rollback() {
         mysql_query('ROLLBACK', $this->dbh);

@@ -14,7 +14,7 @@ class PostgreSQL_DAO extends Base_DAO {
     /**
      * Database connection handler
      *
-     * @var  resource  
+     * @var resource  
      */
     private $dbh;
     
@@ -190,7 +190,7 @@ class PostgreSQL_DAO extends Base_DAO {
     /**
      * Begin Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_begin() {
         pg_query($this->dbh, 'begin');
@@ -199,7 +199,7 @@ class PostgreSQL_DAO extends Base_DAO {
     /**
      * Commit Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_commit() {
         pg_query($this->dbh, 'commit');
@@ -208,7 +208,7 @@ class PostgreSQL_DAO extends Base_DAO {
     /**
      * Rollback Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_rollback() {
         pg_query($this->dbh, 'rollback');

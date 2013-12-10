@@ -15,28 +15,28 @@ class I18n {
     /**
      * Directory of language files
      * 
-     * @var    string
+     * @var string
      */
     private static $dir;
     
     /**
      * Default target language: en_us, es_es, zh_cn, etc
      * 
-     * @var    string
+     * @var string
      */
     private static $lang = 'en_us';
     
     /**
      * Cache of loaded languages
      * 
-     * @var    array  
+     * @var array  
      */
     private static $cache = array();
     
     /**
      * Prevent direct object creation
      * 
-     * @return    I18n
+     * @return I18n
      */
     private function __construct() {}
     
@@ -44,9 +44,9 @@ class I18n {
      * Sets the default language directory and specific language file
      * Call this in bootstrap script
      * 
-     * @param    string    I18n directory
-     * @param    string    optional    language to load
-     * @return    array
+     * @param string I18n directory
+     * @param string optional language to load
+     * @return array
      */
     public static function init($dir, $lang = 'en_us') {
         self::$dir = $dir;
@@ -56,7 +56,7 @@ class I18n {
     /**
      * Returns the translation table for a given language
      *
-     * @return    array
+     * @return array
      */
     private static function load() {
         if (isset(self::$cache[self::$lang])) {
@@ -86,8 +86,8 @@ class I18n {
     /**
      * Returns a translated string if one is found; Otherwise, the submitted message.
      * 
-     * @param    string  text to translate
-     * @return    string
+     * @param string text to translate
+     * @return string
      */
     public static function __($str) {
         // Load the translation table for this language

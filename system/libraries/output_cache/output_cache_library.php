@@ -33,7 +33,7 @@ class Output_Cache_Library {
                 // property_exists() allows empty property
                 if (property_exists($this, $key)) {
                     $method = 'initialize_'.$key;
-					
+                    
                     if (method_exists($this, $method)) {
                         $this->$method($val);
                     }
@@ -47,8 +47,8 @@ class Output_Cache_Library {
     /**
      * Validate and set $cache_dir
      *
-     * @param  $val string
-     * @return    void
+     * @param $val string
+     * @return void
      */
     private function initialize_cache_dir($dir_path) {
         if ( ! is_string($dir_path)) {
@@ -69,8 +69,8 @@ class Output_Cache_Library {
     /**
      * Find the filename for a certain key 
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function name($key) {  
         return ($this->cache_dir).sha1($key);  
@@ -79,15 +79,15 @@ class Output_Cache_Library {
     /**
      * Get the cached file for a certain key 
      * 
-     * @param    $key string
-     * @return    mixed - FALSE|string (cached data)
+     * @param $key string
+     * @return mixed - FALSE|string (cached data)
      */
     public function get($key) {  
         if ( ! is_dir($this->cache_dir)) {
             return FALSE;   
         }
         $cache_path = $this->name($key);  
-		
+        
         if ( ! file_exists($cache_path) || ! is_readable($cache_path)) {
             return FALSE;   
         }
@@ -119,10 +119,10 @@ class Output_Cache_Library {
     /**
      * Create the cache file for a certain key 
      * 
-     * @param    $key string
-     * @param    $data string the data to be cached
-     * @param    $ttl integer - time to life (seconds)
-     * @return    boolean
+     * @param $key string
+     * @param $data string the data to be cached
+     * @param $ttl integer - time to life (seconds)
+     * @return bool
      */
     public function set($key, $data, $ttl = 3600) {  
         if ( ! is_dir($this->cache_dir) || ! is_writable($this->cache_dir)) {
@@ -152,8 +152,8 @@ class Output_Cache_Library {
     /**
      * Delete the cached file for a certain key 
      *
-     * @param    $key string
-     * @return    boolean
+     * @param $key string
+     * @return bool
      */
     public function clear($key) {  
         $cache_path = $this->name($key);  

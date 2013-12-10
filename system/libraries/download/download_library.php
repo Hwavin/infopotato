@@ -14,10 +14,10 @@ class Download_Library {
     /**
      * Force File Download
      *
-     * @param string $file    the path of the file to be downloaded
-     * @param string $content_type    Content type of the target file
+     * @param string $file the path of the file to be downloaded
+     * @param string $content_type Content type of the target file
      * @return none
-     * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
+     * @link http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
      */
     public function download($file, $content_type) { 
         // Tells whether a file exists and is readable

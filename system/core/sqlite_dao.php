@@ -16,7 +16,7 @@ class SQLite_DAO extends Base_DAO {
     /**
      * Database connection handler
      *
-     * @var  object
+     * @var object
      */
     private $dbh;
     
@@ -186,7 +186,7 @@ class SQLite_DAO extends Base_DAO {
     /**
      * Begin Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_begin() {
         $this->dbh->beginTransaction();
@@ -195,7 +195,7 @@ class SQLite_DAO extends Base_DAO {
     /**
      * Commit Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_commit() {
         $this->dbh->commit();
@@ -204,7 +204,7 @@ class SQLite_DAO extends Base_DAO {
     /**
      * Rollback Transaction using standard sql
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_rollback() {
         $this->dbh->rollBack();

@@ -143,8 +143,8 @@ class Calendar_Library {
     /**
      * Validate and set $template
      *
-     * @param  $val string
-     * @return    void
+     * @param $val string
+     * @return void
      */
     private function initialize_template($val) {
         if ( ! is_string($val)) {
@@ -156,8 +156,8 @@ class Calendar_Library {
     /**
      * Validate and set $show_next_prev
      *
-     * @param  $val bool
-     * @return    void
+     * @param $val bool
+     * @return void
      */
     private function initialize_show_next_prev($val) {
         if ( ! is_bool($val)) {
@@ -169,8 +169,8 @@ class Calendar_Library {
     /**
      * Validate and set $next_prev_url
      *
-     * @param  $val string
-     * @return    void
+     * @param $val string
+     * @return void
      */
     private function initialize_next_prev_url($val) {
         if ( ! is_string($val)) {
@@ -182,8 +182,8 @@ class Calendar_Library {
     /**
      * Validate and set $month_type
      *
-     * @param  $val string
-     * @return    void
+     * @param $val string
+     * @return void
      */
     private function initialize_month_type($val) {
         if ( ! is_string($val)) {
@@ -195,8 +195,8 @@ class Calendar_Library {
     /**
      * Validate and set $day_type
      *
-     * @param  $val string
-     * @return    void
+     * @param $val string
+     * @return void
      */
     private function initialize_day_type($val) {
         if ( ! is_string($val)) {
@@ -208,8 +208,8 @@ class Calendar_Library {
     /**
      * Validate and set $start_day
      *
-     * @param  $val string
-     * @return    void
+     * @param $val string
+     * @return void
      */
     private function initialize_start_day($val) {
         if ( ! is_string($val)) {
@@ -231,10 +231,10 @@ class Calendar_Library {
     /**
      * Generate the calendar
      *
-     * @param    integer    the year
-     * @param    integer    the month
-     * @param    array    the data to be shown in the calendar cells
-     * @return    string
+     * @param integer the year
+     * @param integer the month
+     * @param array the data to be shown in the calendar cells
+     * @return string
      */
     public function generate($year = '', $month = '', array $data = NULL) {
         // Set and validate the supplied month/year
@@ -290,11 +290,11 @@ class Calendar_Library {
         // Generate the template data array
         $this->parse_template();
     
-        // Begin building the calendar output                        
+        // Begin building the calendar output 
         $out = $this->temp['table_open'];
-        $out .= "\n";    
+        $out .= "\n"; 
         
-        $out .= "\n";        
+        $out .= "\n";  
         $out .= $this->temp['heading_row_start'];
         $out .= "\n";
         
@@ -387,8 +387,8 @@ class Calendar_Library {
      * Generates a textual month name based on the numeric
      * month provided.
      *
-     * @param    integer    the month
-     * @return    string
+     * @param integer the month
+     * @return string
      */
     private function get_month_name($month) {
         if ($this->month_type === 'short') {
@@ -412,8 +412,8 @@ class Calendar_Library {
      * Returns an array of day names (Sunday, Monday, etc.) based
      * on the type.  Options: long, short, abrev
      *
-     * @param    string
-     * @return    array
+     * @param string
+     * @return array
      */
     private function get_day_names($day_type = '') {
         if ($day_type !== '') {
@@ -443,9 +443,9 @@ class Calendar_Library {
      * For example, if you submit 13 as the month, the year will
      * increment and the month will become January.
      *
-     * @param    integer    the month
-     * @param    integer    the year
-     * @return    array
+     * @param integer the month
+     * @param integer the year
+     * @return array
      */
     private function adjust_date($month, $year) {
         $date = array();
@@ -473,9 +473,9 @@ class Calendar_Library {
     /**
      * Total days in a given month
      *
-     * @param    integer    the month
-     * @param    integer    the year
-     * @return    integer
+     * @param integer the month
+     * @param integer the year
+     * @return integer
      */
     private function get_total_days($month, $year) {
         $days_in_month    = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
@@ -533,7 +533,7 @@ class Calendar_Library {
      * Harvests the data within the template {pseudo-variables}
      * used to display the calendar
      *
-     * @return    void
+     * @return void
      */
      private function parse_template() {
         $this->temp = $this->default_template();

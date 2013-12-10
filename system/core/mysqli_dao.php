@@ -14,7 +14,7 @@ class MySQLi_DAO extends Base_DAO {
     /**
      * An object which represents the connection to a MySQL Server
      *
-     * @var  object
+     * @var object
      */
     private $mysqli;
     
@@ -206,7 +206,7 @@ class MySQLi_DAO extends Base_DAO {
      * Disable autocommit to begin transaction
      * MySQL MyISAM tables do not support transactions and will auto-commit even if a transaction has been started
      * 
-     * @return    bool
+     * @return bool
      */
     public function trans_begin() {
         $this->mysqli->autocommit(FALSE);
@@ -215,7 +215,7 @@ class MySQLi_DAO extends Base_DAO {
     /**
      * Commit Transaction
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_commit() {
         $this->mysqli->commit();
@@ -224,7 +224,7 @@ class MySQLi_DAO extends Base_DAO {
     /**
      * Rollback Transaction
      *
-     * @return    bool
+     * @return bool
      */
     public function trans_rollback() {
         $this->mysqli->rollback();

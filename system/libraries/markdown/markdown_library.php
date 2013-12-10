@@ -125,7 +125,7 @@ class Markdown_Library {
     /**
      * Validate and set $tab_width
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_tab_width($val) {
@@ -151,7 +151,7 @@ class Markdown_Library {
     /**
      * Validate and set $keep_html_entities
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_keep_html_entities($val) {
@@ -164,7 +164,7 @@ class Markdown_Library {
     /**
      * Validate and set $nested_brackets_depth
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_nested_brackets_depth($val) {
@@ -177,7 +177,7 @@ class Markdown_Library {
     /**
      * Validate and set $nested_url_parenthesis_depth
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_nested_url_parenthesis_depth($val) {
@@ -190,7 +190,7 @@ class Markdown_Library {
     /**
      * Validate and set $escape_chars
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_escape_chars($val) {
@@ -214,8 +214,8 @@ class Markdown_Library {
      *
      * Performs some preprocessing on the input text and pass it through the document gamut
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     public function markdown_to_html($text) {
         // Remove UTF-8 BOM and marker character in input, if present.
@@ -255,8 +255,8 @@ class Markdown_Library {
     /**
      * Strips link definitions from text, stores the URLs and titles in hash references.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function strip_link_definitions($text) {
         $less_than_tab = $this->tab_width - 1;
@@ -297,8 +297,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function strip_link_definitions_callback($matches) {
         $link_id = strtolower($matches[1]);
@@ -311,8 +311,8 @@ class Markdown_Library {
     /**
      * Hashify HTML blocks
      * 
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function hash_html_blocks($text) {
         if ( ! $this->keep_html_tags) {
@@ -462,8 +462,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function hash_html_blocks_callback($matches) {
         $text = $matches[1];
@@ -481,9 +481,9 @@ class Markdown_Library {
      * to be wrapped into paragraph tags at the end, ':' is used for elements
      * that are word separators and 'X' is used in the general case.
      *
-     * @param    string
-     * @param    string
-     * @return    string
+     * @param string
+     * @param string
+     * @return string
      */
     private function hash_part($text, $boundary = 'X') {
         // Swap back any tag hash found in $text so we don't have to `unhash` multiple times at the end
@@ -502,8 +502,8 @@ class Markdown_Library {
     /**
      * Run block gamut tranformations.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function run_block_gamut($text) {
         // We need to escape raw HTML in Markdown source before doing anything 
@@ -521,8 +521,8 @@ class Markdown_Library {
      * This is useful when HTML blocks are known to be already hashed, 
      * like in the firstwhole-document pass.
      * 
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function run_basic_block_gamut($text) {
         // These are all the transformations that form block-level
@@ -541,7 +541,7 @@ class Markdown_Library {
     /**
      * Produce a horizontal rule tag (<hr />) 
      * 
-     * @return    void
+     * @return void
      */
     private function do_horizontal_rules($text) {
         // You can produce a horizontal rule tag (<hr />) by placing three or more 
@@ -569,8 +569,8 @@ class Markdown_Library {
      * These are all the transformations that occur *within* block-level 
      * tags like paragraphs, headers, and list items
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function run_span_gamut($text) {
         // Must run in the following order
@@ -597,8 +597,8 @@ class Markdown_Library {
     /**
      * Do hard breaks
      * 
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_line_breaks($text) {
         return preg_replace_callback(
@@ -614,8 +614,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_line_breaks_callback($matches) {
         // Add a newline "\n" right after the line break tag 
@@ -625,7 +625,7 @@ class Markdown_Library {
     /**
      * Turn Markdown link shortcuts into XHTML <a> tags
      *
-     * @return    void
+     * @return void
      */
     private function do_anchors($text) {
         // do_anchors() is called recurively when processing the textual
@@ -730,8 +730,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_anchors_reference_callback($matches) {
         $whole_match = $matches[1];
@@ -772,8 +772,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_anchors_inline_callback($matches) {
         $whole_match = $matches[1];
@@ -799,8 +799,8 @@ class Markdown_Library {
     /**
      * Turn Markdown image shortcuts into <img> tags.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_images($text) {
         // These two variables are the same as those two in do_anchors()
@@ -870,8 +870,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_images_reference_callback($matches) {
         $whole_match = $matches[1];
@@ -906,8 +906,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_images_inline_callback($matches) {
         $whole_match = $matches[1];
@@ -932,8 +932,8 @@ class Markdown_Library {
     /**
      * Markdown supports two styles of headers: Setext and atx
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_headers($text) {
         // Setext-style headers:
@@ -979,8 +979,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_headers_setext_callback($matches) {
         // Terrible hack to check we haven't found an empty list item.
@@ -996,8 +996,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_headers_atx_callback($matches) {
         $level = strlen($matches[1]);
@@ -1008,8 +1008,8 @@ class Markdown_Library {
     /**
      * Form HTML ordered (numbered) and unordered (bulleted) lists.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_lists($text) {
         $less_than_tab = $this->tab_width - 1;
@@ -1087,8 +1087,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_lists_callback($matches) {
         // Re-usable patterns to match list item bullets and number markers
@@ -1110,7 +1110,7 @@ class Markdown_Library {
      * Process the contents of a single ordered or unordered list, splitting it
      * into individual list items.
      * 
-     * @return    void
+     * @return void
      */
     private function process_list_items($list_str, $marker_any_regex) {
         // The $this->list_level global keeps track of when we're inside a list.
@@ -1165,8 +1165,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function process_list_items_callback($matches) {
         $leading_line =& $matches[1];
@@ -1192,8 +1192,8 @@ class Markdown_Library {
     /**
      * Process Markdown `<pre><code>` blocks.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_code_blocks($text) {
         $text = preg_replace_callback(
@@ -1220,8 +1220,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_code_blocks_callback($matches) {
         $codeblock = $this->outdent($matches[1]);
@@ -1236,8 +1236,8 @@ class Markdown_Library {
     /**
      * Create a code span markup for $code. Called from handle_span_token.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function make_code_span($code) {
         $code = htmlspecialchars(trim($code), ENT_NOQUOTES);
@@ -1248,8 +1248,8 @@ class Markdown_Library {
     /**
      * Italics and Bold
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_italics_and_bold($text) {
         $em_strong_prepared_regex_list = array();
@@ -1411,8 +1411,8 @@ class Markdown_Library {
     /**
      * Block quotes
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_block_quotes($text) {
         $text = preg_replace_callback(
@@ -1439,8 +1439,8 @@ class Markdown_Library {
     /**
      * Callback
      *
-     * @param    array
-     * @return    string
+     * @param array
+     * @return string
      */
     private function do_block_quotes_callback($matches) {
         $bq = $matches[1];
@@ -1466,8 +1466,8 @@ class Markdown_Library {
     /**
      * Form paragraphs
      *
-     * @param    string to process with html <p> tags
-     * @return    string
+     * @param string to process with html <p> tags
+     * @return string
      */
     private function form_paragraphs($text) {
         // Strip leading and trailing lines
@@ -1500,8 +1500,8 @@ class Markdown_Library {
      * Encode text for a double-quoted HTML attribute. This function
      * is *not* suitable for attributes enclosed in single quotes.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function encode_attribute($text) {
         $text = $this->encode_amps_and_angles($text);
@@ -1513,7 +1513,7 @@ class Markdown_Library {
      * be encoded. Valid character entities are left alone unless the
      * no-entities mode is set.
      *
-     * @return    void
+     * @return void
      */
     private function encode_amps_and_angles($text) {
         if ($this->keep_html_entities) {
@@ -1533,8 +1533,8 @@ class Markdown_Library {
      * Show the actual text of a URL or email address, and also have it clickable
      * 
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function do_auto_links($text) {
         $text = preg_replace_callback(
@@ -1633,8 +1633,8 @@ class Markdown_Library {
      * Parse the string into tokens, hashing embeded HTML,
      * escaped characters and handling code spans.
      * 
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function parse_span($str) {
         $escape_chars_regex = '['.preg_quote($this->escape_chars).']';
@@ -1695,9 +1695,9 @@ class Markdown_Library {
      * Handle $token provided by parse_span by determining its nature and 
      * returning the corresponding value that should replace it.
      * 
-     * @param    string
-     * @param    string
-     * @return    array
+     * @param string
+     * @param string
+     * @return array
      */
     private function handle_span_token($token, $str) {
         $span = array(
@@ -1739,8 +1739,8 @@ class Markdown_Library {
     /**
      * Replace tabs with the appropriate amount of spaces.
      * 
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function tab_to_spaces($text) {
         // For each line we separate the line in blocks delemited by
@@ -1863,8 +1863,8 @@ class Markdown_Library {
     /**
      * Swap back in all the tags hashed by hash_html_blocks.
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function unhash($text) {
         return preg_replace_callback(

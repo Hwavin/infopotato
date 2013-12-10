@@ -86,7 +86,7 @@ class QRcode_Library {
     /**
      * Validate and set $data_path
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_data_path($val) {
@@ -99,7 +99,7 @@ class QRcode_Library {
     /**
      * Validate and set $image_path
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_image_path($val) {
@@ -112,7 +112,7 @@ class QRcode_Library {
     /**
      * Validate and set $error_correction_level
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_error_correction_level($val) {
@@ -125,7 +125,7 @@ class QRcode_Library {
     /**
      * Validate and set $symbol_version
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_symbol_version($val) {
@@ -139,7 +139,7 @@ class QRcode_Library {
     /**
      * Validate and set $output_image_type
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_output_image_type($val) {
@@ -152,7 +152,7 @@ class QRcode_Library {
     /**
      * Validate and set $pixels_per_module
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_pixels_per_module($val) {
@@ -175,7 +175,7 @@ class QRcode_Library {
      * Performs all necessary calculations and returns an image
      * as defined by the configuration
      * 
-     * @var string    the string/data to encode into the QRcode
+     * @var string the string/data to encode into the QRcode
      * @return array
      */
     public function generate($str) {

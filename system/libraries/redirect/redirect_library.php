@@ -15,7 +15,7 @@ class Redirect_Library {
      * URI Redirection
      * 
      * @param string $uri the uri to be redirected, must start with http://
-     * @return none
+     * @return void
      */
     public function redirect($uri) {
         // The headers below ensure that the page is giving out headers that will not be cached

@@ -83,7 +83,7 @@ class Manager {
      * $config['type']: (string required)  specify the media type for the output
      * $config['extra_headers']: (array optional)  any extra headers to response
      * 
-     * @return NULL
+     * @return void
      */   
     protected function response(array $config = NULL) {
         if (isset($config['content']) && isset($config['type'])) {
@@ -125,9 +125,9 @@ class Manager {
      *
      * If your data is located in a sub-folder, include the relative path from your data folder.
      *
-     * @param   string $data the name of the data class
-     * @param   string $alias the optional property name alias
-     * @return  boolean
+     * @param string $data the name of the data class
+     * @param string $alias the optional property name alias
+     * @return  bool
      */    
     protected function load_data($data, $alias = '') {
         $data = strtolower($data);
@@ -212,11 +212,11 @@ class Manager {
      *
      * If library is located in a sub-folder, include the relative path from libraries folder.
      *
-     * @param    string    $scope 'SYS' or 'APP'
-     * @param    string    $library the name of the class
-     * @param    string    $alias (optional) alias name
-     * @param    array    $config the optional config parameters
-     * @return    void
+     * @param string $scope 'SYS' or 'APP'
+     * @param string $library the name of the class
+     * @param string $alias (optional) alias name
+     * @param array $config the optional config parameters
+     * @return void
      */       
     protected function load_library($scope, $library, $alias = '', array $config = NULL) {
         $library = strtolower($library);

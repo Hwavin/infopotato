@@ -24,10 +24,10 @@ class Common {
      * This function takes an error message as input,
      * log it to the defined file path and displays it using the specified template.
      * 
-     * @param    string    the heading
-     * @param    string    the message
-     * @param    string    the template name
-     * @return    string
+     * @param string the heading
+     * @param string the message
+     * @param string the template name
+     * @return string
      */
     public static function halt($heading, $message, $template = 'sys_error') {
         // Log to caputre all errors since some errors can't be manually captured
@@ -67,10 +67,10 @@ class Common {
      *
      * Displays information about a variable in a human readable way
      * 
-     * @param    mixed the variable to be dumped
-     * @param    force type for xml
-     * @param    collapse or not
-     * @return    void
+     * @param mixed the variable to be dumped
+     * @param force type for xml
+     * @param collapse or not
+     * @return void
      */
     public static function dump($var, $force_type = '', $collapsed = FALSE) {
         Dumper::dump($var, $force_type, $collapsed);

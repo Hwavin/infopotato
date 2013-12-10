@@ -35,10 +35,10 @@ class Dumper {
      *
      * Displays information about a variable in a human readable way
      * 
-     * @param    mixed the variable to be dumped
-     * @param    force type for xml
-     * @param    collapse or not
-     * @return    void
+     * @param mixed the variable to be dumped
+     * @param force type for xml
+     * @param collapse or not
+     * @return void
      */
     public static function dump($var, $force_type = '', $collapsed = FALSE) {
         // Reseet the settings each time dump() is called
@@ -70,7 +70,7 @@ class Dumper {
     /**
      * Get variable info
      *
-     * @return    array
+     * @return array
      */
     private static function get_var_info() {
         $var_info = array();
@@ -111,7 +111,7 @@ class Dumper {
     /**
      * Create the main table header, can't show the variable name
      * 
-     * @return    void
+     * @return void
      */
     private static function open_table($type, $header, $colspan = 2) {
         $var_info = self::get_var_info();
@@ -130,7 +130,7 @@ class Dumper {
     /**
      * Close table 
      * 
-     * @return    void
+     * @return void
      */
     private static function close_table() {
         echo '</table>'."\n";
@@ -139,7 +139,7 @@ class Dumper {
     /**
      * Create the table row header
      * 
-     * @return    void
+     * @return void
      */
     private static function open_td_row($type, $header) {
         $str_d = (self::$collapsed) ? ' style="display:none"' : '';
@@ -149,7 +149,7 @@ class Dumper {
     /**
      * Close table row
      * 
-     * @return    void
+     * @return void
      */
     private static function close_td_row() {
         echo '</td>'."\n".'</tr>'."\n";
@@ -158,7 +158,7 @@ class Dumper {
     /**
      * Display error
      * 
-     * @return    string
+     * @return string
      */
     private static function  error($type) {
         return 'Error: Variable cannot be '.$type.' type';
@@ -167,7 +167,7 @@ class Dumper {
     /**
      * Check variable type
      * 
-     * @return    void
+     * @return void
      */
     private static function check_type($var) {
         // Never use gettype() to test for a certain type, 
@@ -207,7 +207,7 @@ class Dumper {
     /**
      * If variable is a string
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_string($var) {
         $var = ($var == '') ? '[empty string]' : $var;
@@ -230,7 +230,7 @@ class Dumper {
     /**
      * If variable is a double
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_double($var) {
         self::open_table('object', 'double');
@@ -241,7 +241,7 @@ class Dumper {
     /**
      * If variable is a boolean
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_bool($var) {
         $var = ($var === TRUE) ? 'TRUE' : 'FALSE';
@@ -253,7 +253,7 @@ class Dumper {
     /**
      * If variable is an array type
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_array($var) {
         $var_ser = serialize($var);
@@ -290,7 +290,7 @@ class Dumper {
     /**
      * If variable is an object type
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_object($var) {
         $var_ser = serialize($var);
@@ -336,7 +336,7 @@ class Dumper {
     /**
      * If variable is a resource type
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_resource($var) {
         self::open_table('resourceC', 'resource', 1);
@@ -357,7 +357,7 @@ class Dumper {
     /**
      * If variable is an image/gd resource type
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_gd_resource($var) {
         self::open_table('resource', 'gd', 2);
@@ -373,7 +373,7 @@ class Dumper {
     /**
      * If variable is an xml resource type
      * 
-     * @return    void
+     * @return void
      */
     private static function var_is_xml_resource($var) {
         $xml_parser = xml_parser_create();
@@ -411,7 +411,7 @@ class Dumper {
     /**
      * Parse xml
      * 
-     * @return    void
+     * @return void
      */
     private static function xml_parse($xml_parser, $data, $final) {
         if ( ! xml_parse($xml_parser, $data, $final)) { 
@@ -424,7 +424,7 @@ class Dumper {
     /**
      * xml: inititiated when a start tag is encountered
      * 
-     * @return    void
+     * @return void
      */
     private static function xml_start_element($parser, $name, $attribs) {
         self::$xml_attrib[self::$xml_count] = $attribs;
@@ -446,7 +446,7 @@ class Dumper {
     /**
      * xml: initiated when an end tag is encountered
      * 
-     * @return    void
+     * @return void
      */
     private static function xml_end_element($parser, $name) {
         for ($i = 0; $i < self::$xml_count; $i++) {
@@ -468,7 +468,7 @@ class Dumper {
     /**
      * xml: initiated when text between tags is encountered
      * 
-     * @return    void
+     * @return void
      */
     private static function xml_character_data($parser, $data) {
         $count = self::$xml_count - 1;
@@ -482,7 +482,7 @@ class Dumper {
     /**
      * xml: initiated when a comment or other miscellaneous texts is encountered
      * 
-     * @return    void
+     * @return void
      */
     private static function xml_default_handler($parser, $data) {
         // Strip '<!--' and '-->' off comments
@@ -498,7 +498,7 @@ class Dumper {
     /**
      * Output CSS and JS
      * 
-     * @return    void
+     * @return void
      */
     private static function init_js_and_css() {
         $out =

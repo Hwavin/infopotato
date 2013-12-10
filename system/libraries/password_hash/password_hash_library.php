@@ -62,8 +62,8 @@ class Password_Hash_Library {
     /**
      * Validate and set $iteration_count_log2
      *
-     * @param  $val int
-     * @return    void
+     * @param $val int
+     * @return void
      */
     private function initialize_iteration_count_log2($val) {
         if ( ! is_int($val)) {
@@ -78,8 +78,8 @@ class Password_Hash_Library {
     /**
      * Validate and set $portable_hashes
      *
-     * @param  $val bool
-     * @return    void
+     * @param $val bool
+     * @return void
      */
     private function initialize_portable_hashes($val) {
         if ( ! is_bool($val)) {
@@ -253,9 +253,8 @@ class Password_Hash_Library {
     /**
      * Generate the hashed password
      *
-     * @param    string  The password limit should be set to 72 characters to prevent certain DoS attacks. 
-     *
-     * @return    string  The hash can never be less than 20 characters, so if it is then something went wrong during the encryption process.
+     * @param string The password limit should be set to 72 characters to prevent certain DoS attacks. 
+     * @return string The hash can never be less than 20 characters, so if it is then something went wrong during the encryption process.
      */
     public function hash_password($password) {
         $random = '';
@@ -294,7 +293,7 @@ class Password_Hash_Library {
     /**
      * Check the supplied password against the hash
      *
-     * @return    boolean
+     * @return bool
      */
     public function check_password($password, $stored_hash) {
         $hash = $this->crypt_private($password, $stored_hash);

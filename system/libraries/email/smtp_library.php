@@ -56,7 +56,7 @@ class SMTP_Library {
     /**
      * SMTP persistent connection
      *
-     * @var    bool
+     * @var bool
      */
     private $smtp_keepalive = FALSE;
     
@@ -166,7 +166,7 @@ class SMTP_Library {
     /**
      * Subject header
      *
-     * @var    string
+     * @var string
      */
     private $subject = '';
     
@@ -180,7 +180,7 @@ class SMTP_Library {
     /**
      * Message body
      *
-     * @var    string
+     * @var string
      */
     private $body = '';
     
@@ -201,57 +201,57 @@ class SMTP_Library {
     /**
      * Final headers to send
      *
-     * @var    string
+     * @var string
      */
     private $header_str = '';
     
     /**
      * SMTP Socket Connection File Pointer
      *
-     * @var    resource
+     * @var resource
      */
     private $smtp_connection_fp = '';
 
     /**
      * Debug messages
      *
-     * @see    print_debugger()
-     * @var    array
+     * @see print_debugger()
+     * @var array
      */
     private $debug_msg = array();
     
     /**
      * To Recipients
      *
-     * @var    array
+     * @var array
      */
     private $to_recipients = array();
     
     /**
      * CC Recipients
      *
-     * @var    array
+     * @var array
      */
     private $cc_recipients = array();
     
     /**
      * BCC Recipients
      *
-     * @var    array
+     * @var array
      */
     private $bcc_recipients = array();
     
     /**
      * Message headers
      *
-     * @var    array
+     * @var array
      */
     private $headers = array();
     
     /**
      * Attachment data
      *
-     * @var    array
+     * @var array
      */
     private $attachments = array(); 
     
@@ -283,7 +283,7 @@ class SMTP_Library {
     /**
      * Validate and set $user_agent
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_user_agent($val) {
@@ -296,7 +296,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_host
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_smtp_host($val) {
@@ -309,7 +309,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_user
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_smtp_user($val) {
@@ -322,7 +322,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_pass
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_smtp_pass($val) {
@@ -335,7 +335,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_port
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_smtp_port($val) {
@@ -348,7 +348,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_connection_timeout
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_smtp_timeout($val) {
@@ -361,7 +361,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_keepalive
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_smtp_keepalive($val) {
@@ -374,7 +374,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_crypto
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_smtp_crypto($val) {
@@ -390,7 +390,7 @@ class SMTP_Library {
     /**
      * Validate and set $smtp_dsn
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_smtp_dsn($val) {
@@ -403,7 +403,7 @@ class SMTP_Library {
     /**
      * Validate and set $wordwrap
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_wordwrap($val) {
@@ -416,7 +416,7 @@ class SMTP_Library {
     /**
      * Validate and set $wrapchars
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_wrapchars($val) {
@@ -429,7 +429,7 @@ class SMTP_Library {
     /**
      * Validate and set $mailtype
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_mailtype($val) {
@@ -442,7 +442,7 @@ class SMTP_Library {
     /**
      * Validate and set $multipart_subtype
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_multipart_subtype($val) {
@@ -455,7 +455,7 @@ class SMTP_Library {
     /**
      * Validate and set $charset
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_charset($val) {
@@ -481,7 +481,7 @@ class SMTP_Library {
     /**
      * Validate and set $priority
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_priority($val) {
@@ -498,7 +498,7 @@ class SMTP_Library {
     /**
      * Validate and set $crlf
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_crlf($val) {
@@ -511,7 +511,7 @@ class SMTP_Library {
     /**
      * Validate and set $newline
      *
-     * @param  $val string
+     * @param $val string
      * @return void
      */
     private function initialize_newline($val) {
@@ -524,7 +524,7 @@ class SMTP_Library {
     /**
      * Validate and set $send_multipart
      *
-     * @param  $val bool
+     * @param $val bool
      * @return void
      */
     private function initialize_send_multipart($val) {
@@ -550,7 +550,7 @@ class SMTP_Library {
     /**
      * Validate and set $bcc_batch_size
      *
-     * @param  $val int
+     * @param $val int
      * @return void
      */
     private function initialize_bcc_batch_size($val) {
@@ -570,9 +570,9 @@ class SMTP_Library {
     }
     
     /**
-     * Destructor - Releases Resources
+     * Destructor
      *
-     * @return    void
+     * @return void
      */
     public function __destruct() {
         if (is_resource($this->smtp_connection_fp)) {
@@ -583,8 +583,8 @@ class SMTP_Library {
     /**
      * Reset the Email Data
      *
-     * @param    bool
-     * @return    SMTP_Library
+     * @param bool
+     * @return SMTP_Library
      */
     public function clear($clear_attachments = FALSE) {
         $this->subject = '';
@@ -613,9 +613,9 @@ class SMTP_Library {
      *
      * Specifies who actually wrote the email, and usually who sent it
      *
-     * @param    string
-     * @param    string
-     * @return    SMTP_Library
+     * @param string
+     * @param string
+     * @return SMTP_Library
      */
     public function from($from, $name = '') {
         // RFC-822(http://tools.ietf.org/html/rfc822) allows email addresses to be specified 
@@ -654,8 +654,8 @@ class SMTP_Library {
      * If set, this email address will be used for the bounce messages
      * If not set, SMTP will use the address given in from() as Return-Path
      *
-     * @param    string
-     * @return    SMTP_Library
+     * @param string
+     * @return SMTP_Library
      */
     public function return_path($return_path) {
         if (preg_match('/\<(.*)\>/', $return_path, $match)) {
@@ -681,9 +681,9 @@ class SMTP_Library {
      *
      * If not specified, will use the address given in from() 
      *
-     * @param    string
-     * @param    string
-     * @return    SMTP_Library
+     * @param string
+     * @param string
+     * @return SMTP_Library
      */
     public function reply_to($reply_to, $name = '') {
         if (preg_match('/\<(.*)\>/', $reply_to, $match)) {
@@ -710,8 +710,8 @@ class SMTP_Library {
     /**
      * Set Recipients, a comma-delimited list or an array
      *
-     * @param    string | array
-     * @return    SMTP_Library
+     * @param string | array
+     * @return SMTP_Library
      */
     public function to($to) {
         $to = $this->extract_email($this->str_to_array($to));
@@ -730,8 +730,8 @@ class SMTP_Library {
     /**
      * Set CC, a comma-delimited list or an array
      *
-     * @param    string | array
-     * @return    SMTP_Library
+     * @param string | array
+     * @return SMTP_Library
      */
     public function cc($cc) {
         $cc = $this->extract_email($this->str_to_array($cc));
@@ -750,9 +750,9 @@ class SMTP_Library {
     /**
      * Set BCC, a comma-delimited list or an array
      *
-     * @param    string
-     * @param    string
-     * @return    SMTP_Library
+     * @param string
+     * @param string
+     * @return SMTP_Library
      */
     public function bcc($bcc, $limit = '') {
         if ($limit !== '' && is_numeric($limit)) {
@@ -775,8 +775,8 @@ class SMTP_Library {
     /**
      * Set Email Subject
      *
-     * @param    string
-     * @return    SMTP_Library
+     * @param string
+     * @return SMTP_Library
      */
     public function subject($subject) {
         // Q Encoding, the form is: "=?charset?encoding?encoded text?=".
@@ -788,9 +788,9 @@ class SMTP_Library {
     /**
      * Set message Body
      *
-     * @param    string
-     * @param    string
-     * @return    SMTP_Library
+     * @param string
+     * @param string
+     * @return SMTP_Library
      */
     public function message($body, $alt_body = '') {
         $this->body = rtrim(str_replace("\r", '', $body));
@@ -828,10 +828,10 @@ class SMTP_Library {
     /**
      * Add an attachment that exists on disk
      *
-     * @param    string    $file_path
-     * @param    string    $content_type
-     * @param    string    $content_disposition = 'attachment' (optional)
-     * @return    SMTP_Library
+     * @param string $file_path
+     * @param string $content_type
+     * @param string $content_disposition = 'attachment' (optional)
+     * @return SMTP_Library
      */
     public function attach_from_path($file_path, $content_type, $content_disposition = '') {
         if ( ! file_exists($file_path)) {
@@ -862,11 +862,11 @@ class SMTP_Library {
     /**
      * Create an attachment on-the-fly
      *
-     * @param    string    $file_content
-     * @param    string    $filename
-     * @param    string    $content_type
-     * @param    string    $content_disposition = 'attachment' (optional)
-     * @return    SMTP_Library
+     * @param string $file_content
+     * @param string $filename
+     * @param string $content_type
+     * @param string $content_disposition = 'attachment' (optional)
+     * @return SMTP_Library
      */
     public function attach_from_content($file_content, $filename, $content_type, $content_disposition = '') {
         $this->attachments[] = array(
@@ -884,8 +884,8 @@ class SMTP_Library {
      *
      * Must set $auto_clear = FALSE to have print_debugger() work as expected
      *
-     * @param    bool    $auto_clear = TRUE
-     * @return    bool
+     * @param bool $auto_clear = TRUE
+     * @return bool
      */
     public function send($auto_clear = TRUE) {
         // Use the name and address in from() if Reply-To is not specified
@@ -944,9 +944,8 @@ class SMTP_Library {
     /**
      * Get Debug Message
      *
-     * @param    array    $include    List of raw data chunks to include in the output
-     *                    Valid options are: 'headers', 'subject', 'body'
-     * @return    string
+     * @param array $include List of raw data chunks to include in the output
+     * @return string
      */
     public function print_debugger($include = array('headers', 'subject', 'body')) {
         $msg = '';
@@ -977,9 +976,9 @@ class SMTP_Library {
     }
     
     /**
-     * Batch Bcc Send.  Sends groups of BCCs in batches
+     * Sends groups of BCCs in batches
      *
-     * @return    void
+     * @return void
      */
     private function batch_bcc_send() {
         $float = $this->bcc_batch_size - 1;
@@ -1021,9 +1020,9 @@ class SMTP_Library {
     /**
      * Add a Header Item
      *
-     * @param    string
-     * @param    string
-     * @return    void
+     * @param string
+     * @param string
+     * @return void
      */
     private function set_header($header, $value) {
         // Filters the input by removing all "\\n" and "\\r" characters.
@@ -1033,8 +1032,8 @@ class SMTP_Library {
     /**
      * Convert a String to an Array
      *
-     * @param    string | array
-     * @return    array
+     * @param string | array
+     * @return array
      */
     private function str_to_array($email) {
         if ( ! is_array($email)) {
@@ -1048,7 +1047,7 @@ class SMTP_Library {
     /**
      * Set RFC 822 Date
      *
-     * @return    string
+     * @return string
      */
     private function set_date() {
         $timezone = date('Z');
@@ -1062,7 +1061,7 @@ class SMTP_Library {
     /**
      * Get the Message ID
      *
-     * @return    string
+     * @return string
      */
     private function create_message_id() {
         // The "Message-ID:" field provides a unique message identifier that
@@ -1075,7 +1074,7 @@ class SMTP_Library {
     /**
      * Get message body content type 
      *
-     * @return    string
+     * @return string
      */
     private function get_content_type() {
         // mailtype can only be 'html' or 'text'
@@ -1094,7 +1093,7 @@ class SMTP_Library {
      * http://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding
      * http://tools.ietf.org/html/rfc2045#section-6
      * 
-     * @return    string
+     * @return string
      */
     private function get_content_transfer_encoding() {
         // Default mail encoding
@@ -1111,7 +1110,7 @@ class SMTP_Library {
     /**
      * Mime message
      *
-     * @return    string
+     * @return string
      */
     private function insert_mime_message() {
         // This text is inserted before the first boundary, 
@@ -1125,8 +1124,8 @@ class SMTP_Library {
     /**
      * Validate Email Address
      *
-     * @param    array
-     * @return    bool
+     * @param array
+     * @return bool
      */
     private function validate_email($email) {
         foreach ($email as $val) {
@@ -1145,8 +1144,8 @@ class SMTP_Library {
      *
      * Example: 'My name <email@example.com>' should result in 'email@example.com'
      * 
-     * @param    string | array
-     * @return    string | array
+     * @param string | array
+     * @return string | array
      */
     private function extract_email($email) {
         if ( ! is_array($email)) {
@@ -1165,9 +1164,9 @@ class SMTP_Library {
     /**
      * Word Wrap
      *
-     * @param    string
-     * @param    integer line-length limit
-     * @return    string
+     * @param string
+     * @param integer line-length limit
+     * @return string
      */
     private function word_wrap($str, $charlim = NULL) {
         // Set the character limit, if not already present
@@ -1242,7 +1241,7 @@ class SMTP_Library {
     /**
      * Build Final Body and attachments
      *
-     * @return    bool
+     * @return bool
      */
     private function build_message() {
         if ($this->wordwrap === TRUE && $this->mailtype !== 'html') {
@@ -1367,8 +1366,8 @@ class SMTP_Library {
      * 
      * Refer to RFC 2045 http://www.ietf.org/rfc/rfc2045.txt
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function prep_quoted_printable($str) {    
         // We are intentionally wrapping so mail servers will encode characters
@@ -1439,10 +1438,9 @@ class SMTP_Library {
      * Performs "Q Encoding" on a string for use in email header values.
      * 
      * The form is: "=?charset?encoding?encoded text?=".
-     * http://tools.ietf.org/html/rfc2047#section-4.2
-     *
-     * @param    string
-     * @return    string
+     * @link http://tools.ietf.org/html/rfc2047#section-4.2
+     * @param string
+     * @return string
      */
     private function prep_q_encoding($str) {
         $str = str_replace(array("\r", "\n"), '', $str);
@@ -1505,7 +1503,7 @@ class SMTP_Library {
     /**
      * Unwrap special elements
      *
-     * @return    void
+     * @return void
      */
     private function unwrap_specials() {
         $this->finalbody = preg_replace_callback('/\{unwrap\}(.*?)\{\/unwrap\}/si', array($this, 'remove_nl_callback'), $this->finalbody);
@@ -1514,7 +1512,7 @@ class SMTP_Library {
     /**
      * Strip line-breaks via callback
      *
-     * @return    string
+     * @return string
      */
     private function remove_nl_callback($matches) {
         if (strpos($matches[1], "\r") !== FALSE || strpos($matches[1], "\n") !== FALSE) {
@@ -1527,7 +1525,7 @@ class SMTP_Library {
     /**
      * Spool mail to the mail server
      *
-     * @return    bool
+     * @return bool
      */
     private function spool_email() {
         $this->unwrap_specials();
@@ -1599,8 +1597,8 @@ class SMTP_Library {
     /**
      * Connect to a SMTP server, no Auth
      *
-     * @param    string
-     * @return    string
+     * @param string
+     * @return string
      */
     private function smtp_connect() {
         if (is_resource($this->smtp_connection_fp)) {
@@ -1652,9 +1650,9 @@ class SMTP_Library {
     /**
      * Send SMTP command
      *
-     * @param    string
-     * @param    string
-     * @return    bool
+     * @param string
+     * @param string
+     * @return bool
      */
     private function send_smtp_command($cmd, $data = '') {
         switch ($cmd) {
@@ -1729,9 +1727,9 @@ class SMTP_Library {
     }
     
     /**
-     *  SMTP Authentication
+     * SMTP Authentication
      *
-     * @return    bool
+     * @return bool
      */
     private function smtp_auth() {
         // There are several types of authorization that the SMTP server will accept
@@ -1773,7 +1771,7 @@ class SMTP_Library {
     /**
      * Send SMTP data
      *
-     * @return    bool
+     * @return bool
      */
     private function send_smtp_data($data) {
         if ( ! fwrite($this->smtp_connection_fp, $data . $this->newline)) {
@@ -1787,7 +1785,7 @@ class SMTP_Library {
     /**
      * Get SMTP response data
      *
-     * @return    string
+     * @return string
      */
     private function get_smtp_data() {
         $data = '';
@@ -1806,9 +1804,9 @@ class SMTP_Library {
     /**
      * Set Message
      *
-     * @param    string    $msg
-     * @param    string    $val = ''
-     * @return    void
+     * @param string $msg
+     * @param string $val = ''
+     * @return void
      */
     private function set_error_message($msg, $val = '') {
         $error_messages = array(

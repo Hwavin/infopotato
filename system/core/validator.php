@@ -37,9 +37,9 @@ class Validator {
     /**
      * Checks whether two values are identical in both value and data type
      *
-     * @param    value 1
-     * @param    value 2
-     * @return    bool
+     * @param value 1
+     * @param value 2
+     * @return bool
      */    
     public static function equals($input_1, $input_2) {
         return ($input_1 === $input_2);
@@ -50,8 +50,8 @@ class Validator {
     /**
      * Checks that a string contains something other than whitespace
      *
-     * @param    string
-     * @return    bool
+     * @param string
+     * @return bool
      */
     public static function not_empty($input) {
         if ( ! is_string($input)) {
@@ -64,9 +64,9 @@ class Validator {
     /**
      * Checks whether the length of a string is greater or equal to a minimal length
      *
-     * @param    string $input The string to test
-     * @param    integer $min The minimal string length
-     * @return    bool
+     * @param string $input The string to test
+     * @param integer $min The minimal string length
+     * @return bool
      */    
     public static function min_length($input, $min) {
         if ( ! is_string($input) || ! is_int($min)) {
@@ -83,9 +83,9 @@ class Validator {
     /**
      * Checks whether the length of a string is smaller or equal to a maximal length
      *
-     * @param    string $input The string to test
-     * @param    integer $max The minimal string length
-     * @return    bool
+     * @param string $input The string to test
+     * @param integer $max The minimal string length
+     * @return bool
      */    
     public static function max_length($input, $max) {
         if ( ! is_string($input) || ! is_int($max)) {
@@ -102,9 +102,9 @@ class Validator {
     /**
      * Checks whether the length of a string is the desired length
      *
-     * @param    string
-     * @param    value
-     * @return    bool
+     * @param string
+     * @param value
+     * @return bool
      */    
     public static function exact_length($input, $val) {
         if ( ! is_string($input) || ! is_int($val)) {
@@ -124,8 +124,8 @@ class Validator {
      * The local-part of the email address may use any of these ASCII characters RFC 5322 Section 3.2.3, 
      * RFC 6531 permits Unicode beyond the ASCII range, UTF8 charcters can be used but 
      * many of the current generation of email servers and clients won't work with that
-     * @param    string
-     * @return    bool
+     * @param string
+     * @return bool
      */    
     public static function is_email($input) {
         //return ( ! preg_match('/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix', $input)) ? FALSE : TRUE;
@@ -140,8 +140,8 @@ class Validator {
     /**
      * Checks that a value is a valid URL
      *
-     * @param    string
-     * @return    bool
+     * @param string
+     * @return bool
      */
     public static function is_url($input) {
         if ( ! is_string($input)) {
@@ -163,8 +163,8 @@ class Validator {
      * +33(020)7777 7777
      * 03-6106666
      *
-     * @param    string
-     * @return    bool
+     * @param string
+     * @return bool
      */
     public static function is_phone($input) {
         if ( ! is_string($input)) {
@@ -178,9 +178,9 @@ class Validator {
      *
      * Checks that a value is a valid date
      *
-     * @param    string    $date
-     * @param    string    format
-     * @return    bool
+     * @param string    $date
+     * @param string    format
+     * @return bool
      *
      */
     function is_date($date, $format = 'YYYY-MM-DD') {
@@ -243,7 +243,7 @@ class Validator {
      *
      * @param string $input The string to test
      * @param string $type The IP Protocol version (ipv4 or ipv6) to validate against
-     * @return boolean Success
+     * @return bool 
      */
     public static function is_ip($input, $type = 'both') {
         if ( ! is_string($input) || ! is_string($type) || ! in_array($type, array('ipv4', 'ipv6', 'both'))) {
@@ -266,8 +266,8 @@ class Validator {
     /**
      * Checks that a string contains only letters
      *
-     * @param    string
-     * @return    bool
+     * @param string
+     * @return bool
      */        
     public static function is_alpha($input) {
         if ( ! is_string($input)) {
@@ -280,8 +280,8 @@ class Validator {
     /**
      * Checks that a string contains only integer or letters
      *
-     * @param    string
-     * @return    bool
+     * @param string
+     * @return bool
      */
     public static function is_alpha_numeric($input) {
         if ( ! is_string($input)) {
@@ -296,9 +296,9 @@ class Validator {
     /**
      * Checks that a value is greather than the $min
      *
-     * @param    numeric
-     * @param    numeric
-     * @return    bool
+     * @param numeric
+     * @param numeric
+     * @return bool
      */
     public static function is_greater_than($input, $min) {
         if ( ! is_numeric($input) || ! is_numeric($min)) {
@@ -311,9 +311,9 @@ class Validator {
     /**
      * Checks that a value is less than the $max
      *
-     * @param    numeric
-     * @param    numeric
-     * @return    bool
+     * @param numeric
+     * @param numeric
+     * @return bool
      */
     public static function is_less_than($input, $max) {
         if ( ! is_numeric($input) || ! is_numeric($max)) {
@@ -327,8 +327,8 @@ class Validator {
      * Checks if a value is a natural number
      *
      * @param string $input Value to check
-     * @param boolean $allow_zero Set true to allow zero
-     * @return boolean Success
+     * @param bool $allow_zero Set true to allow zero
+     * @return bool Success
      * @see http://en.wikipedia.org/wiki/Natural_number
      */
     public static function is_natural_number($input, $allow_zero = FALSE) {

@@ -54,9 +54,9 @@ class Session {
     /**
      * Adds a value to an already-existing array value, or to a new array value
      *
-     * @param  string  $key        The name to access the array under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param  mixed   $value      The value to add to the array
-     * @param  boolean $beginning  If the value should be added to the beginning
+     * @param  string $key The name to access the array under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param  mixed $value The value to add to the array
+     * @param  boolean $beginning If the value should be added to the beginning
      * @return void
      */
     public static function add($key, $value, $beginning = FALSE) {
@@ -105,7 +105,7 @@ class Session {
      * This method will not remove session variables used by this class, which
      * are prefixed with `SESSION::`.
      * 
-     * @param  string $prefix  The prefix to clear all session values for
+     * @param string $prefix The prefix to clear all session values for
      * @return void
      */
     public static function clear($prefix = NULL) {
@@ -148,9 +148,9 @@ class Session {
     /**
      * Deletes a value from the session
      * 
-     * @param  string $key            The key of the value to delete - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param  mixed  $default_value  The value to return if the `$key` is not set
-     * @return mixed  The value of the `$key` that was deleted
+     * @param string $key The key of the value to delete - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param mixed  $default_value The value to return if the `$key` is not set
+     * @return mixed The value of the `$key` that was deleted
      */
     public static function delete($key, $default_value = NULL) {
         self::open();
@@ -269,9 +269,9 @@ class Session {
     /**
      * Gets data from the `$_SESSION` superglobal
      * 
-     * @param  string $key            The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param  mixed  $default_value  The default value to use if the requested key is not set
-     * @return mixed  The data element requested
+     * @param string $key The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param mixed  $default_value The default value to use if the requested key is not set
+     * @return mixed The data element requested
      */
     public static function get($key, $default_value = NULL) {
         self::open();
@@ -400,9 +400,9 @@ class Session {
     /**
      * Removes and returns the value from the end of an array value
      *
-     * @param  string  $key        The name of the element to remove the value from - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param  boolean $beginning  If the value should be removed to the beginning
-     * @return mixed  The value that was removed
+     * @param string $key The name of the element to remove the value from - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param boolean $beginning If the value should be removed to the beginning
+     * @return mixed The value that was removed
      */
     public static function remove($key, $beginning = FALSE) {
         self::open();
@@ -459,8 +459,8 @@ class Session {
     /**
      * Sets data to the `$_SESSION` superglobal
      * 
-     * @param  string $key     The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param  mixed  $value   The value to store
+     * @param string $key The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param mixed $value The value to store
      * @return void
      */
     public static function set($key, $value) {
@@ -503,9 +503,9 @@ class Session {
      * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
      * across browser restarts, the static method ::enable_persistence() must be called when they log in.
      * 
-     * @param  string $dir  The directory to store session files in
-     * @param  string|integer $normal_timespan      The normal (minimum), session-based cookie, length for the session
-     * @param  string|integer $persistent_timespan  The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
+     * @param string $dir The directory to store session files in
+     * @param string|integer $normal_timespan The normal (minimum), session-based cookie, length for the session
+     * @param string|integer $persistent_timespan The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
      * @return void
      */
     public static function init($dir, $normal_timespan, $persistent_timespan = NULL) {
