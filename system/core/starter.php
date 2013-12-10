@@ -75,58 +75,72 @@ class Starter {
         // Anonymous functions become available since PHP 5.3.0
         // By uuing this anonymous function we can make sure other components can't access it
         spl_autoload_register(function ($class_name) {
-            // Remove the namespaces of core components and app managers before parsing
-            // It is very important to realize that because the backslash is used as an escape character 
-            // within strings, it should always be doubled when used inside a string.
-            $class_name = str_replace('infopotato\core\\', '', strtolower($class_name));
+            // Trim the leading/tailing backslash in case they are added
+            $class_name = trim(strtolower($class_name), '\\');
             
-            // Create and use core files to speed up the parsing process for all the following requests.
-            // Init (loaded in entry point script) and Manager class ('manager', in the list below) are required for all app requests.
-            // All core conponents must be listed in this array
-            $core = array(
-                'dispatcher', 
-                'manager', 
-                'common',
-                'dumper', 
-                'logger', 
-                'validator', 
-                'php_utf8',
-                'i18n',
-                'cookie',
-                'session',
-                'data', 
-                'base_dao',
-                'mysql_dao', 
-                'mysqli_dao', 
-                'postgresql_dao', 
-                'sqlite_dao',
-            );
+            // Core components
+            if (strpos($class_name, 'infopotato\core\\') !== FALSE) {
+                // Remove the namespaces of core components before parsing
+                // It is very important to realize that because the backslash is used as an escape character 
+                // within strings, it should always be doubled when used inside a string.
+                // Note that trailing backslash of core namespace is trimmed so the returned $calss_name doesn't have leading backslash
+                $class_name = str_replace('infopotato\core\\', '', $class_name);
 
-            if (in_array($class_name, $core)) {
-                $source_file = SYS_CORE_DIR.$class_name.'.php';
-                
-                // Checks if core component file exists
-                if ( ! file_exists($source_file)) { 
-                    Common::halt('An Error Was Encountered', "Core component file '{$class_name}.php' is missing!", 'sys_error');
-                }
-                
-                // Load stripped source when runtime cache is turned-on
-                // Otherwise load the origional unstripped file
-                $file = $source_file;
+                // Create and use core files to speed up the parsing process for all the following requests.
+                // All core conponents must be listed below except Starter (this file, loaded in entry point script)
+                $core = array(
+                    'dispatcher', 
+                    'manager', 
+                    'common',
+                    'dumper', 
+                    'logger', 
+                    'validator', 
+                    'php_utf8',
+                    'i18n',
+                    'cookie',
+                    'session',
+                    'data', 
+                    'base_dao',
+                    'mysql_dao', 
+                    'mysqli_dao', 
+                    'postgresql_dao', 
+                    'sqlite_dao',
+                );
 
-                if (RUNTIME_CACHE === TRUE) {
-                    // The runtime folder must be writable
-                    $file = SYS_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
-                    if ( ! file_exists($file)) {
-                        // Return source with stripped comments and whitespace
-                        file_put_contents($file, php_strip_whitespace($source_file));
+                if (in_array($class_name, $core)) {
+                    $source_file = SYS_CORE_DIR.$class_name.'.php';
+                    
+                    // Checks if core component file exists
+                    if ( ! file_exists($source_file)) { 
+                        Common::halt('An Error Was Encountered', "Core component file '{$class_name}.php' is missing!", 'sys_error');
                     }
-                }
-            } else {
-                // Trim the leading backslash in case user added
-                $class_name = trim(str_replace(APP_MANAGER_NAMESPACE, '', strtolower($class_name)), '\\');
+                    
+                    // Load stripped source when runtime cache is turned-on
+                    // Otherwise load the origional unstripped file
+                    $file = $source_file;
 
-                // In some cases, an app manager could be a subclass of another app manager
+                    if (RUNTIME_CACHE === TRUE) {
+                        // The runtime folder must be writable
+                        $file = SYS_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
+                        if ( ! file_exists($file)) {
+                            // Return source with stripped comments and whitespace
+                            file_put_contents($file, php_strip_whitespace($source_file));
+                        }
+                    }
+                } else {
+                    Common::halt('An Error Was Encountered', "Unknown core component file '{$class_name}.php' is called by mistake!", 'sys_error');
+                }
+            } 
+
+            // APP Managers
+            if (strpos($class_name, APP_MANAGER_NAMESPACE) !== FALSE) {
+                // Remove the namespaces of app managers before parsing
+                // It is very important to realize that because the backslash is used as an escape character 
+                // within strings, it should always be doubled when used inside a string.
+                // Also trim the leading backslash since APP_MANAGER_NAMESPACE may not be defined with trailing backslash
+                $class_name = trim(str_replace(APP_MANAGER_NAMESPACE, '', $class_name));
+                
+                // Note: an app manager could be a subclass of another app manager
                 $source_file = APP_MANAGER_DIR.$class_name.'.php';
 
                 // Checks if app manager file exists
@@ -147,7 +161,7 @@ class Starter {
                     }
                 }
             }
-
+            
             // Using require_once() in the __autoload() function is redundant.  
             // __autoload() is only called when php can't find your class definition.  
             // If your file containg your class was already included, the class defenition would already be loaded 

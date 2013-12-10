@@ -159,7 +159,7 @@ class Manager {
         if (method_exists($this, $alias)) {
             Common::halt('A System Error Was Encountered', "Data name '{$alias}' is an invalid (reserved) name", 'sys_error');
         }
-        
+
         // Data already loaded? Silently skip
         if ( ! isset($this->$alias)) {
             $source_file = APP_DATA_DIR.$path.$data.'.php';
