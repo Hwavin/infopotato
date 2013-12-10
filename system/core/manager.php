@@ -268,7 +268,7 @@ class Manager {
             }
 
             if ( ! file_exists($source_file)) {
-                Common::halt('A System Error Was Encountered', "{$scope} library file '{$orig_library}' does not exist!", 'sys_error');
+                Common::halt('A System Error Was Encountered', "{$scope} library file '{$orig_library}.php' does not exist!", 'sys_error');
             }
             
             // Load stripped source when runtime cache is turned-on
@@ -296,8 +296,10 @@ class Manager {
             require $file;
 
             // Now the library class has been prefixed with proper namespace
-            if ( ! class_exists($library)) { 
-                Common::halt('A System Error Was Encountered', "Unknown library name '{$orig_library}'", 'sys_error');
+            // Set autoload FALSE so this function won't try autoload the class if it doesn't exists
+            // This prevents incorrect autoloading error message defined in spl_autoload_register()
+            if ( ! class_exists($library, FALSE)) { 
+                Common::halt('A System Error Was Encountered', "The required class '{$orig_library}' is not defined in {$scope} library file '{$orig_library}.php'!", 'sys_error');
             }
 
             // Instantiate the library object as a manager's property 
