@@ -268,7 +268,7 @@ class Manager {
             }
 
             if ( ! file_exists($source_file)) {
-                Common::halt('A System Error Was Encountered', "Unknown library file name '{$orig_library}'", 'sys_error');
+                Common::halt('A System Error Was Encountered', "{$scope} library file '{$orig_library}' does not exist!", 'sys_error');
             }
             
             // Load stripped source when runtime cache is turned-on
