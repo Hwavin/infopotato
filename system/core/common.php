@@ -35,6 +35,11 @@ class Common {
             
         if (ENVIRONMENT === 'development') {
             ob_start();
+            debug_print_backtrace();
+            $debug_backtrace = ob_get_contents();
+            ob_end_clean();
+            
+            ob_start();
             require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
             $output = ob_get_contents();
             ob_end_clean();
