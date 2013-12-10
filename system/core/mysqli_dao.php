@@ -134,6 +134,7 @@ class MySQLi_DAO extends Base_DAO {
                 $pos_adj += strlen($arg) - ($type_length);
             }
         } 
+        
         return $query; 
     } 
     
