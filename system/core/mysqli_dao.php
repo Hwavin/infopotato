@@ -144,7 +144,7 @@ class MySQLi_DAO extends Base_DAO {
      * @return int Number of rows affected/selected
      */
     public function exec_query($query) {
-        // Initialise return
+        // Initialize return
         $return_val = 0;
 
         // Reset stored query result
