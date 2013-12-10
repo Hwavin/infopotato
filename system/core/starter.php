@@ -95,7 +95,7 @@ class Starter {
                     'dumper', 
                     'logger', 
                     'validator', 
-                    'php_utf8',
+                    'utf8',
                     'i18n',
                     'cookie',
                     'session',
