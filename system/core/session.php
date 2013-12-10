@@ -15,8 +15,6 @@
 
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class Session {
     /**
      * The length for a normal session

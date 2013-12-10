@@ -10,8 +10,6 @@
 
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class Starter {
     /**
      * Prevent direct object creation

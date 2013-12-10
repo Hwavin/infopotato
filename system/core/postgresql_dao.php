@@ -10,8 +10,6 @@
 
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class PostgreSQL_DAO extends Base_DAO {
     /**
      * Database connection handler

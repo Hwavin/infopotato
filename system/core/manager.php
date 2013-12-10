@@ -10,8 +10,6 @@
  
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class Manager {
     /**
      * Key-value array of HTTP POST parameters
@@ -297,7 +295,7 @@ class Manager {
             } 
             
             require $file;
-Commom::dump($file);
+
             // Now the library class has been prefixed with proper namespace
             // Set autoload FALSE so this function won't try to autoload the class if it doesn't exists
             // This prevents incorrect autoloading error message defined in spl_autoload_register()

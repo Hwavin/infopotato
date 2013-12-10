@@ -14,8 +14,6 @@
 
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class PHP_UTF8 {
     /**
      * If the [http://php.net/mbstring mbstring] extension is available

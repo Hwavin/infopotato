@@ -11,7 +11,6 @@
  */
 
 namespace InfoPotato\core;
-use InfoPotato\core\Common;
 
 class MySQL_DAO extends Base_DAO {
     /**

@@ -13,8 +13,6 @@
  
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class Base_DAO {
     /**
      * Query result

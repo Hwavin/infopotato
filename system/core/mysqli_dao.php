@@ -10,8 +10,6 @@
 
 namespace InfoPotato\core;
 
-use InfoPotato\core\Common;
-
 class MySQLi_DAO extends Base_DAO {
     /**
      * An object which represents the connection to a MySQL Server
