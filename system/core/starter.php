@@ -138,7 +138,7 @@ class Starter {
                 // It is very important to realize that because the backslash is used as an escape character 
                 // within strings, it should always be doubled when used inside a string.
                 // Also trim the leading backslash since APP_MANAGER_NAMESPACE may not be defined with trailing backslash
-                $class_name = trim(str_replace(APP_MANAGER_NAMESPACE, '', $class_name));
+                $class_name = trim(str_replace(APP_MANAGER_NAMESPACE, '', $class_name), '\\');
                 
                 // Note: an app manager could be a subclass of another app manager
                 $source_file = APP_MANAGER_DIR.$class_name.'.php';
