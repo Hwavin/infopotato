@@ -18,7 +18,7 @@ class UTF8 {
     /**
      * If the [http://php.net/mbstring mbstring] extension is available
      * 
-     * @var boolean
+     * @var bool
      */
     private static $mbstring_available = FALSE;
     

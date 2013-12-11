@@ -12,13 +12,43 @@ namespace InfoPotato\core;
 
 class Validator {
     /**
+     * If the [http://php.net/mbstring mbstring] extension is available
+     * 
+     * @var bool
+     */
+    private static $mbstring_available = FALSE;
+    
+    /**
      * Prevent direct object creation
      * 
-     * @return Validator
+     * @return UTF8
      */
-    private function __construct() {
-        // Set the character encoding in MB.
-        if (function_exists('mb_internal_encoding')) {
+    private function __construct() {}
+    
+    /**
+     * Checks to see if the [http://php.net/mbstring mbstring] extension is available
+     * 
+     * @return void
+     */
+    private static function check_mbstring() {
+        self::$mbstring_available = extension_loaded('mbstring');
+        if (self::$mbstring_available) {
+            // If string overloading is active, it will break many of the native implementations
+            // MB_OVERLOAD_STRING (integer) is a constant defined by the mbstring extension 
+            // http://php.net/mbstring.func-overload
+            // Possible values are 0,1,2,4 or combination of them.
+            // For example, 7 for overload everything.
+            // 0: No overload
+            // 1: Overload mail() function
+            // 2: Overload str*() functions
+            // 4: Overload ereg*() functions
+            // & is bitwise AND. && is logical AND.
+            if (ini_get('mbstring.func_overload') & MB_OVERLOAD_STRING) {
+                Common::halt('A System Error Was Encountered', 'String functions are overloaded by mbstring, must be set to 0, 1 or 4 in php.ini for UTF8 to work.', 'sys_error');
+            }
+            
+            // Also need to check we have the correct internal mbstring encoding.
+            // The Mbstring functions assume mbstring internal encoding is set to UTF-8.
             mb_internal_encoding('UTF-8');
         }
     }
@@ -73,7 +103,10 @@ class Validator {
             $this->invalid_argument_value('min_length');
         }
         
-        if (function_exists('mb_strlen')) {
+        // Checks to see if the mbstring extension is available
+        self::check_mbstring();
+        
+        if (self::$mbstring_available) {
             return (mb_strlen($input) < $min) ? FALSE : TRUE;
         }
     
@@ -92,7 +125,10 @@ class Validator {
             $this->invalid_argument_value('max_length');
         }
         
-        if (function_exists('mb_strlen')) {
+        // Checks to see if the mbstring extension is available
+        self::check_mbstring();
+        
+        if (self::$mbstring_available) {
             return (mb_strlen($input) > $max) ? FALSE : TRUE;
         }
     
@@ -111,7 +147,10 @@ class Validator {
             $this->invalid_argument_value('exact_length');
         }
         
-        if (function_exists('mb_strlen')) {
+        // Checks to see if the mbstring extension is available
+        self::check_mbstring();
+        
+        if (self::$mbstring_available) {
             return (mb_strlen($input) !== $val) ? FALSE : TRUE;
         }
     
