@@ -57,46 +57,7 @@ class UTF8 {
             mb_internal_encoding('UTF-8');
         }
     }
-    
-    /**
-     * Strips out any bad bytes from a UTF-8 string and returns the rest.
-     * Can optionally replace bad bytes with an alternative character.
-     *
-     * PCRE Pattern to locate bad bytes in a UTF-8 string comes from W3 FAQ: Multilingual Forms.
-     * Note: modified to include full ASCII range including control chars
-     *
-     * @see http://www.w3.org/International/questions/qa-forms-utf-8
-     * @param string $str
-     * @return string
-     */
-    private static function bad_clean($str, $replace = FALSE) {
-        $new_str = $str;
-        
-        // PCRE Pattern to locate bad bytes in a UTF-8 string.
-        $bad_utf_pattern =
-            '([\x00-\x7F]'.                          # ASCII (including control chars)
-            '|[\xC2-\xDF][\x80-\xBF]'.               # Non-overlong 2-byte
-            '|\xE0[\xA0-\xBF][\x80-\xBF]'.           # Excluding overlongs
-            '|[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}'.    # Straight 3-byte
-            '|\xED[\x80-\x9F][\x80-\xBF]'.           # Excluding surrogates
-            '|\xF0[\x90-\xBF][\x80-\xBF]{2}'.        # Planes 1-3
-            '|[\xF1-\xF3][\x80-\xBF]{3}'.            # Planes 4-15
-            '|\xF4[\x80-\x8F][\x80-\xBF]{2}'.        # Plane 16
-            '|(.{1}))'                               # Invalid byte
-        ;
-        
-        while (preg_match('/'.$bad_utf_pattern.'/S', $str, $matches)) {
-            if ( ! isset($matches[2])) {
-                $new_str = $matches[0];
-            } elseif ($replace !== FALSE && is_string($replace)) {
-                $new_str = $replace;
-            }
-            $str = substr($str, strlen($matches[0]));
-        }
-        
-        return $new_str;
-    }
-    
+
     /**
      * Takes an UTF-8 string and returns an array of ints representing the Unicode characters.
      * Astral planes are supported ie. the ints in the output can be > 0xFFFF.
@@ -301,7 +262,7 @@ class UTF8 {
         if (self::$mbstring_available) {
             return mb_strlen($str);
         } else {
-            return strlen(utf8_decode(self::bad_clean($str)));
+            return strlen(utf8_decode($str));
         }
     }
     
@@ -322,8 +283,6 @@ class UTF8 {
         self::check_mbstring();
         
         if (self::$mbstring_available) {
-            $str = self::bad_clean($str);
-            
             if ( ! is_int($offset)) {
                 Common::halt('A System Error Was Encountered', 'UTF8::strpos(): Offset must be an integer', 'sys_error');
             }
@@ -374,8 +333,6 @@ class UTF8 {
         self::check_mbstring();
         
         if (self::$mbstring_available) {
-            $str = self::bad_clean($str);
-            
             if ( ! is_int($offset)) {
                 Common::halt('A System Error Was Encountered', 'UTF8::strrpos(): expects parameter 3 to be integer', 'sys_error');
             }
