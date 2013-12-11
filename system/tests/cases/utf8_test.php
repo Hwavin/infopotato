@@ -127,7 +127,7 @@ class UTF8_Test extends PHPUnit_Framework_TestCase {
     // Test strpos()
     public function test_strpos_utf8_offset() {
         $str = 'Iñtërnâtiônàlizætiøn';
-        $this->assertEquals(19, \InfoPotato\core\UTF8::strpos($str, 'n', 11));
+        $this->assertEquals(16, \InfoPotato\core\UTF8::strpos($str, 'n', 11));
     }
 
     // Test strpos()

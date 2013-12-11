@@ -314,7 +314,7 @@ class UTF8 {
      * @see http://www.php.net/strpos
      * @param string $str haystack
      * @param string $str needle (you should validate this with utf8_is_valid)
-     * @param integer $offset offset in characters (from left)
+     * @param integer $offset offset in characters count (from left)
      * @return mixed integer position or FALSE on failure
      */
     public static function strpos($str, $needle, $offset = 0) {
@@ -324,11 +324,19 @@ class UTF8 {
         if (self::$mbstring_available) {
             $str = self::bad_clean($str);
             
+            if ( ! is_int($offset)) {
+                Common::halt('A System Error Was Encountered', 'UTF8::strpos(): Offset must be an integer', 'sys_error');
+            }
+            
             if ($offset === 0) {
                 return mb_strpos($str, $needle);
             }
             return mb_strpos($str, $needle, $offset);
         } else {
+            if ( ! is_int($offset)) {
+                Common::halt('A System Error Was Encountered', 'UTF8::strpos(): Offset must be an integer', 'sys_error');
+            }
+            
             if ($offset === 0) {
                 $ar = explode($needle, $str, 2);
 
@@ -338,11 +346,7 @@ class UTF8 {
                 
                 return FALSE;
             }
-            
-            if ( ! is_int($offset)) {
-                Common::halt('A System Error Was Encountered', 'UTF8::strpos(): Offset must be an integer', 'sys_error');
-            }
-            
+
             $str = self::substr($str, $offset);
             
             if (($pos = self::strpos($str, $needle)) !== FALSE) {
@@ -372,16 +376,16 @@ class UTF8 {
         if (self::$mbstring_available) {
             $str = self::bad_clean($str);
             
-            if ( ! $offset) {
+            if ( ! is_int($offset)) {
+                Common::halt('A System Error Was Encountered', 'UTF8::strrpos(): expects parameter 3 to be integer', 'sys_error');
+            }
+            
+            if ($offset === 0) {
                 // Emulate behaviour of strrpos rather than raising warning
                 if (empty($str)) {
                     return FALSE;
                 }
                 return mb_strrpos($str, $needle);
-            }
-            
-            if ( ! is_int($offset)) {
-                Common::halt('A System Error Was Encountered', 'UTF8::strrpos(): expects parameter 3 to be long', 'sys_error');
             }
             
             $str = mb_substr($str, $offset);
@@ -392,6 +396,10 @@ class UTF8 {
             
             return FALSE;
         } else {
+            if ( ! is_int($offset)) {
+                Common::halt('A System Error Was Encountered', 'UTF8::strrpos(): expects parameter 3 to be integer', 'sys_error');
+            }
+            
             if ($offset === 0) {
                 $ar = explode($needle, $str);
                 
@@ -406,11 +414,7 @@ class UTF8 {
                 
                 return FALSE;
             }
-            
-            if ( ! is_int($offset)) {
-                Common::halt('A System Error Was Encountered', 'UTF8::strrpos(): expects parameter 3 to be long', 'sys_error');
-            }
-            
+
             $str = self::substr($str, $offset);
             
             if (($pos = self::strrpos($str, $needle)) !== FALSE) {
