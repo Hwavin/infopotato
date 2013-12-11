@@ -387,14 +387,7 @@ class UTF8 {
                 }
                 return mb_strrpos($str, $needle);
             }
-            
-            $str = mb_substr($str, $offset);
-            
-            if (($pos = mb_strrpos($str, $needle)) !== FALSE) {
-                return $pos + $offset;
-            }
-            
-            return FALSE;
+            return mb_strrpos($str, $needle, $offset);
         } else {
             if ( ! is_int($offset)) {
                 Common::halt('A System Error Was Encountered', 'UTF8::strrpos(): expects parameter 3 to be integer', 'sys_error');
