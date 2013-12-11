@@ -6,7 +6,7 @@ class Encrypt_Library_Test extends PHPUnit_Framework_TestCase {
     // Template method - run once for each test method (and on fresh instances) of the test case class.
     protected function setUp() {
         $config = array('encryption_key' => "tda54sn'gl#ike@.tcss!");
-        $this->encrypt = new Encrypt_Library($config);
+        $this->encrypt = new \InfoPotato\libraries\encrypt\Encrypt_Library($config);
         $this->msg = 'A utf8 message Iñtërnâtiônàlizætiøn to be encoded. 一段信息';
     }
 
