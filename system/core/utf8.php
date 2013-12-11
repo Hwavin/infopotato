@@ -317,19 +317,19 @@ class UTF8 {
      * @param integer $offset offset in characters (from left)
      * @return mixed integer position or FALSE on failure
      */
-    public static function strpos($str, $needle, $offset = FALSE) {
+    public static function strpos($str, $needle, $offset = 0) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
         if (self::$mbstring_available) {
             $str = self::bad_clean($str);
             
-            if ($offset === FALSE) {
+            if ($offset === 0) {
                 return mb_strpos($str, $needle);
             }
             return mb_strpos($str, $needle, $offset);
         } else {
-            if ($offset === FALSE) {
+            if ($offset === 0) {
                 $ar = explode($needle, $str, 2);
 
                 if (isset($ar[1])) {
@@ -365,7 +365,7 @@ class UTF8 {
      * @param integer $offset (optional) offset (from left)
      * @return mixed integer position or FALSE on failure
      */
-    public static function strrpos($str, $needle, $offset = FALSE) {
+    public static function strrpos($str, $needle, $offset = 0) {
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -392,7 +392,7 @@ class UTF8 {
             
             return FALSE;
         } else {
-            if ($offset === FALSE) {
+            if ($offset === 0) {
                 $ar = explode($needle, $str);
                 
                 //if (count($ar) > 1)
