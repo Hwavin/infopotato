@@ -53,7 +53,6 @@ class UTF8 {
             
             // Also need to check we have the correct internal mbstring encoding.
             // The Mbstring functions assume mbstring internal encoding is set to UTF-8.
-            mb_language('uni');
             mb_internal_encoding('UTF-8');
         }
     }
