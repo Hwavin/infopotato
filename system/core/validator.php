@@ -334,13 +334,13 @@ class Validator {
      *
      * @param string
      * @return bool
-     */        
+     */
     public static function is_alpha($input) {
         if ( ! is_string($input)) {
             $this->invalid_argument_value('is_alpha');
         }
         
-        return preg_match('/^([a-z])+$/i', trim($input));
+        return ctype_alpha(trim($input));
     }
     
     /**

@@ -94,4 +94,24 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
         $this->assertTrue(\InfoPotato\core\Validator::is_url('http://www.php.net/manual/en/function.filter-var.php'));
     }
     
+    // Test is_url()
+    public function test_is_url_invalid_domain() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_url('http://www.php.nettt'));
+    }
+    
+    // Test is_url()
+    public function test_is_url_invalid_protocol() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_url('htt://www.php.net'));
+    }
+    
+    // Test is_url()
+    public function test_is_url_space() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_url('http://www.example.com/space here.html'));
+    }
+    
+    // Test is_date()
+    public function test_is_date() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_date('2013-12-32', 'YYYY-MM-DD'));
+    }
+    
 }
