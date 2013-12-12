@@ -316,28 +316,67 @@ class Validator {
      * Checks that a value is a valid IP address
      *
      * @param string $input The string to test
-     * @param string $type The IP Protocol version (ipv4 or ipv6) to validate against
+     * @param string $constraint The IP Protocol version (ipv4 or ipv6) to validate against
      * @return bool 
      */
-    public static function is_ip($input, $type = 'both') {
-        if ( ! is_string($input) || ! is_string($type) || ! in_array($type, array('ipv4', 'ipv6', 'both'))) {
+    public static function is_ip($input, $constraint = '') {
+        if ( ! is_string($input) || ! is_string($constraint)) {
             $this->invalid_argument_value('is_ip');
         }
         
-        $type = strtolower($type);
-        $flags = 0;
+        $constraint = trim(strtolower($constraint));
+        $flag = NULL;
         
-        if ($type === 'ipv4') {
-            $flags = FILTER_FLAG_IPV4;
+        switch ($constraint) {
+            case 'v4':
+               $flag = FILTER_FLAG_IPV4;
+               break;
+
+            case 'v6':
+               $flag = FILTER_FLAG_IPV6;
+               break;
+
+            case 'v4_no_priv':
+               $flag = FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE;
+               break;
+
+            case 'v6_no_priv':
+               $flag = FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE;
+               break;
+
+            case 'all_no_priv':
+               $flag = FILTER_FLAG_NO_PRIV_RANGE;
+               break;
+
+            case 'v4_no_res':
+               $flag = FILTER_FLAG_IPV4 | FILTER_FLAG_NO_RES_RANGE;
+               break;
+
+            case 'v6_no_res':
+               $flag = FILTER_FLAG_IPV6 | FILTER_FLAG_NO_RES_RANGE;
+               break;
+
+            case 'all_no_res':
+               $flag = FILTER_FLAG_NO_RES_RANGE;
+               break;
+
+            case 'v4_only_public':
+               $flag = FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
+               break;
+
+            case 'v6_only_public':
+               $flag = FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
+               break;
+
+            case 'all_only_public':
+               $flag = FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
+               break;
         }
-        if ($type === 'ipv6') {
-            $flags = FILTER_FLAG_IPV6;
-        }
-        
+
         // Using trim() on UTF8 string will just work fine
         // Whitespace stripped from the beginning and end 
         // filter_var() returns the filtered data, or FALSE if the filter fails
-        return (filter_var(trim($input), FILTER_VALIDATE_IP, array('flags' => $flags)) === FALSE) ? FALSE : TRUE;
+        return (filter_var(trim($input), FILTER_VALIDATE_IP, $flag) === FALSE) ? FALSE : TRUE;
     }
     
     /**

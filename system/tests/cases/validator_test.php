@@ -114,4 +114,24 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
         $this->assertFalse(\InfoPotato\core\Validator::is_date('2013-12-32', 'YYYY-MM-DD'));
     }
     
+    // Test is_ip()
+    public function test_is_ip() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_ip('172.162.54.1'));
+    }
+    
+    // Test is_ip()
+    public function test_is_ip_invalid() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_ip('a172.b162.c54.d1'));
+    }
+    
+    // Test is_ip()
+    public function test_is_ip_v4() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_ip('172.162.54.1', 'v4'));
+    }
+    
+    // Test is_ip()
+    public function test_is_ip_v6() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_ip('172.162.54.1', 'v6'));
+    }
+    
 }
