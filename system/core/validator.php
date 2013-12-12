@@ -58,7 +58,7 @@ class Validator {
      *
      * @return void
      */
-    private function invalid_argument_value($func_name) {
+    private static function invalid_argument_value($func_name) {
         exit('The provided argument value of '."'".$func_name."()'".' is invalid.');
     }
 
@@ -92,7 +92,7 @@ class Validator {
      */
     public static function not_empty($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('not_empty');
+            self::invalid_argument_value('not_empty');
         }
         
         // Whitespace stripped from the beginning and end 
@@ -108,7 +108,7 @@ class Validator {
      */    
     public static function min_length($input, $min) {
         if ( ! is_string($input) || ! is_int($min)) {
-            $this->invalid_argument_value('min_length');
+            self::invalid_argument_value('min_length');
         }
         
         // Using trim() on UTF8 string will just work fine
@@ -134,7 +134,7 @@ class Validator {
      */    
     public static function max_length($input, $max) {
         if ( ! is_string($input) || ! is_int($max)) {
-            $this->invalid_argument_value('max_length');
+            self::invalid_argument_value('max_length');
         }
         
         // Using trim() on UTF8 string will just work fine
@@ -160,7 +160,7 @@ class Validator {
      */    
     public static function exact_length($input, $val) {
         if ( ! is_string($input) || ! is_int($val)) {
-            $this->invalid_argument_value('exact_length');
+            self::invalid_argument_value('exact_length');
         }
         
         // Using trim() on UTF8 string will just work fine
@@ -189,7 +189,7 @@ class Validator {
      */    
     public static function is_email($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_email');
+            self::invalid_argument_value('is_email');
         }
         
         // Using trim() on UTF8 string will just work fine
@@ -217,7 +217,7 @@ class Validator {
      */
     public static function is_url($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_url');
+            self::invalid_argument_value('is_url');
         }
         
         // Using trim() on UTF8 string will just work fine
@@ -243,7 +243,7 @@ class Validator {
      */
     public static function is_phone($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_phone');
+            self::invalid_argument_value('is_phone');
         }
         
         return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $input);
@@ -272,7 +272,7 @@ class Validator {
         );
         
         if ( ! is_string($date) || ! in_array($format, $allowed_formats)) {
-            $this->invalid_argument_value('is_date');
+            self::invalid_argument_value('is_date');
         }
         
         switch($format) {
@@ -321,7 +321,7 @@ class Validator {
      */
     public static function is_ip($input, $constraint = '') {
         if ( ! is_string($input) || ! is_string($constraint)) {
-            $this->invalid_argument_value('is_ip');
+            self::invalid_argument_value('is_ip');
         }
         
         $constraint = trim(strtolower($constraint));
@@ -387,7 +387,7 @@ class Validator {
      */
     public static function is_alpha($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_alpha');
+            self::invalid_argument_value('is_alpha');
         }
         
         return ctype_alpha(trim($input));
@@ -401,7 +401,7 @@ class Validator {
      */
     public static function is_alnum($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_alnum');
+            self::invalid_argument_value('is_alnum');
         }
         
         return ctype_alnum(trim($input));
@@ -415,7 +415,7 @@ class Validator {
      */
     public static function is_digit($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_digit');
+            self::invalid_argument_value('is_digit');
         }
         
         return ctype_digit(trim($input));
@@ -430,7 +430,7 @@ class Validator {
      */
     public static function is_greater_than($input, $min) {
         if ( ! is_numeric($input) || ! is_numeric($min)) {
-            $this->invalid_argument_value('is_greater_than');
+            self::invalid_argument_value('is_greater_than');
         }
         
         return $input > $min;
@@ -445,7 +445,7 @@ class Validator {
      */
     public static function is_less_than($input, $max) {
         if ( ! is_numeric($input) || ! is_numeric($max)) {
-            $this->invalid_argument_value('is_less_than');
+            self::invalid_argument_value('is_less_than');
         }
         
         return $input < $max;
