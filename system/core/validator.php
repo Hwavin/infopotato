@@ -340,7 +340,7 @@ class Validator {
             $this->invalid_argument_value('is_alpha');
         }
         
-        return preg_match('/^([a-z])+$/i', $input);
+        return preg_match('/^([a-z])+$/i', trim($input));
     }
     
     /**
