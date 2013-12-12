@@ -70,6 +70,15 @@ class Validator {
      * @return bool
      */    
     public static function equals($input_1, $input_2) {
+        // Whitespace stripped from the beginning and end for string
+        if (is_string($input_1)) {
+            $input_1 = trim($input_1);
+        }
+        
+        if (is_string($input_2)) {
+            $input_2 = trim($input_2);
+        }
+        
         return ($input_1 === $input_2);
     }
     
@@ -86,6 +95,7 @@ class Validator {
             $this->invalid_argument_value('not_empty');
         }
         
+        // Whitespace stripped from the beginning and end 
         return trim($input) !== '';
     }
 
@@ -102,6 +112,7 @@ class Validator {
         }
         
         // Using trim() on UTF8 string will just work fine
+        // Whitespace stripped from the beginning and end 
         $input = trim($input);
         
         // Checks to see if the mbstring extension is available
@@ -127,6 +138,7 @@ class Validator {
         }
         
         // Using trim() on UTF8 string will just work fine
+        // Whitespace stripped from the beginning and end 
         $input = trim($input);
         
         // Checks to see if the mbstring extension is available

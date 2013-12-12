@@ -9,6 +9,11 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     }
 
     // Test equals()
+    public function test_equals_whitespace() {
+        $this->assertTrue(\InfoPotato\core\Validator::equals(' test', '   test    '));
+    }
+    
+    // Test equals()
     public function test_not_equals() {
         $str = "Iñtërnâtiôn\xe9àlizætiøn";
         $this->assertFalse(\InfoPotato\core\Validator::equals('3', 3));
