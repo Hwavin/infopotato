@@ -70,6 +70,11 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     }
     
     // Test exact_length()
+    public function test_exact_length_whitespace() {
+        $this->assertTrue(\InfoPotato\core\Validator::exact_length('   abc    ', 3));
+    }
+    
+    // Test exact_length()
     public function test_exact_length_utf8() {
         $this->assertTrue(\InfoPotato\core\Validator::exact_length('Iñtërnâtiônàlizætiøn', 20));
     }

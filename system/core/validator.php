@@ -163,6 +163,10 @@ class Validator {
             $this->invalid_argument_value('exact_length');
         }
         
+        // Using trim() on UTF8 string will just work fine
+        // Whitespace stripped from the beginning and end 
+        $input = trim($input);
+        
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
