@@ -35,6 +35,11 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     }
     
     // Test min_length()
+    public function test_min_length_with_whitespace() {
+        $this->assertFalse(\InfoPotato\core\Validator::min_length(' abc ', 5));
+    }
+    
+    // Test min_length()
     public function test_min_length_utf8() {
         $this->assertTrue(\InfoPotato\core\Validator::min_length('Iñtërnâtiônàlizætiøn', 20));
     }
@@ -42,6 +47,11 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     // Test max_length()
     public function test_max_length() {
         $this->assertTrue(\InfoPotato\core\Validator::max_length('abc', 3));
+    }
+    
+    // Test max_length()
+    public function test_max_length_with_whitespace() {
+        $this->assertTrue(\InfoPotato\core\Validator::max_length(' abc ', 3));
     }
     
     // Test max_length()

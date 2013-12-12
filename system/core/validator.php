@@ -61,9 +61,7 @@ class Validator {
     private function invalid_argument_value($func_name) {
         exit('The provided argument value of '."'".$func_name."()'".' is invalid.');
     }
-    
-    // Comparing Two Strings or Two Integers
-    
+
     /**
      * Checks whether two values are identical in both value and data type
      *
@@ -103,6 +101,9 @@ class Validator {
             $this->invalid_argument_value('min_length');
         }
         
+        // Using trim() on UTF8 string will just work fine
+        $input = trim($input);
+        
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
         
@@ -124,6 +125,9 @@ class Validator {
         if ( ! is_string($input) || ! is_int($max)) {
             $this->invalid_argument_value('max_length');
         }
+        
+        // Using trim() on UTF8 string will just work fine
+        $input = trim($input);
         
         // Checks to see if the mbstring extension is available
         self::check_mbstring();
@@ -217,8 +221,8 @@ class Validator {
      *
      * Checks that a value is a valid date
      *
-     * @param string    $date
-     * @param string    format
+     * @param string $date
+     * @param string $format
      * @return bool
      *
      */
