@@ -84,4 +84,9 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
         $this->assertFalse(\InfoPotato\core\Validator::is_email('#$3testgmail.com'));
     }
     
+    // Test is_email()
+    public function test_is_email_whitespace() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_email('   test@gmail.com   '));
+    }
+    
 }

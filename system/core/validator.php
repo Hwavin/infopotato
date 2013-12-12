@@ -183,17 +183,20 @@ class Validator {
      * The local-part of the email address may use any of these ASCII characters RFC 5322 Section 3.2.3, 
      * RFC 6531 permits Unicode beyond the ASCII range, UTF8 charcters can be used but 
      * many of the current generation of email servers and clients won't work with that
+     *
      * @param string
      * @return bool
      */    
     public static function is_email($input) {
-        //return ( ! preg_match('/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix', $input)) ? FALSE : TRUE;
-
         if ( ! is_string($input)) {
             $this->invalid_argument_value('is_email');
         }
         
-        return filter_var($input, FILTER_VALIDATE_EMAIL);
+        // Using trim() on UTF8 string will just work fine
+        // Whitespace stripped from the beginning and end 
+        
+        // filter_var() returns the filtered data, or FALSE if the filter fails
+        return (filter_var(trim($input), FILTER_VALIDATE_EMAIL) === FALSE) ? FALSE : TRUE;
     }
     
     /**
@@ -240,9 +243,8 @@ class Validator {
      * @param string $date
      * @param string $format
      * @return bool
-     *
      */
-    function is_date($date, $format = 'YYYY-MM-DD') {
+    public static function is_date($date, $format = 'YYYY-MM-DD') {
         $allowed_formats = array(
             'YYYY/MM/DD',
             'YYYY-MM-DD',
