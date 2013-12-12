@@ -330,7 +330,7 @@ class Validator {
     }
     
     /**
-     * Checks that a string contains only letters
+     * Checks if every character in the provided string is a letter
      *
      * @param string
      * @return bool
@@ -344,7 +344,7 @@ class Validator {
     }
     
     /**
-     * Checks if all of the characters in the provided string are alphanumeric
+     * Checks if every character in the provided string is either a letter or a digit
      *
      * @param string
      * @return bool
@@ -357,6 +357,20 @@ class Validator {
         return ctype_alnum(trim($input));
     }
 
+    /**
+     * Checks if all of the characters in the provided string are decimal digits
+     *
+     * @param string
+     * @return bool
+     */
+    public static function is_digit($input) {
+        if ( ! is_string($input)) {
+            $this->invalid_argument_value('is_digit');
+        }
+        
+        return ctype_digit(trim($input));
+    }
+    
     /**
      * Checks that a value is greather than the $min
      *
