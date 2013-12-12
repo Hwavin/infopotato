@@ -89,4 +89,9 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
         $this->assertTrue(\InfoPotato\core\Validator::is_email('   test@gmail.com   '));
     }
     
+    // Test is_url()
+    public function test_is_url() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_url('http://www.php.net/manual/en/function.filter-var.php'));
+    }
+    
 }

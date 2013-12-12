@@ -210,7 +210,8 @@ class Validator {
             $this->invalid_argument_value('is_url');
         }
         
-        return filter_var($input, FILTER_VALIDATE_URL);
+        // filter_var() returns the filtered data, or FALSE if the filter fails
+        return (filter_var(trim($input), FILTER_VALIDATE_URL) === FALSE) ? FALSE : TRUE;
     }
     
     /**
