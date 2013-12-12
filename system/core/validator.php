@@ -194,7 +194,6 @@ class Validator {
         
         // Using trim() on UTF8 string will just work fine
         // Whitespace stripped from the beginning and end 
-        
         // filter_var() returns the filtered data, or FALSE if the filter fails
         return (filter_var(trim($input), FILTER_VALIDATE_EMAIL) === FALSE) ? FALSE : TRUE;
     }
@@ -210,6 +209,8 @@ class Validator {
             $this->invalid_argument_value('is_url');
         }
         
+        // Using trim() on UTF8 string will just work fine
+        // Whitespace stripped from the beginning and end 
         // filter_var() returns the filtered data, or FALSE if the filter fails
         return (filter_var(trim($input), FILTER_VALIDATE_URL) === FALSE) ? FALSE : TRUE;
     }
@@ -322,7 +323,10 @@ class Validator {
             $flags = FILTER_FLAG_IPV6;
         }
         
-        return (bool) filter_var($input, FILTER_VALIDATE_IP, array('flags' => $flags));
+        // Using trim() on UTF8 string will just work fine
+        // Whitespace stripped from the beginning and end 
+        // filter_var() returns the filtered data, or FALSE if the filter fails
+        return (filter_var(trim($input), FILTER_VALIDATE_IP, array('flags' => $flags)) === FALSE) ? FALSE : TRUE;
     }
     
     /**
