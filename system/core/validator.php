@@ -344,17 +344,17 @@ class Validator {
     }
     
     /**
-     * Checks that a string contains only integer or letters
+     * Checks if all of the characters in the provided string are alphanumeric
      *
      * @param string
      * @return bool
      */
-    public static function is_alpha_numeric($input) {
+    public static function is_alnum($input) {
         if ( ! is_string($input)) {
-            $this->invalid_argument_value('is_alpha_numeric');
+            $this->invalid_argument_value('is_alnum');
         }
         
-        return preg_match('/^([a-z0-9])+$/i', $input);
+        return ctype_alnum(trim($input));
     }
 
     // Integer or Float
