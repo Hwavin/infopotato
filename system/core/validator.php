@@ -194,8 +194,19 @@ class Validator {
         
         // Using trim() on UTF8 string will just work fine
         // Whitespace stripped from the beginning and end 
+        $input = trim($input);
+        
         // filter_var() returns the filtered data, or FALSE if the filter fails
-        return (filter_var(trim($input), FILTER_VALIDATE_EMAIL) === FALSE) ? FALSE : TRUE;
+        if (filter_var($input, FILTER_VALIDATE_EMAIL) !== FALSE) {
+            $email_parts = explode('@', $input);
+            $host = array_pop($email_parts);
+            
+            // Check host DNS Records for MX type
+            // http://en.wikipedia.org/wiki/List_of_DNS_record_types
+            return checkdnsrr($host, 'MX');
+        }
+        
+        return FALSE;
     }
     
     /**
