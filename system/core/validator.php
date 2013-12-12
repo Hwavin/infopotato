@@ -357,8 +357,6 @@ class Validator {
         return ctype_alnum(trim($input));
     }
 
-    // Integer or Float
-
     /**
      * Checks that a value is greather than the $min
      *
@@ -387,19 +385,6 @@ class Validator {
         }
         
         return $input < $max;
-    }
-
-    /**
-     * Checks if a value is a natural number
-     *
-     * @param string $input Value to check
-     * @param bool $allow_zero Set true to allow zero
-     * @return bool Success
-     * @see http://en.wikipedia.org/wiki/Natural_number
-     */
-    public static function is_natural_number($input, $allow_zero = FALSE) {
-        $regex = $allow_zero ? '/^(?:0|[1-9][0-9]*)$/' : '/^[1-9][0-9]*$/';
-        return preg_match($regex, $input) ? TRUE : FALSE;
     }
 
 }
