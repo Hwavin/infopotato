@@ -225,30 +225,7 @@ class Validator {
         // filter_var() returns the filtered data, or FALSE if the filter fails
         return (filter_var(trim($input), FILTER_VALIDATE_URL) === FALSE) ? FALSE : TRUE;
     }
-    
-    /**
-     * Checks that a value is a valid 7, 10, 11 digit phone number (North America, Europe and most Asian and Middle East countries)
-     *
-     * supporting country and area codes (in dot, space or dashed notations) such as:
-     * (555)555-5555
-     * 555 555 5555
-     * +5(555)555.5555
-     * 33(1)22 22 22 22
-     * +33(1)22 22 22 22
-     * +33(020)7777 7777
-     * 03-6106666
-     *
-     * @param string
-     * @return bool
-     */
-    public static function is_phone($input) {
-        if ( ! is_string($input)) {
-            self::invalid_argument_value('is_phone');
-        }
-        
-        return ! empty($input) && preg_match('/^[+]?([\d]{0,3})?[\(\.\-\s]?([\d]{1,3})[\)\.\-\s]*(([\d]{3})[\.\-\s]?([\d]{4})|([\d]{2}[\.\-\s]?){4})$/', $input);
-    }
-    
+
     /**
      *
      * Checks that a value is a valid date
