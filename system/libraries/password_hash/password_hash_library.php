@@ -6,14 +6,13 @@
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2013 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
- * @link   based on http://www.openwall.com/phpass/ 
- * @version Version 0.3 / genuine
+ * @link http://www.openwall.com/phpass/ 
  */
 
 namespace InfoPotato\libraries\password_hash;
 
 class Password_Hash_Library {
-    private $_itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    private $itoa64 = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     
     /**
      * Base-2 logarithm of the iteration count used for password stretching
@@ -127,22 +126,22 @@ class Password_Hash_Library {
         $i = 0;
         do {
             $value = ord($input[$i++]);
-            $output .= $this->_itoa64[$value & 0x3f];
+            $output .= $this->itoa64[$value & 0x3f];
             if ($i < $count) {
                 $value |= ord($input[$i]) << 8;
             }
-            $output .= $this->_itoa64[($value >> 6) & 0x3f];
+            $output .= $this->itoa64[($value >> 6) & 0x3f];
             if ($i++ >= $count) {
                 break;
             }
             if ($i < $count) {
                 $value |= ord($input[$i]) << 16;
             }
-            $output .= $this->_itoa64[($value >> 12) & 0x3f];
+            $output .= $this->itoa64[($value >> 12) & 0x3f];
             if ($i++ >= $count) {
                 break;
             }
-            $output .= $this->_itoa64[($value >> 18) & 0x3f];
+            $output .= $this->itoa64[($value >> 18) & 0x3f];
         } while ($i < $count);
         
         return $output;
@@ -150,7 +149,7 @@ class Password_Hash_Library {
     
     private function gensalt_private($input) {
         $output = '$P$';
-        $output .= $this->_itoa64[min($this->iteration_count_log2 + 5, 30)];
+        $output .= $this->itoa64[min($this->iteration_count_log2 + 5, 30)];
         $output .= $this->encode64($input, 6);
         
         return $output;
@@ -166,7 +165,7 @@ class Password_Hash_Library {
         if ($id != '$P$' && $id != '$H$') {
             return $output;
         }
-        $count_log2 = strpos($this->_itoa64, $setting[3]);
+        $count_log2 = strpos($this->itoa64, $setting[3]);
         if ($count_log2 < 7 || $count_log2 > 30) {
             return $output;
         }
@@ -200,10 +199,10 @@ class Password_Hash_Library {
         $count = (1 << $count_log2) - 1;
         
         $output = '_';
-        $output .= $this->_itoa64[$count & 0x3f];
-        $output .= $this->_itoa64[($count >> 6) & 0x3f];
-        $output .= $this->_itoa64[($count >> 12) & 0x3f];
-        $output .= $this->_itoa64[($count >> 18) & 0x3f];
+        $output .= $this->itoa64[$count & 0x3f];
+        $output .= $this->itoa64[($count >> 6) & 0x3f];
+        $output .= $this->itoa64[($count >> 12) & 0x3f];
+        $output .= $this->itoa64[($count >> 18) & 0x3f];
         
         $output .= $this->encode64($input, 3);
         
