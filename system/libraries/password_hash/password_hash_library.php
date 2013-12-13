@@ -30,7 +30,7 @@ class Password_Hash_Library {
      * If set to TRUE, then force the use of weaker portable hashes.
      *
      * If all your servers are running PHP 5.3 and above, 
-     * it's recommended to turn off portable mode and let PHPass use bcrypt instead.
+     * it's recommended to turn off portable mode and let Password_Hash use bcrypt instead.
      *
      * @var bool
      */
