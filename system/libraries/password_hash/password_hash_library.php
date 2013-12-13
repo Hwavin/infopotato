@@ -17,7 +17,7 @@ class Password_Hash_Library {
     /**
      * Base-2 logarithm of the iteration count used for password stretching
      * 
-     * @var string
+     * @var int
      */
     private $iteration_count_log2 = 8;
     
