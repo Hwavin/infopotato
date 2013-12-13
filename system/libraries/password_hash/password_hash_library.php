@@ -157,7 +157,7 @@ class Password_Hash_Library {
     
     private function crypt_private($password, $setting) {
         $output = '*0';
-        if (substr($setting, 0, 2) == $output) {
+        if (substr($setting, 0, 2) === $output) {
             $output = '*1';
         }
         $id = substr($setting, 0, 3);
@@ -258,20 +258,20 @@ class Password_Hash_Library {
     public function hash_password($password) {
         $random = '';
         
-        if (CRYPT_BLOWFISH == 1 && ! $this->portable_hashes) {
+        if (CRYPT_BLOWFISH === 1 && ! $this->portable_hashes) {
             $random = $this->get_random_bytes(16);
             $hash = crypt($password, $this->gensalt_blowfish($random));
-            if (strlen($hash) == 60) {
+            if (strlen($hash) === 60) {
                 return $hash;
             }
         }
         
-        if (CRYPT_EXT_DES == 1 && ! $this->portable_hashes) {
+        if (CRYPT_EXT_DES === 1 && ! $this->portable_hashes) {
             if (strlen($random) < 3) {
                 $random = $this->get_random_bytes(3);
             }
             $hash = crypt($password, $this->gensalt_extended($random));
-            if (strlen($hash) == 20) {
+            if (strlen($hash) === 20) {
                 return $hash;
             }
         }
@@ -280,7 +280,7 @@ class Password_Hash_Library {
             $random = $this->get_random_bytes(6);
         }
         $hash = $this->crypt_private($password, $this->gensalt_private($random));
-        if (strlen($hash) == 34) {
+        if (strlen($hash) === 34) {
             return $hash;
         }
         // Returning '*' on error is safe here, but would _not_ be safe
@@ -296,10 +296,10 @@ class Password_Hash_Library {
      */
     public function check_password($password, $stored_hash) {
         $hash = $this->crypt_private($password, $stored_hash);
-        if ($hash[0] == '*') {
+        if ($hash[0] === '*') {
             $hash = crypt($password, $stored_hash);
         }
-        return $hash == $stored_hash;
+        return $hash === $stored_hash;
     }
 }
 
