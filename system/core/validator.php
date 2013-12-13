@@ -248,10 +248,10 @@ class Validator {
             'YYYYDDMM'
         );
         
-        if ( ! is_string($date) || ! ($date instanceof \DateTime) || ! in_array($format, $allowed_formats)) {
+        if ( ! is_string($date) || ! in_array($format, $allowed_formats)) {
             self::invalid_argument_value('is_date');
         }
-        
+
         switch($format) {
             case 'YYYY/MM/DD':
             case 'YYYY-MM-DD':
@@ -296,12 +296,27 @@ class Validator {
      * @param string $constraint The IP Protocol version (ipv4 or ipv6) to validate against
      * @return bool 
      */
-    public static function is_ip($input, $constraint = '') {
-        if ( ! is_string($input) || ! is_string($constraint)) {
-            self::invalid_argument_value('is_ip');
-        }
+    public static function is_ip($input, $constraint = 'v4') {
+        $constraints = array(
+            'v4',
+            'v6',
+            'v4_no_priv',
+            'v6_no_priv',
+            'all_no_priv',
+            'v4_no_res',
+            'v6_no_res',
+            'all_no_res',
+            'v4_only_public',
+            'v6_only_public',
+            'all_only_public'
+        );
         
         $constraint = trim(strtolower($constraint));
+        
+        if ( ! is_string($input) || ! is_string($constraint) || ! in_array($constraint, $constraints)) {
+            self::invalid_argument_value('is_ip');
+        }
+
         $flag = NULL;
         
         switch ($constraint) {

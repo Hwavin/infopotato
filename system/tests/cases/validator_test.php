@@ -131,7 +131,7 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     
     // Test is_date()
     public function test_is_date_format4() {
-        $this->assertFalse(\InfoPotato\core\Validator::is_date('2013123a', 'YYYYMMDD'));
+        $this->assertFalse(\InfoPotato\core\Validator::is_date('20131233', 'YYYYMMDD'));
     }
     
     // Test is_ip()
