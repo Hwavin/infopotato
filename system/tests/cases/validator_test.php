@@ -154,5 +154,53 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
         $this->assertFalse(\InfoPotato\core\Validator::is_ip('172.162.54.1', 'v6'));
     }
 
+    // Test is_alpha()
+    public function test_is_alpha() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_alpha('abcdefghizklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+    }
     
+    // Test is_alpha()
+    public function test_is_alpha_no() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_alpha('1abcdefghizklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'));
+    }
+    
+    // Test is_alpha()
+    public function test_is_alpha_utf8() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_alpha('Iñtërnâtiônàlizætiøn'));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_greater_than(3, 2));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than_string() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_greater_than('3', 2));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than_string2() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_greater_than('3', '2'));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than_float() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_greater_than(3.222, 2));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than_float_string() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_greater_than(3.222, '2'));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than_float_float() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_greater_than(3.222, 3.221));
+    }
+    
+    // Test is_greater_than()
+    public function test_is_greater_than_equal() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_greater_than(3.222, 3.222));
+    }
 }
