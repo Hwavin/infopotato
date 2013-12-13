@@ -248,7 +248,7 @@ class Validator {
             'YYYYDDMM'
         );
         
-        if ( ! is_string($date) || ! in_array($format, $allowed_formats)) {
+        if ( ! is_string($date) || ! ($date instanceof \DateTime) || ! in_array($format, $allowed_formats)) {
             self::invalid_argument_value('is_date');
         }
         

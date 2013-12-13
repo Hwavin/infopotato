@@ -111,7 +111,27 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     
     // Test is_date()
     public function test_is_date() {
-        $this->assertFalse(\InfoPotato\core\Validator::is_date('2013-12-32', 'YYYY-MM-DD'));
+        $this->assertFalse(\InfoPotato\core\Validator::is_date('2013-12-32'));
+    }
+    
+    // Test is_date()
+    public function test_is_date_format1() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_date('2013/12/30', 'YYYY/MM/DD'));
+    }
+    
+    // Test is_date()
+    public function test_is_date_format2() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_date('2013/12/30', 'YYYY/DD/MM'));
+    }
+    
+    // Test is_date()
+    public function test_is_date_format3() {
+        $this->assertTrue(\InfoPotato\core\Validator::is_date('20131230', 'YYYYMMDD'));
+    }
+    
+    // Test is_date()
+    public function test_is_date_format4() {
+        $this->assertFalse(\InfoPotato\core\Validator::is_date('2013123a', 'YYYYMMDD'));
     }
     
     // Test is_ip()
@@ -133,5 +153,6 @@ class Validator_Test extends PHPUnit_Framework_TestCase {
     public function test_is_ip_v6() {
         $this->assertFalse(\InfoPotato\core\Validator::is_ip('172.162.54.1', 'v6'));
     }
+
     
 }
