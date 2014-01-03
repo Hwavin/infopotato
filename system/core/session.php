@@ -8,7 +8,7 @@
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
- * @copyright Copyright &copy; 2009-2013 Zhou Yuan
+ * @copyright Copyright &copy; 2009-2014 Zhou Yuan
  * @license http://www.opensource.org/licenses/mit-license.php MIT Licence
  * @link   based on    http://flourishlib.com/fSession
  */
