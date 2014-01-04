@@ -2,6 +2,9 @@
 /**
  * Base Data class
  *
+ * If no RDBMS DAO used in application-specific data class,
+ * extending this base data class is only for format convention 
+ *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2014 Zhou Yuan
