@@ -43,13 +43,62 @@ class Session {
      * @var boolean 
      */
     private static $regenerated = FALSE;
-    
+
     /**
-     * Prevent direct object creation
+     * Sets the path to store session files in and the minimum length of a session
+     * (PHP might not clean up the session data right away once this timespan has elapsed)
+     * 
+     * You should always be called with a non-standard directory to ensure that 
+     * another site on the server doesn't garbage collect the session files for this site.
+     * 
+     * Standard session directories usually include '/tmp' and '/var/tmp'. 
+     * 
+     * Both of the normal timespan and persistent timespan can accept either a integer timespan in seconds,
+     * or an english description of a timespan (e.g. '30 minutes', '1 hour', '1 day 2 hours').
+     * 
+     * To enable a user to stay logged in for the whole persistent timespan and to stay logged in 
+     * across browser restarts, the static method ::enable_persistence() must be called when they log in.
      * 
      * @return Session
      */
-    private function __construct() {}
+    private function __construct() {
+        $dir = APP_SESSION_DIR;
+        // Set the path of the current directory used to save session data.
+        session_save_path($dir);
+
+        // APP_SESSION_NORMAL_TIMESPAN and APP_SESSION_PERSISTENT_TIMESPAN are defined in bootstrap script
+        // APP_SESSION_PERSISTENT_TIMESPAN has to be longer than the APP_SESSION_NORMAL_TIMESPAN
+        if (defined('APP_SESSION_NORMAL_TIMESPAN')) {
+            self::$normal_timespan = APP_SESSION_NORMAL_TIMESPAN;
+        }
+
+        if (defined('APP_SESSION_PERSISTENT_TIMESPAN')) {
+            self::$persistent_timespan = APP_SESSION_PERSISTENT_TIMESPAN;
+        }
+        
+        
+        if (self::$normal_timespan === NULL) {
+            // Use the default config in php.ini
+            $normal_timespan_seconds = ini_get('session.gc_maxlifetime');    
+        } else {
+            $normal_timespan_seconds = ( ! is_numeric(self::$persistent_timespan)) ? strtotime(self::$persistent_timespan) - time() : self::$persistent_timespan;
+        }
+        self::$normal_timespan = $normal_timespan_seconds;
+        
+        if (self::$persistent_timespan !== NULL) {
+            $persistent_timespan_seconds = ( ! is_numeric(self::$persistent_timespan)) ? strtotime(self::$persistent_timespan) - time() : self::$persistent_timespan;    
+            self::$persistent_timespan = $persistent_timespan_seconds;
+
+            // If persistent timespan specified, it has to be longer than the normal timespan
+            ini_set('session.gc_maxlifetime', $persistent_timespan_seconds);
+        }
+        
+        // Marks the cookie as accessible only through the HTTP protocol. 
+        // This means that the cookie won't be accessible by scripting languages, such as JavaScript. 
+        // This setting can effectively help to reduce identity theft through XSS attacks 
+        // (although it is not supported by all browsers).
+        ini_set('session.cookie_httponly', 1);
+    }
     
     /**
      * Adds a value to an already-existing array value, or to a new array value
@@ -237,7 +286,7 @@ class Session {
      */
     public static function enable_persistence() {
         if (self::$persistent_timespan === NULL) {
-            Common::halt('A System Error Was Encountered', "The method Session::init() must be called with the '$persistent_timespan' parameter before calling Session::enable_persistence()", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Please define the 'APP_SESSION_PERSISTENT_TIMESPAN' in bootstrap script before calling Session::enable_persistence()", 'sys_error');
         }
         
         $current_params = session_get_cookie_params();
@@ -486,58 +535,7 @@ class Session {
             $tip[$key] = $value;
         }
     }
-    
-    /**
-     * Sets the path to store session files in and 
-     * Sets the minimum length of a session
-     * (PHP might not clean up the session data right away once this timespan has elapsed)
-     * 
-     * You should always be called with a non-standard directory to ensure that 
-     * another site on the server doesn't garbage collect the session files for this site.
-     * 
-     * Standard session directories usually include '/tmp' and '/var/tmp'. 
-     * 
-     * Both of the $normal_timespan and $persistent_timespan can accept either a integer timespan in seconds,
-     * or an english description of a timespan (e.g. '30 minutes', '1 hour', '1 day 2 hours').
-     * 
-     * To enable a user to stay logged in for the whole $persistent_timespan and to stay logged in 
-     * across browser restarts, the static method ::enable_persistence() must be called when they log in.
-     * 
-     * @param string $dir The directory to store session files in
-     * @param string|integer $normal_timespan The normal (minimum), session-based cookie, length for the session
-     * @param string|integer $persistent_timespan The persistent, timed-based cookie, length for the session - this is enabled by calling ::enabled_persistence() during login
-     * @return void
-     */
-    public static function init($dir, $normal_timespan, $persistent_timespan = NULL) {
-        if (self::$open || isset($_SESSION)) {
-            Common::halt('A System Error Was Encountered', "Session::init() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
-        }
 
-        // Set the path of the current directory used to save session data.
-        session_save_path($dir);
-        
-        if (self::$normal_timespan === NULL) {
-            // Use the default config in php.ini
-            $seconds = ini_get('session.gc_maxlifetime');    
-        } else {
-            $seconds = ( ! is_numeric($normal_timespan)) ? strtotime($normal_timespan) - time() : $normal_timespan;
-        }
-        self::$normal_timespan = $seconds;
-        
-        if ($persistent_timespan !== NULL) {
-            $seconds = ( ! is_numeric($persistent_timespan)) ? strtotime($persistent_timespan) - time() : $persistent_timespan;    
-            self::$persistent_timespan = $seconds;
-        }
-        
-        // If $persistent_timespan specified, it has to be longer than the $normal_timespan
-        ini_set('session.gc_maxlifetime', $seconds);
-        
-        // Marks the cookie as accessible only through the HTTP protocol. 
-        // This means that the cookie won't be accessible by scripting languages, such as JavaScript. 
-        // This setting can effectively help to reduce identity theft through XSS attacks 
-        // (although it is not supported by all browsers).
-        ini_set('session.cookie_httponly', 1);
-    }
     
 }
 
