@@ -62,6 +62,16 @@ define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 /**
+ * Set session normal length as 30 mins
+ */
+define('APP_SESSION_NORMAL_TIMESPAN', '30 minutes');
+
+/**
+ * Set session persistent length as 1 week
+ */
+define('APP_SESSION_PERSISTENT_TIMESPAN', '1 week');
+
+/**
  * App namespaces (no leading and trailing backlash)
  */
 define('APP_MANAGER_NAMESPACE', 'app\managers');
@@ -112,12 +122,9 @@ require_once $file;
 \InfoPotato\core\Starter::start();
 
 // APP_SESSION_DIR must be writable
-// Set session normal length as 30 mins
 if ( ! is_writable(APP_SESSION_DIR)) {
     exit('APP_SESSION_DIR must be writable');
-} else {
-    \InfoPotato\core\Session::init(APP_SESSION_DIR, '30 minutes');
-}
+} 
 
 // APP_LOG_DIR must be writable
 if ( ! is_writable(APP_LOG_DIR)) {
