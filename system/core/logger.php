@@ -26,18 +26,19 @@ class Logger {
     const NO_ARGUMENTS = 'NO_ARGUMENTS';
     
     /**
-     * Logging severity levels, from the most important priority(0) to the least important priority(3).
+     * Logging severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
+     * From the most important priority(0) to the least important priority(3)
      * @var array
      */
     private static $severity_levels = array(
-        'ERROR' => 0, // Error: error conditions
-        'WARN' => 1, // Warning: warning conditions
-        'INFO' => 2, // Informational: informational messages
-        'DEBUG' => 3, // Debug: debug messages
+        'ERROR' => 3, // Error conditions
+        'WARNING' => 2, // Warning conditions
+        'INFO' => 1, // Informational messages
+        'DEBUG' => 0, // Debug messages
     );
     
     /**
-     * Current minimum logging threshold
+     * Current minimum logging level threshold
      * @var integer
      */
     private static $severity_threshold;
@@ -65,9 +66,9 @@ class Logger {
      * @var array
      */
     private static $messages = array(
-        'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable.',
-        'open_fail' => 'Failed to open the log files. Please check permissions.',
-        'invalid_level' => 'The logging severity level you provided is invalid',
+        'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable!',
+        'open_fail' => 'Failed to open the log files. Please check permissions!',
+        'invalid_level' => 'The logging severity level you provided is invalid!',
     );
     
     /**
@@ -83,40 +84,29 @@ class Logger {
     private static $default_permissions = 0777;
     
     /**
-     * Prevent direct object creation
+     * Sets the default logging level
      * 
      * @return Logger
      */
-    private function __construct() {}
-    
-    /**
-     * Sets the global severity threshold
-     * 
-     * @param string $level Valid severity level ('ERROR', 'WARN', 'INFO', 'DEBUG')
-     */
-    public static function set_severity_threshold($level) {
-        if (isset(self::$severity_levels[$level])) {
-            self::$severity_threshold = self::$severity_levels[$level];
-        } else {
-            // Output error message and terminate the current script
-            // Don't use halt() or any log functions in this class to avoid dead loop 
-            exit(self::$messages['invalid_level']);
+    private function __construct() {
+        // APP_LOGGING_LEVEL_THRESHOLD needs to be defined in bootstrap script
+        // Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
+        if (defined('APP_LOGGING_LEVEL_THRESHOLD')) {
+            if (isset(self::$severity_levels[APP_LOGGING_LEVEL_THRESHOLD])) {
+                self::$severity_threshold = self::$severity_levels[APP_LOGGING_LEVEL_THRESHOLD];
+            } else {
+                // Output error message and terminate the current script
+                // Don't use halt() or any log functions in this class to avoid dead loop 
+                exit(self::$messages['invalid_level']);
+            }
+            self::$severity_threshold = strtoupper(APP_LOGGING_LEVEL_THRESHOLD);
         }
     }
-    
+
     /**
-     * Sets the date format
+     * Runtime errors that do not require immediate action but 
+     * should typically be logged and monitored
      * 
-     * @param string $date_format Valid format string for date()
-     */
-    public static function set_date_format($date_format) {
-        self::$date_format = $date_format;
-    }
-    
-    /**
-     * Writes a $line to the log with a severity level of ERR. Most likely used
-     * with E_RECOVERABLE_ERROR
-     *
      * @param string  $dir File path to the logging directory
      * @param string $line Information to log
      * @return void
@@ -126,21 +116,20 @@ class Logger {
     }
     
     /**
-     * Writes a $line to the log with a severity level of WARN. Generally
-     * corresponds to E_WARNING, E_USER_WARNING, E_CORE_WARNING, or 
-     * E_COMPILE_WARNING
+     * Exceptional occurrences that are not errors. 
+     * Examples: Use of deprecated APIs, poor use of an API, 
+     * undesirable things that are not necessarily wrong.
      *
      * @param string  $dir File path to the logging directory
      * @param string $line Information to log
      * @return void
      */
-    public static function log_warn($dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($dir, $line, self::$severity_levels['WARN'], $args);
+    public static function log_warning($dir, $line, $args = self::NO_ARGUMENTS) {
+        self::log($dir, $line, self::$severity_levels['WARNING'], $args);
     }
     
     /**
-     * Writes a $line to the log with a severity level of INFO. Any information
-     * can be used here, or it could be used with E_STRICT errors
+     * Interesting events. Examples: User logs in, SQL logs
      *
      * @param string  $dir File path to the logging directory
      * @param string $line Information to log
@@ -151,7 +140,7 @@ class Logger {
     }
     
     /**
-     * Writes a $line to the log with a severity level of DEBUG
+     * Detailed debug information
      *
      * @param string  $dir File path to the logging directory
      * @param string $line Information to log
@@ -169,13 +158,14 @@ class Logger {
      * @param integer $severity Severity level of log message (use constants)
      */
     private static function log($dir, $line, $severity, $args = self::NO_ARGUMENTS) {
-        // Set the default severity threshold in case set_severity_threshold() is not called in bootstrap 
+        // Set the default logging severity level threshold if APP_LOGGING_LEVEL_THRESHOLD not defined
         if ( ! isset(self::$severity_threshold)) {
+            // Use the lowest level as the threshold
             self::$severity_threshold = self::$severity_levels['DEBUG'];
         }
         
-        // Log only when severity level is over the pre-defined severity threshold
-        if ($severity <= self::$severity_threshold) {
+        // Log only when severity level is higher than the defined severity threshold
+        if ($severity >= self::$severity_threshold) {
             $dir = rtrim($dir, '\\/');
             
             // Log file path and name, e.g. log_2012-08-16.txt
@@ -209,8 +199,8 @@ class Logger {
                 case self::$severity_levels['ERROR']:
                     $status = "$time - ERROR -->";
                     break;
-                case self::$severity_levels['WARN']:
-                    $status = "$time - WARN -->";
+                case self::$severity_levels['WARNING']:
+                    $status = "$time - WARNING -->";
                     break;
                 case self::$severity_levels['INFO']:
                     $status = "$time - INFO -->";

@@ -52,6 +52,7 @@ define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
+
 /**
  * User-defined constants go here
  */
@@ -81,6 +82,12 @@ define('APP_404_MANAGER', 'error');
 define('APP_404_MANAGER_METHOD', '404');
 
 /**
+ * Sets the global logging severity level threshold
+ * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
+ */
+define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
+
+/**
  * When turned-on, the system core components|libraries called will be cached and stored in SYS_RUNTIME_CACHE_DIR
  * When turned-on, the app managers|data|libraries called will be cached and stored in APP_RUNTIME_CACHE_DIR
  */
@@ -101,6 +108,7 @@ if (RUNTIME_CACHE === TRUE) {
 } 
 require_once $file;
 
+// Starter loads other core components
 \InfoPotato\core\Starter::start();
 
 // APP_SESSION_DIR must be writable
@@ -111,14 +119,10 @@ if ( ! is_writable(APP_SESSION_DIR)) {
     \InfoPotato\core\Session::init(APP_SESSION_DIR, '30 minutes');
 }
 
-// Sets the global severity threshold
-// Severity levels: 'ERROR', 'WARN', 'INFO', 'DEBUG'
 // APP_LOG_DIR must be writable
 if ( ! is_writable(APP_LOG_DIR)) {
     exit('APP_LOG_DIR must be writable');
-} else {
-    \InfoPotato\core\Logger::set_severity_threshold('DEBUG');
-}
+} 
 
 // Dispatching
 \InfoPotato\core\Dispatcher::run();
