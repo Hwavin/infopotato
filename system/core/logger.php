@@ -38,14 +38,15 @@ class Logger {
     );
     
     /**
-     * Current minimum logging level threshold
-     * @var integer
+     * Use the lowest level 'DEBUG' as the default threshold
+     * if APP_LOGGING_LEVEL_THRESHOLD not defined
+     * @var string
      */
-    private static $severity_threshold;
+    private static $severity_threshold = 'DEBUG';
     
     /**
      * Current status of the log file
-     * @var integer
+     * @var int
      */
     private static $log_status = self::STATUS_LOG_CLOSED;
     
@@ -79,27 +80,33 @@ class Logger {
     
     /**
      * Octal notation for default permissions of the log file
-     * @var integer
+     * @var int
      */
     private static $default_permissions = 0777;
     
     /**
-     * Sets the default logging level
+     * Private contructor prevents direct object creation
      * 
      * @return Logger
      */
-    private function __construct() {
+    private function __construct() {}
+
+    /**
+     * Validate and initilize $severity_threshold
+     * 
+     * @return void
+     */
+    private static function initialize_severity_threshold() {
         // APP_LOGGING_LEVEL_THRESHOLD needs to be defined in bootstrap script
         // Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
         if (defined('APP_LOGGING_LEVEL_THRESHOLD')) {
             if (isset(self::$severity_levels[APP_LOGGING_LEVEL_THRESHOLD])) {
-                self::$severity_threshold = self::$severity_levels[APP_LOGGING_LEVEL_THRESHOLD];
+                self::$severity_threshold = APP_LOGGING_LEVEL_THRESHOLD;
             } else {
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['invalid_level']);
             }
-            self::$severity_threshold = strtoupper(APP_LOGGING_LEVEL_THRESHOLD);
         }
     }
 
@@ -158,14 +165,11 @@ class Logger {
      * @param integer $severity Severity level of log message (use constants)
      */
     private static function log($dir, $line, $severity, $args = self::NO_ARGUMENTS) {
-        // Set the default logging severity level threshold if APP_LOGGING_LEVEL_THRESHOLD not defined
-        if ( ! isset(self::$severity_threshold)) {
-            // Use the lowest level as the threshold
-            self::$severity_threshold = self::$severity_levels['DEBUG'];
-        }
-        
+        // Validate and initilize $severity_threshold
+        self::initialize_severity_threshold();
+
         // Log only when severity level is higher than the defined severity threshold
-        if ($severity >= self::$severity_threshold) {
+        if ($severity >= self::$severity_levels[self::$severity_threshold]) {
             $dir = rtrim($dir, '\\/');
             
             // Log file path and name, e.g. log_2012-08-16.txt
