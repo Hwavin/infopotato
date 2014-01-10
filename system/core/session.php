@@ -17,26 +17,12 @@ namespace InfoPotato\core;
 
 class Session {
     /**
-     * The length for a normal session
-     * 
-     * @var integer 
-     */
-    private static $normal_timespan = NULL;
-    
-    /**
      * If the session is open
      * 
      * @var boolean 
      */
     private static $open = FALSE;
-    
-    /**
-     * The length for a persistent session cookie - one that survives browser restarts
-     * 
-     * @var integer 
-     */
-    private static $persistent_timespan = NULL;
-    
+
     /**
      * If the session ID was regenerated during this script
      * 
@@ -45,54 +31,25 @@ class Session {
     private static $regenerated = FALSE;
 
     /**
-     * Sets the path to store session files in and the minimum length of a session
-     * (PHP might not clean up the session data right away once this timespan has elapsed)
-     * 
-     * You should always be called with a non-standard directory to ensure that 
-     * another site on the server doesn't garbage collect the session files for this site.
-     * 
-     * Standard session directories usually include '/tmp' and '/var/tmp'. 
-     * 
-     * Both of the normal timespan and persistent timespan can accept either a integer timespan in seconds,
-     * or an english description of a timespan (e.g. '30 minutes', '1 hour', '1 day 2 hours').
-     * 
-     * To enable a user to stay logged in for the whole persistent timespan and to stay logged in 
-     * across browser restarts, the static method ::enable_persistence() must be called when they log in.
+     * Private contructor prevents direct object creation
      * 
      * @return Session
      */
-    private function __construct() {
+    private function __construct() {}
+    
+    /**
+     * Set session directory and enable HTTP only cookie
+     * 
+     * @return void
+     */
+    private static function init() {
+        // The session dir should always be set to a non-standard directory to ensure that 
+        // another site on the server doesn't garbage collect the session files for this site
+        // Standard session directories usually include '/tmp' and '/var/tmp'
         $dir = APP_SESSION_DIR;
-        // Set the path of the current directory used to save session data.
+        // Sets the path to store session files in
         session_save_path($dir);
 
-        // APP_SESSION_NORMAL_TIMESPAN and APP_SESSION_PERSISTENT_TIMESPAN are defined in bootstrap script
-        // APP_SESSION_PERSISTENT_TIMESPAN has to be longer than the APP_SESSION_NORMAL_TIMESPAN
-        if (defined('APP_SESSION_NORMAL_TIMESPAN')) {
-            self::$normal_timespan = APP_SESSION_NORMAL_TIMESPAN;
-        }
-
-        if (defined('APP_SESSION_PERSISTENT_TIMESPAN')) {
-            self::$persistent_timespan = APP_SESSION_PERSISTENT_TIMESPAN;
-        }
-        
-        
-        if (self::$normal_timespan === NULL) {
-            // Use the default config in php.ini
-            $normal_timespan_seconds = ini_get('session.gc_maxlifetime');    
-        } else {
-            $normal_timespan_seconds = ( ! is_numeric(self::$persistent_timespan)) ? strtotime(self::$persistent_timespan) - time() : self::$persistent_timespan;
-        }
-        self::$normal_timespan = $normal_timespan_seconds;
-        
-        if (self::$persistent_timespan !== NULL) {
-            $persistent_timespan_seconds = ( ! is_numeric(self::$persistent_timespan)) ? strtotime(self::$persistent_timespan) - time() : self::$persistent_timespan;    
-            self::$persistent_timespan = $persistent_timespan_seconds;
-
-            // If persistent timespan specified, it has to be longer than the normal timespan
-            ini_set('session.gc_maxlifetime', $persistent_timespan_seconds);
-        }
-        
         // Marks the cookie as accessible only through the HTTP protocol. 
         // This means that the cookie won't be accessible by scripting languages, such as JavaScript. 
         // This setting can effectively help to reduce identity theft through XSS attacks 
@@ -170,7 +127,7 @@ class Session {
                 }
             }
         } else {
-            $_SESSION = array();        
+            $_SESSION = array();
         }
         
         $_SESSION['SESSION::type'] = $session_type;
@@ -268,52 +225,7 @@ class Session {
         // This does not unset the session cookie
         session_destroy();
     }
-    
-    
-    /**
-     * Changed the session to use a time-based cookie instead of a session-based cookie
-     * 
-     * The length of the time-based cookie is controlled by ::init(). When
-     * this method is called, a time-based cookie is used to store the session
-     * ID. This means the session can persist browser restarts. Normally, a
-     * session-based cookie is used, which is wiped when a browser is closed.
-     * 
-     * This method should be called during the login process and will normally
-     * be controlled by a checkbox or similar where the user can indicate if
-     * they want to stay logged in for an extended period of time.
-     * 
-     * @return void
-     */
-    public static function enable_persistence() {
-        if (self::$persistent_timespan === NULL) {
-            Common::halt('A System Error Was Encountered', "Please define the 'APP_SESSION_PERSISTENT_TIMESPAN' in bootstrap script before calling Session::enable_persistence()", 'sys_error');
-        }
-        
-        $current_params = session_get_cookie_params();
-        
-        // This sets the lifetime of the session cookie to self::$persistent_timespan
-        // session.cookie_lifetime (defaults to 0 that means "until the browser is closed.") 
-        // is set by calling session_set_cookie_params() with the first parameter 
-        // to specify the lifetime of the cookie in seconds which is sent to the browser.
-        // This keeps the user logged in after browser restarts
-        session_set_cookie_params( 
-            self::$persistent_timespan,
-            $current_params['path'],
-            $current_params['domain'],
-            $current_params['secure']
-        );
-        
-        self::open();
-        
-        $_SESSION['SESSION::type'] = 'persistent';
-        // Update the current session id with a newly generated one
-        // and keep the current session information
-        // If session cookies are enabled, use of session_regenerate_id() will 
-        // also submit a new session cookie with the new session id.
-        session_regenerate_id();
-        self::$regenerated = TRUE;
-    }
-    
+
     
     /**
      * Gets data from the `$_SESSION` superglobal
@@ -398,6 +310,9 @@ class Session {
      * @return void
      */
     private static function open() {
+        // Initialize the session directory and HTTP only cookie
+        self::init();
+        
         if (self::$open) { 
             return; 
         }
@@ -420,13 +335,11 @@ class Session {
         }
         
         if ( ! isset($_SESSION['SESSION::type'])) {
-            $_SESSION['SESSION::type'] = 'normal';    
+            $_SESSION['SESSION::type'] = 'normal';
         }
         
-        // We store the expiration time for a session to allow for both normal and persistent sessions
-        $timespan = ($_SESSION['SESSION::type'] === 'persistent' && self::$persistent_timespan) 
-                    ? self::$persistent_timespan
-                    : self::$normal_timespan;
+        // Get the default timespan from php.ini
+        $timespan = ini_get('session.gc_maxlifetime');
         // Extends the expiration time upon active request
         $_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
     }
@@ -497,8 +410,6 @@ class Session {
      * @return void
      */
     public static function reset() {
-        self::$normal_timespan = NULL;
-        self::$persistent_timespan = NULL;
         self::$regenerated = FALSE;
         self::$destroy();
         self::$close();    
