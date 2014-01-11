@@ -360,52 +360,7 @@ class Session {
             self::$regenerated = TRUE;
         }
     }
-    
-    
-    /**
-     * Removes and returns the value from the end of an array value
-     *
-     * @param string $key The name of the element to remove the value from - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param boolean $beginning If the value should be removed to the beginning
-     * @return mixed The value that was removed
-     */
-    public static function remove($key, $beginning = FALSE) {
-        self::open();
-        $tip =& $_SESSION;
-        
-        if ($bracket_pos = strpos($key, '[')) {
-            $original_key = $key;
-            $array_dereference = substr($key, $bracket_pos);
-            $key = substr($key, 0, $bracket_pos);
-            
-            preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-            $array_keys = array_map('current', $array_keys);
-            array_unshift($array_keys, $key);
-            
-            foreach (array_slice($array_keys, 0, -1) as $array_key) {
-                if ( ! isset($tip[$array_key])) {
-                    return NULL;
-                } elseif ( ! is_array($tip[$array_key])) {
-                    Common::halt('A System Error Was Encountered', "Session::remove() was called for the key, {$original_key}, which is not an array", 'sys_error');
-                }
-                $tip =& $tip[$array_key];
-            }
-            $key = end($array_keys);
-        }
-        
-        if ( ! isset($tip[$key])) {
-            return NULL;
-        } elseif ( ! is_array($tip[$key])) {
-            Common::halt('A System Error Was Encountered', "Session::remove() was called for the key, {$key}, which is not an array", 'sys_error');
-        }
-        
-        if ($beginning) {
-            return array_shift($tip[$key]);
-        }
-        
-        return array_pop($tip[$key]);
-    }    
-    
+
     
     /**
      * Sets data to the `$_SESSION` superglobal
