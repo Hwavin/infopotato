@@ -64,6 +64,49 @@ class Session {
         ini_set('session.use_only_cookies', 1);
     }
 
+    
+    /**
+     * Opens the session for writing, is automatically called by ::clear(), ::get() and ::set()
+     * 
+     * A `Cannot send session cache limiter` warning will be triggered if 
+     * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output
+     * has been sent to the browser. To prevent such a warning, explicitly call
+     * this method before generating any output.
+     * 
+     * @return void
+     */
+    private static function open() {
+        // Initialize the session directory and HTTP only cookie
+        self::init();
+        
+        if (self::$open) { 
+            return; 
+        }
+        
+        self::$open = TRUE;
+        
+        // If the session is already open, we just piggy-back without setting options
+        if ( ! isset($_SESSION)) {
+            session_start();
+        }
+        
+        // If the session has existed for too long and not been garbage collected, reset it
+        if (isset($_SESSION['SESSION::expires']) && $_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME']) {
+            $_SESSION = array();
+            self::regenerate_id();
+        }
+        
+        if ( ! isset($_SESSION['SESSION::type'])) {
+            $_SESSION['SESSION::type'] = 'normal';
+        }
+        
+        // Get the default timespan (1440 seconds) from php.ini
+        $timespan = ini_get('session.gc_maxlifetime');
+        // Extends the expiration time upon active request
+        $_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
+    }
+    
+
     /**
      * Closes the session for writing, allowing other pages to open the session
      * 
@@ -80,6 +123,75 @@ class Session {
     }
     
     
+    /**
+     * Sets data to the `$_SESSION` superglobal
+     * 
+     * @param string $key The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param mixed $value The value to store
+     * @return void
+     */
+    public static function set($key, $value) {
+        self::open();
+        $tip =& $_SESSION;
+        
+        if ($bracket_pos = strpos($key, '[')) {
+            $array_dereference = substr($key, $bracket_pos);
+            $key = substr($key, 0, $bracket_pos);
+            
+            preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
+            $array_keys = array_map('current', $array_keys);
+            array_unshift($array_keys, $key);
+            
+            foreach (array_slice($array_keys, 0, -1) as $array_key) {
+                if ( ! isset($tip[$array_key]) || ! is_array($tip[$array_key])) {
+                    $tip[$array_key] = array();
+                }
+                $tip =& $tip[$array_key];
+            }
+            $tip[end($array_keys)] = $value;        
+        } else {
+            $tip[$key] = $value;
+        }
+    }
+
+
+    /**
+     * Gets data from the `$_SESSION` superglobal
+     * 
+     * @param string $key The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param mixed  $default_value The default value to use if the requested key is not set
+     * @return mixed The data element requested
+     */
+    public static function get($key, $default_value = NULL) {
+        self::open();
+        
+        $array_dereference = NULL;
+        if ($bracket_pos = strpos($key, '[')) {
+            $array_dereference = substr($key, $bracket_pos);
+            $key = substr($key, 0, $bracket_pos);
+        }
+        
+        if ( ! isset($_SESSION[$key])) {
+            return $default_value;
+        }
+        $value = $_SESSION[$key];
+        
+        if ($array_dereference) {
+            preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
+            $array_keys = array_map('current', $array_keys);
+            foreach ($array_keys as $array_key) {
+                if ( ! is_array($value) || ! isset($value[$array_key])) {
+                    $value = $default_value;
+                    break;
+                }
+                $value = $value[$array_key];
+            }
+        }
+        
+        return $value;
+    }
+
+        
     /**
      * Deletes a value from the session
      * 
@@ -155,86 +267,7 @@ class Session {
         session_destroy();
     }
 
-    
-    /**
-     * Gets data from the `$_SESSION` superglobal
-     * 
-     * @param string $key The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param mixed  $default_value The default value to use if the requested key is not set
-     * @return mixed The data element requested
-     */
-    public static function get($key, $default_value = NULL) {
-        self::open();
-        
-        $array_dereference = NULL;
-        if ($bracket_pos = strpos($key, '[')) {
-            $array_dereference = substr($key, $bracket_pos);
-            $key = substr($key, 0, $bracket_pos);
-        }
-        
-        if ( ! isset($_SESSION[$key])) {
-            return $default_value;
-        }
-        $value = $_SESSION[$key];
-        
-        if ($array_dereference) {
-            preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-            $array_keys = array_map('current', $array_keys);
-            foreach ($array_keys as $array_key) {
-                if ( ! is_array($value) || ! isset($value[$array_key])) {
-                    $value = $default_value;
-                    break;
-                }
-                $value = $value[$array_key];
-            }
-        }
-        
-        return $value;
-    }
 
-    
-    /**
-     * Opens the session for writing, is automatically called by ::clear(), ::get() and ::set()
-     * 
-     * A `Cannot send session cache limiter` warning will be triggered if 
-     * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output
-     * has been sent to the browser. To prevent such a warning, explicitly call
-     * this method before generating any output.
-     * 
-     * @return void
-     */
-    private static function open() {
-        // Initialize the session directory and HTTP only cookie
-        self::init();
-        
-        if (self::$open) { 
-            return; 
-        }
-        
-        self::$open = TRUE;
-        
-        // If the session is already open, we just piggy-back without setting options
-        if ( ! isset($_SESSION)) {
-            session_start();
-        }
-        
-        // If the session has existed for too long and not been garbage collected, reset it
-        if (isset($_SESSION['SESSION::expires']) && $_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME']) {
-            $_SESSION = array();
-            self::regenerate_id();
-        }
-        
-        if ( ! isset($_SESSION['SESSION::type'])) {
-            $_SESSION['SESSION::type'] = 'normal';
-        }
-        
-        // Get the default timespan (1440 seconds) from php.ini
-        $timespan = ini_get('session.gc_maxlifetime');
-        // Extends the expiration time upon active request
-        $_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
-    }
-    
-    
     /**
      * Regenerates the session ID, but only once per script execution
      * 
@@ -248,37 +281,6 @@ class Session {
         }
     }
 
-    
-    /**
-     * Sets data to the `$_SESSION` superglobal
-     * 
-     * @param string $key The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param mixed $value The value to store
-     * @return void
-     */
-    public static function set($key, $value) {
-        self::open();
-        $tip =& $_SESSION;
-        
-        if ($bracket_pos = strpos($key, '[')) {
-            $array_dereference = substr($key, $bracket_pos);
-            $key = substr($key, 0, $bracket_pos);
-            
-            preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-            $array_keys = array_map('current', $array_keys);
-            array_unshift($array_keys, $key);
-            
-            foreach (array_slice($array_keys, 0, -1) as $array_key) {
-                if ( ! isset($tip[$array_key]) || ! is_array($tip[$array_key])) {
-                    $tip[$array_key] = array();
-                }
-                $tip =& $tip[$array_key];
-            }
-            $tip[end($array_keys)] = $value;        
-        } else {
-            $tip[$key] = $value;
-        }
-    }
 
     
 }
