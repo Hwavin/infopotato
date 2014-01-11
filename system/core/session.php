@@ -208,7 +208,7 @@ class Session {
     
     
     /**
-     * Destroys the session data and session cookie
+     * Destroys all the session data and session cookie
      * 
      * @return void
      */
@@ -341,7 +341,7 @@ class Session {
             $_SESSION['SESSION::type'] = 'normal';
         }
         
-        // Get the default timespan from php.ini
+        // Get the default timespan (1440 seconds) from php.ini
         $timespan = ini_get('session.gc_maxlifetime');
         // Extends the expiration time upon active request
         $_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
@@ -354,7 +354,7 @@ class Session {
      * @return void
      */
     public static function regenerate_id() {
-        if ( ! self::$regenerated){
+        if ( ! self::$regenerated) {
             // Create a new session, deleting the previous associated session file
             session_regenerate_id(TRUE);
             self::$regenerated = TRUE;
@@ -405,18 +405,6 @@ class Session {
         
         return array_pop($tip[$key]);
     }    
-    
-    
-    /**
-     * Resets the configuration of the class
-     *  
-     * @return void
-     */
-    public static function reset() {
-        self::$regenerated = FALSE;
-        self::$destroy();
-        self::$close();    
-    }
     
     
     /**
