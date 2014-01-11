@@ -44,6 +44,11 @@ class Session {
      * @return void
      */
     private static function open() {
+        // Flag check
+        if (self::$open) { 
+            return; 
+        }
+        
         // Initialize the session settings
 
         // The session dir should always be set to a non-standard directory to ensure that 
@@ -65,12 +70,8 @@ class Session {
         
         // Prevents attacks involved passing session ids in URLs, defaults to 1 (enabled) since PHP 5.3.0.
         ini_set('session.use_only_cookies', 1);
-        
 
-        if (self::$open) { 
-            return; 
-        }
-        
+        // FLag
         self::$open = TRUE;
         
         // If the session is already open, we just piggy-back without setting options
@@ -120,6 +121,7 @@ class Session {
      */
     public static function set($key, $value) {
         self::open();
+
         $tip =& $_SESSION;
         
         if ($bracket_pos = strpos($key, '[')) {
@@ -136,6 +138,7 @@ class Session {
                 }
                 $tip =& $tip[$array_key];
             }
+
             $tip[end($array_keys)] = $value;        
         } else {
             $tip[$key] = $value;
@@ -167,6 +170,7 @@ class Session {
         if ($array_dereference) {
             preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
             $array_keys = array_map('current', $array_keys);
+            
             foreach ($array_keys as $array_key) {
                 if ( ! is_array($value) || ! isset($value[$array_key])) {
                     $value = $default_value;
