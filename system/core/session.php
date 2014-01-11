@@ -63,55 +63,8 @@ class Session {
         // Prevents attacks involved passing session ids in URLs, defaults to 1 (enabled) since PHP 5.3.0.
         ini_set('session.use_only_cookies', 1);
     }
-    
-    /**
-     * Adds a value to an already-existing array value, or to a new array value
-     *
-     * @param  string $key The name to access the array under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
-     * @param  mixed $value The value to add to the array
-     * @param  boolean $beginning If the value should be added to the beginning
-     * @return void
-     */
-    public static function add($key, $value, $beginning = FALSE) {
-        self::open();
-        $tip =& $_SESSION;
-        
-        if ($bracket_pos = strpos($key, '[')) {
-            $original_key = $key;
-            $array_dereference = substr($key, $bracket_pos);
-            $key = substr($key, 0, $bracket_pos);
-            
-            preg_match_all('#(?<=\[)[^\[\]]+(?=\])#', $array_dereference, $array_keys, PREG_SET_ORDER);
-            // The current() callback function returns the value of the array element that's currently being pointed to by the internal pointer.
-            $array_keys = array_map('current', $array_keys);
-            array_unshift($array_keys, $key);
-            
-            foreach (array_slice($array_keys, 0, -1) as $array_key) {
-                if ( ! isset($tip[$array_key])) {
-                    $tip[$array_key] = array();
-                } elseif ( ! is_array($tip[$array_key])) {
-                    Common::halt('A System Error Was Encountered', "Session::add() was called for the key, {$original_key}, which is not an array", 'sys_error');
-                }
-                $tip =& $tip[$array_key];
-            }
-            $key = end($array_keys);
-        }
-        
-        
-        if ( ! isset($tip[$key])) {
-            $tip[$key] = array();
-        } elseif ( ! is_array($tip[$key])) {            
-            Common::halt('A System Error Was Encountered', "Session::add() was called for the key, {$key}, which is not an array", 'sys_error');
-        }
-        
-        if ($beginning) {
-            array_unshift($tip[$key], $value);
-        } else {
-            $tip[$key][] = $value;
-        }
-    }
-    
-    
+
+
     /**
      * Removes all session values with the provided prefix
      * 
