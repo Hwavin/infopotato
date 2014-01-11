@@ -266,6 +266,8 @@ class Session {
 
     /**
      * Regenerates the session ID, but only once per script execution
+     * Any time a user has a change in privilege (gaining or losing access rights within a system) 
+     * be sure to regenerate the session ID
      * 
      * @return void
      */
