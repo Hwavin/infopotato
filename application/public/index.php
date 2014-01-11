@@ -62,16 +62,6 @@ define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 /**
- * Set session normal length as 30 mins
- */
-define('APP_SESSION_NORMAL_TIMESPAN', '30 minutes');
-
-/**
- * Set session persistent length as 1 week
- */
-define('APP_SESSION_PERSISTENT_TIMESPAN', '1 week');
-
-/**
  * App namespaces (no leading and trailing backlash)
  */
 define('APP_MANAGER_NAMESPACE', 'app\managers');
