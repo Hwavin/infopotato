@@ -54,7 +54,14 @@ class Session {
         // This means that the cookie won't be accessible by scripting languages, such as JavaScript. 
         // This setting can effectively help to reduce identity theft through XSS attacks 
         // (although it is not supported by all browsers).
+        // http://www.browserscope.org/?category=security
         ini_set('session.cookie_httponly', 1);
+
+        // Forces to use cookies to store the session id on the client side
+        ini_set('session.use_cookies', 1);
+        
+        // Prevents attacks involved passing session ids in URLs, defaults to 1 (enabled) since PHP 5.3.0.
+        ini_set('session.use_only_cookies', 1);
     }
     
     /**
@@ -321,10 +328,6 @@ class Session {
         
         // If the session is already open, we just piggy-back without setting options
         if ( ! isset($_SESSION)) {
-            // Forces to use cookies to store the session id on the client side
-            ini_set('session.use_cookies', 1);
-            // Prevents attacks involved passing session ids in URLs, defaults to 1 (enabled) since PHP 5.3.0.
-            ini_set('session.use_only_cookies', 1);
             session_start();
         }
         
