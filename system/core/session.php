@@ -2,10 +2,6 @@
 /**
  * Wraps the session control functions and the `$_SESSION` superglobal for a more consistent and safer API
  *
- * A `Cannot send session cache limiter` warning will be triggered if 
- * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output has
- * been sent to the browser. 
- *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
  * @copyright Copyright &copy; 2009-2014 Zhou Yuan
@@ -66,17 +62,17 @@ class Session {
 
     
     /**
-     * Opens the session for writing, is automatically called by ::clear(), ::get() and ::set()
+     * Opens the session for writing, is automatically called by ::get() and ::set()
      * 
      * A `Cannot send session cache limiter` warning will be triggered if 
-     * ::add(), ::clear(), ::delete(), ::get() or ::set() is called after output
+     * ::delete(), ::get() or ::set() is called after output
      * has been sent to the browser. To prevent such a warning, explicitly call
      * this method before generating any output.
      * 
      * @return void
      */
     private static function open() {
-        // Initialize the session directory and HTTP only cookie
+        // Initialize the session settings
         self::init();
         
         if (self::$open) { 
