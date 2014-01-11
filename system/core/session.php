@@ -14,14 +14,14 @@ class Session {
     /**
      * If the session is open
      * 
-     * @var boolean 
+     * @var bool 
      */
     private static $open = FALSE;
 
     /**
      * If the session ID was regenerated during this script
      * 
-     * @var boolean 
+     * @var bool
      */
     private static $regenerated = FALSE;
 
@@ -31,13 +31,21 @@ class Session {
      * @return Session
      */
     private function __construct() {}
+
     
     /**
-     * Set session directory and enable HTTP only cookie
+     * Opens the session for writing, is automatically called by ::get() and ::set()
+     * 
+     * A `Cannot send session cache limiter` warning will be triggered if 
+     * ::delete(), ::get() or ::set() is called after output
+     * has been sent to the browser. To prevent such a warning, explicitly call
+     * this method before generating any output.
      * 
      * @return void
      */
-    private static function init() {
+    private static function open() {
+        // Initialize the session settings
+
         // The session dir should always be set to a non-standard directory to ensure that 
         // another site on the server doesn't garbage collect the session files for this site
         // Standard session directories usually include '/tmp' and '/var/tmp'
@@ -57,23 +65,8 @@ class Session {
         
         // Prevents attacks involved passing session ids in URLs, defaults to 1 (enabled) since PHP 5.3.0.
         ini_set('session.use_only_cookies', 1);
-    }
-
-    
-    /**
-     * Opens the session for writing, is automatically called by ::get() and ::set()
-     * 
-     * A `Cannot send session cache limiter` warning will be triggered if 
-     * ::delete(), ::get() or ::set() is called after output
-     * has been sent to the browser. To prevent such a warning, explicitly call
-     * this method before generating any output.
-     * 
-     * @return void
-     */
-    private static function open() {
-        // Initialize the session settings
-        self::init();
         
+
         if (self::$open) { 
             return; 
         }
@@ -86,7 +79,7 @@ class Session {
         }
         
         // If the session has existed for too long and not been garbage collected, reset it
-        if (isset($_SESSION['SESSION::expires']) && $_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME']) {
+        if (isset($_SESSION['SESSION::expires']) && ($_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME'])) {
             $_SESSION = array();
             self::regenerate_id();
         }
@@ -243,6 +236,7 @@ class Session {
      */
     public static function destroy() {
         self::open();
+
         // Unset all the session variables on server side
         $_SESSION = array();
         unset($_SESSION);
