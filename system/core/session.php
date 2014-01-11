@@ -191,42 +191,7 @@ class Session {
         
         return $value;
     }
-    
-    
-    /**
-     * Sets the session to run on the main domain, not just the specific subdomain currently being accessed
-     * By default PHP will only allow access to the $_SESSION superglobal values by pages on the same subdomain, 
-     * such that www.example.com could access the session, but example.com could not. 
-     * Calling ignore_subdomain() removes that restriction and allows access to any subdomain.
-     * 
-     * This method should be called after any calls to
-     * [http://php.net/session_set_cookie_params `session_set_cookie_params()`].
-     * 
-     * @return void
-     */
-    public static function ignore_subdomain() {
-        if (self::$open || isset($_SESSION)) {
-            Common::halt('A System Error Was Encountered', "Session::ignore_subdomain() must be called before any of Session::add(), Session::clear(), Session::enable_persistence(), Session::get(), Session::set(), session_start()", 'sys_error');
-        }
-        
-        $current_params = session_get_cookie_params();
-        
-        if (isset($_SERVER['SERVER_NAME'])) {
-            $domain = $_SERVER['SERVER_NAME'];
-        } elseif (isset($_SERVER['HTTP_HOST'])) {
-            $domain = $_SERVER['HTTP_HOST'];
-        } else {
-            Common::halt('A System Error Was Encountered', "The domain name could not be found in ['SERVER_NAME'] or ['HTTP_HOST']. Please set one of these keys to use Session::ignore_subdomain().", 'sys_error');
-        }
-        
-        session_set_cookie_params( 
-            $current_params['lifetime'],
-            $current_params['path'],
-            preg_replace('#.*?([a-z0-9\\-]+\.[a-z]+)$#iD', '.\1', $domain),
-            $current_params['secure']
-        );
-    }
-    
+
     
     /**
      * Opens the session for writing, is automatically called by ::clear(), ::get() and ::set()
