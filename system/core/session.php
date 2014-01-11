@@ -64,37 +64,6 @@ class Session {
         ini_set('session.use_only_cookies', 1);
     }
 
-
-    /**
-     * Removes all session values with the provided prefix
-     * 
-     * This method will not remove session variables used by this class, which
-     * are prefixed with `SESSION::`.
-     * 
-     * @param string $prefix The prefix to clear all session values for
-     * @return void
-     */
-    public static function clear($prefix = NULL) {
-        self::open();
-        
-        $session_type = $_SESSION['SESSION::type'];
-        $session_expires = $_SESSION['SESSION::expires'];
-        
-        if ($prefix) {
-            foreach ($_SESSION as $key => $value) {
-                if (strpos($key, $prefix) === 0) {
-                    unset($_SESSION[$key]);
-                }
-            }
-        } else {
-            $_SESSION = array();
-        }
-        
-        $_SESSION['SESSION::type'] = $session_type;
-        $_SESSION['SESSION::expires'] = $session_expires;
-    }
-    
-    
     /**
      * Closes the session for writing, allowing other pages to open the session
      * 
