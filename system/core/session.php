@@ -79,15 +79,17 @@ class Session {
             session_start();
         }
         
-        // If the session has existed for too long and not been garbage collected, reset it
+        // If the session has existed for too long upon active request and not been 
+        // garbage collected (since session garbage collector runs with a probability)
+        // InfoPotato will create a new session and delete the ond one
         if (isset($_SESSION['SESSION::expires']) && ($_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME'])) {
-            // Reset the current session array
+            // Erase data from current session
             $_SESSION = array();
             // Create a new session, deleting the previous associated session file
             self::regenerate_id();
         }
 
-        // Get the default timespan (1440 seconds) from php.ini
+        // Get the default timespan (1440 seconds, 24 mins) from php.ini
         $timespan = ini_get('session.gc_maxlifetime');
         // Extends the expiration time upon active request
         $_SESSION['SESSION::expires'] = $_SERVER['REQUEST_TIME'] + $timespan;
@@ -111,9 +113,9 @@ class Session {
     
     
     /**
-     * Sets data to the `$_SESSION` superglobal
+     * Sets data to the $_SESSION superglobal
      * 
-     * @param string $key The name to save the value under - array elements can be modified via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
+     * @param string $key The name to save the value under
      * @param mixed $value The value to store
      * @return void
      */
@@ -122,6 +124,7 @@ class Session {
 
         $tip =& $_SESSION;
         
+        // Array elements can be modified via '[sub-key]' syntax, and thus '[' and ']' can not be used in key names
         if ($bracket_pos = strpos($key, '[')) {
             $array_dereference = substr($key, $bracket_pos);
             $key = substr($key, 0, $bracket_pos);
@@ -145,7 +148,7 @@ class Session {
 
 
     /**
-     * Gets data from the `$_SESSION` superglobal
+     * Gets data from the $_SESSION superglobal
      * 
      * @param string $key The name to get the value for - array elements can be accessed via `[sub-key]` syntax, and thus `[` and `]` can not be used in key names
      * @param mixed  $default_value The default value to use if the requested key is not set
@@ -268,6 +271,8 @@ class Session {
      */
     public static function regenerate_id() {
         if ( ! self::$regenerated) {
+            self::open();
+            
             // Create a new session, deleting the previous associated session file
             session_regenerate_id(TRUE);
             self::$regenerated = TRUE;
