@@ -81,14 +81,12 @@ class Session {
         
         // If the session has existed for too long and not been garbage collected, reset it
         if (isset($_SESSION['SESSION::expires']) && ($_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME'])) {
+            // Reset the current session array
             $_SESSION = array();
+            // Create a new session, deleting the previous associated session file
             self::regenerate_id();
         }
-        
-        if ( ! isset($_SESSION['SESSION::type'])) {
-            $_SESSION['SESSION::type'] = 'normal';
-        }
-        
+
         // Get the default timespan (1440 seconds) from php.ini
         $timespan = ini_get('session.gc_maxlifetime');
         // Extends the expiration time upon active request
