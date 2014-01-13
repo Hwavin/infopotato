@@ -1,6 +1,6 @@
 <?php
 /**
- * Wraps the session control functions and the `$_SESSION` superglobal for a more consistent and safer API
+ * Wraps the session control functions and the $_SESSION superglobal for a more consistent and safer API
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
@@ -53,7 +53,7 @@ class Session {
 
         // The session dir should always be set to a non-standard directory to ensure that 
         // another site on the server doesn't garbage collect the session files for this site
-        // Standard session directories usually include '/tmp' and '/var/tmp'
+        // Default session directories will usually evaluate to your system's temp directory
         $dir = APP_SESSION_DIR;
         // Sets the path to store session files in
         session_save_path($dir);
@@ -169,7 +169,7 @@ class Session {
     public static function destroy() {
         self::open();
 
-        // Unset all the session variables on server side
+        // Erase all the session data on server side
         $_SESSION = array();
         unset($_SESSION);
         // Delete the session cookie
@@ -207,7 +207,6 @@ class Session {
     }
 
 
-    
 }
 
 /* End of file: ./system/core/session.php */
