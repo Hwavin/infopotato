@@ -77,7 +77,7 @@ class Dispatcher {
             $uri_segments = ! empty($request_uri) ? explode('/', $request_uri) : array();
             
             // Get manager and manager method, use default if none given (case-insensitive)
-            // All manager and manager method names are lowercased and no UTF8 encoded characters allowed
+            // All manager and manager names and method names are lowercased and no UTF8 encoded characters allowed
             $manager_name = ! empty($uri_segments[0]) ? strtolower($uri_segments[0]) : strtolower(APP_DEFAULT_MANAGER);
             $method_name = ! empty($uri_segments[1]) ? strtolower($uri_segments[1]) : strtolower(APP_DEFAULT_MANAGER_METHOD);
             
@@ -85,7 +85,7 @@ class Dispatcher {
             $real_method = $request_method.'_'.$method_name;
             
             // Get parameters and put them into an array
-            // Parameters are case-sensitive
+            // Parameters are case-sensitive, e.g. base64 encoded strings
             $params_cnt = count($uri_segments);
             $params = array();
             for ($i = 2; $i < $params_cnt; $i++) {
