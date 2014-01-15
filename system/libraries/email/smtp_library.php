@@ -1774,12 +1774,20 @@ class SMTP_Library {
      * @return bool
      */
     private function send_smtp_data($data) {
-        if ( ! fwrite($this->smtp_connection_fp, $data . $this->newline)) {
+        $data .= $this->newline;
+        for ($written = 0, $length = strlen($data); $written < $length; $written += $result) {
+            if (($result = fwrite($this->smtp_connection_fp, substr($data, $written))) === FALSE) {
+                break;
+            }
+        }
+
+        if ($result === FALSE) {
             $this->set_error_message('email_smtp_data_failure', $data);
             return FALSE;
-        } 
-        
+        }
+
         return TRUE;
+        
     }
     
     /**
