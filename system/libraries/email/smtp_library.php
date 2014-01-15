@@ -1787,7 +1787,6 @@ class SMTP_Library {
         }
 
         return TRUE;
-        
     }
     
     /**
