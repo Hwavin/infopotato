@@ -45,7 +45,8 @@ class Logger {
         'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable!',
         'open_fail' => 'Failed to open the log files. Please check permissions!',
         'invalid_level' => 'The logging severity level you provided is invalid!',
-        'dir_permission_denied' => 'Permission denied for creating the log directory!'
+        'dir_permission_denied' => 'Permission denied for creating the log directory!',
+        'dir_not_writable' => 'The log directory must be writable! Please change the directory permission.'
     );
     
     /**
@@ -154,6 +155,13 @@ class Logger {
                     // Don't use halt() or any log functions in this class to avoid dead loop 
                     exit(self::$messages['dir_permission_denied']);
                 }
+            }
+            
+            // Log dir must be writable
+            if ( ! is_writable($dir)) {
+                // Output error message and terminate the current script
+                // Don't use halt() or any log functions in this class to avoid dead loop 
+                exit(self::$messages['dir_not_writable']);
             }
             
             if (file_exists($log_file_path) && ! is_writable($log_file_path)) {
