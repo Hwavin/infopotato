@@ -26,6 +26,14 @@ class Session {
     private static $regenerated = FALSE;
 
     /**
+     * Standard messages produced by the class. Can be modified for il8n
+     * @var array
+     */
+    private static $messages = array(
+        'dir_permission_denied' => 'Permission denied for creating the writable APP_SESSION_DIR directory!'
+    );
+    
+    /**
      * Private contructor prevents direct object creation
      * 
      * @return Session
@@ -54,6 +62,16 @@ class Session {
         // another site on the server doesn't garbage collect the session files for this site
         // Default session directories will usually evaluate to your system's temp directory
         $dir = APP_SESSION_DIR;
+        
+        // Create the log directory if not exists
+        if ( ! file_exists($dir)) {
+            // The thrid parameter TRUE allows the creation of nested directories specified in the path
+            if ( ! mkdir($dir, 0777, TRUE)) {
+                // Output error message and terminate the current script
+                Common::halt('An Error Was Encountered', self::$messages['dir_permission_denied'], 'sys_error');
+            }
+        }
+
         // Sets the path to store session files in
         session_save_path($dir);
 

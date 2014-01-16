@@ -145,7 +145,7 @@ class Logger {
             // Log file path and name, e.g. log_2012-08-16.txt
             $log_file_path = $dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
             
-            // Create the log directory first
+            // Create the log directory if not exists
             if ( ! file_exists($dir)) {
                 // The thrid parameter TRUE allows the creation of nested directories specified in the path
                 if ( ! mkdir($dir, 0777, TRUE)) {

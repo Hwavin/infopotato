@@ -127,7 +127,7 @@ class Dispatcher {
 
             // Checks if the manager method exists
             if ( ! method_exists($manager_obj, $real_method)) {
-                Common::halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in '{$manager_class}'", 'sys_error');                
+                Common::halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in '{$manager_class}'", 'sys_error');
             }
             
             // The desginated manager prepares the related resources and sends response back to client
