@@ -12,13 +12,6 @@ namespace InfoPotato\core;
 
 class Logger {
     /**
-     * Internal status codes
-     */
-    const STATUS_LOG_OPEN = 1;
-    const STATUS_OPEN_FAILED = 2;
-    const STATUS_LOG_CLOSED = 3;
-    
-    /**
      * We need a default argument value in order to add the ability to easily
      * print out objects etc. But we can't use NULL, 0, FALSE, etc, because those
      * are often the values the developers will test for. So we'll make one up.
@@ -43,13 +36,7 @@ class Logger {
      * @var string
      */
     private static $severity_threshold = 'DEBUG';
-    
-    /**
-     * Current status of the log file
-     * @var int
-     */
-    private static $log_status = self::STATUS_LOG_CLOSED;
-    
+
     /**
      * Path to the log file
      * @var string
@@ -181,16 +168,13 @@ class Logger {
             }
             
             if (file_exists(self::$log_file_path) && ! is_writable(self::$log_file_path)) {
-                self::$log_status = self::STATUS_OPEN_FAILED;
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['write_fail']);
             }
             
-            if ((self::$file_handle = fopen(self::$log_file_path, 'a'))) {
-                self::$log_status = self::STATUS_LOG_OPEN;
-            } else {
-                self::$log_status = self::STATUS_OPEN_FAILED;
+            // Returns a file pointer resource on success, or FALSE on error.
+            if ( ! (self::$file_handle = fopen(self::$log_file_path, 'a'))) {
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['open_fail']);
@@ -222,18 +206,16 @@ class Logger {
             }
             
             // Writes a line to the log without prepending a status or timestamp
-            if (self::$log_status === self::STATUS_LOG_OPEN) {
-                // PHP_EOL: The correct 'End Of Line' symbol for this platform
-                if (fwrite(self::$file_handle, $line.PHP_EOL) === FALSE) {
-                    // Output error message and terminate the current script
-                    // Don't use halt() or any log functions in this class to avoid dead loop 
-                    exit(self::$messages['write_fail']);
-                }
-                
-                // Closes the open file pointer
-                if (self::$file_handle) {
-                    fclose(self::$file_handle);
-                }
+            // PHP_EOL: The correct 'End Of Line' symbol for this platform
+            if (fwrite(self::$file_handle, $line.PHP_EOL) === FALSE) {
+                // Output error message and terminate the current script
+                // Don't use halt() or any log functions in this class to avoid dead loop 
+                exit(self::$messages['write_fail']);
+            }
+            
+            // Closes the open file pointer
+            if (self::$file_handle) {
+                fclose(self::$file_handle);
             }
         }
     }
