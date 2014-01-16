@@ -147,7 +147,8 @@ class Logger {
             
             // Create the log directory if not exists
             if ( ! file_exists($dir)) {
-                // The thrid parameter TRUE allows the creation of nested directories specified in the path
+                // Create the log dir and make it writable
+                // The thrid parameter TRUE allows the creation of nested directories
                 if ( ! mkdir($dir, 0777, TRUE)) {
                     // Output error message and terminate the current script
                     // Don't use halt() or any log functions in this class to avoid dead loop 

@@ -111,16 +111,6 @@ require_once $file;
 // Starter loads other core components
 \InfoPotato\core\Starter::start();
 
-// APP_SESSION_DIR must be writable
-if ( ! is_writable(APP_SESSION_DIR)) {
-    exit('APP_SESSION_DIR must be writable');
-} 
-
-// APP_LOG_DIR must be writable
-if ( ! is_writable(APP_LOG_DIR)) {
-    exit('APP_LOG_DIR must be writable');
-} 
-
 // Dispatching
 \InfoPotato\core\Dispatcher::run();
 
