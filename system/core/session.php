@@ -77,8 +77,7 @@ class Session {
         // Session dir must be writable
         if ( ! is_writable($dir)) {
             // Output error message and terminate the current script
-            // Don't use halt() or any log functions in this class to avoid dead loop 
-            exit(self::$messages['dir_not_writable']);
+            Common::halt('An Error Was Encountered', self::$messages['dir_not_writable'], 'sys_error');
         }
         
         // Sets the path to store session files in
