@@ -45,6 +45,7 @@ class Logger {
         'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable!',
         'open_fail' => 'Failed to open the log files. Please check permissions!',
         'invalid_level' => 'The logging severity level you provided is invalid!',
+        'dir_permission' => 'Permission denied for creating the log directory!'
     );
     
     /**
@@ -52,12 +53,6 @@ class Logger {
      * @var string
      */
     private static $date_format = 'Y-m-d G:i:s';
-    
-    /**
-     * Octal notation for default permissions of the log file
-     * @var int
-     */
-    private static $default_permissions = 0777;
     
     /**
      * Private contructor prevents direct object creation
@@ -150,9 +145,14 @@ class Logger {
             // Log file path and name, e.g. log_2012-08-16.txt
             $log_file_path = $dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
             
-            // Create the log file first
+            // Create the log directory first
             if ( ! file_exists($dir)) {
-                mkdir($dir, self::$default_permissions, TRUE);
+                // The thrid parameter TRUE allows the creation of nested directories specified in the path
+                if ( ! mkdir($dir, 0777, TRUE)) {
+                    // Output error message and terminate the current script
+                    // Don't use halt() or any log functions in this class to avoid dead loop 
+                    exit(self::$messages['dir_permission']);
+                }
             }
             
             if (file_exists($log_file_path) && ! is_writable($log_file_path)) {
