@@ -13,10 +13,10 @@ namespace InfoPotato\core;
 class Logger {
     /**
      * We need a default argument value in order to add the ability to easily
-     * print out objects etc. But we can't use NULL, 0, FALSE, etc, because those
+     * print out the given argument. But we can't use NULL, 0, FALSE, etc, because those
      * are often the values the developers will test for. So we'll make one up.
      */
-    const NO_ARGUMENTS = 'NO_ARGUMENTS';
+    const NO_ARG = 'NO_ARG';
     
     /**
      * Logging severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
@@ -105,8 +105,8 @@ class Logger {
      * @param string $line Information to log
      * @return void
      */
-    public static function log_error($dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($dir, $line, self::$severity_levels['ERROR'], $args);
+    public static function log_error($dir, $line, $arg = self::NO_ARG) {
+        self::log($dir, $line, self::$severity_levels['ERROR'], $arg);
     }
     
     /**
@@ -118,8 +118,8 @@ class Logger {
      * @param string $line Information to log
      * @return void
      */
-    public static function log_warning($dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($dir, $line, self::$severity_levels['WARNING'], $args);
+    public static function log_warning($dir, $line, $arg = self::NO_ARG) {
+        self::log($dir, $line, self::$severity_levels['WARNING'], $arg);
     }
     
     /**
@@ -129,8 +129,8 @@ class Logger {
      * @param string $line Information to log
      * @return void
      */
-    public static function log_info($dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($dir, $line, self::$severity_levels['INFO'], $args);
+    public static function log_info($dir, $line, $arg = self::NO_ARG) {
+        self::log($dir, $line, self::$severity_levels['INFO'], $arg);
     }
     
     /**
@@ -140,8 +140,8 @@ class Logger {
      * @param string $line Information to log
      * @return void
      */
-    public static function log_debug($dir, $line, $args = self::NO_ARGUMENTS) {
-        self::log($dir, $line, self::$severity_levels['DEBUG'], $args);
+    public static function log_debug($dir, $line, $arg = self::NO_ARG) {
+        self::log($dir, $line, self::$severity_levels['DEBUG'], $arg);
     }
     
     /**
@@ -151,7 +151,7 @@ class Logger {
      * @param string  $line     Text to add to the log
      * @param integer $severity Severity level of log message (use constants)
      */
-    private static function log($dir, $line, $severity, $args = self::NO_ARGUMENTS) {
+    private static function log($dir, $line, $severity, $arg = self::NO_ARG) {
         // Validate and initilize $severity_threshold
         self::initialize_severity_threshold();
 
@@ -200,9 +200,9 @@ class Logger {
             
             $line = "$status $line";
             
-            if ($args !== self::NO_ARGUMENTS) {
-                // Print the passed object value
-                $line = $line . '; ' . var_export($args, TRUE);
+            if ($arg !== self::NO_ARG) {
+                // Prints to the log file with a dump of the given argument
+                $line = $line . '; ' . var_export($arg, TRUE);
             }
             
             // Writes a line to the log without prepending a status or timestamp
