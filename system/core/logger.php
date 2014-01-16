@@ -202,17 +202,26 @@ class Logger {
             
             if ($arg !== self::NO_ARG) {
                 // Prints to the log file with a dump of the given argument
+                // var_export() with the second parameter TRUE returns the variable representation instead of outputting it
                 $line = $line . '; ' . var_export($arg, TRUE);
             }
-            
-            // Writes a line to the log without prepending a status or timestamp
+
+            // Writes a line to the log 
             // PHP_EOL: The correct 'End Of Line' symbol for this platform
-            if (fwrite(self::$file_handle, $line.PHP_EOL) === FALSE) {
+            $line .= PHP_EOL;
+            // Make sure the fwrite() writes all the bytes
+            for ($written = 0, $length = strlen($line); $written < $length; $written += $result) {
+                if (($result = fwrite(self::$file_handle, $line)) === FALSE) {
+                    break;
+                }
+            }
+            
+            if ($result === FALSE) {
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['write_fail']);
             }
-            
+
             // Closes the open file pointer
             if (self::$file_handle) {
                 fclose(self::$file_handle);
