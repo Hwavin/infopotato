@@ -30,7 +30,8 @@ class Session {
      * @var array
      */
     private static $messages = array(
-        'dir_permission_denied' => 'Permission denied for creating the writable APP_SESSION_DIR directory!'
+        'dir_permission_denied' => 'Permission denied for creating the writable APP_SESSION_DIR directory!',
+        'dir_not_writable' => 'The session directory must be writable! Please change the directory permission.'
     );
     
     /**
@@ -73,6 +74,13 @@ class Session {
             }
         }
 
+        // Session dir must be writable
+        if ( ! is_writable($dir)) {
+            // Output error message and terminate the current script
+            // Don't use halt() or any log functions in this class to avoid dead loop 
+            exit(self::$messages['dir_not_writable']);
+        }
+        
         // Sets the path to store session files in
         session_save_path($dir);
 
