@@ -38,18 +38,6 @@ class Logger {
     private static $severity_threshold = 'DEBUG';
 
     /**
-     * Path to the log file
-     * @var string
-     */
-    private static $log_file_path = NULL;
-    
-    /**
-     * This holds the file handle for this instance's log file
-     * @var resource
-     */
-    private static $file_handle = NULL;
-    
-    /**
      * Standard messages produced by the class. Can be modified for il8n
      * @var array
      */
@@ -160,21 +148,21 @@ class Logger {
             $dir = rtrim($dir, '\\/');
             
             // Log file path and name, e.g. log_2012-08-16.txt
-            self::$log_file_path = $dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
+            $log_file_path = $dir.DIRECTORY_SEPARATOR.'log_'.date('Y-m-d').'.txt';
             
             // Create the log file first
             if ( ! file_exists($dir)) {
                 mkdir($dir, self::$default_permissions, TRUE);
             }
             
-            if (file_exists(self::$log_file_path) && ! is_writable(self::$log_file_path)) {
+            if (file_exists($log_file_path) && ! is_writable($log_file_path)) {
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['write_fail']);
             }
             
             // Returns a file pointer resource on success, or FALSE on error.
-            if ( ! (self::$file_handle = fopen(self::$log_file_path, 'a'))) {
+            if ( ! ($file_handle = fopen($log_file_path, 'a'))) {
                 // Output error message and terminate the current script
                 // Don't use halt() or any log functions in this class to avoid dead loop 
                 exit(self::$messages['open_fail']);
@@ -211,7 +199,7 @@ class Logger {
             $line .= PHP_EOL;
             // Make sure the fwrite() writes all the bytes
             for ($written = 0, $length = strlen($line); $written < $length; $written += $result) {
-                if (($result = fwrite(self::$file_handle, $line)) === FALSE) {
+                if (($result = fwrite($file_handle, $line)) === FALSE) {
                     break;
                 }
             }
@@ -223,8 +211,8 @@ class Logger {
             }
 
             // Closes the open file pointer
-            if (self::$file_handle) {
-                fclose(self::$file_handle);
+            if ($file_handle) {
+                fclose($file_handle);
             }
         }
     }
