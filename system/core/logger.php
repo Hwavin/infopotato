@@ -45,7 +45,7 @@ class Logger {
         'write_fail' => 'Failed to write the log message to log files. Please check file permissions to make it writable!',
         'open_fail' => 'Failed to open the log files. Please check permissions!',
         'invalid_level' => 'The logging severity level you provided is invalid!',
-        'dir_permission' => 'Permission denied for creating the log directory!'
+        'dir_permission_denied' => 'Permission denied for creating the log directory!'
     );
     
     /**
@@ -151,7 +151,7 @@ class Logger {
                 if ( ! mkdir($dir, 0777, TRUE)) {
                     // Output error message and terminate the current script
                     // Don't use halt() or any log functions in this class to avoid dead loop 
-                    exit(self::$messages['dir_permission']);
+                    exit(self::$messages['dir_permission_denied']);
                 }
             }
             
