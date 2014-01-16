@@ -32,7 +32,6 @@ class Session {
      */
     private function __construct() {}
 
-    
     /**
      * Opens the session for writing, is automatically called by ::get() and ::set()
      * 
@@ -102,13 +101,11 @@ class Session {
      * @return void
      */
     public static function close() {
-        if ( ! self::$open) { 
-            return; 
+        if (self::$open) { 
+            session_write_close();
+            unset($_SESSION);
+            self::$open = FALSE; 
         }
-        
-        session_write_close();
-        unset($_SESSION);
-        self::$open = FALSE;
     }
     
     
