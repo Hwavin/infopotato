@@ -49,6 +49,7 @@ define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
+define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
@@ -89,7 +90,6 @@ define('RUNTIME_CACHE', FALSE);
 //define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
 //define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
 //define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
-define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 // Environment settings and autoloading
 $file = SYS_CORE_DIR.'starter.php';

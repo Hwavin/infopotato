@@ -41,15 +41,18 @@ class I18n {
     private function __construct() {}
     
     /**
-     * Sets the default language directory and specific language file
+     * Sets the default language
      * Call this in bootstrap script
      * 
-     * @param string I18n directory
-     * @param string optional language to load
+     * @param string language to load
      * @return array
      */
-    public static function init($dir, $lang = 'en_us') {
-        self::$dir = $dir;
+    public static function init($lang = 'en_us') {
+        if ( ! defined('APP_I18N_DIR')) {
+            Common::halt('A System Error Was Encountered', "Please define the 'APP_I18N_DIR'.", 'sys_error');
+        }
+        
+        self::$dir = APP_I18N_DIR;
         self::$lang = $lang;
     }
 
