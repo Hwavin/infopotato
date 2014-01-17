@@ -80,7 +80,7 @@ class I18n {
      */
     public static function __($str) {
         // Load the translation table for this language
-        $table = self::load();
+        $table = self::init();
         
         // Returns translation of a string. If no translation exists, otherwise
         // the original string will be returned with no parameters are replaced.
