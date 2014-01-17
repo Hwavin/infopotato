@@ -36,6 +36,7 @@ define('DS', DIRECTORY_SEPARATOR);
 
 /**
  * Framework system/application directories
+ * You can specify the absolute DIR path too
  */
 define('SYS_DIR', dirname(dirname(dirname(__FILE__).DS)).DS.'system'.DS);
 define('SYS_CORE_DIR', SYS_DIR.'core'.DS);
@@ -43,13 +44,11 @@ define('SYS_LIBRARY_DIR', SYS_DIR.'libraries'.DS);
 define('SYS_RUNTIME_CACHE_DIR', SYS_DIR.'runtime'.DS);
 
 define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
-define('APP_LOG_DIR', APP_DIR.'logs'.DS);
 define('APP_DATA_DIR', APP_DIR.'data'.DS);
 define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
-define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
@@ -73,19 +72,31 @@ define('APP_404_MANAGER', 'error');
 define('APP_404_MANAGER_METHOD', '404');
 
 /**
- * Sets the global logging severity level threshold
+ * Sets the logging directory and global logging severity level threshold
  * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
  */
+define('APP_LOG_DIR', APP_DIR.'logs'.DS);
 define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
 
 /**
- * When turned-on, the system core/libraries/functions called will be cached and stored in SYS_RUNTIME_CACHE_DIR
- * When turned-on, the app managers/data/libraries/functions called will be cached and stored in APP_RUNTIME_CACHE_DIR
+ * When turned-on, the system core components|libraries called will be cached and stored in SYS_RUNTIME_CACHE_DIR
+ * When turned-on, the app managers|data|libraries called will be cached and stored in APP_RUNTIME_CACHE_DIR
  */
 define('RUNTIME_CACHE', FALSE);
 
 /**
- * User-defined constants go here
+ * Enable this if Session is used
+ */
+//define('APP_SESSION_DIR', APP_DIR.'session'.DS);
+
+/**
+ * Enable this if I18N is used
+ */
+//define('APP_I18N_DIR', APP_DIR.'i18n'.DS);
+//define('APP_I18N_LANG', 'en_us');
+
+/**
+ * Other user-defined APP constants go here
  */
 //define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
 //define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
@@ -112,5 +123,5 @@ require_once $file;
 // Dispatching
 \InfoPotato\core\Dispatcher::run();
 
-// End of file: ./dev.php 
+// End of file: ./index.php 
 
