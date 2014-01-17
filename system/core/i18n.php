@@ -13,20 +13,6 @@ namespace InfoPotato\core;
 
 class I18n {
     /**
-     * Directory of language files
-     * 
-     * @var string
-     */
-    private static $dir;
-    
-    /**
-     * Default target language: en_us, es_es, zh_cn, etc
-     * 
-     * @var string
-     */
-    private static $lang = 'en_us';
-    
-    /**
      * Cache of loaded languages
      * 
      * @var array  
@@ -41,35 +27,35 @@ class I18n {
     private function __construct() {}
     
     /**
-     * Sets the default language
-     * Call this in bootstrap script
-     * 
-     * @param string language to load
-     * @return array
-     */
-    public static function init($lang = 'en_us') {
-        if ( ! defined('APP_I18N_DIR')) {
-            Common::halt('A System Error Was Encountered', "Please define the 'APP_I18N_DIR'.", 'sys_error');
-        }
-        
-        self::$dir = APP_I18N_DIR;
-        self::$lang = $lang;
-    }
-
-    /**
      * Returns the translation table for a given language
      *
      * @return array
      */
-    private static function load() {
-        if (isset(self::$cache[self::$lang])) {
-            return self::$cache[self::$lang];
+    private static function init() {
+        if ( ! defined('APP_I18N_DIR')) {
+            Common::halt('A System Error Was Encountered', "Please define the 'APP_I18N_DIR'.", 'sys_error');
+        }
+        
+        if ( ! defined('APP_I18N_LANG')) {
+            Common::halt('A System Error Was Encountered', "Please define the 'APP_I18N_LANG'.", 'sys_error');
+        }
+        
+        // APP_I18N_DIR and APP_I18N_LANG need to be defined in bootstrap
+        // before you can start to use the I18N component 
+        
+        // Directory of language files
+        $dir = APP_I18N_DIR;
+        // Default target language: 'en_us', 'es_es', 'zh_cn', etc...
+        $lang = APP_I18N_LANG;
+        
+        if (isset(self::$cache[$lang])) {
+            return self::$cache[$lang];
         }
         
         // New translation table
         $table = array();
         
-        $file = self::$dir.self::$lang.'.php';
+        $file = $dir.$lang.'.php';
         if (file_exists($file)) {
             $t = array();
             // Merge the language strings into the sub table
@@ -79,11 +65,11 @@ class I18n {
             // files from overloading more specific files
             $table += $t;
         } else {
-            Common::halt('A System Error Was Encountered', "Language file '". self::$lang."' does not exist.", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Language file '". $lang."' does not exist.", 'sys_error');
         }
         
         // Cache the translation table locally
-        return self::$cache[self::$lang] = $table;
+        return self::$cache[$lang] = $table;
     }
     
     /**
