@@ -81,7 +81,7 @@ class Base_DAO {
         $return_val = '';
         
         $this->exec_query($query);
-        
+        // If result is not an empty array
         if ($this->query_result !== array()) {
             if ($y >= count($this->query_result)) {
                 Common::halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
@@ -114,7 +114,7 @@ class Base_DAO {
         $return_val = NULL;
         
         $this->exec_query($query);
-        
+        // If result is not an empty array
         if ($this->query_result !== array()) {
             if ($y >= count($this->query_result)) {
                 Common::halt('A System Error Was Encountered', 'The offset y you specified overflows', 'sys_error');
@@ -148,7 +148,7 @@ class Base_DAO {
         $return_val = array();
         
         $this->exec_query($query);
-        
+        // If result is not an empty array
         if ($this->query_result !== array()) {
             // Extract the column values
             $cnt = count($this->query_result);

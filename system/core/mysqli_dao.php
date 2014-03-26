@@ -74,7 +74,7 @@ class MySQLi_DAO extends Base_DAO {
     public function prepare($query, array $params = NULL) { 
         // All variables in $params must be set before being passed to this function
         // if any variables are not set (will be NULL) will cause error in SQL
-        if (count($params) > 0) {             
+        if (count($params) > 0) {
             $pos_list = array();
             $pos_adj = 0;
 
