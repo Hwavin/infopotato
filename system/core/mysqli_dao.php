@@ -28,10 +28,9 @@ class MySQLi_DAO extends Base_DAO {
         if ( ! is_object($this->mysqli)) {
             $this->mysqli = new \mysqli($config['host'], $config['user'], $config['pass'], $config['name'], $config['port']);
 
-            // Use this instead of $connect_error if you need to ensure
-            // compatibility with PHP versions prior to 5.2.9 and 5.3.0.
-            if (mysqli_connect_error()) {
-                Common::halt('An Error Was Encountered', 'Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error(), 'sys_error');        
+            // Check connection
+            if ($this->mysqli->connect_error()) {
+                Common::halt('An Error Was Encountered', 'Connect Error ('.$this->mysqli->connect_errno().') '.$this->mysqli->connect_error(), 'sys_error');        
             }
 
             // Use utf8mb4 as the character set and utf8mb4_general_ci as the collation if MySQL > 5.5
