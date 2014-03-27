@@ -8,8 +8,7 @@ return array(
             'name' => '', // The name of the database you want to connect to
             'user' => '', // The username used to connect to the database
             'pass' => '', // The password used to connect to the database
-            'charset' => 'utf8', // The character collation used in communicating with the database
-            'collate' => 'utf8_general_ci', //  The Database Collate type. Don't change this if in doubt.
+            'charset' => 'utf8mb4', // The character collation used in communicating with the database
         ),
     ),
     
@@ -21,8 +20,7 @@ return array(
             'name' => '',
             'user' => '',
             'pass' => '',
-            'charset' => 'utf8',
-            'collate' => 'utf8_general_ci', 
+            'charset' => 'utf8mb4',
         ),
     ),
     
