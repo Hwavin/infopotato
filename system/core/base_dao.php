@@ -130,7 +130,7 @@ class Base_DAO {
                 Common::halt('A System Error Was Encountered', " \$db->get_row() -- Output type must be one of: 'FETCH_OBJ', 'FETCH_ASSOC', 'FETCH_NUM'", 'sys_error');
             }
         }
-        
+
         return $return_val;
     }
 
