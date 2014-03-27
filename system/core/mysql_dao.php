@@ -32,23 +32,13 @@ class MySQL_DAO extends Base_DAO {
                 Common::halt('An Error Was Encountered', 'Could not connect: '.mysql_error($this->dbh), 'sys_error');        
             } 
             
-            // Use utf8mb4 as the character set and utf8mb4_general_ci as the collation if MySQL > 5.5
-            // Use utf8 as the character set and utf8_unicode_ci as the collation if MySQL < 5.5
-            if (function_exists('mysql_set_charset')) { 
-                // Set charset (mysql_set_charset(), PHP 5 >= 5.2.3)
-                // This function requires MySQL 5.0.7 or later.
-                mysql_set_charset($config['charset'], $this->dbh);
-            } else {
-                // Specify the client encoding per connection
-                $collation_query = "SET NAMES '{$config['charset']}'";
-                if ( ! empty($config['collate'])) {
-                    $collation_query .= " COLLATE '{$config['collate']}'";
-                }
-                $this->exec_query($collation_query);
-            }
-            
-            if ( ! mysql_select_db($config['name'], $this->dbh)) {
-                Common::halt('An Error Was Encountered', 'Can not select database', 'sys_error');        
+            // Set the character set to be used when sending data from and to the database server
+            // This is the preferred way to change the charset
+            // Using mysqli_query() to set it (such as SET NAMES utf8) is not recommended
+            // Use utf8mb4 as the character set and utf8mb4_unicode_ci in MySQL as the collation if MySQL > 5.5
+            // Use utf8 as the character set and utf8_unicode_ci in MySQL as the collation if MySQL < 5.5
+            if ( ! mysql_set_charset($config['charset'], $this->dbh)) {
+                Common::halt('An Error Was Encountered', 'Failed to set the specified character set.', 'sys_error');        
             }
         }
     }
