@@ -33,10 +33,14 @@ class MySQLi_DAO extends Base_DAO {
                 Common::halt('An Error Was Encountered', 'Connect Error ('.$this->mysqli->connect_errno.') '.$this->mysqli->connect_error, 'sys_error');        
             }
 
-            // Set charset
-            // Use utf8mb4 as the character set and utf8mb4_unicode_ci as the collation if MySQL > 5.5
-            // Use utf8 as the character set and utf8_unicode_ci as the collation if MySQL < 5.5
-            $this->mysqli->set_charset($config['charset']);
+            // Set the character set to be used when sending data from and to the database server
+            // This is the preferred way to change the charset
+            // Using mysqli_query() to set it (such as SET NAMES utf8) is not recommended
+            // Use utf8mb4 as the character set and utf8mb4_unicode_ci in MySQL as the collation if MySQL > 5.5
+            // Use utf8 as the character set and utf8_unicode_ci in MySQL as the collation if MySQL < 5.5
+            if ( ! $this->mysqli->set_charset($config['charset'])) {
+                Common::halt('An Error Was Encountered', 'Failed to set the specified character set.', 'sys_error');        
+            }
         }
     }
 
@@ -153,7 +157,7 @@ class MySQLi_DAO extends Base_DAO {
 
         // If there is an error then take note of it.
         if ($err_msg = $this->mysqli->error) {
-            Common::halt('An Error Was Encountered', $err_msg, 'sys_error');        
+            Common::halt('An Error Was Encountered', $err_msg, 'sys_error');
         }
 
         // Query was an insert, delete, drop, update, replace, alter
