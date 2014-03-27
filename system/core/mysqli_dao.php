@@ -141,6 +141,8 @@ class MySQLi_DAO extends Base_DAO {
         $this->query_result = array();
 
         // For reg expressions
+        // Make sure the $query doesn't contain multibytes characters
+        // Otherwise, trim will broke some characters.
         $query = trim($query);
 
         // Perform the query via std mysqli_query() function.
