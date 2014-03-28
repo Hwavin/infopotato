@@ -154,10 +154,10 @@ class MySQLi_DAO extends Base_DAO {
         // because the whitespace characters they are searching for are all in the ASCII 7 range.
         $query = trim($query);
 
-        // Perform the query via std mysqli_query() function.
+        // Perform the query via mysqli->query() function.
         // Returns FALSE on failure. For successful SELECT, SHOW, DESCRIBE or EXPLAIN 
-        // queries mysqli_query() will return a result object. 
-        // For other successful queries mysqli_query() will return TRUE.
+        // queries mysqli->query() will return a result object. 
+        // For other successful queries mysqli->query() will return TRUE.
         $result = $this->mysqli->query($query);
 
         // If there is an error then take note of it.
@@ -166,7 +166,7 @@ class MySQLi_DAO extends Base_DAO {
         }
 
         // Query was an insert, delete, drop, update, replace, alter
-        if (preg_match("/^(insert|delete|drop|supdate|replace|alter)\s+/i", $query)) {
+        if (preg_match("/^(insert|delete|drop|update|replace|alter)\s+/i", $query)) {
             // When using UPDATE, MySQL will not update columns where the new value is the same as the old value. 
             // This creates the possibility that $affected_rows may not actually equal the number of rows matched, 
             // only the number of rows that were literally affected by the query.
