@@ -213,9 +213,7 @@ class MySQL_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_begin() {
-        mysql_query('SET AUTOCOMMIT=0', $this->dbh);
-        mysql_query('START TRANSACTION', $this->dbh);// can also be BEGIN or BEGIN WORK
-        return TRUE;
+        return (mysql_query('SET AUTOCOMMIT=0', $this->dbh) && mysql_query('START TRANSACTION', $this->dbh));
     }
     
     /**
@@ -224,9 +222,7 @@ class MySQL_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_commit() {
-        mysql_query('COMMIT', $this->dbh);
-        mysql_query('SET AUTOCOMMIT=1', $this->dbh);
-        return TRUE;
+        return (mysql_query('COMMIT', $this->dbh) && mysql_query('SET AUTOCOMMIT=1', $this->dbh));
     }
     
     /**
@@ -235,9 +231,7 @@ class MySQL_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_rollback() {
-        mysql_query('ROLLBACK', $this->dbh);
-        mysql_query('SET AUTOCOMMIT=1', $this->dbh);
-        return TRUE;
+        return (mysql_query('ROLLBACK', $this->dbh) && mysql_query('SET AUTOCOMMIT=1', $this->dbh));
     }
 
 }
