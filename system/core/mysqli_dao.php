@@ -220,7 +220,10 @@ class MySQLi_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_commit() {
-        return $this->mysqli->commit();
+        // Note that only calling mysqli->commit() will NOT automatically set mysqli->autocommit() back to 'TRUE'.
+        // This means that any queries following mysqli->commit() will be rolled back when this script exits.
+        // We need to call mysqli->autocommit(TRUE) to turn on autocommit
+        return ($this->mysqli->commit() && $this->mysqli->autocommit(TRUE));
     }
     
     /**
@@ -229,7 +232,10 @@ class MySQLi_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_rollback() {
-        return $this->mysqli->rollback();
+        // Note that only calling mysqli->rollback() will NOT automatically set mysqli->autocommit() back to 'TRUE'.
+        // This means that any queries following mysqli->rollback() will be rolled back when this script exits.
+        // We need to call mysqli->autocommit(TRUE) to turn on autocommit
+        return ($this->mysqli->rollback()  && $this->mysqli->autocommit(TRUE));
     }
     
 }
