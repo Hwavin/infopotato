@@ -141,7 +141,8 @@ class PostgreSQL_DAO extends Base_DAO {
         // Reset stored query result
         $this->query_result = array();
 
-        // For reg expressions
+        // It's safe to use trim() without the second charlist argument on a UTF-8 string,
+        // because the whitespace characters they are searching for are all in the ASCII 7 range.
         $query = trim($query);
 
         // A query result resource on success or FALSE on failure.
