@@ -117,7 +117,7 @@ class SQLite_DAO extends Base_DAO {
 
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
                 // Adjust the start offset for next replace
-                $pos_adj += strlen($arg) - ($type_length);
+                $pos_adj += strlen($arg) - $type_length;
             }
         } 
         

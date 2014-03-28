@@ -38,7 +38,7 @@ class MySQL_DAO extends Base_DAO {
             // Use utf8mb4 as the character set and utf8mb4_unicode_ci in MySQL as the collation if MySQL > 5.5
             // Use utf8 as the character set and utf8_unicode_ci in MySQL as the collation if MySQL < 5.5
             if ( ! mysql_set_charset($config['charset'], $this->dbh)) {
-                Common::halt('An Error Was Encountered', 'Failed to set the specified character set.', 'sys_error');        
+                Common::halt('An Error Was Encountered', 'Failed to set the specified character set.', 'sys_error');
             }
         }
     }
@@ -124,7 +124,7 @@ class MySQL_DAO extends Base_DAO {
 
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
                 // Adjust the start offset for next replace
-                $pos_adj += strlen($arg) - ($type_length);
+                $pos_adj += strlen($arg) - $type_length;
             }
         } 
         
