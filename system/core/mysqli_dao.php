@@ -124,11 +124,12 @@ class MySQLi_DAO extends Base_DAO {
                 }
 
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
+
                 // Adjust the start offset for next replace
                 $pos_adj += strlen($arg) - $type_length;
             }
         } 
-        
+
         return $query; 
     } 
     
@@ -144,9 +145,8 @@ class MySQLi_DAO extends Base_DAO {
         // Reset stored query result
         $this->query_result = array();
 
-        // For reg expressions
-        // Make sure the $query doesn't contain multibytes characters
-        // Otherwise, trim will broke some characters.
+        // It's safe to use trim() without the second charlist argument on a UTF-8 string,
+        // because the whitespace characters they are searching for are all in the ASCII 7 range.
         $query = trim($query);
 
         // Perform the query via std mysqli_query() function.
