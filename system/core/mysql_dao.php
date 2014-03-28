@@ -29,7 +29,7 @@ class MySQL_DAO extends Base_DAO {
         // If there is no existing database connection then try to connect
         if ( ! is_resource($this->dbh)) {
             if ( ! $this->dbh = mysql_connect($config['host'].':'.$config['port'], $config['user'], $config['pass'], TRUE)) {
-                Common::halt('An Error Was Encountered', 'Could not connect: '.mysql_error($this->dbh), 'sys_error');        
+                Common::halt('An Error Was Encountered', 'Could not connect: '.mysql_error($this->dbh), 'sys_error');
             } 
             
             // Set the character set to be used when sending data from and to the database server
@@ -39,6 +39,10 @@ class MySQL_DAO extends Base_DAO {
             // Use utf8 as the character set and utf8_unicode_ci in MySQL as the collation if MySQL < 5.5
             if ( ! mysql_set_charset($config['charset'], $this->dbh)) {
                 Common::halt('An Error Was Encountered', 'Failed to set the specified character set.', 'sys_error');
+            }
+            
+            if ( ! mysql_select_db($config['name'], $this->dbh)) {
+                halt('An Error Was Encountered', 'Can not select database', 'sys_error');
             }
         }
     }
