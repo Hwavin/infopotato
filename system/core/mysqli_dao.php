@@ -123,9 +123,14 @@ class MySQLi_DAO extends Base_DAO {
                     Common::halt('An Error Was Encountered', "Unknown binding marker in: $query", 'sys_error');
                 }
 
+                // Note that strlen() simply counts the number of bytes in a string, not the number of characters. 
+                // This means for UTF-8 string the integer it returns is actually longer than the number of characters in the string.
+                // BUT because $pos is not affected by the actual replacement string and 
+                // $pos_adj only represents the query length increment after each replacement,
+                // and at the same time substr_replace() counts exactly the same as strlen(), 
+                // the prepared final query will be no problem.
                 $query = substr_replace($query, $arg, $pos + $pos_adj, $type_length);
-
-                // Adjust the start offset for next replace
+                // Adjust the start offset for next replacement
                 $pos_adj += strlen($arg) - $type_length;
             }
         } 
