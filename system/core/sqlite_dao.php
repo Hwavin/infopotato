@@ -206,6 +206,8 @@ class SQLite_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_commit() {
+        // PDO's commit() commits all changes to the database and return the connection to autocommit mode 
+        // until the next call to PDO::beginTransaction() starts a new transaction.
         return $this->dbh->commit();
     }
     
@@ -215,6 +217,8 @@ class SQLite_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_rollback() {
+        // PDO's rollBack() rolls back all changes to the database and return the connection to autocommit mode 
+        // until the next call to PDO::beginTransaction() starts a new transaction.
         return $this->dbh->rollBack();
     }
     
