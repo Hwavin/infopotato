@@ -197,7 +197,7 @@ class SQLite_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_begin() {
-        $this->dbh->beginTransaction();
+        return $this->dbh->beginTransaction();
     }
     
     /**
@@ -206,7 +206,7 @@ class SQLite_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_commit() {
-        $this->dbh->commit();
+        return $this->dbh->commit();
     }
     
     /**
@@ -215,7 +215,7 @@ class SQLite_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_rollback() {
-        $this->dbh->rollBack();
+        return $this->dbh->rollBack();
     }
     
 }

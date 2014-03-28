@@ -201,7 +201,7 @@ class PostgreSQL_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_begin() {
-        pg_query($this->dbh, 'begin');
+        return (pg_query($this->dbh, 'begin') !== FALSE) ? TRUE : FALSE;
     }
     
     /**
@@ -210,7 +210,7 @@ class PostgreSQL_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_commit() {
-        pg_query($this->dbh, 'commit');
+        return (pg_query($this->dbh, 'commit') !== FALSE) ? TRUE : FALSE;
     }
     
     /**
@@ -219,7 +219,7 @@ class PostgreSQL_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_rollback() {
-        pg_query($this->dbh, 'rollback');
+        return (pg_query($this->dbh, 'rollback') !== FALSE) ? TRUE : FALSE;
     }
     
 }

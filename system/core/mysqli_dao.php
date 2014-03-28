@@ -211,7 +211,7 @@ class MySQLi_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_begin() {
-        $this->mysqli->autocommit(FALSE);
+        return $this->mysqli->autocommit(FALSE);
     }
     
     /**
@@ -220,7 +220,7 @@ class MySQLi_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_commit() {
-        $this->mysqli->commit();
+        return $this->mysqli->commit();
     }
     
     /**
@@ -229,7 +229,7 @@ class MySQLi_DAO extends Base_DAO {
      * @return bool
      */
     public function trans_rollback() {
-        $this->mysqli->rollback();
+        return $this->mysqli->rollback();
     }
     
 }
