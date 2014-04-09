@@ -28,6 +28,8 @@ class Redirect_Library {
         
         // HTTP/1.1
         header("Cache-Control: no-store, no-cache, must-revalidate");
+        // Pass in FALSE as the 2nd argument to force multiple headers of the same type
+        // Otherwise the previous similar header will be replaced by the new one
         header("Cache-Control: post-check=0, pre-check=0", FALSE);
         
         // HTTP/1.0
