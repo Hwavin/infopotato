@@ -167,7 +167,7 @@ class Manager {
                 header($status_line);
                 
                 // Determine if continue to output the message body
-                if (in_array($config['status'], array(201, 204, 304))) {
+                if (in_array($config['status'], array(204, 304))) {
                     // Send other response headers if provided
                     // There are still headers added by the origin server
                     if (isset($config['extra_headers']) && is_array($config['extra_headers'])) {
