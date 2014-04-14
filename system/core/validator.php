@@ -21,7 +21,7 @@ class Validator {
     /**
      * Prevent direct object creation
      * 
-     * @return UTF8
+     * @return Validator
      */
     private function __construct() {}
     
