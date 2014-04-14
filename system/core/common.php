@@ -14,7 +14,7 @@ class Common {
     /**
      * Prevent direct object creation
      * 
-     * @return Logger
+     * @return Common
      */
     private function __construct() {}
     
