@@ -106,18 +106,19 @@ define('RUNTIME_CACHE', FALSE);
 //define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 
 // Initial environment settings and autoloading
-$file = SYS_CORE_DIR.'starter.php';
+$starter_file = SYS_CORE_DIR.'starter.php';
 
 if (RUNTIME_CACHE === TRUE) {
     if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) || ! is_writable(APP_RUNTIME_CACHE_DIR)) {
         exit('SYS_RUNTIME_CACHE_DIR and APP_RUNTIME_CACHE_DIR must be writable');
     }
-    $file = SYS_RUNTIME_CACHE_DIR.'~starter.php';
-    if ( ! file_exists($file)) {
-        file_put_contents($file, php_strip_whitespace(SYS_CORE_DIR.'starter.php'));
+    $starter_file = SYS_RUNTIME_CACHE_DIR.'~starter.php';
+    if ( ! file_exists($starter_file)) {
+        file_put_contents($starter_file, php_strip_whitespace(SYS_CORE_DIR.'starter.php'));
     }
 } 
-require_once $file;
+
+require_once $starter_file;
 
 // Starter loads other core components
 \InfoPotato\core\Starter::start();
