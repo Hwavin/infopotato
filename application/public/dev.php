@@ -68,8 +68,10 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
  * Error 404 manager/method is designed for production mode
  * No need to show 404 error page in development mode
  */
-define('APP_404_MANAGER', 'error');
-define('APP_404_MANAGER_METHOD', '404');
+if (ENVIRONMENT == 'production') {
+    define('APP_404_MANAGER', 'error');
+    define('APP_404_MANAGER_METHOD', '404');
+}
 
 /**
  * Sets the logging directory and global logging severity level threshold
