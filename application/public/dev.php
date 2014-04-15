@@ -76,6 +76,7 @@ if (ENVIRONMENT == 'production') {
 /**
  * Sets the logging directory and global logging severity level threshold
  * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
+ * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined
  */
 define('APP_LOG_DIR', APP_DIR.'logs'.DS);
 define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
@@ -104,11 +105,10 @@ define('RUNTIME_CACHE', FALSE);
 //define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
 //define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 
-// Environment settings and autoloading
+// Initial environment settings and autoloading
 $file = SYS_CORE_DIR.'starter.php';
 
 if (RUNTIME_CACHE === TRUE) {
-    // SYS_RUNTIME_CACHE_DIR must be writable
     if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) || ! is_writable(APP_RUNTIME_CACHE_DIR)) {
         exit('SYS_RUNTIME_CACHE_DIR and APP_RUNTIME_CACHE_DIR must be writable');
     }
