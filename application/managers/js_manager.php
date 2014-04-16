@@ -3,7 +3,7 @@ namespace app\managers;
 
 use InfoPotato\core\manager;
 
-class Js_Manager extends Manager {
+class JS_Manager extends Manager {
     public function get_index(array $params = NULL) {
         // $js_files is an array created from $params[0]
         $js_files = count($params) > 0 ? explode(':', $params[0]) : NULL;
@@ -29,21 +29,20 @@ class Js_Manager extends Manager {
 
             if ($etag === $etag_in_request) {
                 // They already have the most up to date copy
-                header('HTTP/1.1 304 Not Modified');
-                
-                // The ETag must be enclosed with double quotes
-                // Etag was introduced in HTTP 1.1
-                header('ETag: "'.$etag.'"');
-                exit;
+                $response_data = array(
+                    'status' => 304,
+                    'extra_headers' => array('ETag' => $etag)
+                );
             } else {
                 // ETag not match, output the updated content with new ETag value
                 $response_data = array(
                     'content' => $js_content,
-                    'type' => 'application/javascript',
+                    'type' => 'application/javascript; charset=utf-8',
                     'extra_headers' => array('ETag' => $etag)
                 );
-                $this->response($response_data);
             }
+			
+			$this->response($response_data);
         }
     }
 }
