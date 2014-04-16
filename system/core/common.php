@@ -30,7 +30,7 @@ class Common {
      * @return string
      */
     public static function halt($heading, $message, $template = 'sys_error') {
-        // Log to caputre all errors since some errors can't be manually captured
+        // Log to capture all errors since some errors can't be manually captured
         Logger::log_debug(APP_LOG_DIR, $message);
             
         if (ENVIRONMENT === 'development') {
