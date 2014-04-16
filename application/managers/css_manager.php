@@ -3,7 +3,7 @@ namespace app\managers;
 
 use InfoPotato\core\manager;
 
-class Css_Manager extends Manager {
+class CSS_Manager extends Manager {
 	public function get_index($params = array()) {
 		// $css_files is an array created from $params[0]
 		$css_files = count($params) > 0 ? explode(':', $params[0]) : NULL;
@@ -16,7 +16,7 @@ class Css_Manager extends Manager {
 
 			$response_data = array(
 				'content' => $css_content,
-				'type' => 'text/css'
+				'type' => 'text/css; charset=utf-8'
 			);
 			$this->response($response_data);
 		}

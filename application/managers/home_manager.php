@@ -4,11 +4,7 @@ namespace app\managers;
 // Even though Simple_Auth_Manager has Session imported, we still have to import it here again
 use InfoPotato\core\Session;
 
-class Home_Manager extends Simple_Auth_Manager {
-    public function __construct() {
-        $this->_require_auth();
-    }
-    
+class Home_Manager extends Manager {
     public function get_index() {
         $layout_data = array(
             'page_title' => 'Home',
