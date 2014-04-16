@@ -53,7 +53,7 @@ class Common {
             } else {
                 $output = file_get_contents(SYS_CORE_DIR.'sys_templates'.DS.'404_error.php');
             }
-            // Send the HTTP Status-Line to avoid soft 404 before outputing the custom 404 content
+            // Send the HTTP Status-Line to avoid soft 404 before outputting the custom 404 content
             // No need to send this 404 status code under 'development' environment
             header('HTTP/1.1 404 Not Found');
         }

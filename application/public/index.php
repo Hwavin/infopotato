@@ -7,7 +7,7 @@
 
 /**
  * Define the application environment
- * Usage: development or production
+ * Usage: development or production, must lowercase
  */
 define('ENVIRONMENT', 'production');
 
@@ -59,13 +59,13 @@ define('APP_DATA_NAMESPACE', 'app\data');
 define('APP_LIBRARY_NAMESPACE', 'app\libraries');
 
 /**
- * Default manager/method to use if none is given in the URL, lowercase
+ * Default manager/method (case-insensitive) to use if none is given in the URL
  */
 define('APP_DEFAULT_MANAGER', 'home');
 define('APP_DEFAULT_MANAGER_METHOD', 'index');
 
 /**
- * Error 404 manager/method is designed for production mode
+ * Error 404 manager/method (case-insensitive) designed for production mode
  * No need to show 404 error page in development mode
  */
 if (ENVIRONMENT == 'production') {
