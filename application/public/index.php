@@ -30,7 +30,8 @@ define('APP_URI_BASE', 'http://localhost/infopotato/application/public/index.php
  * Shorthand directory separator constant
  * On Windows, both slash (/) and backslash (\) are used as directory separator character. 
  * In other platforms, it is the forward slash (/).
- * DIRECTORY_SEPARATOR is not necessary, only the forward slash, '/' should be fine ???
+ * DIRECTORY_SEPARATOR is not necessarily needed as long as you use the forward slash (/),
+ * BUT it's still useful for things like explode() a path that the system gave you.
  */
 define('DS', DIRECTORY_SEPARATOR);
 

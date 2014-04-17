@@ -45,3 +45,8 @@
 2014-04-16 15:22:25 - DEBUG --> App Manager file 'ttt66_manager.php' does not exist!
 2014-04-16 15:27:04 - DEBUG --> App Manager file 'ttt66_manager.php' does not exist!
 2014-04-16 15:27:22 - DEBUG --> App Manager file 'erro_manager.php' does not exist!
+2014-04-16 15:37:05 - DEBUG --> App Manager file 'erro_manager.php' does not exist!
+2014-04-16 16:22:20 - DEBUG --> App Manager file 'erro_manager.php' does not exist!
+2014-04-16 16:22:33 - DEBUG --> App Manager file 'ttt6_manager.php' does not exist!
+2014-04-16 16:25:01 - DEBUG --> App Manager file 'erro_manager.php' does not exist!
+2014-04-16 16:25:15 - DEBUG --> App Manager file 'ttt66_manager.php' does not exist!
