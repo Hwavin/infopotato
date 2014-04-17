@@ -31,6 +31,7 @@ class Common {
      */
     public static function halt($heading, $message, $template = 'sys_error') {
         // Log to capture all errors since some errors can't be manually captured
+		// APP_LOG_DIR is defined in the bootstrap script
         Logger::log_debug(APP_LOG_DIR, $message);
             
         if (ENVIRONMENT === 'development') {
