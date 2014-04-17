@@ -35,7 +35,7 @@ class Session {
     );
     
     /**
-     * Private contructor prevents direct object creation
+     * Private constructor prevents direct object creation
      * 
      * @return Session
      */
@@ -201,7 +201,7 @@ class Session {
             $params = session_get_cookie_params();
             // If it's desired to kill the session, also delete the session cookie
             // In fact no need to destroy the session cookie because the ID in the cookie should be invalid.
-            // It would still be smart to remove the session cookie in order to increase cacheability 
+            // It would still be smart to remove the session cookie in order to increase cache ability 
             // of anonymous content with caches such as Varnish.
             // 43200 = 60*60*12 means12 hours ahead of current timestamp
             setcookie(session_name(), '', time() - 43200, $params['path'], $params['domain'], $params['secure']);
