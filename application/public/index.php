@@ -61,6 +61,14 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
+ * Sets the logging directory and global logging severity level threshold
+ * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
+ * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined
+ */
+define('APP_LOG_DIR', APP_DIR.'logs'.DS);
+define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
+
+/**
  * App namespaces (no leading and trailing backlash)
  */
 define('APP_MANAGER_NAMESPACE', 'app\managers');
@@ -81,14 +89,6 @@ if (ENVIRONMENT == 'production') {
     define('APP_404_MANAGER', 'error');
     define('APP_404_MANAGER_METHOD', '404');
 }
-
-/**
- * Sets the logging directory and global logging severity level threshold
- * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
- * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined
- */
-define('APP_LOG_DIR', APP_DIR.'logs'.DS);
-define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
 
 /**
  * Enable this if Session is used
