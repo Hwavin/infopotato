@@ -30,7 +30,7 @@ class Starter {
 
         // $_GET is disallowed since InfoPotato utilizes URI segments rather than traditional URI query strings
         // $_REQUEST as it is less exact, and therefore less secure
-        // $_ENV is disabllowed since it's not as commonly used and you can still get access to the environment variables through getenv()
+        // $_ENV is disallowed since it's not as commonly used and you can still get access to the environment variables through getenv()
         // $GLOBALS contains all other superglobals (so no need to duplicate) and every variable with global scope (should be disabled for security)
         // $_SERVER, $_SESSION, and $_COOKIE are untouched
         unset($_GET, $_REQUEST, $_ENV, $GLOBALS);
@@ -73,7 +73,7 @@ class Starter {
 
         // Register given anonymous function as __autoload() implementation
         // Anonymous functions become available since PHP 5.3.0
-        // By uuing this anonymous function we can make sure other components can't access it
+        // By using this anonymous function we can make sure other components can't access it
         spl_autoload_register(function ($class_name) {
             // Trim the leading/tailing backslash in case they are added
             $class_name = trim(strtolower($class_name), '\\');
@@ -87,7 +87,7 @@ class Starter {
                 $class_name = str_replace('infopotato\core\\', '', $class_name);
 
                 // Create and use core files to speed up the parsing process for all the following requests.
-                // All core conponents must be listed below except Starter (this file, loaded in entry point script)
+                // All core components must be listed below except Starter (this file, loaded in entry point script)
                 $core = array(
                     'dispatcher', 
                     'manager', 
@@ -116,14 +116,19 @@ class Starter {
                     }
                     
                     // Load stripped source when runtime cache is turned-on
-                    // Otherwise load the origional unstripped file
+                    // Otherwise load the original unstripped file
                     $file = $source_file;
 
                     if (RUNTIME_CACHE === TRUE) {
-                        // The runtime folder must be writable
+                        if ( ! defined('SYS_RUNTIME_CACHE_DIR')) {
+						    exit('Constant SYS_RUNTIME_CACHE_DIR must be defined in order to use runtime cache!');
+						}
+						if ( ! is_writable(SYS_RUNTIME_CACHE_DIR)) {
+						    exit('SYS_RUNTIME_CACHE_DIR must be writable!');
+						}
                         $file = SYS_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
                         if ( ! file_exists($file)) {
-                            // Return source with stripped comments and whitespace
+                            // Return source with comments and white spaces being stripped
                             file_put_contents($file, php_strip_whitespace($source_file));
                         }
                     }
@@ -149,14 +154,19 @@ class Starter {
                 }
                 
                 // Load stripped source when runtime cache is turned-on
-                // Otherwise load the origional unstripped file
+                // Otherwise load the original unstripped file
                 $file = $source_file;
 
                 if (RUNTIME_CACHE === TRUE) {
-                    // The runtime folder must be writable
+                    if ( ! defined('APP_RUNTIME_CACHE_DIR')) {
+						exit('Constant APP_RUNTIME_CACHE_DIR must be defined in order to use runtime cache!');
+					}
+					if ( ! is_writable(APP_RUNTIME_CACHE_DIR)) {
+						exit('APP_RUNTIME_CACHE_DIR must be writable!');
+					}
                     $file = APP_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
                     if ( ! file_exists($file)) {
-                        // Return source with stripped comments and whitespace
+                        // Return source with comments and white spaces being stripped
                         file_put_contents($file, php_strip_whitespace($source_file));
                     }
                 }
@@ -164,7 +174,7 @@ class Starter {
             
             // Using require_once() in the __autoload() function is redundant.  
             // __autoload() is only called when php can't find your class definition.  
-            // If your file containg your class was already included, the class defenition would already be loaded 
+            // If your file containing your class was already included, the class definition would already be loaded 
             // and __autoload() would not be called.  So save a little overhead and only use require() within __autoload()
             require $file;
         });

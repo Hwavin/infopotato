@@ -107,25 +107,19 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
 define('APP_404_MANAGER', 'error');
 define('APP_404_MANAGER_METHOD', '404');
 
-// Initial environment settings and autoloading
-$starter_file = SYS_CORE_DIR.'starter.php';
+/**
+ * Initial environment settings and autoloading
+ */
+require_once SYS_CORE_DIR.'starter.php';
 
-if (RUNTIME_CACHE === TRUE) {
-    if ( ! is_writable(SYS_RUNTIME_CACHE_DIR) || ! is_writable(APP_RUNTIME_CACHE_DIR)) {
-        exit('SYS_RUNTIME_CACHE_DIR and APP_RUNTIME_CACHE_DIR must be writable');
-    }
-    $starter_file = SYS_RUNTIME_CACHE_DIR.'~starter.php';
-    if ( ! file_exists($starter_file)) {
-        file_put_contents($starter_file, php_strip_whitespace(SYS_CORE_DIR.'starter.php'));
-    }
-} 
-
-require_once $starter_file;
-
-// Starter loads other core components
+/**
+ * Starter loads other core components
+ */
 \InfoPotato\core\Starter::start();
 
-// Dispatching
+/**
+ * Dispatching
+ */
 \InfoPotato\core\Dispatcher::run();
 
 // End of file: ./index.php 
