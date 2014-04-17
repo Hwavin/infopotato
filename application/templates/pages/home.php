@@ -11,20 +11,16 @@ InfoPotato is a very lightweight, well-designed & well-documented PHP5 framework
 Please visit <a href="http://infopotato.com/" class="external_link" target="_blank">InfoPotato Official Site</a> for more information and detailed documentation.
 </p>
 
-<h2>License</h2>
-
-<p>
-InfoPotato is released under the <a href="http://opensource.org/licenses/mit-license.php" class="external_link" target="_blank">MIT License</a>.
-</p>
-
 <h2>InfoPotato Source Code on Github</h2> 
 
 <p> 
-InfoPotato keeps changing before it has got the ink dry on each draft. The code hosted on Github is the current development version of InfoPotato. I'm always grateful for patches to the source code.
+InfoPotato keeps changing before it has got the ink dry on each draft. The code hosted on Github is the current development version of InfoPotato. I'm always grateful for patches to the source code. <a href="https://github.com/yuanzhou/infopotato" class="external_link" target="_blank">Fork InfoPotato on GitHub</a> 
 </p> 
 
-<div class="card grey_bg">
-<a href="https://github.com/yuanzhou/infopotato" class="external_link" target="_blank">Fork me on GitHub</a> <strong>Clone Command:</strong> <span class="red_tx">https://github.com/yuanzhou/infopotato.git</span> 
-</div>
+<h2>License</h2>
+
+<p>
+InfoPotato is released under the <a href="http://opensource.org/licenses/mit-license.php" class="external_link" target="_blank">MIT License</a> which makes it perfect for use in commercial applications.
+</p>
 
 </div>
