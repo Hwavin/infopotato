@@ -61,6 +61,24 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
+ * Other user-defined APP constants go here
+ */
+//define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
+//define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
+//define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
+
+/**
+ * Enable this if Session is used
+ */
+//define('APP_SESSION_DIR', APP_DIR.'session'.DS);
+
+/**
+ * Enable this if I18N is used
+ */
+//define('APP_I18N_DIR', APP_DIR.'i18n'.DS);
+//define('APP_I18N_LANG', 'en_us');
+
+/**
  * Sets the logging directory and global logging severity level threshold
  * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
  * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined
@@ -88,24 +106,6 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
  */
 define('APP_404_MANAGER', 'error');
 define('APP_404_MANAGER_METHOD', '404');
-
-/**
- * Enable this if Session is used
- */
-//define('APP_SESSION_DIR', APP_DIR.'session'.DS);
-
-/**
- * Enable this if I18N is used
- */
-//define('APP_I18N_DIR', APP_DIR.'i18n'.DS);
-//define('APP_I18N_LANG', 'en_us');
-
-/**
- * Other user-defined APP constants go here
- */
-//define('APP_CACHE_DIR', APP_DIR.'cache'.DS);
-//define('APP_UPLOAD_DIR', APP_DIR.'upload'.DS);
-//define('APP_DOWNLOAD_DIR', APP_DIR.'downloads'.DS);
 
 // Initial environment settings and autoloading
 $starter_file = SYS_CORE_DIR.'starter.php';
