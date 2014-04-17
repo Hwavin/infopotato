@@ -124,7 +124,7 @@ class Starter {
 						    exit('Constant SYS_RUNTIME_CACHE_DIR must be defined in order to use runtime cache!');
 						}
 						if ( ! is_writable(SYS_RUNTIME_CACHE_DIR)) {
-						    exit('SYS_RUNTIME_CACHE_DIR must be writable!');
+						    exit('SYS_RUNTIME_CACHE_DIR must be created and writable!');
 						}
                         $file = SYS_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
                         if ( ! file_exists($file)) {
@@ -162,7 +162,7 @@ class Starter {
 						exit('Constant APP_RUNTIME_CACHE_DIR must be defined in order to use runtime cache!');
 					}
 					if ( ! is_writable(APP_RUNTIME_CACHE_DIR)) {
-						exit('APP_RUNTIME_CACHE_DIR must be writable!');
+						exit('APP_RUNTIME_CACHE_DIR must be created and writable!');
 					}
                     $file = APP_RUNTIME_CACHE_DIR.'~'.$class_name.'.php';
                     if ( ! file_exists($file)) {
