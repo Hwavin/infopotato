@@ -184,7 +184,7 @@ class MySQLi_DAO extends Base_DAO {
             // Store Query Results
             $num_rows = 0;
             while ($row = $result->fetch_object()) {
-                // Store relults as an objects within main array
+                // Store results as an objects within main array
                 $this->query_result[$num_rows] = $row;
                 $num_rows++;
             }
