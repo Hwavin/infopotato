@@ -83,12 +83,11 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
 
 /**
  * Error 404 manager/method (case-insensitive) designed for production mode
- * No need to show 404 error page in development mode
+ * If not defined, the default 404 template packed with InfoPotato will be used
+ * The actual error message will show instead of the 404 error page in development mode
  */
-if (ENVIRONMENT == 'production') {
-    define('APP_404_MANAGER', 'error');
-    define('APP_404_MANAGER_METHOD', '404');
-}
+define('APP_404_MANAGER', 'error');
+define('APP_404_MANAGER_METHOD', '404');
 
 /**
  * Enable this if Session is used

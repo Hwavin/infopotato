@@ -61,6 +61,14 @@ define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
+ * Sets the logging directory and global logging severity level threshold
+ * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
+ * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined
+ */
+define('APP_LOG_DIR', APP_DIR.'logs'.DS);
+define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
+
+/**
  * App namespaces (no leading and trailing backlash)
  */
 define('APP_MANAGER_NAMESPACE', 'app\managers');
@@ -75,20 +83,11 @@ define('APP_DEFAULT_MANAGER_METHOD', 'index');
 
 /**
  * Error 404 manager/method (case-insensitive) designed for production mode
- * No need to show 404 error page in development mode
+ * If not defined, the default 404 template packed with InfoPotato will be used
+ * The actual error message will show instead of the 404 error page in development mode
  */
-if (ENVIRONMENT == 'production') {
-    define('APP_404_MANAGER', 'error');
-    define('APP_404_MANAGER_METHOD', '404');
-}
-
-/**
- * Sets the logging directory and global logging severity level threshold
- * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
- * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined
- */
-define('APP_LOG_DIR', APP_DIR.'logs'.DS);
-define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
+define('APP_404_MANAGER', 'error');
+define('APP_404_MANAGER_METHOD', '404');
 
 /**
  * Enable this if Session is used
