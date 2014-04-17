@@ -56,14 +56,14 @@ class Logger {
     private static $date_format = 'Y-m-d G:i:s';
     
     /**
-     * Private contructor prevents direct object creation
+     * Private constructor prevents direct object creation
      * 
      * @return Logger
      */
     private function __construct() {}
 
     /**
-     * Validate and initilize $severity_threshold
+     * Validate and initialize $severity_threshold
      * 
      * @return void
      */
@@ -136,7 +136,7 @@ class Logger {
      * @param integer $severity Severity level of log message (use constants)
      */
     private static function log($dir, $line, $severity, $arg = self::NO_ARG) {
-        // Validate and initilize $severity_threshold
+        // Validate and initialize $severity_threshold
         self::initialize_severity_threshold();
 
         // Log only when severity level is higher than the defined severity threshold
@@ -149,7 +149,7 @@ class Logger {
             // Create the log directory if not exists
             if ( ! file_exists($dir)) {
                 // Create the log dir and make it writable
-                // The thrid parameter TRUE allows the creation of nested directories
+                // The third parameter TRUE allows the creation of nested directories
                 if ( ! mkdir($dir, 0777, TRUE)) {
                     // Output error message and terminate the current script
                     // Don't use halt() or any log functions in this class to avoid dead loop 
