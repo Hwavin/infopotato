@@ -62,12 +62,13 @@ class Session {
         // The session dir should always be set to a non-standard directory to ensure that 
         // another site on the server doesn't garbage collect the session files for this site
         // Default session directories will usually evaluate to your system's temp directory
+		// APP_SESSION_DIR is defined in the bootstrap script
         $dir = APP_SESSION_DIR;
         
         // Create the log directory if not exists
         if ( ! file_exists($dir)) {
             // Create the log dir and make it writable
-            // The thrid parameter TRUE allows the creation of nested directories
+            // The third parameter TRUE allows the creation of nested directories
             if ( ! mkdir($dir, 0777, TRUE)) {
                 // Output error message and terminate the current script
                 Common::halt('An Error Was Encountered', self::$messages['dir_permission_denied'], 'sys_error');
@@ -106,7 +107,7 @@ class Session {
         
         // If the session has existed for too long upon active request and not been 
         // garbage collected (since session garbage collector runs with a probability)
-        // InfoPotato will create a new session and delete the ond one
+        // InfoPotato will create a new session and delete the old one
         if (isset($_SESSION['SESSION::expires']) && ($_SESSION['SESSION::expires'] < $_SERVER['REQUEST_TIME'])) {
             // Erase data from current session
             $_SESSION = array();
@@ -148,7 +149,6 @@ class Session {
         $_SESSION[$key] = $value;
     }
 
-
     /**
      * Gets data from the $_SESSION superglobal
      * 
@@ -161,8 +161,7 @@ class Session {
 
         return (isset($_SESSION[$key])) ? $_SESSION[$key] : $default_value;
     }
-
-        
+  
     /**
      * Deletes a value from the session
      * 
@@ -182,7 +181,6 @@ class Session {
         
         return $value;
     }
-    
     
     /**
      * Destroys all the session data and session cookie
@@ -211,7 +209,6 @@ class Session {
         session_destroy();
     }
 
-
     /**
      * Regenerates the session ID, but only once per script execution
      * Any time a user has a change in privilege (gaining or losing access rights within a system) 
@@ -228,7 +225,6 @@ class Session {
             self::$regenerated = TRUE;
         }
     }
-
 
 }
 
