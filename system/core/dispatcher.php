@@ -19,8 +19,8 @@ class Dispatcher {
     private function __construct() {}
     
     /**
-     * Parse incoming request to get the desiered manager, request method, and optional parameters
-     * Then the desginated manager prepares the related resources and sends response back to client
+     * Parse incoming request to get the desired manager, request method, and optional parameters
+     * Then the designated manager prepares the related resources and sends response back to client
      *
      * @param string $manager the optional manager name
      * @param string $method the optional method name
@@ -45,7 +45,7 @@ class Dispatcher {
             $manager_class = APP_MANAGER_NAMESPACE.'\\'.$manager_class;
             $manager_obj = new $manager_class;
             
-            // The desginated manager prepares the related resources and sends response back to client
+            // The designated manager prepares the related resources and sends response back to client
             $manager_obj->{$method}();
         } else {
             // Putting the floowing code in a class or function will make it become a shared function,
@@ -93,7 +93,7 @@ class Dispatcher {
             }
             
             // The name of user-defined manager class (case-insensitive)
-            // If the file containg the class was already included, the class defenition would already be loaded 
+            // If the file containing the class was already included, the class definition would already be loaded 
             $manager_class = $manager_name.'_manager';
 
             // Autoload will include the target app manager file
@@ -130,7 +130,7 @@ class Dispatcher {
                 Common::halt('An Error Was Encountered', "The requested manager method '{$real_method}' does not exist in '{$manager_class}'", 'sys_error');
             }
             
-            // The desginated manager prepares the related resources and sends response back to client
+            // The designated manager prepares the related resources and sends response back to client
             $manager_obj->{$real_method}($params);
         }
     }
