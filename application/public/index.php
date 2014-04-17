@@ -18,6 +18,12 @@ define('ENVIRONMENT', 'production');
 date_default_timezone_set('America/New_York');
 
 /**
+ * When turned-on, the system core components|libraries called will be cached and stored in SYS_RUNTIME_CACHE_DIR
+ * When turned-on, the app managers|data|libraries called will be cached and stored in APP_RUNTIME_CACHE_DIR
+ */
+define('RUNTIME_CACHE', FALSE);
+
+/**
  * There are two types of requests, static requests and application requests.
  * STATIC_URI_BASE is used for static requests to access static assets (images) access, sometimes CDN is used
  * APP_URI_BASE is used for application requests to access resources that need InfoPotato to further process
@@ -42,6 +48,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('SYS_DIR', dirname(dirname(dirname(__FILE__).DS)).DS.'system'.DS);
 define('SYS_CORE_DIR', SYS_DIR.'core'.DS);
 define('SYS_LIBRARY_DIR', SYS_DIR.'libraries'.DS);
+// Set this when you have RUNTIME_CACHE turned on and make it writable
 define('SYS_RUNTIME_CACHE_DIR', SYS_DIR.'runtime'.DS);
 
 define('APP_DIR', dirname(dirname(__FILE__).DS).DS);
@@ -50,6 +57,7 @@ define('APP_CONFIG_DIR', APP_DIR.'configs'.DS);
 define('APP_MANAGER_DIR', APP_DIR.'managers'.DS);
 define('APP_LIBRARY_DIR', APP_DIR.'libraries'.DS);
 define('APP_TEMPLATE_DIR', APP_DIR.'templates'.DS);
+// Set this when you have RUNTIME_CACHE turned on and make it writable
 define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 
 /**
@@ -81,12 +89,6 @@ if (ENVIRONMENT == 'production') {
  */
 define('APP_LOG_DIR', APP_DIR.'logs'.DS);
 define('APP_LOGGING_LEVEL_THRESHOLD', 'DEBUG');
-
-/**
- * When turned-on, the system core components|libraries called will be cached and stored in SYS_RUNTIME_CACHE_DIR
- * When turned-on, the app managers|data|libraries called will be cached and stored in APP_RUNTIME_CACHE_DIR
- */
-define('RUNTIME_CACHE', FALSE);
 
 /**
  * Enable this if Session is used
