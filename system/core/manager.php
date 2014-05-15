@@ -79,7 +79,7 @@ class Manager {
      * 
      * @param array $config options
      * 
-     * $config['content']: (string, optional for 4xx, no content for 201, 204, 304) content to output
+     * $config['content']: (string, optional for 4xx, no content for 204, 304) content to output
      * $config['type']: (string, optional, suggested to specify if there's output content)  specify the media type for the output
      * $config['status']: (int, optional, use if only you want to change the default status code)  specify the Status-Line
      * $config['extra_headers']: (associative array, optional)  any extra headers to response
