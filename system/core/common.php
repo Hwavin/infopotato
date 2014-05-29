@@ -45,7 +45,7 @@ class Common {
             $output = ob_get_contents();
             ob_end_clean();
 			
-			header('HTTP/1.1 503 Service Unavailable');
+            header('HTTP/1.1 503 Service Unavailable');
         }
         
         if (ENVIRONMENT === 'production') {
@@ -66,7 +66,7 @@ class Common {
         // Send out the 'Content-Type' header
         header('Content-Type: text/html; charset=utf-8');
         echo $output;
-        exit;
+        exit();
     }
 
     /**
