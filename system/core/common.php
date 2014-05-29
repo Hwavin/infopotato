@@ -53,8 +53,8 @@ class Common {
             // otherwise use the system default template
             if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
                 // file_get_contents() works fine for all the 200 status response, 
-				// but it will return FALSE if the target URI issues a 404 status code
-				$output = file_get_contents(APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD);
+                // but it will return FALSE if the target URI issues a 404 status code
+                $output = file_get_contents(APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD);
             } else {
                 $output = file_get_contents(SYS_CORE_DIR.'sys_templates'.DS.'404_error.php');
             }

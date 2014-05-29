@@ -1029,7 +1029,7 @@ class Sendmail_Library {
             }
         }
         
-        // Use PHP's native public function to do the initial wordwrap.
+        // Use PHP's native function to do the initial wordwrap.
         // We set the cut flag to FALSE so that any individual words that are
         // too long get left alone.  In the next step we'll deal with them.
         $str = wordwrap($str, $charlim, "\n", FALSE);
