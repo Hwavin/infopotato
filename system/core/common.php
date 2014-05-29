@@ -44,6 +44,8 @@ class Common {
             require SYS_CORE_DIR.'sys_templates'.DS.$template.'.php';
             $output = ob_get_contents();
             ob_end_clean();
+			
+			header('HTTP/1.1 503 Service Unavailable');
         }
         
         if (ENVIRONMENT === 'production') {
