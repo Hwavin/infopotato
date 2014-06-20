@@ -178,7 +178,7 @@ class Manager {
                     }
 
                     // These status codes must not be followed by a message body
-                    exit;
+                    exit();
                 }
             } else {
                 Logger::log_debug(APP_LOG_DIR, 'The provided HTTP status code is invalid.');
