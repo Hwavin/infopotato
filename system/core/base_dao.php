@@ -40,7 +40,7 @@ abstract class Base_DAO {
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
      */ 
-    abstract public function escape($string) {}
+    abstract public function escape($string);
     
     /** 
      * Overridden by specific DB class
@@ -53,7 +53,7 @@ abstract class Base_DAO {
      * 
      * @return string the prepared SQL query
      */ 
-    abstract public function prepare($query, array $params = NULL) {} 
+    abstract public function prepare($query, array $params = NULL);
     
     /**
      * Perform SQL query and try to determine result value
@@ -62,7 +62,7 @@ abstract class Base_DAO {
      *
      * @return int Number of rows affected/selected or false on error
      */
-    abstract public function exec_query($query) {}
+    abstract public function exec_query($query);
 
     /**
      * Gets one single data cell from the database
@@ -221,21 +221,21 @@ abstract class Base_DAO {
      *
      * @return    bool
      */
-    abstract public function trans_begin() {}
+    abstract public function trans_begin();
     
     /**
      * Commit Transaction
      *
      * @return    bool
      */
-    abstract public function trans_commit() {}
+    abstract public function trans_commit();
     
     /**
      * Rollback Transaction
      *
      * @return    bool
      */
-    abstract public function trans_rollback() {}
+    abstract public function trans_rollback();
     
 }
 
