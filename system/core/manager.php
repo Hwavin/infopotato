@@ -32,23 +32,23 @@ class Manager {
      *
      * If your template is located in a sub-folder, include the relative path from your templates folder.
      *
-     * @param   string $template template file path and file name
-     * @param   array $template_vars (optional) template variables
-     * @return  string rendered contents of template
+     * @param string $template template file path and file name
+     * @param array $template_vars (optional) template variables
+     * @return string rendered contents of template
      */    
     protected function render_template($template, array $template_vars = NULL) {
-        $orig_template = strtolower($template);
-        
         // Is the template in a sub-folder? If so, parse out the filename and path.
         if (strpos($template, '/')) {
             // str_replace is faster than preg_replace, but strtr is faster than str_replace by a factor of 4
-            $template = strtr(pathinfo($orig_template, PATHINFO_DIRNAME), '/', DS).DS.substr(strrchr($orig_template, '/'), 1);
+            $template = strtr(pathinfo($template, PATHINFO_DIRNAME), '/', DS).DS.substr(strrchr($template, '/'), 1);
         }
         
+		// Template name is case-sensitive, since you can have two files with same names but different cases of same letters on Linux
+		// You need to make sure the case of the provided name is consistent with the case of the file name
         $template_file = APP_TEMPLATE_DIR.$template.'.php';
         
         if ( ! file_exists($template_file)) {
-            Common::halt('A System Error Was Encountered', "Unknown template file '{$orig_template}'", 'sys_error');
+            Common::halt('A System Error Was Encountered', "Unknown template file '{$template}'", 'sys_error');
         } else {
             if (count($template_vars) > 0) {
                 // Import the template variables to local namespace
@@ -220,14 +220,14 @@ class Manager {
      *
      * @param string $data the name of the data class
      * @param string $alias the optional property name alias
-     * @return  bool
+     * @return bool
      */    
     protected function load_data($data, $alias = '') {
-        $data = strtolower($data);
-        
+		// Data name is case-sensitive, since you can have two files with the same names but different cases of same letters on Linux
+		// You need to make sure the case of the provided name is consistent with the case of the file name
         $orig_data = $data;
         
-        // Only the forwardslash '/' is allowed for sub-directory
+        // Only the forward slash '/' is allowed for sub-directory
         // strpos() returns FALSE if the needle was not found, 
         // otherwise returns the position of where the needle exists
         if (strpos($data, '\\') !== FALSE) {
@@ -312,8 +312,8 @@ class Manager {
      * @return void
      */       
     protected function load_library($scope, $library, $alias = '', array $config = NULL) {
-        $library = strtolower($library);
-        
+        // Library name is case-sensitive, since you can have two files with the same names but different cases of same letters on Linux
+		// You need to make sure the case of the provided name is consistent with the case of the file name
         $orig_library = $library;
         
         // Only the forwardslash '/' is allowed for sub-directory

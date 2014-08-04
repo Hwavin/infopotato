@@ -48,7 +48,7 @@ class Dispatcher {
             // The designated manager prepares the related resources and sends response back to client
             $manager_obj->{$method}();
         } else {
-            // Putting the floowing code in a class or function will make it become a shared function,
+            // Putting the following code in a class or function will make it become a shared function,
             // but the truth is those code should only be executed once per request
             
             // Get the incoming HTTP request method (only support 'GET' and 'POST')
