@@ -50,7 +50,10 @@ class MySQL_DAO extends Base_DAO {
     /** 
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
-     */ 
+	 *
+	 * @param string $str the raw query string
+	 * @return string the escaped query string
+     */
     public function escape($str) { 
         // Only escape string
         // is_string() will take '' as string
@@ -67,6 +70,8 @@ class MySQL_DAO extends Base_DAO {
      * %s (string)
      * %f (float)
      * 
+	 * @param string $query the raw query string that contains directives
+     * @param array $params an array of values to replace the directives
      * @return string the prepared SQL query
      */ 
     public function prepare($query, array $params = NULL) { 
@@ -144,7 +149,8 @@ class MySQL_DAO extends Base_DAO {
     /**
      * Perform a unique query (multiple queries are not supported) and try to determine result value
      *
-     * @return int Number of rows affected/selected
+     * @param string $query the raw query string
+     * @return int the number of rows affected/selected or false on error
      */
     public function exec_query($query) {
         // Initialize return

@@ -33,16 +33,16 @@ abstract class Base_DAO {
      * taking into account the current charset of the connection
 	 * To be implemented by each specific DAO class
 	 * 
-	 * @param string $string the raw query string
+	 * @param str $string the raw query string
 	 * @return string the escaped query string
      */ 
-    abstract protected function escape($string);
+    abstract protected function escape($str);
     
     /** 
      * To be implemented by each specific DAO class
      * USAGE: prepare( string $query [, array $params ] ) 
      * The following directives can be used in the query format string:
-     * %d (decimal integer)
+     * %i (integer)
      * %s (string)
      * %f (float)
 	 * 
