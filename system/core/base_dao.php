@@ -27,13 +27,7 @@ abstract class Base_DAO {
      * @var int 
      */
     protected $last_insert_id;
-    
-    /**
-     * Constructor
-     * Allow the user to perform a connect at the same time as initialising the this class
-     */
-    abstract protected function __construct(array $config = NULL);
-    
+
     /** 
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
@@ -142,7 +136,7 @@ abstract class Base_DAO {
     /**
      * Extracts one column as one dimensional array based on a column offset.
      *
-     * If no offset is supplied the offset will defualt to column 0. I.E the first column.
+     * If no offset is supplied the offset will default to column 0. I.E the first column.
      * If a null query is supplied the previous query results are used.
      *
      * @param string $query SQL query.  If null, use the result from the previous query.
