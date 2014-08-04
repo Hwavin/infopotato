@@ -180,7 +180,6 @@ class Starter {
         });
     }
     
-    
 }
 
 // End of file: ./system/core/init.php
