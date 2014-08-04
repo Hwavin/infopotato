@@ -29,7 +29,7 @@ class Data {
      * @param string RDBMS connection string
      * @return void
      */
-    public function __construct($connection = '') {
+    protected function __construct($connection = '') {
         if ($connection !== '') {
             $this->db = self::create_db_obj($connection);
         }
