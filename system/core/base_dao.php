@@ -34,13 +34,13 @@ abstract class Base_DAO {
      * Closing isn't usually necessary, as non-persistent open links are automatically closed at the end of the script's execution.
      * Allow the user to perform a connect at the same time as initialising the this class
      */
-    public function __construct(array $config = NULL) {}
+    abstract protected function __construct(array $config = NULL);
     
     /** 
      * Escapes special characters in a string for use in an SQL statement, 
      * taking into account the current charset of the connection
      */ 
-    abstract public function escape($string);
+    abstract protected function escape($string);
     
     /** 
      * Overridden by specific DB class
@@ -53,7 +53,7 @@ abstract class Base_DAO {
      * 
      * @return string the prepared SQL query
      */ 
-    abstract public function prepare($query, array $params = NULL);
+    abstract protected function prepare($query, array $params = NULL);
     
     /**
      * Perform SQL query and try to determine result value
@@ -62,7 +62,7 @@ abstract class Base_DAO {
      *
      * @return int Number of rows affected/selected or false on error
      */
-    abstract public function exec_query($query);
+    abstract protected function exec_query($query);
 
     /**
      * Gets one single data cell from the database
@@ -77,7 +77,7 @@ abstract class Base_DAO {
      * @param int $y (optional) Row of value to return.  Indexed from 0.
      * @return string Database query result
      */
-    public function get_cell($query, $x = 0, $y = 0) {
+    protected function get_cell($query, $x = 0, $y = 0) {
         $return_val = '';
         
         $this->exec_query($query);
@@ -110,7 +110,7 @@ abstract class Base_DAO {
      * @param int $y (optional) Row to return if the query returns more than one row.  Indexed from 0.
      * @return mixed Database query result in format specifed by $output
      */
-    public function get_row($query, $output = 'FETCH_OBJ', $y = 0) {
+    protected function get_row($query, $output = 'FETCH_OBJ', $y = 0) {
         $return_val = NULL;
         
         $this->exec_query($query);
@@ -144,7 +144,7 @@ abstract class Base_DAO {
      * @param int $x Column to return.  Indexed from 0.
      * @return array Database query result.  Array indexed from 0 by SQL result row number.
      */
-    public function get_col($query, $x = 0) {
+    protected function get_col($query, $x = 0) {
         $return_val = array();
         
         $this->exec_query($query);
@@ -179,7 +179,7 @@ abstract class Base_DAO {
      * @param string $output (optional) ane of 'FETCH_ASSOC' | 'FETCH_ASSOC' | 'FETCH_OBJ' constants.  
      * @return mixed Database query results
      */
-    public function get_all($query, $output = 'FETCH_OBJ') {
+    protected function get_all($query, $output = 'FETCH_OBJ') {
         $return_val = array();
         
         $this->exec_query($query);
@@ -212,7 +212,7 @@ abstract class Base_DAO {
      *
      * @return    int
      */
-    public function last_insert_id() {
+    protected function last_insert_id() {
         return $this->last_insert_id;
     }
     
@@ -221,21 +221,21 @@ abstract class Base_DAO {
      *
      * @return    bool
      */
-    abstract public function trans_begin();
+    abstract protected function trans_begin();
     
     /**
      * Commit Transaction
      *
      * @return    bool
      */
-    abstract public function trans_commit();
+    abstract protected function trans_commit();
     
     /**
      * Rollback Transaction
      *
      * @return    bool
      */
-    abstract public function trans_rollback();
+    abstract protected function trans_rollback();
     
 }
 
