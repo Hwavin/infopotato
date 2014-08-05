@@ -21,7 +21,7 @@ class Data {
     protected $db;
     
     /**
-     * Constructor
+     * Constructor, has to be public since it's instantiated by manager's load_data()
      *
      * RDBMS connection needs to be specified in the subclass's constructor
      * One database connection for one data file
@@ -29,7 +29,7 @@ class Data {
      * @param string RDBMS connection string
      * @return void
      */
-    protected function __construct($connection = '') {
+    public function __construct($connection = '') {
         if ($connection !== '') {
             $this->db = self::create_db_obj($connection);
         }

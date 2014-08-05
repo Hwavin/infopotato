@@ -291,7 +291,7 @@ class Manager {
                 Common::halt('A System Error Was Encountered', "The required class '{$orig_data}' is not defined in '{$orig_data}.php'!", 'sys_error');
             }
             
-            // Instantiate the data object as a worker's property 
+            // Instantiate the data object as a manager's property 
             // The names of user-defined classes are case-insensitive
             $this->{$alias} = new $data;
         }
