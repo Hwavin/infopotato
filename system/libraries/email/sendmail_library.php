@@ -1023,7 +1023,8 @@ class Sendmail_Library {
         // strip the entire chunk and replace it with a marker.
         $unwrap = array();
         if (preg_match_all("|(\{unwrap\}.+?\{/unwrap\})|s", $str, $matches)) {
-            for ($i = 0; $i < count($matches[0]); $i++) {
+            $cnt = count($matches[0]);
+			for ($i = 0; $i < $cnt; $i++) {
                 $unwrap[] = $matches[1][$i];
                 $str = str_replace($matches[1][$i], '{{unwrapped'.$i.'}}', $str);
             }
