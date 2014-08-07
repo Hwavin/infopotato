@@ -223,6 +223,9 @@ class Validator {
         // Using trim() on UTF8 string will just work fine
         // Whitespace stripped from the beginning and end 
         // filter_var() returns the filtered data, or FALSE if the filter fails
+		// Note that filter_var() will only find ASCII URLs to be valid
+		// internationalized domain names (containing non-ASCII characters) will fail
+		// Beware a valid URL may not specify the HTTP protocol http://
         return (filter_var(trim($input), FILTER_VALIDATE_URL) === FALSE) ? FALSE : TRUE;
     }
 
