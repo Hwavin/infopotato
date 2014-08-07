@@ -99,6 +99,14 @@ class Dispatcher {
             // Autoload will include the target app manager file
             // Prefix namespace. Using <code>new 'app\managers\\'.$manager_class</code> won't work
             $manager_class = APP_MANAGER_NAMESPACE.'\\'.$manager_class;
+			
+			// Checks if the class is defined 
+			// Sometimes the right manager file may be there, but with unmatched class name defined inside
+			if ( ! class_exists($manager_class)) {
+				Common::halt('An Error Was Encountered', "The requested manager class '{$manager_class}' has not been defined!", 'sys_error');
+			}
+			
+			// Once the desired manager class is defined, autoload the file and class
             $manager_obj = new $manager_class;
             
             // The POST data can only be accessed in manager using $this->_POST_DATA
