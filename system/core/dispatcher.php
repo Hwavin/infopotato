@@ -103,7 +103,7 @@ class Dispatcher {
 			// Checks if the class is defined 
 			// Sometimes the right manager file may be there, but with unmatched class name defined inside
 			if ( ! class_exists($manager_class)) {
-				Common::halt('An Error Was Encountered', "The requested manager class '{$manager_class}' has not been defined!", 'sys_error');
+				Common::halt('An Error Was Encountered', "The requested manager class '{$manager_class}' is not defined in the corresponding manager file!", 'sys_error');
 			}
 			
 			// Once the desired manager class is defined, autoload the file and class
