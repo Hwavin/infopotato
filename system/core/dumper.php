@@ -41,7 +41,7 @@ class Dumper {
      * @return void
      */
     public static function dump($var, $force_type = '', $collapsed = FALSE) {
-        // Reseet the settings each time dump() is called
+        // Reset the settings each time dump() is called
         self::$xml_count = 0;
         self::$arr_type = array('array', 'object', 'resource', 'boolean', 'NULL');
         self::$collapsed = FALSE;
@@ -52,7 +52,7 @@ class Dumper {
         self::$collapsed = $collapsed;
         
         // Include js and css scripts
-        self::init_js_and_css();
+        self::output_js_and_css();
         
         if ($force_type === '') {
             // Check variable type
@@ -500,7 +500,7 @@ class Dumper {
      * 
      * @return void
      */
-    private static function init_js_and_css() {
+    private static function output_js_and_css() {
         $out =
 <<<SCRIPTS
             <script language="JavaScript">
