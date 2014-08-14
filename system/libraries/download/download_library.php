@@ -17,9 +17,9 @@ class Download_Library {
      * @param string $file the path of the file to be downloaded
      * @param string $content_type Content type of the target file
      * @return none
-     * @link http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
+     * @link based on http://w-shadow.com/blog/2007/08/12/how-to-force-file-download-with-php/
      */
-    public function download($file, $content_type) { 
+    public function download($file, $content_type = '') { 
         // Tells whether a file exists and is readable
         if ( ! file_exists($file)) {
             exit("The file $file does not exists!");
@@ -29,6 +29,9 @@ class Download_Library {
             }
         }
 
+		// Need fileinfo extension http://php.net/manual/en/book.fileinfo.php
+		$content_type = ($content_type !== '') ? $content_type : finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
+		
         // File name shown in the save window
         $save_name = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
 
