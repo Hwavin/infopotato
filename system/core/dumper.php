@@ -51,7 +51,7 @@ class Dumper {
         // Enable collapse of tables when initiated.
         self::$collapsed = $collapsed;
         
-        // Include js and css scripts
+        // Output js and css scripts
         self::output_js_and_css();
         
         if ($force_type === '') {
@@ -160,7 +160,7 @@ class Dumper {
      * 
      * @return string
      */
-    private static function  error($type) {
+    private static function error($type) {
         return 'Error: Variable cannot be '.$type.' type';
     }
 

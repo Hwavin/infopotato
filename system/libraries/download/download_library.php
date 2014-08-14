@@ -29,17 +29,10 @@ class Download_Library {
             }
         }
 
-        // The fastest method to get file extension?
-        // http://cowburn.info/2008/01/13/get-file-extension-comparison/
-        $file_extension = pathinfo($file, PATHINFO_EXTENSION);
-        
         // File name shown in the save window
         $save_name = substr(strrchr($file, DIRECTORY_SEPARATOR), 1);
 
         $size = filesize($file);
-        
-        // Turn off output buffering to decrease cpu usage
-        @ob_end_clean(); 
         
         header('Content-Type: '.$content_type);
         header('Content-Disposition: attachment; filename="'.$save_name.'"');
