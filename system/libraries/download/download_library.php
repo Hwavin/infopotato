@@ -30,6 +30,7 @@ class Download_Library {
         }
 
 		// Need fileinfo extension http://php.net/manual/en/book.fileinfo.php
+		// This extension is enabled by default as of PHP 5.3.0.
 		$content_type = ($content_type !== '') ? $content_type : finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
 		
         // File name shown in the save window
