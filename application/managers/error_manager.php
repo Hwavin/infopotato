@@ -10,9 +10,9 @@ class Error_Manager extends Manager {
             'content' => $this->render_template('pages/error_404'),
         );
         
-		// Don't send out the 'status' with 404, 
-		// file_get_contents() fails to get the 404 page content
+		// Don't forget to send out the 'status' with 404, 
         $response_data = array(
+			'status' => 404,
 			'content' => $this->render_template('layouts/default', $layout_data),
             'type' => 'text/html; charset=utf-8',
         );
