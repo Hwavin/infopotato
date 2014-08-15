@@ -52,20 +52,19 @@ class Common {
             // Display app specific 404 error page if defined, 
             // otherwise use the system default template
             if (defined('APP_404_MANAGER') && defined('APP_404_MANAGER_METHOD')) {
-                // file_get_contents() works fine for all the 200 status response, 
-                // but it will return FALSE if the target URI issues a 404 status code
-                $output = file_get_contents(APP_URI_BASE.APP_404_MANAGER.'/'.APP_404_MANAGER_METHOD);
+				// Show the 404 message, 404 status code should be specified in the APP_404_MANAGER
+				\InfoPotato\core\Dispatcher::run(APP_404_MANAGER, APP_404_MANAGER_METHOD);
             } else {
                 $output = file_get_contents(SYS_CORE_DIR.'sys_templates'.DS.'404_error.php');
+				// Send the HTTP Status-Line to avoid soft 404 before outputting the custom 404 content
+				// No need to send this 404 status code under 'development' environment
+				header('HTTP/1.1 404 Not Found');
+				// Send out the 'Content-Type' header
+				header('Content-Type: text/html; charset=utf-8');
+				echo $output;
             }
-            // Send the HTTP Status-Line to avoid soft 404 before outputting the custom 404 content
-            // No need to send this 404 status code under 'development' environment
-            header('HTTP/1.1 404 Not Found');
         }
-        
-        // Send out the 'Content-Type' header
-        header('Content-Type: text/html; charset=utf-8');
-        echo $output;
+		
         exit();
     }
 
