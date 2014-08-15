@@ -36,7 +36,7 @@ abstract class Base_DAO {
 	 * @param str $string the raw query string
 	 * @return string the escaped query string
      */ 
-    abstract public function escape($str);
+    abstract protected function escape($str);
     
     /** 
      * To be implemented by each specific DAO class
@@ -51,7 +51,7 @@ abstract class Base_DAO {
      * 
      * @return string the prepared SQL query
      */ 
-    abstract public function prepare($query, array $params = NULL);
+    abstract protected function prepare($query, array $params = NULL);
     
     /**
      * Perform SQL query and try to determine result value
@@ -61,7 +61,7 @@ abstract class Base_DAO {
 	 * @param string $query the raw query string
      * @return int the number of rows affected/selected or false on error
      */
-    abstract public function exec_query($query);
+    abstract protected function exec_query($query);
 
     /**
      * Gets one single data cell from the database
@@ -221,7 +221,7 @@ abstract class Base_DAO {
 	 *
      * @return bool
      */
-    abstract public function trans_begin();
+    abstract protected function trans_begin();
     
     /**
      * Commit Transaction
@@ -229,7 +229,7 @@ abstract class Base_DAO {
 	 *
      * @return bool
      */
-    abstract public function trans_commit();
+    abstract protected function trans_commit();
     
     /**
      * Rollback Transaction
@@ -237,7 +237,7 @@ abstract class Base_DAO {
 	 *
      * @return bool
      */
-    abstract public function trans_rollback();
+    abstract protected function trans_rollback();
     
 }
 
