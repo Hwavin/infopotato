@@ -71,6 +71,9 @@ abstract class Base_DAO {
      * If the query generates more than one column the leftmost column will always be used by default.
      * Even so, the full resultset will be available within the array $db->query_result should you wish to use them.
      *
+	 * This method must be public since it's not overwritten by the specific DAO 
+	 * BUT needs to be called by specific DAO instance
+	 *
      * @param string $query SQL query. If null, use the result from the previous query.
      * @param int $x (optional) Column of value to return.  Indexed from 0.
      * @param int $y (optional) Row of value to return.  Indexed from 0.
@@ -104,6 +107,9 @@ abstract class Base_DAO {
      * Gets a single row from the database
      * If the query returns more than one row and no row offset is supplied the first row within the results set will be returned by default.
      *
+	 * This method must be public since it's not overwritten by the specific DAO 
+	 * BUT needs to be called by specific DAO instance
+	 *
      * @param string $query SQL query.
      * @param string $output (optional) one of 'FETCH_ASSOC' | 'FETCH_NUM' | 'FETCH_OBJ' constants.  
      * @param int $y (optional) Row to return if the query returns more than one row.  Indexed from 0.
@@ -139,6 +145,9 @@ abstract class Base_DAO {
      * If no offset is supplied the offset will default to column 0. I.E the first column.
      * If a null query is supplied the previous query results are used.
      *
+	 * This method must be public since it's not overwritten by the specific DAO 
+	 * BUT needs to be called by specific DAO instance
+	 *
      * @param string $query SQL query.  If null, use the result from the previous query.
      * @param int $x Column to return.  Indexed from 0.
      * @return array Database query result.  Array indexed from 0 by SQL result row number.
@@ -174,6 +183,9 @@ abstract class Base_DAO {
      * Each element of the array contains one row of results and can be specified to be either an object, associative array or numerical array.
      * If no results are found then the function returns false enabling you to use the function within logic statements such as if.
      *
+	 * This method must be public since it's not overwritten by the specific DAO 
+	 * BUT needs to be called by specific DAO instance
+	 *
      * @param string $query SQL query.
      * @param string $output (optional) one of 'FETCH_ASSOC' | 'FETCH_ASSOC' | 'FETCH_OBJ' constants.  
      * @return mixed Database query results
@@ -208,7 +220,10 @@ abstract class Base_DAO {
     
     /**
      * Returns the auto generated id used in the last query
-     *
+     * 
+	 * This method must be public since it's not overwritten by the specific DAO 
+	 * BUT needs to be called by specific DAO instance
+	 * 
      * @return int
      */
     public function last_insert_id() {
