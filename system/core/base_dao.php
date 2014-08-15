@@ -36,7 +36,7 @@ abstract class Base_DAO {
 	 * @param str $string the raw query string
 	 * @return string the escaped query string
      */ 
-    abstract protected function escape($str);
+    abstract public function escape($str);
     
     /** 
      * To be implemented by each specific DAO class
@@ -51,7 +51,7 @@ abstract class Base_DAO {
      * 
      * @return string the prepared SQL query
      */ 
-    abstract protected function prepare($query, array $params = NULL);
+    abstract public function prepare($query, array $params = NULL);
     
     /**
      * Perform SQL query and try to determine result value
@@ -61,7 +61,7 @@ abstract class Base_DAO {
 	 * @param string $query the raw query string
      * @return int the number of rows affected/selected or false on error
      */
-    abstract protected function exec_query($query);
+    abstract public function exec_query($query);
 
     /**
      * Gets one single data cell from the database
@@ -76,7 +76,7 @@ abstract class Base_DAO {
      * @param int $y (optional) Row of value to return.  Indexed from 0.
      * @return string Database query result
      */
-    protected function get_cell($query, $x = 0, $y = 0) {
+    public function get_cell($query, $x = 0, $y = 0) {
         $return_val = '';
         
         $this->exec_query($query);
@@ -109,7 +109,7 @@ abstract class Base_DAO {
      * @param int $y (optional) Row to return if the query returns more than one row.  Indexed from 0.
      * @return mixed Database query result in format specified by $output
      */
-    protected function get_row($query, $output = 'FETCH_OBJ', $y = 0) {
+    public function get_row($query, $output = 'FETCH_OBJ', $y = 0) {
         $return_val = NULL;
         
         $this->exec_query($query);
@@ -143,7 +143,7 @@ abstract class Base_DAO {
      * @param int $x Column to return.  Indexed from 0.
      * @return array Database query result.  Array indexed from 0 by SQL result row number.
      */
-    protected function get_col($query, $x = 0) {
+    public function get_col($query, $x = 0) {
         $return_val = array();
         
         $this->exec_query($query);
@@ -178,7 +178,7 @@ abstract class Base_DAO {
      * @param string $output (optional) one of 'FETCH_ASSOC' | 'FETCH_ASSOC' | 'FETCH_OBJ' constants.  
      * @return mixed Database query results
      */
-    protected function get_all($query, $output = 'FETCH_OBJ') {
+    public function get_all($query, $output = 'FETCH_OBJ') {
         $return_val = array();
         
         $this->exec_query($query);
@@ -211,7 +211,7 @@ abstract class Base_DAO {
      *
      * @return int
      */
-    protected function last_insert_id() {
+    public function last_insert_id() {
         return $this->last_insert_id;
     }
     
@@ -221,7 +221,7 @@ abstract class Base_DAO {
 	 *
      * @return bool
      */
-    abstract protected function trans_begin();
+    abstract public function trans_begin();
     
     /**
      * Commit Transaction
@@ -229,7 +229,7 @@ abstract class Base_DAO {
 	 *
      * @return bool
      */
-    abstract protected function trans_commit();
+    abstract public function trans_commit();
     
     /**
      * Rollback Transaction
@@ -237,7 +237,7 @@ abstract class Base_DAO {
 	 *
      * @return bool
      */
-    abstract protected function trans_rollback();
+    abstract public function trans_rollback();
     
 }
 
