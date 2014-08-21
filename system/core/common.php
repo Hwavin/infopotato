@@ -59,13 +59,12 @@ class Common {
 				// Send the HTTP Status-Line to avoid soft 404 before outputting the custom 404 content
 				// No need to send this 404 status code under 'development' environment
 				header('HTTP/1.1 404 Not Found');
-				// Send out the 'Content-Type' header
-				header('Content-Type: text/html; charset=utf-8');
             }
         }
 		
-		echo $output;
-		
+		// Send out the 'Content-Type' header
+        header('Content-Type: text/html; charset=utf-8');
+        echo $output;
         exit();
     }
 
