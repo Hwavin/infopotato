@@ -92,7 +92,6 @@ class Starter {
                     'dispatcher', 
                     'manager', 
                     'common',
-                    'dumper', 
                     'logger', 
                     'validator', 
                     'utf8',

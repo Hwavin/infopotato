@@ -68,20 +68,6 @@ class Common {
         exit($output);
     }
 
-    /**
-     * Dump variable
-     *
-     * Displays information about a variable in a human readable way
-     * 
-     * @param mixed the variable to be dumped
-     * @param force type for xml
-     * @param collapse or not
-     * @return void
-     */
-    public static function dump($var, $force_type = '', $collapsed = FALSE) {
-        Dumper::dump($var, $force_type, $collapsed);
-    }
-
 }
 
 // End of file: ./system/core/common.php
