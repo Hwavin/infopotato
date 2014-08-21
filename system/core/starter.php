@@ -150,7 +150,7 @@ class Starter {
 
                 // Checks if app manager file exists
                 if ( ! file_exists($source_file)) { 
-                    Common::halt('An Error Was Encountered', "App Manager file '{$class_name}.php' does not exist!", 'sys_error');
+					Common::halt('An Error Was Encountered', "App Manager file '{$class_name}.php' does not exist!", 'sys_error');
                 }
                 
                 // Load stripped source when runtime cache is turned-on

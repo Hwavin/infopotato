@@ -61,9 +61,10 @@ class Common {
 				header('HTTP/1.1 404 Not Found');
 				// Send out the 'Content-Type' header
 				header('Content-Type: text/html; charset=utf-8');
-				echo $output;
             }
         }
+		
+		echo $output;
 		
         exit();
     }

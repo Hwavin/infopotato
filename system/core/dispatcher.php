@@ -44,7 +44,7 @@ class Dispatcher {
             // Prefix namespace. Using <code>new 'app\managers\\'.$manager_class</code> won't work
             $manager_class = APP_MANAGER_NAMESPACE.'\\'.$manager_class;
             $manager_obj = new $manager_class;
-            
+			
             // The designated manager prepares the related resources and sends response back to client
             $manager_obj->{$method}();
         } else {
