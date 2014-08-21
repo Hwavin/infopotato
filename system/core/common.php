@@ -64,8 +64,8 @@ class Common {
 		
 		// Send out the 'Content-Type' header
         header('Content-Type: text/html; charset=utf-8');
-        echo $output;
-        exit();
+        // Print message and exit
+        exit($output);
     }
 
     /**
