@@ -43,7 +43,19 @@ class Dispatcher {
             // Autoload will include the target app manager file
             // Prefix namespace. Using <code>new 'app\managers\\'.$manager_class</code> won't work
             $manager_class = APP_MANAGER_NAMESPACE.'\\'.$manager_class;
+			
+			// Checks if the class is defined 
+			// Sometimes the right manager file may be there, but with unmatched class name defined inside
+			if ( ! class_exists($manager_class)) {
+				Common::halt('An Error Was Encountered', "The requested manager class '{$manager_class}' is not defined in the corresponding manager file!", 'sys_error');
+			}
+			
             $manager_obj = new $manager_class;
+			
+			// Checks if the manager method exists
+            if ( ! method_exists($manager_obj, $method)) {
+                Common::halt('An Error Was Encountered', "The requested manager method '{$method}' does not exist in '{$manager_class}'", 'sys_error');
+            }
 			
             // The designated manager prepares the related resources and sends response back to client
             $manager_obj->{$method}();
