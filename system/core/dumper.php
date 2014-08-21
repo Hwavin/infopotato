@@ -211,7 +211,7 @@ class Dumper {
      */
     private static function var_is_string($var) {
         $var = ($var == '') ? '[empty string]' : $var;
-        self::open_table('object', 'string ['.strlen($var).']');
+        self::open_table('object', 'string ['.UTF8::strlen($var).']');
         self::open_td_row('object', $var);
         self::close_td_row();
     }
