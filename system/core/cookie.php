@@ -28,7 +28,10 @@ class Cookie {
      * @return void
      */
     public static function delete($name, $path = NULL, $domain = NULL, $secure = NULL) {
-        self::set($name, '', time() - 43200, $path, $domain, $secure);
+        // Simply assign it an expiration date that in the past
+		// If you've set the domain and path when you created the cookie, 
+		// then you should use those parameters again when deleting the cookie.
+		self::set($name, '', time() - 43200, $path, $domain, $secure);
     }
     
     /**
