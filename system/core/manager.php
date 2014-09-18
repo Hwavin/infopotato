@@ -1,6 +1,9 @@
 <?php
 /**
  * Manager class file.
+ * 
+ * If no any manager base class properties or methods used in application-specific manager class,
+ * no need to include this class in namespace and extend this base manager class
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
