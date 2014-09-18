@@ -3,7 +3,7 @@
  * Base Data class
  *
  * If no RDBMS DAO used in application-specific data class,
- * extending this base data class is only for format convention 
+ * no need to include this class in namespace and extend this base data class
  *
  * @author Zhou Yuan <yuanzhou19@gmail.com>
  * @link http://www.infopotato.com/
