@@ -70,7 +70,7 @@ class Cookie {
      * @param boolean $secure If the cookie is a secure-only cookie
      * @return void
      */
-    public static function delete($name, $path = NULL, $domain = NULL, $secure = NULL) {
+    public static function delete($name, $path = '', $domain = '', $secure = FALSE) {
         // Simply assign it an expiration date that in the past
 		// If you've set the domain and path when you created the cookie, 
 		// then you should use those parameters again when deleting the cookie.
