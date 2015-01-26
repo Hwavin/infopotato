@@ -73,12 +73,6 @@ define('APP_RUNTIME_CACHE_DIR', APP_DIR.'runtime'.DS);
 //define('APP_SESSION_DIR', APP_DIR.'session'.DS);
 
 /**
- * Enable this if I18N is used
- */
-//define('APP_I18N_DIR', APP_DIR.'i18n'.DS);
-//define('APP_I18N_LANG', 'en_us');
-
-/**
  * Sets the logging directory and global logging severity level threshold
  * Severity levels: 'ERROR' > 'WARNING' > 'INFO' > 'DEBUG'
  * DEBUG is used by default if APP_LOGGING_LEVEL_THRESHOLD is not defined

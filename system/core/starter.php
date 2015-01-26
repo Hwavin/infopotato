@@ -96,7 +96,6 @@ class Starter {
                     'logger', 
                     'validator', 
                     'utf8',
-                    'i18n',
                     'cookie',
                     'session',
                     'data', 
